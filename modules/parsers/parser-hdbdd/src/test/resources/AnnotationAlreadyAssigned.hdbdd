@@ -1,0 +1,11 @@
+namespace acme.db;
+
+@Schema : 'TEST_SCHEMA'
+context AnnotationAlreadyAssigned {
+  @Catalog: {tableType: #ROW}
+  @Catalog: {tableType: #COLUMN}
+  entity Test {
+     Name : String(32);
+  };
+}
+

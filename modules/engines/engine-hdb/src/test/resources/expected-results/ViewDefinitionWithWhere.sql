@@ -1,0 +1,4 @@
+VIEW "DBADMIN"."acme::ViewDefinitionWithWhere.employees_view_with_where" AS SELECT "acme::ViewDefinitionWithWhere.employees"."ID" as "EmployeeId",
+          "acme::ViewDefinitionWithWhere.employees"."NAME" as "EmployeeName",
+          "ER"."TYPE" as "EmployeeRoleType",
+          "ES"."AMOUNT" as "EmployeeSalary" FROM "acme::ViewDefinitionWithWhere.employees" join "acme::ViewDefinitionWithWhere.employee_roles" AS "ER" on "ER"."ID" = "acme::ViewDefinitionWithWhere.employees"."ID" join "acme::ViewDefinitionWithWhere.employee_salaries" AS "ES" on "ES"."ID" = "acme::ViewDefinitionWithWhere.employees"."ID"  WHERE "acme::employees"."NAME" = 'John'

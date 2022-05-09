@@ -1,0 +1,11 @@
+namespace acme.db;
+
+@Schema : 'TEST_SCHEMA'
+context NoKeyAnnotationForEntityWithoutKeys {
+
+  @nokey
+  entity Test {
+     Name : String(32);
+  };
+}
+

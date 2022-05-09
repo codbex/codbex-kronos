@@ -1,0 +1,10 @@
+namespace acme.db;
+
+@Schema : 'TEST_SCHEMA'
+context InvalidValueTypeForAnnotation {
+  @Catalog: 'TEST'
+  entity Test {
+     Name : String(32);
+  };
+}
+

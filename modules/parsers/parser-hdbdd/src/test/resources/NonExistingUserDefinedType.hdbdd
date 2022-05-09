@@ -1,0 +1,11 @@
+namespace acme.db;
+
+@Schema : 'TEST_SCHEMA'
+
+context NonExistingUserDefinedType {
+
+  @Catalog.tableType : #COLUMN
+  entity Test {
+     key Name : MyCustomType;
+  };
+}

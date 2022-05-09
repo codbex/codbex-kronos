@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.codbex.kronos</groupId>
+		<artifactId>codbex-kronos-parent</artifactId>
+		<version>0.17.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<name>Kronos - Resources - Parent</name>
+	<artifactId>codbex-kronos-resources-parent</artifactId>
+	<version>0.17.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>resources-all</module>
+		<module>resources-neo-sdk</module>
+		<module>resources-neo-sdk-synchronizer</module>
+	</modules>
+
+	<properties>
+		<license.header.location>../licensing-header.txt</license.header.location>
+	</properties>
+
+</project>

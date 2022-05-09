@@ -1,0 +1,11 @@
+table.schemaName = "XSK_SAMPLES_XSODATA_SIMPLE";
+table.tableType = COLUMNSTORE; 
+table.columns = [
+	{name = "ID"; sqlType = INTEGER; nullable = false;},
+	{name = "FirstName"; sqlType = VARCHAR; length=20; nullable = false;},
+	{name = "LastName"; sqlType = VARCHAR; length=20; nullable = false;}];
+table.primaryKey.pkcolumns = ["ID"];
+
+
+
+

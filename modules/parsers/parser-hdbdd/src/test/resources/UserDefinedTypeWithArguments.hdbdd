@@ -1,0 +1,11 @@
+namespace acme.db;
+
+@Schema : 'TEST_SCHEMA'
+
+context UserDefinedTypeWithArguments {
+   type MyCustomType : Integer;
+
+   type MyTypeStruct {
+      Id : MyCustomType(20);
+   }
+};

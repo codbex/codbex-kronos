@@ -1,0 +1,6 @@
+namespace acme.db;
+
+@Schema : 'GSTR2DB'
+context InvalidElementDeclaration {
+  key elementName: String(30);
+};

@@ -1,0 +1,9 @@
+com.codbex.kronos.hdb.ds.artefacts.HDBDDEntitySynchronizationArtefactType       #HDBDD Entity
+com.codbex.kronos.hdb.ds.artefacts.HDBProcedureSynchronizationArtefactType      #HDBProcedure
+com.codbex.kronos.hdb.ds.artefacts.HDBSequenceSynchronizationArtefactType       #HDBSequence
+com.codbex.kronos.hdb.ds.artefacts.HDBTableSynchronizationArtefactType          #HDBTable
+com.codbex.kronos.hdb.ds.artefacts.HDBTableFunctionSynchronizationArtefactType  #HDBTableFunction
+com.codbex.kronos.hdb.ds.artefacts.HDBSynonymSynchronizationArtefactType        #HDBSynonym
+com.codbex.kronos.hdb.ds.artefacts.HDBSchemaSynchronizationArtefactType         #HDBSchema
+com.codbex.kronos.hdb.ds.artefacts.HDBViewSynchronizationArtefactType           #HDBView
+com.codbex.kronos.hdb.ds.artefacts.HDBTableTypeSynchronizationArtefactType      #HDBStructure

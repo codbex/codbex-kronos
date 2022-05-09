@@ -1,0 +1,11 @@
+namespace acme.db;
+
+@Schema : 'TEST_SCHEMA'
+context AnnotationCannotBeUsedAsMarker {
+
+  @Catalog
+  entity Test {
+     Name : String(32);
+  };
+}
+

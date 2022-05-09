@@ -1,0 +1,8 @@
+namespace acme;
+@Schema: 'ADMIN'
+context NoTableType {
+   Entity CONFIGURATION{
+      KEY UUID: String(255) NOT NULL;
+      COMPANY_ID: String(255) NOT NULL;
+    };
+};

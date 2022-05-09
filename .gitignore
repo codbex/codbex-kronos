@@ -1,0 +1,28 @@
+# folders
+dist/
+.settings/
+.idea/
+.run/
+target/
+dirigible_local/
+bin/
+
+# files
+.DS_Store
+.project
+.classpath
+*.bak
+*.class
+*.jar
+derby.log
+*.versionsBackup
+*.fpr
+*.iml
+*._trace
+*.log
+
+!releng/buildpacks/**/bin/
+
+# Ignore Neo SDK
+resources/resources-neo-sdk/src/main/resources/META-INF/dirigible/resources-neo-sdk/*
+!resources/resources-neo-sdk/src/main/resources/META-INF/dirigible/resources-neo-sdk/differ.sh

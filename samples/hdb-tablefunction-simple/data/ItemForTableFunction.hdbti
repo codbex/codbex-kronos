@@ -1,0 +1,12 @@
+import = [
+	{
+		table = "hdb-tablefunction-simple.db::ItemForTableFunction";
+		file =  "hdb-tablefunction-simple.data:ItemForTableFunction.csv";
+		header = false;
+		useHeaderNames = false;
+		delimField = ",";
+		distinguishEmptyFromNull = true;
+		schema = "XSK_SAMPLES_HDB_TABLEFUNCTION_SIMPLE";
+	}
+];
+

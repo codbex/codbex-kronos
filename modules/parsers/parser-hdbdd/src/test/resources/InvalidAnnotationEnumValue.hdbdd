@@ -1,0 +1,10 @@
+namespace acme.db;
+
+@Schema : 'TEST_SCHEMA'
+context InvalidAnnotationEnumValue {
+  @Catalog: {tableType: #INLINE}
+  entity Test {
+     Name : String(32);
+  };
+}
+

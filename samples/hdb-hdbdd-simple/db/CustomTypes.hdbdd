@@ -1,0 +1,11 @@
+namespace hdb-hdbdd-simple.db;
+
+@Schema: 'XSK_SAMPLES_HDB_HDBDD_SIMPLE'
+
+context CustomTypes {
+     type MyString {
+            ID      :String(32);
+     };
+};
+
+

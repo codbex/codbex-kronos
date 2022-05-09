@@ -1,0 +1,16 @@
+service namespace "my.demo.namespace" {
+
+//Parameters
+     "acme.test::calcview" as "CalcView"
+                        key ("theKeyColumns")
+                        parameters via key and entity;
+    "acme.test::calcview" as "CalcView2"
+                        keys generate local "ID"
+                        parameters via entity "CVParams" results property "Execute";
+    "acme.test::calcview" as "Alerts1"
+                        key generate local "ALERTID"
+                        parameters via entity "ScenarioAlerts" results property "Results";
+    "acme.test::calcview" as "Alerts2"
+                        key generate local "ALERTID"
+                        parameters via entity "ScenarioAlerts";
+}

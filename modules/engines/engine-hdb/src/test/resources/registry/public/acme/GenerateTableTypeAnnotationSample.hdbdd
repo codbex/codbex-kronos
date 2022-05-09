@@ -1,0 +1,20 @@
+namespace acme;
+@Schema: 'ADMIN'
+context GenerateTableTypeAnnotationSample {
+  type MyString80 : String(80);
+  type MyDecimal : Decimal(10,2);
+  @GenerateTableType: false
+  type MyStruct {
+    aNumber : Integer;
+    someText : String(80);
+    otherText : MyString80; // defined in example above
+  };
+
+  type MyS : MyStruct;
+  type MyOtherInt : type of MyStruct.aNumber;
+
+  type MyNestedStruct {
+    name : MyString80;
+    nested : MyStruct;
+  };
+};

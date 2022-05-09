@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.codbex.kronos</groupId>
+		<artifactId>codbex-kronos-modules-parent</artifactId>
+		<version>0.17.0-SNAPSHOT</version>
+	</parent>
+
+	<name>Kornos - Modules - All</name>
+	<artifactId>codbex-kronos-modules-all</artifactId>
+	<version>0.17.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.codbex.kronos</groupId>
+			<artifactId>codbex-kronos-modules-api-all</artifactId>
+			<version>0.17.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.codbex.kronos</groupId>
+			<artifactId>codbex-kronos-modules-engines-all</artifactId>
+			<version>0.17.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.codbex.kronos</groupId>
+			<artifactId>codbex-kronos-modules-parsers-all</artifactId>
+			<version>0.17.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.codbex.kronos</groupId>
+			<artifactId>codbex-kronos-modules-ide-all</artifactId>
+			<version>0.17.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+	<properties>
+		<license.header.location>../../licensing-header.txt</license.header.location>
+	</properties>
+
+</project>

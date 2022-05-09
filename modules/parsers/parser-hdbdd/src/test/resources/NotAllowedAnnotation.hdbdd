@@ -1,0 +1,11 @@
+namespace acme.db;
+
+@Schema : 'TEST_SCHEMA'
+context NotAllowedAnnotation {
+
+  @Catalog.tableType: #ROW
+  type Test {
+     Name : String(32);
+  };
+}
+
