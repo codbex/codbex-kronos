@@ -1,5 +1,5 @@
 ARG KRONOS_VERSION=latest
-FROM ghcr.io/codbex/codbex-kyma:$KRONOS_VERSION as base
+FROM ghcr.io/codbex/kronos-kyma:$KRONOS_VERSION as base
 
 ENV CNB_USER_ID=1001
 ENV CNB_GROUP_ID=1001
