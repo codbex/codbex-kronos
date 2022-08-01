@@ -11,11 +11,10 @@
  */
 package com.codbex.kronos.parser.hdbdd.annotation.metadata;
 
+import com.codbex.kronos.parser.hdbdd.symbols.CDSLiteralEnum;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.codbex.kronos.parser.hdbdd.symbols.CDSLiteralEnum;
 
 public class AnnotationObj extends AbstractAnnotationValue {
     private Map<String, AbstractAnnotationValue> keyValuePairs;

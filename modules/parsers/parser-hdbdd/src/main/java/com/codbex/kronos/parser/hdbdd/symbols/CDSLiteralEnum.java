@@ -11,13 +11,13 @@
  */
 package com.codbex.kronos.parser.hdbdd.symbols;
 
-import com.codbex.kronos.parser.hdbdd.core.CdsParser;
+import com.codbex.kronos.parser.hdbdd.core.CdsLexer;
 
 public enum CDSLiteralEnum {
-    INTEGER(CdsParser.INTEGER),
-    DECIMAL(CdsParser.DECIMAL),
-    STRING(CdsParser.STRING),
-    BOOLEAN(CdsParser.BOOLEAN),
+    INTEGER(CdsLexer.INTEGER),
+    DECIMAL(CdsLexer.DECIMAL),
+    STRING(CdsLexer.STRING),
+    BOOLEAN(CdsLexer.BOOLEAN),
     OBJECT(4),
     ARRAY(5),
     ENUM(6);

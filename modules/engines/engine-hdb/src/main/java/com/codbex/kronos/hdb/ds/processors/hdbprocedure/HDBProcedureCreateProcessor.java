@@ -23,32 +23,32 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.codbex.kronos.hdb.ds.artefacts.HDBProcedureSynchronizationArtefactType;
-import com.codbex.kronos.hdb.ds.model.hdbprocedure.XSKDataStructureHDBProcedureModel;
-import com.codbex.kronos.hdb.ds.processors.AbstractXSKProcessor;
-import com.codbex.kronos.utils.XSKCommonsConstants;
-import com.codbex.kronos.utils.XSKCommonsUtils;
-import com.codbex.kronos.utils.XSKConstants;
+import com.codbex.kronos.hdb.ds.model.hdbprocedure.HDBProcedureDataStructureModel;
+import com.codbex.kronos.hdb.ds.processors.AbstractProcessor;
+import com.codbex.kronos.utils.CommonsConstants;
+import com.codbex.kronos.utils.CommonsUtils;
+import com.codbex.kronos.utils.Constants;
 
-public class HDBProcedureCreateProcessor extends AbstractXSKProcessor<XSKDataStructureHDBProcedureModel> {
+public class HDBProcedureCreateProcessor extends AbstractProcessor<HDBProcedureDataStructureModel> {
 
   private static final Logger logger = LoggerFactory.getLogger(HDBProcedureCreateProcessor.class);
   private static final HDBProcedureSynchronizationArtefactType PROCEDURE_ARTEFACT = new HDBProcedureSynchronizationArtefactType();
 
-  public boolean execute(Connection connection, XSKDataStructureHDBProcedureModel hdbProcedure)
+  public boolean execute(Connection connection, HDBProcedureDataStructureModel hdbProcedure)
       throws SQLException {
     logger.info("Processing Create Procedure: " + hdbProcedure.getName());
-    String procedureNameWithoutSchema = XSKCommonsUtils.extractArtifactNameWhenSchemaIsProvided(hdbProcedure.getName())[1];
-    hdbProcedure.setSchema(XSKCommonsUtils.extractArtifactNameWhenSchemaIsProvided(hdbProcedure.getName())[0]);
+    String procedureNameWithoutSchema = CommonsUtils.extractArtifactNameWhenSchemaIsProvided(hdbProcedure.getName())[1];
+    hdbProcedure.setSchema(CommonsUtils.extractArtifactNameWhenSchemaIsProvided(hdbProcedure.getName())[0]);
 
     if (!SqlFactory.getNative(connection).exists(connection, procedureNameWithoutSchema, DatabaseArtifactTypes.PROCEDURE)) {
       ISqlDialect dialect = SqlFactory.deriveDialect(connection);
       if (!(dialect.getClass().equals(HanaSqlDialect.class))) {
         String errorMessage = String.format("Procedures are not supported for %s", dialect.getDatabaseName(connection));
-        XSKCommonsUtils.logProcessorErrors(errorMessage, XSKCommonsConstants.PROCESSOR_ERROR, hdbProcedure.getLocation(), XSKCommonsConstants.HDB_PROCEDURE_PARSER);
+        CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, hdbProcedure.getLocation(), CommonsConstants.HDB_PROCEDURE_PARSER);
         applyArtefactState(hdbProcedure.getName(), hdbProcedure.getLocation(), PROCEDURE_ARTEFACT, ArtefactState.FAILED_CREATE, errorMessage);
         throw new IllegalStateException(errorMessage);
       } else {
-        String sql = XSKConstants.XSK_HDBPROCEDURE_CREATE + hdbProcedure.getContent();
+        String sql = Constants.HDBPROCEDURE_CREATE + hdbProcedure.getRawContent();
         try {
           String message = String.format("Create procedure %s successfully", hdbProcedure.getName());
           executeSql(sql, connection);
@@ -56,7 +56,7 @@ public class HDBProcedureCreateProcessor extends AbstractXSKProcessor<XSKDataStr
           return true;
         } catch (SQLException ex) {
           String message = String.format("Create procedure[%s] skipped due to an error: %s", hdbProcedure, ex.getMessage());
-          XSKCommonsUtils.logProcessorErrors(ex.getMessage(), XSKCommonsConstants.PROCESSOR_ERROR, hdbProcedure.getLocation(), XSKCommonsConstants.HDB_PROCEDURE_PARSER);
+          CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, hdbProcedure.getLocation(), CommonsConstants.HDB_PROCEDURE_PARSER);
           applyArtefactState(hdbProcedure.getName(), hdbProcedure.getLocation(), PROCEDURE_ARTEFACT, ArtefactState.FAILED_CREATE, message);
           return false;
         }

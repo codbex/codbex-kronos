@@ -1,4 +1,4 @@
-schema   = "XSK_SAMPLES_HDB_HDBSEQUENCE_SIMPLE";
+schema   = "KRONOS_SAMPLES_HDB_HDBSEQUENCE_SIMPLE";
 minvalue = 1;
 cycles   = false;
 reset_by = "select ifnull(max(id),0) + 5 as id from

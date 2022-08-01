@@ -11,13 +11,10 @@
  */
 package com.codbex.kronos.synchronizer;
 
-import com.codbex.kronos.engine.XSKJavascriptEngineExecutor;
+import com.codbex.kronos.XSJSTest;
+import com.codbex.kronos.engine.JavascriptEngineExecutor;
 import com.codbex.kronos.exceptions.XSJSLibArtefactCleanerSQLException;
 import com.codbex.kronos.exceptions.XSJSLibExportsGenerationSourceNotFoundException;
-import com.codbex.kronos.synchronizer.XSJSLibSynchronizer;
-import com.codbex.kronos.synchronizer.XSJSLibSynchronizerArtefactsCleaner;
-import com.codbex.kronos.synchronizer.XSJSLibSynchronizerJob;
-
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.eclipse.dirigible.commons.api.scripting.ScriptingException;
@@ -26,6 +23,7 @@ import org.eclipse.dirigible.commons.config.StaticObjects;
 import org.eclipse.dirigible.core.scheduler.api.ISchedulerCoreService;
 import org.eclipse.dirigible.core.scheduler.service.definition.JobDefinition;
 import org.eclipse.dirigible.core.test.AbstractDirigibleTest;
+import org.eclipse.dirigible.engine.js.graalvm.debugger.GraalVMJavascriptDebugProcessor;
 import org.eclipse.dirigible.engine.js.graalvm.processor.GraalVMJavascriptEngineExecutor;
 import org.eclipse.dirigible.repository.api.IEntity;
 import org.eclipse.dirigible.repository.api.IRepository;
@@ -50,22 +48,21 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(JUnitParamsRunner.class)
-public class ExportGenerationTest extends AbstractDirigibleTest {
-
-  public ExportGenerationTest() {
-    // should be executed before parent @Before method as parent would otherwise initialize the DB in a persistent way
-    Configuration.set("DIRIGIBLE_DATABASE_H2_URL", "jdbc:h2:mem:xsk-tests");
-  }
+public class ExportGenerationTest extends XSJSTest {
 
   @Before
   public void beforeTest() {
-    setUpRepository();
     cleanup();
   }
 
   @After
   public void afterTest() {
     cleanup();
+  }
+
+  private void cleanup() {
+    dropTableIfExists(XSJSLibSynchronizer.XSJSLIB_SYNCHRONIZER_STATE_TABLE_NAME);
+    dropTableIfExists("XSJSLIB_EXPORT_TEST_TABLE");
   }
 
   @Test
@@ -80,7 +77,7 @@ public class ExportGenerationTest extends AbstractDirigibleTest {
     XSJSLibSynchronizerJob job = new XSJSLibSynchronizerJob();
 
     assertEquals("Unexpected XSJSLib Job Name",
-        "XSK XSJSLib Synchronizer Job", job.getName());
+        "Kronos XSJSLib Synchronizer Job", job.getName());
 
     assertEquals("Unexpected XSJSLib Job Synchronizer",
         XSJSLibSynchronizer.class, job.getSynchronizer().getClass());
@@ -92,7 +89,7 @@ public class ExportGenerationTest extends AbstractDirigibleTest {
     JobDefinition jobDefinition = job.getJobDefinition();
 
     assertEquals("Unexpected XSJSLib Job Definition Name",
-        "dirigible-internal-xsk-xsjslib-synchronizer-job", jobDefinition.getName());
+        "kronos-xsjslib-synchronizer-job", jobDefinition.getName());
 
     assertEquals("Unexpected XSJSLib Job Definition Group",
         ISchedulerCoreService.JOB_GROUP_INTERNAL, jobDefinition.getGroup());
@@ -101,7 +98,7 @@ public class ExportGenerationTest extends AbstractDirigibleTest {
         XSJSLibSynchronizerJob.class.getCanonicalName(), jobDefinition.getClazz());
 
     assertEquals("Unexpected XSJSLib Job Definition Description",
-        "XSK XSJSLib Synchronizer Job", jobDefinition.getDescription());
+        "Kronos XSJSLib Synchronizer Job", jobDefinition.getDescription());
 
     assertEquals("Unexpected XSJSLib Job Definition Expression",
         "0/55 * * * * ?", jobDefinition.getExpression());
@@ -113,7 +110,7 @@ public class ExportGenerationTest extends AbstractDirigibleTest {
   @Test
   public void artefactCleanerCreateAndCleanupStateTableTest() throws SQLException {
     // Run a script that creates a table with an Entry(location: "testFolder/abc.xsjslib", hash: "abc");
-    runJs("/test/xsk/exports/utils/createTableHelper.mjs");
+    runJs("/test/kronos/exports/utils/createTableHelper.mjs");
 
     String testFolder = "testFolder/";
     XSJSLibSynchronizerArtefactsCleaner cleaner = new XSJSLibSynchronizerArtefactsCleaner();
@@ -137,14 +134,14 @@ public class ExportGenerationTest extends AbstractDirigibleTest {
 
   @Test
   @Parameters({
-      "/test/xsk/exports/stateTableWriteTest.mjs",
-      "/test/xsk/exports/stateTableUpdateTest.mjs",
-      "/test/xsk/exports/stateTableFindTest.mjs",
-      "/test/xsk/exports/contentChangeCheckTest.mjs",
-      "/test/xsk/exports/contentModifierTest.mjs",
-      "/test/xsk/exports/singleFileExportGenerationTest.mjs",
-      "/test/xsk/exports/singleFileExportUpdateTest.mjs",
-      "/test/xsk/exports/multiFileExportGenerationTest.mjs",
+      "/test/kronos/exports/stateTableWriteTest.mjs",
+      "/test/kronos/exports/stateTableUpdateTest.mjs",
+      "/test/kronos/exports/stateTableFindTest.mjs",
+      "/test/kronos/exports/contentChangeCheckTest.mjs",
+      "/test/kronos/exports/contentModifierTest.mjs",
+      "/test/kronos/exports/singleFileExportGenerationTest.mjs",
+      "/test/kronos/exports/singleFileExportUpdateTest.mjs",
+      "/test/kronos/exports/multiFileExportGenerationTest.mjs",
   })
   public void exportsGeneratorTest(String testModule) throws ScriptingException {
     runJsTest(testModule);
@@ -152,12 +149,12 @@ public class ExportGenerationTest extends AbstractDirigibleTest {
 
   @Test
   public void importTest() throws ScriptingException {
-    XSJSLibSynchronizer.forceSynchronization("../../test/xsk/import/");
+    XSJSLibSynchronizer.forceSynchronization("../../test/kronos/import/"); // look two directories back as the test resources are outside the repository root
 
     Map<Object, Object> context = new HashMap<>();
-    XSKJavascriptEngineExecutor xskJavascriptEngineExecutor = new XSKJavascriptEngineExecutor();
-    Object result = xskJavascriptEngineExecutor.executeServiceModule(
-        "/test/xsk/import/import.xsjs",
+    JavascriptEngineExecutor javascriptEngineExecutor = new JavascriptEngineExecutor();
+    Object result = javascriptEngineExecutor.executeServiceModule(
+        "/test/kronos/import/import.xsjs",
         context
     );
 
@@ -181,24 +178,6 @@ public class ExportGenerationTest extends AbstractDirigibleTest {
         true,
         false
     );
-  }
-
-  private void cleanup() {
-    cleanupRepository();
-    dropTableIfExists(XSJSLibSynchronizer.XSJSLIB_SYNCHRONIZER_STATE_TABLE_NAME);
-    dropTableIfExists("XSJSLIB_EXPORT_TEST_TABLE");
-  }
-
-  private void setUpRepository() {
-    String rootFolder = "target/test-classes/META-INF/";
-    IRepository repository = new LocalRepository(rootFolder, false);
-    StaticObjects.set(StaticObjects.REPOSITORY, repository);
-  }
-
-  private void cleanupRepository() {
-    IRepository repository = (IRepository) StaticObjects.get(StaticObjects.REPOSITORY);
-    repository.getRoot().getResources().forEach(IEntity::delete);
-    repository.getRoot().getCollections().forEach(IEntity::delete);
   }
 
   private void dropTableIfExists(String tableName) {

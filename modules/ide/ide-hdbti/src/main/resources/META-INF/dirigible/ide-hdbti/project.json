@@ -1,8 +1,0 @@
-{
-    "guid": "ide-hdbti",
-    "repository": {
-        "type": "git",
-        "branch": "main",
-        "url": "https://github.com/dirigiblelabs/xsk-ide-hdbti.git"
-    }
-}

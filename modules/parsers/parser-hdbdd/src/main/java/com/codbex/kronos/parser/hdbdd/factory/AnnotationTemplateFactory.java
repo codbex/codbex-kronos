@@ -20,7 +20,6 @@ import com.codbex.kronos.parser.hdbdd.symbols.context.ContextSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.entity.EntityElementSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.entity.EntitySymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.type.custom.StructuredDataTypeSymbol;
-
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -89,6 +88,8 @@ public class AnnotationTemplateFactory {
     searchIndexObj.setAllowedForSymbols(Collections.singletonList(EntityElementSymbol.class));
     AnnotationSimpleValue booleanValue = new AnnotationSimpleValue(CDSLiteralEnum.BOOLEAN.getLiteralType());
     searchIndexObj.define("enabled", booleanValue);
+    searchIndexObj.define("fuzzy", new AnnotationObj());
+    searchIndexObj.define("text", new AnnotationObj());
 
     return searchIndexObj;
   }

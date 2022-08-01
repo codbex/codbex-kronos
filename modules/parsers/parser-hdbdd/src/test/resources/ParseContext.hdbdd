@@ -1,4 +1,4 @@
-namespace acme.table;
+namespace sap.table;
 @Schema : 'TEST_SCHEMA'
 Context ParseContext {
 	type GlobalTypes {

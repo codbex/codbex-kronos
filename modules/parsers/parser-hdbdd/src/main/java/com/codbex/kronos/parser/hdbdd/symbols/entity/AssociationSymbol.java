@@ -13,7 +13,6 @@ package com.codbex.kronos.parser.hdbdd.symbols.entity;
 
 import com.codbex.kronos.parser.hdbdd.symbols.context.Scope;
 import com.codbex.kronos.parser.hdbdd.symbols.type.field.FieldSymbol;
-
 import java.util.ArrayList;
 import java.util.List;
 

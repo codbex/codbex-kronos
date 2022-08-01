@@ -6,25 +6,25 @@
   <localVariables/>
   <variableMappings/>
   <dataSources>
-    <DataSource id="acme.hana.democontent.epm.data::PO.Header" type="DATA_BASE_TABLE">
+    <DataSource id="sap.hana.democontent.epm.data::PO.Header" type="DATA_BASE_TABLE">
       <viewAttributes allViewAttributes="true"/>
-      <columnObject schemaName="SAP_HANA_DEMO" columnObjectName="acme.hana.democontent.epm.data::PO.Header"/>
+      <columnObject schemaName="SAP_HANA_DEMO" columnObjectName="sap.hana.democontent.epm.data::PO.Header"/>
     </DataSource>
-    <DataSource id="acme.hana.democontent.epm.data::Util.Constants" type="DATA_BASE_TABLE">
+    <DataSource id="sap.hana.democontent.epm.data::Util.Constants" type="DATA_BASE_TABLE">
       <viewAttributes allViewAttributes="true"/>
-      <columnObject schemaName="SAP_HANA_DEMO" columnObjectName="acme.hana.democontent.epm.data::Util.Constants"/>
+      <columnObject schemaName="SAP_HANA_DEMO" columnObjectName="sap.hana.democontent.epm.data::Util.Constants"/>
     </DataSource>
-    <DataSource id="CF$$$$acme.hana.democontent.epm.data::Util.Constants$$" type="DATA_BASE_TABLE">
+    <DataSource id="CF$$$$sap.hana.democontent.epm.data::Util.Constants$$" type="DATA_BASE_TABLE">
       <viewAttributes allViewAttributes="true"/>
-      <columnObject schemaName="SAP_HANA_DEMO" columnObjectName="acme.hana.democontent.epm.data::Util.Constants"/>
+      <columnObject schemaName="SAP_HANA_DEMO" columnObjectName="sap.hana.democontent.epm.data::Util.Constants"/>
     </DataSource>
-    <DataSource id="LC$$$$acme.hana.democontent.epm.data::Util.Constants$$" type="DATA_BASE_TABLE">
+    <DataSource id="LC$$$$sap.hana.democontent.epm.data::Util.Constants$$" type="DATA_BASE_TABLE">
       <viewAttributes allViewAttributes="true"/>
-      <columnObject schemaName="SAP_HANA_DEMO" columnObjectName="acme.hana.democontent.epm.data::Util.Constants"/>
+      <columnObject schemaName="SAP_HANA_DEMO" columnObjectName="sap.hana.democontent.epm.data::Util.Constants"/>
     </DataSource>
-    <DataSource id="OR$$$$acme.hana.democontent.epm.data::Util.Constants$$" type="DATA_BASE_TABLE">
+    <DataSource id="OR$$$$sap.hana.democontent.epm.data::Util.Constants$$" type="DATA_BASE_TABLE">
       <viewAttributes allViewAttributes="true"/>
-      <columnObject schemaName="SAP_HANA_DEMO" columnObjectName="acme.hana.democontent.epm.data::Util.Constants"/>
+      <columnObject schemaName="SAP_HANA_DEMO" columnObjectName="sap.hana.democontent.epm.data::Util.Constants"/>
     </DataSource>
   </dataSources>
   <calculationViews>
@@ -48,7 +48,7 @@
         <viewAttribute id="INVOICINGSTATUS"/>
       </viewAttributes>
       <calculatedViewAttributes/>
-      <input node="#acme.hana.democontent.epm.data::PO.Header">
+      <input node="#sap.hana.democontent.epm.data::PO.Header">
         <mapping xsi:type="Calculation:AttributeMapping" target="PURCHASEORDERID" source="PURCHASEORDERID"/>
         <mapping xsi:type="Calculation:AttributeMapping" target="HISTORY_CREATEDBY_EMPLOYEEID" source="HISTORY.CREATEDBY.EMPLOYEEID"/>
         <mapping xsi:type="Calculation:AttributeMapping" target="HISTORY_CREATEDAT" source="HISTORY.CREATEDAT"/>
@@ -75,7 +75,7 @@
         <viewAttribute id="DESCRIPTION"/>
       </viewAttributes>
       <calculatedViewAttributes/>
-      <input node="#acme.hana.democontent.epm.data::Util.Constants">
+      <input node="#sap.hana.democontent.epm.data::Util.Constants">
         <mapping xsi:type="Calculation:AttributeMapping" target="DOMAIN" source="DOMAIN"/>
         <mapping xsi:type="Calculation:AttributeMapping" target="FIXEDVALUE" source="FIXEDVALUE"/>
         <mapping xsi:type="Calculation:AttributeMapping" target="LANGUAGE" source="LANGUAGE"/>
@@ -136,7 +136,7 @@
         <viewAttribute id="DESCRIPTION"/>
       </viewAttributes>
       <calculatedViewAttributes/>
-      <input node="#CF$$$$acme.hana.democontent.epm.data::Util.Constants$$">
+      <input node="#CF$$$$sap.hana.democontent.epm.data::Util.Constants$$">
         <mapping xsi:type="Calculation:AttributeMapping" target="DOMAIN" source="DOMAIN"/>
         <mapping xsi:type="Calculation:AttributeMapping" target="FIXEDVALUE" source="FIXEDVALUE"/>
         <mapping xsi:type="Calculation:AttributeMapping" target="LANGUAGE" source="LANGUAGE"/>
@@ -199,7 +199,7 @@
         <viewAttribute id="DESCRIPTION"/>
       </viewAttributes>
       <calculatedViewAttributes/>
-      <input node="#LC$$$$acme.hana.democontent.epm.data::Util.Constants$$">
+      <input node="#LC$$$$sap.hana.democontent.epm.data::Util.Constants$$">
         <mapping xsi:type="Calculation:AttributeMapping" target="DOMAIN" source="DOMAIN"/>
         <mapping xsi:type="Calculation:AttributeMapping" target="FIXEDVALUE" source="FIXEDVALUE"/>
         <mapping xsi:type="Calculation:AttributeMapping" target="LANGUAGE" source="LANGUAGE"/>
@@ -264,7 +264,7 @@
         <viewAttribute id="DESCRIPTION"/>
       </viewAttributes>
       <calculatedViewAttributes/>
-      <input node="#OR$$$$acme.hana.democontent.epm.data::Util.Constants$$">
+      <input node="#OR$$$$sap.hana.democontent.epm.data::Util.Constants$$">
         <mapping xsi:type="Calculation:AttributeMapping" target="DOMAIN" source="DOMAIN"/>
         <mapping xsi:type="Calculation:AttributeMapping" target="FIXEDVALUE" source="FIXEDVALUE"/>
         <mapping xsi:type="Calculation:AttributeMapping" target="LANGUAGE" source="LANGUAGE"/>

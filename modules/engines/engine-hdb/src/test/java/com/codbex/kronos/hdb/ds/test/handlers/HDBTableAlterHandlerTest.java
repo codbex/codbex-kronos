@@ -15,12 +15,11 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
-import com.codbex.kronos.hdb.ds.model.hdbtable.XSKDataStructureHDBTableColumnModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.XSKDataStructureHDBTableConstraintPrimaryKeyModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.XSKDataStructureHDBTableConstraintsModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.XSKDataStructureHDBTableModel;
-import com.codbex.kronos.hdb.ds.processors.table.XSKTableAlterHandler;
-
+import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableColumnDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableConstraintPrimaryKeyDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableConstraintsDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableDataStructureModel;
+import com.codbex.kronos.hdb.ds.processors.table.TableAlterHandler;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -67,9 +66,9 @@ public class HDBTableAlterHandlerTest {
   @Mock
   private ResultSet resultSet;
 
-  private XSKDataStructureHDBTableConstraintPrimaryKeyModel primaryKey = new XSKDataStructureHDBTableConstraintPrimaryKeyModel();
-  private XSKDataStructureHDBTableConstraintsModel constraintsModel = new XSKDataStructureHDBTableConstraintsModel();
-  private XSKDataStructureHDBTableModel tableModel = new XSKDataStructureHDBTableModel();
+  private HDBTableConstraintPrimaryKeyDataStructureModel primaryKey = new HDBTableConstraintPrimaryKeyDataStructureModel();
+  private HDBTableConstraintsDataStructureModel constraintsModel = new HDBTableConstraintsDataStructureModel();
+  private HDBTableDataStructureModel tableModel = new HDBTableDataStructureModel();
 
   @Before
   public void openMocks() {
@@ -85,16 +84,16 @@ public class HDBTableAlterHandlerTest {
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
       sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
 
-      List<XSKDataStructureHDBTableColumnModel> columns = new ArrayList<>();
-      columns.add(new XSKDataStructureHDBTableColumnModel("Id", "NVARCHAR", "32", true, false, null, false, null, null, true, null));
-      columns.add(new XSKDataStructureHDBTableColumnModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
+      List<HDBTableColumnDataStructureModel> columns = new ArrayList<>();
+      columns.add(new HDBTableColumnDataStructureModel("Id", "NVARCHAR", "32", true, false, null, false, null, null, true, null));
+      columns.add(new HDBTableColumnDataStructureModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
       tableModel.setColumns(columns);
       tableModel.setConstraints(constraintsModel);
       tableModel.setName("hdb_table::SampleHdbdd");
       tableModel.setSchema("MYSCHEMA");
 
-      XSKTableAlterHandler tableAlterHandler = new XSKTableAlterHandler(mockConnection, tableModel);
-      XSKTableAlterHandler handlerSpy = spy(tableAlterHandler);
+      TableAlterHandler tableAlterHandler = new TableAlterHandler(mockConnection, tableModel);
+      TableAlterHandler handlerSpy = spy(tableAlterHandler);
 
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter()).thenReturn(alter);
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().table(any())).thenReturn(alterTableBuilder);
@@ -115,15 +114,15 @@ public class HDBTableAlterHandlerTest {
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
       sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
 
-      List<XSKDataStructureHDBTableColumnModel> columns = new ArrayList<>();
-      columns.add(new XSKDataStructureHDBTableColumnModel("Age", "INTEGER", "32", true, true, null, false, null, null, true, null));
+      List<HDBTableColumnDataStructureModel> columns = new ArrayList<>();
+      columns.add(new HDBTableColumnDataStructureModel("Age", "INTEGER", "32", true, true, null, false, null, null, true, null));
       tableModel.setColumns(columns);
       tableModel.setConstraints(constraintsModel);
       tableModel.setName("hdb_table::SampleHdbdd");
       tableModel.setSchema("MYSCHEMA");
 
-      XSKTableAlterHandler tableAlterHandler = new XSKTableAlterHandler(mockConnection, tableModel);
-      XSKTableAlterHandler handlerSpy = spy(tableAlterHandler);
+      TableAlterHandler tableAlterHandler = new TableAlterHandler(mockConnection, tableModel);
+      TableAlterHandler handlerSpy = spy(tableAlterHandler);
 
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter()).thenReturn(alter);
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().table(any())).thenReturn(alterTableBuilder);
@@ -144,9 +143,9 @@ public class HDBTableAlterHandlerTest {
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
       sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
 
-      List<XSKDataStructureHDBTableColumnModel> columns = new ArrayList<>();
-      columns.add(new XSKDataStructureHDBTableColumnModel("Id", "NVARCHAR", "32", true, false, null, false, null, null, true, null));
-      columns.add(new XSKDataStructureHDBTableColumnModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
+      List<HDBTableColumnDataStructureModel> columns = new ArrayList<>();
+      columns.add(new HDBTableColumnDataStructureModel("Id", "NVARCHAR", "32", true, false, null, false, null, null, true, null));
+      columns.add(new HDBTableColumnDataStructureModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
       tableModel.setColumns(columns);
       tableModel.setConstraints(constraintsModel);
       tableModel.setName("hdb_table::SampleHdbdd");
@@ -158,8 +157,8 @@ public class HDBTableAlterHandlerTest {
       when(resultSet.getString("COLUMN_NAME")).thenReturn("Test");
       when(resultSet.getString("TYPE_NAME")).thenReturn("NVARCHAR");
 
-      XSKTableAlterHandler tableAlterHandler = new XSKTableAlterHandler(mockConnection, tableModel);
-      XSKTableAlterHandler handlerSpy = spy(tableAlterHandler);
+      TableAlterHandler tableAlterHandler = new TableAlterHandler(mockConnection, tableModel);
+      TableAlterHandler handlerSpy = spy(tableAlterHandler);
 
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter()).thenReturn(alter);
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().table(any())).thenReturn(alterTableBuilder);
@@ -181,9 +180,9 @@ public class HDBTableAlterHandlerTest {
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
       sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
 
-      List<XSKDataStructureHDBTableColumnModel> columns = new ArrayList<>();
-      columns.add(new XSKDataStructureHDBTableColumnModel("Id", "NVARCHAR", "32", true, false, null, false, null, null, true, null));
-      columns.add(new XSKDataStructureHDBTableColumnModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
+      List<HDBTableColumnDataStructureModel> columns = new ArrayList<>();
+      columns.add(new HDBTableColumnDataStructureModel("Id", "NVARCHAR", "32", true, false, null, false, null, null, true, null));
+      columns.add(new HDBTableColumnDataStructureModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
       tableModel.setColumns(columns);
       tableModel.setConstraints(constraintsModel);
       tableModel.setName("hdb_table::SampleHdbdd");
@@ -195,8 +194,8 @@ public class HDBTableAlterHandlerTest {
       when(resultSet.getString("COLUMN_NAME")).thenReturn("Name");
       when(resultSet.getString("TYPE_NAME")).thenReturn("NVARCHAR");
 
-      XSKTableAlterHandler tableAlterHandler = new XSKTableAlterHandler(mockConnection, tableModel);
-      XSKTableAlterHandler handlerSpy = spy(tableAlterHandler);
+      TableAlterHandler tableAlterHandler = new TableAlterHandler(mockConnection, tableModel);
+      TableAlterHandler handlerSpy = spy(tableAlterHandler);
 
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter()).thenReturn(alter);
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().table(any())).thenReturn(alterTableBuilder);
@@ -217,9 +216,9 @@ public class HDBTableAlterHandlerTest {
       configuration.when(() -> Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
       sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
-      List<XSKDataStructureHDBTableColumnModel> columns = new ArrayList<>();
-      columns.add(new XSKDataStructureHDBTableColumnModel("Id", "NVARCHAR", "32", true, false, null, false, null, null, true, null));
-      columns.add(new XSKDataStructureHDBTableColumnModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
+      List<HDBTableColumnDataStructureModel> columns = new ArrayList<>();
+      columns.add(new HDBTableColumnDataStructureModel("Id", "NVARCHAR", "32", true, false, null, false, null, null, true, null));
+      columns.add(new HDBTableColumnDataStructureModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
       tableModel.setColumns(columns);
       tableModel.setConstraints(constraintsModel);
       tableModel.setName("hdb_table::SampleHdbdd");
@@ -229,8 +228,8 @@ public class HDBTableAlterHandlerTest {
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().table(any())).thenReturn(alterTableBuilder);
       when(alterTableBuilder.build()).thenReturn("sql");
 
-      XSKTableAlterHandler tableAlterHandler = new XSKTableAlterHandler(mockConnection, tableModel);
-      XSKTableAlterHandler handlerSpy = spy(tableAlterHandler);
+      TableAlterHandler tableAlterHandler = new TableAlterHandler(mockConnection, tableModel);
+      TableAlterHandler handlerSpy = spy(tableAlterHandler);
 
       handlerSpy.rebuildIndeces(mockConnection);
       // TODO: Refactor -> Mockito doesn't have support for verifyPrivate()
@@ -247,9 +246,9 @@ public class HDBTableAlterHandlerTest {
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
       sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
 
-      List<XSKDataStructureHDBTableColumnModel> columns = new ArrayList<>();
-      columns.add(new XSKDataStructureHDBTableColumnModel("Id", "NVARCHAR", "32", true, true, null, false, null, null, true, null));
-      columns.add(new XSKDataStructureHDBTableColumnModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
+      List<HDBTableColumnDataStructureModel> columns = new ArrayList<>();
+      columns.add(new HDBTableColumnDataStructureModel("Id", "NVARCHAR", "32", true, true, null, false, null, null, true, null));
+      columns.add(new HDBTableColumnDataStructureModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
       tableModel.setColumns(columns);
       tableModel.setConstraints(constraintsModel);
       primaryKey.setColumns(new String[]{"Id"});
@@ -260,8 +259,8 @@ public class HDBTableAlterHandlerTest {
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter()).thenReturn(alter);
       problemsFacade.when(() -> ProblemsFacade.save(any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
           .thenAnswer((Answer<Void>) invocation -> null);
-      XSKTableAlterHandler tableAlterHandler = new XSKTableAlterHandler(mockConnection, tableModel);
-      XSKTableAlterHandler handlerSpy = spy(tableAlterHandler);
+      TableAlterHandler tableAlterHandler = new TableAlterHandler(mockConnection, tableModel);
+      TableAlterHandler handlerSpy = spy(tableAlterHandler);
 
       handlerSpy.ensurePrimaryKeyIsUnchanged(mockConnection);
     }

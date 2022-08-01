@@ -11,13 +11,19 @@
  */
 package com.codbex.kronos.hdb.ds.transformer.hdbdd;
 
-import com.codbex.kronos.hdb.ds.model.XSKDBContentType;
-import com.codbex.kronos.hdb.ds.model.hdbtable.XSKDataStructureHDBTableColumnModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.XSKDataStructureHDBTableConstraintForeignKeyModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.XSKDataStructureHDBTableConstraintPrimaryKeyModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.XSKDataStructureHDBTableModel;
-import com.codbex.kronos.hdb.ds.model.hdbtabletype.XSKDataStructureHDBTableTypeModel;
-import com.codbex.kronos.hdb.ds.model.hdbview.XSKDataStructureHDBViewModel;
+import com.codbex.kronos.hdb.ds.model.DBContentType;
+import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableColumnDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableConstraintForeignKeyDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableConstraintPrimaryKeyDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableConstraintUniqueDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableIndexDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtabletype.HDBTableTypeDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbview.HDBViewDataStructureModel;
+import com.codbex.kronos.parser.hdbdd.exception.CDSRuntimeException;
+import com.codbex.kronos.parser.hdbdd.annotation.metadata.AbstractAnnotationValue;
+import com.codbex.kronos.parser.hdbdd.annotation.metadata.AnnotationArray;
+import com.codbex.kronos.parser.hdbdd.annotation.metadata.AnnotationObj;
 import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
 import com.codbex.kronos.parser.hdbdd.symbols.entity.AssociationSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.entity.EntityElementSymbol;
@@ -29,10 +35,12 @@ import com.codbex.kronos.parser.hdbdd.symbols.type.field.FieldSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.view.JoinSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.view.SelectSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.view.ViewSymbol;
-
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.eclipse.dirigible.api.v3.security.UserFacade;
 import org.eclipse.dirigible.database.sql.ISqlKeywords;
@@ -45,26 +53,32 @@ public class HdbddTransformer {
   private static final String CATALOG_ANNOTATION = "Catalog";
   private static final String CATALOG_OBJ_TABLE_TYPE = "tableType";
   private static final String SEARCH_INDEX_ANNOTATION = "SearchIndex";
+  private static final String FUZZY_ANNOTATION = "fuzzy";
   private static final String FUZZY_SEARCH_INDEX_ENABLED = "enabled";
   private static final String DUMMY_TABLE = "DUMMY";
   private static final String QUOTE = "\"";
   private static final String DOT = ".";
   private static final String PACKAGE_DELIMITER = "::";
+  private static final String INDEX = "index";
+  private static final String UNIQUE = "unique";
+  private static final String NAME = "name";
+  private static final String ORDER = "order";
+  private static final String ELEMENT_NAMES = "elementNames";
 
-  public XSKDataStructureHDBTableModel transformEntitySymbolToTableModel(EntitySymbol entitySymbol, String location) {
-    XSKDataStructureHDBTableModel tableModel = new XSKDataStructureHDBTableModel();
-    tableModel.setDbContentType(XSKDBContentType.XS_CLASSIC);
+  public HDBTableDataStructureModel transformEntitySymbolToTableModel(EntitySymbol entitySymbol, String location) {
+    HDBTableDataStructureModel tableModel = new HDBTableDataStructureModel();
+    tableModel.setDbContentType(DBContentType.XS_CLASSIC);
     tableModel.setName(entitySymbol.getFullName());
     tableModel.setSchema(entitySymbol.getSchema());
 
     List<EntityElementSymbol> entityPks = entitySymbol.getElements().stream().filter(EntityElementSymbol::isKey)
         .collect(Collectors.toList());
-    XSKDataStructureHDBTableConstraintPrimaryKeyModel primaryKey = new XSKDataStructureHDBTableConstraintPrimaryKeyModel();
+    HDBTableConstraintPrimaryKeyDataStructureModel primaryKey = new HDBTableConstraintPrimaryKeyDataStructureModel();
     primaryKey.setColumns(entityPks.stream().map(EntityElementSymbol::getName).toArray(String[]::new));
     primaryKey.setName("PK_" + tableModel.getName());
     tableModel.getConstraints().setPrimaryKey(primaryKey);
 
-    List<XSKDataStructureHDBTableColumnModel> tableColumns = new ArrayList<>();
+    List<HDBTableColumnDataStructureModel> tableColumns = new ArrayList<>();
     entitySymbol.getElements().forEach(currentElement -> {
       if (currentElement.getType() instanceof StructuredDataTypeSymbol) {
         List<EntityElementSymbol> subElements = getStructuredTypeSubElements(currentElement);
@@ -77,9 +91,9 @@ public class HdbddTransformer {
     });
 
     entitySymbol.getAssociations().forEach(associationSymbol -> {
-      List<XSKDataStructureHDBTableColumnModel> associationColumns = transformAssociationToColumnModels(associationSymbol);
-      XSKDataStructureHDBTableConstraintForeignKeyModel foreignKeyModel = new XSKDataStructureHDBTableConstraintForeignKeyModel();
-      String[] referencedColumns = associationColumns.stream().map(XSKDataStructureHDBTableColumnModel::getName).toArray(String[]::new);
+      List<HDBTableColumnDataStructureModel> associationColumns = transformAssociationToColumnModels(associationSymbol);
+      HDBTableConstraintForeignKeyDataStructureModel foreignKeyModel = new HDBTableConstraintForeignKeyDataStructureModel();
+      String[] referencedColumns = associationColumns.stream().map(HDBTableColumnDataStructureModel::getName).toArray(String[]::new);
       String foreignKeyName = tableModel.getName() + "." + associationSymbol.getName();
       if (associationSymbol.isManaged()) {
         associationColumns.forEach(ac -> {
@@ -96,7 +110,7 @@ public class HdbddTransformer {
         foreignKeyName = foreignKeyName.replace(UNMANAGED_ASSOCIATION_MARKER, "");
       }
 
-      String[] foreignKeyColumns = associationColumns.stream().map(XSKDataStructureHDBTableColumnModel::getName).toArray(String[]::new);
+      String[] foreignKeyColumns = associationColumns.stream().map(HDBTableColumnDataStructureModel::getName).toArray(String[]::new);
 
       foreignKeyModel.setName(foreignKeyName);
       foreignKeyModel.setReferencedTable(associationSymbol.getTarget().getFullName());
@@ -116,21 +130,67 @@ public class HdbddTransformer {
     tableModel.setColumns(tableColumns);
     tableModel.setLocation(location);
     if (entitySymbol.getAnnotation(CATALOG_ANNOTATION) != null) {
-      tableModel.setTableType(entitySymbol.getAnnotation(CATALOG_ANNOTATION).getKeyValuePairs().get(CATALOG_OBJ_TABLE_TYPE).getValue());
-    }
+      String tableType = entitySymbol.getAnnotation(CATALOG_ANNOTATION).getKeyValuePairs().get(CATALOG_OBJ_TABLE_TYPE).getValue();
+      tableModel.setTableType(tableType);
 
-    for (int i = 0; i < entitySymbol.getElements().size(); i++) {
-      EntityElementSymbol currentElement = entitySymbol.getElements().get(i);
-      if (currentElement.getAnnotation(SEARCH_INDEX_ANNOTATION) != null) {
-        tableModel.getColumns().get(i).setFuzzySearchIndex(Boolean.parseBoolean(
-            currentElement.getAnnotation(SEARCH_INDEX_ANNOTATION).getKeyValuePairs().get(FUZZY_SEARCH_INDEX_ENABLED).getValue()));
+      if (entitySymbol.getAnnotation(CATALOG_ANNOTATION).getKeyValuePairs().get(INDEX) != null) {
+        List<HDBTableIndexDataStructureModel> indexes = new ArrayList<>();
+        List<HDBTableConstraintUniqueDataStructureModel> uniqueIndexes = new ArrayList<>();
+        AnnotationArray catalogIndexAnnotationArray = (AnnotationArray) entitySymbol.getAnnotation(CATALOG_ANNOTATION).getKeyValuePairs()
+            .get(INDEX);
+
+        for (AbstractAnnotationValue currentAnnotationValue : catalogIndexAnnotationArray.getValues()) {
+          AnnotationObj annotationObject = (AnnotationObj) currentAnnotationValue;
+          boolean isUnique = Boolean.parseBoolean(getCatalogAnnotationValue(annotationObject, UNIQUE));
+          String name = getCatalogAnnotationValue(annotationObject, NAME);
+          String order = getCatalogAnnotationValue(annotationObject, ORDER);
+          Set<String> indexColumnSet = new HashSet<>();
+
+          ((AnnotationArray) annotationObject.getValue(ELEMENT_NAMES)).getValues()
+              .forEach(currentElement -> indexColumnSet.add(currentElement.getValue()));
+
+          if (!isUnique) {
+            indexes.add(new HDBTableIndexDataStructureModel(name, order, indexColumnSet, false));
+          } else {
+            uniqueIndexes.add(new HDBTableConstraintUniqueDataStructureModel(name, order, indexColumnSet.toArray(String[]::new)));
+          }
+        }
+        tableModel.setIndexes(indexes);
+        tableModel.getConstraints().setUniqueIndices(uniqueIndexes);
       }
     }
+
+    handlePossibleSearchIndexAnnotations(entitySymbol, tableModel);
+
     return tableModel;
   }
 
-  public XSKDataStructureHDBViewModel transformViewSymbolToHdbViewModel(ViewSymbol viewSymbol, String location) {
-    XSKDataStructureHDBViewModel viewModel = new XSKDataStructureHDBViewModel();
+  private void handlePossibleSearchIndexAnnotations(EntitySymbol entitySymbol, HDBTableDataStructureModel tableModel){
+    for (int i = 0; i < entitySymbol.getElements().size(); i++) {
+      EntityElementSymbol currentElement = entitySymbol.getElements().get(i);
+
+      if (currentElement.getAnnotation(SEARCH_INDEX_ANNOTATION) != null) {
+
+        boolean hasFuzzySearchIndex = false;
+        Map<String, AbstractAnnotationValue> searchIndexAnnotationValueMap = currentElement.getAnnotation(SEARCH_INDEX_ANNOTATION).getKeyValuePairs();
+        AnnotationObj fuzzyIndexAnnotationObject = (AnnotationObj) searchIndexAnnotationValueMap.get(FUZZY_ANNOTATION);
+        AbstractAnnotationValue fuzzyIndexAnnotationValue = searchIndexAnnotationValueMap.get(FUZZY_SEARCH_INDEX_ENABLED);
+        AbstractAnnotationValue fuzzyIndexAnnotationObjectValue = fuzzyIndexAnnotationObject != null ?
+            fuzzyIndexAnnotationObject.getKeyValuePairs().get(FUZZY_SEARCH_INDEX_ENABLED) : null;
+
+        if (fuzzyIndexAnnotationObjectValue != null){
+          hasFuzzySearchIndex = Boolean.parseBoolean(fuzzyIndexAnnotationObjectValue.getValue());
+        }
+        else if (fuzzyIndexAnnotationValue != null){
+          hasFuzzySearchIndex = Boolean.parseBoolean(fuzzyIndexAnnotationValue.getValue());
+        }
+        tableModel.getColumns().get(i).setFuzzySearchIndex(hasFuzzySearchIndex);
+      }
+    }
+  }
+
+  public HDBViewDataStructureModel transformViewSymbolToHdbViewModel(ViewSymbol viewSymbol, String location) {
+    HDBViewDataStructureModel viewModel = new HDBViewDataStructureModel();
 
     StringBuilder viewStatementSql = new StringBuilder();
     List<String> aliasesForReplacement = new ArrayList<>();
@@ -139,7 +199,7 @@ public class HdbddTransformer {
         .append(DOT).append(QUOTE).append(viewSymbol.getFullName()).append(QUOTE).append(SPACE).append(ISqlKeywords.KEYWORD_AS)
         .append(SPACE);
 
-    String selectStatementSql = traverseSelectStatements(viewSymbol, aliasesForReplacement);
+    String selectStatementSql = traverseSelectStatements(viewSymbol, aliasesForReplacement, viewModel);
     viewStatementSql.append(selectStatementSql);
 
     String finalViewSql = viewStatementSql.toString();
@@ -148,7 +208,7 @@ public class HdbddTransformer {
       finalViewSql = replaceWithQuotes(finalViewSql, alias, alias);
     }
 
-    viewModel.setDbContentType(XSKDBContentType.OTHERS);
+    viewModel.setDbContentType(DBContentType.OTHERS);
     viewModel.setName(viewSymbol.getFullName());
     viewModel.setSchema(viewSymbol.getSchema());
     viewModel.setRawContent(finalViewSql);
@@ -156,7 +216,8 @@ public class HdbddTransformer {
     return viewModel;
   }
 
-  public String traverseSelectStatements(ViewSymbol viewSymbol, List<String> aliasesForReplacement) {
+  public String traverseSelectStatements(ViewSymbol viewSymbol, List<String> aliasesForReplacement, HDBViewDataStructureModel viewModel) {
+    List<String> dependsOnTableList = new ArrayList<>();
     StringBuilder selectSql = new StringBuilder();
 
     for (Symbol symbol : viewSymbol.getSelectStatements()) {
@@ -170,17 +231,10 @@ public class HdbddTransformer {
 
       // Check if the dependant table has :: to know whether short or full name is used in the hdbdd view definition. In case it is not we should build the full name
       if (!dependsOnTable.contains(PACKAGE_DELIMITER)) {
-        // Check if the dependant table name is DUMMY. This is a reserved table name for hana dummy tables. We make sure to make it in uppercase
-        if (dependsOnTable.equalsIgnoreCase(DUMMY_TABLE)) {
-          dependsOnTable = dependsOnTable.toUpperCase();
-        } else {
-          String dependsOnTableFullName = fullTableNameBuilderFromViewSymbol(dependsOnTable, viewSymbol);
-          // Replace the short name in the select columns with the full name
-          selectColumns = replaceWithQuotes(selectColumns, dependsOnTable, dependsOnTableFullName);
-          // Set the dependant table to be with the full name
-          dependsOnTable = dependsOnTableFullName;
-        }
+        dependsOnTable = getFullTableName(viewSymbol, dependsOnTable);
+        selectColumns = replaceWithQuotes(selectColumns, dependsOnTable, dependsOnTable);
       }
+      dependsOnTableList.add(dependsOnTable);
 
       if (unionBol) {
         selectSql.append(ISqlKeywords.KEYWORD_UNION).append(SPACE);
@@ -208,11 +262,13 @@ public class HdbddTransformer {
         selectSql.append(ISqlKeywords.KEYWORD_WHERE).append(SPACE).append(where).append(SPACE);
       }
     }
+    viewModel.setDependsOnTable(dependsOnTableList);
 
     return selectSql.toString();
   }
 
-  public String traverseJoinStatements(SelectSymbol selectSymbol, ViewSymbol viewSymbol, String dependsOnTable, List<String> aliasesForReplacement) {
+  public String traverseJoinStatements(SelectSymbol selectSymbol, ViewSymbol viewSymbol, String dependsOnTable,
+      List<String> aliasesForReplacement) {
     StringBuilder joinStatements = new StringBuilder();
 
     for (Symbol symbol : selectSymbol.getJoinStatements()) {
@@ -224,7 +280,7 @@ public class HdbddTransformer {
 
       // Check if the join artifact name contains :: to determine if full artifact name is used and build the full name if not
       if (!joinArtifactName.contains(PACKAGE_DELIMITER)) {
-        joinArtifactName = fullTableNameBuilderFromViewSymbol(joinArtifactName, viewSymbol);
+        joinArtifactName = getFullTableName(viewSymbol, joinArtifactName);
       }
 
       // Replace the select from dependant table if anywhere in the join with its full name
@@ -244,12 +300,6 @@ public class HdbddTransformer {
     return joinStatements.toString();
   }
 
-  private String fullTableNameBuilderFromViewSymbol(String tableName, ViewSymbol viewSymbol) {
-    StringBuilder fullTableName = new StringBuilder();
-    fullTableName.append(viewSymbol.getPackageId()).append(PACKAGE_DELIMITER).append(viewSymbol.getContext()).append(DOT).append(tableName);
-    return fullTableName.toString();
-  }
-
   private String shortTableNameExtractorFromViewSymbol(String fullTableName, ViewSymbol viewSymbol) {
     return fullTableName.replace(viewSymbol.getPackageId() + PACKAGE_DELIMITER + viewSymbol.getContext() + DOT, "");
   }
@@ -258,9 +308,9 @@ public class HdbddTransformer {
     return inContent.replaceAll(toBeReplaced + "[.]|\"" + toBeReplaced + "\"[.]", "\"" + replacement + "\".");
   }
 
-  public XSKDataStructureHDBTableTypeModel transformStructuredDataTypeToHdbTableType(StructuredDataTypeSymbol structuredDataTypeSymbol) {
-    XSKDataStructureHDBTableTypeModel hdbTableTypeModel = new XSKDataStructureHDBTableTypeModel();
-    List<XSKDataStructureHDBTableColumnModel> tableColumns = new ArrayList<>();
+  public HDBTableTypeDataStructureModel transformStructuredDataTypeToHdbTableType(StructuredDataTypeSymbol structuredDataTypeSymbol) {
+    HDBTableTypeDataStructureModel hdbTableTypeModel = new HDBTableTypeDataStructureModel();
+    List<HDBTableColumnDataStructureModel> tableColumns = new ArrayList<>();
     structuredDataTypeSymbol.getFields().forEach(field -> {
       if (field.getType() instanceof StructuredDataTypeSymbol) {
         List<EntityElementSymbol> subElements = getStructuredTypeSubElements(field);
@@ -273,7 +323,7 @@ public class HdbddTransformer {
     });
 
     hdbTableTypeModel.setColumns(tableColumns);
-    hdbTableTypeModel.setDbContentType(XSKDBContentType.XS_CLASSIC);
+    hdbTableTypeModel.setDbContentType(DBContentType.XS_CLASSIC);
     hdbTableTypeModel.setName(structuredDataTypeSymbol.getFullName());
     hdbTableTypeModel.setSchema(structuredDataTypeSymbol.getSchema());
     hdbTableTypeModel.setCreatedAt(new Timestamp(new java.util.Date().getTime()));
@@ -286,8 +336,8 @@ public class HdbddTransformer {
    * @param fieldSymbol: fieldSymbol
    * @param bAssignPK:   false if the entityElement is coming from  association, otherwise it should be true
    */
-  private XSKDataStructureHDBTableColumnModel transformFieldSymbolToColumnModel(FieldSymbol fieldSymbol, boolean bAssignPK) {
-    XSKDataStructureHDBTableColumnModel columnModel = new XSKDataStructureHDBTableColumnModel();
+  private HDBTableColumnDataStructureModel transformFieldSymbolToColumnModel(FieldSymbol fieldSymbol, boolean bAssignPK) {
+    HDBTableColumnDataStructureModel columnModel = new HDBTableColumnDataStructureModel();
 
     columnModel.setAlias(fieldSymbol.getAlias());
     columnModel.setName(fieldSymbol.getName());
@@ -327,8 +377,8 @@ public class HdbddTransformer {
     return columnModel;
   }
 
-  private List<XSKDataStructureHDBTableColumnModel> transformAssociationToColumnModels(AssociationSymbol associationSymbol) {
-    List<XSKDataStructureHDBTableColumnModel> tableColumns = new ArrayList<>();
+  private List<HDBTableColumnDataStructureModel> transformAssociationToColumnModels(AssociationSymbol associationSymbol) {
+    List<HDBTableColumnDataStructureModel> tableColumns = new ArrayList<>();
     associationSymbol.getForeignKeys().forEach(fk -> {
       if (fk.getType() instanceof StructuredDataTypeSymbol) {
         List<EntityElementSymbol> subElements = getStructuredTypeSubElements(fk);
@@ -341,7 +391,7 @@ public class HdbddTransformer {
     return tableColumns;
   }
 
-  private void setSqlType(XSKDataStructureHDBTableColumnModel columnModel, BuiltInTypeSymbol builtInTypeSymbol) {
+  private void setSqlType(HDBTableColumnDataStructureModel columnModel, BuiltInTypeSymbol builtInTypeSymbol) {
     String typeName = builtInTypeSymbol.getName();
     CdsTypeEnum cdsTypeEnum = CdsTypeEnum.valueOf(typeName);
 
@@ -355,7 +405,7 @@ public class HdbddTransformer {
     columnModel.setType(cdsTypeEnum.getSqlType());
   }
 
-  private void setHanaType(XSKDataStructureHDBTableColumnModel columnModel, BuiltInTypeSymbol builtInTypeSymbol) {
+  private void setHanaType(HDBTableColumnDataStructureModel columnModel, BuiltInTypeSymbol builtInTypeSymbol) {
     String typeName = builtInTypeSymbol.getName();
     CdsHanaTypeEnum cdsHanaTypeEnum = CdsHanaTypeEnum.valueOf(typeName);
 
@@ -384,11 +434,29 @@ public class HdbddTransformer {
     return subElements;
   }
 
-  private XSKDataStructureHDBTableColumnModel getAssociationForeignKeyColumn(AssociationSymbol associationSymbol, EntityElementSymbol foreignKey){
-    XSKDataStructureHDBTableColumnModel columnModel = transformFieldSymbolToColumnModel(foreignKey, false);
+  private HDBTableColumnDataStructureModel getAssociationForeignKeyColumn(AssociationSymbol associationSymbol,
+      EntityElementSymbol foreignKey) {
+    HDBTableColumnDataStructureModel columnModel = transformFieldSymbolToColumnModel(foreignKey, false);
     columnModel.setPrimaryKey(associationSymbol.isKey());
     columnModel.setNullable(!associationSymbol.isNotNull());
 
     return columnModel;
+  }
+
+  private String getFullTableName(ViewSymbol dependingView, String tableName) {
+    // Check if the dependant table name is DUMMY. This is a reserved table name for hana dummy tables. We make sure to make it in uppercase
+    if (tableName.equalsIgnoreCase(DUMMY_TABLE)) {
+      return tableName.toUpperCase();
+    } else {
+      Symbol resolvedDependsOnTable = dependingView.getEnclosingScope().resolve(tableName);
+      if (resolvedDependsOnTable == null) {
+        throw new CDSRuntimeException("Could not resolve referenced entity: " + tableName);
+      }
+      return resolvedDependsOnTable.getFullName();
+    }
+  }
+
+  private String getCatalogAnnotationValue(AnnotationObj annotationObject, String value) {
+    return annotationObject.getValue(value) != null ? annotationObject.getValue(value).getValue() : null;
   }
 }

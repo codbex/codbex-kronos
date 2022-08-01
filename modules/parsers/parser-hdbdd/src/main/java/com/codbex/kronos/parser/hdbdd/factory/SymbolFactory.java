@@ -34,7 +34,6 @@ import com.codbex.kronos.parser.hdbdd.symbols.type.custom.StructuredDataTypeSymb
 import com.codbex.kronos.parser.hdbdd.symbols.type.field.FieldSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.view.ViewSymbol;
 import com.codbex.kronos.parser.hdbdd.util.HdbddUtils;
-
 import org.antlr.v4.runtime.Token;
 
 public class SymbolFactory {

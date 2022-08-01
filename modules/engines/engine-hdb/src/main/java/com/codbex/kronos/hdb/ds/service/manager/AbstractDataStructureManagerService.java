@@ -14,51 +14,50 @@ package com.codbex.kronos.hdb.ds.service.manager;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.codbex.kronos.hdb.ds.api.IXSKDataStructuresCoreService;
-import com.codbex.kronos.hdb.ds.api.XSKDataStructuresException;
-import com.codbex.kronos.hdb.ds.model.XSKDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbdd.XSKDataStructureCdsModel;
-import com.codbex.kronos.hdb.ds.service.XSKDataStructuresCoreService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractDataStructureManagerService<T extends XSKDataStructureModel> implements IXSKDataStructureManager<T> {
+import com.codbex.kronos.hdb.ds.api.DataStructuresException;
+import com.codbex.kronos.hdb.ds.api.IDataStructuresCoreService;
+import com.codbex.kronos.hdb.ds.model.DataStructureModel;
+import com.codbex.kronos.hdb.ds.service.DataStructuresCoreService;
+
+public abstract class AbstractDataStructureManagerService<T extends DataStructureModel> implements IDataStructureManager<T> {
 
   private static final Logger logger = LoggerFactory.getLogger(AbstractDataStructureManagerService.class);
 
-  private IXSKDataStructuresCoreService xskDataStructuresCoreService = new XSKDataStructuresCoreService();
+  private IDataStructuresCoreService dataStructuresCoreService = new DataStructuresCoreService();
 
   @Override
-  public void cleanup() throws XSKDataStructuresException {
-    List<String> dtLocations = xskDataStructuresCoreService.getDataStructuresByType(getDataStructureType()).stream()
-        .map(XSKDataStructureModel::getLocation)
+  public void cleanup() throws DataStructuresException {
+    List<String> dtLocations = dataStructuresCoreService.getDataStructuresByType(getDataStructureType()).stream()
+        .map(DataStructureModel::getLocation)
         .filter(location -> !this.getDataStructureSynchronized().contains(location))
         .collect(Collectors.toList());
 
     for (String dtLocation :
         dtLocations) {
-      xskDataStructuresCoreService.removeDataStructure(dtLocation);
+      dataStructuresCoreService.removeDataStructure(dtLocation);
     }
   }
 
-  public IXSKDataStructuresCoreService getDataStructuresCoreService() {
-    return xskDataStructuresCoreService;
+  public IDataStructuresCoreService getDataStructuresCoreService() {
+    return dataStructuresCoreService;
   }
 
-  public void setDataStructuresCoreService(IXSKDataStructuresCoreService dataStructuresCoreService) {
-    this.xskDataStructuresCoreService = dataStructuresCoreService;
+  public void setDataStructuresCoreService(IDataStructuresCoreService dataStructuresCoreService) {
+    this.dataStructuresCoreService = dataStructuresCoreService;
   }
 
-  public void synchronizeParsedByRootMetadata(T tableModel) throws XSKDataStructuresException {
+  public void synchronizeParsedByRootMetadata(T tableModel) throws DataStructuresException {
     if (!getDataStructuresCoreService().existsDataStructure(tableModel.getLocation(), tableModel.getType())) {
-      xskDataStructuresCoreService
+      dataStructuresCoreService
           .createDataStructure(tableModel.getLocation(), tableModel.getName(), tableModel.getHash(), tableModel.getType());
       logger.info("Root artifact synchronized a new Entities file [{}] from location: {}", tableModel.getName(), tableModel.getLocation());
     }
   }
 
-  public boolean existsArtifactMetadata(T tableModel) throws XSKDataStructuresException {
-    return xskDataStructuresCoreService.existsDataStructureByLocationAndHash(tableModel.getLocation(), tableModel.getHash(), tableModel.getType());
+  public boolean existsArtifactMetadata(T tableModel) throws DataStructuresException {
+    return dataStructuresCoreService.existsDataStructureByLocationAndHash(tableModel.getLocation(), tableModel.getHash(), tableModel.getType());
   }
 }

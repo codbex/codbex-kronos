@@ -1,5 +1,7 @@
 service namespace "my.demo.namespace" {
 
+//Aggregations https://github.wdf.sap.corp/xs2/xsodata/blob/master/documentation/aggregations.md
+
  //Explicit Aggregations
  "package::revenues" as "Revenues"
         keys generate local "ID"

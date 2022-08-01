@@ -1,6 +1,6 @@
 namespace products.db;
 
-@Schema: 'XSK_SAMPLES_PRODUCTS'
+@Schema: 'KRONOS_SAMPLES_PRODUCTS'
 
 context Products {
    entity  Orders{

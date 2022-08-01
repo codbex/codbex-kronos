@@ -4,7 +4,7 @@ service namespace "my.demo.namespace" {
     "sample.odata::calc" as "CalcView"
                         keys generate local "ID"
                         parameters via entity "CVParams" results property "Execute";
-    "acme.test::calcview"
+    "sap.test::calcview"
                         key ("theKeyColumns")
                         parameters via key and entity;
 

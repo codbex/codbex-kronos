@@ -17,7 +17,7 @@ association "complex_b_to_c"
 		principal "complex_b"("ID") multiplicity "1"
 		dependent "complex_c"("ID_A") multiplicity "*"
 		storage on dependent
-		    update using "acme.test:oDataExtendedRules.xsjslib::associationToConditions";
+		    update using "sap.test:oDataExtendedRules.xsjslib::associationToConditions";
 
 association "complex_b_to_c"
 		principal "complex_b"("ID") multiplicity "0..1"

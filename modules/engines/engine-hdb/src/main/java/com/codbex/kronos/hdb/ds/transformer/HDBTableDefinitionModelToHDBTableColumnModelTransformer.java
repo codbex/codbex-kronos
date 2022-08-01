@@ -11,34 +11,32 @@
  */
 package com.codbex.kronos.hdb.ds.transformer;
 
-import com.codbex.kronos.hdb.ds.model.hdbtable.XSKDataStructureHDBTableColumnModel;
-import com.codbex.kronos.parser.hdbtable.exceptions.XSKHDBTableMissingPropertyException;
-import com.codbex.kronos.parser.hdbtable.model.XSKHDBTABLEColumnsModel;
-import com.codbex.kronos.parser.hdbtable.model.XSKHDBTABLEDefinitionModel;
-import com.codbex.kronos.utils.XSKCommonsConstants;
-import com.codbex.kronos.utils.XSKCommonsUtils;
-
+import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableColumnDataStructureModel;
+import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableMissingPropertyException;
+import com.codbex.kronos.parser.hdbtable.model.HDBTableColumnsModel;
+import com.codbex.kronos.parser.hdbtable.model.HDBTableDefinitionModel;
+import com.codbex.kronos.utils.CommonsConstants;
+import com.codbex.kronos.utils.CommonsUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class HDBTableDefinitionModelToHDBTableColumnModelTransformer {
 
+  public List<HDBTableColumnDataStructureModel> transform(HDBTableDefinitionModel hdbtableDefinitionModel, String location) {
 
-  public List<XSKDataStructureHDBTableColumnModel> transform(XSKHDBTABLEDefinitionModel hdbtableDefinitionModel, String location) {
+    List<HDBTableColumnDataStructureModel> columns = new ArrayList<>();
 
-    List<XSKDataStructureHDBTableColumnModel> columns = new ArrayList<>();
-
-    for (XSKHDBTABLEColumnsModel column : hdbtableDefinitionModel.getColumns()) {
+    for (HDBTableColumnsModel column : hdbtableDefinitionModel.getColumns()) {
       try {
         column.checkForAllMandatoryColumnFieldsPresence();
       } catch (Exception e) {
-        XSKCommonsUtils.logCustomErrors(location, XSKCommonsConstants.PARSER_ERROR, "", "", e.getMessage(),
-            XSKCommonsConstants.EXPECTED_FIELDS, XSKCommonsConstants.HDB_TABLE_PARSER,XSKCommonsConstants.MODULE_PARSERS,
-            XSKCommonsConstants.SOURCE_PUBLISH_REQUEST, XSKCommonsConstants.PROGRAM_XSK);
-        throw new XSKHDBTableMissingPropertyException(String.format("Wrong format of table definition: [%s]. [%s]", location, e.getMessage()));
+        CommonsUtils.logCustomErrors(location, CommonsConstants.PARSER_ERROR, "", "", e.getMessage(),
+            CommonsConstants.EXPECTED_FIELDS, CommonsConstants.HDB_TABLE_PARSER,CommonsConstants.MODULE_PARSERS,
+            CommonsConstants.SOURCE_PUBLISH_REQUEST, CommonsConstants.PROGRAM_KRONOS);
+        throw new HDBTableMissingPropertyException(String.format("Wrong format of table definition: [%s]. [%s]", location, e.getMessage()));
       }
-      XSKDataStructureHDBTableColumnModel dataStructureHDBTableColumnModel = new XSKDataStructureHDBTableColumnModel();
+      HDBTableColumnDataStructureModel dataStructureHDBTableColumnModel = new HDBTableColumnDataStructureModel();
       dataStructureHDBTableColumnModel.setLength(column.getLength());
       dataStructureHDBTableColumnModel.setName(column.getName());
       dataStructureHDBTableColumnModel.setType(column.getSqlType());

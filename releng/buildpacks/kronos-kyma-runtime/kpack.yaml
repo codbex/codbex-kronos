@@ -1,0 +1,35 @@
+apiVersion: kpack.io/v1alpha1
+kind: ClusterStore
+metadata:
+  name: kronos-store
+spec:
+  sources:
+  - image: ghcr.io/codbex/kronos-buildpacks-kyma-runtime:<tag>
+---
+apiVersion: kpack.io/v1alpha1
+kind: ClusterStack
+metadata:
+  name: kronos0stack
+spec:
+  id: com.codbex.kronos
+  buildImage:
+    image: ghcr.io/codbex/kronos-buildpacks-stack-build-kyma-runtime:<tag>
+  runImage:
+    image: ghcr.io/codbex/kronos-buildpacks-stack-run-kyma-runtime:<tag>
+---
+apiVersion: kpack.io/v1alpha1
+kind: Builder
+metadata:
+  name: kronos-builder
+spec:
+  serviceAccount: docker-registry-service-account
+  tag: ghcr.io/codbex/kronos-builder:<tag>
+  stack:
+    name: kronos-stack
+    kind: ClusterStack
+  store:
+    name: kronos-store
+    kind: ClusterStore
+  order:
+  - group:
+    - id: ghcr.io/codbex/kronos-buildpacks-kyma-runtime

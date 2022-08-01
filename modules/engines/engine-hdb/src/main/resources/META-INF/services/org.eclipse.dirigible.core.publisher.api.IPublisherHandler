@@ -1,1 +1,1 @@
-com.codbex.kronos.hdb.ds.synchronizer.XSKDataStructuresSynchronizerPublisherHandler # XSK Data Structures Synchronizer Publisher Handler
+com.codbex.kronos.hdb.ds.synchronizer.DataStructuresSynchronizerPublisherHandler # Data Structures Synchronizer Publisher Handler

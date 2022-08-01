@@ -14,29 +14,29 @@ import org.eclipse.dirigible.commons.api.scripting.IScriptingFacade;
 import org.eclipse.dirigible.commons.config.Configuration;
 
 public class TraceFacade implements IScriptingFacade{
-  private static final String XSK_LOG_DEBUG_ENABLED = "XSK_LOG_DEBUG_ENABLED";
-  private static final String XSK_LOG_ERROR_ENABLED = "XSK_LOG_ERROR_ENABLED";
-  private static final String XSK_LOG_FATAL_ENABLED = "XSK_LOG_FATAL_ENABLED";
-  private static final String XSK_LOG_INFO_ENABLED = "XSK_LOG_INFO_ENABLED";
-  private static final String XSK_LOG_WARNING_ENABLED = "XSK_LOG_WARNING_ENABLED";
+  private static final String KRONOS_LOG_DEBUG_ENABLED = "KRONOS_LOG_DEBUG_ENABLED";
+  private static final String KRONOS_LOG_ERROR_ENABLED = "KRONOS_LOG_ERROR_ENABLED";
+  private static final String KRONOS_LOG_FATAL_ENABLED = "KRONOS_LOG_FATAL_ENABLED";
+  private static final String KRONOS_LOG_INFO_ENABLED = "KRONOS_LOG_INFO_ENABLED";
+  private static final String KRONOS_LOG_WARNING_ENABLED = "KRONOS_LOG_WARNING_ENABLED";
 
   public static boolean isDebugEnabled() {
-    return Boolean.parseBoolean(Configuration.get(XSK_LOG_DEBUG_ENABLED, "true"));
+    return Boolean.parseBoolean(Configuration.get(KRONOS_LOG_DEBUG_ENABLED, "true"));
   }
 
   public static boolean isErrorEnabled() {
-    return Boolean.parseBoolean(Configuration.get(XSK_LOG_ERROR_ENABLED, "true"));
+    return Boolean.parseBoolean(Configuration.get(KRONOS_LOG_ERROR_ENABLED, "true"));
   }
 
   public static boolean isFatalEnabled() {
-    return Boolean.parseBoolean(Configuration.get(XSK_LOG_FATAL_ENABLED, "true"));
+    return Boolean.parseBoolean(Configuration.get(KRONOS_LOG_FATAL_ENABLED, "true"));
   }
 
   public static boolean isInfoEnabled() {
-    return Boolean.parseBoolean(Configuration.get(XSK_LOG_INFO_ENABLED, "true"));
+    return Boolean.parseBoolean(Configuration.get(KRONOS_LOG_INFO_ENABLED, "true"));
   }
 
   public static boolean isWarningEnabled() {
-    return Boolean.parseBoolean(Configuration.get(XSK_LOG_WARNING_ENABLED, "true"));
+    return Boolean.parseBoolean(Configuration.get(KRONOS_LOG_WARNING_ENABLED, "true"));
   }
 }

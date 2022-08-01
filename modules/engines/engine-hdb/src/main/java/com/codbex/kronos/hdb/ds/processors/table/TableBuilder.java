@@ -11,15 +11,14 @@
  */
 package com.codbex.kronos.hdb.ds.processors.table;
 
-import com.codbex.kronos.hdb.ds.model.hdbtable.XSKDataStructureHDBTableColumnModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.XSKDataStructureHDBTableConstraintCheckModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.XSKDataStructureHDBTableConstraintForeignKeyModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.XSKDataStructureHDBTableConstraintUniqueModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.XSKDataStructureHDBTableConstraintsModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.XSKDataStructureHDBTableIndexModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.XSKDataStructureHDBTableModel;
-import com.codbex.kronos.utils.XSKHDBUtils;
-
+import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableColumnDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableConstraintCheckDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableConstraintForeignKeyDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableConstraintUniqueDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableConstraintsDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableIndexDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableDataStructureModel;
+import com.codbex.kronos.utils.HDBUtils;
 import java.util.List;
 import java.util.Objects;
 import org.eclipse.dirigible.commons.config.Configuration;
@@ -34,11 +33,10 @@ import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
 
 public class TableBuilder {
 
-  private boolean caseSensitive = Boolean
-      .parseBoolean(Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true"));
+  private boolean caseSensitive = Boolean.parseBoolean(Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true"));
 
-  public Table build(XSKDataStructureHDBTableModel model) {
-    String tableName = XSKHDBUtils.escapeArtifactName(model.getName(), model.getSchema());
+  public Table build(HDBTableDataStructureModel model) {
+    String tableName = HDBUtils.escapeArtifactName(model.getName(), model.getSchema());
 
     HanaCreateTableBuilder sqlTableBuilder = createTableBuilder(tableName, model.getTableType());
 
@@ -63,11 +61,11 @@ public class TableBuilder {
     return SqlFactory.getNative(dialect).create().table(tableName);
   }
 
-  private void addTableIndicesToBuilder(HanaCreateTableBuilder sqlTableBuilder, XSKDataStructureHDBTableModel tableModel) {
-    List<XSKDataStructureHDBTableIndexModel> indexes = tableModel.getIndexes();
-    for (XSKDataStructureHDBTableIndexModel indexModel : indexes) {
+  private void addTableIndicesToBuilder(HanaCreateTableBuilder sqlTableBuilder, HDBTableDataStructureModel tableModel) {
+    List<HDBTableIndexDataStructureModel> indexes = tableModel.getIndexes();
+    for (HDBTableIndexDataStructureModel indexModel : indexes) {
       String name = caseSensitive
-          ? XSKHDBUtils.escapeArtifactName(indexModel.getIndexName())
+          ? HDBUtils.escapeArtifactName(indexModel.getIndexName())
           : indexModel.getIndexName();
 
       sqlTableBuilder
@@ -75,11 +73,11 @@ public class TableBuilder {
     }
   }
 
-  private void addTableColumnToBuilder(HanaCreateTableBuilder sqlTableBuilder, XSKDataStructureHDBTableModel tableModel) {
-    List<XSKDataStructureHDBTableColumnModel> columns = tableModel.getColumns();
-    for (XSKDataStructureHDBTableColumnModel columnModel : columns) {
+  private void addTableColumnToBuilder(HanaCreateTableBuilder sqlTableBuilder, HDBTableDataStructureModel tableModel) {
+    List<HDBTableColumnDataStructureModel> columns = tableModel.getColumns();
+    for (HDBTableColumnDataStructureModel columnModel : columns) {
       String name = caseSensitive
-          ? XSKHDBUtils.escapeArtifactName(columnModel.getName())
+          ? HDBUtils.escapeArtifactName(columnModel.getName())
           : columnModel.getName();
       DataType type = DataType.valueOf(columnModel.getType());
 
@@ -92,25 +90,22 @@ public class TableBuilder {
     }
   }
 
-  private void addTableConstraintsToBuilder(HanaCreateTableBuilder sqlTableBuilder, XSKDataStructureHDBTableModel tableModel) {
-    XSKDataStructureHDBTableConstraintsModel constraintsModel = tableModel.getConstraints();
+  private void addTableConstraintsToBuilder(HanaCreateTableBuilder sqlTableBuilder, HDBTableDataStructureModel tableModel) {
+    HDBTableConstraintsDataStructureModel constraintsModel = tableModel.getConstraints();
     if (Objects.nonNull(constraintsModel)) {
       if (Objects.nonNull(constraintsModel.getPrimaryKey())) {
-        sqlTableBuilder
-            .primaryKey(getEscapedColumns(constraintsModel.getPrimaryKey().getColumns()));
+        sqlTableBuilder.primaryKey(getEscapedColumns(constraintsModel.getPrimaryKey().getColumns()));
       }
 
       addTableForeignKeysToBuilder(sqlTableBuilder, tableModel);
       addUniqueIndicesToBuilder(sqlTableBuilder, tableModel);
 
-      List<XSKDataStructureHDBTableConstraintCheckModel> checks = constraintsModel.getChecks();
+      List<HDBTableConstraintCheckDataStructureModel> checks = constraintsModel.getChecks();
       if (Objects.nonNull(checks)) {
-        for (XSKDataStructureHDBTableConstraintCheckModel check : checks) {
+        for (HDBTableConstraintCheckDataStructureModel check : checks) {
           String checkName = check.getName();
           if (caseSensitive) {
-            checkName = caseSensitive
-                ? XSKHDBUtils.escapeArtifactName(checkName)
-                : checkName;
+            checkName = caseSensitive ? HDBUtils.escapeArtifactName(checkName) : checkName;
           }
           sqlTableBuilder.check(checkName, check.getExpression());
         }
@@ -118,7 +113,7 @@ public class TableBuilder {
     }
   }
 
-  private String getColumnModelArgs(XSKDataStructureHDBTableColumnModel columnModel) {
+  private String getColumnModelArgs(HDBTableColumnDataStructureModel columnModel) {
     DataType type = DataType.valueOf(columnModel.getType());
     String args = "";
     if (columnModel.getLength() != null) {
@@ -153,7 +148,7 @@ public class TableBuilder {
     int i = 0;
     for (String column : columns) {
       if (caseSensitive) {
-        primaryKeyColumns[i++] = XSKHDBUtils.escapeArtifactName(column);
+        primaryKeyColumns[i++] = HDBUtils.escapeArtifactName(column);
       } else {
         primaryKeyColumns[i++] = column;
       }
@@ -162,34 +157,34 @@ public class TableBuilder {
     return primaryKeyColumns;
   }
 
-  private void addTableForeignKeysToBuilder(HanaCreateTableBuilder sqlTableBuilder, XSKDataStructureHDBTableModel tableModel) {
-    List<XSKDataStructureHDBTableConstraintForeignKeyModel> foreignKeys = tableModel.getConstraints().getForeignKeys();
+  private void addTableForeignKeysToBuilder(HanaCreateTableBuilder sqlTableBuilder, HDBTableDataStructureModel tableModel) {
+    List<HDBTableConstraintForeignKeyDataStructureModel> foreignKeys = tableModel.getConstraints().getForeignKeys();
     if (Objects.nonNull(foreignKeys)) {
-      for (XSKDataStructureHDBTableConstraintForeignKeyModel foreignKey : foreignKeys) {
+      for (HDBTableConstraintForeignKeyDataStructureModel foreignKey : foreignKeys) {
         String foreignKeyName = foreignKey.getName();
         String foreignKeyReferencedTable = foreignKey.getReferencedTable();
         if (caseSensitive) {
-          foreignKeyName = XSKHDBUtils.escapeArtifactName(foreignKeyName);
-          foreignKeyReferencedTable = XSKHDBUtils.escapeArtifactName(foreignKeyReferencedTable);
+          foreignKeyName = HDBUtils.escapeArtifactName(foreignKeyName);
+          foreignKeyReferencedTable = HDBUtils.escapeArtifactName(foreignKeyReferencedTable);
         }
         String[] foreignKeyColumns = this.getEscapedColumns(foreignKey.getColumns());
 
         String[] foreignKeyReferencedColumns = this.getEscapedColumns(foreignKey.getReferencedColumns());
 
         sqlTableBuilder.foreignKey(foreignKeyName, foreignKeyColumns, foreignKeyReferencedTable,
-            XSKHDBUtils.escapeArtifactName(foreignKey.getReferencedTableSchema()),
+            HDBUtils.escapeArtifactName(foreignKey.getReferencedTableSchema()),
             foreignKeyReferencedColumns);
       }
     }
   }
 
-  protected void addUniqueIndicesToBuilder(AbstractTableBuilder builder, XSKDataStructureHDBTableModel tableModel) {
-    List<XSKDataStructureHDBTableConstraintUniqueModel> uniqueIndices = tableModel.getConstraints().getUniqueIndices();
+  protected void addUniqueIndicesToBuilder(AbstractTableBuilder builder, HDBTableDataStructureModel tableModel) {
+    List<HDBTableConstraintUniqueDataStructureModel> uniqueIndices = tableModel.getConstraints().getUniqueIndices();
     if (Objects.nonNull(uniqueIndices)) {
-      for (XSKDataStructureHDBTableConstraintUniqueModel uniqueIndex : uniqueIndices) {
+      for (HDBTableConstraintUniqueDataStructureModel uniqueIndex : uniqueIndices) {
         String uniqueIndexName = uniqueIndex.getIndexName();
         if (this.caseSensitive) {
-          uniqueIndexName = XSKHDBUtils.escapeArtifactName(uniqueIndexName);
+          uniqueIndexName = HDBUtils.escapeArtifactName(uniqueIndexName);
         }
         String[] uniqueIndexColumns = this.getEscapedColumns(uniqueIndex.getColumns());
         String indexOrder = uniqueIndex.getOrder();

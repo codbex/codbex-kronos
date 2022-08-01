@@ -1,1 +1,1 @@
-com.codbex.kronos.xsjob.ds.synchronizer.XSKJobClasspathContentHandler # XSK Job Classpath Content Handler
+com.codbex.kronos.xsjob.ds.synchronizer.JobClasspathContentHandler # Job Classpath Content Handler

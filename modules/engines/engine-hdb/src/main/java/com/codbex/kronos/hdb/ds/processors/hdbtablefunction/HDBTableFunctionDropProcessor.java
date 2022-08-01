@@ -23,33 +23,33 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.codbex.kronos.hdb.ds.artefacts.HDBTableFunctionSynchronizationArtefactType;
-import com.codbex.kronos.hdb.ds.model.hdbtablefunction.XSKDataStructureHDBTableFunctionModel;
-import com.codbex.kronos.hdb.ds.processors.AbstractXSKProcessor;
-import com.codbex.kronos.utils.XSKCommonsConstants;
-import com.codbex.kronos.utils.XSKCommonsUtils;
-import com.codbex.kronos.utils.XSKConstants;
+import com.codbex.kronos.hdb.ds.model.hdbtablefunction.HDBTableFunctionDataStructureModel;
+import com.codbex.kronos.hdb.ds.processors.AbstractProcessor;
+import com.codbex.kronos.utils.CommonsConstants;
+import com.codbex.kronos.utils.CommonsUtils;
+import com.codbex.kronos.utils.Constants;
 
-public class HDBTableFunctionDropProcessor extends AbstractXSKProcessor<XSKDataStructureHDBTableFunctionModel> {
+public class HDBTableFunctionDropProcessor extends AbstractProcessor<HDBTableFunctionDataStructureModel> {
 
   private static final Logger logger = LoggerFactory.getLogger(HDBTableFunctionDropProcessor.class);
   private static final HDBTableFunctionSynchronizationArtefactType TABLE_FUNCTION_ARTEFACT = new HDBTableFunctionSynchronizationArtefactType();
 
-  public boolean execute(Connection connection, XSKDataStructureHDBTableFunctionModel hdbTableFunction)
+  public boolean execute(Connection connection, HDBTableFunctionDataStructureModel hdbTableFunction)
       throws SQLException {
     logger.info("Processing Drop TableFunction: " + hdbTableFunction.getName());
 
-    String funcNameWithoutSchema = XSKCommonsUtils.extractArtifactNameWhenSchemaIsProvided(hdbTableFunction.getName())[1];
-    hdbTableFunction.setSchema(XSKCommonsUtils.extractArtifactNameWhenSchemaIsProvided(hdbTableFunction.getName())[0]);
+    String funcNameWithoutSchema = CommonsUtils.extractArtifactNameWhenSchemaIsProvided(hdbTableFunction.getName())[1];
+    hdbTableFunction.setSchema(CommonsUtils.extractArtifactNameWhenSchemaIsProvided(hdbTableFunction.getName())[0]);
     if (SqlFactory.getNative(connection)
         .exists(connection, hdbTableFunction.getSchema(), funcNameWithoutSchema, DatabaseArtifactTypes.FUNCTION)) {
       ISqlDialect dialect = SqlFactory.deriveDialect(connection);
       if (!(dialect.getClass().equals(HanaSqlDialect.class))) {
         String errorMessage = String.format("TableFunctions are not supported for %s", dialect.getDatabaseName(connection));
-        XSKCommonsUtils.logProcessorErrors(errorMessage, XSKCommonsConstants.PROCESSOR_ERROR, hdbTableFunction.getLocation(), XSKCommonsConstants.HDB_TABLE_FUNCTION_PARSER);
+        CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, hdbTableFunction.getLocation(), CommonsConstants.HDB_TABLE_FUNCTION_PARSER);
         applyArtefactState(hdbTableFunction.getName(),hdbTableFunction.getLocation(),TABLE_FUNCTION_ARTEFACT, ArtefactState.FAILED_DELETE, errorMessage);
         throw new IllegalStateException(errorMessage);
       } else {
-        String sql = XSKConstants.XSK_HDBTABLEFUNCTION_DROP + hdbTableFunction.getName();
+        String sql = Constants.HDBTABLEFUNCTION_DROP + hdbTableFunction.getName();
         try {
           executeSql(sql, connection);
           String message = String.format("Drop table function %s successfully", hdbTableFunction.getName());
@@ -57,7 +57,7 @@ public class HDBTableFunctionDropProcessor extends AbstractXSKProcessor<XSKDataS
           return true;
         } catch (SQLException ex) {
           String errorMessage = String.format("Drop table function [%s] skipped due to an error: %s", hdbTableFunction.getName(), ex.getMessage());
-          XSKCommonsUtils.logProcessorErrors(ex.getMessage(), XSKCommonsConstants.PROCESSOR_ERROR, hdbTableFunction.getLocation(), XSKCommonsConstants.HDB_TABLE_FUNCTION_PARSER);
+          CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, hdbTableFunction.getLocation(), CommonsConstants.HDB_TABLE_FUNCTION_PARSER);
           applyArtefactState(hdbTableFunction.getName(), hdbTableFunction.getLocation(), TABLE_FUNCTION_ARTEFACT, ArtefactState.FAILED_DELETE, errorMessage);
           return false;
         }

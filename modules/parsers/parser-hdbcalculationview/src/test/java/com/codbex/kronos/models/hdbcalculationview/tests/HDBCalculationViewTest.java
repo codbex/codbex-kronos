@@ -15,10 +15,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import com.sap.ndb.bimodelcalculation.CalculationScenario;
-import com.sap.ndb.bimodelcalculation.CalculationViewType;
-import com.sap.ndb.bimodelcalculation.DataSource;
-import com.sap.ndb.bimodelcalculation.DataSources;
+import com.codbex.kronos.ndb.bimodelcalculation.CalculationScenario;
+import com.codbex.kronos.ndb.bimodelcalculation.CalculationViewType;
+import com.codbex.kronos.ndb.bimodelcalculation.DataSource;
+import com.codbex.kronos.ndb.bimodelcalculation.DataSources;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -38,11 +38,11 @@ public class HDBCalculationViewTest {
   @Test
   public void serialize() throws JAXBException {
     CalculationScenario calculationScenario = new CalculationScenario();
-    calculationScenario.setId("com.sap.xsk.samples::XSK_HDI_SIMPLE_CALC_VIEW");
+    calculationScenario.setId("com.codbex.kronos.samples::KRONOS_HDI_SIMPLE_CALC_VIEW");
     calculationScenario.setOutputViewType(CalculationViewType.PROJECTION);
     DataSource dataSource = new DataSource();
-    dataSource.setId("XSK_HDI_SIMPLE_TABLE");
-    dataSource.setResourceUri("XSK_HDI_SIMPLE_TABLE");
+    dataSource.setId("KRONOS_HDI_SIMPLE_TABLE");
+    dataSource.setResourceUri("KRONOS_HDI_SIMPLE_TABLE");
     DataSources dataSources = new DataSources();
     dataSources.getDataSource().add(dataSource);
     calculationScenario.setDataSources(dataSources);
@@ -59,7 +59,7 @@ public class HDBCalculationViewTest {
 
   @Test
   public void deserialize() throws JAXBException {
-//		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><ns2:calculationScenario outputViewType=\"Projection\" id=\"com.sap.xsk.samples::XSK_HDI_SIMPLE_CALC_VIEW\" xmlns:ns2=\"http://www.sap.com/ndb/BiModelCalculation.ecore\"><dataSources><DataSource id=\"XSK_HDI_SIMPLE_TABLE\"><resourceUri>XSK_HDI_SIMPLE_TABLE</resourceUri></DataSource></dataSources></ns2:calculationScenario>";
+//		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><ns2:calculationScenario outputViewType=\"Projection\" id=\"com.codbex.kronos.samples::KRONOS_HDI_SIMPLE_CALC_VIEW\" xmlns:ns2=\"http://www.sap.com/ndb/BiModelCalculation.ecore\"><dataSources><DataSource id=\"KRONOS_HDI_SIMPLE_TABLE\"><resourceUri>KRONOS_HDI_SIMPLE_TABLE</resourceUri></DataSource></dataSources></ns2:calculationScenario>";
 
     String xml = "";
     try {
@@ -76,8 +76,8 @@ public class HDBCalculationViewTest {
     Unmarshaller um = context.createUnmarshaller();
     CalculationScenario calculationScenario = (CalculationScenario) um.unmarshal(new StringReader(xml));
 
-    assertEquals(calculationScenario.getId(), "com.acme.hana.example::projection");
-    assertEquals(calculationScenario.getDataSources().getDataSource().get(0).getResourceUri(), "com.acme.hana.example::TAB1");
+    assertEquals(calculationScenario.getId(), "com.sap.hana.example::projection");
+    assertEquals(calculationScenario.getDataSources().getDataSource().get(0).getResourceUri(), "com.sap.hana.example::TAB1");
   }
 
 }

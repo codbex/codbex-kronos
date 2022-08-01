@@ -11,17 +11,8 @@
  */
 package com.codbex.kronos.parser.hdbdd.custom;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import org.antlr.v4.runtime.tree.ParseTreeProperty;
-
 import com.codbex.kronos.parser.hdbdd.core.CdsBaseListener;
 import com.codbex.kronos.parser.hdbdd.core.CdsLexer;
-import com.codbex.kronos.parser.hdbdd.core.CdsParser;
 import com.codbex.kronos.parser.hdbdd.core.CdsParser.AssignTypeContext;
 import com.codbex.kronos.parser.hdbdd.core.CdsParser.AssociationContext;
 import com.codbex.kronos.parser.hdbdd.core.CdsParser.AssociationTargetContext;
@@ -45,6 +36,12 @@ import com.codbex.kronos.parser.hdbdd.symbols.type.Type;
 import com.codbex.kronos.parser.hdbdd.symbols.type.field.FieldSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.type.field.Typeable;
 import com.codbex.kronos.parser.hdbdd.util.HdbddUtils;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 public class ReferenceResolvingListener extends CdsBaseListener {
 
@@ -106,7 +103,7 @@ public class ReferenceResolvingListener extends CdsBaseListener {
       EntityElementSymbol elementSymbol = this.entityElements.get(ctx.getParent().getParent());
 
       // Check if the default value is a hana datetime function
-      if (valueType == CdsParser.DATETIME_VALUE_FUNCTION) {
+      if (valueType == CdsLexer.DATETIME_VALUE_FUNCTION) {
         elementSymbol.setDefaultValueDateTimeFunction(true);
       }
 

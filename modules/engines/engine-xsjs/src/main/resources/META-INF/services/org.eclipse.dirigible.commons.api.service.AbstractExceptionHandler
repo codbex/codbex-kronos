@@ -1,1 +1,1 @@
-com.codbex.kronos.engine.XSKScriptingExceptionHandler	# Scripting Dependency Exception Handler
+com.codbex.kronos.engine.ScriptingExceptionHandler	# Scripting Exception Handler

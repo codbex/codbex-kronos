@@ -1,2 +1,2 @@
 mkdir gen
-./xjc.sh calculationview.xsd -d ./gen -nv -p com.sap.ndb
+./xjc.sh calculationview.xsd -d ./gen -nv -p com.codbex.kronos.ndb

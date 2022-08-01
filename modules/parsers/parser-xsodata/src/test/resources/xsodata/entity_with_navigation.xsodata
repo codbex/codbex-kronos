@@ -6,15 +6,15 @@ service namespace "my.demo.namespace" {
 	"sample.odata::student" as "Students"
         navigates ("Students_Grades" as "HisGrades" from principal);
 
-    "sample.odata::Company" as "acme_vean__Company"
+    "sample.odata::Company" as "sap_vean__Company"
     	key ("UID")
-    	navigates ("acme_vean__Company__Person" as "Person" from dependent);
-    "sample.odata::Person" as "acme_bc_ar__Person"
+    	navigates ("sap_vean__Company__Person" as "Person" from dependent);
+    "sample.odata::Person" as "sap_bc_ar__Person"
     	key ("UID")
-    	navigates ("acme_vean__Company__Person" as "acme_vean__Company" from principal);
-    association "acme_vean__Company__Person"
-    		principal "acme_bc_ar__Person"("UID") multiplicity "0..1"
-    		dependent "acme_vean__Company"("Person.UID") multiplicity "0..1";
+    	navigates ("sap_vean__Company__Person" as "sap_vean__Company" from principal);
+    association "sap_vean__Company__Person"
+    		principal "sap_bc_ar__Person"("UID") multiplicity "0..1"
+    		dependent "sap_vean__Company"("Person.UID") multiplicity "0..1";
 
 	"sample.odata::address" as "Address"
 	 	navigates ("A_Self" as "ARef" from principal);

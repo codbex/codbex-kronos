@@ -11,10 +11,9 @@
  */
 package com.codbex.kronos.parser.hdbdd.symbols.type;
 
+import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
 
 public class BuiltInTypeSymbol extends Symbol implements Type {
 

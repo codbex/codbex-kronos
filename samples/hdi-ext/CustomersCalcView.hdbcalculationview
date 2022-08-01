@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Calculation:scenario id="com.sap.xsk.samples::CustomersCalcView" outputViewType="Projection">
+<Calculation:scenario id="com.codbex.kronos.samples::CustomersCalcView" outputViewType="Projection">
     <dataSources>
         <DataSource id="Customers" type="DATA_BASE_TABLE">
           <resourceUri>Customers</resourceUri>

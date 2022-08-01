@@ -16,15 +16,13 @@ import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.eclipse.dirigible.commons.api.module.AbstractDirigibleModule;
 import org.eclipse.dirigible.commons.config.StaticObjects;
-import org.eclipse.dirigible.repository.api.IRepository;
 
-import com.codbex.kronos.hdbti.module.XSKHdbtiModule;
 import com.codbex.kronos.hdbti.repository.TestRepository;
 
 public class HdbtiTestModule extends AbstractDirigibleModule {
     @Override
 	public String getName() {
-		return "HdbtiTestModule";
+		return "HDBTI Test Module";
 	}
 
 	@Override
@@ -38,16 +36,16 @@ public class HdbtiTestModule extends AbstractDirigibleModule {
     	StaticObjects.set(StaticObjects.DATASOURCE, getDataSource());
     	StaticObjects.set(StaticObjects.SYSTEM_DATASOURCE, getSystemDataSource());
     	
-    	XSKHdbtiModule xskHdbtiModule = new XSKHdbtiModule();
-    	xskHdbtiModule.configure();
+    	HDBTIModule hdbtiModule = new HDBTIModule();
+    	hdbtiModule.configure();
     }
 
     private static DataSource getDataSource() {
-        return createDataSource("jdbc:h2:mem:xsk-datasource;DB_CLOSE_DELAY=-1");
+        return createDataSource("jdbc:h2:mem:kronos-datasource;DB_CLOSE_DELAY=-1");
     }
 
     private static DataSource getSystemDataSource() {
-    	return createDataSource("jdbc:h2:mem:xsk-system-datasource;DB_CLOSE_DELAY=-1");
+    	return createDataSource("jdbc:h2:mem:kronos-system-datasource;DB_CLOSE_DELAY=-1");
     }
 
 	private static DataSource createDataSource(String url) {

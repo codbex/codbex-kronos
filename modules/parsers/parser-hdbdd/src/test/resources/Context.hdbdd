@@ -1,4 +1,4 @@
-namespace acme.db;
+namespace sap.db;
 
 @Schema : 'GSTR2DB'
 context Context {

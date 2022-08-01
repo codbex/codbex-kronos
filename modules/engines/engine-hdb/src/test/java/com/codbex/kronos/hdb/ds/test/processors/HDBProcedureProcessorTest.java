@@ -17,13 +17,13 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.codbex.kronos.hdb.ds.model.hdbprocedure.XSKDataStructureHDBProcedureModel;
+import com.codbex.kronos.hdb.ds.model.DataStructureModelBuilder;
+import com.codbex.kronos.hdb.ds.model.hdbprocedure.HDBProcedureDataStructureModel;
 import com.codbex.kronos.hdb.ds.processors.hdbprocedure.HDBProcedureCreateProcessor;
 import com.codbex.kronos.hdb.ds.processors.hdbprocedure.HDBProcedureDropProcessor;
-import com.codbex.kronos.hdb.ds.test.parser.XSKViewParserTest;
-import com.codbex.kronos.utils.XSKCommonsUtils;
-import com.codbex.kronos.utils.XSKConstants;
-
+import com.codbex.kronos.hdb.ds.test.parser.ViewParserTest;
+import com.codbex.kronos.utils.CommonsUtils;
+import com.codbex.kronos.utils.Constants;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
@@ -90,13 +90,15 @@ public class HDBProcedureProcessorTest extends AbstractDirigibleTest {
 			configuration.when(() -> Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
 
 			HDBProcedureCreateProcessor processorSpy = spy(HDBProcedureCreateProcessor.class);
-			String hdbprocedureSample = IOUtils.toString(XSKViewParserTest.class.getResourceAsStream("/OrderProcedure.hdbprocedure"), StandardCharsets.UTF_8);
+			String hdbprocedureSample = IOUtils.toString(ViewParserTest.class.getResourceAsStream("/OrderProcedure.hdbprocedure"), StandardCharsets.UTF_8);
 
-			XSKDataStructureHDBProcedureModel model = new XSKDataStructureHDBProcedureModel();
-			model.setContent(hdbprocedureSample);
-			model.setName("\"MYSCHEMA\".\"hdb_view::OrderProcedure\"");
-			String sql = XSKConstants.XSK_HDBPROCEDURE_CREATE + model.getContent();
-			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).exists(mockConnection, XSKCommonsUtils.extractArtifactNameWhenSchemaIsProvided(model.getName())[1], DatabaseArtifactTypes.PROCEDURE)).thenReturn(doExist);
+      DataStructureModelBuilder builder = new DataStructureModelBuilder()
+          .rawContent(hdbprocedureSample)
+          .withName("\"MYSCHEMA\".\"hdb_view::OrderProcedure\"");
+
+			HDBProcedureDataStructureModel model = new HDBProcedureDataStructureModel(builder);
+			String sql = Constants.HDBPROCEDURE_CREATE + model.getRawContent();
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).exists(mockConnection, CommonsUtils.extractArtifactNameWhenSchemaIsProvided(model.getName())[1], DatabaseArtifactTypes.PROCEDURE)).thenReturn(doExist);
 
 			when(mockConnection.prepareStatement(sql)).thenReturn(mockStatement);
 			processorSpy.execute(mockConnection, model);
@@ -113,12 +115,13 @@ public class HDBProcedureProcessorTest extends AbstractDirigibleTest {
 			sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new PostgresSqlDialect());
 
 			HDBProcedureCreateProcessor processorSpy = spy(HDBProcedureCreateProcessor.class);
-			String hdbprocedureSample = IOUtils.toString(XSKViewParserTest.class.getResourceAsStream("/OrderProcedure.hdbprocedure"), StandardCharsets.UTF_8);
+			String hdbprocedureSample = IOUtils.toString(ViewParserTest.class.getResourceAsStream("/OrderProcedure.hdbprocedure"), StandardCharsets.UTF_8);
 
-			XSKDataStructureHDBProcedureModel model = new XSKDataStructureHDBProcedureModel();
-			model.setContent(hdbprocedureSample);
-			model.setName("\"MYSCHEMA\".\"hdb_view::OrderProcedure\"");
-			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).exists(mockConnection, XSKCommonsUtils.extractArtifactNameWhenSchemaIsProvided(model.getName())[1], DatabaseArtifactTypes.PROCEDURE)).thenReturn(false);
+      DataStructureModelBuilder builder = new DataStructureModelBuilder()
+          .rawContent(hdbprocedureSample)
+          .withName("\"MYSCHEMA\".\"hdb_view::OrderProcedure\"");
+			HDBProcedureDataStructureModel model = new HDBProcedureDataStructureModel(builder);
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).exists(mockConnection, CommonsUtils.extractArtifactNameWhenSchemaIsProvided(model.getName())[1], DatabaseArtifactTypes.PROCEDURE)).thenReturn(false);
 			problemsFacade.when(() -> ProblemsFacade.save(any(), any(), any(), any(), any(), any(), any(), any(), any(), any())).thenAnswer((Answer<Void>) invocation -> null);
 			processorSpy.execute(mockConnection, model);
 		}
@@ -143,10 +146,11 @@ public class HDBProcedureProcessorTest extends AbstractDirigibleTest {
 
 			HDBProcedureDropProcessor processorSpy = spy(HDBProcedureDropProcessor.class);
 
-			XSKDataStructureHDBProcedureModel model = new XSKDataStructureHDBProcedureModel();
-			model.setName("\"MYSCHEMA\".\"hdb_view::OrderProcedure\"");
-			String sql = XSKConstants.XSK_HDBPROCEDURE_DROP + model.getName();
-			when(SqlFactory.getNative(mockConnection).exists(mockConnection, XSKCommonsUtils.extractArtifactNameWhenSchemaIsProvided(model.getName())[1], DatabaseArtifactTypes.PROCEDURE)).thenReturn(doExist);
+      DataStructureModelBuilder builder = new DataStructureModelBuilder()
+          .withName("\"MYSCHEMA\".\"hdb_view::OrderProcedure\"");
+			HDBProcedureDataStructureModel model = new HDBProcedureDataStructureModel(builder);
+			String sql = Constants.HDBPROCEDURE_DROP + model.getName();
+			when(SqlFactory.getNative(mockConnection).exists(mockConnection, CommonsUtils.extractArtifactNameWhenSchemaIsProvided(model.getName())[1], DatabaseArtifactTypes.PROCEDURE)).thenReturn(doExist);
 
 			when(mockConnection.prepareStatement(sql)).thenReturn(mockStatement);
 			processorSpy.execute(mockConnection, model);
@@ -164,10 +168,11 @@ public class HDBProcedureProcessorTest extends AbstractDirigibleTest {
 
 			HDBProcedureDropProcessor processorSpy = spy(HDBProcedureDropProcessor.class);
 
-			XSKDataStructureHDBProcedureModel model = new XSKDataStructureHDBProcedureModel();
-			model.setName("\"MYSCHEMA\".\"hdb_view::OrderProcedure\"");
+      DataStructureModelBuilder builder = new DataStructureModelBuilder()
+          .withName("\"MYSCHEMA\".\"hdb_view::OrderProcedure\"");
+			HDBProcedureDataStructureModel model = new HDBProcedureDataStructureModel(builder);
 
-			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).exists(mockConnection, XSKCommonsUtils.extractArtifactNameWhenSchemaIsProvided(model.getName())[1], DatabaseArtifactTypes.PROCEDURE)).thenReturn(true);
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).exists(mockConnection, CommonsUtils.extractArtifactNameWhenSchemaIsProvided(model.getName())[1], DatabaseArtifactTypes.PROCEDURE)).thenReturn(true);
 
 			problemsFacade.when(() -> ProblemsFacade.save(any(), any(), any(), any(), any(), any(), any(), any(), any(), any())).thenAnswer((Answer<Void>) invocation -> null);
 			processorSpy.execute(mockConnection, model);

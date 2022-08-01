@@ -9,32 +9,8 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-/*
- * Copyright (c) 2019-2021 SAP SE or an SAP affiliate company and XSK contributors
- *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Apache License, v2.0
- * which accompanies this distribution, and is available at
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * SPDX-FileCopyrightText: 2019-2021 SAP SE or an SAP affiliate company and XSK contributors
- * SPDX-License-Identifier: Apache-2.0
- */
-/*
- * Copyright (c) 2019-2021 SAP SE or an SAP affiliate company and XSK contributors
- *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Apache License, v2.0
- * which accompanies this distribution, and is available at
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * SPDX-FileCopyrightText: 2019-2021 SAP SE or an SAP affiliate company and XSK contributors
- * SPDX-License-Identifier: Apache-2.0
- */
 package com.codbex.kronos.parser.hdbsequence.custom;
 
-import com.codbex.kronos.parser.hdbsequence.exceptions.XSKHDBSequenceDuplicatePropertyException;
-import com.codbex.kronos.parser.hdbsequence.utils.HDBSequenceConstants;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -42,7 +18,8 @@ import com.codbex.kronos.parser.hdbsequence.core.HdbsequenceBaseVisitor;
 import com.codbex.kronos.parser.hdbsequence.core.HdbsequenceParser;
 import com.codbex.kronos.parser.hdbsequence.core.HdbsequenceParser.DependsOnTableContext;
 import com.codbex.kronos.parser.hdbsequence.core.HdbsequenceParser.DependsOnViewContext;
-
+import com.codbex.kronos.parser.hdbsequence.exceptions.HDBSequenceDuplicatePropertyException;
+import com.codbex.kronos.parser.hdbsequence.utils.HDBSequenceConstants;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTree;
 
@@ -54,12 +31,12 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
 
   private HashSet<String> visitedProperties = new HashSet<>();
 
-  private void checkForPropertyRepetition(String property) throws XSKHDBSequenceDuplicatePropertyException {
+  private void checkForPropertyRepetition(String property) throws HDBSequenceDuplicatePropertyException {
     if (!visitedProperties.contains(property)) {
       visitedProperties.add(property);
     } else {
 
-      throw new XSKHDBSequenceDuplicatePropertyException(String.format("Property %s is already declared!", property));
+      throw new HDBSequenceDuplicatePropertyException(String.format("Property %s is already declared!", property));
     }
   }
 
@@ -132,7 +109,7 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
   }
   
   @Override
-  public JsonElement visitNominvalue(HdbsequenceParser.NominvalueContext ctx) throws XSKHDBSequenceDuplicatePropertyException {
+  public JsonElement visitNominvalue(HdbsequenceParser.NominvalueContext ctx) throws HDBSequenceDuplicatePropertyException {
     checkForPropertyRepetition(HDBSequenceConstants.NOMINVALUE_PROPERTY);
     return (ctx != null && ctx.BOOLEAN() != null)
         ? new JsonPrimitive(Boolean.parseBoolean(ctx.BOOLEAN().getText()))
@@ -140,7 +117,7 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
   }
 
   @Override
-  public JsonElement visitCycles(HdbsequenceParser.CyclesContext ctx) throws XSKHDBSequenceDuplicatePropertyException {
+  public JsonElement visitCycles(HdbsequenceParser.CyclesContext ctx) throws HDBSequenceDuplicatePropertyException {
     checkForPropertyRepetition(HDBSequenceConstants.CYCLES_PROPERTY);
     return (ctx != null && ctx.BOOLEAN() != null)
         ? new JsonPrimitive(Boolean.parseBoolean(ctx.BOOLEAN().getText()))
@@ -148,7 +125,7 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
   }
 
   @Override
-  public JsonElement visitMinvalue(HdbsequenceParser.MinvalueContext ctx) throws XSKHDBSequenceDuplicatePropertyException {
+  public JsonElement visitMinvalue(HdbsequenceParser.MinvalueContext ctx) throws HDBSequenceDuplicatePropertyException {
     checkForPropertyRepetition(HDBSequenceConstants.MINVALUE_PROPERTY);
     return (ctx != null && ctx.INT() != null)
         ? new JsonPrimitive(Integer.parseInt(ctx.INT().getText()))
@@ -156,7 +133,7 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
   }
 
   @Override
-  public JsonElement visitReset_by(HdbsequenceParser.Reset_byContext ctx) throws XSKHDBSequenceDuplicatePropertyException {
+  public JsonElement visitReset_by(HdbsequenceParser.Reset_byContext ctx) throws HDBSequenceDuplicatePropertyException {
     checkForPropertyRepetition(HDBSequenceConstants.RESET_BY_PROPERTY);
     return (ctx != null && ctx.STRING() != null)
         ? new JsonPrimitive(ctx.STRING().getText())
@@ -164,7 +141,7 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
   }
 
   @Override
-  public JsonElement visitIncrement_by(HdbsequenceParser.Increment_byContext ctx) throws XSKHDBSequenceDuplicatePropertyException {
+  public JsonElement visitIncrement_by(HdbsequenceParser.Increment_byContext ctx) throws HDBSequenceDuplicatePropertyException {
     checkForPropertyRepetition(HDBSequenceConstants.INCREMENT_BY_PROPERTY);
     return (ctx != null && ctx.INT() != null)
         ? new JsonPrimitive(Integer.parseInt(ctx.INT().getText()))
@@ -172,7 +149,7 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
   }
 
   @Override
-  public JsonElement visitStart_with(HdbsequenceParser.Start_withContext ctx) throws XSKHDBSequenceDuplicatePropertyException {
+  public JsonElement visitStart_with(HdbsequenceParser.Start_withContext ctx) throws HDBSequenceDuplicatePropertyException {
     checkForPropertyRepetition(HDBSequenceConstants.START_WITH_PROPERTY);
     return (ctx != null && ctx.INT() != null)
         ? new JsonPrimitive(Integer.parseInt(ctx.INT().getText()))

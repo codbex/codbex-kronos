@@ -1,1 +1,1 @@
-com.codbex.kronos.xsodata.ds.synchronizer.XSKODataSynchronizerPublisherHandler # XSK OData Synchronizer Publisher Handler
+com.codbex.kronos.xsodata.ds.synchronizer.ODataSynchronizerPublisherHandler # OData Synchronizer Publisher Handler

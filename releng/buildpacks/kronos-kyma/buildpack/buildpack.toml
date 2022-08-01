@@ -1,0 +1,12 @@
+# Buildpack API version
+api = "0.5"
+
+# Buildpack ID and metadata
+[buildpack]
+id = "ghcr.io/codbex/kronos-buildpacks-kyma"
+version = "#{KronosVersion}#"
+name = "Kronos Kyma Buildpack"
+
+# Stacks that the buildpack will work with
+[[stacks]]
+id = "com.codbex.kronos"

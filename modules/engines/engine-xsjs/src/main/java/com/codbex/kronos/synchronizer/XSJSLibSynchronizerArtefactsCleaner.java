@@ -11,10 +11,8 @@
  */
 package com.codbex.kronos.synchronizer;
 
-import org.eclipse.dirigible.commons.config.StaticObjects;
-
 import com.codbex.kronos.exceptions.XSJSLibArtefactCleanerSQLException;
-
+import org.eclipse.dirigible.commons.config.StaticObjects;
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

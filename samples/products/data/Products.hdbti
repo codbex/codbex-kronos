@@ -6,7 +6,7 @@ import = [
 		useHeaderNames = false;
 		delimField = ",";
 		distinguishEmptyFromNull = true;
-		schema = "XSK_SAMPLES_PRODUCTS";
+		schema = "KRONOS_SAMPLES_PRODUCTS";
 	},
 	{
 		table = "products.db::Products.Orders";
@@ -15,7 +15,7 @@ import = [
 		useHeaderNames = false;
 		delimField = ",";
 		distinguishEmptyFromNull = true;
-		schema = "XSK_SAMPLES_PRODUCTS";
+		schema = "KRONOS_SAMPLES_PRODUCTS";
 	},
 	{
 		table = "products.db::Products.Item";
@@ -24,7 +24,7 @@ import = [
 		useHeaderNames = false;
 		delimField = ",";
 		distinguishEmptyFromNull = true;
-		schema = "XSK_SAMPLES_PRODUCTS";
+		schema = "KRONOS_SAMPLES_PRODUCTS";
 	}
 ];
 

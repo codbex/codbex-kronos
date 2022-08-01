@@ -1,4 +1,4 @@
-TYPE "XSK_SAMPLES_HDI_CUBE"."customer_sample::publishers" AS TABLE (
+TYPE "KRONOS_SAMPLES_HDI_CUBE"."customer_sample::publishers" AS TABLE (
    "PUBLISHER" INTEGER,
    "NAME" NVARCHAR(50),
    "PRICE" DECIMAL,

@@ -1,0 +1,13 @@
+# Buildpacks to include in builder
+[[buildpacks]]
+uri = "."
+
+[[order]]
+    [[order.group]]
+    id = "ghcr.io/codbex/kronos-buildpacks-cf"
+    version = "#{KronosVersion}#"
+
+[stack]
+id = "com.codbex.kronos"
+build-image = "ghcr.io/codbex/kronos-buildpacks-stack-build-cf:#{KronosVersion}#"
+run-image = "ghcr.io/codbex/kronos-buildpacks-stack-run-cf:#{KronosVersion}#"

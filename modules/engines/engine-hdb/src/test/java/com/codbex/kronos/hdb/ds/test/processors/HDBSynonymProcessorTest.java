@@ -17,11 +17,10 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import com.codbex.kronos.hdb.ds.model.XSKDataStructureModelFactory;
-import com.codbex.kronos.hdb.ds.model.hdbsynonym.XSKDataStructureHDBSynonymModel;
+import com.codbex.kronos.hdb.ds.model.DataStructureModelFactory;
+import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDataStructureModel;
 import com.codbex.kronos.hdb.ds.processors.synonym.HDBSynonymCreateProcessor;
 import com.codbex.kronos.hdb.ds.processors.synonym.HDBSynonymDropProcessor;
-
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import org.apache.commons.io.IOUtils;
@@ -82,7 +81,7 @@ public class HDBSynonymProcessorTest extends AbstractDirigibleTest {
     String hdbsynonymSample = IOUtils.toString(HDBSynonymProcessorTest.class.getResourceAsStream("/MySynonym.hdbsynonym"),
         StandardCharsets.UTF_8);
 
-    XSKDataStructureHDBSynonymModel model = XSKDataStructureModelFactory.parseSynonym("hdb_view/MySynonym.hdbsynonym", hdbsynonymSample);
+    HDBSynonymDataStructureModel model = DataStructureModelFactory.parseSynonym("hdb_view/MySynonym.hdbsynonym", hdbsynonymSample);
     model.setName("\"MYSCHEMA\".\"hdb_view::MySynonym\"");
     String mockSQL = "testSQLScript";
 
@@ -111,7 +110,7 @@ public class HDBSynonymProcessorTest extends AbstractDirigibleTest {
     String hdbsynonymSample = IOUtils.toString(HDBSynonymProcessorTest.class.getResourceAsStream("/MySynonym.hdbsynonym"),
         StandardCharsets.UTF_8);
 
-    XSKDataStructureHDBSynonymModel model = XSKDataStructureModelFactory.parseSynonym("hdb_view/MySynonym.hdbsynonym", hdbsynonymSample);
+    HDBSynonymDataStructureModel model = DataStructureModelFactory.parseSynonym("hdb_view/MySynonym.hdbsynonym", hdbsynonymSample);
     model.setName("\"MYSCHEMA\".\"hdb_view::MySynonym\"");
 
     try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
@@ -133,7 +132,7 @@ public class HDBSynonymProcessorTest extends AbstractDirigibleTest {
     String hdsynonymSample = IOUtils.toString(HDBSynonymProcessorTest.class.getResourceAsStream("/MySynonym.hdbsynonym"),
         StandardCharsets.UTF_8);
 
-    XSKDataStructureHDBSynonymModel model = XSKDataStructureModelFactory.parseSynonym("hdb_view/MySynonym.hdbsynonym", hdsynonymSample);
+    HDBSynonymDataStructureModel model = DataStructureModelFactory.parseSynonym("hdb_view/MySynonym.hdbsynonym", hdsynonymSample);
     model.setName("\"MYSCHEMA\".\"hdb_view::MySynonym\"");
     String mockSQL = "testSQLScript";
 

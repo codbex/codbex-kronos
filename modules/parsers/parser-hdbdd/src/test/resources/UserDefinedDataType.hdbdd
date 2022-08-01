@@ -1,4 +1,4 @@
-namespace acme.db.myapp;
+namespace sap.db.myapp;
 @Schema: 'MYSCHEMA' // user-defined structured data types
 
 context UserDefinedDataType {

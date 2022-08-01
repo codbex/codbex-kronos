@@ -1,5 +1,5 @@
-com.codbex.kronos.hdb.ds.parser.entities.XSKEntitiesParser
-com.codbex.kronos.hdb.ds.parser.hdbprocedure.XSKHDBProcedureParser
-com.codbex.kronos.hdb.ds.parser.hdbschema.XSKSchemaParser
-com.codbex.kronos.hdb.ds.parser.table.XSKTableParser
-com.codbex.kronos.hdb.ds.parser.view.XSKViewParser
+com.codbex.kronos.hdb.ds.parser.entities.EntitiesParser
+com.codbex.kronos.hdb.ds.parser.hdbprocedure.HDBProcedureParser
+com.codbex.kronos.hdb.ds.parser.hdbschema.SchemaParser
+com.codbex.kronos.hdb.ds.parser.table.TableParser
+com.codbex.kronos.hdb.ds.parser.view.ViewParser

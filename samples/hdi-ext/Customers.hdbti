@@ -6,6 +6,6 @@ import = [
 		useHeaderNames = false;
 		delimField = ",";
 		distinguishEmptyFromNull = true;
-	  schema = "XSK_SAMPLES_HDI_EXT";
+	  schema = "KRONOS_SAMPLES_HDI_EXT";
 	}
 ];

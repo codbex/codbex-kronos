@@ -12,13 +12,12 @@
 package com.codbex.kronos.hdb.ds.processors.synonym;
 
 import com.codbex.kronos.hdb.ds.artefacts.HDBSynonymSynchronizationArtefactType;
-import com.codbex.kronos.hdb.ds.model.hdbsynonym.XSKDataStructureHDBSynonymModel;
-import com.codbex.kronos.hdb.ds.model.hdbsynonym.XSKHDBSYNONYMDefinitionModel;
-import com.codbex.kronos.hdb.ds.processors.AbstractXSKProcessor;
-import com.codbex.kronos.utils.XSKCommonsConstants;
-import com.codbex.kronos.utils.XSKCommonsUtils;
-import com.codbex.kronos.utils.XSKHDBUtils;
-
+import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDefinitionModel;
+import com.codbex.kronos.hdb.ds.processors.AbstractProcessor;
+import com.codbex.kronos.utils.CommonsConstants;
+import com.codbex.kronos.utils.CommonsUtils;
+import com.codbex.kronos.utils.HDBUtils;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Map;
@@ -29,7 +28,7 @@ import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HDBSynonymDropProcessor extends AbstractXSKProcessor<XSKDataStructureHDBSynonymModel> {
+public class HDBSynonymDropProcessor extends AbstractProcessor<HDBSynonymDataStructureModel> {
 
   private static final Logger logger = LoggerFactory.getLogger(HDBSynonymDropProcessor.class);
   private static final HDBSynonymSynchronizationArtefactType SYNONYM_ARTEFACT = new HDBSynonymSynchronizationArtefactType();
@@ -43,11 +42,11 @@ public class HDBSynonymDropProcessor extends AbstractXSKProcessor<XSKDataStructu
    * @see <a href="https://help.sap.com/viewer/4fe29514fd584807ac9f2a04f6754767/1.0.12/en-US/20d7e172751910148bccb49de92d9859.html">DROP SYNONYM Statement (Data Definition)</a>
    */
   @Override
-  public boolean execute(Connection connection, XSKDataStructureHDBSynonymModel synonymModel) {
-	  for (Map.Entry<String, XSKHDBSYNONYMDefinitionModel> entry : synonymModel.getSynonymDefinitions().entrySet()) {
+  public boolean execute(Connection connection, HDBSynonymDataStructureModel synonymModel) {
+	  for (Map.Entry<String, HDBSynonymDefinitionModel> entry : synonymModel.getSynonymDefinitions().entrySet()) {
 
-	      String synonymName = (entry.getValue().getSynonymSchema() != null) ? XSKHDBUtils.escapeArtifactName(entry.getKey(), entry.getValue().getSynonymSchema())
-	          : XSKHDBUtils.escapeArtifactName(entry.getKey());
+	      String synonymName = (entry.getValue().getSynonymSchema() != null) ? HDBUtils.escapeArtifactName(entry.getKey(), entry.getValue().getSynonymSchema())
+	          : HDBUtils.escapeArtifactName(entry.getKey());
 	      try {
 	        if (SqlFactory.getNative(connection).exists(connection, entry.getValue().getSynonymSchema(), entry.getKey(), DatabaseArtifactTypes.SYNONYM)) {
 	          String sql = SqlFactory.getNative(connection).drop().synonym(synonymName).build();
@@ -57,8 +56,8 @@ public class HDBSynonymDropProcessor extends AbstractXSKProcessor<XSKDataStructu
 	                "Drop synonym [" + synonymName + "] successfully");
 	          } catch (SQLException ex) {
 	            String errorMessage = "Drop synonym [" + synonymName + "] skipped due to an error: " + ex.getMessage();
-	            XSKCommonsUtils.logProcessorErrors(ex.getMessage(), XSKCommonsConstants.PROCESSOR_ERROR, synonymModel.getLocation(),
-	                XSKCommonsConstants.HDB_SYNONYM_PARSER);
+	            CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, synonymModel.getLocation(),
+	                CommonsConstants.HDB_SYNONYM_PARSER);
 	            applyArtefactState(synonymName, synonymModel.getLocation(), SYNONYM_ARTEFACT, ArtefactState.FAILED_DELETE, errorMessage);
 	            return false;
 	          }

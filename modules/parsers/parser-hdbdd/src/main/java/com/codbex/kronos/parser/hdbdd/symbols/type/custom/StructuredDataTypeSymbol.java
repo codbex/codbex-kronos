@@ -15,7 +15,6 @@ import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
 import com.codbex.kronos.parser.hdbdd.symbols.context.Scope;
 import com.codbex.kronos.parser.hdbdd.symbols.type.Type;
 import com.codbex.kronos.parser.hdbdd.symbols.type.field.FieldSymbol;
-
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;

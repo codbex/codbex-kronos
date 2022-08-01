@@ -11,6 +11,7 @@
  */
 package com.codbex.kronos.synchronizer;
 
+import com.codbex.kronos.utils.CommonsConstants;
 import org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizer;
 import org.eclipse.dirigible.core.scheduler.api.IOrderedSynchronizerContribution;
 import org.eclipse.dirigible.core.scheduler.api.SynchronizationException;
@@ -18,9 +19,6 @@ import org.eclipse.dirigible.engine.js.graalvm.processor.GraalVMJavascriptEngine
 import org.eclipse.dirigible.repository.api.IResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.codbex.kronos.utils.XSKCommonsConstants;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,18 +30,18 @@ public class XSJSLibSynchronizer extends AbstractSynchronizer implements IOrdere
 
   public static final String XSJSLIB_SYNCHRONIZER_STATE_TABLE_NAME = "PROCESSED_XSJSLIB_ARTEFACTS";
 
-  private final String targetLocation;
+  private final String targetRegistryPath;
 
   public XSJSLibSynchronizer() {
-    this(XSKCommonsConstants.XSK_REGISTRY_PUBLIC);
+    this(CommonsConstants.REGISTRY_PUBLIC);
   }
 
-  public XSJSLibSynchronizer(String targetLocation) {
-    this.targetLocation = targetLocation;
+  public XSJSLibSynchronizer(String targetRegistryPath) {
+    this.targetRegistryPath = targetRegistryPath;
   }
 
-  public static void forceSynchronization(String targetLocation) {
-    XSJSLibSynchronizer synchronizer = new XSJSLibSynchronizer(targetLocation);
+  public static void forceSynchronization(String targetRegistryPath) {
+    XSJSLibSynchronizer synchronizer = new XSJSLibSynchronizer(targetRegistryPath);
     synchronizer.setForcedSynchronization(true);
     try {
       synchronizer.synchronize();
@@ -56,7 +54,7 @@ public class XSJSLibSynchronizer extends AbstractSynchronizer implements IOrdere
     logger.trace("Synchronizing XSJSLibs...");
 
     Map<Object, Object> context = new HashMap<>();
-    context.put("targetRegistryPath", targetLocation);
+    context.put("targetRegistryPath", targetRegistryPath);
     context.put("stateTableName", XSJSLIB_SYNCHRONIZER_STATE_TABLE_NAME);
 
     GraalVMJavascriptEngineExecutor graalVMJavascriptEngineExecutor = new GraalVMJavascriptEngineExecutor();

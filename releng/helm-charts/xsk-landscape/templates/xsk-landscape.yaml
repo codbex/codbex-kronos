@@ -1,0 +1,160 @@
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ required "Missing secret name" .Values.hana.secretName }}
+type: Opaque
+stringData:
+  DIRIGIBLE_DATABASE_CUSTOM_DATASOURCES: HANA
+  DIRIGIBLE_DATABASE_DATASOURCE_NAME_DEFAULT: HANA
+  DIRIGIBLE_DATABASE_PROVIDER: custom
+  DIRIGIBLE_SCHEDULER_DATABASE_DRIVER: com.sap.db.jdbc.Driver
+  HANA_DRIVER: com.sap.db.jdbc.Driver
+  HANA_PASSWORD: {{ required "Missing HANA password" .Values.hana.password }}
+  HANA_URL: {{ required "Missing HANA url" .Values.hana.url }}
+  HANA_USERNAME: {{ required "Missing HANA username" .Values.hana.username }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ required "Missing secret name" .Values.xsuaa.secretName }}
+type: Opaque
+stringData:
+  url: {{ required "Missing XSUAA url" .Values.xsuaa.url }}
+  clientid: {{ required "Missing XSUAA clientId" .Values.xsuaa.clientId }}
+  clientsecret: {{ required "Missing XSUAA clientSecret" .Values.xsuaa.clientSecret }}
+  verificationkey: {{ required "Missing XSUAA verificationKey" .Values.xsuaa.verificationKey }}
+  xsappname: {{ required "Missing XSUAA verificationKey" .Values.xsuaa.xsappname }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ required "Missing deployment name" .Values.deployment.name }}
+  labels:
+    {{- include "kronos.labels" . | nindent 4 }}
+spec:
+  replicas: {{ required "Missing replica count" .Values.replicaCount }}
+  strategy:
+    type: {{ required "Missing deployment strategy type" .Values.deployment.strategyType }}
+  selector:
+    matchLabels:
+      {{- include "kronos.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "kronos.selectorLabels" . | nindent 8 }}
+    spec:
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      serviceAccountName: {{ include "kronos.serviceAccountName" . }}
+      containers:
+      - name: {{ required "Missing container name" .Values.deployment.containerName }}
+        image: {{ .Values.deployment.image }}
+        imagePullPolicy: {{ required "Missing application image pull policy" .Values.deployment.imagePullPolicy }}
+        envFrom:
+        - secretRef:
+            name: {{ required "Missing secret name" .Values.hana.secretName }}
+        - secretRef:
+            name: {{ required "Missing secret name" .Values.xsuaa.secretName }} 
+        env:
+        - name: DIRIGIBLE_THEME_DEFAULT
+          value: fiori
+        - name: DIRIGIBLE_HOST
+          value: https://{{ required "Missing release name" .Release.Name }}.apps.codbex.com
+        - name: SERVER_MAXHTTPHEADERSIZE
+          value: "48000"
+        volumeMounts:
+        - name: kronos-volume
+          mountPath: /usr/local/tomcat/target/dirigible/repository
+        ports:
+        - containerPort: 8080
+          name: kronos
+          protocol: TCP
+      volumes:
+      - name: kronos-volume
+        persistentVolumeClaim:
+          claimName: kronos-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    {{- include "kronos.labels" . | nindent 4 }}
+  name: kronos
+spec:
+  ports:
+  - name: kronos
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    {{- include "kronos.selectorLabels" . | nindent 6 }}
+  type: ClusterIP
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: kronos-claim
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: {{ required "Missing release name" .Release.Name }}
+spec:
+  gateways:
+  - kronos-landscape
+  hosts:
+  - {{ required "Missing release name" .Release.Name }}.apps.codbex.com
+  http:
+  - match:
+    - uri:
+        regex: /.*
+    route:
+    - destination:
+        host: kronos.{{ required "Missing release name" .Release.Name }}.svc.cluster.local
+        port:
+          number: 8080
+---
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: kronos-landscape
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - hosts:
+    - {{ required "Missing release name" .Release.Name }}.apps.codbex.com
+    port:
+      name: http
+      number: 80
+      protocol: HTTP
+    tls:
+      httpsRedirect: true
+  - hosts:
+    - {{ required "Missing release name" .Release.Name }}.apps.codbex.com
+    port:
+      name: https
+      number: 443
+      protocol: HTTPS
+    tls:
+      credentialName: wildcard-tls
+      mode: SIMPLE
+---
+apiVersion: dns.gardener.cloud/v1alpha1
+kind: DNSEntry
+metadata:
+  annotations:
+    dns.gardener.cloud/class: garden
+  name: {{ required "Missing release name" .Release.Name }}
+spec:
+  dnsName: "{{ required "Missing release name" .Release.Name }}.apps.codbex.com"
+  ttl: 600
+  targets:
+  - {{ required "Missing dnsentry target" .Values.dnsentry.targets }}

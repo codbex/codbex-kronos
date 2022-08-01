@@ -11,15 +11,13 @@
  */
 package com.codbex.kronos.api.test;
 
-import com.codbex.kronos.api.destination.CloudPlatformDestinationFacade;
-import com.codbex.kronos.api.destination.CloudPlatformKymaFacade;
-import com.codbex.kronos.api.destination.Destination;
 import com.sap.cloud.sdk.cloudplatform.CloudPlatformAccessor;
 import com.sap.cloud.sdk.cloudplatform.connectivity.AuthenticationType;
 import com.sap.cloud.sdk.cloudplatform.connectivity.DestinationAccessor;
 import com.sap.cloud.sdk.cloudplatform.connectivity.HttpClientAccessor;
 import com.sap.cloud.sdk.cloudplatform.connectivity.HttpDestination;
-
+import com.codbex.kronos.api.destination.CloudPlatformDestinationFacade;
+import com.codbex.kronos.api.destination.CloudPlatformKymaFacade;
 import io.vavr.control.Option;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -38,7 +36,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
-
+import com.codbex.kronos.api.destination.Destination;
 import java.net.URI;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

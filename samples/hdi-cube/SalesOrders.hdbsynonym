@@ -2,7 +2,7 @@
   "SalesOrdersTable": {
     "target": {
       "object": "hdi-cube::SalesOrdersTable",
-      "schema": "XSK_SAMPLES_HDI_CUBE"
+      "schema": "KRONOS_SAMPLES_HDI_CUBE"
     }
   }
 }

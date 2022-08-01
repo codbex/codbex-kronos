@@ -13,7 +13,6 @@ package com.codbex.kronos.parser.hdbdd.symbols.entity;
 
 import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
 import com.codbex.kronos.parser.hdbdd.symbols.context.Scope;
-
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;

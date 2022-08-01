@@ -11,9 +11,8 @@
  */
 package com.codbex.kronos.synchronizer;
 
-import org.junit.Test;
-
 import com.codbex.kronos.exceptions.XSJSLibArtefactCleanerSQLException;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 

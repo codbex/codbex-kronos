@@ -14,7 +14,6 @@ package com.codbex.kronos.parser.hdbdd.symbols;
 import com.codbex.kronos.parser.hdbdd.annotation.metadata.AnnotationObj;
 import com.codbex.kronos.parser.hdbdd.core.CdsParser.IdentifierContext;
 import com.codbex.kronos.parser.hdbdd.symbols.context.Scope;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;

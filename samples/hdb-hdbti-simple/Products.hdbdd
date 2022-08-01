@@ -1,6 +1,6 @@
 namespace hdb-hdbti-simple;
 
-@Schema: 'XSK_SAMPLES_HDB_HDBTI_SIMPLE'
+@Schema: 'KRONOS_SAMPLES_HDB_HDBTI_SIMPLE'
 
 context Products {
     entity  Orders{

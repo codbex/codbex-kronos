@@ -11,10 +11,10 @@
  */
 package com.codbex.kronos.parser.hdbdd.symbols.context;
 
+import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
+import org.jetbrains.annotations.Nullable;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
 
 public class ContextSymbol extends Symbol implements Scope {
 
@@ -40,7 +40,15 @@ public class ContextSymbol extends Symbol implements Scope {
   }
 
   @Override
+  @Nullable
   public Symbol resolve(String name) {
+    if (name.contains(".")) {
+      String[] identifiers = name.split("\\.");
+      Symbol outerContext = findSymbol(identifiers[0]);
+
+      return resolveByFullSymbolName(identifiers, outerContext);
+    }
+
     Symbol symbol = symbols.get(name);
     if (symbol != null) {
       return symbol;
@@ -61,5 +69,38 @@ public class ContextSymbol extends Symbol implements Scope {
   @Override
   public boolean isDuplicateName(String id) {
     return symbols.containsKey(id) || getName().equals(id);
+  }
+
+  private Symbol findSymbol(String name) {
+    Scope currentScope = this;
+    Symbol resolvedSymbol = this.getSymbols().get(name);
+    while (resolvedSymbol == null) {
+      if (currentScope instanceof CDSFileScope) {
+        return null;
+      }
+
+      currentScope = currentScope.getEnclosingScope();
+      resolvedSymbol = currentScope.resolve(name);
+    }
+
+    return resolvedSymbol;
+  }
+
+  private Symbol resolveByFullSymbolName(String[] contexts, Symbol outerContext) {
+    if (!(outerContext instanceof ContextSymbol)) {
+      return null;
+    }
+
+    Symbol resolvedSymbol = outerContext;
+
+    for (int i = 1; i < contexts.length; i++) {
+      resolvedSymbol = ((ContextSymbol) resolvedSymbol).getSymbols().get(contexts[i]);
+      if (resolvedSymbol == null) {
+        return null;
+      }
+    }
+
+    return resolvedSymbol;
+
   }
 }

@@ -1,1 +1,1 @@
-com.codbex.kronos.xsjob.ds.synchronizer.XSKJobSynchronizerPublisherHandler # XSK Job Synchronizer Publisher Handler
+com.codbex.kronos.xsjob.ds.synchronizer.JobSynchronizerPublisherHandler # Job Synchronizer Publisher Handler

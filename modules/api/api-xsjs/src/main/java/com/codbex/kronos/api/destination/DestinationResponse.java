@@ -11,8 +11,6 @@
  */
 package com.codbex.kronos.api.destination;
 
-import java.util.List;
-
 public class DestinationResponse {
 
   private Header[] headers;

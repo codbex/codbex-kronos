@@ -1,4 +1,4 @@
-namespace acme.db;
+namespace sap.db;
 
 @Schema: 'TEST_SCHEMA'
 

@@ -8,11 +8,11 @@ service {
     		navigates (
     			"BusinessPartner_To_N_BPRole" as "Roles");
 
-    entity "acme.test.odata.db.views::Etag" as "EtagAll"
+    entity "sap.test.odata.db.views::Etag" as "EtagAll"
         key ("KEY_00", "KEY_01")
         concurrencytoken;
 
-     entity "acme.test.odata.db.views::Etag" as "EtagAll"
+     entity "sap.test.odata.db.views::Etag" as "EtagAll"
         key ("KEY_00", "KEY_01")
         concurrencytoken ("NVARCHAR_01","INTEGER_02");
 }

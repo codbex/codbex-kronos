@@ -1,0 +1,53 @@
+# Default values for Kronos
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+install:
+  # Cluster builder option to enable Secret, ServiceAccount, ClusterStore, ClusterStack.
+  clusterBuilder: false
+  # Image builder is kpack configuration for a builder image.
+  imageBuilder: false
+  allInOne: false
+
+create:
+  # Image option kpack should build and manage.
+  image: false
+  # Name space for kpack deployment
+  namespace: default
+
+docker:
+  # Server is registry prefix for its corresponding registry.
+  server:
+  # Username registry user
+  username:
+  # Password for the docker user
+  password:
+  # Email for the docker user
+  email:
+  # Secret name for your corresponding registry
+  secretName: docker-registry-secret
+  # Service account that references the registry secret created above
+  serviceAccountName: docker-registry-service-account
+
+imageBuilder:
+  # Repository is tag in your registry
+  repository:
+  # Buildpack is buildpacks image
+  buildpack: ghcr.io/codbex/kronos-buildpacks-kyma
+
+image:
+  # Repository is registry where will build the image
+  repository:
+  # Source is your application source
+  source:
+  # Service account that references the registry secret
+  serviceAccountName: docker-registry-service-account
+
+clusterBuilder:
+  # Build image is used during build
+  buildImage: ghcr.io/codbex/kronos-buildpacks-stack-build-kyma:#{KronosVersion}#
+  # Run image is used during build
+  runImage: ghcr.io/codbex/kronos-buildpacks-stack-run-kyma:#{KronosVersion}#
+  # Service account that references the registry secret
+  serviceAccountName: docker-registry-service-account
+

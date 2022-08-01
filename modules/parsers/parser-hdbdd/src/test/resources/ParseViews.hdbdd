@@ -1,4 +1,4 @@
-namespace acme.db;
+namespace sap.db;
 
 @Schema: 'TEST_SCHEMA'
 
@@ -6,7 +6,7 @@ context ParseViews {
 
     // Basic view definition
     define view employees_view_basic as
-        select from "acme.db::ParseViews.employees" as EMP
+        select from "sap.db::ParseViews.employees" as EMP
         {
             "EMP"."ID" as "EmployeeID",
             "EMP"."NAME" as "EmployeeName",
@@ -17,47 +17,47 @@ context ParseViews {
 
     // View definition with join statements
     define view employees_view_with_join as
-        select from "acme.db::ParseViews.employees"
+        select from "sap.db::ParseViews.employees"
             join employee_roles as ER
-                on "ER"."ID" = "acme.db::ParseViews.employees"."ID"
+                on "ER"."ID" = "sap.db::ParseViews.employees"."ID"
             join employee_salaries as ES
-                on "ES"."ID" = "acme.db::ParseViews.employees"."ID"
+                on "ES"."ID" = "sap.db::ParseViews.employees"."ID"
         {
-          "acme.db::ParseViews.employees"."ID" as "EmployeeId",
-          "acme.db::ParseViews.employees"."NAME" as "EmployeeName",
+          "sap.db::ParseViews.employees"."ID" as "EmployeeId",
+          "sap.db::ParseViews.employees"."NAME" as "EmployeeName",
           "ER"."TYPE" as "EmployeeRoleType",
           "ES"."AMOUNT" as "EmployeeSalary"
         };
 
     // View definition with where statements
     define view employees_view_with_where as
-        select from "acme.db::ParseViews.employees"
+        select from "sap.db::ParseViews.employees"
             join employee_roles as ER
-                on "ER"."ID" = "acme.db::ParseViews.employees"."ID"
+                on "ER"."ID" = "sap.db::ParseViews.employees"."ID"
             join employee_salaries as ES
-                on "ES"."ID" = "acme.db::ParseViews.employees"."ID"
+                on "ES"."ID" = "sap.db::ParseViews.employees"."ID"
         {
-          "acme.db::ParseViews.employees"."ID" as "EmployeeId",
-          "acme.db::ParseViews.employees"."NAME" as "EmployeeName",
+          "sap.db::ParseViews.employees"."ID" as "EmployeeId",
+          "sap.db::ParseViews.employees"."NAME" as "EmployeeName",
           "ER"."TYPE" as "EmployeeRoleType",
           "ES"."AMOUNT" as "EmployeeSalary"
         }
-        where "acme.db::ParseViews.employees"."NAME" = 'John';
+        where "sap.db::ParseViews.employees"."NAME" = 'John';
 
     // View definition with union and distinct statements and dummy table
     define view employees_view_with_union as
-        select from "acme.db::ParseViews.employees"
+        select from "sap.db::ParseViews.employees"
             join employee_roles as ER
-                on "ER"."ID" = "acme.db::ParseViews.employees"."ID"
+                on "ER"."ID" = "sap.db::ParseViews.employees"."ID"
             join employee_salaries as ES
-                on "ES"."ID" = "acme.db::ParseViews.employees"."ID"
+                on "ES"."ID" = "sap.db::ParseViews.employees"."ID"
         {
-          "acme.db::ParseViews.employees"."ID" as "EmployeeId",
-          "acme.db::ParseViews.employees"."NAME" as "EmployeeName",
+          "sap.db::ParseViews.employees"."ID" as "EmployeeId",
+          "sap.db::ParseViews.employees"."NAME" as "EmployeeName",
           "ER"."TYPE" as "EmployeeRoleType",
           "ES"."AMOUNT" as "EmployeeSalary"
         }
-        where "acme.db::ParseViews.employees"."NAME" = 'John'
+        where "sap.db::ParseViews.employees"."NAME" = 'John'
         union
         select from DUMMY
         {
@@ -67,7 +67,7 @@ context ParseViews {
             '2200' as "EmployeeSalary"
         }
         union
-        select from "acme.db::ParseViews.employees" as "EMP"
+        select from "sap.db::ParseViews.employees" as "EMP"
         distinct
         {
             "EMP"."NAME as "EMPName"

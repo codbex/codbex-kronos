@@ -1,0 +1,14 @@
+{
+    "kronos_test_app::usersProcedure": {
+        "target": {
+            "object": "kronos_test_app::usersProcedure",
+            "schema": "KRONOS_TEST_APP"
+        }
+    },
+    "kronos_test_app::usersTable": {
+        "target": {
+            "object": "kronos_test_app::usersTable",
+            "schema": "KRONOS_TEST_APP"
+        }
+    }
+}

@@ -1,4 +1,4 @@
-namespace acme.table;
+namespace sap.table;
 
 entity Test {
   Key GSTIN       : hana.VARCHAR(25);
