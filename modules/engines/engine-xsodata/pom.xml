@@ -150,6 +150,11 @@
             <version>${commons-dbcp2.version}</version>
             <scope>test</scope>
         </dependency>
+      <dependency>
+        <groupId>org.jetbrains</groupId>
+        <artifactId>annotations</artifactId>
+        <version>23.0.0</version>
+      </dependency>
     </dependencies>
 
     <build>
