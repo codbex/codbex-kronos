@@ -51,8 +51,8 @@ _**To learn more go to: https://www.xsk.io**_
 ## Download and Installation
 
 ```
-git clone https://github.com/codbex/kronos
-cd kronos
+git clone https://github.com/codbex/codbex-kronos
+cd codbex-kronos
 mvn clean install
 ```
 
@@ -80,19 +80,19 @@ mvn clean install
 
 - What about the ops aspects - will Kronos be smoothly integrated into a state-of-the-art lifecycle and ops management (be it SAP-based or non-SAP based like GitHub Actions?
 
-  > Yes, the Kronos itself uses [GitHub actions](https://github.com/codbex/kronos/actions) for CI/CD
+  > Yes, the Kronos itself uses [GitHub actions](https://github.com/codbex/codbex-kronos/actions) for CI/CD
 
 - Will there be limitations that will not be mitigated?
 
-  > You can get the up-to-date list of covered [features](https://github.com/codbex/kronos/wiki/Readiness) as well as the [limitations](https://github.com/codbex/kronos/wiki/Limitations)
+  > You can get the up-to-date list of covered [features](https://github.com/codbex/codbex-kronos/wiki/Readiness) as well as the [limitations](https://github.com/codbex/codbex-kronos/wiki/Limitations)
 
 ## Cheat Sheet
 
-Visit the cheat sheet [here](https://github.com/codbex/kronos/wiki/Cheat-Sheet).
+Visit the cheat sheet [here](https://github.com/codbex/codbex-kronos/wiki/Cheat-Sheet).
 
 ## Readiness
 
-Visit the readiness page [here](https://github.com/codbex/kronos/wiki/Readiness).
+Visit the readiness page [here](https://github.com/codbex/codbex-kronos/wiki/Readiness).
 
 ## How to obtain support
 
