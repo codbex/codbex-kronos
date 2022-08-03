@@ -5,7 +5,7 @@
 # Project Kronos
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![GitHub contributors](https://img.shields.io/github/contributors/codbex/kronos.svg)](https://github.com/codbex/codbex-kronos/graphs/contributors)
+[![GitHub contributors](https://img.shields.io/github/contributors/codbex/codbex-kronos.svg)](https://github.com/codbex/codbex-kronos/graphs/contributors)
 
 
 ## Description
