@@ -20,13 +20,13 @@ import org.eclipse.dirigible.core.scheduler.service.definition.JobDefinition;
 
 public class XSJSLibSynchronizerJob extends AbstractSynchronizerJob implements IJobDefinitionProvider {
 
-  private static final String KRONOS_XSJSLIB_SYNCHRONIZER_JOB_NAME = "Kronos XSJSLib Synchronizer Job";
+  private static final String XSJSLIB_SYNCHRONIZER_JOB = "Kronos XSJSLib Synchronizer Job";
   private static final String KRONOS_JOB_EXPRESSION_XSJSLIB = "KRONOS_JOB_EXPRESSION_XSJSLIB";
   private static final String KRONOS_XSJSLIB_SYNCHRONIZER_JOB = "kronos-xsjslib-synchronizer-job";
 
   @Override
   public String getName() {
-    return KRONOS_XSJSLIB_SYNCHRONIZER_JOB_NAME;
+    return XSJSLIB_SYNCHRONIZER_JOB;
   }
 
   @Override
@@ -40,7 +40,7 @@ public class XSJSLibSynchronizerJob extends AbstractSynchronizerJob implements I
     jobDefinition.setName(KRONOS_XSJSLIB_SYNCHRONIZER_JOB);
     jobDefinition.setGroup(ISchedulerCoreService.JOB_GROUP_INTERNAL);
     jobDefinition.setClazz(XSJSLibSynchronizerJob.class.getCanonicalName());
-    jobDefinition.setDescription(KRONOS_XSJSLIB_SYNCHRONIZER_JOB_NAME);
+    jobDefinition.setDescription(XSJSLIB_SYNCHRONIZER_JOB);
     jobDefinition.setExpression(Configuration.get(KRONOS_JOB_EXPRESSION_XSJSLIB, "0/55 * * * * ?"));
     jobDefinition.setSingleton(true);
     return jobDefinition;

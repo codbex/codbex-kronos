@@ -11,12 +11,13 @@
  */
 package com.codbex.kronos.xsaccess.ds.model.privilege;
 
-import com.codbex.kronos.xsaccess.ds.api.IPrivilegeCoreService;
 import java.sql.Timestamp;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.codbex.kronos.xsaccess.ds.api.IPrivilegeCoreService;
 
 @Table(name = IPrivilegeCoreService.PRIVILEGES_TABLE_NAME)
 public class PrivilegeDefinition {

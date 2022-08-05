@@ -21,7 +21,7 @@ import org.junit.Test;
 import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.hdb.ds.model.DBContentType;
 import com.codbex.kronos.hdb.ds.model.DataStructureModelFactory;
-import com.codbex.kronos.hdb.ds.model.hdbview.HDBViewDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbview.DataStructureHDBViewModel;
 
 public class ViewParserTest extends AbstractDirigibleTest {
 
@@ -29,7 +29,7 @@ public class ViewParserTest extends AbstractDirigibleTest {
     public void parseHanaXSClassicContentSuccessfully() throws Exception {
         String hdbviewSample = org.apache.commons.io.IOUtils
                 .toString(ViewParserTest.class.getResourceAsStream("/ItemsByOrderHANAv1.hdbview"), StandardCharsets.UTF_8);
-        HDBViewDataStructureModel model = DataStructureModelFactory.parseView("/ItemsByOrderHANAv1.hdbview", hdbviewSample);
+        DataStructureHDBViewModel model = DataStructureModelFactory.parseView("/ItemsByOrderHANAv1.hdbview", hdbviewSample);
         assertEquals("MYSCHEMA", model.getSchema());
         assertEquals(2, model.getDependsOn().size());
         assertEquals("acme.com.test.tables::MY_TABLE1", model.getDependsOn().get(0));
@@ -57,7 +57,7 @@ public class ViewParserTest extends AbstractDirigibleTest {
     public void parseHanaXSAdvancedContentSuccessfully() throws Exception {
         String hdbviewSample = org.apache.commons.io.IOUtils
                 .toString(ViewParserTest.class.getResourceAsStream("/ItemsByOrderHANAv2.hdbview"), StandardCharsets.UTF_8);
-        HDBViewDataStructureModel model = DataStructureModelFactory.parseView("hdb_view/db/ItemsByOrderHANAv2.hdbview", hdbviewSample);
+        DataStructureHDBViewModel model = DataStructureModelFactory.parseView("hdb_view/db/ItemsByOrderHANAv2.hdbview", hdbviewSample);
         assertEquals(DBContentType.OTHERS, model.getDBContentType());
         assertEquals(hdbviewSample, model.getRawContent());
     }
@@ -65,7 +65,7 @@ public class ViewParserTest extends AbstractDirigibleTest {
     @Test
     public void parseHanaXSAdvancedContentNoQuotesSuccessfully() throws Exception {
         String content = " view toni AS SELECT OD_NAME FROM KRONOS_ODATA";
-        HDBViewDataStructureModel model = DataStructureModelFactory.parseView("hdb_view/db/ItemsByOrderHANAv2.hdbview", content);
+        DataStructureHDBViewModel model = DataStructureModelFactory.parseView("hdb_view/db/ItemsByOrderHANAv2.hdbview", content);
         assertEquals(DBContentType.OTHERS, model.getDBContentType());
         assertEquals(content, model.getRawContent());
     }

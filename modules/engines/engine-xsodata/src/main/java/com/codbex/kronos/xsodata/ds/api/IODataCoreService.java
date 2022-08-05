@@ -11,9 +11,9 @@
  */
 package com.codbex.kronos.xsodata.ds.api;
 
-import com.codbex.kronos.xsodata.ds.model.ODataModel;
-
 import java.util.List;
+
+import com.codbex.kronos.xsodata.ds.model.ODataModel;
 
 /**
  * The OData Core Service interface.
@@ -26,44 +26,44 @@ public interface IODataCoreService {
      * @param name     the name
      * @param hash     the hash
      * @return the data structure odata model
-     * @throws KronosODataException the data structures exception
+     * @throws ODataException the data structures exception
      */
-    ODataModel createOData(String location, String name, String hash) throws KronosODataException;
+    ODataModel createOData(String location, String name, String hash) throws ODataException;
 
     /**
      * Gets the odata.
      *
      * @param location the location
      * @return the odata
-     * @throws KronosODataException the data structures exception
+     * @throws ODataException the data structures exception
      */
-    ODataModel getOData(String location) throws KronosODataException;
+    ODataModel getOData(String location) throws ODataException;
 
     /**
      * Gets the odata by name.
      *
      * @param name the name
      * @return the odata by name
-     * @throws KronosODataException the data structures exception
+     * @throws ODataException the data structures exception
      */
-    ODataModel getODataByName(String name) throws KronosODataException;
+    ODataModel getODataByName(String name) throws ODataException;
 
     /**
      * Exists odata.
      *
      * @param location the location
      * @return true, if successful
-     * @throws KronosODataException the data structures exception
+     * @throws ODataException the data structures exception
      */
-    boolean existsOData(String location) throws KronosODataException;
+    boolean existsOData(String location) throws ODataException;
 
     /**
      * Removes the odata.
      *
      * @param location the location
-     * @throws KronosODataException the data structures exception
+     * @throws ODataException the data structures exception
      */
-    void removeOData(String location) throws KronosODataException;
+    void removeOData(String location) throws ODataException;
 
     /**
      * Update odata.
@@ -71,17 +71,17 @@ public interface IODataCoreService {
      * @param location the location
      * @param name     the name
      * @param hash     the hash
-     * @throws KronosODataException the data structures exception
+     * @throws ODataException the data structures exception
      */
-    void updateOData(String location, String name, String hash) throws KronosODataException;
+    void updateOData(String location, String name, String hash) throws ODataException;
 
     /**
      * Gets all odata records.
      *
      * @return list of odata
-     * @throws KronosODataException the data structures exception
+     * @throws ODataException the data structures exception
      */
-    List<ODataModel> getAllODataRecords() throws KronosODataException;
+    List<ODataModel> getAllODataRecords() throws ODataException;
 
     /**
      * Parses the odata.

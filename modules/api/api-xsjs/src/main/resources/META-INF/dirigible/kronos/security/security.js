@@ -44,21 +44,23 @@ exports.Store = function (filePath) {
     this.removeForUser = function(removeObject) {
         com.codbex.kronos.xssecurestore.ds.facade.SecureStoreFacade.removeForUser(filePath, removeObject.name);
     }
-
 }
+
 exports.crypto = function (){
     return new XSCrypto()
 
 }
-class XSCrypto{
-    md5 = function (data,key){
-        return com.codbex.kronos.xssecurestore.ds.facade.SecureCryptoFacade.md5(data,key);
+
+class XSCrypto {
+    CryptoFacade = Java.type("com.codbex.kronos.xssecurestore.ds.facade.SecureCryptoFacade");
+
+    md5(data,key){
+        return this.CryptoFacade.md5(data,key);
     }
-    sha1 = function (data,key){
-        return com.codbex.kronos.xssecurestore.ds.facade.SecureCryptoFacade.sha1(data,key);
+    sha1(data,key){
+        return this.CryptoFacade.sha1(data,key);
     }
-    sha256 = function (data,key){
-        return com.codbex.kronos.xssecurestore.ds.facade.SecureCryptoFacade.sha256(data,key);
+    sha256(data,key){
+        return this.CryptoFacade.sha256(data,key);
     }
 }
-

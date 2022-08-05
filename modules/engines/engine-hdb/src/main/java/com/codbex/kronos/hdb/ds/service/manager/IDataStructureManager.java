@@ -13,6 +13,7 @@ package com.codbex.kronos.hdb.ds.service.manager;
 
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.hdb.ds.model.DataStructureModel;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -30,7 +31,8 @@ public interface IDataStructureManager<T extends DataStructureModel> {
 
   boolean dropDataStructure(Connection connection, T tableModel) throws SQLException;
 
-  boolean updateDataStructure(Connection connection, T tableModel) throws SQLException, OperationNotSupportedException;
+  boolean updateDataStructure(Connection connection, T tableModel)
+      throws SQLException, OperationNotSupportedException;
 
   List<String> getDataStructureSynchronized();
 

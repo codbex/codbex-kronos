@@ -19,13 +19,6 @@
 
 package com.codbex.kronos.ndb.bimodelcalculation;
 
-import com.codbex.kronos.ndb.basemodelbase.NameValuePair;
-import com.codbex.kronos.ndb.bimodelcube.MeasureGroup;
-import com.codbex.kronos.ndb.bimodeldatafoundation.InformationModel;
-import com.codbex.kronos.ndb.bimodeldatafoundation.Layout;
-import com.codbex.kronos.ndb.bimodeldimension.Hierarchy;
-import com.codbex.kronos.ndb.datamodelentity.DataCategory;
-import com.codbex.kronos.ndb.datamodelentity.DimensionType;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -35,6 +28,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.codbex.kronos.ndb.basemodelbase.NameValuePair;
+import com.codbex.kronos.ndb.bimodelcube.MeasureGroup;
+import com.codbex.kronos.ndb.bimodeldatafoundation.InformationModel;
+import com.codbex.kronos.ndb.bimodeldatafoundation.Layout;
+import com.codbex.kronos.ndb.bimodeldimension.Hierarchy;
+import com.codbex.kronos.ndb.datamodelentity.DataCategory;
+import com.codbex.kronos.ndb.datamodelentity.DimensionType;
 
 
 /**

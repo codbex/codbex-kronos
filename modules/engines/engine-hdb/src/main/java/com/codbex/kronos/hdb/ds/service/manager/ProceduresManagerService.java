@@ -11,12 +11,13 @@
  */
 package com.codbex.kronos.hdb.ds.service.manager;
 
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.api.IHDBProcessor;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
-import com.codbex.kronos.hdb.ds.model.hdbprocedure.HDBProcedureDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbprocedure.DataStructureHDBProcedureModel;
 import com.codbex.kronos.hdb.ds.processors.hdbprocedure.HDBProcedureCreateProcessor;
 import com.codbex.kronos.hdb.ds.processors.hdbprocedure.HDBProcedureDropProcessor;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,12 +29,12 @@ import javax.naming.OperationNotSupportedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ProceduresManagerService extends AbstractDataStructureManagerService<HDBProcedureDataStructureModel> {
+public class ProceduresManagerService extends AbstractDataStructureManagerService<DataStructureHDBProcedureModel> {
 
   private static final Logger logger = LoggerFactory.getLogger(ProceduresManagerService.class);
 
 
-  private final Map<String, HDBProcedureDataStructureModel> dataStructureProceduresModels;
+  private final Map<String, DataStructureHDBProcedureModel> dataStructureProceduresModels;
   private final List<String> proceduresSynchronized;
 
   private IHDBProcessor hdbProcedureDropProcessor = new HDBProcedureDropProcessor();
@@ -45,7 +46,7 @@ public class ProceduresManagerService extends AbstractDataStructureManagerServic
   }
 
   @Override
-  public void synchronizeRuntimeMetadata(HDBProcedureDataStructureModel hdbProcedureModel) throws DataStructuresException {
+  public void synchronizeRuntimeMetadata(DataStructureHDBProcedureModel hdbProcedureModel) throws DataStructuresException {
     // TODO: ommit double calling of finding the hdbProcedure by extracting it in
     // variable
     // String schemaNameConcatProcedureName = hdbProcedure.getSchemaName() + "." +
@@ -58,7 +59,7 @@ public class ProceduresManagerService extends AbstractDataStructureManagerServic
       logger.info("Synchronized a new HDB Procedure file [{}] from location: {}", hdbProcedureModel.getName(),
           hdbProcedureModel.getLocation());
     } else {
-      HDBProcedureDataStructureModel existing = getDataStructuresCoreService()
+      DataStructureHDBProcedureModel existing = getDataStructuresCoreService()
           .getDataStructure(hdbProcedureModel.getLocation(), hdbProcedureModel.getType());
       if (!hdbProcedureModel.equals(existing)) {
         getDataStructuresCoreService()
@@ -75,19 +76,19 @@ public class ProceduresManagerService extends AbstractDataStructureManagerServic
   }
 
   @Override
-  public boolean createDataStructure(Connection connection, HDBProcedureDataStructureModel viewModel)
+  public boolean createDataStructure(Connection connection, DataStructureHDBProcedureModel viewModel)
       throws SQLException {
 	return this.hdbProcedureCreateProcessor.execute(connection, viewModel);
   }
 
   @Override
-  public boolean dropDataStructure(Connection connection, HDBProcedureDataStructureModel viewModel)
+  public boolean dropDataStructure(Connection connection, DataStructureHDBProcedureModel viewModel)
       throws SQLException {
 	return this.hdbProcedureDropProcessor.execute(connection, viewModel);
   }
 
   @Override
-  public boolean updateDataStructure(Connection connection, HDBProcedureDataStructureModel viewModel)
+  public boolean updateDataStructure(Connection connection, DataStructureHDBProcedureModel viewModel)
       throws OperationNotSupportedException {
     throw new OperationNotSupportedException();
   }
@@ -99,7 +100,7 @@ public class ProceduresManagerService extends AbstractDataStructureManagerServic
 
   @Override
   public String getDataStructureType() {
-    return HDBDataStructureModel.FILE_EXTENSION_HDBPROCEDURE;
+    return IDataStructureModel.FILE_EXTENSION_HDBPROCEDURE;
   }
 
   @Override
@@ -108,7 +109,7 @@ public class ProceduresManagerService extends AbstractDataStructureManagerServic
   }
 
   @Override
-  public Map<String, HDBProcedureDataStructureModel> getDataStructureModels() {
+  public Map<String, DataStructureHDBProcedureModel> getDataStructureModels() {
     return Collections.unmodifiableMap(this.dataStructureProceduresModels);
   }
 }

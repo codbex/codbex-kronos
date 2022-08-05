@@ -24,9 +24,9 @@ import org.eclipse.dirigible.repository.local.LocalResource;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.codbex.kronos.hdb.ds.itest.AbstractHDBITTest;
-import com.codbex.kronos.hdb.ds.itest.module.HDBTestModule;
-import com.codbex.kronos.hdb.ds.itest.utils.HanaITestUtils;
+import com.codbex.kronos.hdb.ds.AbstractHDBITTest;
+import com.codbex.kronos.integration.tests.core.hdb.module.HDBTestModule;
+import com.codbex.kronos.integration.tests.core.hdb.utils.HanaITestUtils;
 import com.codbex.kronos.utils.Constants;
 
 public class HDBTableTypeParserHanaITTest extends AbstractHDBITTest {

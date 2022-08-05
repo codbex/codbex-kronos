@@ -11,8 +11,9 @@
  */
 package com.codbex.kronos.parser.hdbsequence.models;
 
-import com.google.gson.annotations.SerializedName;
 import com.codbex.kronos.parser.hdbsequence.utils.HDBSequenceConstants;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;

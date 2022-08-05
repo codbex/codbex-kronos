@@ -11,12 +11,13 @@
  */
 package com.codbex.kronos.hdi.parser;
 
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonSyntaxException;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
-import com.codbex.kronos.hdb.ds.model.hdi.HDIDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdi.DataStructureHDIModel;
 import com.codbex.kronos.hdb.ds.parser.hdi.HDIParser;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSyntaxException;
+
 import org.junit.Test;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -33,7 +34,7 @@ public class HDIParserTest {
 
     DataStructureParametersModel parametersModel =
         new DataStructureParametersModel(null, location, content, null);
-    HDIDataStructureModel model = new HDIParser().parse(parametersModel);
+    DataStructureHDIModel model = new HDIParser().parse(parametersModel);
     assertEquals("/hdi-ext/config.hdiconfig", model.getConfiguration());
     assertEquals(new String[]{"DBADMIN"}, model.getUsers());
     assertEquals("/hdi-ext/config.hdiconfig", model.getConfiguration());

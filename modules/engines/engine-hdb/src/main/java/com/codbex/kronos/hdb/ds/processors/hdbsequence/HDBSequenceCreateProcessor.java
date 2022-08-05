@@ -12,12 +12,13 @@
 package com.codbex.kronos.hdb.ds.processors.hdbsequence;
 
 import com.codbex.kronos.hdb.ds.artefacts.HDBSequenceSynchronizationArtefactType;
-import com.codbex.kronos.hdb.ds.model.hdbsequence.HDBSequenceDataStructureModel;
-import com.codbex.kronos.hdb.ds.processors.AbstractProcessor;
+import com.codbex.kronos.hdb.ds.model.hdbsequence.DataStructureHDBSequenceModel;
+import com.codbex.kronos.hdb.ds.processors.AbstractHDBProcessor;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.utils.Constants;
 import com.codbex.kronos.utils.HDBUtils;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import org.eclipse.dirigible.core.scheduler.api.ISynchronizerArtefactType.ArtefactState;
@@ -27,14 +28,14 @@ import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HDBSequenceCreateProcessor extends AbstractProcessor<HDBSequenceDataStructureModel> {
+public class HDBSequenceCreateProcessor extends AbstractHDBProcessor<DataStructureHDBSequenceModel> {
 
 
   private static final Logger logger = LoggerFactory.getLogger(HDBSequenceCreateProcessor.class);
   private static final HDBSequenceSynchronizationArtefactType SEQUENCE_ARTEFACT = new HDBSequenceSynchronizationArtefactType();
 
   @Override
-  public boolean execute(Connection connection, HDBSequenceDataStructureModel hdbSequenceModel) throws SQLException {
+  public boolean execute(Connection connection, DataStructureHDBSequenceModel hdbSequenceModel) throws SQLException {
     String hdbSequenceName = HDBUtils.escapeArtifactName(hdbSequenceModel.getName(), hdbSequenceModel.getSchema());
     logger.info("Processing Create HdbSequence: " + hdbSequenceName);
     String sql = null;
@@ -74,7 +75,7 @@ public class HDBSequenceCreateProcessor extends AbstractProcessor<HDBSequenceDat
     }
   }
 
-  private String getDatabaseSpecificSQL(Connection connection, HDBSequenceDataStructureModel hdbSequenceModel,
+  private String getDatabaseSpecificSQL(Connection connection, DataStructureHDBSequenceModel hdbSequenceModel,
       String hdbSequenceName) {
     return SqlFactory.getNative(connection).create().sequence(hdbSequenceName)
         .start(hdbSequenceModel.getStartWith())

@@ -11,15 +11,16 @@
  */
 package com.codbex.kronos.parser.hdbsequence.custom;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import com.codbex.kronos.parser.hdbsequence.core.HdbsequenceBaseVisitor;
 import com.codbex.kronos.parser.hdbsequence.core.HdbsequenceParser;
 import com.codbex.kronos.parser.hdbsequence.core.HdbsequenceParser.DependsOnTableContext;
 import com.codbex.kronos.parser.hdbsequence.core.HdbsequenceParser.DependsOnViewContext;
 import com.codbex.kronos.parser.hdbsequence.exceptions.HDBSequenceDuplicatePropertyException;
 import com.codbex.kronos.parser.hdbsequence.utils.HDBSequenceConstants;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTree;
 

@@ -21,6 +21,6 @@ public interface IODataModel {
     /**
      * Type OData
      */
-    String TYPE_ODATA = "XSOData";
+    String TYPE_ODATA = "XSODATA";
 
 }

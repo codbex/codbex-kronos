@@ -11,13 +11,15 @@
  */
 package com.codbex.kronos.integration.tests.core.client.http.local;
 
-import com.codbex.kronos.integration.tests.core.client.http.HttpClient;
-import com.codbex.kronos.integration.tests.core.client.http.HttpClientException;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
 import org.apache.http.impl.nio.client.HttpAsyncClients;
+
+import com.codbex.kronos.integration.tests.core.client.http.HttpClient;
+import com.codbex.kronos.integration.tests.core.client.http.HttpClientException;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.concurrent.CompletableFuture;
@@ -47,7 +49,7 @@ public class LocalHttpClient extends HttpClient {
     try {
       var uri = new URI("http://localhost:8080/services/v4/web/ide/");
       HttpUriRequest request = RequestBuilder.get(uri).build();
-      return this.executeRequestAsync(request)
+      return this.executeRequestAsyncWithCallbackFuture(request)
           .thenCompose(x -> {
             try {
               var jsecurityUri = new URI("http://localhost:8080/services/v4/web/ide/j_security_check");
@@ -56,7 +58,7 @@ public class LocalHttpClient extends HttpClient {
                   .addParameter("j_username", "dirigible")
                   .addParameter("j_password", "dirigible")
                   .build();
-              return this.executeRequestAsync(loginRequest);
+              return this.executeRequestAsyncWithCallbackFuture(loginRequest);
             } catch (URISyntaxException e) {
               throw new RuntimeException(e);
             }

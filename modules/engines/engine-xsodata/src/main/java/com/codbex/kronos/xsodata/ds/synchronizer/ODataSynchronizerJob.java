@@ -36,7 +36,7 @@ public class ODataSynchronizerJob extends AbstractSynchronizerJob {
    */
   @Override
   public String getName() {
-    return ODataSynchronizerJobDefinitionProvider.KRONOS_ODATA_SYNCHRONIZER_JOB_NAME;
+    return ODataSynchronizerJobDefinitionProvider.ODATA_SYNCHRONIZER_JOB;
   }
 
 }

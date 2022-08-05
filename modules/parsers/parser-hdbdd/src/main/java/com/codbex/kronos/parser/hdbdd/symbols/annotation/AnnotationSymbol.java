@@ -11,10 +11,11 @@
  */
 package com.codbex.kronos.parser.hdbdd.symbols.annotation;
 
-import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
-import com.codbex.kronos.parser.hdbdd.symbols.context.Scope;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
+import com.codbex.kronos.parser.hdbdd.symbols.context.Scope;
 
 public class AnnotationSymbol extends Symbol implements Scope {
     private Map<String, Symbol> elements = new HashMap<>();

@@ -12,11 +12,12 @@
 package com.codbex.kronos.hdb.ds.processors.hdbschema;
 
 import com.codbex.kronos.hdb.ds.artefacts.HDBSchemaSynchronizationArtefactType;
-import com.codbex.kronos.hdb.ds.model.hdbschema.HDBSchemaDataStructureModel;
-import com.codbex.kronos.hdb.ds.processors.AbstractProcessor;
+import com.codbex.kronos.hdb.ds.model.hdbschema.DataStructureHDBSchemaModel;
+import com.codbex.kronos.hdb.ds.processors.AbstractHDBProcessor;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.utils.HDBUtils;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import org.eclipse.dirigible.core.scheduler.api.ISynchronizerArtefactType.ArtefactState;
@@ -27,12 +28,12 @@ import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HDBSchemaCreateProcessor extends AbstractProcessor<HDBSchemaDataStructureModel> {
+public class HDBSchemaCreateProcessor extends AbstractHDBProcessor<DataStructureHDBSchemaModel> {
 
   private static final Logger logger = LoggerFactory.getLogger(HDBSchemaCreateProcessor.class);
   private static final HDBSchemaSynchronizationArtefactType SCHEMA_ARTEFACT = new HDBSchemaSynchronizationArtefactType();
 
-  public boolean execute(Connection connection, HDBSchemaDataStructureModel hdbSchema) throws SQLException {
+  public boolean execute(Connection connection, DataStructureHDBSchemaModel hdbSchema) throws SQLException {
     logger.info("Processing Create Schema: " + hdbSchema.getSchema());
 
     ISqlDialect dialect = SqlFactory.deriveDialect(connection);

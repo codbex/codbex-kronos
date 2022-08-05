@@ -15,7 +15,7 @@
 var database = require('db/v4/database');
 const TYPE_CONVERTER = require('kronos/db/sqlToXSCColumnTypeConverter');
 
-exports.getConnection = function () {
+function getConnection() {
 	var dConnection = database.getConnection();
 	return new XscConnection(dConnection);
 };
@@ -208,7 +208,9 @@ function XscCallableStatement(callableStatement) {
 	};
 }
 
-function XscConnection (dConnection) {
+function XscConnection(dConnection) {
+	dConnection.setAutoCommit(false);
+	
 	this.close = function () {
 		dConnection.close();
 	};
@@ -241,7 +243,6 @@ function XscConnection (dConnection) {
 		return dConnection.getAutoCommit();
 	};
 }
-exports.XscConnection = XscConnection;
 
 // ParameterMetaData should be provided in Dirigible API
 function XscParameterMetaData(dParameterMetaData) {
@@ -575,8 +576,10 @@ function SQLException() {
 
 }
 
+exports.getConnection = getConnection;
 exports.CallableStatement = XscCallableStatement;
 exports.Connection = XscConnection;
+exports.XscConnection = XscConnection;
 exports.ParameterMetaData = XscParameterMetaData;
 exports.PreparedStatement = XscPreparedStatement;
 exports.ResultSet = XscResultSet;

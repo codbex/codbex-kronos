@@ -12,9 +12,10 @@
 package com.codbex.kronos.hdb.ds.processors.hdi;
 
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
-import com.codbex.kronos.hdb.ds.model.hdi.HDIDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdi.DataStructureHDIModel;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -32,18 +33,48 @@ public class HDIContainerCreateProcessor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(HDIContainerCreateProcessor.class);
 
-  private final GrantPrivilegesContainerGroupAPIProcessor grantPrivilegesContainerGroupAPIProcessor = new GrantPrivilegesContainerGroupAPIProcessor();
-  private final CreateContainerGroupProcessor createContainerGroupProcessor = new CreateContainerGroupProcessor();
-  private final GrantPrivilegesContainerGroupProcessor grantPrivilegesContainerGroupProcessor = new GrantPrivilegesContainerGroupProcessor();
-  private final CreateContainerProcessor createContainerProcessor = new CreateContainerProcessor();
-  private final GrantPrivilegesContainerAPIProcessor grantPrivilegesContainerAPIProcessor = new GrantPrivilegesContainerAPIProcessor();
-  private final WriteContainerContentProcessor writeContainerContentProcessor = new WriteContainerContentProcessor();
-  private final ConfigureLibrariesProcessor configureLibrariesProcessor = new ConfigureLibrariesProcessor();
-  private final DeployContainerContentProcessor deployContainerContentProcessor = new DeployContainerContentProcessor();
-  private final GrantPrivilegesContainerSchemaProcessor grantPrivilegesContainerSchemaProcessor = new GrantPrivilegesContainerSchemaProcessor();
-  private final GrantPrivilegesExternalArtifactsSchemaProcessor grantPrivilegesExternalArtifactsSchemaProcessor = new GrantPrivilegesExternalArtifactsSchemaProcessor();
+  private final GrantPrivilegesContainerGroupAPIProcessor grantPrivilegesContainerGroupAPIProcessor;
+  private final CreateContainerGroupProcessor createContainerGroupProcessor;
+  private final GrantPrivilegesContainerGroupProcessor grantPrivilegesContainerGroupProcessor;
+  private final CreateContainerProcessor createContainerProcessor;
+  private final GrantPrivilegesContainerAPIProcessor grantPrivilegesContainerAPIProcessor;
+  private final WriteContainerContentProcessor writeContainerContentProcessor;
+  private final ConfigureLibrariesProcessor configureLibrariesProcessor;
+  private final DeployContainerContentProcessor deployContainerContentProcessor;
+  private final GrantPrivilegesContainerSchemaProcessor grantPrivilegesContainerSchemaProcessor;
+  private final GrantPrivilegesExternalArtifactsSchemaProcessor grantPrivilegesExternalArtifactsSchemaProcessor;
+  private final GrantPrivilegesDefaultRoleProcessor grantPrivilegesDefaultRoleProcessor;
 
-  public void execute(Connection connection, HDIDataStructureModel hdiModel) {
+  public HDIContainerCreateProcessor() {
+    this(new GrantPrivilegesContainerGroupAPIProcessor(), new CreateContainerGroupProcessor(), new GrantPrivilegesContainerGroupProcessor(), new CreateContainerProcessor(), new GrantPrivilegesContainerAPIProcessor(), new WriteContainerContentProcessor(), new ConfigureLibrariesProcessor(), new DeployContainerContentProcessor(), new GrantPrivilegesContainerSchemaProcessor(), new GrantPrivilegesExternalArtifactsSchemaProcessor(), new GrantPrivilegesDefaultRoleProcessor());
+  }
+  public HDIContainerCreateProcessor(
+      GrantPrivilegesContainerGroupAPIProcessor grantPrivilegesContainerGroupAPIProcessor,
+      CreateContainerGroupProcessor createContainerGroupProcessor,
+      GrantPrivilegesContainerGroupProcessor grantPrivilegesContainerGroupProcessor,
+      CreateContainerProcessor createContainerProcessor,
+      GrantPrivilegesContainerAPIProcessor grantPrivilegesContainerAPIProcessor,
+      WriteContainerContentProcessor writeContainerContentProcessor,
+      ConfigureLibrariesProcessor configureLibrariesProcessor,
+      DeployContainerContentProcessor deployContainerContentProcessor,
+      GrantPrivilegesContainerSchemaProcessor grantPrivilegesContainerSchemaProcesso,
+      GrantPrivilegesExternalArtifactsSchemaProcessor grantPrivilegesExternalArtifactsSchemaProcessor,
+      GrantPrivilegesDefaultRoleProcessor grantPrivilegesDefaultRoleProcessor
+  ) { //NOSONAR
+    this.grantPrivilegesContainerGroupAPIProcessor = grantPrivilegesContainerGroupAPIProcessor;
+    this.createContainerGroupProcessor =createContainerGroupProcessor;
+    this.grantPrivilegesContainerGroupProcessor = grantPrivilegesContainerGroupProcessor;
+    this.createContainerProcessor = createContainerProcessor;
+    this.configureLibrariesProcessor = configureLibrariesProcessor;
+    this.deployContainerContentProcessor = deployContainerContentProcessor;
+    this.grantPrivilegesContainerSchemaProcessor = grantPrivilegesContainerSchemaProcesso;
+    this.grantPrivilegesExternalArtifactsSchemaProcessor = grantPrivilegesExternalArtifactsSchemaProcessor;
+    this.grantPrivilegesContainerAPIProcessor = grantPrivilegesContainerAPIProcessor;
+    this.grantPrivilegesDefaultRoleProcessor = grantPrivilegesDefaultRoleProcessor;
+    this.writeContainerContentProcessor = writeContainerContentProcessor;
+  }
+
+  public void execute(Connection connection, DataStructureHDIModel hdiModel) {
     LOGGER.info("Start processing HDI Containers...");
     try {
       LOGGER.info("Start processing HDI Container [{}] from [{}] ...", hdiModel.getContainer(), hdiModel.getLocation());
@@ -55,7 +86,8 @@ public class HDIContainerCreateProcessor {
       this.createContainerGroupProcessor.execute(connection, hdiModel.getGroup());
 
       List<String> users = new ArrayList<>(Arrays.asList(hdiModel.getUsers()));
-      users.add(Configuration.get("HANA_USERNAME"));
+      String hanaUsername = Configuration.get("HANA_USERNAME");
+      users.add(hanaUsername);
       String[] usersAsArray = users.toArray(new String[0]);
 
       // Grant Privileges to the Container Group
@@ -79,6 +111,9 @@ public class HDIContainerCreateProcessor {
 
       // Deploy the Content
       this.deployContainerContentProcessor.execute(connection, hdiModel.getContainer(), hdiModel.getDeploy(), hdiModel.getUndeploy());
+
+      // Grant Privileges to the default role
+      this.grantPrivilegesDefaultRoleProcessor.execute(connection, hdiModel.getContainer(), hanaUsername, hdiModel.getDeploy());
 
       // Grant Privileges to the Container Schema
       this.grantPrivilegesContainerSchemaProcessor.execute(connection, hdiModel.getContainer(), usersAsArray);

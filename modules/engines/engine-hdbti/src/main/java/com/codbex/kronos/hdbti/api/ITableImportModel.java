@@ -22,6 +22,6 @@ public interface ITableImportModel {
 
   public static final String TYPE_CSV = "CSV";
 
-
   public static final String TYPE_HDBTI = "HDBTI";
+
 }

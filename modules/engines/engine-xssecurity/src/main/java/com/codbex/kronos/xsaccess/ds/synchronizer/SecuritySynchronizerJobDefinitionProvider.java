@@ -18,7 +18,7 @@ import org.eclipse.dirigible.core.scheduler.service.definition.JobDefinition;
 
 public class SecuritySynchronizerJobDefinitionProvider implements IJobDefinitionProvider {
 
-  static final String KRONOS_PRIVILEGES_AND_ACCESS_SYNCHRONIZER_JOB_NAME = "Kronos Privileges and Access Synchronizer Job";
+  static final String PRIVILEGES_AND_ACCESS_SYNCHRONIZER_JOB = "Kronos Privileges and Access Synchronizer Job";
   private static final String KRONOS_JOB_EXPRESSION_SECURITY = "KRONOS_JOB_EXPRESSION_SECURITY";
   private static final String KRONOS_ACCESS_SYNCHRONIZER_JOB = "kronos-access-synchronizer-job";
 
@@ -28,7 +28,7 @@ public class SecuritySynchronizerJobDefinitionProvider implements IJobDefinition
     jobDefinition.setName(KRONOS_ACCESS_SYNCHRONIZER_JOB);
     jobDefinition.setGroup(ISchedulerCoreService.JOB_GROUP_INTERNAL);
     jobDefinition.setClazz(SecuritySynchronizerJob.class.getCanonicalName());
-    jobDefinition.setDescription(KRONOS_PRIVILEGES_AND_ACCESS_SYNCHRONIZER_JOB_NAME);
+    jobDefinition.setDescription(PRIVILEGES_AND_ACCESS_SYNCHRONIZER_JOB);
     jobDefinition.setExpression(Configuration.get(KRONOS_JOB_EXPRESSION_SECURITY, "0/25 * * * * ?"));
     jobDefinition.setSingleton(true);
     return jobDefinition;

@@ -12,12 +12,13 @@
 package com.codbex.kronos.hdb.ds.processors.table;
 
 import com.codbex.kronos.hdb.ds.artefacts.HDBTableSynchronizationArtefactType;
-import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableColumnDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableColumnModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableModel;
 import com.codbex.kronos.hdb.ds.synchronizer.DataStructuresSynchronizer;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.utils.HDBUtils;
+
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
@@ -49,11 +50,11 @@ public class TableAlterHandler {
   private static final HDBTableSynchronizationArtefactType TABLE_ARTEFACT = new HDBTableSynchronizationArtefactType();
   private static final DataStructuresSynchronizer dataStructuresSynchronizer = new DataStructuresSynchronizer();
 
-  HDBTableDataStructureModel tableModel;
+  DataStructureHDBTableModel tableModel;
   private Map<String, String> dbColumnTypes;
   private List<String> modelColumnNames;
 
-  public TableAlterHandler(Connection connection, HDBTableDataStructureModel tableModel) throws SQLException {
+  public TableAlterHandler(Connection connection, DataStructureHDBTableModel tableModel) throws SQLException {
     this.dbColumnTypes = new HashMap<>();
 
     DatabaseMetaData dmd = connection.getMetaData();
@@ -71,7 +72,7 @@ public class TableAlterHandler {
   public void addColumns(Connection connection) throws SQLException {
     String tableName = HDBUtils.escapeArtifactName(this.tableModel.getName(), this.tableModel.getSchema());
 
-    for (HDBTableColumnDataStructureModel columnModel : tableModel.getColumns()) {
+    for (DataStructureHDBTableColumnModel columnModel : tableModel.getColumns()) {
       String name = columnModel.getName();
       DataType type = DataType.valueOf(columnModel.getType());
       String length = columnModel.getLength();
@@ -149,8 +150,8 @@ public class TableAlterHandler {
 
   public void updateColumns(Connection connection) throws SQLException {
     String tableName = HDBUtils.escapeArtifactName(this.tableModel.getName(), this.tableModel.getSchema());
-    List<HDBTableColumnDataStructureModel> columns = this.getColumnsToUpdate();
-    for (HDBTableColumnDataStructureModel columnModel : columns) {
+    List<DataStructureHDBTableColumnModel> columns = this.getColumnsToUpdate();
+    for (DataStructureHDBTableColumnModel columnModel : columns) {
       String name = columnModel.getName();
       DataType type = DataType.valueOf(columnModel.getType());
       String length = columnModel.getLength();
@@ -232,7 +233,7 @@ public class TableAlterHandler {
     }
   }
 
-  private List<HDBTableColumnDataStructureModel> getColumnsToUpdate() {
+  private List<DataStructureHDBTableColumnModel> getColumnsToUpdate() {
     Set<String> dbColumnNames = this.dbColumnTypes.keySet();
     Set<String> columnsToUpdate = new HashSet<String>(dbColumnNames);
     columnsToUpdate.retainAll(modelColumnNames);

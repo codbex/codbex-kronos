@@ -11,38 +11,6 @@
  */
 package com.codbex.kronos.xsodata.ds.service;
 
-import static com.codbex.kronos.utils.CommonsDBUtils.getSynonymTargetObjectMetadata;
-
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import javax.sql.DataSource;
-
-import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.eclipse.dirigible.api.v3.security.UserFacade;
-import org.eclipse.dirigible.commons.config.Configuration;
-import org.eclipse.dirigible.commons.config.StaticObjects;
-import org.eclipse.dirigible.database.persistence.model.PersistenceTableModel;
-import org.eclipse.dirigible.database.sql.ISqlKeywords;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.parser.xsodata.core.HdbxsodataLexer;
 import com.codbex.kronos.parser.xsodata.core.HdbxsodataParser;
@@ -57,6 +25,37 @@ import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.xsodata.ds.api.IODataParser;
 import com.codbex.kronos.xsodata.ds.model.DBArtifactModel;
 import com.codbex.kronos.xsodata.ds.model.ODataModel;
+
+import static com.codbex.kronos.utils.CommonsDBUtils.getSynonymTargetObjectMetadata;
+
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import javax.sql.DataSource;
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.eclipse.dirigible.api.v3.security.UserFacade;
+import org.eclipse.dirigible.commons.config.Configuration;
+import org.eclipse.dirigible.commons.config.StaticObjects;
+import org.eclipse.dirigible.database.persistence.model.PersistenceTableModel;
+import org.eclipse.dirigible.database.sql.ISqlKeywords;
+import org.eclipse.dirigible.engine.odata2.transformers.DBMetadataUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The factory for creation of the data structure models from source content.
@@ -73,6 +72,8 @@ public class ODataParser implements IODataParser {
 
   private static final Logger logger = LoggerFactory.getLogger(ODataParser.class);
 
+  private DBMetadataUtil dbMetadataUtil = new DBMetadataUtil();
+
   /**
    * Creates a odata model from the raw content.
    *
@@ -80,7 +81,7 @@ public class ODataParser implements IODataParser {
    * @return the odata model instance
    * @throws IOException exception during parsing
    */
-  public ODataModel parseXSODataArtifact(String location, String content)
+  public ODataModel parseODataArtifact(String location, String content)
       throws IOException, SQLException, ArtifactParserException {
     logger.debug("Parsing xsodata.");
     ODataModel odataModel = new ODataModel();
@@ -105,8 +106,8 @@ public class ODataParser implements IODataParser {
     parser.addErrorListener(parserErrorListener);
 
     ParseTree parseTree = parser.xsodataDefinition();
-    CommonsUtils.logParserErrors(parserErrorListener.getErrors(), CommonsConstants.PARSER_ERROR, location, CommonsConstants.KRONOS_ODATA_PARSER);
-    CommonsUtils.logParserErrors(lexerErrorListener.getErrors(), CommonsConstants.LEXER_ERROR, location, CommonsConstants.KRONOS_ODATA_PARSER);
+    CommonsUtils.logParserErrors(parserErrorListener.getErrors(), CommonsConstants.PARSER_ERROR, location, CommonsConstants.ODATA_PARSER);
+    CommonsUtils.logParserErrors(lexerErrorListener.getErrors(), CommonsConstants.LEXER_ERROR, location, CommonsConstants.ODATA_PARSER);
 
     HDBXSODataCoreListener coreListener = new HDBXSODataCoreListener();
     ParseTreeWalker parseTreeWalker = new ParseTreeWalker();
@@ -134,7 +135,7 @@ public class ODataParser implements IODataParser {
       applyParametersToViewsCondition(odataModel);
       applyOmittedParamResultCondition(odataModel);
     } catch (Exception ex) {
-      CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PARSER_ERROR, location, CommonsConstants.KRONOS_ODATA_PARSER);
+      CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PARSER_ERROR, location, CommonsConstants.ODATA_PARSER);
       throw ex;
     }
   }

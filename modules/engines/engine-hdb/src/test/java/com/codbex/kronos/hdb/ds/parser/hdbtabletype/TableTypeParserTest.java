@@ -14,7 +14,9 @@ package com.codbex.kronos.hdb.ds.parser.hdbtabletype;
 import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
-import com.codbex.kronos.hdb.ds.model.hdbtabletype.HDBTableTypeDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtabletype.DataStructureHDBTableTypeModel;
+import com.codbex.kronos.hdb.ds.parser.hdbtabletype.HDBTableTypeParser;
+
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,7 +35,7 @@ import static org.junit.Assert.assertNull;
 @RunWith(value = Parameterized.class)
 public class TableTypeParserTest {
 
-    private final TableTypeParser tableTypeParser = new TableTypeParser();
+    private final HDBTableTypeParser tableTypeParser = new HDBTableTypeParser();
     private final boolean isTableTypeWithComments;
 
     public TableTypeParserTest(boolean isTableTypeWithComments) {
@@ -69,7 +71,7 @@ public class TableTypeParserTest {
         String tableTypeContent = getTableTypeContentFromResources(tableTypeFile);
         DataStructureParametersModel parametersModel = new DataStructureParametersModel(null, tableTypeFile, tableTypeContent, null);
 
-        HDBTableTypeDataStructureModel parsedModel = tableTypeParser.parse(parametersModel);
+        DataStructureHDBTableTypeModel parsedModel = tableTypeParser.parse(parametersModel);
         assertEquals("Unexpected schema found", "KRONOS_SAMPLES_HDI_CUBE", parsedModel.getSchema());
         assertEquals("Unexpected name found", "customer_sample::publishers", parsedModel.getName());
     }
@@ -82,7 +84,7 @@ public class TableTypeParserTest {
         String tableTypeContent = getTableTypeContentFromResources(tableTypeFile);
         DataStructureParametersModel parametersModel = new DataStructureParametersModel(null, tableTypeFile, tableTypeContent, null);
 
-        HDBTableTypeDataStructureModel parsedModel = tableTypeParser.parse(parametersModel);
+        DataStructureHDBTableTypeModel parsedModel = tableTypeParser.parse(parametersModel);
 
         assertNull("Unexpected schema found", parsedModel.getSchema());
         assertEquals("Unexpected name found", "customer_sample::publishers", parsedModel.getName());

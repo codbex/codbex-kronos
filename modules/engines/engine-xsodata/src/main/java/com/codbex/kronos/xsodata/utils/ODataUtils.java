@@ -21,8 +21,9 @@ import com.codbex.kronos.parser.xsodata.model.HDBXSODataMultiplicityType;
 import com.codbex.kronos.parser.xsodata.model.HDBXSODataNavigation;
 import com.codbex.kronos.xsodata.ds.model.ODataModel;
 import com.codbex.kronos.xsodata.ds.service.OData2TransformerException;
-import com.codbex.kronos.xsodata.ds.service.KronosODataCoreService;
+import com.codbex.kronos.xsodata.ds.service.ODataCoreService;
 import com.codbex.kronos.xsodata.ds.service.TableMetadataProvider;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -63,7 +64,7 @@ public class ODataUtils {
     this.metadataProvider = metadataProvider;
   }
 
-  public ODataDefinition convertKronosODataModelToODataDefinition(ODataModel oDataModel) {
+  public ODataDefinition convertODataModelToODataDefinition(ODataModel oDataModel) {
     ODataDefinition oDataDefinitionModel = new ODataDefinition();
 
     oDataDefinitionModel.setLocation(oDataModel.getLocation());
@@ -210,40 +211,40 @@ public class ODataUtils {
       //set navigations
       ODataAssociationDefinition oDataAssociationDefinition = new ODataAssociationDefinition();
       oDataAssociationDefinition.setName(navigate.getAssociation());
-      HDBXSODataAssociation xsODataAssociation = KronosODataCoreService
+      HDBXSODataAssociation xsOdataAssoc = ODataCoreService
           .getAssociation(oDataModel, navigate.getAssociation(), navigate.getAliasNavigation());
 
       ODataAssociationEndDefinition fromDef = new ODataAssociationEndDefinition();
-      fromDef.setEntity(xsODataAssociation.getPrincipal().getEntitySetName());
+      fromDef.setEntity(xsOdataAssoc.getPrincipal().getEntitySetName());
 
       //The Multiplicity of the Principal role must be 1 or 0..1
-      validateEdmMultiplicity(xsODataAssociation.getPrincipal().getMultiplicityType().getText(), navigate.getAssociation());
-      fromDef.setMultiplicity(xsODataAssociation.getPrincipal().getMultiplicityType().getText());
-      fromDef.setProperties(xsODataAssociation.getPrincipal().getBindingRole().getKeys());
+      validateEdmMultiplicity(xsOdataAssoc.getPrincipal().getMultiplicityType().getText(), navigate.getAssociation());
+      fromDef.setMultiplicity(xsOdataAssoc.getPrincipal().getMultiplicityType().getText());
+      fromDef.setProperties(xsOdataAssoc.getPrincipal().getBindingRole().getKeys());
       ODataAssociationEndDefinition toDef = new ODataAssociationEndDefinition();
-      toDef.setEntity(xsODataAssociation.getDependent().getEntitySetName());
+      toDef.setEntity(xsOdataAssoc.getDependent().getEntitySetName());
 
       //The Multiplicity of the Principal role must be 1, 0..1, 1..*, *
       //convert 1..* to *, because odata do not support it
-      if (xsODataAssociation.getDependent().getMultiplicityType().getText().equals(HDBXSODataMultiplicityType.ONE_TO_MANY.getText())) {
+      if (xsOdataAssoc.getDependent().getMultiplicityType().getText().equals(HDBXSODataMultiplicityType.ONE_TO_MANY.getText())) {
         toDef.setMultiplicity(EdmMultiplicity.MANY.toString());
       } else {
-        validateEdmMultiplicity(xsODataAssociation.getDependent().getMultiplicityType().getText(), navigate.getAssociation());
-        toDef.setMultiplicity(xsODataAssociation.getDependent().getMultiplicityType().getText());
+        validateEdmMultiplicity(xsOdataAssoc.getDependent().getMultiplicityType().getText(), navigate.getAssociation());
+        toDef.setMultiplicity(xsOdataAssoc.getDependent().getMultiplicityType().getText());
       }
 
-      toDef.setProperties(xsODataAssociation.getDependent().getBindingRole().getKeys());
+      toDef.setProperties(xsOdataAssoc.getDependent().getBindingRole().getKeys());
       oDataAssociationDefinition.setFrom(fromDef);
       oDataAssociationDefinition.setTo(toDef);
 
-      if (xsODataAssociation.getDependent().getMultiplicityType().getText().equals(EdmMultiplicity.MANY.toString())
-          && xsODataAssociation.getPrincipal().getMultiplicityType().getText().equals(EdmMultiplicity.MANY.toString())) {
+      if (xsOdataAssoc.getDependent().getMultiplicityType().getText().equals(EdmMultiplicity.MANY.toString())
+          && xsOdataAssoc.getPrincipal().getMultiplicityType().getText().equals(EdmMultiplicity.MANY.toString())) {
 
-        fromDef.getMappingTableDefinition().setMappingTableName(xsODataAssociation.getAssociationTable().getRepositoryObject());
-        fromDef.getMappingTableDefinition().setMappingTableJoinColumn(xsODataAssociation.getAssociationTable().getPrincipal().getKeys().get(0));
+        fromDef.getMappingTableDefinition().setMappingTableName(xsOdataAssoc.getAssociationTable().getRepositoryObject());
+        fromDef.getMappingTableDefinition().setMappingTableJoinColumn(xsOdataAssoc.getAssociationTable().getPrincipal().getKeys().get(0));
 
-        toDef.getMappingTableDefinition().setMappingTableName(xsODataAssociation.getAssociationTable().getRepositoryObject());
-        toDef.getMappingTableDefinition().setMappingTableJoinColumn(xsODataAssociation.getAssociationTable().getDependent().getKeys().get(0));
+        toDef.getMappingTableDefinition().setMappingTableName(xsOdataAssoc.getAssociationTable().getRepositoryObject());
+        toDef.getMappingTableDefinition().setMappingTableJoinColumn(xsOdataAssoc.getAssociationTable().getDependent().getKeys().get(0));
       }
 
       oDataDefinitionModel.getAssociations().add(oDataAssociationDefinition);

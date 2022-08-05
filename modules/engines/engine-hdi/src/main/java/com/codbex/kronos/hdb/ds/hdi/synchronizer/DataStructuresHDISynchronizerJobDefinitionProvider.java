@@ -21,9 +21,9 @@ import org.eclipse.dirigible.core.scheduler.service.definition.JobDefinition;
  */
 public class DataStructuresHDISynchronizerJobDefinitionProvider implements IJobDefinitionProvider {
 
-  static final String KRONOS_DATA_STRUCTURES_HDI_SYNCHRONIZER_JOB_NAME = "Kronos Data Structures HDI Synchronizer Job";
+  static final String DATA_STRUCTURES_HDI_SYNCHRONIZER_JOB = "Kronos Data Structures HDI Synchronizer Job";
   private static final String KRONOS_JOB_EXPRESSION_DATA_HDI_STRUCTURE = "KRONOS_JOB_EXPRESSION_DATA_STRUCTURE_HDI";
-  private static final String KRONOS_INTERNAL_DATA_STRUCTURES_HDI_SYNCHRONIZER_JOB = "kronos-data-structures-hdi-synchronizer-job";
+  private static final String KRONOS_DATA_STRUCTURES_HDI_SYNCHRONIZER_JOB = "kronos-data-structures-hdi-synchronizer-job";
 
   /*
    * (non-Javadoc)
@@ -32,10 +32,10 @@ public class DataStructuresHDISynchronizerJobDefinitionProvider implements IJobD
   @Override
   public JobDefinition getJobDefinition() {
     JobDefinition jobDefinition = new JobDefinition();
-    jobDefinition.setName(KRONOS_INTERNAL_DATA_STRUCTURES_HDI_SYNCHRONIZER_JOB);
+    jobDefinition.setName(KRONOS_DATA_STRUCTURES_HDI_SYNCHRONIZER_JOB);
     jobDefinition.setGroup(ISchedulerCoreService.JOB_GROUP_INTERNAL);
-    jobDefinition.setClazz(HDIDataStructuresSynchronizerJob.class.getCanonicalName());
-    jobDefinition.setDescription(KRONOS_DATA_STRUCTURES_HDI_SYNCHRONIZER_JOB_NAME);
+    jobDefinition.setClazz(DataStructuresHDISynchronizerJob.class.getCanonicalName());
+    jobDefinition.setDescription(DATA_STRUCTURES_HDI_SYNCHRONIZER_JOB);
     jobDefinition.setExpression(Configuration.get(KRONOS_JOB_EXPRESSION_DATA_HDI_STRUCTURE, "0/55 * * * * ?"));
     jobDefinition.setSingleton(true);
     return jobDefinition;

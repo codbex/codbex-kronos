@@ -15,20 +15,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.codbex.kronos.hdb.ds.model.DataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableColumnDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableConstraintsDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableIndexDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableColumnModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableConstraintsModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableIndexModel;
 
 /**
  * The table model representation.
  */
 public class DataStructureEntityModel extends DataStructureModel {
 
-  private List<HDBTableColumnDataStructureModel> columns = new ArrayList<HDBTableColumnDataStructureModel>();
+  private List<DataStructureHDBTableColumnModel> columns = new ArrayList<DataStructureHDBTableColumnModel>();
 
-  private HDBTableConstraintsDataStructureModel constraints = new HDBTableConstraintsDataStructureModel();
+  private DataStructureHDBTableConstraintsModel constraints = new DataStructureHDBTableConstraintsModel();
 
-  private List<HDBTableIndexDataStructureModel> indexes = new ArrayList<>();
+  private List<DataStructureHDBTableIndexModel> indexes = new ArrayList<>();
 
   private String namespace;
 
@@ -39,7 +39,7 @@ public class DataStructureEntityModel extends DataStructureModel {
    *
    * @return the columns
    */
-  public List<HDBTableColumnDataStructureModel> getColumns() {
+  public List<DataStructureHDBTableColumnModel> getColumns() {
     return columns;
   }
 
@@ -48,7 +48,7 @@ public class DataStructureEntityModel extends DataStructureModel {
    *
    * @return the constraints
    */
-  public HDBTableConstraintsDataStructureModel getConstraints() {
+  public DataStructureHDBTableConstraintsModel getConstraints() {
     return constraints;
   }
 
@@ -80,7 +80,7 @@ public class DataStructureEntityModel extends DataStructureModel {
     this.namespace = namespace;
   }
 
-  public List<HDBTableIndexDataStructureModel> getIndexes() {
+  public List<DataStructureHDBTableIndexModel> getIndexes() {
     return indexes;
   }
 }

@@ -11,21 +11,23 @@
  */
 package com.codbex.kronos.hdb.ds.transformer;
 
-import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableColumnDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableColumnModel;
 import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableMissingPropertyException;
 import com.codbex.kronos.parser.hdbtable.model.HDBTableColumnsModel;
 import com.codbex.kronos.parser.hdbtable.model.HDBTableDefinitionModel;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class HDBTableDefinitionModelToHDBTableColumnModelTransformer {
 
-  public List<HDBTableColumnDataStructureModel> transform(HDBTableDefinitionModel hdbtableDefinitionModel, String location) {
 
-    List<HDBTableColumnDataStructureModel> columns = new ArrayList<>();
+  public List<DataStructureHDBTableColumnModel> transform(HDBTableDefinitionModel hdbtableDefinitionModel, String location) {
+
+    List<DataStructureHDBTableColumnModel> columns = new ArrayList<>();
 
     for (HDBTableColumnsModel column : hdbtableDefinitionModel.getColumns()) {
       try {
@@ -36,7 +38,7 @@ public class HDBTableDefinitionModelToHDBTableColumnModelTransformer {
             CommonsConstants.SOURCE_PUBLISH_REQUEST, CommonsConstants.PROGRAM_KRONOS);
         throw new HDBTableMissingPropertyException(String.format("Wrong format of table definition: [%s]. [%s]", location, e.getMessage()));
       }
-      HDBTableColumnDataStructureModel dataStructureHDBTableColumnModel = new HDBTableColumnDataStructureModel();
+      DataStructureHDBTableColumnModel dataStructureHDBTableColumnModel = new DataStructureHDBTableColumnModel();
       dataStructureHDBTableColumnModel.setLength(column.getLength());
       dataStructureHDBTableColumnModel.setName(column.getName());
       dataStructureHDBTableColumnModel.setType(column.getSqlType());

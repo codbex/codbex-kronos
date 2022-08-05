@@ -17,6 +17,7 @@ import com.codbex.kronos.hdb.ds.artefacts.HDBProcedureSynchronizationArtefactTyp
 import com.codbex.kronos.hdb.ds.parser.hdbprocedure.HDBProcedureLogger;
 import com.codbex.kronos.hdb.ds.parser.hdbprocedure.HDBProcedureParser;
 import com.codbex.kronos.hdb.ds.synchronizer.DataStructuresSynchronizer;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -61,7 +62,7 @@ public class HDBProcedureParserTest {
         assertEquals("Unexpected hdbprocedure dependencies.", 0, model.getDependencies().size());
         assertNotNull("Null value for hdbprocedure createdAt", model.getCreatedAt());
         assertNotNull("Null value for hdbprocedure createdBy", model.getCreatedBy());
-        assertEquals("Cant access data structure model class", "class com.codbex.kronos.hdb.ds.model.hdbprocedure.HDBProcedureDataStructureModel", parser.getDataStructureClass().toString());
+        assertEquals("Cant access data structure model class", "class com.codbex.kronos.hdb.ds.model.hdbprocedure.DataStructureHDBProcedureModel", parser.getDataStructureClass().toString());
     }
 
 

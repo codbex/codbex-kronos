@@ -1,12 +1,12 @@
 service namespace "np"{
 
-    "kronos.test.calcviews::calc" as "CalcView1"
+    "kneo.test.calcviews::calc" as "CalcView1"
             keys generate local "ID";
 
-    "kronos.test.calcviews::calc" as "CalcView2"  without("COLUMN1","COLUMN3")
+    "kneo.test.calcviews::calc" as "CalcView2"  without("COLUMN1","COLUMN3")
             keys generate local "ID";
 
-    "kronos.test.calcviews::calc" as "CalcView3"  with("COLUMN1","COLUMN3")
+    "kneo.test.calcviews::calc" as "CalcView3"  with("COLUMN1","COLUMN3")
             keys generate local "ID";
 
 }

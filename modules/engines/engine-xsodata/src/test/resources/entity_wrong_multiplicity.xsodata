@@ -1,9 +1,9 @@
 service namespace "np"{
 
-"kronos.test.helloodata.CompositeKey::employee" as "Employees" without ("ORDER_ID")
+"kneo.test.helloodata.CompositeKey::employee" as "Employees" without ("ORDER_ID")
 	navigates ("Employees_Phones" as "HisPhones");
 
-"kronos.test.helloodata.CompositeKey::phones" as "Phones";
+"kneo.test.helloodata.CompositeKey::phones" as "Phones";
 
 association "Employees_Phones" with referential constraint
 	 principal "Employees"("COMPANY_ID", "EMPLOYEE_NUMBER") multiplicity "1000000000"

@@ -11,12 +11,13 @@
  */
 package com.codbex.kronos.hdb.ds.service.manager;
 
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.api.IHDBProcessor;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
-import com.codbex.kronos.hdb.ds.model.hdbschema.HDBSchemaDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbschema.DataStructureHDBSchemaModel;
 import com.codbex.kronos.hdb.ds.processors.hdbschema.HDBSchemaCreateProcessor;
 import com.codbex.kronos.hdb.ds.processors.hdbschema.HDBSchemaDropProcessor;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,10 +29,10 @@ import javax.naming.OperationNotSupportedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SchemaManagerService extends AbstractDataStructureManagerService<HDBSchemaDataStructureModel> {
+public class SchemaManagerService extends AbstractDataStructureManagerService<DataStructureHDBSchemaModel> {
 
   private static final Logger logger = LoggerFactory.getLogger(SchemaManagerService.class);
-  private final Map<String, HDBSchemaDataStructureModel> dataStructureSchemasModels;
+  private final Map<String, DataStructureHDBSchemaModel> dataStructureSchemasModels;
   private final List<String> schemasSynchronized;
   private IHDBProcessor hdbSchemaCreateProcessor = new HDBSchemaCreateProcessor();
   private IHDBProcessor hdbSchemaDropProcessor = new HDBSchemaDropProcessor();
@@ -42,7 +43,7 @@ public class SchemaManagerService extends AbstractDataStructureManagerService<HD
   }
 
   @Override
-  public void synchronizeRuntimeMetadata(HDBSchemaDataStructureModel schemaModel) throws DataStructuresException {
+  public void synchronizeRuntimeMetadata(DataStructureHDBSchemaModel schemaModel) throws DataStructuresException {
     // TODO: ommit double calling of finding the hdbProcedure by extracting it in
     // variable
     // String schemaNameConcatProcedureName = hdbProcedure.getSchemaName() + "." +
@@ -54,7 +55,7 @@ public class SchemaManagerService extends AbstractDataStructureManagerService<HD
       dataStructureSchemasModels.put(schemaModel.getName(), schemaModel);
       logger.info("Synchronized a new HDB Schema file [{}] from location: {}", schemaModel.getName(), schemaModel.getLocation());
     } else {
-      HDBSchemaDataStructureModel existing = getDataStructuresCoreService()
+      DataStructureHDBSchemaModel existing = getDataStructuresCoreService()
           .getDataStructure(schemaModel.getLocation(), schemaModel.getType());
       if (!schemaModel.equals(existing)) {
         getDataStructuresCoreService()
@@ -69,19 +70,19 @@ public class SchemaManagerService extends AbstractDataStructureManagerService<HD
   }
 
   @Override
-  public boolean createDataStructure(Connection connection, HDBSchemaDataStructureModel schemaModel)
+  public boolean createDataStructure(Connection connection, DataStructureHDBSchemaModel schemaModel)
       throws SQLException {
 	return this.hdbSchemaCreateProcessor.execute(connection, schemaModel);
   }
 
   @Override
-  public boolean dropDataStructure(Connection connection, HDBSchemaDataStructureModel schemaModel)
+  public boolean dropDataStructure(Connection connection, DataStructureHDBSchemaModel schemaModel)
       throws SQLException {
 	return this.hdbSchemaDropProcessor.execute(connection, schemaModel);
   }
 
   @Override
-  public boolean updateDataStructure(Connection connection, HDBSchemaDataStructureModel schemaModel)
+  public boolean updateDataStructure(Connection connection, DataStructureHDBSchemaModel schemaModel)
       throws OperationNotSupportedException {
     throw new OperationNotSupportedException();
   }
@@ -93,7 +94,7 @@ public class SchemaManagerService extends AbstractDataStructureManagerService<HD
 
   @Override
   public String getDataStructureType() {
-    return HDBDataStructureModel.FILE_EXTENSION_HDBSCHEMA;
+    return IDataStructureModel.FILE_EXTENSION_HDBSCHEMA;
   }
 
   @Override
@@ -102,7 +103,7 @@ public class SchemaManagerService extends AbstractDataStructureManagerService<HD
   }
 
   @Override
-  public Map<String, HDBSchemaDataStructureModel> getDataStructureModels() {
+  public Map<String, DataStructureHDBSchemaModel> getDataStructureModels() {
     return Collections.unmodifiableMap(this.dataStructureSchemasModels);
   }
 }

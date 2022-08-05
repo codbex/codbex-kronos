@@ -1,15 +1,15 @@
 service namespace "np"{
 
-"kronos.test.helloodata.CompositeKey::employee" as "Employees"
+"kneo.test.helloodata.CompositeKey::employee" as "Employees"
 	navigates ("Employees_Phones" as "HisPhones")
-	create events (after "kronos.test.xsjs:auditlog.xsjslib::logCreateConfigAfter");
+	create events (after "kneo.test.xsjs:auditlog.xsjslib::logCreateConfigAfter");
 
-"kronos.test.helloodata.CompositeKey::phones" as "Phones"
+"kneo.test.helloodata.CompositeKey::phones" as "Phones"
 	 create forbidden
 	 update forbidden
      delete forbidden;
 
-"kronos.test.helloodata.CompositeKey::address" as "Address"
+"kneo.test.helloodata.CompositeKey::address" as "Address"
 	 	navigates ("Address_Phones" as "HisAddressPhones");
 
 	association "Employees_Phones" with referential constraint

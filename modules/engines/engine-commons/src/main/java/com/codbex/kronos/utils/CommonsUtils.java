@@ -13,6 +13,7 @@ package com.codbex.kronos.utils;
 
 import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.parser.models.BaseParserErrorsModel;
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -49,8 +50,8 @@ public class CommonsUtils {
   /**
    * Assemble the catalog name of a Repository Base Object(e.g hdbtable, hdbview, hdbsequence, hdbstructure, hdbprocedure)
    * The catalog name includes the package path, the separating dots, and the object base name, as NAMESPACE::OBJECT_BASE_NAME
-   * For example: Given location "/project_name/com/kronos/hana/example/ItemsByOrder.hdbview",
-   * the method will return "com.kronos.hana.example::ItemsByOrder"
+   * For example: Given location "/project_name/com/sap/hana/example/ItemsByOrder.hdbview",
+   * the method will return "com.sap.hana.example::ItemsByOrder"
    *
    * @param location String representing file location path
    * @return String representing assemble catalog name in format "NAMESPACE::OBJECT_BASE_NAME"

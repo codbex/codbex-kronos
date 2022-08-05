@@ -27,14 +27,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.codbex.kronos.XSJSTest;
+import com.codbex.kronos.engine.JavascriptEngineExecutor;
+import com.sap.cloud.sdk.testutil.MockDestination;
+import com.sap.cloud.sdk.testutil.MockUtil;
+
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 import org.apache.cxf.helpers.IOUtils;
 import org.eclipse.dirigible.commons.api.context.ContextException;
 import org.eclipse.dirigible.commons.api.context.ThreadContextFacade;
 import org.eclipse.dirigible.commons.api.scripting.ScriptingException;
+import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.commons.config.StaticObjects;
 import org.eclipse.dirigible.core.extensions.api.ExtensionsException;
 import org.eclipse.dirigible.core.extensions.api.IExtensionsCoreService;
 import org.eclipse.dirigible.core.extensions.service.ExtensionsCoreService;
+import org.eclipse.dirigible.core.test.AbstractDirigibleTest;
 import org.eclipse.dirigible.engine.js.api.IJavascriptEngineExecutor;
 import org.eclipse.dirigible.repository.api.IRepository;
 import org.eclipse.dirigible.repository.api.IRepositoryStructure;
@@ -43,14 +52,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-
-import com.codbex.kronos.XSJSTest;
-import com.codbex.kronos.engine.JavascriptEngineExecutor;
-import com.sap.cloud.sdk.testutil.MockDestination;
-import com.sap.cloud.sdk.testutil.MockUtil;
-
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 
 @RunWith(JUnitParamsRunner.class)
 public class KronosApiSuiteTest extends XSJSTest {
@@ -90,11 +91,11 @@ public class KronosApiSuiteTest extends XSJSTest {
       "test/kronos/hdb/result-set.xsjs",
       "test/kronos/hdb/resultset-metadata.xsjs",
   })
-  public void runKronosApiTest(String testModule) throws IOException, ContextException, ExtensionsException {
-    runKronosApiTest(graaljsJavascriptEngineExecutor, repository, testModule);
+  public void runApiTest(String testModule) throws IOException, ContextException, ExtensionsException {
+    runApiTest(graaljsJavascriptEngineExecutor, repository, testModule);
   }
 
-  private void runKronosApiTest(IJavascriptEngineExecutor executor, IRepository repository, String testModule)
+  private void runApiTest(IJavascriptEngineExecutor executor, IRepository repository, String testModule)
       throws RepositoryWriteException, IOException, ScriptingException, ContextException, ExtensionsException {
     mockDestination();
 

@@ -11,8 +11,9 @@
  */
 package com.codbex.kronos.hdb.ds.test.parser;
 
-import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
 import org.apache.commons.io.IOUtils;
+
+import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
 
 import java.io.IOException;
 import java.io.InputStream;

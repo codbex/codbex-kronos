@@ -19,11 +19,12 @@ import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.hdb.ds.model.DBContentType;
 import com.codbex.kronos.hdb.ds.model.DataStructureModelFactory;
 import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
-import com.codbex.kronos.hdb.ds.model.hdbsequence.HDBSequenceDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbsequence.DataStructureHDBSequenceModel;
 import com.codbex.kronos.hdb.ds.parser.hdbsequence.HDBSequenceParser;
 import com.codbex.kronos.hdb.ds.test.module.HDBTestModule;
 import com.codbex.kronos.parser.hdbsequence.exceptions.HDBSequenceDuplicatePropertyException;
 import com.codbex.kronos.parser.hdbsequence.exceptions.HDBSequenceMissingPropertyException;
+
 import java.nio.charset.StandardCharsets;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,12 +40,12 @@ public class HDBSequenceParserTest {
     @Test
     public void parseHanaXSClassicContent() throws Exception {
       String content = org.apache.commons.io.IOUtils
-              .toString(HDBSequenceParserTest.class.getResourceAsStream("/test/kronos/SampleSequence_HanaXSClassic.hdbsequence"),
+              .toString(HDBSequenceParserTest.class.getResourceAsStream("/test/com/codbex/kronos/SampleSequence_HanaXSClassic.hdbsequence"),
                       StandardCharsets.UTF_8);
 
       DataStructureParametersModel parametersModel =
-          new DataStructureParametersModel(null, "/test/kronos/SampleSequence_HanaXSClassic.hdbsequence", content, null);
-      HDBSequenceDataStructureModel model = (HDBSequenceDataStructureModel) new HDBSequenceParser()
+          new DataStructureParametersModel(null, "/test/com/codbex/kronos/SampleSequence_HanaXSClassic.hdbsequence", content, null);
+      DataStructureHDBSequenceModel model = (DataStructureHDBSequenceModel) new HDBSequenceParser()
               .parse(parametersModel);
 
       assertEquals("MYSCHEMA", model.getSchema());
@@ -59,11 +60,11 @@ public class HDBSequenceParserTest {
     @Test
     public void parseDefaultValues() throws Exception {
       String content = org.apache.commons.io.IOUtils
-          .toString(HDBSequenceParserTest.class.getResourceAsStream("/test/kronos/SchemaOnlySequence.hdbsequence"),
+          .toString(HDBSequenceParserTest.class.getResourceAsStream("/test/com/codbex/kronos/SchemaOnlySequence.hdbsequence"),
               StandardCharsets.UTF_8);
       DataStructureParametersModel parametersModel =
-          new DataStructureParametersModel(null, "/test/kronos/SchemaOnlySequence.hdbsequence", content, null);
-      HDBSequenceDataStructureModel model = (HDBSequenceDataStructureModel) new HDBSequenceParser()
+          new DataStructureParametersModel(null, "/test/com/codbex/kronos/SchemaOnlySequence.hdbsequence", content, null);
+      DataStructureHDBSequenceModel model = (DataStructureHDBSequenceModel) new HDBSequenceParser()
           .parse(parametersModel);
       assertFalse(model.isPublic());
       assertEquals(Integer.valueOf(1), model.getStartWith());
@@ -74,11 +75,11 @@ public class HDBSequenceParserTest {
     @Test
     public void parseDependsOnContent() throws Exception {
       String content = org.apache.commons.io.IOUtils
-          .toString(HDBSequenceParserTest.class.getResourceAsStream("/test/kronos/DependsOnSequence.hdbsequence"),
+          .toString(HDBSequenceParserTest.class.getResourceAsStream("/test/com/codbex/kronos/DependsOnSequence.hdbsequence"),
               StandardCharsets.UTF_8);
       DataStructureParametersModel parametersModel =
-          new DataStructureParametersModel(null, "/test/kronos/DependsOnSequence.hdbsequence", content, null);
-      HDBSequenceDataStructureModel model = (HDBSequenceDataStructureModel) new HDBSequenceParser()
+          new DataStructureParametersModel(null, "/test/com/codbex/kronos/DependsOnSequence.hdbsequence", content, null);
+      DataStructureHDBSequenceModel model = (DataStructureHDBSequenceModel) new HDBSequenceParser()
           .parse(parametersModel);
       assertEquals("sap.ino.db.iam::t_identity", model.getDependsOnTable());
       assertEquals("sap.ino.db.iam::t_view", model.getDependsOnView());
@@ -87,11 +88,11 @@ public class HDBSequenceParserTest {
     @Test
     public void parseHanaXSAdvancedContent() throws Exception {
       String content = org.apache.commons.io.IOUtils
-              .toString(HDBSequenceParserTest.class.getResourceAsStream("/test/kronos/CustomerId_HanaXSAdvanced.hdbsequence"),
+              .toString(HDBSequenceParserTest.class.getResourceAsStream("/test/com/codbex/kronos/CustomerId_HanaXSAdvanced.hdbsequence"),
                       StandardCharsets.UTF_8);
       DataStructureParametersModel parametersModel =
-          new DataStructureParametersModel(null, "/test/kronos/CustomerId_HanaXSAdvanced.hdbsequence", content, null);
-      HDBSequenceDataStructureModel model = (HDBSequenceDataStructureModel) new HDBSequenceParser()
+          new DataStructureParametersModel(null, "/test/com/codbex/kronos/CustomerId_HanaXSAdvanced.hdbsequence", content, null);
+      DataStructureHDBSequenceModel model = (DataStructureHDBSequenceModel) new HDBSequenceParser()
               .parse(parametersModel);
       assertEquals(DBContentType.OTHERS, model.getDBContentType());
       assertEquals(content, model.getRawContent());
@@ -102,7 +103,7 @@ public class HDBSequenceParserTest {
     public void parseGrammarUnreadableContent() throws Exception {
       String content = "Some invalid content.";
       DataStructureParametersModel parametersModel =
-          new DataStructureParametersModel(null, "/test/kronos/InvalidContent.hdbsequence", content, null);
+          new DataStructureParametersModel(null, "/test/com/codbex/kronos/InvalidContent.hdbsequence", content, null);
       assertThrows(ArtifactParserException.class, () -> new HDBSequenceParser().parse(parametersModel));
     }
 
@@ -110,21 +111,21 @@ public class HDBSequenceParserTest {
     @Test
     public void parseRepetitiveProperties() throws Exception {
       String content = org.apache.commons.io.IOUtils
-              .toString(HDBSequenceParserTest.class.getResourceAsStream("/test/kronos/RepetitivePropsSequence.hdbsequence"),
+              .toString(HDBSequenceParserTest.class.getResourceAsStream("/test/com/codbex/kronos/RepetitivePropsSequence.hdbsequence"),
                       StandardCharsets.UTF_8);
       DataStructureParametersModel parametersModel =
-          new DataStructureParametersModel(null, "/test/kronos/RepetitivePropsSequence.hdbsequence", content, null);
+          new DataStructureParametersModel(null, "/test/com/codbex/kronos/RepetitivePropsSequence.hdbsequence", content, null);
       assertThrows(HDBSequenceDuplicatePropertyException.class, () -> new HDBSequenceParser().parse(parametersModel));
     }
 
     @Test
     public void parseRandomlyOrderedContent() throws Exception {
       String content = org.apache.commons.io.IOUtils
-              .toString(HDBSequenceParserTest.class.getResourceAsStream("/test/kronos/RandomlyOrderedSequence.hdbsequence"),
+              .toString(HDBSequenceParserTest.class.getResourceAsStream("/test/com/codbex/kronos/RandomlyOrderedSequence.hdbsequence"),
                       StandardCharsets.UTF_8);
       DataStructureParametersModel parametersModel =
-          new DataStructureParametersModel(null, "/test/kronos/RandomlyOrderedSequence.hdbsequence", content, null);
-      HDBSequenceDataStructureModel model = (HDBSequenceDataStructureModel) new HDBSequenceParser()
+          new DataStructureParametersModel(null, "/test/com/codbex/kronos/RandomlyOrderedSequence.hdbsequence", content, null);
+      DataStructureHDBSequenceModel model = (DataStructureHDBSequenceModel) new HDBSequenceParser()
               .parse(parametersModel);
 
       assertEquals("USR_9TCD6SXS67DP7AFLFE420B8EB", model.getSchema());
@@ -142,10 +143,10 @@ public class HDBSequenceParserTest {
     @Test
     public void parseMissingMandatoryProperty() throws Exception {
       String content = org.apache.commons.io.IOUtils
-              .toString(ViewParserTest.class.getResourceAsStream("/test/kronos/MissingPropSequence.hdbsequence"), StandardCharsets.UTF_8);
+              .toString(ViewParserTest.class.getResourceAsStream("/test/com/codbex/kronos/MissingPropSequence.hdbsequence"), StandardCharsets.UTF_8);
 
       DataStructureParametersModel parametersModel =
-          new DataStructureParametersModel(null, "/test/kronos/MissingPropSequence.hdbsequence", content, null);
+          new DataStructureParametersModel(null, "/test/com/codbex/kronos/MissingPropSequence.hdbsequence", content, null);
       assertThrows(HDBSequenceMissingPropertyException.class, () -> new HDBSequenceParser().parse(parametersModel));
     }
 
@@ -153,8 +154,8 @@ public class HDBSequenceParserTest {
     public void parseNonQuotedSeq() throws Exception {
       String content = "  SEQUENCE seq";
       DataStructureParametersModel parametersModel =
-          new DataStructureParametersModel(null, "/test/kronos/someFileName.hdbsequence", content, null);
-      HDBSequenceDataStructureModel model = (HDBSequenceDataStructureModel) new HDBSequenceParser()
+          new DataStructureParametersModel(null, "/test/com/codbex/kronos/someFileName.hdbsequence", content, null);
+      DataStructureHDBSequenceModel model = (DataStructureHDBSequenceModel) new HDBSequenceParser()
               .parse(parametersModel);
       assertEquals(DBContentType.OTHERS, model.getDBContentType());
     }

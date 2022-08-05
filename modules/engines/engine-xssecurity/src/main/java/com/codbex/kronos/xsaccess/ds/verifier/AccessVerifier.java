@@ -11,11 +11,12 @@
  */
 package com.codbex.kronos.xsaccess.ds.verifier;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.codbex.kronos.xsaccess.ds.api.IAccessCoreService;
 import com.codbex.kronos.xsaccess.ds.api.AccessException;
 import com.codbex.kronos.xsaccess.ds.model.access.AccessDefinition;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class AccessVerifier {
 

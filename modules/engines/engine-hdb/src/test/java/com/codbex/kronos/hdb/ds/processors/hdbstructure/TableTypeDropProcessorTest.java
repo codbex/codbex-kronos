@@ -11,7 +11,6 @@
  */
 package com.codbex.kronos.hdb.ds.processors.hdbstructure;
 
-import com.codbex.kronos.hdb.ds.model.hdbtabletype.HDBTableTypeDataStructureModel;
 import java.sql.Connection;
 import java.sql.SQLException;
 import org.junit.Before;
@@ -20,6 +19,10 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import com.codbex.kronos.hdb.ds.model.hdbtabletype.DataStructureHDBTableTypeModel;
+import com.codbex.kronos.hdb.ds.processors.hdbstructure.HDBSynonymRemover;
+import com.codbex.kronos.hdb.ds.processors.hdbstructure.TableTypeDropProcessor;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TableTypeDropProcessorTest {
@@ -36,13 +39,13 @@ public class TableTypeDropProcessorTest {
   @Mock
   private Connection connectionMock;
 
-  private HDBTableTypeDataStructureModel model;
+  private DataStructureHDBTableTypeModel model;
 
   @Before
   public void setUp() {
     dropProcessorSpy = Mockito.spy(new TableTypeDropProcessor(synonymRemoverMock));
 
-    model = new HDBTableTypeDataStructureModel();
+    model = new DataStructureHDBTableTypeModel();
     model.setName(TABLE_TYPE_NAME);
     model.setSchema(SCHEMA_NAME);
   }

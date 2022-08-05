@@ -11,6 +11,20 @@
  */
 package com.codbex.kronos.parser.hdbdd.custom;
 
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.RuleContext;
+import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.misc.Interval;
+import org.antlr.v4.runtime.tree.ParseTreeProperty;
+
 import com.codbex.kronos.parser.hdbdd.annotation.metadata.AbstractAnnotationValue;
 import com.codbex.kronos.parser.hdbdd.annotation.metadata.AnnotationArray;
 import com.codbex.kronos.parser.hdbdd.annotation.metadata.AnnotationEnum;
@@ -29,6 +43,7 @@ import com.codbex.kronos.parser.hdbdd.core.CdsParser.AssignHanaTypeWithArgsConte
 import com.codbex.kronos.parser.hdbdd.core.CdsParser.AssignTypeContext;
 import com.codbex.kronos.parser.hdbdd.core.CdsParser.AssociationConstraintsContext;
 import com.codbex.kronos.parser.hdbdd.core.CdsParser.AssociationContext;
+import com.codbex.kronos.parser.hdbdd.core.CdsParser.CalculatedAssociationContext;
 import com.codbex.kronos.parser.hdbdd.core.CdsParser.ContextRuleContext;
 import com.codbex.kronos.parser.hdbdd.core.CdsParser.DataTypeRuleContext;
 import com.codbex.kronos.parser.hdbdd.core.CdsParser.ElementConstraintsContext;
@@ -68,19 +83,6 @@ import com.codbex.kronos.parser.hdbdd.symbols.view.JoinSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.view.SelectSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.view.ViewSymbol;
 import com.codbex.kronos.parser.hdbdd.util.HdbddUtils;
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Deque;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.RuleContext;
-import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.misc.Interval;
-import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 public class ArtifactDefinitionListener extends CdsBaseListener {
 
@@ -147,6 +149,20 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     this.currentScope = this.currentScope.getEnclosingScope(); // pop com.codbex.kronos.parser.hdbdd.symbols.scope
     validateTopLevelSymbol(this.symbolsByParseTreeContext.get(ctx));
     fullSymbolNames.removeLast();
+  }
+
+  @Override
+  public void enterCalculatedAssociation(CalculatedAssociationContext ctx) {
+    EntityElementSymbol elementSymbol = this.symbolFactory.getCalculatedColumnSymbol(ctx, currentScope);
+    this.entityElements.put(ctx, elementSymbol);
+    this.symbolsByParseTreeContext.put(ctx, elementSymbol);
+    this.typeables.put(ctx, elementSymbol);
+  }
+
+  @Override
+  public void exitCalculatedAssociation(CalculatedAssociationContext ctx) {
+    EntityElementSymbol elementSymbol = this.entityElements.get(ctx);
+    this.currentScope.define(elementSymbol);
   }
 
   @Override

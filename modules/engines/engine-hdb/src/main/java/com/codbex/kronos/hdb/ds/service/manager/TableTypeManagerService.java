@@ -11,13 +11,14 @@
  */
 package com.codbex.kronos.hdb.ds.service.manager;
 
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.api.IHDBProcessor;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
-import com.codbex.kronos.hdb.ds.model.hdbtabletype.HDBTableTypeDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtabletype.DataStructureHDBTableTypeModel;
 import com.codbex.kronos.hdb.ds.processors.hdbstructure.HDBSynonymRemover;
 import com.codbex.kronos.hdb.ds.processors.hdbstructure.TableTypeCreateProcessor;
 import com.codbex.kronos.hdb.ds.processors.hdbstructure.TableTypeDropProcessor;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,11 +30,11 @@ import javax.naming.OperationNotSupportedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TableTypeManagerService extends AbstractDataStructureManagerService<HDBTableTypeDataStructureModel> {
+public class TableTypeManagerService extends AbstractDataStructureManagerService<DataStructureHDBTableTypeModel> {
 
   private static final Logger logger = LoggerFactory.getLogger(TableTypeManagerService.class);
 
-  private final Map<String, HDBTableTypeDataStructureModel> dataStructureHDBTableTypeModels;
+  private final Map<String, DataStructureHDBTableTypeModel> dataStructureHDBTableTypeModels;
   private final List<String> tableTypesSynchronized;
 
   private final IHDBProcessor tableTypeCreateProcessor;
@@ -47,12 +48,12 @@ public class TableTypeManagerService extends AbstractDataStructureManagerService
   }
 
   @Override
-  public Map<String, HDBTableTypeDataStructureModel> getDataStructureModels() {
+  public Map<String, DataStructureHDBTableTypeModel> getDataStructureModels() {
     return dataStructureHDBTableTypeModels;
   }
 
   @Override
-  public void synchronizeRuntimeMetadata(HDBTableTypeDataStructureModel tableTypeModel) throws DataStructuresException {
+  public void synchronizeRuntimeMetadata(DataStructureHDBTableTypeModel tableTypeModel) throws DataStructuresException {
 
     if (!getDataStructuresCoreService().existsDataStructure(tableTypeModel.getLocation(), tableTypeModel.getType())) {
       getDataStructuresCoreService()
@@ -60,7 +61,7 @@ public class TableTypeManagerService extends AbstractDataStructureManagerService
       dataStructureHDBTableTypeModels.put(tableTypeModel.getName(), tableTypeModel);
       logger.info("Synchronized a new Structure file [{}] from location: {}", tableTypeModel.getName(), tableTypeModel.getLocation());
     } else {
-      HDBTableTypeDataStructureModel existing = getDataStructuresCoreService()
+      DataStructureHDBTableTypeModel existing = getDataStructuresCoreService()
           .getDataStructure(tableTypeModel.getLocation(), tableTypeModel.getType());
       if (!tableTypeModel.equals(existing)) {
         getDataStructuresCoreService()
@@ -77,19 +78,19 @@ public class TableTypeManagerService extends AbstractDataStructureManagerService
   }
 
   @Override
-  public boolean createDataStructure(Connection connection, HDBTableTypeDataStructureModel structureModel)
+  public boolean createDataStructure(Connection connection, DataStructureHDBTableTypeModel structureModel)
       throws SQLException {
 	return this.tableTypeCreateProcessor.execute(connection, structureModel);
   }
 
   @Override
-  public boolean dropDataStructure(Connection connection, HDBTableTypeDataStructureModel tableTypeModel)
+  public boolean dropDataStructure(Connection connection, DataStructureHDBTableTypeModel tableTypeModel)
       throws SQLException {
 	return this.tableTypeDropProcessor.execute(connection, tableTypeModel);
   }
 
   @Override
-  public boolean updateDataStructure(Connection connection, HDBTableTypeDataStructureModel tableTypeModel)
+  public boolean updateDataStructure(Connection connection, DataStructureHDBTableTypeModel tableTypeModel)
       throws SQLException, OperationNotSupportedException {
     throw new OperationNotSupportedException();
   }
@@ -101,7 +102,7 @@ public class TableTypeManagerService extends AbstractDataStructureManagerService
 
   @Override
   public String getDataStructureType() {
-    return HDBDataStructureModel.FILE_EXTENSION_STRUCTURE;
+    return IDataStructureModel.FILE_EXTENSION_STRUCTURE;
   }
 
   @Override

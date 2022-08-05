@@ -19,11 +19,6 @@
 
 package com.codbex.kronos.ndb.bimodelconversion;
 
-import com.codbex.kronos.ndb.basemodelbase.CurrencyConversionTables;
-import com.codbex.kronos.ndb.basemodelbase.ErrorHandling;
-import com.codbex.kronos.ndb.basemodelbase.SchemaMappingBasedObject;
-import com.codbex.kronos.ndb.basemodelbase.UnitConversionTables;
-import com.codbex.kronos.ndb.bimodeldatafoundation.SimpleDataType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -32,6 +27,12 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.codbex.kronos.ndb.basemodelbase.CurrencyConversionTables;
+import com.codbex.kronos.ndb.basemodelbase.ErrorHandling;
+import com.codbex.kronos.ndb.basemodelbase.SchemaMappingBasedObject;
+import com.codbex.kronos.ndb.basemodelbase.UnitConversionTables;
+import com.codbex.kronos.ndb.bimodeldatafoundation.SimpleDataType;
 
 
 /**

@@ -13,16 +13,36 @@ package com.codbex.kronos.hdbti.service;
 
 import static java.lang.String.format;
 
+import com.codbex.kronos.hdb.ds.api.DataStructuresException;
+import com.codbex.kronos.hdbti.api.ICSVRecordDao;
+import com.codbex.kronos.hdbti.api.ICSVToHDBTIRelationDao;
+import com.codbex.kronos.hdbti.api.IHDBTICoreService;
+import com.codbex.kronos.hdbti.api.IImportedCSVRecordDao;
+import com.codbex.kronos.hdbti.api.ITableImportArtifactDao;
+import com.codbex.kronos.hdbti.api.ITableImportModel;
+import com.codbex.kronos.hdbti.api.TableImportException;
+import com.codbex.kronos.hdbti.dao.CSVRecordDao;
+import com.codbex.kronos.hdbti.dao.CSVToHDBTIRelationDao;
+import com.codbex.kronos.hdbti.dao.ImportedCSVRecordDao;
+import com.codbex.kronos.hdbti.dao.TableImportArtifactDao;
+import com.codbex.kronos.hdbti.model.ImportedCSVRecordModel;
+import com.codbex.kronos.hdbti.model.TableImportArtifact;
+import com.codbex.kronos.hdbti.model.TableImportConfigurationDefinition;
+import com.codbex.kronos.hdbti.utils.CSVRecordMetadata;
+import com.codbex.kronos.utils.CommonsConstants;
+import com.codbex.kronos.utils.CommonsDBUtils;
+import com.codbex.kronos.utils.CommonsUtils;
+import com.codbex.kronos.utils.Utils;
+
 import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import javax.sql.DataSource;
-
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.csv.CSVRecord;
+import org.apache.cxf.common.util.StringUtils;
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.commons.config.StaticObjects;
 import org.eclipse.dirigible.database.ds.model.IDataStructureModel;
@@ -33,27 +53,6 @@ import org.eclipse.dirigible.repository.api.IRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.codbex.kronos.hdb.ds.api.DataStructuresException;
-import com.codbex.kronos.hdbti.api.ICSVToHDBTIRelationDao;
-import com.codbex.kronos.hdbti.api.IHDBTICoreService;
-import com.codbex.kronos.hdbti.api.ITableImportArtifactDao;
-import com.codbex.kronos.hdbti.api.ITableImportModel;
-import com.codbex.kronos.hdbti.api.ICSVRecordDao;
-import com.codbex.kronos.hdbti.api.IImportedCSVRecordDao;
-import com.codbex.kronos.hdbti.api.TableImportException;
-import com.codbex.kronos.hdbti.dao.CSVToHDBTIRelationDao;
-import com.codbex.kronos.hdbti.dao.TableImportArtifactDao;
-import com.codbex.kronos.hdbti.dao.CSVRecordDao;
-import com.codbex.kronos.hdbti.dao.ImportedCSVRecordDao;
-import com.codbex.kronos.hdbti.model.ImportedCSVRecordModel;
-import com.codbex.kronos.hdbti.model.TableImportArtifact;
-import com.codbex.kronos.hdbti.model.TableImportConfigurationDefinition;
-import com.codbex.kronos.hdbti.utils.CSVRecordMetadata;
-import com.codbex.kronos.utils.CommonsConstants;
-import com.codbex.kronos.utils.CommonsDBUtils;
-import com.codbex.kronos.utils.CommonsUtils;
-import com.codbex.kronos.utils.Utils;
-
 public class HDBTICoreService implements IHDBTICoreService {
 
   private static final Logger logger = LoggerFactory.getLogger(HDBTICoreService.class);
@@ -61,7 +60,7 @@ public class HDBTICoreService implements IHDBTICoreService {
   private ICSVRecordDao csvRecordDao = new CSVRecordDao();
   private IImportedCSVRecordDao importedCSVRecordDao = new ImportedCSVRecordDao();
   private ITableImportArtifactDao tableImportArtifactDao = new TableImportArtifactDao();
-  private ICSVToHDBTIRelationDao csvToHDBTIRelationDao = new CSVToHDBTIRelationDao();
+  private ICSVToHDBTIRelationDao csvToHdbtiRelationDao = new CSVToHDBTIRelationDao();
   private IRepository repository = (IRepository) StaticObjects.get(StaticObjects.REPOSITORY);
   private DBMetadataUtil dbMetadataUtil = new DBMetadataUtil();
   private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
@@ -121,7 +120,7 @@ public class HDBTICoreService implements IHDBTICoreService {
       if (tableImportArtifact.getType().equals(ITableImportModel.TYPE_HDBTI)
           && !repository.hasResource(Utils.convertToFullPath(tableImportArtifact.getLocation()))) {
         tableImportArtifactDao.removeTableImportArtifact(tableImportArtifact.getLocation());
-        csvToHDBTIRelationDao.deleteCsvAndHdbtiRelations(tableImportArtifact.getLocation());
+        csvToHdbtiRelationDao.deleteCsvAndHdbtiRelations(tableImportArtifact.getLocation());
         removeCSVRecordsFromDb(tableImportArtifact.getLocation());
         logger
             .warn("Cleaned up HDBTI file [{}] from location: {}", tableImportArtifact.getName(),
@@ -180,8 +179,8 @@ public class HDBTICoreService implements IHDBTICoreService {
 
   @Override
   public void refreshCsvRelations(TableImportArtifact tableImportArtifact) {
-    csvToHDBTIRelationDao.deleteCsvAndHdbtiRelations(Utils.convertToFullPath(tableImportArtifact.getLocation()));
-    csvToHDBTIRelationDao.persistNewCsvAndHdbtiRelations(tableImportArtifact);
+    csvToHdbtiRelationDao.deleteCsvAndHdbtiRelations(Utils.convertToFullPath(tableImportArtifact.getLocation()));
+    csvToHdbtiRelationDao.persistNewCsvAndHdbtiRelations(tableImportArtifact);
   }
 
   @Override

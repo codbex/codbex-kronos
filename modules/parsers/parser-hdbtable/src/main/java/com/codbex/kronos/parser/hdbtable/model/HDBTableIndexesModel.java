@@ -11,9 +11,10 @@
  */
 package com.codbex.kronos.parser.hdbtable.model;
 
-import com.google.gson.annotations.SerializedName;
 import com.codbex.kronos.parser.hdbtable.constants.HdbtablePropertiesConstants;
 import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableMissingPropertyException;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Set;

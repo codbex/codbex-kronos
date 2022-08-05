@@ -11,8 +11,9 @@
  */
 package com.codbex.kronos.hdbti.api;
 
-import com.codbex.kronos.hdbti.model.TableImportArtifact;
 import java.util.List;
+
+import com.codbex.kronos.hdbti.model.TableImportArtifact;
 
 public interface ITableImportArtifactDao {
 

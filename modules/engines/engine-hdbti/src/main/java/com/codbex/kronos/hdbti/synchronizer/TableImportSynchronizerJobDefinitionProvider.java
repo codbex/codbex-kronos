@@ -18,8 +18,8 @@ import org.eclipse.dirigible.core.scheduler.service.definition.JobDefinition;
 
 public class TableImportSynchronizerJobDefinitionProvider implements IJobDefinitionProvider {
 
-  static final String KRONOS_TABLE_IMPORT_SYNCHRONIZER_JOB_DESCRIPTION = "Kronos Table Import Synchronizer Job";
-  private static final String KRONOS_TABLE_IMPORT_JOB_EXPRESSION = "KRONOS_TABLE_IMPORT_JOB_EXPRESSION";
+  static final String TABLE_IMPORT_SYNCHRONIZER_JOB = "Kronos Table Import Synchronizer Job";
+  private static final String KRONOS_JOB_EXPRESSION_TABLE_IMPORT = "KRONOS_JOB_EXPRESSION_TABLE_IMPORT";
   private static final String KRONOS_TABLE_IMPORT_SYNCHRONIZER_JOB = "kronos-table-import-synchronizer-job";
 
   @Override
@@ -28,8 +28,8 @@ public class TableImportSynchronizerJobDefinitionProvider implements IJobDefinit
     jobDefinition.setName(KRONOS_TABLE_IMPORT_SYNCHRONIZER_JOB);
     jobDefinition.setGroup(ISchedulerCoreService.JOB_GROUP_INTERNAL);
     jobDefinition.setClazz(TableImportSynchronizerJob.class.getCanonicalName());
-    jobDefinition.setDescription(KRONOS_TABLE_IMPORT_SYNCHRONIZER_JOB_DESCRIPTION);
-    jobDefinition.setExpression(Configuration.get(KRONOS_TABLE_IMPORT_JOB_EXPRESSION, "0/45 * * * * ?"));
+    jobDefinition.setDescription(TABLE_IMPORT_SYNCHRONIZER_JOB);
+    jobDefinition.setExpression(Configuration.get(KRONOS_JOB_EXPRESSION_TABLE_IMPORT, "0/45 * * * * ?"));
     jobDefinition.setSingleton(true);
     return jobDefinition;
   }

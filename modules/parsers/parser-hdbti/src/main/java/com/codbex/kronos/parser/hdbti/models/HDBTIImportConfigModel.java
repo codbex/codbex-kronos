@@ -11,8 +11,9 @@
  */
 package com.codbex.kronos.parser.hdbti.models;
 
-import com.google.gson.annotations.SerializedName;
 import com.codbex.kronos.parser.hdbti.exception.HDBTIMissingPropertyException;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

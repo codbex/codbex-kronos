@@ -11,9 +11,10 @@
  */
 package com.codbex.kronos.hdb.ds.api;
 
-import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 import java.sql.Connection;
 import java.sql.SQLException;
+
+import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 
 public interface IHDBProcessor<T extends DataStructureModel> {
 

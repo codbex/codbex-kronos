@@ -22,21 +22,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
+import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
+import com.codbex.kronos.hdb.ds.model.DBContentType;
+import com.codbex.kronos.hdb.ds.model.DataStructureModelFactory;
 import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableColumnModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableModel;
+import com.codbex.kronos.hdb.ds.parser.hdbtable.HDBTableParser;
+import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableDuplicatePropertyException;
+import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableMissingPropertyException;
+
 import org.apache.commons.io.IOUtils;
 import org.eclipse.dirigible.core.test.AbstractDirigibleTest;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import com.codbex.kronos.exceptions.ArtifactParserException;
-import com.codbex.kronos.hdb.ds.model.DBContentType;
-import com.codbex.kronos.hdb.ds.model.DataStructureModelFactory;
-import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableColumnDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableDataStructureModel;
-import com.codbex.kronos.hdb.ds.parser.hdbtable.TableParser;
-import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableDuplicatePropertyException;
-import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableMissingPropertyException;
 
 public class TableParserTest extends AbstractDirigibleTest {
 
@@ -44,7 +44,7 @@ public class TableParserTest extends AbstractDirigibleTest {
     public void parseTable() throws Exception {
         InputStream in = TableParserTest.class.getResourceAsStream("/Sports.hdbtable");
         String contents = IOUtils.toString(in, StandardCharsets.UTF_8);
-        HDBTableDataStructureModel model = DataStructureModelFactory.parseTable("/Sports.hdbtable", contents);
+        DataStructureHDBTableModel model = DataStructureModelFactory.parseTable("/Sports.hdbtable", contents);
 
         assertEquals(6, model.getColumns().size());
         assertEquals("Sports", model.getName());
@@ -58,7 +58,7 @@ public class TableParserTest extends AbstractDirigibleTest {
         assertEquals(DBContentType.XS_CLASSIC, model.getDBContentType());
         assertEquals(contents, model.getRawContent());
 
-        HDBTableColumnDataStructureModel matchId = model.getColumns().get(0);
+        DataStructureHDBTableColumnModel matchId = model.getColumns().get(0);
         assertEquals("MATCH_ID", matchId.getName());
         assertEquals("NVARCHAR", matchId.getType());
         assertEquals("32", matchId.getLength());
@@ -71,7 +71,7 @@ public class TableParserTest extends AbstractDirigibleTest {
         assertTrue(model.getColumns().get(1).isPrimaryKey());
         assertTrue(model.getColumns().get(2).isPrimaryKey());
 
-        HDBTableColumnDataStructureModel personRate = model.getColumns().get(3);
+        DataStructureHDBTableColumnModel personRate = model.getColumns().get(3);
         assertEquals("PERSON_RATE", personRate.getName());
         assertEquals("DECIMAL", personRate.getType());
         assertFalse(personRate.isNullable());
@@ -82,7 +82,7 @@ public class TableParserTest extends AbstractDirigibleTest {
         assertFalse(personRate.isNullable());
         assertNull(personRate.getComment());
 
-        HDBTableColumnDataStructureModel changedBy = model.getColumns().get(4);
+        DataStructureHDBTableColumnModel changedBy = model.getColumns().get(4);
         assertEquals("CHANGED_BY", changedBy.getName());
         assertEquals("NVARCHAR", changedBy.getType());
         assertEquals("256", changedBy.getLength());
@@ -90,7 +90,7 @@ public class TableParserTest extends AbstractDirigibleTest {
         assertFalse(changedBy.isPrimaryKey());
         assertFalse(changedBy.isUnique());
 
-        HDBTableColumnDataStructureModel changedAt = model.getColumns().get(5);
+        DataStructureHDBTableColumnModel changedAt = model.getColumns().get(5);
         assertEquals("CHANGED_AT", changedAt.getName());
         assertEquals("TIMESTAMP", changedAt.getType());
         assertTrue(changedAt.isNullable());
@@ -114,7 +114,7 @@ public class TableParserTest extends AbstractDirigibleTest {
       String content = IOUtils.toString(in, StandardCharsets.UTF_8);
       DataStructureParametersModel parametersModel =
           new DataStructureParametersModel(null, "/DuplicateTableProperties.hdbtable", content, null);
-      assertThrows(HDBTableDuplicatePropertyException.class, () -> new TableParser().parse(parametersModel));
+      assertThrows(HDBTableDuplicatePropertyException.class, () -> new HDBTableParser().parse(parametersModel));
     }
 
     @Ignore
@@ -124,7 +124,7 @@ public class TableParserTest extends AbstractDirigibleTest {
       String content = IOUtils.toString(in, StandardCharsets.UTF_8);
       DataStructureParametersModel parametersModel =
           new DataStructureParametersModel(null, "/MissingMandatoryTableProperties.hdbtable", content, null);
-      new TableParser().parse(parametersModel);
+      new HDBTableParser().parse(parametersModel);
     }
 
     @Ignore
@@ -140,7 +140,7 @@ public class TableParserTest extends AbstractDirigibleTest {
 
       DataStructureParametersModel parametersModel =
           new DataStructureParametersModel(null, "/someFileName.hdbtable", content, null);
-      assertThrows(IllegalStateException.class, () -> new TableParser().parse(parametersModel));
+      assertThrows(IllegalStateException.class, () -> new HDBTableParser().parse(parametersModel));
     }
 
     @Ignore
@@ -157,13 +157,13 @@ public class TableParserTest extends AbstractDirigibleTest {
 
       DataStructureParametersModel parametersModel =
           new DataStructureParametersModel(null, "/someFileName.hdbtable", content, null);
-      assertThrows(IllegalStateException.class, () -> new TableParser().parse(parametersModel));
+      assertThrows(IllegalStateException.class, () -> new HDBTableParser().parse(parametersModel));
     }
 
     @Test
     public void parseHanaXSAdvancedContentWithAdditionalSpaces() throws Exception {
         String content = " COLUMN TABLE      KRONOS_HDI_SIMPLE_TABLE COLUMN1 INTEGER )";
-        HDBTableDataStructureModel model = DataStructureModelFactory.parseTable("/HdbtableHanaXSAdvancedContent.hdbtable", content);
+        DataStructureHDBTableModel model = DataStructureModelFactory.parseTable("/HdbtableHanaXSAdvancedContent.hdbtable", content);
         assertEquals(DBContentType.OTHERS, model.getDBContentType());
         assertEquals(content, model.getRawContent());
     }
@@ -171,15 +171,15 @@ public class TableParserTest extends AbstractDirigibleTest {
     @Test
     public void parseHanaXSAdvancedContentWithNewLines() throws Exception {
         String content = "COLUMN TABLE \r\n KRONOS_HDI_SIMPLE_TABLE (COLUMN1 INTEGER)";
-        HDBTableDataStructureModel model = DataStructureModelFactory.parseTable("/testFileName.hdbtable", content);
+        DataStructureHDBTableModel model = DataStructureModelFactory.parseTable("/testFileName.hdbtable", content);
         assertEquals(DBContentType.OTHERS, model.getDBContentType());
         assertEquals(content, model.getRawContent());
     }
 
     @Test
     public void parseHanaXSAdvancedContentWithLowerCase() throws Exception {
-        String content = "column table KRONOS_HDI_SIMPLE_TABLE ( COLUMN1 INTEGER )";
-        HDBTableDataStructureModel model = DataStructureModelFactory.parseTable("/testFileName.hdbtable", content);
+		String content = "column table KRONOS_HDI_SIMPLE_TABLE ( COLUMN1 INTEGER )";
+        DataStructureHDBTableModel model = DataStructureModelFactory.parseTable("/testFileName.hdbtable", content);
         assertEquals(DBContentType.OTHERS, model.getDBContentType());
         assertEquals(content, model.getRawContent());
     }
@@ -193,7 +193,7 @@ public class TableParserTest extends AbstractDirigibleTest {
                 "table.columns = [\n" +
                 "    {name = \"TEXT\"; sqlType = NVARCHAR; length = 4000; nullable = true; comment = \"nvarchar(4000)\";}\n" +
                 "];";
-        HDBTableDataStructureModel model = DataStructureModelFactory.parseTable("/test.hdbtable", content);
+        DataStructureHDBTableModel model = DataStructureModelFactory.parseTable("/test.hdbtable", content);
         assertEquals(DBContentType.XS_CLASSIC, model.getDBContentType());
         assertEquals(content, model.getRawContent());
     }
@@ -219,7 +219,7 @@ public class TableParserTest extends AbstractDirigibleTest {
     public void parseRowTableWithIndexes() throws Exception {
       InputStream in = TableParserTest.class.getResourceAsStream("/ParsingTableWithUniqueAndNoUniqueIndexes.hdbtable");
       String contents = IOUtils.toString(in, StandardCharsets.UTF_8);
-      HDBTableDataStructureModel model = DataStructureModelFactory.parseTable("/ParsingTableWithUniqueAndNoUniqueIndexes.hdbtable", contents);
+      DataStructureHDBTableModel model = DataStructureModelFactory.parseTable("/ParsingTableWithUniqueAndNoUniqueIndexes.hdbtable", contents);
 
       assertEquals(3, model.getColumns().size());
       assertEquals("ParsingTableWithUniqueAndNoUniqueIndexes", model.getName());
@@ -261,7 +261,7 @@ public class TableParserTest extends AbstractDirigibleTest {
       InputStream in = TableParserTest.class.getResourceAsStream(hdbTablePath);
       String contents = IOUtils.toString(in, StandardCharsets.UTF_8);
 
-      HDBTableDataStructureModel model = DataStructureModelFactory.parseTable(hdbTablePath, contents);
+      DataStructureHDBTableModel model = DataStructureModelFactory.parseTable(hdbTablePath, contents);
 
       assertEquals("Unexpected table schema", "TEST", model.getSchema());
       assertNotNull("Unexpected table indexes is null", model.getIndexes());

@@ -19,14 +19,15 @@
 
 package com.codbex.kronos.ndb.repositorymodelresource;
 
-import com.codbex.kronos.ndb.basemodelbase.EndUserTexts;
-import com.codbex.kronos.ndb.datamodelhierarchy.InlineHierarchy;
-import com.codbex.kronos.ndb.datamodeltype.DisplayFolder;
-import com.codbex.kronos.ndb.datamodeltype.TypedObject;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
+
+import com.codbex.kronos.ndb.basemodelbase.EndUserTexts;
+import com.codbex.kronos.ndb.datamodelhierarchy.InlineHierarchy;
+import com.codbex.kronos.ndb.datamodeltype.DisplayFolder;
+import com.codbex.kronos.ndb.datamodeltype.TypedObject;
 
 
 /**

@@ -19,13 +19,14 @@
 
 package com.codbex.kronos.ndb.bimodeldatafoundation;
 
-import com.codbex.kronos.ndb.basemodelbase.SpatialPredicate;
-import com.codbex.kronos.ndb.bimodelconversion.Parameterization;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+
+import com.codbex.kronos.ndb.basemodelbase.SpatialPredicate;
+import com.codbex.kronos.ndb.bimodelconversion.Parameterization;
 
 
 /**

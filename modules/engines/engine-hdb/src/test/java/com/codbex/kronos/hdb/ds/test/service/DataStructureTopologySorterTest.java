@@ -15,9 +15,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.codbex.kronos.hdb.ds.model.DependencyDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.DataStructureModel;
-import com.codbex.kronos.hdb.ds.service.DataStructureTopologicalSorter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +24,10 @@ import org.eclipse.dirigible.database.ds.model.DataStructureModelException;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.codbex.kronos.hdb.ds.model.DataStructureDependencyModel;
+import com.codbex.kronos.hdb.ds.model.DataStructureModel;
+import com.codbex.kronos.hdb.ds.service.DataStructureTopologicalSorter;
 
 /**
  * The Class DataStructureTopologySorter.
@@ -44,27 +45,27 @@ public class DataStructureTopologySorterTest {
 
 		DataStructureModel customers_view = new DataStructureModel();
 		customers_view.setName("customers_view");
-		customers_view.getDependencies().add(new DependencyDataStructureModel("customer", "TABLE"));
-		customers_view.getDependencies().add(new DependencyDataStructureModel("external", "TABLE"));
+		customers_view.getDependencies().add(new DataStructureDependencyModel("customer", "TABLE"));
+		customers_view.getDependencies().add(new DataStructureDependencyModel("external", "TABLE"));
 		models.put("customers_view", customers_view);
 		DataStructureModel users_view = new DataStructureModel();
 		users_view.setName("users_view");
-		users_view.getDependencies().add(new DependencyDataStructureModel("user", "TABLE"));
+		users_view.getDependencies().add(new DataStructureDependencyModel("user", "TABLE"));
 		models.put("users_view", users_view);
 		DataStructureModel customer = new DataStructureModel();
 		customer.setName("customer");
-		customer.getDependencies().add(new DependencyDataStructureModel("address", "TABLE"));
+		customer.getDependencies().add(new DataStructureDependencyModel("address", "TABLE"));
 		models.put("customer", customer);
 		DataStructureModel address = new DataStructureModel();
 		address.setName("address");
-		address.getDependencies().add(new DependencyDataStructureModel("city", "TABLE"));
+		address.getDependencies().add(new DataStructureDependencyModel("city", "TABLE"));
 		models.put("address", address);
 		DataStructureModel city = new DataStructureModel();
 		city.setName("city");
 		models.put("city", city);
 		DataStructureModel user = new DataStructureModel();
 		user.setName("user");
-		user.getDependencies().add(new DependencyDataStructureModel("address", "TABLE"));
+		user.getDependencies().add(new DataStructureDependencyModel("address", "TABLE"));
 		models.put("user", user);
 
 		System.out.println("======= Unsorted =======");
@@ -109,22 +110,22 @@ public class DataStructureTopologySorterTest {
 
 		DataStructureModel customers_view = new DataStructureModel();
 		customers_view.setName("customers_view");
-		customers_view.getDependencies().add(new DependencyDataStructureModel("customer", "TABLE"));
-		customers_view.getDependencies().add(new DependencyDataStructureModel("external", "TABLE"));
+		customers_view.getDependencies().add(new DataStructureDependencyModel("customer", "TABLE"));
+		customers_view.getDependencies().add(new DataStructureDependencyModel("external", "TABLE"));
 		models.put("customers_view", customers_view);
 		DataStructureModel users_view = new DataStructureModel();
 		users_view.setName("users_view");
-		users_view.getDependencies().add(new DependencyDataStructureModel("user", "TABLE"));
+		users_view.getDependencies().add(new DataStructureDependencyModel("user", "TABLE"));
 		models.put("users_view", users_view);
 		DataStructureModel customer = new DataStructureModel();
 		customer.setName("customer");
-		customer.getDependencies().add(new DependencyDataStructureModel("address", "TABLE"));
+		customer.getDependencies().add(new DataStructureDependencyModel("address", "TABLE"));
 		models.put("customer", customer);
 		DataStructureModel address = new DataStructureModel();
 		address.setName("address");
-		address.getDependencies().add(new DependencyDataStructureModel("city", "TABLE"));
+		address.getDependencies().add(new DataStructureDependencyModel("city", "TABLE"));
 
-		address.getDependencies().add(new DependencyDataStructureModel("customers_view", "TABLE"));
+		address.getDependencies().add(new DataStructureDependencyModel("customers_view", "TABLE"));
 
 		models.put("address", address);
 		DataStructureModel city = new DataStructureModel();
@@ -132,7 +133,7 @@ public class DataStructureTopologySorterTest {
 		models.put("city", city);
 		DataStructureModel user = new DataStructureModel();
 		user.setName("user");
-		user.getDependencies().add(new DependencyDataStructureModel("address", "TABLE"));
+		user.getDependencies().add(new DataStructureDependencyModel("address", "TABLE"));
 		models.put("user", user);
 
 		List<String> output = new ArrayList<String>();

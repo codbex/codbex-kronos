@@ -11,29 +11,31 @@
  */
 package com.codbex.kronos.hdb.ds.parser.hdi;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
-import com.codbex.kronos.hdb.ds.model.hdi.HDIDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdi.DataStructureHDIModel;
 import com.codbex.kronos.hdb.ds.parser.DataStructureParser;
+import com.codbex.kronos.hdb.ds.parser.hdi.deserializer.HDIModelAdapter;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
-import com.codbex.kronos.hdb.ds.parser.hdi.deserializer.HDIModelAdapter;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.eclipse.dirigible.api.v3.security.UserFacade;
 
 public class HDIParser implements DataStructureParser {
 
   @Override
-  public HDIDataStructureModel parse(DataStructureParametersModel parametersModel) throws DataStructuresException, IOException {
+  public DataStructureHDIModel parse(DataStructureParametersModel parametersModel) throws DataStructuresException, IOException {
     Gson gson = new GsonBuilder()
-        .registerTypeAdapter(HDIDataStructureModel.class, new HDIModelAdapter())
+        .registerTypeAdapter(DataStructureHDIModel.class, new HDIModelAdapter())
         .create();
 
-    HDIDataStructureModel hdiModel = gson.fromJson(parametersModel.getContent(), HDIDataStructureModel.class);
+    DataStructureHDIModel hdiModel = gson.fromJson(parametersModel.getContent(), DataStructureHDIModel.class);
     hdiModel.setName(new File(parametersModel.getLocation()).getName());
     hdiModel.setLocation(parametersModel.getLocation());
     hdiModel.setType(getType());
@@ -46,11 +48,11 @@ public class HDIParser implements DataStructureParser {
 
   @Override
   public String getType() {
-    return HDBDataStructureModel.TYPE_HDI;
+    return IDataStructureModel.TYPE_HDI;
   }
 
   @Override
   public Class getDataStructureClass() {
-    return HDIDataStructureModel.class;
+    return DataStructureHDIModel.class;
   }
 }

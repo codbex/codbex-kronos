@@ -11,14 +11,15 @@
  */
 package com.codbex.kronos.xsaccess.ds.service;
 
-import static com.codbex.kronos.utils.Utils.objectToByteArray;
-
 import com.codbex.kronos.utils.Utils;
 import com.codbex.kronos.xsaccess.ds.api.IAccessCoreService;
 import com.codbex.kronos.xsaccess.ds.api.AccessException;
 import com.codbex.kronos.xsaccess.ds.api.PrivilegeException;
 import com.codbex.kronos.xsaccess.ds.model.access.AccessArtifact;
 import com.codbex.kronos.xsaccess.ds.model.access.AccessDefinition;
+
+import static com.codbex.kronos.utils.Utils.objectToByteArray;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;

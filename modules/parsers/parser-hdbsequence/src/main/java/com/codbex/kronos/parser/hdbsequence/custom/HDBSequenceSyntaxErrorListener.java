@@ -11,10 +11,11 @@
  */
 package com.codbex.kronos.parser.hdbsequence.custom;
 
-import com.codbex.kronos.parser.models.BaseParserErrorsModel;
 import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
+
+import com.codbex.kronos.parser.models.BaseParserErrorsModel;
 
 import java.util.ArrayList;
 

@@ -15,6 +15,7 @@ import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
+
 import java.io.IOException;
 
 public interface DataStructureParser<T extends DataStructureModel> {

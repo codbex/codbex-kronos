@@ -14,12 +14,13 @@ package com.codbex.kronos.hdb.ds.test.parser;
 import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.hdb.ds.artefacts.HDBTableFunctionSynchronizationArtefactType;
-import com.codbex.kronos.hdb.ds.model.hdbtablefunction.HDBTableFunctionDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtablefunction.DataStructureHDBTableFunctionModel;
 import com.codbex.kronos.hdb.ds.parser.hdbtablefunction.HDBTableFunctionLogger;
 import com.codbex.kronos.hdb.ds.parser.hdbtablefunction.HDBTableFunctionParser;
 import com.codbex.kronos.hdb.ds.synchronizer.DataStructuresSynchronizer;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
+
 import org.eclipse.dirigible.core.scheduler.api.ISynchronizerArtefactType.ArtefactState;
 import org.eclipse.dirigible.core.test.AbstractDirigibleTest;
 import org.junit.Before;
@@ -57,7 +58,7 @@ public class HDBTableFunctionParserTest extends AbstractDirigibleTest {
         String location = "/OrderTableFunction.hdbtablefunction";
         String content = contentProvider.getTestContent(location);
 
-        HDBTableFunctionDataStructureModel model = tableFunctionParser.parseTableFunction(parser, location, content);
+        DataStructureHDBTableFunctionModel model = tableFunctionParser.parseTableFunction(parser, location, content);
         assertEquals("Unexpected tablefunction schema.", "MYSCHEMA", model.getSchema());
         assertEquals("Unexpected tablefunction name.", "hdb_view::OrderTableFunction", model.getName());
         assertEquals("Unexpected tablefunction content.", content, model.getRawContent());
@@ -67,8 +68,7 @@ public class HDBTableFunctionParserTest extends AbstractDirigibleTest {
         assertEquals("Unexpected tablefunction dependencies.", 0, model.getDependencies().size());
         assertNotNull("Null value for tablefunction createdAt", model.getCreatedAt());
         assertNotNull("Null value for tablefunction createdBy", model.getCreatedBy());
-        assertEquals("Cant access data structure model class", "class com.codbex.kronos.hdb.ds.model.hdbtablefunction.HDBTableFunctionDataStructureModel", parser.getDataStructureClass().toString());
-
+        assertEquals("Cant access data structure model class", "class com.codbex.kronos.hdb.ds.model.hdbtablefunction.DataStructureHDBTableFunctionModel", parser.getDataStructureClass().toString());
     }
 
     @Test
@@ -76,7 +76,7 @@ public class HDBTableFunctionParserTest extends AbstractDirigibleTest {
         String location = "/OrderTableFunctionNoSchema.hdbtablefunction";
         String content = contentProvider.getTestContent(location);
 
-        HDBTableFunctionDataStructureModel model = tableFunctionParser.parseTableFunction(parser, location, content);
+        DataStructureHDBTableFunctionModel model = tableFunctionParser.parseTableFunction(parser, location, content);
         assertNull("Unexpected tablefunction schema.", model.getSchema());
         assertEquals("Unexpected tablefunction name.", "hdb_view::OrderTableFunction", model.getName());
         assertEquals("Unexpected tablefunction content.", content, model.getRawContent());

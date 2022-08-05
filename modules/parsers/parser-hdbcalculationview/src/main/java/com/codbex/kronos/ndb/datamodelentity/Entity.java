@@ -19,15 +19,16 @@
 
 package com.codbex.kronos.ndb.datamodelentity;
 
-import com.codbex.kronos.ndb.datamodelhierarchy.InlineHierarchy;
-import com.codbex.kronos.ndb.datamodeltype.ObjectType;
-import com.codbex.kronos.ndb.datamodeltype.StructureType;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
+
+import com.codbex.kronos.ndb.datamodelhierarchy.InlineHierarchy;
+import com.codbex.kronos.ndb.datamodeltype.ObjectType;
+import com.codbex.kronos.ndb.datamodeltype.StructureType;
 
 
 /**

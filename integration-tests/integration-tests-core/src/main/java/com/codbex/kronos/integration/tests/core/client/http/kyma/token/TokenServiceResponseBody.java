@@ -14,7 +14,6 @@ package com.codbex.kronos.integration.tests.core.client.http.kyma.token;
 import com.google.gson.annotations.SerializedName;
 
 public class TokenServiceResponseBody {
-
     @SerializedName("access_token")
     private final String accessToken;
 

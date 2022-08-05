@@ -11,8 +11,9 @@
  */
 package com.codbex.kronos.xsaccess.ds.api;
 
-import com.codbex.kronos.xsaccess.ds.model.privilege.PrivilegeDefinition;
 import java.util.List;
+
+import com.codbex.kronos.xsaccess.ds.model.privilege.PrivilegeDefinition;
 
 public interface IPrivilegeCoreService {
 

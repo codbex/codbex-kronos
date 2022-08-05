@@ -11,10 +11,11 @@
  */
 package com.codbex.kronos.xssecurestore.ds.synchronizer;
 
-import com.codbex.kronos.xssecurestore.ds.api.ISecureStoreModel;
 import org.eclipse.dirigible.commons.api.content.AbstractClasspathContentHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.codbex.kronos.xssecurestore.ds.api.ISecureStoreModel;
 
 public class SecureStoreClasspathContentHandler extends AbstractClasspathContentHandler {
 

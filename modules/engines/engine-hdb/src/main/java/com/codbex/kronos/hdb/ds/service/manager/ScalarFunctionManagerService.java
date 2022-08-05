@@ -11,9 +11,10 @@
  */
 package com.codbex.kronos.hdb.ds.service.manager;
 
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 
 public class ScalarFunctionManagerService extends TableFunctionManagerService {
 
@@ -21,7 +22,7 @@ public class ScalarFunctionManagerService extends TableFunctionManagerService {
 
   @Override
   public String getDataStructureType() {
-    return HDBDataStructureModel.FILE_EXTENSION_HDBSCALARFUNCTION;
+    return IDataStructureModel.FILE_EXTENSION_HDBSCALARFUNCTION;
   }
 
 }

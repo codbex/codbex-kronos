@@ -11,9 +11,6 @@
  */
 package com.codbex.kronos.xsaccess.ds.service;
 
-import com.codbex.kronos.xsaccess.ds.api.IPrivilegeCoreService;
-import com.codbex.kronos.xsaccess.ds.api.PrivilegeException;
-import com.codbex.kronos.xsaccess.ds.model.privilege.PrivilegeDefinition;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -22,6 +19,10 @@ import javax.sql.DataSource;
 import org.eclipse.dirigible.api.v3.security.UserFacade;
 import org.eclipse.dirigible.commons.config.StaticObjects;
 import org.eclipse.dirigible.database.persistence.PersistenceManager;
+
+import com.codbex.kronos.xsaccess.ds.api.IPrivilegeCoreService;
+import com.codbex.kronos.xsaccess.ds.api.PrivilegeException;
+import com.codbex.kronos.xsaccess.ds.model.privilege.PrivilegeDefinition;
 
 public class PrivilegeCoreService implements IPrivilegeCoreService {
 
@@ -56,8 +57,8 @@ public class PrivilegeCoreService implements IPrivilegeCoreService {
 
   @Override
   public PrivilegeDefinition updatePrivileges(String name, String description) throws PrivilegeException {
-    PrivilegeDefinition foundPrivilegeDefinition = getPrivilegeByName(name);
-    if (foundPrivilegeDefinition == null) {
+    PrivilegeDefinition foundXscPrivilegeDefinition = getPrivilegeByName(name);
+    if (foundXscPrivilegeDefinition == null) {
       throw new PrivilegeException("Kronos Privilege not found");
     }
 
@@ -65,11 +66,11 @@ public class PrivilegeCoreService implements IPrivilegeCoreService {
       Connection connection = null;
       try {
         connection = dataSource.getConnection();
-        foundPrivilegeDefinition.setName(name);
-        foundPrivilegeDefinition.setDescription(description);
-        persistenceManager.update(connection, foundPrivilegeDefinition);
+        foundXscPrivilegeDefinition.setName(name);
+        foundXscPrivilegeDefinition.setDescription(description);
+        persistenceManager.update(connection, foundXscPrivilegeDefinition);
 
-        return foundPrivilegeDefinition;
+        return foundXscPrivilegeDefinition;
       } finally {
         if (connection != null) {
           connection.close();
@@ -123,7 +124,8 @@ public class PrivilegeCoreService implements IPrivilegeCoreService {
       try {
         connection = dataSource.getConnection();
 
-        PrivilegeDefinition privilegeDefinition = persistenceManager.find(connection, PrivilegeDefinition.class, name);
+        PrivilegeDefinition privilegeDefinition = persistenceManager
+            .find(connection, PrivilegeDefinition.class, name);
 
         return privilegeDefinition;
       } finally {

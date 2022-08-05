@@ -47,7 +47,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 import com.codbex.kronos.hdb.ds.model.DataStructureModelFactory;
-import com.codbex.kronos.hdb.ds.model.hdbschema.HDBSchemaDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbschema.DataStructureHDBSchemaModel;
 import com.codbex.kronos.hdb.ds.processors.hdbschema.HDBSchemaCreateProcessor;
 import com.codbex.kronos.hdb.ds.processors.hdbschema.HDBSchemaDropProcessor;
 import com.codbex.kronos.hdb.ds.synchronizer.DataStructuresSynchronizer;
@@ -88,7 +88,7 @@ public class SchemaProcessorTest extends AbstractDirigibleTest {
 		HDBSchemaCreateProcessor processorSpy = spy(HDBSchemaCreateProcessor.class);
 		String hdbschemaSample = IOUtils.toString(SchemaParserTest.class.getResourceAsStream("/Myschema.hdbschema"), StandardCharsets.UTF_8);
 
-		HDBSchemaDataStructureModel model = DataStructureModelFactory.parseSchema("hdb_schema/Myschema.hdbschema", hdbschemaSample);
+		DataStructureHDBSchemaModel model = DataStructureModelFactory.parseSchema("hdb_schema/Myschema.hdbschema", hdbschemaSample);
 
 		try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class)) {
 			String mockSQL = "testSQLScript";
@@ -112,7 +112,7 @@ public class SchemaProcessorTest extends AbstractDirigibleTest {
 		HDBSchemaCreateProcessor processorSpy = spy(HDBSchemaCreateProcessor.class);
 		String hdbschemaSample = IOUtils.toString(SchemaParserTest.class.getResourceAsStream("/Myschema.hdbschema"), StandardCharsets.UTF_8);
 
-		HDBSchemaDataStructureModel model = DataStructureModelFactory.parseSchema("hdb_schema/Myschema.hdbschema", hdbschemaSample);
+		DataStructureHDBSchemaModel model = DataStructureModelFactory.parseSchema("hdb_schema/Myschema.hdbschema", hdbschemaSample);
 
 		try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
 				MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)) {
@@ -130,7 +130,7 @@ public class SchemaProcessorTest extends AbstractDirigibleTest {
 		HDBSchemaDropProcessor processorSpy = spy(HDBSchemaDropProcessor.class);
 		String hdbschemaSample = IOUtils.toString(SchemaParserTest.class.getResourceAsStream("/Myschema.hdbschema"), StandardCharsets.UTF_8);
 
-		HDBSchemaDataStructureModel model = DataStructureModelFactory.parseSchema("hdb_schema/Myschema.hdbschema", hdbschemaSample);
+		DataStructureHDBSchemaModel model = DataStructureModelFactory.parseSchema("hdb_schema/Myschema.hdbschema", hdbschemaSample);
 		String mockSQL = "testSQLScript";
 
 		try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class)) {
@@ -159,7 +159,7 @@ public class SchemaProcessorTest extends AbstractDirigibleTest {
 			HDBSchemaDropProcessor processorSpy = spy(HDBSchemaDropProcessor.class);
 			String hdbschemaSample = IOUtils.toString(SchemaParserTest.class.getResourceAsStream("/Myschema.hdbschema"), StandardCharsets.UTF_8);
 			
-			HDBSchemaDataStructureModel model = DataStructureModelFactory.parseSchema("hdb_schema/Myschema.hdbschema", hdbschemaSample);
+			DataStructureHDBSchemaModel model = DataStructureModelFactory.parseSchema("hdb_schema/Myschema.hdbschema", hdbschemaSample);
 			problemsFacade.when(() -> ProblemsFacade.save(any(), any(), any(), any(), any(), any(), any(), any(), any(), any())).thenAnswer((Answer<Void>) invocation -> null);
 			Mockito.doNothing().when(processorSpy).applyArtefactState(any(), any(), any(), any(), any());
 			

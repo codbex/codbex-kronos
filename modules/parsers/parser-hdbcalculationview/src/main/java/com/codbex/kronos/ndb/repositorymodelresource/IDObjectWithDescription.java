@@ -19,6 +19,11 @@
 
 package com.codbex.kronos.ndb.repositorymodelresource;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlType;
+
 import com.codbex.kronos.ndb.basemodelbase.Descriptions;
 import com.codbex.kronos.ndb.bimodelcalculation.Node;
 import com.codbex.kronos.ndb.bimodeldatafoundation.LogicalColumn;
@@ -26,10 +31,6 @@ import com.codbex.kronos.ndb.bimodeldimension.Hierarchy;
 import com.codbex.kronos.ndb.bimodeldimension.LocalDimension;
 import com.codbex.kronos.ndb.bimodelvariable.LocalVariable;
 import com.codbex.kronos.ndb.bimodelvariable.ValueListEntry;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
 
 
 /**

@@ -11,11 +11,12 @@
  */
 package com.codbex.kronos.xssecurestore.ds.model;
 
-import com.codbex.kronos.xssecurestore.ds.api.ISecureStoreModel;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.codbex.kronos.xssecurestore.ds.api.ISecureStoreModel;
 
 @Table(name = ISecureStoreModel.SECURE_STORE_CONTENT_TABLE_NAME)
 public class SecureStoreContent {

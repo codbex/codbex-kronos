@@ -78,7 +78,6 @@ public class AccessArtifact {
     this.authentication = authentication;
   }
 
-
   public AccessDefinition toAccessDefinition() {
     AccessDefinition accessDefinition = new AccessDefinition();
     accessDefinition.setAuthorizationRolesAsList(getAuthorization());

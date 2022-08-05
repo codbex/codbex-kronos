@@ -2,7 +2,7 @@ service namespace "np"{
 	
 "xsodata-navigations::customer" as "Customers" with ("ID", "OrderID","OrderID2")
 	navigates ("Orders_Customers" as "HisOrders")
-	create events (after "kronos.test.xsjs:auditlog.xsjslib::logCreateConfigAfter"); 
+	create events (after "kneo.test.xsjs:auditlog.xsjslib::logCreateConfigAfter"); 
 	
 	"xsodata-navigations::order" as "Orders";
 	 
@@ -10,7 +10,7 @@ service namespace "np"{
 	 principal "Orders"("ID", "ID2") multiplicity "1"
      dependent  "Customers"("OrderID", "OrderID2") multiplicity "*" 
    
-     update using  "kronos.test.xsjs:auditlog.xsjslib::logCreateConfigAfter";
+     update using  "kneo.test.xsjs:auditlog.xsjslib::logCreateConfigAfter";
 
 "xsodata-navigations::customer" as "CustomersWithoutKey" without ("OrderID");
 "xsodata-navigations::customer" as "CustomersWithAllKeys"

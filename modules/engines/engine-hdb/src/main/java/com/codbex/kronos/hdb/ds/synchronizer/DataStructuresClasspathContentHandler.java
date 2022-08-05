@@ -16,7 +16,7 @@ import org.eclipse.dirigible.commons.config.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.api.IEnvironmentVariables;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 
@@ -41,7 +41,7 @@ public class DataStructuresClasspathContentHandler extends AbstractClasspathCont
       boolean hdiOnly = Boolean.parseBoolean(Configuration.get(IEnvironmentVariables.KRONOS_HDI_ONLY, "false"));
       if (!hdiOnly) {
         try {
-          if (path.endsWith(HDBDataStructureModel.FILE_EXTENSION_ENTITIES)) {
+          if (path.endsWith(IDataStructureModel.FILE_EXTENSION_ENTITIES)) {
             dataStructuresSynchronizer.registerPredeliveredEntities(path);
             return true;
           }
@@ -51,7 +51,7 @@ public class DataStructuresClasspathContentHandler extends AbstractClasspathCont
         }
 
         try {
-          if (path.endsWith(HDBDataStructureModel.FILE_EXTENSION_TABLE)) {
+          if (path.endsWith(IDataStructureModel.FILE_EXTENSION_TABLE)) {
             dataStructuresSynchronizer.registerPredeliveredTable(path);
             return true;
           }
@@ -61,7 +61,7 @@ public class DataStructuresClasspathContentHandler extends AbstractClasspathCont
         }
 
         try {
-          if (path.endsWith(HDBDataStructureModel.FILE_EXTENSION_VIEW)) {
+          if (path.endsWith(IDataStructureModel.FILE_EXTENSION_VIEW)) {
             dataStructuresSynchronizer.registerPredeliveredView(path);
             return true;
           }
@@ -80,7 +80,7 @@ public class DataStructuresClasspathContentHandler extends AbstractClasspathCont
         //            }
 
         try {
-          if (path.endsWith(HDBDataStructureModel.FILE_EXTENSION_HDBPROCEDURE)) {
+          if (path.endsWith(IDataStructureModel.FILE_EXTENSION_HDBPROCEDURE)) {
             dataStructuresSynchronizer.registerPredeliveredHDBProcedure(path);
             return true;
           }
@@ -90,7 +90,7 @@ public class DataStructuresClasspathContentHandler extends AbstractClasspathCont
         }
 
         try {
-          if (path.endsWith(HDBDataStructureModel.FILE_EXTENSION_HDBTABLEFUNCTION)) {
+          if (path.endsWith(IDataStructureModel.FILE_EXTENSION_HDBTABLEFUNCTION)) {
             dataStructuresSynchronizer.registerPredeliveredHDBTableFunction(path);
             return true;
           }
@@ -100,7 +100,7 @@ public class DataStructuresClasspathContentHandler extends AbstractClasspathCont
         }
 
         try {
-          if (path.endsWith(HDBDataStructureModel.FILE_EXTENSION_HDBSCHEMA)) {
+          if (path.endsWith(IDataStructureModel.FILE_EXTENSION_HDBSCHEMA)) {
             dataStructuresSynchronizer.registerPredeliveredHDBSchema(path);
             return true;
           }
@@ -110,7 +110,7 @@ public class DataStructuresClasspathContentHandler extends AbstractClasspathCont
         }
 
         try {
-          if (path.endsWith(HDBDataStructureModel.FILE_EXTENSION_SYNONYM)) {
+          if (path.endsWith(IDataStructureModel.FILE_EXTENSION_SYNONYM)) {
             dataStructuresSynchronizer.registerPredeliveredSynonym(path);
             return true;
           }
@@ -120,7 +120,7 @@ public class DataStructuresClasspathContentHandler extends AbstractClasspathCont
         }
 
         try {
-          if (path.endsWith(HDBDataStructureModel.FILE_EXTENSION_STRUCTURE)) {
+          if (path.endsWith(IDataStructureModel.FILE_EXTENSION_STRUCTURE)) {
             dataStructuresSynchronizer.registerPredeliveredHDBStructure(path);
             return true;
           }

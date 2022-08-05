@@ -11,14 +11,15 @@
  */
 package com.codbex.kronos.parser.hdbdd.symbols.type.custom;
 
-import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
-import com.codbex.kronos.parser.hdbdd.symbols.context.Scope;
-import com.codbex.kronos.parser.hdbdd.symbols.type.Type;
-import com.codbex.kronos.parser.hdbdd.symbols.type.field.FieldSymbol;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
+import com.codbex.kronos.parser.hdbdd.symbols.context.Scope;
+import com.codbex.kronos.parser.hdbdd.symbols.type.Type;
+import com.codbex.kronos.parser.hdbdd.symbols.type.field.FieldSymbol;
 
 public class StructuredDataTypeSymbol extends Symbol implements Type, Scope, CustomDataType {
 

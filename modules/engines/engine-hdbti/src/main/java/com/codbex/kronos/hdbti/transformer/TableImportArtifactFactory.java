@@ -25,6 +25,7 @@ import com.codbex.kronos.parser.hdbti.models.HDBTIImportConfigModel;
 import com.codbex.kronos.parser.hdbti.models.HDBTIImportModel;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -53,7 +54,8 @@ public class TableImportArtifactFactory implements ITableImportArtifactFactory {
   private final IHDBTIParser hdbtiParser = new HDBTIParser();
 
   @Override
-  public TableImportArtifact parseTableImport(String content, String location) throws IOException, HDBTISyntaxErrorException, ArtifactParserException {
+  public TableImportArtifact parseTableImport(String content, String location)
+      throws IOException, HDBTISyntaxErrorException, ArtifactParserException {
     TableImportArtifact tableImportArtifact = new TableImportArtifact();
     List<TableImportConfigurationDefinition> importConfigurationDefinitions = new ArrayList<>();
     List<TableImportToCsvRelation> tableImportToCsvRelations = new ArrayList<>();

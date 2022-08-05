@@ -16,19 +16,19 @@ import java.sql.Timestamp;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.eclipse.dirigible.api.v3.security.UserFacade;
 
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
-import com.codbex.kronos.hdb.ds.model.hdbscalarfunction.HDBScalarFunctionDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbscalarfunction.DataStructureHDBScalarFunctionModel;
 import com.codbex.kronos.hdb.ds.parser.DataStructureParser;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.HDBUtils;
 
-public class HDBScalarFunctionParser implements DataStructureParser<HDBScalarFunctionDataStructureModel> {
+public class HDBScalarFunctionParser implements DataStructureParser<DataStructureHDBScalarFunctionModel> {
 
   @Override
-  public HDBScalarFunctionDataStructureModel parse(DataStructureParametersModel parametersModel) throws DataStructuresException {
-	  HDBScalarFunctionDataStructureModel hdbScalarFunction = new HDBScalarFunctionDataStructureModel();
+  public DataStructureHDBScalarFunctionModel parse(DataStructureParametersModel parametersModel) throws DataStructuresException {
+	  DataStructureHDBScalarFunctionModel hdbScalarFunction = new DataStructureHDBScalarFunctionModel();
     hdbScalarFunction.setName(HDBUtils.extractTableFunctionNameFromContent(parametersModel.getContent(), parametersModel.getLocation(),
         CommonsConstants.HDB_SCALAR_FUNCTION_PARSER));
     hdbScalarFunction.setLocation(parametersModel.getLocation());
@@ -42,12 +42,12 @@ public class HDBScalarFunctionParser implements DataStructureParser<HDBScalarFun
 
   @Override
   public String getType() {
-    return HDBDataStructureModel.TYPE_HDB_SCALAR_FUNCTION;
+    return IDataStructureModel.TYPE_HDB_SCALAR_FUNCTION;
   }
 
   @Override
-  public Class<HDBScalarFunctionDataStructureModel> getDataStructureClass() {
-    return HDBScalarFunctionDataStructureModel.class;
+  public Class<DataStructureHDBScalarFunctionModel> getDataStructureClass() {
+    return DataStructureHDBScalarFunctionModel.class;
   }
 }
 

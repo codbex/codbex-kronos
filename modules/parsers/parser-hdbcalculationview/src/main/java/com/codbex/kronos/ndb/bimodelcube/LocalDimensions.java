@@ -19,12 +19,13 @@
 
 package com.codbex.kronos.ndb.bimodelcube;
 
-import com.codbex.kronos.ndb.bimodeldimension.LocalDimension;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
+
+import com.codbex.kronos.ndb.bimodeldimension.LocalDimension;
 
 
 /**

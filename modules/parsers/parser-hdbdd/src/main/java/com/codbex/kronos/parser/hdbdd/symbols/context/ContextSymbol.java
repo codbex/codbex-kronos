@@ -11,8 +11,10 @@
  */
 package com.codbex.kronos.parser.hdbdd.symbols.context;
 
-import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
 import org.jetbrains.annotations.Nullable;
+
+import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 

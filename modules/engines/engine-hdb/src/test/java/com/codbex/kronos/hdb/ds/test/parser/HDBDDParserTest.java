@@ -22,17 +22,16 @@ import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.hdb.ds.model.DBContentType;
 import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 import com.codbex.kronos.hdb.ds.model.DataStructureModelFactory;
-import com.codbex.kronos.hdb.ds.model.hdbdd.CdsDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableColumnDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbtabletype.HDBTableTypeDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbview.HDBViewDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbdd.DataStructureCdsModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableColumnModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableModel;
+import com.codbex.kronos.hdb.ds.model.hdbtabletype.DataStructureHDBTableTypeModel;
+import com.codbex.kronos.hdb.ds.model.hdbview.DataStructureHDBViewModel;
 import com.codbex.kronos.hdb.ds.test.module.HDBTestModule;
-import com.codbex.kronos.parser.hdbdd.exception.CDSRuntimeException;
+
 import org.eclipse.dirigible.core.test.AbstractDirigibleTest;
 import org.junit.Before;
 import org.junit.Test;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 public class HDBDDParserTest extends AbstractDirigibleTest {
@@ -69,9 +68,9 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
   public void testParseHDBDDWithManagedAss() throws Exception {
     DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/ProductsWithManagedAss.hdbdd", "");
 
-    assertEquals(3, ((CdsDataStructureModel) parsedModel).getTableModels().size());
+    assertEquals(3, ((DataStructureCdsModel) parsedModel).getTableModels().size());
 
-    HDBTableDataStructureModel orderDataStructure = ((CdsDataStructureModel) parsedModel).getTableModels().get(1);
+    DataStructureHDBTableModel orderDataStructure = ((DataStructureCdsModel) parsedModel).getTableModels().get(1);
     assertEquals("gstr2::ProductsWithManagedAss.Orders", orderDataStructure.getName());
     assertEquals("ADMIN", orderDataStructure.getSchema());
     assertEquals(DBContentType.XS_CLASSIC, orderDataStructure.getDBContentType());
@@ -114,7 +113,7 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
 
     assertEquals(6, orderDataStructure.getColumns().size());
 
-    HDBTableColumnDataStructureModel OrderId = orderDataStructure.getColumns().get(0);
+    DataStructureHDBTableColumnModel OrderId = orderDataStructure.getColumns().get(0);
     assertEquals("Id", OrderId.getName());
     assertTrue(OrderId.isPrimaryKey());
     assertEquals("32", OrderId.getLength());
@@ -125,7 +124,7 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
     assertFalse(OrderId.isUnique());
     assertNull(OrderId.getComment());
 
-    HDBTableColumnDataStructureModel CustomerName = orderDataStructure.getColumns().get(1);
+    DataStructureHDBTableColumnModel CustomerName = orderDataStructure.getColumns().get(1);
     assertEquals("CustomerName", CustomerName.getName());
     assertFalse(CustomerName.isPrimaryKey());
     assertEquals("500", CustomerName.getLength());
@@ -136,7 +135,7 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
     assertFalse(CustomerName.isUnique());
     assertNull(CustomerName.getComment());
 
-    HDBTableColumnDataStructureModel CountryId = orderDataStructure.getColumns().get(2);
+    DataStructureHDBTableColumnModel CountryId = orderDataStructure.getColumns().get(2);
     assertEquals("Country.Id", CountryId.getName());
     assertTrue(CountryId.isPrimaryKey());
     assertEquals("32", CountryId.getLength());
@@ -147,7 +146,7 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
     assertFalse(CountryId.isUnique());
     assertNull(CountryId.getComment());
 
-    HDBTableDataStructureModel countryDataStructure = ((CdsDataStructureModel) parsedModel).getTableModels().get(0);
+    DataStructureHDBTableModel countryDataStructure = ((DataStructureCdsModel) parsedModel).getTableModels().get(0);
     assertEquals("gstr2::ProductsWithManagedAss.Country", countryDataStructure.getName());
     assertEquals("ADMIN", countryDataStructure.getSchema());
     assertEquals(DBContentType.XS_CLASSIC, countryDataStructure.getDBContentType());
@@ -164,10 +163,10 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
     CountryId = countryDataStructure.getColumns().get(0);
     assertEquals("Id", CountryId.getName());
     assertTrue(CountryId.isPrimaryKey());
-    HDBTableColumnDataStructureModel CountryId2 = countryDataStructure.getColumns().get(1);
+    DataStructureHDBTableColumnModel CountryId2 = countryDataStructure.getColumns().get(1);
     assertEquals("Id2", CountryId2.getName());
     assertTrue(CountryId2.isPrimaryKey());
-    HDBTableColumnDataStructureModel CountryName = countryDataStructure.getColumns().get(2);
+    DataStructureHDBTableColumnModel CountryName = countryDataStructure.getColumns().get(2);
     assertEquals("Name", CountryName.getName());
     assertFalse(CountryName.isPrimaryKey());
 
@@ -186,9 +185,9 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
   public void testParseHDBDDWithManagedAssAndAlias() throws Exception {
     DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/ClientsWithManagedAssAndAlias.hdbdd", "");
 
-    assertEquals(2, ((CdsDataStructureModel) parsedModel).getTableModels().size());
+    assertEquals(2, ((DataStructureCdsModel) parsedModel).getTableModels().size());
 
-    HDBTableDataStructureModel personDataStructure = ((CdsDataStructureModel) parsedModel).getTableModels().get(1);
+    DataStructureHDBTableModel personDataStructure = ((DataStructureCdsModel) parsedModel).getTableModels().get(1);
     assertEquals("gstr2::ClientsWithManagedAssAndAlias.Person", personDataStructure.getName());
     assertEquals("ADMIN", personDataStructure.getSchema());
     assertEquals(DBContentType.XS_CLASSIC, personDataStructure.getDBContentType());
@@ -242,7 +241,7 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
 
     assertEquals(9, personDataStructure.getColumns().size());
 
-    HDBTableColumnDataStructureModel personId = personDataStructure.getColumns().get(0);
+    DataStructureHDBTableColumnModel personId = personDataStructure.getColumns().get(0);
     assertEquals("id", personId.getName());
     assertTrue(personId.isPrimaryKey());
     assertNull(personId.getLength());
@@ -253,7 +252,7 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
     assertFalse(personId.isUnique());
     assertNull(personId.getComment());
 
-    HDBTableColumnDataStructureModel personAddress1Id = personDataStructure.getColumns().get(1);
+    DataStructureHDBTableColumnModel personAddress1Id = personDataStructure.getColumns().get(1);
     assertEquals("PersonAddressId1", personAddress1Id.getName());
     assertFalse(personAddress1Id.isPrimaryKey());
     assertNull(personAddress1Id.getLength());
@@ -264,7 +263,7 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
     assertFalse(personAddress1Id.isUnique());
     assertNull(personAddress1Id.getComment());
 
-    HDBTableColumnDataStructureModel personAddress1Country = personDataStructure.getColumns().get(2);
+    DataStructureHDBTableColumnModel personAddress1Country = personDataStructure.getColumns().get(2);
     assertEquals("address1.country", personAddress1Country.getName());
     assertFalse(personAddress1Country.isPrimaryKey());
     assertEquals("30", personAddress1Country.getLength());
@@ -275,7 +274,7 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
     assertFalse(personAddress1Country.isUnique());
     assertNull(personAddress1Country.getComment());
 
-    HDBTableColumnDataStructureModel personAddress1City = personDataStructure.getColumns().get(3);
+    DataStructureHDBTableColumnModel personAddress1City = personDataStructure.getColumns().get(3);
     assertEquals("address1.city", personAddress1City.getName());
     assertFalse(personAddress1City.isPrimaryKey());
     assertEquals("30", personAddress1City.getLength());
@@ -286,7 +285,7 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
     assertFalse(personAddress1City.isUnique());
     assertNull(personAddress1City.getComment());
 
-    HDBTableColumnDataStructureModel personAddress1Zip = personDataStructure.getColumns().get(4);
+    DataStructureHDBTableColumnModel personAddress1Zip = personDataStructure.getColumns().get(4);
     assertEquals("address1.zipCode", personAddress1Zip.getName());
     assertFalse(personAddress1Zip.isPrimaryKey());
     assertEquals("30", personAddress1Zip.getLength());
@@ -297,7 +296,7 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
     assertFalse(personAddress1Zip.isUnique());
     assertNull(personAddress1Zip.getComment());
 
-    HDBTableColumnDataStructureModel personAddress2Id = personDataStructure.getColumns().get(5);
+    DataStructureHDBTableColumnModel personAddress2Id = personDataStructure.getColumns().get(5);
     assertEquals("PersonAddressId2", personAddress2Id.getName());
     assertFalse(personAddress2Id.isPrimaryKey());
     assertNull(personAddress2Id.getLength());
@@ -308,7 +307,7 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
     assertFalse(personAddress2Id.isUnique());
     assertNull(personAddress2Id.getComment());
 
-    HDBTableColumnDataStructureModel personAddress2Country = personDataStructure.getColumns().get(6);
+    DataStructureHDBTableColumnModel personAddress2Country = personDataStructure.getColumns().get(6);
     assertEquals("address2.country", personAddress2Country.getName());
     assertFalse(personAddress2Country.isPrimaryKey());
     assertEquals("30", personAddress2Country.getLength());
@@ -319,7 +318,7 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
     assertFalse(personAddress2Country.isUnique());
     assertNull(personAddress2Country.getComment());
 
-    HDBTableColumnDataStructureModel personAddress2City = personDataStructure.getColumns().get(7);
+    DataStructureHDBTableColumnModel personAddress2City = personDataStructure.getColumns().get(7);
     assertEquals("address2.city", personAddress2City.getName());
     assertFalse(personAddress2City.isPrimaryKey());
     assertEquals("30", personAddress2City.getLength());
@@ -330,7 +329,7 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
     assertFalse(personAddress2City.isUnique());
     assertNull(personAddress2City.getComment());
 
-    HDBTableColumnDataStructureModel personAddress2Zip = personDataStructure.getColumns().get(8);
+    DataStructureHDBTableColumnModel personAddress2Zip = personDataStructure.getColumns().get(8);
     assertEquals("address2.zipCode", personAddress2Zip.getName());
     assertFalse(personAddress2Zip.isPrimaryKey());
     assertEquals("30", personAddress2Zip.getLength());
@@ -341,7 +340,7 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
     assertFalse(personAddress2Zip.isUnique());
     assertNull(personAddress2Zip.getComment());
 
-    HDBTableDataStructureModel addressDataStructure = ((CdsDataStructureModel) parsedModel).getTableModels().get(0);
+    DataStructureHDBTableModel addressDataStructure = ((DataStructureCdsModel) parsedModel).getTableModels().get(0);
     assertEquals("gstr2::ClientsWithManagedAssAndAlias.Address", addressDataStructure.getName());
     assertEquals("ADMIN", addressDataStructure.getSchema());
     assertEquals(DBContentType.XS_CLASSIC, addressDataStructure.getDBContentType());
@@ -357,16 +356,16 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
     assertEquals(0, addressDataStructure.getConstraints().getUniqueIndices().size());
     assertEquals(0, addressDataStructure.getConstraints().getChecks().size());
     assertEquals(4, addressDataStructure.getColumns().size());
-    HDBTableColumnDataStructureModel addressId = addressDataStructure.getColumns().get(0);
+    DataStructureHDBTableColumnModel addressId = addressDataStructure.getColumns().get(0);
     assertEquals("id", addressId.getName());
     assertTrue(addressId.isPrimaryKey());
-    HDBTableColumnDataStructureModel addressCountry = addressDataStructure.getColumns().get(1);
+    DataStructureHDBTableColumnModel addressCountry = addressDataStructure.getColumns().get(1);
     assertEquals("country", addressCountry.getName());
     assertTrue(addressCountry.isPrimaryKey());
-    HDBTableColumnDataStructureModel addressCity = addressDataStructure.getColumns().get(2);
+    DataStructureHDBTableColumnModel addressCity = addressDataStructure.getColumns().get(2);
     assertEquals("city", addressCity.getName());
     assertTrue(addressCity.isPrimaryKey());
-    HDBTableColumnDataStructureModel addressZipCode = addressDataStructure.getColumns().get(3);
+    DataStructureHDBTableColumnModel addressZipCode = addressDataStructure.getColumns().get(3);
     assertEquals("zipCode", addressZipCode.getName());
     assertTrue(addressZipCode.isPrimaryKey());
 
@@ -384,9 +383,9 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
   public void testParseHDBDDWithUnManagedAss() throws Exception {
     DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/ProductsWithUnManagedAss.hdbdd", "");
 
-    assertEquals(2, ((CdsDataStructureModel) parsedModel).getTableModels().size());
+    assertEquals(2, ((DataStructureCdsModel) parsedModel).getTableModels().size());
 
-    HDBTableDataStructureModel orderDataStructure = ((CdsDataStructureModel) parsedModel).getTableModels().get(0);
+    DataStructureHDBTableModel orderDataStructure = ((DataStructureCdsModel) parsedModel).getTableModels().get(0);
     assertEquals("gstr2::ProductsWithUnManagedAss.Orders", orderDataStructure.getName());
     assertEquals("ADMIN", orderDataStructure.getSchema());
     assertEquals(DBContentType.XS_CLASSIC, orderDataStructure.getDBContentType());
@@ -408,7 +407,7 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
 
     assertEquals(2, orderDataStructure.getColumns().size());
 
-    HDBTableColumnDataStructureModel id = orderDataStructure.getColumns().get(0);
+    DataStructureHDBTableColumnModel id = orderDataStructure.getColumns().get(0);
     assertEquals("Id", id.getName());
     assertTrue(id.isPrimaryKey());
     assertEquals("32", id.getLength());
@@ -419,7 +418,7 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
     assertFalse(id.isUnique());
     assertNull(id.getComment());
 
-    HDBTableColumnDataStructureModel CustomerName = orderDataStructure.getColumns().get(1);
+    DataStructureHDBTableColumnModel CustomerName = orderDataStructure.getColumns().get(1);
     assertEquals("CustomerName", CustomerName.getName());
     assertFalse(CustomerName.isPrimaryKey());
     assertEquals("500", CustomerName.getLength());
@@ -430,7 +429,7 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
     assertFalse(CustomerName.isUnique());
     assertNull(CustomerName.getComment());
 
-    HDBTableDataStructureModel itemDataStructure = ((CdsDataStructureModel) parsedModel).getTableModels().get(1);
+    DataStructureHDBTableModel itemDataStructure = ((DataStructureCdsModel) parsedModel).getTableModels().get(1);
     assertEquals("gstr2::ProductsWithUnManagedAss.Item", itemDataStructure.getName());
     assertEquals("ADMIN", itemDataStructure.getSchema());
     assertEquals(DBContentType.XS_CLASSIC, itemDataStructure.getDBContentType());
@@ -452,10 +451,10 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
     assertEquals(0, itemDataStructure.getConstraints().getUniqueIndices().size());
     assertEquals(0, itemDataStructure.getConstraints().getChecks().size());
     assertEquals(2, itemDataStructure.getColumns().size());
-    HDBTableColumnDataStructureModel ItemId = itemDataStructure.getColumns().get(0);
+    DataStructureHDBTableColumnModel ItemId = itemDataStructure.getColumns().get(0);
     assertEquals("ItemId", ItemId.getName());
     assertTrue(ItemId.isPrimaryKey());
-    HDBTableColumnDataStructureModel OrderId = itemDataStructure.getColumns().get(1);
+    DataStructureHDBTableColumnModel OrderId = itemDataStructure.getColumns().get(1);
     assertEquals("OrderId", OrderId.getName());
     assertFalse(OrderId.isPrimaryKey());
 
@@ -484,9 +483,9 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
   @Test
   public void testParseHDBDDWithGenerateTableTypeAnnotation() throws Exception {
     DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/GenerateTableTypeAnnotationSample.hdbdd", "");
-    assertEquals(1, ((CdsDataStructureModel) parsedModel).getTableTypeModels().size());
+    assertEquals(1, ((DataStructureCdsModel) parsedModel).getTableTypeModels().size());
 
-    HDBTableTypeDataStructureModel tableTypeModel = ((CdsDataStructureModel) parsedModel).getTableTypeModels().get(0);
+    DataStructureHDBTableTypeModel tableTypeModel = ((DataStructureCdsModel) parsedModel).getTableTypeModels().get(0);
     assertEquals("gstr2::GenerateTableTypeAnnotationSample.MyNestedStruct", tableTypeModel.getName());
     assertEquals("ADMIN", tableTypeModel.getSchema());
     assertEquals("name", tableTypeModel.getColumns().get(0).getName());
@@ -502,9 +501,9 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
   @Test
   public void testParseHDBDDWithDateTimeFunctionDefaultValue() throws Exception {
     DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/DefaultValueWithDateTimeFunction.hdbdd", "");
-    assertEquals(1, ((CdsDataStructureModel) parsedModel).getTableModels().size());
+    assertEquals(1, ((DataStructureCdsModel) parsedModel).getTableModels().size());
 
-    HDBTableDataStructureModel tableModel = ((CdsDataStructureModel) parsedModel).getTableModels().get(0);
+    DataStructureHDBTableModel tableModel = ((DataStructureCdsModel) parsedModel).getTableModels().get(0);
     assertEquals("gstr2::DefaultValueWithDateTimeFunction.Orders", tableModel.getName());
     assertEquals("DBADMIN", tableModel.getSchema());
     assertEquals("Id", tableModel.getColumns().get(0).getName());
@@ -517,15 +516,15 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
   @Test
   public void testParseHDBDDWithTableTypeAnnotationColumn() throws Exception {
     DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/TableTypeColumn.hdbdd", "");
-    assertEquals("COLUMN", ((CdsDataStructureModel) parsedModel).getTableModels().get(0).getTableType());
-    assertEquals("COLUMN", ((CdsDataStructureModel) parsedModel).getTableModels().get(1).getTableType());
+    assertEquals("COLUMN", ((DataStructureCdsModel) parsedModel).getTableModels().get(0).getTableType());
+    assertEquals("COLUMN", ((DataStructureCdsModel) parsedModel).getTableModels().get(1).getTableType());
   }
 
   @Test
   public void testParseHDBDDWithTableTypeAnnotationRow() throws Exception {
     DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/TableTypeRow.hdbdd", "");
-    assertEquals("ROW", ((CdsDataStructureModel) parsedModel).getTableModels().get(0).getTableType());
-    assertEquals("ROW", ((CdsDataStructureModel) parsedModel).getTableModels().get(1).getTableType());
+    assertEquals("ROW", ((DataStructureCdsModel) parsedModel).getTableModels().get(0).getTableType());
+    assertEquals("ROW", ((DataStructureCdsModel) parsedModel).getTableModels().get(1).getTableType());
   }
 
   /**
@@ -534,7 +533,7 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
   @Test
   public void testParseHDBDDWithNoTableTypeAnnotation() throws Exception {
     DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/NoTableType.hdbdd", "");
-    String tableType = ((CdsDataStructureModel) parsedModel).getTableModels().get(0).getTableType();
+    String tableType = ((DataStructureCdsModel) parsedModel).getTableModels().get(0).getTableType();
     assertNull("No table type should have been defined for this HDBDD, but table type is specified", tableType);
   }
 
@@ -543,7 +542,7 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
     String expectedRawContent = org.apache.commons.io.IOUtils
         .toString(HDBDDParserTest.class.getResourceAsStream("/expected-results/ViewDefinitionSimple.sql"), StandardCharsets.UTF_8);
     DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/ViewDefinitionSimple.hdbdd", "");
-    HDBViewDataStructureModel viewModel = ((CdsDataStructureModel) parsedModel).getViewModels().get(0);
+    DataStructureHDBViewModel viewModel = ((DataStructureCdsModel) parsedModel).getViewModels().get(0);
 
     assertEquals(expectedRawContent, viewModel.getRawContent().trim());
   }
@@ -553,7 +552,7 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
     String expectedRawContent = org.apache.commons.io.IOUtils
         .toString(HDBDDParserTest.class.getResourceAsStream("/expected-results/ViewDefinitionWithJoin.sql"), StandardCharsets.UTF_8);
     DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/ViewDefinitionWithJoin.hdbdd", "");
-    HDBViewDataStructureModel viewModel = ((CdsDataStructureModel) parsedModel).getViewModels().get(0);
+    DataStructureHDBViewModel viewModel = ((DataStructureCdsModel) parsedModel).getViewModels().get(0);
 
     assertEquals(expectedRawContent, viewModel.getRawContent().trim());
   }
@@ -563,7 +562,7 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
     String expectedRawContent = org.apache.commons.io.IOUtils
         .toString(HDBDDParserTest.class.getResourceAsStream("/expected-results/ViewDefinitionWithWhere.sql"), StandardCharsets.UTF_8);
     DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/ViewDefinitionWithWhere.hdbdd", "");
-    HDBViewDataStructureModel viewModel = ((CdsDataStructureModel) parsedModel).getViewModels().get(0);
+    DataStructureHDBViewModel viewModel = ((DataStructureCdsModel) parsedModel).getViewModels().get(0);
 
     assertEquals(expectedRawContent, viewModel.getRawContent().trim());
   }
@@ -573,7 +572,7 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
     String expectedRawContent = org.apache.commons.io.IOUtils
         .toString(HDBDDParserTest.class.getResourceAsStream("/expected-results/ViewDefinitionWithUnion.sql"), StandardCharsets.UTF_8);
     DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/ViewDefinitionWithUnion.hdbdd", "");
-    HDBViewDataStructureModel viewModel = ((CdsDataStructureModel) parsedModel).getViewModels().get(0);
+    DataStructureHDBViewModel viewModel = ((DataStructureCdsModel) parsedModel).getViewModels().get(0);
 
     assertEquals(expectedRawContent, viewModel.getRawContent().trim());
   }
@@ -583,7 +582,7 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
     String expectedRawContent = org.apache.commons.io.IOUtils
         .toString(HDBDDParserTest.class.getResourceAsStream("/expected-results/ViewDefinitionNested.sql"), StandardCharsets.UTF_8);
     DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/ViewDefinitionNested.hdbdd", "");
-    HDBViewDataStructureModel viewModel = ((CdsDataStructureModel) parsedModel).getViewModels().get(0);
+    DataStructureHDBViewModel viewModel = ((DataStructureCdsModel) parsedModel).getViewModels().get(0);
 
     assertEquals(expectedRawContent, viewModel.getRawContent().trim());
   }
@@ -591,60 +590,60 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
   @Test
   public void testParseHDBDDWithFuzzySearchIndex() throws Exception {
     DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/FuzzySearchIndexEnabled.hdbdd", "");
-    assertFalse("Fuzzy search index is expected to be false, but it is true" ,((CdsDataStructureModel) parsedModel).getTableModels().get(0).getColumns().get(1).isFuzzySearchIndexEnabled());
-    assertTrue("Fuzzy search index is expected to be true, but it is false",((CdsDataStructureModel) parsedModel).getTableModels().get(1).getColumns().get(1).isFuzzySearchIndexEnabled());
+    assertFalse("Fuzzy search index is expected to be false, but it is true" ,((DataStructureCdsModel) parsedModel).getTableModels().get(0).getColumns().get(1).isFuzzySearchIndexEnabled());
+    assertTrue("Fuzzy search index is expected to be true, but it is false",((DataStructureCdsModel) parsedModel).getTableModels().get(1).getColumns().get(1).isFuzzySearchIndexEnabled());
   }
 
   @Test
   public void testParseHDBDDWithFuzzySearchIndexNewSyntax() throws Exception {
     DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/FuzzySearchIndexEnabledNewSyntax.hdbdd", "");
-    assertTrue("Fuzzy search index (new syntax) is expected to be true, but it is false" ,((CdsDataStructureModel) parsedModel).getTableModels().get(0).getColumns().get(1).isFuzzySearchIndexEnabled());
-    assertFalse("Fuzzy search index (new syntax) is expected to be false, but it is true",((CdsDataStructureModel) parsedModel).getTableModels().get(1).getColumns().get(1).isFuzzySearchIndexEnabled());
+    assertTrue("Fuzzy search index (new syntax) is expected to be true, but it is false" ,((DataStructureCdsModel) parsedModel).getTableModels().get(0).getColumns().get(1).isFuzzySearchIndexEnabled());
+    assertFalse("Fuzzy search index (new syntax) is expected to be false, but it is true",((DataStructureCdsModel) parsedModel).getTableModels().get(1).getColumns().get(1).isFuzzySearchIndexEnabled());
   }
 
   @Test
   public void testParseHDBDDWithTraverseSelectStatement() throws Exception {
     DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/TraverseSelectStatement.hdbdd", "");
-    assertEquals("gstr2::TraverseSelectStatement.category", ((CdsDataStructureModel) parsedModel).getViewModels().get(0).getDependsOnTable().get(0));
+    assertEquals("gstr2::TraverseSelectStatement.category", ((DataStructureCdsModel) parsedModel).getViewModels().get(0).getDependsOnTable().get(0));
   }
 
   @Test
   public void testParseHDBDDWithTraverseSelectStatementDummyTable() throws Exception {
     DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/TraverseSelectStatementDummyTable.hdbdd", "");
-    assertEquals("DUMMY", ((CdsDataStructureModel) parsedModel).getViewModels().get(0).getDependsOnTable().get(0));
+    assertEquals("DUMMY", ((DataStructureCdsModel) parsedModel).getViewModels().get(0).getDependsOnTable().get(0));
   }
 
   @Test
   public void testParseHDBDDWithSelectDistinct() throws Exception {
     DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/SelectDistinct.hdbdd", "");
-    assertTrue("Expected SELECT DISTINCT, but it is not found",((CdsDataStructureModel) parsedModel).getViewModels().get(0).getRawContent().contains("SELECT DISTINCT"));
+    assertTrue("Expected SELECT DISTINCT, but it is not found",((DataStructureCdsModel) parsedModel).getViewModels().get(0).getRawContent().contains("SELECT DISTINCT"));
   }
 
   @Test
   public void testParseHDBDDWithSetSqlType() throws Exception {
     DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/SetSqlType.hdbdd", "");
-    assertEquals("NVARCHAR",((CdsDataStructureModel) parsedModel).getTableTypeModels().get(0).getColumns().get(0).getType());
-    assertEquals("DECIMAL",((CdsDataStructureModel) parsedModel).getTableTypeModels().get(0).getColumns().get(1).getType());
+    assertEquals("NVARCHAR",((DataStructureCdsModel) parsedModel).getTableTypeModels().get(0).getColumns().get(0).getType());
+    assertEquals("DECIMAL",((DataStructureCdsModel) parsedModel).getTableTypeModels().get(0).getColumns().get(1).getType());
   }
 
   @Test
   public void testParseHDBDDWithSetHanaType() throws Exception {
     DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/SetHanaType.hdbdd", "");
-    assertEquals("NVARCHAR",((CdsDataStructureModel) parsedModel).getTableTypeModels().get(0).getColumns().get(0).getType());
-    assertEquals("SMALLINT",((CdsDataStructureModel) parsedModel).getTableTypeModels().get(0).getColumns().get(1).getType());
+    assertEquals("NVARCHAR",((DataStructureCdsModel) parsedModel).getTableTypeModels().get(0).getColumns().get(0).getType());
+    assertEquals("SMALLINT",((DataStructureCdsModel) parsedModel).getTableTypeModels().get(0).getColumns().get(1).getType());
   }
 
   @Test
   public void testParseHDBDDWithStructuredDataTypeSymbol() throws Exception {
     DataStructureModel parsedModel = DataStructureModelFactory. parseHdbdd("gstr2/StructuredDataTypeSymbol.hdbdd", "");
-    assertEquals("gstr2::StructuredDataTypeSymbol.modifiedType",((CdsDataStructureModel) parsedModel).getTableTypeModels().get(0).getName());
-    assertEquals("gstr2::StructuredDataTypeSymbol.newType",((CdsDataStructureModel) parsedModel).getTableTypeModels().get(1).getName());
+    assertEquals("gstr2::StructuredDataTypeSymbol.modifiedType",((DataStructureCdsModel) parsedModel).getTableTypeModels().get(0).getName());
+    assertEquals("gstr2::StructuredDataTypeSymbol.newType",((DataStructureCdsModel) parsedModel).getTableTypeModels().get(1).getName());
   }
   
   @Test
   public void testParseHDBDDWithUniqueCatalogIndex() throws Exception {
     DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/CatalogIndexUnique.hdbdd", "");
-    boolean hasUniqueIndices = ((CdsDataStructureModel) parsedModel).getTableModels().get(0).getConstraints().getUniqueIndices()
+    boolean hasUniqueIndices = ((DataStructureCdsModel) parsedModel).getTableModels().get(0).getConstraints().getUniqueIndices()
         .isEmpty();
     assertFalse("Expected value for catalog unique index to be true, but it is false", hasUniqueIndices);
   }
@@ -652,7 +651,15 @@ public class HDBDDParserTest extends AbstractDirigibleTest {
   @Test
   public void testParseHDBDDWithNoUniqueCatalogIndex() throws Exception {
     DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/CatalogIndexNonUnique.hdbdd", "");
-    boolean hasNoUniqueIndices = ((CdsDataStructureModel) parsedModel).getTableModels().get(0).getIndexes().get(0).isUnique();
+    boolean hasNoUniqueIndices = ((DataStructureCdsModel) parsedModel).getTableModels().get(0).getIndexes().get(0).isUnique();
     assertFalse("Expected value for catalog unique index to be false, but it is true", hasNoUniqueIndices);
+  }
+
+  @Test
+  public void testParseHDBDDWithCalculatedColumns() throws Exception {
+    DataStructureCdsModel parsedModel = (DataStructureCdsModel) DataStructureModelFactory.parseHdbdd("gstr2/CalculatedColumns.hdbdd", "");
+    String expectedCalculatedColumn = "\"firstName\" || \u0027 \u0027 || \"lastName\"";
+    assertEquals(expectedCalculatedColumn,
+        parsedModel.getTableModels().get(0).getColumns().get(2).getStatement());
   }
 }

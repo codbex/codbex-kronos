@@ -11,10 +11,11 @@
  */
 package com.codbex.kronos.parser.hdbview.custom;
 
+import java.util.stream.Collectors;
+
 import com.codbex.kronos.parser.hdbview.core.HdbviewBaseListener;
 import com.codbex.kronos.parser.hdbview.core.HdbviewParser;
 import com.codbex.kronos.parser.hdbview.models.HDBViewDefinitionModel;
-import java.util.stream.Collectors;
 
 public class HDBViewCoreListener extends HdbviewBaseListener {
 

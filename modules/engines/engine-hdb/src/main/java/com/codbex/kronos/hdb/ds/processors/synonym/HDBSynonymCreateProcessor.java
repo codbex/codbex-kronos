@@ -24,15 +24,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.codbex.kronos.hdb.ds.artefacts.HDBSynonymSynchronizationArtefactType;
-import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbsynonym.DataStructureHDBSynonymModel;
 import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDefinitionModel;
-import com.codbex.kronos.hdb.ds.processors.AbstractProcessor;
+import com.codbex.kronos.hdb.ds.processors.AbstractHDBProcessor;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.utils.HDBUtils;
 
 
-public class HDBSynonymCreateProcessor extends AbstractProcessor<HDBSynonymDataStructureModel> {
+public class HDBSynonymCreateProcessor extends AbstractHDBProcessor<DataStructureHDBSynonymModel> {
 
   private static final Logger logger = LoggerFactory.getLogger(HDBSynonymCreateProcessor.class);
   private static final HDBSynonymSynchronizationArtefactType SYNONYM_ARTEFACT = new HDBSynonymSynchronizationArtefactType();
@@ -46,7 +46,7 @@ public class HDBSynonymCreateProcessor extends AbstractProcessor<HDBSynonymDataS
    * @see <a href="https://help.sap.com/viewer/4fe29514fd584807ac9f2a04f6754767/1.0.12/en-US/20d5412b75191014bc7ec7e133ce5bf5.html">CREATE SYNONYM Statement (Data Definition)</a>
    */
   @Override
-  public boolean execute(Connection connection, HDBSynonymDataStructureModel synonymModel) throws SQLException {
+  public boolean execute(Connection connection, DataStructureHDBSynonymModel synonymModel) throws SQLException {
 	  for (Map.Entry<String, HDBSynonymDefinitionModel> entry : synonymModel.getSynonymDefinitions().entrySet()) {
 	      logger.info("Processing Create Synonym: " + entry.getKey());
 	

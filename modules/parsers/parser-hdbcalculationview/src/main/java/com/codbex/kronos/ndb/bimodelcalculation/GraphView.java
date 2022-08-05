@@ -19,13 +19,6 @@
 
 package com.codbex.kronos.ndb.bimodelcalculation;
 
-import com.codbex.kronos.ndb.datamodelgraph.GetNeighborhoodParameterization;
-import com.codbex.kronos.ndb.datamodelgraph.GetShortestPathParameterization;
-import com.codbex.kronos.ndb.datamodelgraph.GetShortestPathsParameterization;
-import com.codbex.kronos.ndb.datamodelgraph.GetStronglyConnectedComponents;
-import com.codbex.kronos.ndb.datamodelgraph.GraphAction;
-import com.codbex.kronos.ndb.datamodelgraph.PatternMatching;
-import com.codbex.kronos.ndb.datamodelgraph.ScriptPatternMatching;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -34,6 +27,14 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.codbex.kronos.ndb.datamodelgraph.GetNeighborhoodParameterization;
+import com.codbex.kronos.ndb.datamodelgraph.GetShortestPathParameterization;
+import com.codbex.kronos.ndb.datamodelgraph.GetShortestPathsParameterization;
+import com.codbex.kronos.ndb.datamodelgraph.GetStronglyConnectedComponents;
+import com.codbex.kronos.ndb.datamodelgraph.GraphAction;
+import com.codbex.kronos.ndb.datamodelgraph.PatternMatching;
+import com.codbex.kronos.ndb.datamodelgraph.ScriptPatternMatching;
 
 
 /**

@@ -11,13 +11,15 @@
  */
 package com.codbex.kronos.hdbti.api;
 
-import com.codbex.kronos.hdbti.model.TableImportArtifact;
-import com.codbex.kronos.hdbti.model.TableImportToCsvRelation;
 import java.util.List;
 import javax.sql.DataSource;
 import org.eclipse.dirigible.database.persistence.PersistenceManager;
 
+import com.codbex.kronos.hdbti.model.TableImportArtifact;
+import com.codbex.kronos.hdbti.model.TableImportToCsvRelation;
+
 public interface ICSVToHDBTIRelationDao {
+
     void persistNewCsvAndHdbtiRelations(TableImportArtifact tableImportArtifact);
 
     void deleteCsvAndHdbtiRelations(String hdbtiFileName);

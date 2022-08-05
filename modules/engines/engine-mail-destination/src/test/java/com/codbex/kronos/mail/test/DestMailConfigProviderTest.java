@@ -13,6 +13,7 @@ package com.codbex.kronos.mail.test;
 
 import com.codbex.kronos.api.destination.CloudPlatformDestinationFacade;
 import com.codbex.kronos.mail.DestMailConfigProvider;
+
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.junit.After;
 import org.junit.Before;

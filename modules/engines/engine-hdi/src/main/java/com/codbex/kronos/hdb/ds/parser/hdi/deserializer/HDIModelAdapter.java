@@ -11,22 +11,22 @@
  */
 package com.codbex.kronos.hdb.ds.parser.hdi.deserializer;
 
+import com.codbex.kronos.hdb.ds.model.hdi.DataStructureHDIModel;
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-import com.codbex.kronos.hdb.ds.model.hdi.HDIDataStructureModel;
+
 import java.lang.reflect.Type;
 
 
-public class HDIModelAdapter implements JsonDeserializer<HDIDataStructureModel> {
-
+public class HDIModelAdapter implements JsonDeserializer<DataStructureHDIModel> {
 
   @Override
-  public HDIDataStructureModel deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context)
+  public DataStructureHDIModel deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context)
       throws JsonParseException {
-    HDIDataStructureModel hdiModel = new Gson().fromJson(jsonElement, type);
+    DataStructureHDIModel hdiModel = new Gson().fromJson(jsonElement, type);
     if (hdiModel.isMandatoryFieldMissing()) {
       throw new JsonParseException("Mandatory field among configuration/users/group/container is missing!");
     }

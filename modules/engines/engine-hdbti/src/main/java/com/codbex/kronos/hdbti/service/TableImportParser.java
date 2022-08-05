@@ -11,8 +11,6 @@
  */
 package com.codbex.kronos.hdbti.service;
 
-import static com.codbex.kronos.hdbti.api.ITableImportModel.TYPE_HDBTI;
-
 import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.hdbti.api.ITableImportArtifactFactory;
 import com.codbex.kronos.hdbti.api.ITableImportParser;
@@ -21,6 +19,9 @@ import com.codbex.kronos.hdbti.model.TableImportConfigurationDefinition;
 import com.codbex.kronos.hdbti.transformer.TableImportArtifactFactory;
 import com.codbex.kronos.parser.hdbti.exception.HDBTISyntaxErrorException;
 import com.codbex.kronos.utils.CommonsDBUtils;
+
+import static com.codbex.kronos.hdbti.api.ITableImportModel.TYPE_HDBTI;
+
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;

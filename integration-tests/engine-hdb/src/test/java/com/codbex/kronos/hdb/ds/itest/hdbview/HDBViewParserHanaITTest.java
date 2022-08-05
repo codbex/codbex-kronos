@@ -11,7 +11,7 @@
  */
 package com.codbex.kronos.hdb.ds.itest.hdbview;
 
-import static com.codbex.kronos.hdb.ds.itest.utils.TestConstants.HANA_USERNAME;
+import static com.codbex.kronos.integration.tests.core.hdb.utils.TestConstants.HANA_USERNAME;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
@@ -25,9 +25,9 @@ import org.eclipse.dirigible.repository.local.LocalResource;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.codbex.kronos.hdb.ds.itest.AbstractHDBITTest;
-import com.codbex.kronos.hdb.ds.itest.module.HDBTestModule;
-import com.codbex.kronos.hdb.ds.itest.utils.HanaITestUtils;
+import com.codbex.kronos.hdb.ds.AbstractHDBITTest;
+import com.codbex.kronos.integration.tests.core.hdb.module.HDBTestModule;
+import com.codbex.kronos.integration.tests.core.hdb.utils.HanaITestUtils;
 import com.codbex.kronos.utils.Constants;
 
 public class HDBViewParserHanaITTest extends AbstractHDBITTest {

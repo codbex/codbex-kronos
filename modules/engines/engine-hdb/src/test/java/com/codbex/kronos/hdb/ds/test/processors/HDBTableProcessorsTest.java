@@ -16,9 +16,6 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableDataStructureModel;
-import com.codbex.kronos.hdb.ds.processors.table.TableAlterHandler;
-import com.codbex.kronos.hdb.ds.processors.table.TableAlterProcessor;
 import java.sql.Connection;
 import org.eclipse.dirigible.core.test.AbstractDirigibleTest;
 import org.junit.Before;
@@ -30,6 +27,10 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableModel;
+import com.codbex.kronos.hdb.ds.processors.table.TableAlterHandler;
+import com.codbex.kronos.hdb.ds.processors.table.TableAlterProcessor;
+
 @RunWith(MockitoJUnitRunner.class)
 public class HDBTableProcessorsTest extends AbstractDirigibleTest {
 
@@ -37,7 +38,7 @@ public class HDBTableProcessorsTest extends AbstractDirigibleTest {
   private Connection mockConnection;
 
   @Mock
-  private HDBTableDataStructureModel mockModel;
+  private DataStructureHDBTableModel mockModel;
 
   @Mock
   private TableAlterHandler mockHandler;

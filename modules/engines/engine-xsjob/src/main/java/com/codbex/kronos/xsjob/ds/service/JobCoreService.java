@@ -11,10 +11,6 @@
  */
 package com.codbex.kronos.xsjob.ds.service;
 
-import com.codbex.kronos.utils.Utils;
-import com.codbex.kronos.xsjob.ds.api.IJobCoreService;
-import com.codbex.kronos.xsjob.ds.model.JobArtifact;
-import com.codbex.kronos.xsjob.ds.model.JobDefinition;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -22,21 +18,27 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
 import javax.sql.DataSource;
+
 import org.eclipse.dirigible.api.v3.security.UserFacade;
 import org.eclipse.dirigible.commons.api.helpers.GsonHelper;
 import org.eclipse.dirigible.commons.config.StaticObjects;
 import org.eclipse.dirigible.core.scheduler.api.SchedulerException;
 import org.eclipse.dirigible.database.persistence.PersistenceManager;
 
+import com.codbex.kronos.utils.Utils;
+import com.codbex.kronos.xsjob.ds.api.IJobCoreService;
+import com.codbex.kronos.xsjob.ds.model.JobArtifact;
+import com.codbex.kronos.xsjob.ds.model.JobDefinition;
+
 public class JobCoreService implements IJobCoreService {
 
   private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
 
-  private PersistenceManager<JobDefinition> jobPersistenceManager = new PersistenceManager<JobDefinition>();
+  private PersistenceManager<JobDefinition> persistenceManager = new PersistenceManager<JobDefinition>();
 
   public JobCoreService() {
   }
@@ -61,7 +63,7 @@ public class JobCoreService implements IJobCoreService {
         jobDefinition.setCreatedAt(new Timestamp(new java.util.Date().getTime()));
 
         connection = dataSource.getConnection();
-        jobPersistenceManager.insert(connection, jobDefinition);
+        persistenceManager.insert(connection, jobDefinition);
         return jobDefinition;
       } finally {
         if (connection != null) {
@@ -90,7 +92,7 @@ public class JobCoreService implements IJobCoreService {
         jobDefinition.setStartAt(startAt);
         jobDefinition.setEndAt(endAt);
         jobDefinition.setParameters(Utils.objectToByteArray(parametersAsMap));
-        jobPersistenceManager.update(connection, jobDefinition);
+        persistenceManager.update(connection, jobDefinition);
 
         return jobDefinition;
       } finally {
@@ -109,7 +111,7 @@ public class JobCoreService implements IJobCoreService {
       Connection connection = null;
       try {
         connection = dataSource.getConnection();
-        JobDefinition jobDefinition = jobPersistenceManager.find(connection, JobDefinition.class, name);
+        JobDefinition jobDefinition = persistenceManager.find(connection, JobDefinition.class, name);
         if (jobDefinition != null) {
           Map<String, String> parametersMap = Utils.byteArrayToObject(jobDefinition.getParameters());
           jobDefinition.setParametersAsMap(parametersMap);
@@ -132,7 +134,7 @@ public class JobCoreService implements IJobCoreService {
       Connection connection = null;
       try {
         connection = dataSource.getConnection();
-        jobPersistenceManager.delete(connection, JobDefinition.class, name);
+        persistenceManager.delete(connection, JobDefinition.class, name);
       } finally {
         if (connection != null) {
           connection.close();
@@ -149,7 +151,7 @@ public class JobCoreService implements IJobCoreService {
       Connection connection = null;
       try {
         connection = dataSource.getConnection();
-        List<JobDefinition> foundJobs = jobPersistenceManager.findAll(connection, JobDefinition.class);
+        List<JobDefinition> foundJobs = persistenceManager.findAll(connection, JobDefinition.class);
         for (JobDefinition jobDefinition : foundJobs) {
 
           Map<String, String> parametersMap = Utils.byteArrayToObject(jobDefinition.getParameters());

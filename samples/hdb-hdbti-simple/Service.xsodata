@@ -1,0 +1,11 @@
+service namespace "hdb-hdbti-simple" {
+    "KRONOS_SAMPLES_HDB_HDBTI_SIMPLE"."hdb-hdbti-simple::Products.Orders" as "ProductsOrders";
+}
+
+annotations {
+   enable OData4SAP;
+}
+
+settings {
+    support null;
+} 

@@ -15,6 +15,7 @@ import com.codbex.kronos.engine.JavascriptEngineExecutor;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.xsjob.ds.api.IJobCoreService;
+
 import java.util.HashMap;
 import java.util.Map;
 import org.eclipse.dirigible.commons.api.scripting.ScriptingException;
@@ -44,7 +45,7 @@ public class JobHandler implements Job {
     try {
       javascriptEngineExecutor.executeService(XSJOB_HANDLER, executionContext, true, true);
     } catch (ScriptingException e) {
-      CommonsUtils.logProcessorErrors(e.getMessage(), CommonsConstants.PROCESSOR_ERROR, context.getJobDetail().getDescription(), CommonsConstants.KRONOS_JOB_PARSER);
+      CommonsUtils.logProcessorErrors(e.getMessage(), CommonsConstants.PROCESSOR_ERROR, context.getJobDetail().getDescription(), CommonsConstants.JOB_PARSER);
       throw new JobExecutionException(e);
     }
   }

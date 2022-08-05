@@ -47,8 +47,8 @@ import com.codbex.kronos.hdbti.utils.HDBTIUtils;
 import com.codbex.kronos.parser.hdbti.custom.HDBTIParser;
 import com.codbex.kronos.parser.hdbti.exception.HDBTISyntaxErrorException;
 import com.codbex.kronos.parser.hdbti.models.HDBTIImportConfigModel;
-import com.codbex.kronos.parser.hdbti.models.HDBTIImportConfigModel.Pair;
 import com.codbex.kronos.parser.hdbti.models.HDBTIImportModel;
+import com.codbex.kronos.parser.hdbti.models.HDBTIImportConfigModel.Pair;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 
@@ -194,7 +194,7 @@ public class HDBTIProcessor implements IHDBTIProcessor {
     return csvFormat;
   }
 
-  public List<HDBTIImportConfigModel> parseHdbtiToJSON(String location, byte[] file)
+  public List<HDBTIImportConfigModel> parseHDBTIToJSON(String location, byte[] file)
       throws ArtifactParserException, IOException, HDBTISyntaxErrorException {
     if (location == null) {
       location = "undefined";

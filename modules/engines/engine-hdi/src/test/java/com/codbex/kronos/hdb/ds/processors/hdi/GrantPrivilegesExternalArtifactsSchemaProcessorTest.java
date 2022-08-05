@@ -11,14 +11,12 @@
  */
 package com.codbex.kronos.hdb.ds.processors.hdi;
 
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.anyString;
-import static org.mockito.Mockito.eq;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -30,21 +28,18 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Answers;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDataStructureModel;
+import com.codbex.kronos.hdb.ds.api.DataStructuresException;
+import com.codbex.kronos.hdb.ds.model.hdbsynonym.DataStructureHDBSynonymModel;
 import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDefinitionModel;
 import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDefinitionModel.Target;
-import com.codbex.kronos.hdb.ds.processors.hdi.GrantPrivilegesExternalArtifactsSchemaProcessor;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GrantPrivilegesExternalArtifactsSchemaProcessorTest {
@@ -157,7 +152,7 @@ interface ReThrowingBiConsumer<T, X, E extends Exception> {
 
 class HDISynonym {
   final String location;
-  final HDBSynonymDataStructureModel model;
+  final DataStructureHDBSynonymModel model;
 
   public HDISynonym(String location, SynonymDefinition... definitions){
     this.location = location;
@@ -168,12 +163,12 @@ class HDISynonym {
     return location;
   }
 
-  public HDBSynonymDataStructureModel getModel() {
+  public DataStructureHDBSynonymModel getModel() {
     return model;
   }
 
-  private HDBSynonymDataStructureModel createSynonymModel(SynonymDefinition... definitions){
-    HDBSynonymDataStructureModel synonymModel = new HDBSynonymDataStructureModel();
+  private DataStructureHDBSynonymModel createSynonymModel(SynonymDefinition... definitions){
+    DataStructureHDBSynonymModel synonymModel = new DataStructureHDBSynonymModel();
 
     Map<String, HDBSynonymDefinitionModel> models = Arrays.stream(definitions)
         .collect(Collectors.toMap(SynonymDefinition::getArtifactName, SynonymDefinition::getModel));

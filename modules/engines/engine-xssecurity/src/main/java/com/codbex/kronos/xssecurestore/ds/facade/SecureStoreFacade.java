@@ -11,12 +11,13 @@
  */
 package com.codbex.kronos.xssecurestore.ds.facade;
 
+import org.eclipse.dirigible.api.v3.security.UserFacade;
+import org.eclipse.dirigible.commons.api.scripting.IScriptingFacade;
+
 import com.codbex.kronos.xssecurestore.ds.api.ISecureStoreModel;
 import com.codbex.kronos.xssecurestore.ds.api.SecureStoreException;
 import com.codbex.kronos.xssecurestore.ds.model.SecureStoreContent;
 import com.codbex.kronos.xssecurestore.ds.service.SecureStoreCoreService;
-import org.eclipse.dirigible.api.v3.security.UserFacade;
-import org.eclipse.dirigible.commons.api.scripting.IScriptingFacade;
 
 public class SecureStoreFacade implements IScriptingFacade {
 

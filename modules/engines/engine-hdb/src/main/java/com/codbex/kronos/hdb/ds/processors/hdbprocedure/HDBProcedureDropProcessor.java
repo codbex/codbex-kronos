@@ -23,18 +23,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.codbex.kronos.hdb.ds.artefacts.HDBProcedureSynchronizationArtefactType;
-import com.codbex.kronos.hdb.ds.model.hdbprocedure.HDBProcedureDataStructureModel;
-import com.codbex.kronos.hdb.ds.processors.AbstractProcessor;
+import com.codbex.kronos.hdb.ds.model.hdbprocedure.DataStructureHDBProcedureModel;
+import com.codbex.kronos.hdb.ds.processors.AbstractHDBProcessor;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.utils.Constants;
 
-public class HDBProcedureDropProcessor extends AbstractProcessor<HDBProcedureDataStructureModel> {
+public class HDBProcedureDropProcessor extends AbstractHDBProcessor<DataStructureHDBProcedureModel> {
 
   private static final Logger logger = LoggerFactory.getLogger(HDBProcedureDropProcessor.class);
   private static final HDBProcedureSynchronizationArtefactType PROCEDURE_ARTEFACT = new HDBProcedureSynchronizationArtefactType();
 
-  public boolean execute(Connection connection, HDBProcedureDataStructureModel hdbProcedure)
+  public boolean execute(Connection connection, DataStructureHDBProcedureModel hdbProcedure)
       throws SQLException {
     logger.info("Processing Drop Procedure: " + hdbProcedure.getName());
     String procedureNameWithoutSchema = CommonsUtils.extractArtifactNameWhenSchemaIsProvided(hdbProcedure.getName())[1];

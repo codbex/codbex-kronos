@@ -11,8 +11,9 @@
  */
 package com.codbex.kronos.parser.hdbtable.model;
 
-import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableMissingPropertyException;
 import java.util.Objects;
+
+import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableMissingPropertyException;
 
 public class HDBTableColumnsModel {
 

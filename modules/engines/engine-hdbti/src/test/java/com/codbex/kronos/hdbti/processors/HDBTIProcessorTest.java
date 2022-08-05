@@ -16,29 +16,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import com.codbex.kronos.exceptions.ArtifactParserException;
-import com.codbex.kronos.hdb.ds.api.DataStructuresException;
-import com.codbex.kronos.hdbti.api.IHDBTICoreService;
-import com.codbex.kronos.hdbti.api.IHDBTIProcessor;
-import com.codbex.kronos.hdbti.api.ITableImportModel;
-import com.codbex.kronos.hdbti.api.TableImportException;
-import com.codbex.kronos.hdbti.model.Student;
-import com.codbex.kronos.hdbti.model.ImportedCSVRecordModel;
-import com.codbex.kronos.hdbti.model.TableImportArtifact;
-import com.codbex.kronos.hdbti.model.TableImportConfigurationDefinition;
-import com.codbex.kronos.hdbti.model.TableImportToCsvRelation;
-import com.codbex.kronos.hdbti.module.HdbtiTestModule;
-import com.codbex.kronos.hdbti.service.HDBTICoreService;
-import com.codbex.kronos.parser.hdbti.exception.TablePropertySyntaxException;
-import com.codbex.kronos.parser.hdbti.exception.HDBTISyntaxErrorException;
-import com.codbex.kronos.parser.hdbti.models.HDBTIImportConfigModel;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -48,7 +31,9 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
 import javax.sql.DataSource;
+
 import org.eclipse.dirigible.commons.config.StaticObjects;
 import org.eclipse.dirigible.database.persistence.PersistenceManager;
 import org.junit.After;
@@ -56,6 +41,23 @@ import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.codbex.kronos.exceptions.ArtifactParserException;
+import com.codbex.kronos.hdb.ds.api.DataStructuresException;
+import com.codbex.kronos.hdbti.api.IHDBTICoreService;
+import com.codbex.kronos.hdbti.api.IHDBTIProcessor;
+import com.codbex.kronos.hdbti.api.ITableImportModel;
+import com.codbex.kronos.hdbti.api.TableImportException;
+import com.codbex.kronos.hdbti.model.ImportedCSVRecordModel;
+import com.codbex.kronos.hdbti.model.Student;
+import com.codbex.kronos.hdbti.model.TableImportArtifact;
+import com.codbex.kronos.hdbti.model.TableImportConfigurationDefinition;
+import com.codbex.kronos.hdbti.model.TableImportToCsvRelation;
+import com.codbex.kronos.hdbti.module.HDBTITestModule;
+import com.codbex.kronos.hdbti.service.HDBTICoreService;
+import com.codbex.kronos.parser.hdbti.exception.HDBTISyntaxErrorException;
+import com.codbex.kronos.parser.hdbti.exception.TablePropertySyntaxException;
+import com.codbex.kronos.parser.hdbti.models.HDBTIImportConfigModel;
 
 public class HDBTIProcessorTest {
 
@@ -77,7 +79,7 @@ public class HDBTIProcessorTest {
 
   @Before
   public void setUp() throws SQLException {
-    HdbtiTestModule hdbtiTestModule = new HdbtiTestModule();
+    HDBTITestModule hdbtiTestModule = new HDBTITestModule();
     hdbtiTestModule.configure();
     datasource = (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
     systemDatasource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
@@ -480,7 +482,7 @@ public class HDBTIProcessorTest {
     String hdbtiSample = org.apache.commons.io.IOUtils
         .toString(HDBTIProcessorTest.class.getResourceAsStream("/randomOrder.hdbti"), StandardCharsets.UTF_8);
 
-    List<HDBTIImportConfigModel> model = processor.parseHdbtiToJSON("randomOrder.hdbti", hdbtiSample.getBytes(StandardCharsets.UTF_8));
+    List<HDBTIImportConfigModel> model = processor.parseHDBTIToJSON("randomOrder.hdbti", hdbtiSample.getBytes(StandardCharsets.UTF_8));
     assertEquals(model.size(), 2);
 
     HDBTIImportConfigModel import1 = model.get(0);
@@ -523,7 +525,7 @@ public class HDBTIProcessorTest {
     String hdbtiSample = org.apache.commons.io.IOUtils
         .toString(HDBTIProcessorTest.class.getResourceAsStream("/doubleColonTableProp.hdbti"), StandardCharsets.UTF_8);
 
-    List<HDBTIImportConfigModel> model = processor.parseHdbtiToJSON("doubleColonTableProp.hdbti",
+    List<HDBTIImportConfigModel> model = processor.parseHDBTIToJSON("doubleColonTableProp.hdbti",
         hdbtiSample.getBytes(StandardCharsets.UTF_8));
     assertEquals(model.size(), 1);
 
@@ -550,7 +552,7 @@ public class HDBTIProcessorTest {
     String hdbtiSample = org.apache.commons.io.IOUtils
         .toString(HDBTIProcessorTest.class.getResourceAsStream("/missingSchemaName.hdbti"), StandardCharsets.UTF_8);
 
-    List<HDBTIImportConfigModel> model = processor.parseHdbtiToJSON("missingSchemaName.hdbti",
+    List<HDBTIImportConfigModel> model = processor.parseHDBTIToJSON("missingSchemaName.hdbti",
         hdbtiSample.getBytes(StandardCharsets.UTF_8));
     assertEquals(model.size(), 1);
 
@@ -576,7 +578,7 @@ public class HDBTIProcessorTest {
     String hdbtiSample = org.apache.commons.io.IOUtils
         .toString(HDBTIProcessorTest.class.getResourceAsStream("/singleColonTableProp.hdbti"), StandardCharsets.UTF_8);
 
-    processor.parseHdbtiToJSON("singleColonTableProp.hdbti", hdbtiSample.getBytes(StandardCharsets.UTF_8));
+    processor.parseHDBTIToJSON("singleColonTableProp.hdbti", hdbtiSample.getBytes(StandardCharsets.UTF_8));
   }
 
   @Test
@@ -585,7 +587,7 @@ public class HDBTIProcessorTest {
     String hdbtiSample = org.apache.commons.io.IOUtils
         .toString(HDBTIProcessorTest.class.getResourceAsStream("/randomOrder.hdbti"), StandardCharsets.UTF_8);
 
-    List<HDBTIImportConfigModel> model = processor.parseHdbtiToJSON("randomOrder.hdbti", hdbtiSample.getBytes(StandardCharsets.UTF_8));
+    List<HDBTIImportConfigModel> model = processor.parseHDBTIToJSON("randomOrder.hdbti", hdbtiSample.getBytes(StandardCharsets.UTF_8));
     String actualValue = processor.parseJSONtoHdbti((ArrayList<HDBTIImportConfigModel>) model);
     String expectedValue = "import = [\n" +
         "{\n" +

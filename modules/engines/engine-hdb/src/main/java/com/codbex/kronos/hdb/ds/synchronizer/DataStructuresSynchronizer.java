@@ -30,19 +30,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.codbex.kronos.exceptions.ArtifactParserException;
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.hdb.ds.facade.IHDBCoreSynchronizationFacade;
 import com.codbex.kronos.hdb.ds.facade.HDBCoreSynchronizationFacade;
 import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
-import com.codbex.kronos.hdb.ds.model.hdbdd.EntitiesDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbprocedure.HDBProcedureDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbschema.HDBSchemaDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbtablefunction.HDBTableFunctionDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbtabletype.HDBTableTypeDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbview.HDBViewDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbdd.DataStructureEntitiesModel;
+import com.codbex.kronos.hdb.ds.model.hdbprocedure.DataStructureHDBProcedureModel;
+import com.codbex.kronos.hdb.ds.model.hdbschema.DataStructureHDBSchemaModel;
+import com.codbex.kronos.hdb.ds.model.hdbsynonym.DataStructureHDBSynonymModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableModel;
+import com.codbex.kronos.hdb.ds.model.hdbtablefunction.DataStructureHDBTableFunctionModel;
+import com.codbex.kronos.hdb.ds.model.hdbtabletype.DataStructureHDBTableTypeModel;
+import com.codbex.kronos.hdb.ds.model.hdbview.DataStructureHDBViewModel;
 import com.codbex.kronos.hdb.ds.service.parser.ICoreParserService;
 import com.codbex.kronos.hdb.ds.service.parser.CoreParserService;
 import com.codbex.kronos.utils.CommonsConstants;
@@ -54,25 +54,19 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
 
   private static final Logger logger = LoggerFactory.getLogger(DataStructuresSynchronizer.class);
 
-  private static final Map<String, EntitiesDataStructureModel> ENTITIES_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
-  private static final Map<String, HDBTableDataStructureModel> TABLES_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
-  private static final Map<String, HDBViewDataStructureModel> VIEWS_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
-  private static final Map<String, HDBProcedureDataStructureModel> PROCEDURES_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
-  private static final Map<String, HDBTableFunctionDataStructureModel> TABLEFUNCTIONS_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
-  private static final Map<String, HDBSchemaDataStructureModel> SCHEMAS_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
-  private static final Map<String, HDBSynonymDataStructureModel> SYNONYMS_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
-  private static final Map<String, HDBTableTypeDataStructureModel> TABLE_TYPES_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
+  private static final Map<String, DataStructureEntitiesModel> ENTITIES_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
+  private static final Map<String, DataStructureHDBTableModel> TABLES_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
+  private static final Map<String, DataStructureHDBViewModel> VIEWS_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
+  private static final Map<String, DataStructureHDBProcedureModel> PROCEDURES_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
+  private static final Map<String, DataStructureHDBTableFunctionModel> TABLEFUNCTIONS_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
+  private static final Map<String, DataStructureHDBSchemaModel> SCHEMAS_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
+  private static final Map<String, DataStructureHDBSynonymModel> SYNONYMS_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
+  private static final Map<String, DataStructureHDBTableTypeModel> TABLE_TYPES_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
   private final String SYNCHRONIZER_NAME = this.getClass().getCanonicalName();
   private ICoreParserService coreParserService = new CoreParserService();
   private IHDBCoreSynchronizationFacade hdbCoreFacade = new HDBCoreSynchronizationFacade();
 
-  /**
-   * Force synchronization.
-   */
-  public static final void forceSynchronization() {
-    DataStructuresSynchronizer dataStructureSynchronizer = new DataStructuresSynchronizer();
-    dataStructureSynchronizer.synchronize();
-  }
+
 
   /**
    * Register predelivered entities files.
@@ -83,8 +77,8 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
   public void registerPredeliveredEntities(String contentPath) throws Exception {
     String data = loadResourceContent(contentPath);
     DataStructureParametersModel parametersModel =
-        new DataStructureParametersModel(HDBDataStructureModel.FILE_EXTENSION_ENTITIES, contentPath, data, CommonsConstants.REGISTRY_PUBLIC);
-    EntitiesDataStructureModel model = (EntitiesDataStructureModel) coreParserService
+        new DataStructureParametersModel(IDataStructureModel.FILE_EXTENSION_ENTITIES, contentPath, data, CommonsConstants.REGISTRY_PUBLIC);
+    DataStructureEntitiesModel model = (DataStructureEntitiesModel) coreParserService
         .parseDataStructure(parametersModel);
     ENTITIES_PREDELIVERED.put(contentPath, model);
   }
@@ -98,8 +92,8 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
   public void registerPredeliveredTable(String contentPath) throws Exception {
     String data = loadResourceContent(contentPath);
     DataStructureParametersModel parametersModel =
-        new DataStructureParametersModel(HDBDataStructureModel.FILE_EXTENSION_TABLE, contentPath, data, CommonsConstants.REGISTRY_PUBLIC);
-    HDBTableDataStructureModel model = (HDBTableDataStructureModel) coreParserService
+        new DataStructureParametersModel(IDataStructureModel.FILE_EXTENSION_TABLE, contentPath, data, CommonsConstants.REGISTRY_PUBLIC);
+    DataStructureHDBTableModel model = (DataStructureHDBTableModel) coreParserService
         .parseDataStructure(parametersModel);
     TABLES_PREDELIVERED.put(contentPath, model);
   }
@@ -113,8 +107,8 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
   public void registerPredeliveredView(String contentPath) throws Exception {
     String data = loadResourceContent(contentPath);
     DataStructureParametersModel parametersModel =
-        new DataStructureParametersModel(HDBDataStructureModel.FILE_EXTENSION_VIEW, contentPath, data, CommonsConstants.REGISTRY_PUBLIC);
-    HDBViewDataStructureModel model = (HDBViewDataStructureModel) coreParserService
+        new DataStructureParametersModel(IDataStructureModel.FILE_EXTENSION_VIEW, contentPath, data, CommonsConstants.REGISTRY_PUBLIC);
+    DataStructureHDBViewModel model = (DataStructureHDBViewModel) coreParserService
         .parseDataStructure(parametersModel);
     VIEWS_PREDELIVERED.put(contentPath, model);
   }
@@ -128,8 +122,8 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
   public void registerPredeliveredSynonym(String contentPath) throws Exception {
     String data = loadResourceContent(contentPath);
     DataStructureParametersModel parametersModel =
-        new DataStructureParametersModel(HDBDataStructureModel.FILE_EXTENSION_SYNONYM, contentPath, data, CommonsConstants.REGISTRY_PUBLIC);
-    HDBSynonymDataStructureModel model = (HDBSynonymDataStructureModel) coreParserService
+        new DataStructureParametersModel(IDataStructureModel.FILE_EXTENSION_SYNONYM, contentPath, data, CommonsConstants.REGISTRY_PUBLIC);
+    DataStructureHDBSynonymModel model = (DataStructureHDBSynonymModel) coreParserService
         .parseDataStructure(parametersModel);
     SYNONYMS_PREDELIVERED.put(contentPath, model);
   }
@@ -144,8 +138,11 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
   public void registerPredeliveredHDBProcedure(String contentPath)
       throws IOException, DataStructuresException, ArtifactParserException {
     String data = loadResourceContent(contentPath);
-    DataStructureParametersModel parametersModel = new DataStructureParametersModel(HDBDataStructureModel.FILE_EXTENSION_HDBPROCEDURE, contentPath, data, CommonsConstants.REGISTRY_PUBLIC);
-    HDBProcedureDataStructureModel model = (HDBProcedureDataStructureModel) coreParserService.parseDataStructure(parametersModel);
+    DataStructureParametersModel parametersModel =
+        new DataStructureParametersModel(IDataStructureModel.FILE_EXTENSION_HDBPROCEDURE, contentPath, data, CommonsConstants.REGISTRY_PUBLIC);
+    DataStructureHDBProcedureModel model;
+    model = (DataStructureHDBProcedureModel) coreParserService
+        .parseDataStructure(parametersModel);
     PROCEDURES_PREDELIVERED.put(contentPath, model);
   }
 
@@ -158,8 +155,11 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
   public void registerPredeliveredHDBTableFunction(String contentPath)
       throws IOException, DataStructuresException, ArtifactParserException {
     String data = loadResourceContent(contentPath);
-    DataStructureParametersModel parametersModel = new DataStructureParametersModel(HDBDataStructureModel.FILE_EXTENSION_HDBTABLEFUNCTION, contentPath, data, CommonsConstants.REGISTRY_PUBLIC);
-    HDBTableFunctionDataStructureModel model = (HDBTableFunctionDataStructureModel) coreParserService.parseDataStructure(parametersModel);
+    DataStructureParametersModel parametersModel =
+        new DataStructureParametersModel(IDataStructureModel.FILE_EXTENSION_HDBTABLEFUNCTION, contentPath, data, CommonsConstants.REGISTRY_PUBLIC);
+    DataStructureHDBTableFunctionModel model;
+    model = (DataStructureHDBTableFunctionModel) coreParserService
+        .parseDataStructure(parametersModel);
     TABLEFUNCTIONS_PREDELIVERED.put(contentPath, model);
   }
 
@@ -173,8 +173,11 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
   public void registerPredeliveredHDBSchema(String contentPath)
       throws IOException, DataStructuresException, ArtifactParserException {
     String data = loadResourceContent(contentPath);
-    DataStructureParametersModel parametersModel = new DataStructureParametersModel(HDBDataStructureModel.FILE_EXTENSION_HDBSCHEMA, contentPath, data, CommonsConstants.REGISTRY_PUBLIC);
-    HDBSchemaDataStructureModel model = (HDBSchemaDataStructureModel) coreParserService.parseDataStructure(parametersModel);
+    DataStructureParametersModel parametersModel =
+        new DataStructureParametersModel(IDataStructureModel.FILE_EXTENSION_HDBSCHEMA, contentPath, data, CommonsConstants.REGISTRY_PUBLIC);
+    DataStructureHDBSchemaModel model;
+    model = (DataStructureHDBSchemaModel) coreParserService
+        .parseDataStructure(parametersModel);
     SCHEMAS_PREDELIVERED.put(contentPath, model);
   }
 
@@ -187,8 +190,8 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
   public void registerPredeliveredHDBStructure(String contentPath) throws Exception {
     String data = loadResourceContent(contentPath);
     DataStructureParametersModel parametersModel =
-        new DataStructureParametersModel(HDBDataStructureModel.FILE_EXTENSION_STRUCTURE, contentPath, data, CommonsConstants.REGISTRY_PUBLIC);
-    HDBTableTypeDataStructureModel model = (HDBTableTypeDataStructureModel) coreParserService
+        new DataStructureParametersModel(IDataStructureModel.FILE_EXTENSION_STRUCTURE, contentPath, data, CommonsConstants.REGISTRY_PUBLIC);
+    DataStructureHDBTableTypeModel model = (DataStructureHDBTableTypeModel) coreParserService
         .parseDataStructure(parametersModel);
     TABLE_TYPES_PREDELIVERED.put(contentPath, model);
   }
@@ -277,9 +280,9 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
 
     // HDBSchemas
     logger.trace("Synchronizing predelivered HDB Schemas...");
-    for (HDBSchemaDataStructureModel hdbSchema : SCHEMAS_PREDELIVERED.values()) {
+    for (DataStructureHDBSchemaModel hdbSchema : SCHEMAS_PREDELIVERED.values()) {
       try {
-        hdbCoreFacade.handleResourceSynchronization(HDBDataStructureModel.FILE_EXTENSION_HDBSCHEMA, hdbSchema);
+        hdbCoreFacade.handleResourceSynchronization(IDataStructureModel.FILE_EXTENSION_HDBSCHEMA, hdbSchema);
       } catch (Exception e) {
         logger.error(format("Update hdbschema [{0}] skipped due to an error: {1}", hdbSchema, e.getMessage()), e);
       }
@@ -288,9 +291,9 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
 
     // Entities
     logger.trace("Synchronizing predelivered Entities...");
-    for (EntitiesDataStructureModel entity : ENTITIES_PREDELIVERED.values()) {
+    for (DataStructureEntitiesModel entity : ENTITIES_PREDELIVERED.values()) {
       try {
-        hdbCoreFacade.handleResourceSynchronization(HDBDataStructureModel.FILE_EXTENSION_ENTITIES, entity);
+        hdbCoreFacade.handleResourceSynchronization(IDataStructureModel.FILE_EXTENSION_ENTITIES, entity);
       } catch (Exception e) {
         logger.error(format("Update entities [{0}] skipped due to an error: {1}", entity, e.getMessage()), e);
       }
@@ -299,9 +302,9 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
 
     // Tables
     logger.trace("Synchronizing predelivered Tables...");
-    for (HDBTableDataStructureModel table : TABLES_PREDELIVERED.values()) {
+    for (DataStructureHDBTableModel table : TABLES_PREDELIVERED.values()) {
       try {
-        hdbCoreFacade.handleResourceSynchronization(HDBDataStructureModel.FILE_EXTENSION_TABLE, table);
+        hdbCoreFacade.handleResourceSynchronization(IDataStructureModel.FILE_EXTENSION_TABLE, table);
       } catch (Exception e) {
         logger.error(format("Update tables [{0}] skipped due to an error: {1}", table, e.getMessage()), e);
       }
@@ -310,9 +313,9 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
 
     // Views
     logger.trace("Synchronizing predelivered Views...");
-    for (HDBViewDataStructureModel view : VIEWS_PREDELIVERED.values()) {
+    for (DataStructureHDBViewModel view : VIEWS_PREDELIVERED.values()) {
       try {
-        hdbCoreFacade.handleResourceSynchronization(HDBDataStructureModel.FILE_EXTENSION_VIEW, view);
+        hdbCoreFacade.handleResourceSynchronization(IDataStructureModel.FILE_EXTENSION_VIEW, view);
       } catch (Exception e) {
         logger.error(format("Update views [{0}] skipped due to an error: {1}", view, e.getMessage()), e);
       }
@@ -321,9 +324,9 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
 
     // HDBProcedures
     logger.trace("Synchronizing predelivered HDB Procedures...");
-    for (HDBProcedureDataStructureModel hdbProcedure : PROCEDURES_PREDELIVERED.values()) {
+    for (DataStructureHDBProcedureModel hdbProcedure : PROCEDURES_PREDELIVERED.values()) {
       try {
-        hdbCoreFacade.handleResourceSynchronization(HDBDataStructureModel.FILE_EXTENSION_HDBPROCEDURE, hdbProcedure);
+        hdbCoreFacade.handleResourceSynchronization(IDataStructureModel.FILE_EXTENSION_HDBPROCEDURE, hdbProcedure);
       } catch (Exception e) {
         logger.error(format("Update hdbprocedure [{0}] skipped due to an error: {1}", hdbProcedure, e.getMessage()), e);
       }
@@ -332,9 +335,9 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
 
     // HDBTableFunctions
     logger.trace("Synchronizing predelivered HDB Table Functions...");
-    for (HDBTableFunctionDataStructureModel hdbTableFunction : TABLEFUNCTIONS_PREDELIVERED.values()) {
+    for (DataStructureHDBTableFunctionModel hdbTableFunction : TABLEFUNCTIONS_PREDELIVERED.values()) {
       try {
-        hdbCoreFacade.handleResourceSynchronization(HDBDataStructureModel.FILE_EXTENSION_HDBTABLEFUNCTION, hdbTableFunction);
+        hdbCoreFacade.handleResourceSynchronization(IDataStructureModel.FILE_EXTENSION_HDBTABLEFUNCTION, hdbTableFunction);
       } catch (Exception e) {
         logger.error(format("Update hdbtablefunction [{0}] skipped due to an error: {1}", hdbTableFunction, e.getMessage()), e);
       }
@@ -343,9 +346,9 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
 
     // Synonyms
     logger.trace("Synchronizing predelivered Synonyms...");
-    for (HDBSynonymDataStructureModel synonym : SYNONYMS_PREDELIVERED.values()) {
+    for (DataStructureHDBSynonymModel synonym : SYNONYMS_PREDELIVERED.values()) {
       try {
-        hdbCoreFacade.handleResourceSynchronization(HDBDataStructureModel.FILE_EXTENSION_SYNONYM, synonym);
+        hdbCoreFacade.handleResourceSynchronization(IDataStructureModel.FILE_EXTENSION_SYNONYM, synonym);
       } catch (Exception e) {
         logger.error(format("Update synonyms [{0}] skipped due to an error: {1}", synonym, e.getMessage()), e);
       }
@@ -354,9 +357,9 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
 
     // Table Types
     logger.trace("Synchronizing predelivered Table Types...");
-    for (HDBTableTypeDataStructureModel tableType : TABLE_TYPES_PREDELIVERED.values()) {
+    for (DataStructureHDBTableTypeModel tableType : TABLE_TYPES_PREDELIVERED.values()) {
       try {
-        hdbCoreFacade.handleResourceSynchronization(HDBDataStructureModel.FILE_EXTENSION_STRUCTURE, tableType);
+        hdbCoreFacade.handleResourceSynchronization(IDataStructureModel.FILE_EXTENSION_STRUCTURE, tableType);
       } catch (Exception e) {
         logger.error(format("Update tableType [{0}] skipped due to an error: {1}", tableType, e.getMessage()), e);
       }

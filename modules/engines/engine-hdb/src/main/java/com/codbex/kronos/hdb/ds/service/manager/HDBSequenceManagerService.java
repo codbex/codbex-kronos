@@ -11,13 +11,14 @@
  */
 package com.codbex.kronos.hdb.ds.service.manager;
 
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.api.IHDBProcessor;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
-import com.codbex.kronos.hdb.ds.model.hdbsequence.HDBSequenceDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbsequence.DataStructureHDBSequenceModel;
 import com.codbex.kronos.hdb.ds.processors.hdbsequence.HDBSequenceCreateProcessor;
 import com.codbex.kronos.hdb.ds.processors.hdbsequence.HDBSequenceDropProcessor;
 import com.codbex.kronos.hdb.ds.processors.hdbsequence.HDBSequenceUpdateProcessor;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,11 +30,11 @@ import javax.naming.OperationNotSupportedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HDBSequenceManagerService extends AbstractDataStructureManagerService<HDBSequenceDataStructureModel> {
+public class HDBSequenceManagerService extends AbstractDataStructureManagerService<DataStructureHDBSequenceModel> {
 
   private static final Logger logger = LoggerFactory.getLogger(HDBSequenceManagerService.class);
 
-  private final Map<String, HDBSequenceDataStructureModel> dataStructureSequenceModels;
+  private final Map<String, DataStructureHDBSequenceModel> dataStructureSequenceModels;
   private final List<String> sequencesSynchronized;
 
   private IHDBProcessor hdbSequenceDropProcessor = new HDBSequenceDropProcessor();
@@ -46,12 +47,12 @@ public class HDBSequenceManagerService extends AbstractDataStructureManagerServi
   }
 
   @Override
-  public Map<String, HDBSequenceDataStructureModel> getDataStructureModels() {
+  public Map<String, DataStructureHDBSequenceModel> getDataStructureModels() {
     return Collections.unmodifiableMap(this.dataStructureSequenceModels);
   }
 
   @Override
-  public void synchronizeRuntimeMetadata(HDBSequenceDataStructureModel hdbSequenceModel) throws DataStructuresException {
+  public void synchronizeRuntimeMetadata(DataStructureHDBSequenceModel hdbSequenceModel) throws DataStructuresException {
     if (!getDataStructuresCoreService().existsDataStructure(hdbSequenceModel.getLocation(), hdbSequenceModel.getType())) {
       getDataStructuresCoreService()
           .createDataStructure(hdbSequenceModel.getLocation(), hdbSequenceModel.getName(), hdbSequenceModel.getHash(),
@@ -59,7 +60,7 @@ public class HDBSequenceManagerService extends AbstractDataStructureManagerServi
       dataStructureSequenceModels.put(hdbSequenceModel.getName(), hdbSequenceModel);
       logger.info("Synchronized a new Hdbsequence file [{}] from location: {}", hdbSequenceModel.getName(), hdbSequenceModel.getLocation());
     } else {
-      HDBSequenceDataStructureModel existing = getDataStructuresCoreService()
+      DataStructureHDBSequenceModel existing = getDataStructuresCoreService()
           .getDataStructure(hdbSequenceModel.getLocation(), hdbSequenceModel.getType());
       if (!hdbSequenceModel.equals(existing)) {
         getDataStructuresCoreService()
@@ -76,19 +77,19 @@ public class HDBSequenceManagerService extends AbstractDataStructureManagerServi
   }
 
   @Override
-  public boolean createDataStructure(Connection connection, HDBSequenceDataStructureModel hdbSequenceModel)
+  public boolean createDataStructure(Connection connection, DataStructureHDBSequenceModel hdbSequenceModel)
       throws SQLException {
     return this.hdbSequenceCreateProcessor.execute(connection, hdbSequenceModel);
   }
 
   @Override
-  public boolean dropDataStructure(Connection connection, HDBSequenceDataStructureModel hdbSequenceModel)
+  public boolean dropDataStructure(Connection connection, DataStructureHDBSequenceModel hdbSequenceModel)
       throws SQLException {
 	return this.hdbSequenceDropProcessor.execute(connection, hdbSequenceModel);
   }
 
   @Override
-  public boolean updateDataStructure(Connection connection, HDBSequenceDataStructureModel hdbSequenceModel)
+  public boolean updateDataStructure(Connection connection, DataStructureHDBSequenceModel hdbSequenceModel)
       throws SQLException, OperationNotSupportedException {
 	return this.hdbSequenceUpdateProcessor.execute(connection, hdbSequenceModel);
   }
@@ -100,7 +101,7 @@ public class HDBSequenceManagerService extends AbstractDataStructureManagerServi
 
   @Override
   public String getDataStructureType() {
-    return HDBDataStructureModel.FILE_EXTENSION_HDBSEQUENCE;
+    return IDataStructureModel.FILE_EXTENSION_HDBSEQUENCE;
   }
 
   @Override

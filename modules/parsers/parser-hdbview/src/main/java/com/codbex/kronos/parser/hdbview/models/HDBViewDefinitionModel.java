@@ -11,9 +11,10 @@
  */
 package com.codbex.kronos.parser.hdbview.models;
 
-import com.codbex.kronos.parser.hdbview.exceptions.HDBViewMissingPropertyException;
 import java.util.List;
 import java.util.Objects;
+
+import com.codbex.kronos.parser.hdbview.exceptions.HDBViewMissingPropertyException;
 
 public class HDBViewDefinitionModel {
 

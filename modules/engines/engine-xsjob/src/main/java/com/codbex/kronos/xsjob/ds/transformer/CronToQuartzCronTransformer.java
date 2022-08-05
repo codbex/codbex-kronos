@@ -14,6 +14,7 @@ package com.codbex.kronos.xsjob.ds.transformer;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.xsjob.ds.api.CronExpressionException;
+
 import java.text.ParseException;
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class CronToQuartzCronTransformer {
       quartzCronExpression.setMinutes(parseRange(cronExpressionArr[KRONOS_CRON_MINUTE]));
       quartzCronExpression.setSeconds(parseRange(cronExpressionArr[KRONOS_CRON_SECOND]));
     } catch (Exception e) {
-      CommonsUtils.logProcessorErrors(e.getMessage(), CommonsConstants.PROCESSOR_ERROR, cronExpression, CommonsConstants.KRONOS_JOB_PARSER);
+      CommonsUtils.logProcessorErrors(e.getMessage(), CommonsConstants.PROCESSOR_ERROR, cronExpression, CommonsConstants.JOB_PARSER);
       throw e;
     }
     return quartzCronExpression.toString();

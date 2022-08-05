@@ -11,10 +11,11 @@
  */
 package com.codbex.kronos.xsodata.ds.synchronizer;
 
-import com.codbex.kronos.xsodata.ds.api.IODataModel;
 import org.eclipse.dirigible.commons.api.content.AbstractClasspathContentHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.codbex.kronos.xsodata.ds.api.IODataModel;
 
 /**
  * The OData Classpath Content Handler.

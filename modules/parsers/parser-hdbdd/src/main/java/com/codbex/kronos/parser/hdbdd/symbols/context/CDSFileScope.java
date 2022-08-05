@@ -11,9 +11,10 @@
  */
 package com.codbex.kronos.parser.hdbdd.symbols.context;
 
-import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
 
 public class CDSFileScope implements Scope {
     Scope enclosingScope; // null if global (outermost) com.codbex.kronos.parser.hdbdd.symbols.scope

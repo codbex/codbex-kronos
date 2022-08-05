@@ -13,10 +13,6 @@ package com.codbex.kronos.xssecurestore.ds.synchronizer;
 
 import static java.text.MessageFormat.format;
 
-import com.codbex.kronos.xssecurestore.ds.api.ISecureStoreModel;
-import com.codbex.kronos.xssecurestore.ds.api.SecureStoreException;
-import com.codbex.kronos.xssecurestore.ds.model.SecureStore;
-import com.codbex.kronos.xssecurestore.ds.service.SecureStoreCoreService;
 import java.util.List;
 import org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizer;
 import org.eclipse.dirigible.core.scheduler.api.SchedulerException;
@@ -26,24 +22,16 @@ import org.eclipse.dirigible.repository.api.IResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.codbex.kronos.xssecurestore.ds.api.ISecureStoreModel;
+import com.codbex.kronos.xssecurestore.ds.api.SecureStoreException;
+import com.codbex.kronos.xssecurestore.ds.model.SecureStore;
+import com.codbex.kronos.xssecurestore.ds.service.SecureStoreCoreService;
+
 public class SecureStoreSynchronizer extends AbstractSynchronizer {
 
   private static final Logger logger = LoggerFactory.getLogger(SecureStoreSynchronizer.class);
   private final String SYNCHRONIZER_NAME = this.getClass().getCanonicalName();
   private SecureStoreCoreService secureStoreCoreService = new SecureStoreCoreService();
-
-  /**
-   * Force synchronization.
-   */
-  public static final void forceSynchronization() {
-    SecureStoreSynchronizer synchronizer = new SecureStoreSynchronizer();
-    synchronizer.setForcedSynchronization(true);
-    try {
-      synchronizer.synchronize();
-    } finally {
-      synchronizer.setForcedSynchronization(false);
-    }
-  }
 
   @Override
   public void synchronize() {

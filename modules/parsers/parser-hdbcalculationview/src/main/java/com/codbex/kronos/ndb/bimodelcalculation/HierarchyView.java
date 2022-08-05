@@ -19,6 +19,11 @@
 
 package com.codbex.kronos.ndb.bimodelcalculation;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlType;
+
 import com.codbex.kronos.ndb.datamodelhierarchy.HierarchyAncestorsParameterization;
 import com.codbex.kronos.ndb.datamodelhierarchy.HierarchyDescendantsParameterization;
 import com.codbex.kronos.ndb.datamodelhierarchy.HierarchyFunction;
@@ -27,10 +32,6 @@ import com.codbex.kronos.ndb.datamodelhierarchy.HierarchyParameterization;
 import com.codbex.kronos.ndb.datamodelhierarchy.HierarchySiblingsParameterization;
 import com.codbex.kronos.ndb.datamodelhierarchy.HierarchySpanTreeParameterization;
 import com.codbex.kronos.ndb.datamodelhierarchy.HierarchyTemporalParameterization;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlType;
 
 
 /**

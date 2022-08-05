@@ -19,11 +19,12 @@
 
 package com.codbex.kronos.ndb.datamodelhierarchy;
 
-import com.codbex.kronos.ndb.bimodelcalculation.AbstractAttributeMapping;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+
+import com.codbex.kronos.ndb.bimodelcalculation.AbstractAttributeMapping;
 
 
 /**

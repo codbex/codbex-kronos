@@ -11,11 +11,12 @@
  */
 package com.codbex.kronos.hdb.ds.processors.hdbstructure;
 
-import com.codbex.kronos.hdb.ds.model.hdbtabletype.HDBTableTypeDataStructureModel;
-import com.codbex.kronos.hdb.ds.processors.AbstractProcessor;
+import com.codbex.kronos.hdb.ds.model.hdbtabletype.DataStructureHDBTableTypeModel;
+import com.codbex.kronos.hdb.ds.processors.AbstractHDBProcessor;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.utils.HDBUtils;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
@@ -23,7 +24,7 @@ import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TableTypeDropProcessor extends AbstractProcessor<HDBTableTypeDataStructureModel> {
+public class TableTypeDropProcessor extends AbstractHDBProcessor<DataStructureHDBTableTypeModel> {
 
   private static final Logger logger = LoggerFactory.getLogger(TableTypeDropProcessor.class);
 
@@ -34,7 +35,7 @@ public class TableTypeDropProcessor extends AbstractProcessor<HDBTableTypeDataSt
   }
 
   @Override
-  public boolean execute(Connection connection, HDBTableTypeDataStructureModel tableTypeModel) throws SQLException {
+  public boolean execute(Connection connection, DataStructureHDBTableTypeModel tableTypeModel) throws SQLException {
     synonymRemover.removePublicSynonym(connection, tableTypeModel.getSchema(), tableTypeModel.getName());
 
     if (tableTypeDoesNotExist(connection, tableTypeModel)) {
@@ -54,13 +55,13 @@ public class TableTypeDropProcessor extends AbstractProcessor<HDBTableTypeDataSt
     }
   }
 
-  void processException(HDBTableTypeDataStructureModel tableTypeModel, Exception ex) {
+  void processException(DataStructureHDBTableTypeModel tableTypeModel, Exception ex) {
     logger.error("Failed to drop table type [{}] in schema [{}]", tableTypeModel.getName(), tableTypeModel.getSchema(), ex);
     CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, tableTypeModel.getLocation(),
         CommonsConstants.HDB_TABLE_TYPE_PARSER);
   }
 
-  String escapeTableTypeName(Connection connection, HDBTableTypeDataStructureModel tableTypeModel) {
+  String escapeTableTypeName(Connection connection, DataStructureHDBTableTypeModel tableTypeModel) {
     return HDBUtils.escapeArtifactName(tableTypeModel.getName(), tableTypeModel.getSchema());
   }
 
@@ -68,7 +69,7 @@ public class TableTypeDropProcessor extends AbstractProcessor<HDBTableTypeDataSt
     return SqlFactory.getNative(connection).drop().tableType(tableTypeName).build();
   }
 
-  boolean tableTypeDoesNotExist(Connection connection, HDBTableTypeDataStructureModel tableTypeModel) throws SQLException {
+  boolean tableTypeDoesNotExist(Connection connection, DataStructureHDBTableTypeModel tableTypeModel) throws SQLException {
     return !SqlFactory.getNative(connection)
         .exists(connection, tableTypeModel.getSchema(), tableTypeModel.getName(), DatabaseArtifactTypes.TABLE_TYPE);
   }

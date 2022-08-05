@@ -18,7 +18,7 @@ import org.eclipse.dirigible.core.scheduler.service.definition.JobDefinition;
 
 public class JobSynchronizerJobDefinitionProvider implements IJobDefinitionProvider {
 
-  static final String KRONOS_JOB_SYNCHRONIZER_JOB_NAME = "Kronos Job Synchronizer Job";
+  static final String JOB_SYNCHRONIZER_JOB = "Kronos Job Synchronizer Job";
   private static final String KRONOS_JOB_EXPRESSION_JOB = "KRONOS_JOB_EXPRESSION_JOB";
   private static final String KRONOS_JOB_SYNCHRONIZER_JOB = "kronos-job-synchronizer-job";
 
@@ -28,7 +28,7 @@ public class JobSynchronizerJobDefinitionProvider implements IJobDefinitionProvi
     jobDefinition.setName(KRONOS_JOB_SYNCHRONIZER_JOB);
     jobDefinition.setGroup(ISchedulerCoreService.JOB_GROUP_INTERNAL);
     jobDefinition.setClazz(JobSynchronizerJob.class.getCanonicalName());
-    jobDefinition.setDescription(KRONOS_JOB_SYNCHRONIZER_JOB_NAME);
+    jobDefinition.setDescription(JOB_SYNCHRONIZER_JOB);
     jobDefinition.setExpression(Configuration.get(KRONOS_JOB_EXPRESSION_JOB, "0/20 * * * * ?"));
     jobDefinition.setSingleton(true);
     return jobDefinition;

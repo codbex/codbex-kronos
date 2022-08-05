@@ -11,11 +11,12 @@
  */
 package com.codbex.kronos.hdbti.api;
 
-import com.codbex.kronos.hdbti.utils.CSVRecordMetadata;
 import java.sql.SQLException;
 import java.util.List;
 import javax.sql.DataSource;
 import org.eclipse.dirigible.engine.odata2.transformers.DBMetadataUtil;
+
+import com.codbex.kronos.hdbti.utils.CSVRecordMetadata;
 
 public interface ICSVRecordDao {
 

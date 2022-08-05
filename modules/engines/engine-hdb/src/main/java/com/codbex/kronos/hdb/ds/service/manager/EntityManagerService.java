@@ -11,14 +11,15 @@
  */
 package com.codbex.kronos.hdb.ds.service.manager;
 
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
-import com.codbex.kronos.hdb.ds.model.hdbdd.CdsDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbdd.DataStructureCdsModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableModel;
 import com.codbex.kronos.hdb.ds.processors.table.TableAlterProcessor;
 import com.codbex.kronos.hdb.ds.processors.table.TableCreateProcessor;
 import com.codbex.kronos.hdb.ds.processors.table.TableDropProcessor;
 import com.codbex.kronos.utils.HDBUtils;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -31,11 +32,11 @@ import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EntityManagerService extends AbstractDataStructureManagerService<CdsDataStructureModel> {
+public class EntityManagerService extends AbstractDataStructureManagerService<DataStructureCdsModel> {
 
   private static final Logger logger = LoggerFactory.getLogger(EntityManagerService.class);
 
-  private final Map<String, CdsDataStructureModel> dataStructureEntitiesModel;
+  private final Map<String, DataStructureCdsModel> dataStructureEntitiesModel;
   private final List<String> entitiesSynchronized;
 
   private TableDropProcessor tableDropProcessor = new TableDropProcessor();
@@ -50,7 +51,7 @@ public class EntityManagerService extends AbstractDataStructureManagerService<Cd
   }
 
   @Override
-  public void synchronizeRuntimeMetadata(CdsDataStructureModel entitiesModel) throws DataStructuresException {
+  public void synchronizeRuntimeMetadata(DataStructureCdsModel entitiesModel) throws DataStructuresException {
     if (!getDataStructuresCoreService().existsDataStructure(entitiesModel.getLocation(), entitiesModel.getType())) {
       getDataStructuresCoreService()
           .createDataStructure(entitiesModel.getLocation(), entitiesModel.getName(), entitiesModel.getHash(), entitiesModel.getType());
@@ -68,10 +69,10 @@ public class EntityManagerService extends AbstractDataStructureManagerService<Cd
   }
 
   @Override
-  public boolean createDataStructure(Connection connection, CdsDataStructureModel entitiesModel)
+  public boolean createDataStructure(Connection connection, DataStructureCdsModel entitiesModel)
       throws SQLException {
     if (entitiesModel != null) {
-      for (HDBTableDataStructureModel entityModel : entitiesModel.getTableModels()) {
+      for (DataStructureHDBTableModel entityModel : entitiesModel.getTableModels()) {
         String tableName = HDBUtils.escapeArtifactName(entityModel.getName(), entityModel.getSchema());
         if (!SqlFactory.getNative(connection).exists(connection, tableName)) {
           if (!this.tableCreateProcessor.execute(connection, entityModel)) {
@@ -88,18 +89,18 @@ public class EntityManagerService extends AbstractDataStructureManagerService<Cd
   }
 
   @Override
-  public boolean dropDataStructure(Connection connection, CdsDataStructureModel entitiesModel) throws SQLException {
+  public boolean dropDataStructure(Connection connection, DataStructureCdsModel entitiesModel) throws SQLException {
 	  return true;
   }
 
   @Override
-  public boolean updateDataStructure(Connection connection, CdsDataStructureModel entitiesModel)
+  public boolean updateDataStructure(Connection connection, DataStructureCdsModel entitiesModel)
       throws SQLException, OperationNotSupportedException {
 	  return true;
   }
 
   @Override
-  public Map<String, CdsDataStructureModel> getDataStructureModels() {
+  public Map<String, DataStructureCdsModel> getDataStructureModels() {
     return Collections.unmodifiableMap(this.dataStructureEntitiesModel);
   }
 
@@ -110,7 +111,7 @@ public class EntityManagerService extends AbstractDataStructureManagerService<Cd
 
   @Override
   public String getDataStructureType() {
-    return HDBDataStructureModel.FILE_EXTENSION_ENTITIES;
+    return IDataStructureModel.FILE_EXTENSION_ENTITIES;
   }
 
   @Override

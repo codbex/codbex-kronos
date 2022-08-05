@@ -11,18 +11,19 @@
  */
 package com.codbex.kronos.xsaccess.ds.synchronizer;
 
-import com.codbex.kronos.xsaccess.ds.api.IAccessCoreService;
-import com.codbex.kronos.xsaccess.ds.api.IPrivilegeCoreService;
 import java.io.IOException;
 import org.eclipse.dirigible.commons.api.content.AbstractClasspathContentHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.codbex.kronos.xsaccess.ds.api.IAccessCoreService;
+import com.codbex.kronos.xsaccess.ds.api.IPrivilegeCoreService;
+
 public class SecurityClasspathContentHandler extends AbstractClasspathContentHandler {
 
   private static final Logger logger = LoggerFactory.getLogger(SecurityClasspathContentHandler.class);
 
-  private KronosSecuritySynchronizer extensionsSynchronizer = new KronosSecuritySynchronizer();
+  private SecuritySynchronizer extensionsSynchronizer = new SecuritySynchronizer();
 
   /*
    * (non-Javadoc)

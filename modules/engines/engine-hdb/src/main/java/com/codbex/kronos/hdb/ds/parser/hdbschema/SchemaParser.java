@@ -11,13 +11,24 @@
  */
 package com.codbex.kronos.hdb.ds.parser.hdbschema;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.eclipse.dirigible.core.scheduler.api.ISynchronizerArtefactType.ArtefactState;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.codbex.kronos.exceptions.ArtifactParserException;
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.artefacts.HDBSchemaSynchronizationArtefactType;
 import com.codbex.kronos.hdb.ds.model.DBContentType;
 import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
-import com.codbex.kronos.hdb.ds.model.hdbschema.HDBSchemaDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbschema.DataStructureHDBSchemaModel;
 import com.codbex.kronos.hdb.ds.parser.DataStructureParser;
 import com.codbex.kronos.hdb.ds.synchronizer.DataStructuresSynchronizer;
 import com.codbex.kronos.parser.hdbschema.core.HdbschemaLexer;
@@ -28,17 +39,8 @@ import com.codbex.kronos.parser.hdbschema.models.HDBSchemaDefinitionModel;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.utils.HDBUtils;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.eclipse.dirigible.core.scheduler.api.ISynchronizerArtefactType.ArtefactState;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-public class SchemaParser implements DataStructureParser<HDBSchemaDataStructureModel> {
+public class SchemaParser implements DataStructureParser<DataStructureHDBSchemaModel> {
 
   private static final Logger logger = LoggerFactory.getLogger(SchemaParser.class);
   private static final HDBSchemaSynchronizationArtefactType SCHEMA_ARTEFACT = new HDBSchemaSynchronizationArtefactType();
@@ -46,20 +48,20 @@ public class SchemaParser implements DataStructureParser<HDBSchemaDataStructureM
 
   @Override
   public String getType() {
-    return HDBDataStructureModel.TYPE_HDB_SCHEMA;
+    return IDataStructureModel.TYPE_HDB_SCHEMA;
   }
 
   @Override
-  public Class<HDBSchemaDataStructureModel> getDataStructureClass() {
-    return HDBSchemaDataStructureModel.class;
+  public Class<DataStructureHDBSchemaModel> getDataStructureClass() {
+    return DataStructureHDBSchemaModel.class;
   }
 
   @Override
-  public HDBSchemaDataStructureModel parse(DataStructureParametersModel parametersModel)
+  public DataStructureHDBSchemaModel parse(DataStructureParametersModel parametersModel)
       throws DataStructuresException, IOException, ArtifactParserException {
-    HDBSchemaDataStructureModel hdbSchemaModel = new HDBSchemaDataStructureModel();
+    DataStructureHDBSchemaModel hdbSchemaModel = new DataStructureHDBSchemaModel();
     HDBUtils.populateDataStructureModel(parametersModel.getLocation(), parametersModel.getContent(), hdbSchemaModel,
-        HDBDataStructureModel.TYPE_HDB_SCHEMA, DBContentType.XS_CLASSIC);
+        IDataStructureModel.TYPE_HDB_SCHEMA, DBContentType.XS_CLASSIC);
 
     ByteArrayInputStream is = new ByteArrayInputStream(parametersModel.getContent().getBytes());
     ANTLRInputStream inputStream = new ANTLRInputStream(is);

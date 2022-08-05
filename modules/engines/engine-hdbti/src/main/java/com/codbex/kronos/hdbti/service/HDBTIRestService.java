@@ -13,6 +13,7 @@ package com.codbex.kronos.hdbti.service;
 
 import com.codbex.kronos.hdbti.processors.HDBTIProcessor;
 import com.codbex.kronos.parser.hdbti.models.HDBTIImportConfigModel;
+
 import io.swagger.annotations.*;
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.eclipse.dirigible.commons.api.service.AbstractRestService;
@@ -50,7 +51,7 @@ public class HDBTIRestService extends AbstractRestService implements IRestServic
                                      @ApiParam(value = "The HDBTI file", required = true)
                                      @Multipart("file") byte[] file) {
         try {
-            return Response.ok(hdbtiProcessor.parseHdbtiToJSON(location, file)).build();
+            return Response.ok(hdbtiProcessor.parseHDBTIToJSON(location, file)).build();
         } catch (Throwable e) {
             String message = e.getMessage();
             logger.error(message, e);

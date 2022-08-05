@@ -15,11 +15,13 @@ import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
+
 import java.io.IOException;
 
 public interface ICoreParserService {
 
-  DataStructureModel parseDataStructure(DataStructureParametersModel parametersModel) throws DataStructuresException, IOException, ArtifactParserException;
+  DataStructureModel parseDataStructure(DataStructureParametersModel parametersModel)
+      throws DataStructuresException, IOException, ArtifactParserException;
 
   Class<DataStructureModel> getDataStructureClass(String type);
 }

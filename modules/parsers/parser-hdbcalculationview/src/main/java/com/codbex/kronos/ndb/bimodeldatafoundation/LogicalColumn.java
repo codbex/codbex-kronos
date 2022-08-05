@@ -19,11 +19,6 @@
 
 package com.codbex.kronos.ndb.bimodeldatafoundation;
 
-import com.codbex.kronos.ndb.bimodelcube.Measure;
-import com.codbex.kronos.ndb.bimodelvariable.AbstractVariableMapping;
-import com.codbex.kronos.ndb.datamodeltype.InternalExternalConversion;
-import com.codbex.kronos.ndb.datamodeltype.SemanticType;
-import com.codbex.kronos.ndb.repositorymodelresource.IDObjectWithDescription;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -35,6 +30,12 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.codbex.kronos.ndb.bimodelcube.Measure;
+import com.codbex.kronos.ndb.bimodelvariable.AbstractVariableMapping;
+import com.codbex.kronos.ndb.datamodeltype.InternalExternalConversion;
+import com.codbex.kronos.ndb.datamodeltype.SemanticType;
+import com.codbex.kronos.ndb.repositorymodelresource.IDObjectWithDescription;
 
 
 /**

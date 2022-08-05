@@ -11,16 +11,17 @@
  */
 package com.codbex.kronos.hdb.ds.processors.table;
 
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.artefacts.HDBTableSynchronizationArtefactType;
-import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableModel;
 import com.codbex.kronos.hdb.ds.module.HDBModule;
-import com.codbex.kronos.hdb.ds.processors.AbstractProcessor;
+import com.codbex.kronos.hdb.ds.processors.AbstractHDBProcessor;
 import com.codbex.kronos.hdb.ds.service.manager.IDataStructureManager;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.utils.Constants;
 import com.codbex.kronos.utils.HDBUtils;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -37,7 +38,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The Table Create Processor.
  */
-public class TableCreateProcessor extends AbstractProcessor<HDBTableDataStructureModel> {
+public class TableCreateProcessor extends AbstractHDBProcessor<DataStructureHDBTableModel> {
 
   private static final Logger logger = LoggerFactory.getLogger(TableCreateProcessor.class);
   private static final HDBTableSynchronizationArtefactType TABLE_ARTEFACT = new HDBTableSynchronizationArtefactType();
@@ -52,7 +53,7 @@ public class TableCreateProcessor extends AbstractProcessor<HDBTableDataStructur
    * @param tableModel the table model
    * @throws SQLException the SQL exception
    */
-  public boolean execute(Connection connection, HDBTableDataStructureModel tableModel)
+  public boolean execute(Connection connection, DataStructureHDBTableModel tableModel)
       throws SQLException {
     logger.info("Processing Create Table: " + tableModel.getName());
 
@@ -81,17 +82,17 @@ public class TableCreateProcessor extends AbstractProcessor<HDBTableDataStructur
     return success;
   }
 
-  private void processSynonym(Connection connection, HDBTableDataStructureModel tableModel, String tableNameWithoutSchema,
+  private void processSynonym(Connection connection, DataStructureHDBTableModel tableModel, String tableNameWithoutSchema,
       String tableNameWithSchema) throws SQLException {
     boolean shouldCreatePublicSynonym = SqlFactory.getNative(connection)
         .exists(connection, tableNameWithSchema, DatabaseArtifactTypes.TABLE);
     if (shouldCreatePublicSynonym) {
       HDBUtils.createPublicSynonymForArtifact(managerServices
-          .get(HDBDataStructureModel.TYPE_HDB_SYNONYM), tableNameWithoutSchema, tableModel.getSchema(), connection);
+          .get(IDataStructureModel.TYPE_HDB_SYNONYM), tableNameWithoutSchema, tableModel.getSchema(), connection);
     }
   }
 
-  private boolean processStatements(Connection connection, HDBTableDataStructureModel tableModel, Collection<String> indicesStatements,
+  private boolean processStatements(Connection connection, DataStructureHDBTableModel tableModel, Collection<String> indicesStatements,
       String tableCreateStatement) {
     try {
       executeSql(tableCreateStatement, connection);

@@ -13,10 +13,12 @@ package com.codbex.kronos.modificators;
 
 import static org.junit.Assert.assertArrayEquals;
 
+import java.io.IOException;
+
+import javax.xml.transform.TransformerException;
+
 import org.eclipse.dirigible.core.test.AbstractDirigibleTest;
 import org.junit.Test;
-import javax.xml.transform.TransformerException;
-import java.io.IOException;
 
 public class CalculationViewTransformationTest extends AbstractDirigibleTest {
 

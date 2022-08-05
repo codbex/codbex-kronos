@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.hdb.ds.model.DataStructureModelFactory;
-import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbsynonym.DataStructureHDBSynonymModel;
 import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDefinitionModel;
 
 
@@ -34,7 +34,7 @@ public class GrantPrivilegesExternalArtifactsSchemaProcessor extends HDIAbstract
 
   private static final String HDBSYNONYM_FILE_EXTENSION = "hdbsynonym";
 
-  public final void execute(Connection connection, String container, String[] deploys)
+  public void execute(Connection connection, String container, String[] deploys)
       throws SQLException, IOException, DataStructuresException {
     Set<String> externalArtifactsSchemas = collectExternalArtifactsSchemas(deploys);
 
@@ -47,7 +47,7 @@ public class GrantPrivilegesExternalArtifactsSchemaProcessor extends HDIAbstract
     for (String deploy : deploys) {
       if (FilenameUtils.getExtension(deploy).equalsIgnoreCase(HDBSYNONYM_FILE_EXTENSION)) {
         String hdbSynonymContent = getSynonymContent(deploy);
-        HDBSynonymDataStructureModel synonymModel = getSynonymModel(deploy, hdbSynonymContent);
+        DataStructureHDBSynonymModel synonymModel = getSynonymModel(deploy, hdbSynonymContent);
 
         for (Entry<String, HDBSynonymDefinitionModel> synonymDefinition : synonymModel.getSynonymDefinitions().entrySet()) {
           String externalArtifactSchema = synonymDefinition.getValue().getTarget().getSchema();
@@ -73,7 +73,7 @@ public class GrantPrivilegesExternalArtifactsSchemaProcessor extends HDIAbstract
     }
   }
 
-  protected HDBSynonymDataStructureModel getSynonymModel(String location, String content) throws DataStructuresException, IOException {
+  protected DataStructureHDBSynonymModel getSynonymModel(String location, String content) throws DataStructuresException, IOException {
     return DataStructureModelFactory.parseSynonym(location, content);
   }
 }

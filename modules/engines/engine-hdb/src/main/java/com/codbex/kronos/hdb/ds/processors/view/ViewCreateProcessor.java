@@ -11,16 +11,17 @@
  */
 package com.codbex.kronos.hdb.ds.processors.view;
 
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.artefacts.HDBViewSynchronizationArtefactType;
-import com.codbex.kronos.hdb.ds.model.hdbview.HDBViewDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbview.DataStructureHDBViewModel;
 import com.codbex.kronos.hdb.ds.module.HDBModule;
-import com.codbex.kronos.hdb.ds.processors.AbstractProcessor;
+import com.codbex.kronos.hdb.ds.processors.AbstractHDBProcessor;
 import com.codbex.kronos.hdb.ds.service.manager.IDataStructureManager;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.utils.Constants;
 import com.codbex.kronos.utils.HDBUtils;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Map;
@@ -35,7 +36,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The View Create Processor.
  */
-public class ViewCreateProcessor extends AbstractProcessor<HDBViewDataStructureModel> {
+public class ViewCreateProcessor extends AbstractHDBProcessor<DataStructureHDBViewModel> {
 
   private static final Logger logger = LoggerFactory.getLogger(ViewCreateProcessor.class);
   private static final HDBViewSynchronizationArtefactType VIEW_ARTEFACT = new HDBViewSynchronizationArtefactType();
@@ -49,7 +50,7 @@ public class ViewCreateProcessor extends AbstractProcessor<HDBViewDataStructureM
    * @param viewModel  the view model
    * @throws SQLException the SQL exception
    */
-  public boolean execute(Connection connection, HDBViewDataStructureModel viewModel)
+  public boolean execute(Connection connection, DataStructureHDBViewModel viewModel)
       throws SQLException {
     logger.info("Processing Create View: " + viewModel.getName());
     
@@ -99,7 +100,7 @@ public class ViewCreateProcessor extends AbstractProcessor<HDBViewDataStructureM
     if (managerServices != null) {
       if (SqlFactory.getNative(connection).exists(connection, viewNameWithSchema, DatabaseArtifactTypes.VIEW)) {
         HDBUtils.createPublicSynonymForArtifact(managerServices
-            .get(HDBDataStructureModel.TYPE_HDB_SYNONYM), viewModel.getName(), viewModel.getSchema(), connection);
+            .get(IDataStructureModel.TYPE_HDB_SYNONYM), viewModel.getName(), viewModel.getSchema(), connection);
       }
     }
     return success;

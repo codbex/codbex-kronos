@@ -16,6 +16,31 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>modules-engines-hdb</artifactId>
+            <version>0.1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-commons-test</artifactId>
+            <version>${dirigible.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-database-custom</artifactId>
+            <version>${dirigible.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-database-h2</artifactId>
+            <version>${dirigible.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-repository-local</artifactId>
+            <version>${dirigible.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-commons-api</artifactId>
             <version>${dirigible.version}</version>
@@ -23,12 +48,12 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpmime</artifactId>
-            <version>4.5.13</version>
+            <version>${httpmime.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpasyncclient</artifactId>
-            <version>4.1.5</version>
+            <version>${httpasyncclient.version}</version>
         </dependency>
     </dependencies>
 

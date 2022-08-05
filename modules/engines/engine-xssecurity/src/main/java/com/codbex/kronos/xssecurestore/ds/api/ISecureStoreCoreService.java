@@ -11,9 +11,10 @@
  */
 package com.codbex.kronos.xssecurestore.ds.api;
 
+import java.util.List;
+
 import com.codbex.kronos.xssecurestore.ds.model.SecureStore;
 import com.codbex.kronos.xssecurestore.ds.model.SecureStoreContent;
-import java.util.List;
 
 public interface ISecureStoreCoreService {
 

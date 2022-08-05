@@ -24,6 +24,13 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import com.codbex.kronos.hdb.ds.model.DataStructureModelBuilder;
+import com.codbex.kronos.hdb.ds.model.hdbtablefunction.DataStructureHDBTableFunctionModel;
+import com.codbex.kronos.hdb.ds.processors.hdbtablefunction.HDBTableFunctionCreateProcessor;
+import com.codbex.kronos.hdb.ds.processors.hdbtablefunction.HDBTableFunctionDropProcessor;
+import com.codbex.kronos.hdb.ds.test.parser.ViewParserTest;
+import com.codbex.kronos.utils.CommonsUtils;
+import com.codbex.kronos.utils.Constants;
+
 import org.apache.commons.io.IOUtils;
 import org.eclipse.dirigible.api.v3.problems.ProblemsFacade;
 import org.eclipse.dirigible.commons.config.Configuration;
@@ -43,13 +50,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
-
-import com.codbex.kronos.hdb.ds.model.hdbtablefunction.HDBTableFunctionDataStructureModel;
-import com.codbex.kronos.hdb.ds.processors.hdbtablefunction.HDBTableFunctionCreateProcessor;
-import com.codbex.kronos.hdb.ds.processors.hdbtablefunction.HDBTableFunctionDropProcessor;
-import com.codbex.kronos.hdb.ds.test.parser.ViewParserTest;
-import com.codbex.kronos.utils.CommonsUtils;
-import com.codbex.kronos.utils.Constants;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HDBTableFunctionProcessorTest extends AbstractDirigibleTest {
@@ -93,7 +93,7 @@ public class HDBTableFunctionProcessorTest extends AbstractDirigibleTest {
           .rawContent(hdbprocedureSample)
           .withName("\"MYSCHEMA\".\"hdb_view::FUNCTION_NAME\"")
           .withSchema("MYSCHEMA");
-			HDBTableFunctionDataStructureModel model = new HDBTableFunctionDataStructureModel(builder);
+			DataStructureHDBTableFunctionModel model = new DataStructureHDBTableFunctionModel(builder);
 			String sql = Constants.HDBTABLEFUNCTION_CREATE + model.getRawContent();
 			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).exists(mockConnection, "MYSCHEMA", CommonsUtils.extractArtifactNameWhenSchemaIsProvided(model.getName())[1], DatabaseArtifactTypes.FUNCTION)).thenReturn(doExist);
 			
@@ -110,7 +110,7 @@ public class HDBTableFunctionProcessorTest extends AbstractDirigibleTest {
 
     DataStructureModelBuilder builder = new DataStructureModelBuilder()
         .withName("\"MYSCHEMA\".\"hdb_view::FUNCTION_NAME\"");
-		HDBTableFunctionDataStructureModel model = new HDBTableFunctionDataStructureModel(builder);
+		DataStructureHDBTableFunctionModel model = new DataStructureHDBTableFunctionModel(builder);
 
 		try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
 				MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)) {
@@ -144,7 +144,7 @@ public class HDBTableFunctionProcessorTest extends AbstractDirigibleTest {
 
       DataStructureModelBuilder builder = new DataStructureModelBuilder()
           .withName("\"MYSCHEMA\".\"hdb_view::FUNCTION_NAME\"");
-			HDBTableFunctionDataStructureModel model = new HDBTableFunctionDataStructureModel(builder);
+			DataStructureHDBTableFunctionModel model = new DataStructureHDBTableFunctionModel(builder);
 			String sql = Constants.HDBTABLEFUNCTION_DROP + model.getName();
 			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).exists(mockConnection, "MYSCHEMA", CommonsUtils.extractArtifactNameWhenSchemaIsProvided(model.getName())[1], DatabaseArtifactTypes.FUNCTION)).thenReturn(doExist);
 			
@@ -161,7 +161,7 @@ public class HDBTableFunctionProcessorTest extends AbstractDirigibleTest {
 
     DataStructureModelBuilder builder = new DataStructureModelBuilder()
         .withName("\"MYSCHEMA\".\"hdb_view::FUNCTION_NAME\"");
-		HDBTableFunctionDataStructureModel model = new HDBTableFunctionDataStructureModel(builder);
+		DataStructureHDBTableFunctionModel model = new DataStructureHDBTableFunctionModel(builder);
 
 		try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
 				MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)) {

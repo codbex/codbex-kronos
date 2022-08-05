@@ -19,10 +19,6 @@
 
 package com.codbex.kronos.ndb.bimodelcalculation;
 
-import com.codbex.kronos.ndb.basemodelbase.Cardinality;
-import com.codbex.kronos.ndb.basemodelbase.JoinType;
-import com.codbex.kronos.ndb.basemodelbase.ReferentialDirection;
-import com.codbex.kronos.ndb.basemodelbase.TemporalJoinProperties;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -31,6 +27,11 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.codbex.kronos.ndb.basemodelbase.Cardinality;
+import com.codbex.kronos.ndb.basemodelbase.JoinType;
+import com.codbex.kronos.ndb.basemodelbase.ReferentialDirection;
+import com.codbex.kronos.ndb.basemodelbase.TemporalJoinProperties;
 
 
 /**

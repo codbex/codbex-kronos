@@ -11,10 +11,11 @@
  */
 package com.codbex.kronos.xsodata.ds.synchronizer;
 
-import com.codbex.kronos.xsodata.ds.model.ODataModel;
 import org.eclipse.dirigible.core.publisher.api.handlers.MetadataPublisherHandler;
 import org.eclipse.dirigible.core.scheduler.api.SchedulerException;
 import org.eclipse.dirigible.database.persistence.PersistenceManager;
+
+import com.codbex.kronos.xsodata.ds.model.ODataModel;
 
 public class ODataSynchronizerPublisherHandler extends MetadataPublisherHandler {
 

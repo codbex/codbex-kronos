@@ -19,11 +19,12 @@
 
 package com.codbex.kronos.ndb.bimodelprivilege;
 
-import com.codbex.kronos.ndb.sqlcoremodelaccesscontrol.ValueFilterOperator;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
+
+import com.codbex.kronos.ndb.sqlcoremodelaccesscontrol.ValueFilterOperator;
 
 
 /**

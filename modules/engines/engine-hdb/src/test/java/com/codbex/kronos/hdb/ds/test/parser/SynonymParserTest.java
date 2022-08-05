@@ -16,7 +16,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.nio.charset.StandardCharsets;
 
-import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
 import org.eclipse.dirigible.api.v3.problems.ProblemsFacade;
 import org.eclipse.dirigible.core.test.AbstractDirigibleTest;
 import org.junit.Before;
@@ -25,9 +24,10 @@ import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 
 import com.codbex.kronos.hdb.ds.model.DataStructureModelFactory;
-import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
+import com.codbex.kronos.hdb.ds.model.hdbsynonym.DataStructureHDBSynonymModel;
 import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDefinitionModel;
-import com.codbex.kronos.hdb.ds.parser.hdbsynonym.SynonymParser;
+import com.codbex.kronos.hdb.ds.parser.hdbsynonym.HDBSynonymParser;
 
 public class SynonymParserTest extends AbstractDirigibleTest {
 
@@ -41,7 +41,7 @@ public class SynonymParserTest extends AbstractDirigibleTest {
     String hdbsynonymSample = org.apache.commons.io.IOUtils
         .toString(SynonymParserTest.class.getResourceAsStream("/MySynonym.hdbsynonym"), StandardCharsets.UTF_8);
 
-    HDBSynonymDataStructureModel model = DataStructureModelFactory.parseSynonym("hdb_view/MySynonym.hdbsynonym", hdbsynonymSample);
+    DataStructureHDBSynonymModel model = DataStructureModelFactory.parseSynonym("hdb_view/MySynonym.hdbsynonym", hdbsynonymSample);
 
     HDBSynonymDefinitionModel definitionModel = model.getSynonymDefinitions().get("SY_DUMMY");
     assertEquals("hdb_view::MySynonym", model.getName());
@@ -63,7 +63,7 @@ public class SynonymParserTest extends AbstractDirigibleTest {
         + "    }\n"
         + "}";
     String errorMessage = "Missing mandatory field for synonym SY_DUMMY!";
-    SynonymParser parser = new SynonymParser();
+    HDBSynonymParser parser = new HDBSynonymParser();
     DataStructureParametersModel parametersModel =
         new DataStructureParametersModel(null, "hdb_view/MySynonym.hdbsynonym", content, null);
     parser.parse(parametersModel);

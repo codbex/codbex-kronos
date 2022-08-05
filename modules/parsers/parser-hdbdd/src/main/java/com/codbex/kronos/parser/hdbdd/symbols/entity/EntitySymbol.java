@@ -11,12 +11,13 @@
  */
 package com.codbex.kronos.parser.hdbdd.symbols.entity;
 
-import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
-import com.codbex.kronos.parser.hdbdd.symbols.context.Scope;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
+import com.codbex.kronos.parser.hdbdd.symbols.context.Scope;
 
 public class EntitySymbol extends Symbol implements Scope {
     private Map<String, Symbol> elements;

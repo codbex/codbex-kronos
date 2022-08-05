@@ -11,11 +11,12 @@
  */
 package com.codbex.kronos.hdbti.synchronizer;
 
-import com.codbex.kronos.hdbti.api.ITableImportModel;
 import java.io.IOException;
 import org.eclipse.dirigible.commons.api.content.AbstractClasspathContentHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.codbex.kronos.hdbti.api.ITableImportModel;
 
 public class TableImportClasspathContentHandler extends AbstractClasspathContentHandler {
 

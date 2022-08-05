@@ -11,6 +11,15 @@
  */
 package com.codbex.kronos.parser.hdbdd.symbols;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import com.codbex.kronos.parser.hdbdd.annotation.metadata.AnnotationObj;
 import com.codbex.kronos.parser.hdbdd.core.CdsLexer;
 import com.codbex.kronos.parser.hdbdd.exception.CDSRuntimeException;
@@ -20,14 +29,6 @@ import com.codbex.kronos.parser.hdbdd.symbols.entity.EntitySymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.type.BuiltInTypeSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.type.custom.StructuredDataTypeSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.view.ViewSymbol;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class SymbolTable {
 

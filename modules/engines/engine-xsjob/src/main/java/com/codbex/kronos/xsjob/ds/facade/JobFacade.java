@@ -11,15 +11,16 @@
  */
 package com.codbex.kronos.xsjob.ds.facade;
 
-import com.codbex.kronos.xsjob.ds.model.JobArtifact;
-import com.codbex.kronos.xsjob.ds.model.JobDefinition;
-import com.codbex.kronos.xsjob.ds.scheduler.KronosSchedulerManager;
-import com.codbex.kronos.xsjob.ds.service.JobCoreService;
-import com.codbex.kronos.xsjob.ds.transformer.JobToKronosJobDefinitionTransformer;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
 import org.eclipse.dirigible.core.scheduler.api.SchedulerException;
+
+import com.codbex.kronos.xsjob.ds.model.JobArtifact;
+import com.codbex.kronos.xsjob.ds.model.JobDefinition;
+import com.codbex.kronos.xsjob.ds.scheduler.SchedulerManager;
+import com.codbex.kronos.xsjob.ds.service.JobCoreService;
+import com.codbex.kronos.xsjob.ds.transformer.JobToKronosJobDefinitionTransformer;
 
 public class JobFacade {
 
@@ -45,7 +46,7 @@ public class JobFacade {
     for (String name : names) {
       JobDefinition jobDefinition = jobService.getJob(name);
 
-      KronosSchedulerManager.scheduleJob(jobDefinition);
+      SchedulerManager.scheduleJob(jobDefinition);
     }
   }
 
@@ -53,7 +54,7 @@ public class JobFacade {
     for (String name : names) {
       JobDefinition jobDefinition = jobService.getJob(name);
 
-      KronosSchedulerManager.unscheduleJob(name, jobDefinition.getGroup());
+      SchedulerManager.unscheduleJob(name, jobDefinition.getGroup());
     }
   }
 
@@ -80,7 +81,7 @@ public class JobFacade {
   }
 
   public static final boolean isActive(String name) throws SchedulerException {
-    return KronosSchedulerManager.existsJob(name);
+    return SchedulerManager.existsJob(name);
   }
 
 }

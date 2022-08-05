@@ -33,6 +33,6 @@ public class JobSynchronizerJob extends AbstractSynchronizerJob {
    */
   @Override
   public String getName() {
-    return JobSynchronizerJobDefinitionProvider.KRONOS_JOB_SYNCHRONIZER_JOB_NAME;
+    return JobSynchronizerJobDefinitionProvider.JOB_SYNCHRONIZER_JOB;
   }
 }

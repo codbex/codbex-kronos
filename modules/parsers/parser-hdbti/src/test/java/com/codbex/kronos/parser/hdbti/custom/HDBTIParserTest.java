@@ -16,20 +16,22 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.codbex.kronos.exceptions.ArtifactParserException;
-import com.codbex.kronos.parser.hdbti.exception.DuplicateFieldNameException;
-import com.codbex.kronos.parser.hdbti.exception.TablePropertySyntaxException;
-import com.codbex.kronos.parser.hdbti.exception.HDBTIMissingPropertyException;
-import com.codbex.kronos.parser.hdbti.exception.HDBTISyntaxErrorException;
-import com.codbex.kronos.parser.hdbti.models.HDBTIImportConfigModel;
-import com.codbex.kronos.parser.hdbti.models.HDBTIImportModel;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import org.eclipse.dirigible.core.test.AbstractDirigibleTest;
 import org.junit.Test;
+
+import com.codbex.kronos.exceptions.ArtifactParserException;
+import com.codbex.kronos.parser.hdbti.exception.DuplicateFieldNameException;
+import com.codbex.kronos.parser.hdbti.exception.HDBTIMissingPropertyException;
+import com.codbex.kronos.parser.hdbti.exception.HDBTISyntaxErrorException;
+import com.codbex.kronos.parser.hdbti.exception.TablePropertySyntaxException;
+import com.codbex.kronos.parser.hdbti.models.HDBTIImportConfigModel;
+import com.codbex.kronos.parser.hdbti.models.HDBTIImportModel;
 
 public class HDBTIParserTest extends AbstractDirigibleTest {
 
@@ -40,7 +42,7 @@ public class HDBTIParserTest extends AbstractDirigibleTest {
         .toString(HDBTIParserTest.class.getResourceAsStream("/sample.hdbti"), StandardCharsets.UTF_8);
 
     HDBTIParser hdbtiParser = new HDBTIParser();
-    HDBTIImportModel importModel = hdbtiParser.parse("/test/kronos/sample.hdbti", hdbtiSample);
+    HDBTIImportModel importModel = hdbtiParser.parse("/test/com/codbex/kronos/sample.hdbti", hdbtiSample);
     HDBTIImportConfigModel configModel = importModel.getConfigModels().get(0);
 
     int expectedConfigsSize = 1;
@@ -67,7 +69,7 @@ public class HDBTIParserTest extends AbstractDirigibleTest {
     HDBTIParser hdbtiParser = new HDBTIParser();
 
     try {
-      hdbtiParser.parse("/test/kronos/duplicateKeys.hdbti", hdbtiSample);
+      hdbtiParser.parse("/test/com/codbex/kronos/duplicateKeys.hdbti", hdbtiSample);
     } catch (DuplicateFieldNameException duplicateFieldNameException) {
       assertTrue(true);
     } catch (Exception e) {
@@ -82,7 +84,7 @@ public class HDBTIParserTest extends AbstractDirigibleTest {
     HDBTIParser hdbtiParser = new HDBTIParser();
 
     try {
-      hdbtiParser.parse("/test/kronos/invalidSyntax.hdbti", hdbtiSample);
+      hdbtiParser.parse("/test/com/codbex/kronos/invalidSyntax.hdbti", hdbtiSample);
     } catch (ArtifactParserException parseErrorException) {
       assertTrue(true);
     } catch (Exception e) {
@@ -97,7 +99,7 @@ public class HDBTIParserTest extends AbstractDirigibleTest {
     HDBTIParser hdbtiParser = new HDBTIParser();
 
     try {
-      hdbtiParser.parse("/test/kronos/invalidTablePropertySyntax.hdbti", hdbtiSample);
+      hdbtiParser.parse("/test/com/codbex/kronos/invalidTablePropertySyntax.hdbti", hdbtiSample);
     } catch (TablePropertySyntaxException parseErrorException) {
       assertTrue(true);
     } catch (Exception e) {
@@ -112,7 +114,7 @@ public class HDBTIParserTest extends AbstractDirigibleTest {
     HDBTIParser hdbtiParser = new HDBTIParser();
 
     try {
-      hdbtiParser.parse("/test/kronos/duplicateKeys.hdbti", hdbtiSample);
+      hdbtiParser.parse("/test/com/codbex/kronos/duplicateKeys.hdbti", hdbtiSample);
     } catch (DuplicateFieldNameException duplicateFieldNameException) {
       assertTrue(true);
     } catch (Exception e) {
@@ -127,7 +129,7 @@ public class HDBTIParserTest extends AbstractDirigibleTest {
         .toString(HDBTIParserTest.class.getResourceAsStream("/randomOrder.hdbti"), StandardCharsets.UTF_8);
     HDBTIParser hdbtiParser = new HDBTIParser();
 
-    HDBTIImportModel model = hdbtiParser.parse("/test/kronos/randomOrder.hdbti", hdbtiSample);
+    HDBTIImportModel model = hdbtiParser.parse("/test/com/codbex/kronos/randomOrder.hdbti", hdbtiSample);
     assertNotNull("The HDBTIImportModel should not be null after parsing", model);
   }
 
@@ -136,7 +138,7 @@ public class HDBTIParserTest extends AbstractDirigibleTest {
     String content = org.apache.commons.io.IOUtils
         .toString(HDBTIParserTest.class.getResourceAsStream("/lexerError.hdbti"), StandardCharsets.UTF_8);
     HDBTIParser hdbtiParser = new HDBTIParser();
-    hdbtiParser.parse("/test/kronos/lexerError.hdbti", content);
+    hdbtiParser.parse("/test/com/codbex/kronos/lexerError.hdbti", content);
   }
 
   @Test(expected = ArtifactParserException.class)
@@ -144,7 +146,7 @@ public class HDBTIParserTest extends AbstractDirigibleTest {
     String content = org.apache.commons.io.IOUtils
         .toString(HDBTIParserTest.class.getResourceAsStream("/parserError.hdbti"), StandardCharsets.UTF_8);
     HDBTIParser hdbtiParser = new HDBTIParser();
-    hdbtiParser.parse("/test/kronos/syntaxError.hdbti", content);
+    hdbtiParser.parse("/test/com/codbex/kronos/syntaxError.hdbti", content);
   }
 
   @Test(expected = HDBTIMissingPropertyException.class)
@@ -152,6 +154,6 @@ public class HDBTIParserTest extends AbstractDirigibleTest {
     String content = org.apache.commons.io.IOUtils
         .toString(HDBTIParserTest.class.getResourceAsStream("/missingSchema.hdbti"), StandardCharsets.UTF_8);
     HDBTIParser hdbtiParser = new HDBTIParser();
-    hdbtiParser.parse("/test/kronos/missingSchema.hdbti", content);
+    hdbtiParser.parse("/test/com/codbex/kronos/missingSchema.hdbti", content);
   }
 }

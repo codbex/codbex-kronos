@@ -32,13 +32,13 @@ import org.eclipse.dirigible.api.v3.security.UserFacade;
 import org.eclipse.dirigible.commons.config.Configuration;
 
 import com.codbex.kronos.exceptions.ArtifactParserException;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
 import com.codbex.kronos.hdb.ds.model.DBContentType;
 import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
 import com.codbex.kronos.hdb.ds.model.hdbdd.DataStructureEntityModel;
-import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbsynonym.DataStructureHDBSynonymModel;
 import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDefinitionModel;
 import com.codbex.kronos.hdb.ds.service.manager.IDataStructureManager;
 import com.codbex.kronos.parser.hana.core.HanaLexer;
@@ -100,14 +100,14 @@ public class HDBUtils {
   }
 
   public static void populateDataStructureModel(String location, String content, DataStructureModel model, String artifactType,
-      DBContentType dbContentType) {
+      DBContentType DbContentType) {
     model.setName(CommonsUtils.getRepositoryBaseObjectName(location));
     model.setLocation(location);
     model.setType(artifactType);
     model.setHash(DigestUtils.md5Hex(content));
     model.setCreatedBy(UserFacade.getName());
     model.setCreatedAt(new Timestamp(new java.util.Date().getTime()));
-    model.setDbContentType(dbContentType);
+    model.setDbContentType(DbContentType);
   }
 
   public static void createPublicSynonymForArtifact(IDataStructureManager<DataStructureModel> synonymManagerService,
@@ -122,8 +122,8 @@ public class HDBUtils {
     synonymManagerService.dropDataStructure(connection, assemblePublicSynonym(artifactName, artifactSchema));
   }
 
-  public static HDBSynonymDataStructureModel assemblePublicSynonym(String artifactName, String artifactSchema) {
-    HDBSynonymDataStructureModel model = new HDBSynonymDataStructureModel();
+  public static DataStructureHDBSynonymModel assemblePublicSynonym(String artifactName, String artifactSchema) {
+    DataStructureHDBSynonymModel model = new DataStructureHDBSynonymModel();
 
     HDBSynonymDefinitionModel defModel = new HDBSynonymDefinitionModel();
     defModel.setSynonymSchema(Constants.SYNONYM_PUBLIC_SCHEMA);
@@ -133,7 +133,7 @@ public class HDBUtils {
     defModel.setTarget(target);
 
     model.getSynonymDefinitions().put(artifactName, defModel);
-    model.setType(HDBDataStructureModel.TYPE_HDB_SYNONYM);
+    model.setType(IDataStructureModel.TYPE_HDB_SYNONYM);
     model.setCreatedBy(UserFacade.getName());
     model.setCreatedAt(new Timestamp(new java.util.Date().getTime()));
     return model;
@@ -172,7 +172,6 @@ public class HDBUtils {
   public static String removeSqlCommentsFromContent(String content) {
     return content.replaceAll(commentRegex, "").trim();
   }
-
   public static ParseTree getParsedThree (DataStructureParametersModel parametersModel) throws ArtifactParserException {
 
     CharStream inputStream;

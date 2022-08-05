@@ -11,17 +11,17 @@
  */
 package com.codbex.kronos.xsodata.ds.api;
 
-import com.codbex.kronos.xsodata.ds.model.ODataModel;
-
 import java.util.List;
+
+import com.codbex.kronos.xsodata.ds.model.ODataModel;
 
 public interface IODataArtifactDao {
 
-    ODataModel createODataArtifact(ODataModel tableModel) throws KronosODataException;
-    ODataModel getODataArtifact(String location) throws KronosODataException;
-    ODataModel getODataArtifactByName(String name) throws KronosODataException;
-    void removeODataArtifact(String location) throws KronosODataException;
-    void updateODataArtifact(String location, String name, String hash) throws KronosODataException;
-    List<ODataModel> getAllODataArtifacts() throws KronosODataException;
+    ODataModel createODataArtifact(ODataModel tableModel) throws ODataException;
+    ODataModel getODataArtifact(String location) throws ODataException;
+    ODataModel getODataArtifactByName(String name) throws ODataException;
+    void removeODataArtifact(String location) throws ODataException;
+    void updateODataArtifact(String location, String name, String hash) throws ODataException;
+    List<ODataModel> getAllODataArtifacts() throws ODataException;
 
 }

@@ -13,8 +13,13 @@ package com.codbex.kronos.xsjob.ds.synchronizer;
 
 import static java.text.MessageFormat.format;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -23,7 +28,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.apache.commons.io.IOUtils;
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizer;
@@ -38,7 +42,7 @@ import com.codbex.kronos.xsjob.ds.api.IJobCoreService;
 import com.codbex.kronos.xsjob.ds.api.IJobModel;
 import com.codbex.kronos.xsjob.ds.model.JobArtifact;
 import com.codbex.kronos.xsjob.ds.model.JobDefinition;
-import com.codbex.kronos.xsjob.ds.scheduler.KronosSchedulerManager;
+import com.codbex.kronos.xsjob.ds.scheduler.SchedulerManager;
 import com.codbex.kronos.xsjob.ds.service.JobCoreService;
 import com.codbex.kronos.xsjob.ds.transformer.JobToKronosJobDefinitionTransformer;
 
@@ -56,18 +60,7 @@ public class JobSynchronizer extends AbstractSynchronizer {
 
   private JobToKronosJobDefinitionTransformer jobToKronosJobDefinitionTransformer = new JobToKronosJobDefinitionTransformer();
 
-  /**
-   * Force synchronization.
-   */
-  public static final void forceSynchronization() {
-    JobSynchronizer synchronizer = new JobSynchronizer();
-    synchronizer.setForcedSynchronization(true);
-    try {
-      synchronizer.synchronize();
-    } finally {
-      synchronizer.setForcedSynchronization(false);
-    }
-  }
+
 
   /*
    * (non-Javadoc)
@@ -193,21 +186,21 @@ public class JobSynchronizer extends AbstractSynchronizer {
     logger.trace("Start Jobs...");
 
     for (String jobName : JOBS_SYNCHRONIZED) {
-      if (!KronosSchedulerManager.existsJob(jobName)) {
+      if (!SchedulerManager.existsJob(jobName)) {
         try {
           JobDefinition jobDefinition = schedulerCoreService.getJob(jobName);
-          KronosSchedulerManager.scheduleJob(jobDefinition);
+          SchedulerManager.scheduleJob(jobDefinition);
         } catch (SchedulerException e) {
           logger.error(e.getMessage(), e);
         }
       }
     }
 
-    Set<TriggerKey> runningJobs = KronosSchedulerManager.listJobs();
+    Set<TriggerKey> runningJobs = SchedulerManager.listJobs();
     for (TriggerKey jobKey : runningJobs) {
       try {
         if (!JOBS_SYNCHRONIZED.contains(jobKey.getName())) {
-          KronosSchedulerManager.unscheduleJob(jobKey.getName(), jobKey.getGroup());
+          SchedulerManager.unscheduleJob(jobKey.getName(), jobKey.getGroup());
         }
       } catch (SchedulerException e) {
         logger.error(e.getMessage(), e);

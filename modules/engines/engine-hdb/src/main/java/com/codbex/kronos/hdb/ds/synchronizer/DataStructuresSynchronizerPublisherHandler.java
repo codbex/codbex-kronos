@@ -11,10 +11,11 @@
  */
 package com.codbex.kronos.hdb.ds.synchronizer;
 
-import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 import org.eclipse.dirigible.core.publisher.api.handlers.MetadataPublisherHandler;
 import org.eclipse.dirigible.core.scheduler.api.SchedulerException;
 import org.eclipse.dirigible.database.persistence.PersistenceManager;
+
+import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 
 public class DataStructuresSynchronizerPublisherHandler extends MetadataPublisherHandler {
 

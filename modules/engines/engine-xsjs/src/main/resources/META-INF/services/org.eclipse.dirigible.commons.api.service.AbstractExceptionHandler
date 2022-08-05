@@ -1,1 +1,2 @@
-com.codbex.kronos.engine.ScriptingExceptionHandler	# Scripting Exception Handler
+com.codbex.kronos.engine.ScriptingExceptionHandler
+com.codbex.kronos.engine.ContextExceptionHandler

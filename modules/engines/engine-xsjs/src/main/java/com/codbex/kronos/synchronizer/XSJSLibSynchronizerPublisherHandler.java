@@ -11,9 +11,23 @@
  */
 package com.codbex.kronos.synchronizer;
 
+import org.eclipse.dirigible.commons.config.StaticObjects;
 import org.eclipse.dirigible.core.publisher.api.handlers.MetadataPublisherHandler;
+import org.eclipse.dirigible.repository.api.IRepository;
+
+import com.codbex.kronos.synchronizer.cleaners.XSJSLibSynchronizerCleaner;
+import com.codbex.kronos.synchronizer.cleaners.XSJSLibSynchronizerDBCleaner;
+import com.codbex.kronos.synchronizer.cleaners.XSJSLibSynchronizerFileCleaner;
+
+import javax.sql.DataSource;
 
 public class XSJSLibSynchronizerPublisherHandler extends MetadataPublisherHandler {
+  private static final DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
+  private static final IRepository repository = (IRepository) StaticObjects.get(StaticObjects.REPOSITORY);
+
+  private final XSJSLibSynchronizerCleaner dbCleaner = new XSJSLibSynchronizerDBCleaner(dataSource);
+  private final XSJSLibSynchronizerCleaner fileCleaner = new XSJSLibSynchronizerFileCleaner(repository);
+  private final XSJSLibSynchronizerUnpublisher unpublisher = new XSJSLibSynchronizerUnpublisher(fileCleaner, dbCleaner);
 
   @Override
   public void afterPublish(String workspaceLocation, String registryLocation) {
@@ -21,8 +35,8 @@ public class XSJSLibSynchronizerPublisherHandler extends MetadataPublisherHandle
   }
 
   @Override
-  public void afterUnpublish(String location) {
-    XSJSLibSynchronizerArtefactsCleaner cleaner = new XSJSLibSynchronizerArtefactsCleaner();
-    cleaner.cleanup(location);
+  public void beforeUnpublish(String location) {
+    XSJSLibSynchronizerRegistryEntity entity = new XSJSLibSynchronizerRegistryEntity(location, repository, true);
+    unpublisher.unpublish(entity);
   }
 }

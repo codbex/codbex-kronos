@@ -11,10 +11,6 @@
  */
 package com.codbex.kronos.hdb.ds.facade;
 
-import com.codbex.kronos.hdb.ds.model.DependencyDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.DataStructureModel;
-import com.codbex.kronos.hdb.ds.service.manager.IDataStructureManager;
-import com.codbex.kronos.hdb.ds.synchronizer.DataStructuresSynchronizer;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,6 +22,11 @@ import org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizationArtefactT
 import org.eclipse.dirigible.core.scheduler.api.ISynchronizerArtefactType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.codbex.kronos.hdb.ds.model.DataStructureDependencyModel;
+import com.codbex.kronos.hdb.ds.model.DataStructureModel;
+import com.codbex.kronos.hdb.ds.service.manager.IDataStructureManager;
+import com.codbex.kronos.hdb.ds.synchronizer.DataStructuresSynchronizer;
 
 public class TopologyDataStructureModelWrapper<T extends DataStructureModel> implements ITopologicallySortable, ITopologicallyDepletable {
 
@@ -64,7 +65,7 @@ public class TopologyDataStructureModelWrapper<T extends DataStructureModel> imp
     @Override
     public List<ITopologicallySortable> getDependencies() {
         List<ITopologicallySortable> dependencies = new ArrayList<ITopologicallySortable>();
-        for (DependencyDataStructureModel dependency : this.model.getDependencies()) {
+        for (DataStructureDependencyModel dependency : this.model.getDependencies()) {
             String dependencyName = dependency.getName();
             if (!wrappers.containsKey(dependencyName)) {
                 logger.warn("Dependency is not present in this cycle: " + dependencyName);

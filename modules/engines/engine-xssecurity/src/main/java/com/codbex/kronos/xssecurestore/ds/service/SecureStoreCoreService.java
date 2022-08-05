@@ -23,12 +23,12 @@ import org.eclipse.dirigible.commons.api.helpers.GsonHelper;
 import org.eclipse.dirigible.commons.config.StaticObjects;
 import org.eclipse.dirigible.database.persistence.PersistenceManager;
 
-import com.google.gson.JsonSyntaxException;
 import com.codbex.kronos.xssecurestore.ds.api.ISecureStoreCoreService;
 import com.codbex.kronos.xssecurestore.ds.api.ISecureStoreModel;
 import com.codbex.kronos.xssecurestore.ds.api.SecureStoreException;
 import com.codbex.kronos.xssecurestore.ds.model.SecureStore;
 import com.codbex.kronos.xssecurestore.ds.model.SecureStoreContent;
+import com.google.gson.JsonSyntaxException;
 
 public class SecureStoreCoreService implements ISecureStoreCoreService {
 
@@ -46,16 +46,16 @@ public class SecureStoreCoreService implements ISecureStoreCoreService {
       throw new SecureStoreException("Invalid json at " + location);
     }
 
-    SecureStore secureStore1 = new SecureStore();
-    secureStore1.setLocation(location);
-    secureStore1.setActive(true);
+    SecureStore secureStore = new SecureStore();
+    secureStore.setLocation(location);
+    secureStore.setActive(true);
 
     try {
       Connection connection = null;
       try {
         connection = dataSource.getConnection();
-        secureStorePersistenceManager.insert(connection, secureStore1);
-        return secureStore1;
+        secureStorePersistenceManager.insert(connection, secureStore);
+        return secureStore;
       } finally {
         if (connection != null) {
           connection.close();

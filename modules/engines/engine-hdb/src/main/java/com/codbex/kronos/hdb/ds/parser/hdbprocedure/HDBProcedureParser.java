@@ -12,27 +12,28 @@
 package com.codbex.kronos.hdb.ds.parser.hdbprocedure;
 
 import com.codbex.kronos.exceptions.ArtifactParserException;
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.hdb.ds.artefacts.HDBProcedureSynchronizationArtefactType;
 import com.codbex.kronos.hdb.ds.model.DataStructureModelBuilder;
 import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
-import com.codbex.kronos.hdb.ds.model.hdbprocedure.HDBProcedureDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbprocedure.DataStructureHDBProcedureModel;
 import com.codbex.kronos.hdb.ds.parser.DataStructureParser;
 import com.codbex.kronos.hdb.ds.synchronizer.DataStructuresSynchronizer;
+import com.codbex.kronos.parser.hana.core.custom.HanaProcedureListener;
+import com.codbex.kronos.parser.hana.core.exceptions.ProcedureMissingPropertyException;
+import com.codbex.kronos.parser.hana.core.models.ProcedureDefinitionModel;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.utils.HDBUtils;
-import custom.HanaProcedureListener;
-import models.HDBProcedureDefinitionModel;
-import models.HDBProcedureMissingPropertyException;
+
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.eclipse.dirigible.api.v3.security.UserFacade;
 import org.eclipse.dirigible.core.scheduler.api.ISynchronizerArtefactType;
 
-public class HDBProcedureParser implements DataStructureParser<HDBProcedureDataStructureModel> {
+public class HDBProcedureParser implements DataStructureParser<DataStructureHDBProcedureModel> {
 
     private final DataStructuresSynchronizer dataStructuresSynchronizer;
     private final HDBProcedureSynchronizationArtefactType procedureSynchronizationArtefactType;
@@ -48,7 +49,7 @@ public class HDBProcedureParser implements DataStructureParser<HDBProcedureDataS
     }
 
     @Override
-    public HDBProcedureDataStructureModel parse(DataStructureParametersModel parametersModel)
+    public DataStructureHDBProcedureModel parse(DataStructureParametersModel parametersModel)
             throws DataStructuresException, ArtifactParserException {
 
         String location = parametersModel.getLocation();
@@ -60,13 +61,13 @@ public class HDBProcedureParser implements DataStructureParser<HDBProcedureDataS
         ParseTreeWalker parseTreeWalker = new ParseTreeWalker();
         parseTreeWalker.walk(listener, parseTree);
 
-        HDBProcedureDefinitionModel antlr4Model = listener.getModel();
+        ProcedureDefinitionModel antlr4Model = listener.getModel();
         validateAntlrModel(antlr4Model, location);
 
         return createModel(antlr4Model, parametersModel);
     }
 
-    private HDBProcedureDataStructureModel createModel(HDBProcedureDefinitionModel antlrModel,
+    private DataStructureHDBProcedureModel createModel(ProcedureDefinitionModel antlrModel,
                                                           DataStructureParametersModel params) {
 
       DataStructureModelBuilder builder = new DataStructureModelBuilder()
@@ -79,14 +80,14 @@ public class HDBProcedureParser implements DataStructureParser<HDBProcedureDataS
                 .rawContent(params.getContent())
                 .withSchema(antlrModel.getSchema());
 
-      return new HDBProcedureDataStructureModel(builder);
+      return new DataStructureHDBProcedureModel(builder);
 
     }
 
-    private void validateAntlrModel(HDBProcedureDefinitionModel antlrModel, String location) throws DataStructuresException {
+    private void validateAntlrModel(ProcedureDefinitionModel antlrModel, String location) throws DataStructuresException {
         try {
             antlrModel.checkForAllMandatoryFieldsPresence();
-        } catch (HDBProcedureMissingPropertyException e) {
+        } catch (ProcedureMissingPropertyException e) {
             procedureLogger.logError(location, CommonsConstants.EXPECTED_FIELDS, e.getMessage());
             dataStructuresSynchronizer.applyArtefactState(CommonsUtils.getRepositoryBaseObjectName(location),
                     location,
@@ -100,12 +101,12 @@ public class HDBProcedureParser implements DataStructureParser<HDBProcedureDataS
 
     @Override
     public String getType() {
-        return HDBDataStructureModel.TYPE_HDB_PROCEDURE;
+        return IDataStructureModel.TYPE_HDB_PROCEDURE;
     }
 
     @Override
-    public Class<HDBProcedureDataStructureModel> getDataStructureClass() {
-        return HDBProcedureDataStructureModel.class;
+    public Class<DataStructureHDBProcedureModel> getDataStructureClass() {
+        return DataStructureHDBProcedureModel.class;
     }
 
 }

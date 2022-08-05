@@ -13,16 +13,6 @@ package com.codbex.kronos.xsodata.ds.synchronizer;
 
 import static java.text.MessageFormat.format;
 
-import com.codbex.kronos.xsodata.ds.api.IODataCoreService;
-import com.codbex.kronos.xsodata.ds.api.IODataModel;
-import com.codbex.kronos.xsodata.ds.api.KronosODataException;
-import com.codbex.kronos.xsodata.ds.model.ODataModel;
-import com.codbex.kronos.xsodata.ds.service.KronosOData2ODataHTransformer;
-import com.codbex.kronos.xsodata.ds.service.KronosOData2ODataMTransformer;
-import com.codbex.kronos.xsodata.ds.service.KronosOData2ODataXTransformer;
-import com.codbex.kronos.xsodata.ds.service.KronosODataCoreService;
-import com.codbex.kronos.xsodata.ds.service.TableMetadataProvider;
-import com.codbex.kronos.xsodata.utils.ODataUtils;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,14 +31,23 @@ import org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizer;
 import org.eclipse.dirigible.core.scheduler.api.IOrderedSynchronizerContribution;
 import org.eclipse.dirigible.core.scheduler.api.SchedulerException;
 import org.eclipse.dirigible.core.scheduler.api.SynchronizationException;
-import org.eclipse.dirigible.engine.odata2.api.ODataException;
 import org.eclipse.dirigible.engine.odata2.definition.ODataDefinition;
 import org.eclipse.dirigible.engine.odata2.definition.ODataHandlerDefinition;
-import org.eclipse.dirigible.engine.odata2.service.ODataCoreService;
 import org.eclipse.dirigible.engine.odata2.transformers.DBMetadataUtil;
 import org.eclipse.dirigible.repository.api.IResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.codbex.kronos.xsodata.ds.api.IODataCoreService;
+import com.codbex.kronos.xsodata.ds.api.IODataModel;
+import com.codbex.kronos.xsodata.ds.api.ODataException;
+import com.codbex.kronos.xsodata.ds.model.ODataModel;
+import com.codbex.kronos.xsodata.ds.service.OData2ODataHTransformer;
+import com.codbex.kronos.xsodata.ds.service.OData2ODataMTransformer;
+import com.codbex.kronos.xsodata.ds.service.OData2ODataXTransformer;
+import com.codbex.kronos.xsodata.ds.service.ODataCoreService;
+import com.codbex.kronos.xsodata.ds.service.TableMetadataProvider;
+import com.codbex.kronos.xsodata.utils.ODataUtils;
 
 /**
  * The XSOData Synchronizer.
@@ -65,28 +64,15 @@ public class ODataSynchronizer extends AbstractSynchronizer implements IOrderedS
   private static final Map<String, ODataModel> ODATA_MODELS = new LinkedHashMap<>();
   private final String SYNCHRONIZER_NAME = this.getClass().getCanonicalName();
 
-  private IODataCoreService oDataCoreService = new KronosODataCoreService();
+  private IODataCoreService oDataCoreService = new ODataCoreService();
 
-  private ODataCoreService odataCoreService = new ODataCoreService();
+  private org.eclipse.dirigible.engine.odata2.service.ODataCoreService odataCoreService = new org.eclipse.dirigible.engine.odata2.service.ODataCoreService();
 
-  private KronosOData2ODataMTransformer oData2ODataMTransformer = new KronosOData2ODataMTransformer();
+  private OData2ODataMTransformer oData2ODataMTransformer = new OData2ODataMTransformer();
 
-  private KronosOData2ODataXTransformer oData2ODataXTransformer = new KronosOData2ODataXTransformer();
+  private OData2ODataXTransformer oData2ODataXTransformer = new OData2ODataXTransformer();
 
-  private KronosOData2ODataHTransformer oData2ODataHTransformer = new KronosOData2ODataHTransformer();
-
-  /**
-   * Force synchronization.
-   */
-  public static void forceSynchronization() {
-    ODataSynchronizer synchronizer = new ODataSynchronizer();
-    synchronizer.setForcedSynchronization(true);
-    try {
-      synchronizer.synchronize();
-    } finally {
-      synchronizer.setForcedSynchronization(false);
-    }
-  }
+  private OData2ODataHTransformer oData2ODataHTransformer = new OData2ODataHTransformer();
 
   /**
    * Concatenate list of strings.
@@ -207,7 +193,7 @@ public class ODataSynchronizer extends AbstractSynchronizer implements IOrderedS
         }
       }
       ODATA_SYNCHRONIZED.add(odataModel.getLocation());
-    } catch (KronosODataException e) {
+    } catch (ODataException e) {
       throw new SynchronizationException(e);
     }
   }
@@ -266,13 +252,13 @@ public class ODataSynchronizer extends AbstractSynchronizer implements IOrderedS
           logger.warn("Cleaned up XSOData Data file [{}] from location: {}", odataModel.getName(), odataModel.getLocation());
         }
       }
-    } catch (KronosODataException e) {
+    } catch (ODataException e) {
       throw new SynchronizationException(e);
     }
     logger.trace("Done cleaning up XSOData.");
   }
 
-  private void updateXSOData() throws ODataException {
+  private void updateXSOData() throws org.eclipse.dirigible.engine.odata2.api.ODataException {
     // Update XSOData
 
     if (ODATA_MODELS.isEmpty()) {
@@ -319,7 +305,7 @@ public class ODataSynchronizer extends AbstractSynchronizer implements IOrderedS
         Configuration.set(DBMetadataUtil.DIRIGIBLE_GENERATE_PRETTY_NAMES, "false");
 
         ODataUtils oDataUtils = new ODataUtils(new TableMetadataProvider());
-        ODataDefinition oDataDefinition = oDataUtils.convertKronosODataModelToODataDefinition(model);
+        ODataDefinition oDataDefinition = oDataUtils.convertODataModelToODataDefinition(model);
 
         String[] odataxc = generateODataX(oDataDefinition);
         String odatax = odataxc[0];

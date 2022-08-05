@@ -33,6 +33,6 @@ public class TableImportSynchronizerJob extends AbstractSynchronizerJob {
    */
   @Override
   public String getName() {
-    return TableImportSynchronizerJobDefinitionProvider.KRONOS_TABLE_IMPORT_SYNCHRONIZER_JOB_DESCRIPTION;
+    return TableImportSynchronizerJobDefinitionProvider.TABLE_IMPORT_SYNCHRONIZER_JOB;
   }
 }

@@ -11,12 +11,13 @@
  */
 package com.codbex.kronos.parser.hdbdd.symbols.type.field;
 
+import java.util.Map;
+
 import com.codbex.kronos.parser.hdbdd.annotation.metadata.AnnotationObj;
 import com.codbex.kronos.parser.hdbdd.core.CdsParser.IdentifierContext;
 import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
 import com.codbex.kronos.parser.hdbdd.symbols.context.Scope;
 import com.codbex.kronos.parser.hdbdd.symbols.type.Type;
-import java.util.Map;
 import com.codbex.kronos.parser.hdbdd.symbols.type.custom.DataTypeSymbol;
 
 public class FieldSymbol extends Symbol implements Typeable {

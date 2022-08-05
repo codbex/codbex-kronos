@@ -11,8 +11,9 @@
  */
 package com.codbex.kronos.hdbti.model;
 
-import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 import java.util.List;
+
+import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 
 public class TableImportArtifact extends DataStructureModel {
 

@@ -37,6 +37,6 @@ public class SecureStoreSynchronizerJob extends AbstractSynchronizerJob {
 	 */
 	@Override
 	public String getName() {
-		return SecureStoreSynchronizerJobDefinitionProvider.KRONOS_SECURE_STORE_SYNCHRONIZER_JOB_NAME;
+		return SecureStoreSynchronizerJobDefinitionProvider.SECURE_STORE_SYNCHRONIZER_JOB;
 	}
 }

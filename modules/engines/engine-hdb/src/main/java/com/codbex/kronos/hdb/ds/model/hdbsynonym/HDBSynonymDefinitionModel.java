@@ -11,8 +11,9 @@
  */
 package com.codbex.kronos.hdb.ds.model.hdbsynonym;
 
-import com.google.gson.annotations.SerializedName;
 import com.codbex.kronos.hdb.ds.exceptions.HDBSynonymMissingPropertyException;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Objects;
 
 public class HDBSynonymDefinitionModel {

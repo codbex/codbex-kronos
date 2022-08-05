@@ -58,7 +58,6 @@
 
     <properties>
         <license.header.location>../../../licensing-header.txt</license.header.location>
-        <profile.phase>none</profile.phase>
     </properties>
 
 </project>

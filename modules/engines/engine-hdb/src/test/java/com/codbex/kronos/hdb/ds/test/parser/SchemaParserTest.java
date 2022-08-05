@@ -20,7 +20,7 @@ import org.junit.Test;
 
 import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.hdb.ds.model.DataStructureModelFactory;
-import com.codbex.kronos.hdb.ds.model.hdbschema.HDBSchemaDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbschema.DataStructureHDBSchemaModel;
 
 public class SchemaParserTest extends AbstractDirigibleTest {
 
@@ -28,7 +28,7 @@ public class SchemaParserTest extends AbstractDirigibleTest {
     public void parseHdbschemaFileSuccessfully() throws Exception {
         String hdbschemaSample = org.apache.commons.io.IOUtils
                 .toString(SchemaParserTest.class.getResourceAsStream("/Myschema.hdbschema"), StandardCharsets.UTF_8);
-        HDBSchemaDataStructureModel model = DataStructureModelFactory.parseSchema("/Myschema.hdbschema", hdbschemaSample);
+        DataStructureHDBSchemaModel model = DataStructureModelFactory.parseSchema("/Myschema.hdbschema", hdbschemaSample);
         assertEquals("MySchema", model.getSchema());
     }
 

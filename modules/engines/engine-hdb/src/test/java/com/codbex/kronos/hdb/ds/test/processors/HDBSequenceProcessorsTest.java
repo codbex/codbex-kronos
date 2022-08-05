@@ -21,11 +21,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.codbex.kronos.hdb.ds.model.DBContentType;
-import com.codbex.kronos.hdb.ds.model.hdbsequence.HDBSequenceDataStructureModel;
-import com.codbex.kronos.hdb.ds.processors.hdbsequence.HDBSequenceCreateProcessor;
-import com.codbex.kronos.hdb.ds.processors.hdbsequence.HDBSequenceDropProcessor;
-import com.codbex.kronos.hdb.ds.processors.hdbsequence.HDBSequenceUpdateProcessor;
 import java.sql.Connection;
 import java.sql.SQLException;
 import org.eclipse.dirigible.api.v3.problems.ProblemsFacade;
@@ -52,6 +47,12 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
+
+import com.codbex.kronos.hdb.ds.model.DBContentType;
+import com.codbex.kronos.hdb.ds.model.hdbsequence.DataStructureHDBSequenceModel;
+import com.codbex.kronos.hdb.ds.processors.hdbsequence.HDBSequenceCreateProcessor;
+import com.codbex.kronos.hdb.ds.processors.hdbsequence.HDBSequenceDropProcessor;
+import com.codbex.kronos.hdb.ds.processors.hdbsequence.HDBSequenceUpdateProcessor;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HDBSequenceProcessorsTest extends AbstractDirigibleTest {
@@ -89,7 +90,7 @@ public class HDBSequenceProcessorsTest extends AbstractDirigibleTest {
 	public void executeCreateSuccessfully() throws Exception {
 		HDBSequenceCreateProcessor spyProccessor = spy(HDBSequenceCreateProcessor.class);
 
-		HDBSequenceDataStructureModel mockModel = mock(HDBSequenceDataStructureModel.class);
+		DataStructureHDBSequenceModel mockModel = mock(DataStructureHDBSequenceModel.class);
 		String sql = "TestExecuteCreateSuccessfully";
 		try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class)) {
 			sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
@@ -118,7 +119,7 @@ public class HDBSequenceProcessorsTest extends AbstractDirigibleTest {
 	@Test
 	public void executeUpdateSuccessfully() throws SQLException {
 		HDBSequenceUpdateProcessor spyProccessor = spy(HDBSequenceUpdateProcessor.class);
-		HDBSequenceDataStructureModel mockModel = mock(HDBSequenceDataStructureModel.class);
+		DataStructureHDBSequenceModel mockModel = mock(DataStructureHDBSequenceModel.class);
 		String sql = "TestExecuteUpdateSuccessfully";
 
 		try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class)) {
@@ -149,7 +150,7 @@ public class HDBSequenceProcessorsTest extends AbstractDirigibleTest {
 		HDBSequenceDropProcessor spyProccessor = spy(HDBSequenceDropProcessor.class);
 		try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
 				MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)) {
-			HDBSequenceDataStructureModel mockModel = mock(HDBSequenceDataStructureModel.class);
+			DataStructureHDBSequenceModel mockModel = mock(DataStructureHDBSequenceModel.class);
 			String sql = "TestExecuteDropSuccessfully";
 			configuration.when(() -> Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("false");
 			sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
@@ -174,7 +175,7 @@ public class HDBSequenceProcessorsTest extends AbstractDirigibleTest {
 	public void executeCreateFailed() throws Exception {
 		HDBSequenceCreateProcessor spyProccessor = spy(HDBSequenceCreateProcessor.class);
 
-		HDBSequenceDataStructureModel mockModel = mock(HDBSequenceDataStructureModel.class);
+		DataStructureHDBSequenceModel mockModel = mock(DataStructureHDBSequenceModel.class);
 		try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
 				MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)) {
 			when(mockModel.getName()).thenReturn("\"MYSCHEMA\".\"hdb_sequence::SampleSequence_HanaXSClassic\"");
@@ -188,7 +189,7 @@ public class HDBSequenceProcessorsTest extends AbstractDirigibleTest {
 	@Test(expected = IllegalStateException.class)
 	public void executeUpdateFailed() throws Exception {
 		HDBSequenceUpdateProcessor spyProccessor = spy(HDBSequenceUpdateProcessor.class);
-		HDBSequenceDataStructureModel mockModel = mock(HDBSequenceDataStructureModel.class);
+		DataStructureHDBSequenceModel mockModel = mock(DataStructureHDBSequenceModel.class);
 		try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
 				MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)) {
 			when(mockModel.getName()).thenReturn("\"MYSCHEMA\".\"hdb_sequence::SampleSequence_HanaXSClassic\"");
@@ -206,7 +207,7 @@ public class HDBSequenceProcessorsTest extends AbstractDirigibleTest {
 				MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class);
 				MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)) {
 
-			HDBSequenceDataStructureModel mockModel = mock(HDBSequenceDataStructureModel.class);
+			DataStructureHDBSequenceModel mockModel = mock(DataStructureHDBSequenceModel.class);
 			when(mockModel.getName()).thenReturn("\"MYSCHEMA\".\"hdb_sequence::SampleSequence_HanaXSClassic\"");
 			configuration.when(() -> Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("false");
 			sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);

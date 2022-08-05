@@ -16,6 +16,7 @@ import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.hdbti.model.TableImportConfigurationDefinition;
 import com.codbex.kronos.parser.hdbti.exception.HDBTISyntaxErrorException;
 import com.codbex.kronos.parser.hdbti.models.HDBTIImportConfigModel;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -27,7 +28,7 @@ public interface IHDBTIProcessor {
   void process(TableImportConfigurationDefinition tableImportConfigurationDefinition, Connection connection)
       throws IOException, SQLException, DataStructuresException, TableImportException;
 
-  List<HDBTIImportConfigModel> parseHdbtiToJSON(String location, byte[] file)
+  List<HDBTIImportConfigModel> parseHDBTIToJSON(String location, byte[] file)
       throws ArtifactParserException, IOException, HDBTISyntaxErrorException;
 
   String parseJSONtoHdbti(ArrayList<HDBTIImportConfigModel> json);

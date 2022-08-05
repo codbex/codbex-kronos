@@ -19,16 +19,17 @@
 
 package com.codbex.kronos.ndb.bimodelprivilege;
 
-import com.codbex.kronos.ndb.basemodelbase.PrivilegeType;
-import com.codbex.kronos.ndb.bimodeldatafoundation.BIResource;
-import com.codbex.kronos.ndb.repositorymodelresource.RepositoryObject;
-import com.codbex.kronos.ndb.sqlcoremodelaccesscontrol.ValueFilter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
+
+import com.codbex.kronos.ndb.basemodelbase.PrivilegeType;
+import com.codbex.kronos.ndb.bimodeldatafoundation.BIResource;
+import com.codbex.kronos.ndb.repositorymodelresource.RepositoryObject;
+import com.codbex.kronos.ndb.sqlcoremodelaccesscontrol.ValueFilter;
 
 
 /**

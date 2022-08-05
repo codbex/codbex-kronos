@@ -46,7 +46,7 @@ public class DataStructureModel {
   @Column(name = "DS_CREATED_AT", columnDefinition = "TIMESTAMP", nullable = false)
   private Timestamp createdAt;
 
-  private List<DependencyDataStructureModel> dependencies = new ArrayList<>();
+  private List<DataStructureDependencyModel> dependencies = new ArrayList<>();
 
   private String schema;
 
@@ -148,7 +148,7 @@ public class DataStructureModel {
    *
    * @return the dependencies
    */
-  public List<DependencyDataStructureModel> getDependencies() {
+  public List<DataStructureDependencyModel> getDependencies() {
     return dependencies;
   }
 

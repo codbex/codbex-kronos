@@ -19,7 +19,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.codbex.kronos.hdb.ds.util.Message;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,6 +34,9 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
+
+import com.codbex.kronos.hdb.ds.processors.hdi.DeployContainerContentProcessor;
+import com.codbex.kronos.hdb.ds.util.Message;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DeployContainerContentProcessorTest {

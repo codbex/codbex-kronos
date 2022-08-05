@@ -14,7 +14,6 @@ package com.codbex.kronos.hdbti.service;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-import com.codbex.kronos.hdbti.model.TableImportConfigurationDefinition;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -24,11 +23,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Answers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import com.codbex.kronos.hdbti.model.TableImportConfigurationDefinition;
 
 public class CSVDefinitionsTopologicalSorterTest {
 

@@ -10,28 +10,30 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 package com.codbex.kronos.hdb.ds.parser.hdbtablefunction;
-import com.codbex.kronos.exceptions.ArtifactParserException;
-import com.codbex.kronos.hdb.ds.artefacts.HDBTableFunctionSynchronizationArtefactType;
-import com.codbex.kronos.hdb.ds.model.DataStructureModelBuilder;
-import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
-import com.codbex.kronos.hdb.ds.synchronizer.DataStructuresSynchronizer;
-import com.codbex.kronos.utils.CommonsConstants;
-import com.codbex.kronos.utils.CommonsUtils;
-import com.codbex.kronos.utils.HDBUtils;
-import custom.HanaTableFunctionListener;
-import models.TableFunctionDefinitionModel;
-import models.TableFunctionMissingPropertyException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.eclipse.dirigible.api.v3.security.UserFacade;
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
+
+import com.codbex.kronos.exceptions.ArtifactParserException;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
-import com.codbex.kronos.hdb.ds.model.hdbtablefunction.HDBTableFunctionDataStructureModel;
+import com.codbex.kronos.hdb.ds.artefacts.HDBTableFunctionSynchronizationArtefactType;
+import com.codbex.kronos.hdb.ds.model.DataStructureModelBuilder;
+import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
+import com.codbex.kronos.hdb.ds.model.hdbtablefunction.DataStructureHDBTableFunctionModel;
 import com.codbex.kronos.hdb.ds.parser.DataStructureParser;
+import com.codbex.kronos.hdb.ds.synchronizer.DataStructuresSynchronizer;
+import com.codbex.kronos.parser.hana.core.custom.HanaTableFunctionListener;
+import com.codbex.kronos.parser.hana.core.exceptions.TableFunctionMissingPropertyException;
+import com.codbex.kronos.parser.hana.core.models.TableFunctionDefinitionModel;
+import com.codbex.kronos.utils.CommonsConstants;
+import com.codbex.kronos.utils.CommonsUtils;
+import com.codbex.kronos.utils.HDBUtils;
+
 import org.eclipse.dirigible.core.scheduler.api.ISynchronizerArtefactType.ArtefactState;
 
-public class HDBTableFunctionParser implements DataStructureParser<HDBTableFunctionDataStructureModel> {
+public class HDBTableFunctionParser implements DataStructureParser<DataStructureHDBTableFunctionModel> {
 
   private final DataStructuresSynchronizer dataStructuresSynchronizer;
   private final HDBTableFunctionSynchronizationArtefactType tableFunctionSynchronizationArtefactType;
@@ -48,7 +50,7 @@ public class HDBTableFunctionParser implements DataStructureParser<HDBTableFunct
   }
 
   @Override
-  public HDBTableFunctionDataStructureModel parse(DataStructureParametersModel parametersModel)
+  public DataStructureHDBTableFunctionModel parse(DataStructureParametersModel parametersModel)
           throws DataStructuresException, ArtifactParserException {
 
     String location = parametersModel.getLocation();
@@ -65,7 +67,7 @@ public class HDBTableFunctionParser implements DataStructureParser<HDBTableFunct
     return createModel(antlr4Model, parametersModel);
   }
 
-  private HDBTableFunctionDataStructureModel createModel(TableFunctionDefinitionModel antlrModel,
+  private DataStructureHDBTableFunctionModel createModel(TableFunctionDefinitionModel antlrModel,
       DataStructureParametersModel params) {
 
     DataStructureModelBuilder builder = new DataStructureModelBuilder()
@@ -78,7 +80,7 @@ public class HDBTableFunctionParser implements DataStructureParser<HDBTableFunct
         .rawContent(params.getContent())
         .withSchema(antlrModel.getSchema());
 
-    return new HDBTableFunctionDataStructureModel(builder);
+    return new DataStructureHDBTableFunctionModel(builder);
   }
 
   private void validateAntlrModel(TableFunctionDefinitionModel antlrModel, String location) throws DataStructuresException {
@@ -98,11 +100,11 @@ public class HDBTableFunctionParser implements DataStructureParser<HDBTableFunct
 
   @Override
   public String getType() {
-    return HDBDataStructureModel.TYPE_HDB_TABLE_FUNCTION;
+    return IDataStructureModel.TYPE_HDB_TABLE_FUNCTION;
   }
 
   @Override
-  public Class<HDBTableFunctionDataStructureModel> getDataStructureClass() {
-    return HDBTableFunctionDataStructureModel.class;
+  public Class<DataStructureHDBTableFunctionModel> getDataStructureClass() {
+    return DataStructureHDBTableFunctionModel.class;
   }
 }

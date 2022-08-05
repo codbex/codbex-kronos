@@ -15,7 +15,8 @@ import java.util.Map;
 
 import org.eclipse.dirigible.commons.api.module.AbstractDirigibleModule;
 
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
+import com.codbex.kronos.hdb.ds.module.HDBModule;
 import com.codbex.kronos.hdb.ds.parser.DataStructureParser;
 import com.codbex.kronos.hdb.ds.parser.hdi.HDIParser;
 
@@ -33,7 +34,7 @@ public class HDIModule extends AbstractDirigibleModule {
 //        = MapBinder.newMapBinder(binder(), String.class, DataStructureParser.class);
 
 	  Map<String, DataStructureParser> parserServices = HDBModule.getParserServices();
-      parserServices.put(HDBDataStructureModel.TYPE_HDI, new HDIParser());
+      parserServices.put(IDataStructureModel.TYPE_HDI, new HDIParser());
   }
 
 

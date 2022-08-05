@@ -11,12 +11,14 @@
  */
 package com.codbex.kronos.integration.tests.core.client.http.kyma;
 
-import com.codbex.kronos.integration.tests.core.client.http.HttpClient;
-import com.codbex.kronos.integration.tests.core.client.http.kyma.token.TokenService;
 import org.apache.http.HttpHeaders;
 import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
 import org.apache.http.impl.nio.client.HttpAsyncClients;
 import org.apache.http.message.BasicHeader;
+
+import com.codbex.kronos.integration.tests.core.client.http.HttpClient;
+import com.codbex.kronos.integration.tests.core.client.http.kyma.token.TokenService;
+
 import java.net.URI;
 import java.util.List;
 
@@ -27,7 +29,7 @@ public class KymaHttpClient extends HttpClient {
   }
 
   public static KymaHttpClient create(URI baseHost) {
-    CloseableHttpAsyncClient httpClient = null;
+    CloseableHttpAsyncClient httpClient;
     TokenService tokenService = new TokenService();
     String kymaToken = tokenService.getToken();
     BasicHeader authHeader = new BasicHeader(HttpHeaders.AUTHORIZATION, "Bearer " + kymaToken);

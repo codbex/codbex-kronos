@@ -13,16 +13,17 @@ package com.codbex.kronos.hdb.ds.processors.hdbstructure;
 
 import static java.text.MessageFormat.format;
 
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableColumnDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbtabletype.HDBTableTypeDataStructureModel;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableColumnModel;
+import com.codbex.kronos.hdb.ds.model.hdbtabletype.DataStructureHDBTableTypeModel;
 import com.codbex.kronos.hdb.ds.module.HDBModule;
-import com.codbex.kronos.hdb.ds.processors.AbstractProcessor;
+import com.codbex.kronos.hdb.ds.processors.AbstractHDBProcessor;
 import com.codbex.kronos.hdb.ds.service.manager.IDataStructureManager;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.utils.Constants;
 import com.codbex.kronos.utils.HDBUtils;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -36,7 +37,7 @@ import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TableTypeCreateProcessor extends AbstractProcessor<HDBTableTypeDataStructureModel> {
+public class TableTypeCreateProcessor extends AbstractHDBProcessor<DataStructureHDBTableTypeModel> {
 
   private static final Logger logger = LoggerFactory.getLogger(TableTypeCreateProcessor.class);
   private Map<String, IDataStructureManager> managerServices = HDBModule.getManagerServices();
@@ -50,7 +51,7 @@ public class TableTypeCreateProcessor extends AbstractProcessor<HDBTableTypeData
    * @throws SQLException the SQL exception
    */
   @Override
-  public boolean execute(Connection connection, HDBTableTypeDataStructureModel tableTypeModel)
+  public boolean execute(Connection connection, DataStructureHDBTableTypeModel tableTypeModel)
       throws SQLException {
     logger.info("Processing Create Table Type: " + tableTypeModel.getName());
     
@@ -58,14 +59,14 @@ public class TableTypeCreateProcessor extends AbstractProcessor<HDBTableTypeData
 
     String tableTypeNameWithoutSchema = tableTypeModel.getName();
     String tableTypeNameWithSchema = HDBUtils.escapeArtifactName(tableTypeNameWithoutSchema, tableTypeModel.getSchema());
-    List<HDBTableColumnDataStructureModel> columns = tableTypeModel.getColumns();
+    List<DataStructureHDBTableColumnModel> columns = tableTypeModel.getColumns();
 
     if (!SqlFactory.getNative(connection)
         .exists(connection, tableTypeModel.getSchema(), tableTypeNameWithoutSchema, DatabaseArtifactTypes.TABLE_TYPE)) {
       String sql = null;
       CreateTableTypeBuilder createTableTypeBuilder = SqlFactory.getNative(connection).create().tableType(tableTypeNameWithSchema);
 
-      for (HDBTableColumnDataStructureModel columnModel : columns) {
+      for (DataStructureHDBTableColumnModel columnModel : columns) {
         String name = HDBUtils.escapeArtifactName(columnModel.getName());
         DataType type = DataType.valueOf(columnModel.getType());
         createTableTypeBuilder
@@ -107,12 +108,12 @@ public class TableTypeCreateProcessor extends AbstractProcessor<HDBTableTypeData
     if (SqlFactory.getNative(connection)
         .exists(connection, tableTypeModel.getSchema(), tableTypeNameWithoutSchema, DatabaseArtifactTypes.TABLE_TYPE)) {
       HDBUtils.createPublicSynonymForArtifact(managerServices
-          .get(HDBDataStructureModel.TYPE_HDB_SYNONYM), tableTypeNameWithoutSchema, tableTypeModel.getSchema(), connection);
+          .get(IDataStructureModel.TYPE_HDB_SYNONYM), tableTypeNameWithoutSchema, tableTypeModel.getSchema(), connection);
     }
     return success;
   }
 
-  private String getColumnModelArgs(HDBTableColumnDataStructureModel columnModel) {
+  private String getColumnModelArgs(DataStructureHDBTableColumnModel columnModel) {
     DataType type = DataType.valueOf(columnModel.getType());
     String args = "";
     if (columnModel.getLength() != null) {

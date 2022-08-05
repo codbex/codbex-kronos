@@ -11,9 +11,10 @@
  */
 package com.codbex.kronos.parser.hdbdd.annotation.metadata;
 
-import com.codbex.kronos.parser.hdbdd.symbols.CDSLiteralEnum;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.codbex.kronos.parser.hdbdd.symbols.CDSLiteralEnum;
 
 public class AnnotationArray extends AbstractAnnotationValue {
     private List<AbstractAnnotationValue> values;

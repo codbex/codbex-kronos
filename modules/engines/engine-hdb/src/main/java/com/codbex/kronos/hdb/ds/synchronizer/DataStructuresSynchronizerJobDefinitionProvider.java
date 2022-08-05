@@ -22,7 +22,7 @@ import org.eclipse.dirigible.core.scheduler.service.definition.JobDefinition;
 public class DataStructuresSynchronizerJobDefinitionProvider implements IJobDefinitionProvider {
 
   static final String DATA_STRUCTURES_SYNCHRONIZER_JOB = "Kronos Data Structures Synchronizer Job";
-  private static final String KRONOS_DATA_STRUCTURE_JOB_EXPRESSION = "KRONOS_DATA_STRUCTURE_JOB_EXPRESSION";
+  private static final String KRONOS_JOB_EXPRESSION_DATA_STRUCTURE = "KRONOS_JOB_EXPRESSION_DATA_STRUCTURE";
   private static final String KRONOS_DATA_STRUCTURES_SYNCHRONIZER_JOB = "kronos-data-structures-synchronizer-job";
 
   /*
@@ -36,7 +36,7 @@ public class DataStructuresSynchronizerJobDefinitionProvider implements IJobDefi
     jobDefinition.setGroup(ISchedulerCoreService.JOB_GROUP_INTERNAL);
     jobDefinition.setClazz(DataStructuresSynchronizerJob.class.getCanonicalName());
     jobDefinition.setDescription(DATA_STRUCTURES_SYNCHRONIZER_JOB);
-    jobDefinition.setExpression(Configuration.get(KRONOS_DATA_STRUCTURE_JOB_EXPRESSION, "0/30 * * * * ?"));
+    jobDefinition.setExpression(Configuration.get(KRONOS_JOB_EXPRESSION_DATA_STRUCTURE, "0/30 * * * * ?"));
     jobDefinition.setSingleton(true);
     return jobDefinition;
   }

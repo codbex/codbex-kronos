@@ -12,16 +12,18 @@
 package com.codbex.kronos.hdb.ds.test.module;
 
 import javax.sql.DataSource;
-import com.codbex.kronos.hdb.ds.test.repository.TestRepository;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.eclipse.dirigible.commons.api.module.AbstractDirigibleModule;
 import org.eclipse.dirigible.commons.config.StaticObjects;
+
+import com.codbex.kronos.hdb.ds.test.repository.TestRepository;
 
 public class HDBTestModule extends AbstractDirigibleModule {
 
   @Override
   public String getName() {
-    return "HDBTestModule";
+    return "HDBDD Test Module";
   }
 
   @Override

@@ -11,9 +11,10 @@
  */
 package com.codbex.kronos.hdb.ds.service;
 
-import com.codbex.kronos.hdb.ds.model.DependencyDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 import org.eclipse.dirigible.database.ds.model.DataStructureModelException;
+
+import com.codbex.kronos.hdb.ds.model.DataStructureDependencyModel;
+import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,7 @@ public class DataStructureTopologicalSorter {
 				output.add(name);
 			}
 		}
+
 	}
 
 	/**
@@ -58,8 +60,8 @@ public class DataStructureTopologicalSorter {
 	protected static void followDependencies(Map<String, DataStructureModel> input, List<String> output, List<String> external,
 			List<String> processing, DataStructureModel dataStructureModel) throws DataStructureModelException {
 		processing.add(dataStructureModel.getName());
-		List<DependencyDataStructureModel> dependencies = dataStructureModel.getDependencies();
-		for (DependencyDataStructureModel dependencyModel : dependencies) {
+		List<DataStructureDependencyModel> dependencies = dataStructureModel.getDependencies();
+		for (DataStructureDependencyModel dependencyModel : dependencies) {
 			String dependencyName = dependencyModel.getName();
 			if (input.containsKey(dependencyName)) {
 				if (processing.contains(dependencyName)) {

@@ -26,10 +26,10 @@ import org.eclipse.dirigible.repository.local.LocalResource;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.codbex.kronos.hdb.ds.AbstractHDBITTest;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
-import com.codbex.kronos.hdb.ds.itest.AbstractHDBITTest;
-import com.codbex.kronos.hdb.ds.itest.module.HDBTestModule;
-import com.codbex.kronos.hdb.ds.itest.utils.HanaITestUtils;
+import com.codbex.kronos.integration.tests.core.hdb.module.HDBTestModule;
+import com.codbex.kronos.integration.tests.core.hdb.utils.HanaITestUtils;
 
 public class HDBDDHanaITTest extends AbstractHDBITTest {
 
@@ -41,7 +41,8 @@ public class HDBDDHanaITTest extends AbstractHDBITTest {
         "'/itest/ProductsWithManagedAssWithUsingItest.hdbdd'",
         "'/itest/DefaultValueWithDateTimeFunction.hdbdd'",
         "'/itest/CatalogTableTypes.hdbdd'",
-        "'/itest/EmployeesWithViewDefinitions.hdbdd'"
+        "'/itest/EmployeesWithViewDefinitions.hdbdd'",
+        "'/itest/CalculatedColumns.hdbdd'"
     ));
     Configuration.set(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true");
     facade.clearCache();
@@ -263,4 +264,32 @@ public class HDBDDHanaITTest extends AbstractHDBITTest {
     }
   }
 
+  @Test
+  public void testHDBDDWithCalculatedColumns()
+      throws DataStructuresException, SynchronizationException, IOException, SQLException {
+    try (Connection connection = datasource.getConnection(); Statement stmt = connection.createStatement()) {
+      try {
+        HanaITestUtils.createSchema(stmt, TEST_SCHEMA);
+
+        LocalResource resource = HDBTestModule.getResources( //
+            "/usr/local/target/dirigible/repository/root", //
+            "/registry/public/itest/CalculatedColumns.hdbdd", //
+            "/registry/public/itest/CalculatedColumns.hdbdd" //
+        );
+
+        facade.handleResourceSynchronization(resource);
+        facade.updateEntities();
+
+        String tableName = "itest::CalculatedColumns.Employee";
+        String columnUpperCaseName = "UserID_UPPER";
+        String columnFullName = "fullName";
+
+        assertTrue("Expected calculated column not found", HanaITestUtils.checkCalculatedColumns(connection, tableName, TEST_SCHEMA, columnUpperCaseName));
+        assertTrue("Expected calculated column not found", HanaITestUtils.checkCalculatedColumns(connection, tableName, TEST_SCHEMA, columnFullName));
+
+      } finally {
+        HanaITestUtils.dropSchema(stmt, TEST_SCHEMA);
+      }
+    }
+  }
 }

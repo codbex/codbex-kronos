@@ -11,13 +11,6 @@
  */
 package com.codbex.kronos.parser.hdbti.custom;
 
-import com.codbex.kronos.parser.hdbti.core.HdbtiBaseListener;
-import com.codbex.kronos.parser.hdbti.core.HdbtiParser;
-import com.codbex.kronos.parser.hdbti.core.HdbtiParser.AssignTableContext;
-import com.codbex.kronos.parser.hdbti.exception.DuplicateFieldNameException;
-import com.codbex.kronos.parser.hdbti.exception.TablePropertySyntaxException;
-import com.codbex.kronos.parser.hdbti.models.HDBTIImportConfigModel;
-import com.codbex.kronos.parser.hdbti.models.HDBTIImportModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -25,6 +18,14 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.codbex.kronos.parser.hdbti.core.HdbtiBaseListener;
+import com.codbex.kronos.parser.hdbti.core.HdbtiParser;
+import com.codbex.kronos.parser.hdbti.core.HdbtiParser.AssignTableContext;
+import com.codbex.kronos.parser.hdbti.exception.DuplicateFieldNameException;
+import com.codbex.kronos.parser.hdbti.exception.TablePropertySyntaxException;
+import com.codbex.kronos.parser.hdbti.models.HDBTIImportConfigModel;
+import com.codbex.kronos.parser.hdbti.models.HDBTIImportModel;
 
 public class HDBTICoreListener extends HdbtiBaseListener {
 

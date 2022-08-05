@@ -16,10 +16,12 @@ import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.eclipse.dirigible.commons.api.module.AbstractDirigibleModule;
 import org.eclipse.dirigible.commons.config.StaticObjects;
+import org.eclipse.dirigible.repository.api.IRepository;
 
+import com.codbex.kronos.hdbti.module.HDBTIModule;
 import com.codbex.kronos.hdbti.repository.TestRepository;
 
-public class HdbtiTestModule extends AbstractDirigibleModule {
+public class HDBTITestModule extends AbstractDirigibleModule {
     @Override
 	public String getName() {
 		return "HDBTI Test Module";

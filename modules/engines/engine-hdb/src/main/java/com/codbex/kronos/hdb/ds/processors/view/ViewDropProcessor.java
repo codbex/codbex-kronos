@@ -11,15 +11,16 @@
  */
 package com.codbex.kronos.hdb.ds.processors.view;
 
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.artefacts.HDBViewSynchronizationArtefactType;
-import com.codbex.kronos.hdb.ds.model.hdbview.HDBViewDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbview.DataStructureHDBViewModel;
 import com.codbex.kronos.hdb.ds.module.HDBModule;
-import com.codbex.kronos.hdb.ds.processors.AbstractProcessor;
+import com.codbex.kronos.hdb.ds.processors.AbstractHDBProcessor;
 import com.codbex.kronos.hdb.ds.service.manager.IDataStructureManager;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.utils.HDBUtils;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Map;
@@ -32,7 +33,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The View Drop Processor.
  */
-public class ViewDropProcessor extends AbstractProcessor<HDBViewDataStructureModel> {
+public class ViewDropProcessor extends AbstractHDBProcessor<DataStructureHDBViewModel> {
 
   private static final Logger logger = LoggerFactory.getLogger(ViewDropProcessor.class);
   private static final HDBViewSynchronizationArtefactType VIEW_ARTEFACT = new HDBViewSynchronizationArtefactType();
@@ -46,7 +47,7 @@ public class ViewDropProcessor extends AbstractProcessor<HDBViewDataStructureMod
    * @param viewModel  the view model
    * @throws SQLException the SQL exception
    */
-  public boolean execute(Connection connection, HDBViewDataStructureModel viewModel)
+  public boolean execute(Connection connection, DataStructureHDBViewModel viewModel)
       throws SQLException {
     logger.info("Processing Drop View: " + viewModel.getName());
     String viewNameWithSchema = HDBUtils.escapeArtifactName(viewModel.getName(), viewModel.getSchema());
@@ -54,7 +55,7 @@ public class ViewDropProcessor extends AbstractProcessor<HDBViewDataStructureMod
     //Drop public synonym
     if (managerServices != null) {
       HDBUtils.dropPublicSynonymForArtifact(managerServices
-          .get(HDBDataStructureModel.TYPE_HDB_SYNONYM), viewModel.getName(), viewModel.getSchema(), connection);
+          .get(IDataStructureModel.TYPE_HDB_SYNONYM), viewModel.getName(), viewModel.getSchema(), connection);
     }
 
     //Drop view

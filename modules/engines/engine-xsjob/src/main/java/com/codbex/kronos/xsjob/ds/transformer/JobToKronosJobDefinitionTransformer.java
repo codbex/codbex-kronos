@@ -15,6 +15,7 @@ import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.xsjob.ds.model.JobArtifact;
 import com.codbex.kronos.xsjob.ds.model.JobDefinition;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,7 +50,7 @@ public class JobToKronosJobDefinitionTransformer {
         jobDefinitions.add(jobDefinition);
       }
     }else {
-      CommonsUtils.logProcessorErrors("Invalid xsjob artifact definition!", CommonsConstants.PROCESSOR_ERROR, jobArtifact.getDescription(), CommonsConstants.KRONOS_JOB_PARSER);
+      CommonsUtils.logProcessorErrors("Invalid xsjob artifact definition!", CommonsConstants.PROCESSOR_ERROR, jobArtifact.getDescription(), CommonsConstants.JOB_PARSER);
       throw new IllegalStateException("Invalid xsjob artifact definition!");
     }
 

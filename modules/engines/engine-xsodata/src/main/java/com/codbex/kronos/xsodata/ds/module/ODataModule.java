@@ -21,6 +21,6 @@ public class ODataModule extends AbstractDirigibleModule {
 
     @Override
     public String getName() {
-        return "Kronos XSOData Module";
+        return "Kronos XSODATA Module";
     }
 }

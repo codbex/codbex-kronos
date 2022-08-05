@@ -15,11 +15,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
-import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableColumnDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableConstraintPrimaryKeyDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableConstraintsDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableDataStructureModel;
-import com.codbex.kronos.hdb.ds.processors.table.TableAlterHandler;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -45,6 +40,12 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableColumnModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableConstraintPrimaryKeyModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableConstraintsModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableModel;
+import com.codbex.kronos.hdb.ds.processors.table.TableAlterHandler;
+
 @RunWith(MockitoJUnitRunner.class)
 public class HDBTableAlterHandlerTest {
 
@@ -66,9 +67,9 @@ public class HDBTableAlterHandlerTest {
   @Mock
   private ResultSet resultSet;
 
-  private HDBTableConstraintPrimaryKeyDataStructureModel primaryKey = new HDBTableConstraintPrimaryKeyDataStructureModel();
-  private HDBTableConstraintsDataStructureModel constraintsModel = new HDBTableConstraintsDataStructureModel();
-  private HDBTableDataStructureModel tableModel = new HDBTableDataStructureModel();
+  private DataStructureHDBTableConstraintPrimaryKeyModel primaryKey = new DataStructureHDBTableConstraintPrimaryKeyModel();
+  private DataStructureHDBTableConstraintsModel constraintsModel = new DataStructureHDBTableConstraintsModel();
+  private DataStructureHDBTableModel tableModel = new DataStructureHDBTableModel();
 
   @Before
   public void openMocks() {
@@ -84,9 +85,9 @@ public class HDBTableAlterHandlerTest {
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
       sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
 
-      List<HDBTableColumnDataStructureModel> columns = new ArrayList<>();
-      columns.add(new HDBTableColumnDataStructureModel("Id", "NVARCHAR", "32", true, false, null, false, null, null, true, null));
-      columns.add(new HDBTableColumnDataStructureModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
+      List<DataStructureHDBTableColumnModel> columns = new ArrayList<>();
+      columns.add(new DataStructureHDBTableColumnModel("Id", "NVARCHAR", "32", true, false, null, false, null, null, true, null));
+      columns.add(new DataStructureHDBTableColumnModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
       tableModel.setColumns(columns);
       tableModel.setConstraints(constraintsModel);
       tableModel.setName("hdb_table::SampleHdbdd");
@@ -114,8 +115,8 @@ public class HDBTableAlterHandlerTest {
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
       sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
 
-      List<HDBTableColumnDataStructureModel> columns = new ArrayList<>();
-      columns.add(new HDBTableColumnDataStructureModel("Age", "INTEGER", "32", true, true, null, false, null, null, true, null));
+      List<DataStructureHDBTableColumnModel> columns = new ArrayList<>();
+      columns.add(new DataStructureHDBTableColumnModel("Age", "INTEGER", "32", true, true, null, false, null, null, true, null));
       tableModel.setColumns(columns);
       tableModel.setConstraints(constraintsModel);
       tableModel.setName("hdb_table::SampleHdbdd");
@@ -143,9 +144,9 @@ public class HDBTableAlterHandlerTest {
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
       sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
 
-      List<HDBTableColumnDataStructureModel> columns = new ArrayList<>();
-      columns.add(new HDBTableColumnDataStructureModel("Id", "NVARCHAR", "32", true, false, null, false, null, null, true, null));
-      columns.add(new HDBTableColumnDataStructureModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
+      List<DataStructureHDBTableColumnModel> columns = new ArrayList<>();
+      columns.add(new DataStructureHDBTableColumnModel("Id", "NVARCHAR", "32", true, false, null, false, null, null, true, null));
+      columns.add(new DataStructureHDBTableColumnModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
       tableModel.setColumns(columns);
       tableModel.setConstraints(constraintsModel);
       tableModel.setName("hdb_table::SampleHdbdd");
@@ -180,9 +181,9 @@ public class HDBTableAlterHandlerTest {
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
       sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
 
-      List<HDBTableColumnDataStructureModel> columns = new ArrayList<>();
-      columns.add(new HDBTableColumnDataStructureModel("Id", "NVARCHAR", "32", true, false, null, false, null, null, true, null));
-      columns.add(new HDBTableColumnDataStructureModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
+      List<DataStructureHDBTableColumnModel> columns = new ArrayList<>();
+      columns.add(new DataStructureHDBTableColumnModel("Id", "NVARCHAR", "32", true, false, null, false, null, null, true, null));
+      columns.add(new DataStructureHDBTableColumnModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
       tableModel.setColumns(columns);
       tableModel.setConstraints(constraintsModel);
       tableModel.setName("hdb_table::SampleHdbdd");
@@ -216,9 +217,9 @@ public class HDBTableAlterHandlerTest {
       configuration.when(() -> Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
       sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
-      List<HDBTableColumnDataStructureModel> columns = new ArrayList<>();
-      columns.add(new HDBTableColumnDataStructureModel("Id", "NVARCHAR", "32", true, false, null, false, null, null, true, null));
-      columns.add(new HDBTableColumnDataStructureModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
+      List<DataStructureHDBTableColumnModel> columns = new ArrayList<>();
+      columns.add(new DataStructureHDBTableColumnModel("Id", "NVARCHAR", "32", true, false, null, false, null, null, true, null));
+      columns.add(new DataStructureHDBTableColumnModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
       tableModel.setColumns(columns);
       tableModel.setConstraints(constraintsModel);
       tableModel.setName("hdb_table::SampleHdbdd");
@@ -246,9 +247,9 @@ public class HDBTableAlterHandlerTest {
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
       sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
 
-      List<HDBTableColumnDataStructureModel> columns = new ArrayList<>();
-      columns.add(new HDBTableColumnDataStructureModel("Id", "NVARCHAR", "32", true, true, null, false, null, null, true, null));
-      columns.add(new HDBTableColumnDataStructureModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
+      List<DataStructureHDBTableColumnModel> columns = new ArrayList<>();
+      columns.add(new DataStructureHDBTableColumnModel("Id", "NVARCHAR", "32", true, true, null, false, null, null, true, null));
+      columns.add(new DataStructureHDBTableColumnModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
       tableModel.setColumns(columns);
       tableModel.setConstraints(constraintsModel);
       primaryKey.setColumns(new String[]{"Id"});

@@ -11,10 +11,11 @@
  */
 package com.codbex.kronos.parser.hdbdd.symbols.annotation;
 
-import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
-import com.codbex.kronos.parser.hdbdd.symbols.context.Scope;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
+import com.codbex.kronos.parser.hdbdd.symbols.context.Scope;
 
 public class EnumSymbol extends Symbol {
     private List<String> members = new ArrayList<>();

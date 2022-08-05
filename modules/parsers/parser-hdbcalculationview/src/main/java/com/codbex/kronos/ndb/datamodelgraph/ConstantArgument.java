@@ -19,11 +19,12 @@
 
 package com.codbex.kronos.ndb.datamodelgraph;
 
-import com.codbex.kronos.ndb.datamodeltype.PrimitiveType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
+
+import com.codbex.kronos.ndb.datamodeltype.PrimitiveType;
 
 
 /**

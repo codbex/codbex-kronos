@@ -18,6 +18,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.codbex.kronos.xsodata.ds.service.XSODataPropertyNameEscaper;
+
 @RunWith(MockitoJUnitRunner.class)
 public class XSODataPropertyNameEscaperTest {
 

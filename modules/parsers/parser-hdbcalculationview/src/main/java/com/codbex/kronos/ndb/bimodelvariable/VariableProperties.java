@@ -19,11 +19,6 @@
 
 package com.codbex.kronos.ndb.bimodelvariable;
 
-import com.codbex.kronos.ndb.bimodelconversion.Parameterization;
-import com.codbex.kronos.ndb.datamodelfilter.DefaultRange;
-import com.codbex.kronos.ndb.datamodeltype.ExpressionLanguage;
-import com.codbex.kronos.ndb.datamodeltype.InternalExternalConversion;
-import com.codbex.kronos.ndb.sqlcoremodeldatatypes.PrimitiveTypeSQL;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -31,6 +26,12 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+
+import com.codbex.kronos.ndb.bimodelconversion.Parameterization;
+import com.codbex.kronos.ndb.datamodelfilter.DefaultRange;
+import com.codbex.kronos.ndb.datamodeltype.ExpressionLanguage;
+import com.codbex.kronos.ndb.datamodeltype.InternalExternalConversion;
+import com.codbex.kronos.ndb.sqlcoremodeldatatypes.PrimitiveTypeSQL;
 
 
 /**

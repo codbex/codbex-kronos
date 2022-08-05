@@ -11,8 +11,9 @@
  */
 package com.codbex.kronos.xsodata.ds.model;
 
-import com.codbex.kronos.parser.xsodata.model.HDBXSODataService;
 import org.eclipse.dirigible.commons.api.helpers.GsonHelper;
+
+import com.codbex.kronos.parser.xsodata.model.HDBXSODataService;
 
 import javax.persistence.Column;
 import javax.persistence.Id;

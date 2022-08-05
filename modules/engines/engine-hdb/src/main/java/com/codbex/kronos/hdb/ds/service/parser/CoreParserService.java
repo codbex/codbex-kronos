@@ -11,21 +11,24 @@
  */
 package com.codbex.kronos.hdb.ds.service.parser;
 
+import java.io.IOException;
+import java.util.Map;
+
 import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
 import com.codbex.kronos.hdb.ds.module.HDBModule;
 import com.codbex.kronos.hdb.ds.parser.DataStructureParser;
-import java.io.IOException;
-import java.util.Map;
 
 public class CoreParserService implements ICoreParserService {
 
   private Map<String, DataStructureParser> parserServices = HDBModule.getParserServices();
 
   @Override
-  public DataStructureModel parseDataStructure(DataStructureParametersModel parametersModel) throws DataStructuresException, IOException, ArtifactParserException {
+  public DataStructureModel parseDataStructure(DataStructureParametersModel parametersModel)
+      throws DataStructuresException, IOException, ArtifactParserException {
+
     DataStructureParser<?> parser = parserServices.get(parametersModel.getType());
     return parser.parse(parametersModel);
   }

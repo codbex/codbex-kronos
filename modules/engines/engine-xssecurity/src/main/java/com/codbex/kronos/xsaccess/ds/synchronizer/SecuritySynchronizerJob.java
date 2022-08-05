@@ -19,7 +19,7 @@ public class SecuritySynchronizerJob extends AbstractSynchronizerJob {
   /**
    * The extensions synchronizer.
    */
-  private KronosSecuritySynchronizer extensionsSynchronizer = new KronosSecuritySynchronizer();
+  private SecuritySynchronizer extensionsSynchronizer = new SecuritySynchronizer();
 
   /*
    * (non-Javadoc)
@@ -36,6 +36,6 @@ public class SecuritySynchronizerJob extends AbstractSynchronizerJob {
    */
   @Override
   public String getName() {
-    return SecuritySynchronizerJobDefinitionProvider.KRONOS_PRIVILEGES_AND_ACCESS_SYNCHRONIZER_JOB_NAME;
+    return SecuritySynchronizerJobDefinitionProvider.PRIVILEGES_AND_ACCESS_SYNCHRONIZER_JOB;
   }
 }

@@ -19,10 +19,11 @@
 
 package com.codbex.kronos.ndb.bimodelconversion;
 
-import com.codbex.kronos.ndb.bimodeldatafoundation.QualifiedAttributeReference;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
+
+import com.codbex.kronos.ndb.bimodeldatafoundation.QualifiedAttributeReference;
 
 
 /**

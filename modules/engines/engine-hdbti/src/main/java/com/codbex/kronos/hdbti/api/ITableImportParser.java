@@ -14,6 +14,7 @@ package com.codbex.kronos.hdbti.api;
 import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.hdbti.model.TableImportArtifact;
 import com.codbex.kronos.parser.hdbti.exception.HDBTISyntaxErrorException;
+
 import java.io.IOException;
 import java.sql.SQLException;
 

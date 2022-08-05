@@ -11,6 +11,9 @@
  */
 package com.codbex.kronos.parser.hdbdd.factory;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import com.codbex.kronos.parser.hdbdd.annotation.metadata.AnnotationArray;
 import com.codbex.kronos.parser.hdbdd.annotation.metadata.AnnotationEnum;
 import com.codbex.kronos.parser.hdbdd.annotation.metadata.AnnotationObj;
@@ -20,8 +23,6 @@ import com.codbex.kronos.parser.hdbdd.symbols.context.ContextSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.entity.EntityElementSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.entity.EntitySymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.type.custom.StructuredDataTypeSymbol;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class AnnotationTemplateFactory {
 

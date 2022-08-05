@@ -11,9 +11,10 @@
  */
 package com.codbex.kronos.parser.hdbdd.symbols.annotation;
 
+import java.util.List;
+
 import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
 import com.codbex.kronos.parser.hdbdd.symbols.context.Scope;
-import java.util.List;
 
 public class ArraySymbol extends Symbol {
     private List<String> values;

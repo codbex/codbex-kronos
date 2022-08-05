@@ -11,10 +11,11 @@
  */
 package com.codbex.kronos.parser.xsodata.custom;
 
+import org.antlr.v4.runtime.ParserRuleContext;
+
 import com.codbex.kronos.parser.xsodata.core.HdbxsodataBaseListener;
 import com.codbex.kronos.parser.xsodata.core.HdbxsodataParser;
 import com.codbex.kronos.parser.xsodata.model.*;
-import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.util.*;
 import java.util.stream.Collectors;

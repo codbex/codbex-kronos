@@ -14,15 +14,16 @@ package com.codbex.kronos.hdb.ds.test.parser;
 import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
-import com.codbex.kronos.hdb.ds.model.hdbprocedure.HDBProcedureDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbprocedure.DataStructureHDBProcedureModel;
 import com.codbex.kronos.hdb.ds.parser.DataStructureParser;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
 public class TestProcedureParser {
     TestContentProvider testContentProvider = new TestContentProvider();
-    HDBProcedureDataStructureModel parseProcedure(@NotNull DataStructureParser<HDBProcedureDataStructureModel> parser, String location, String content)
+    DataStructureHDBProcedureModel parseProcedure(@NotNull DataStructureParser<DataStructureHDBProcedureModel> parser, String location, String content)
             throws DataStructuresException, ArtifactParserException, IOException {
         DataStructureParametersModel parametersModel =
                 testContentProvider.getParametersModel(null, location, content, null);

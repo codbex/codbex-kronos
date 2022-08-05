@@ -12,7 +12,7 @@
 package com.codbex.kronos.hdb.ds.facade;
 
 import com.codbex.kronos.exceptions.ArtifactParserException;
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.api.IEnvironmentVariables;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.hdb.ds.artefacts.HDBProcedureSynchronizationArtefactType;
@@ -26,15 +26,15 @@ import com.codbex.kronos.hdb.ds.artefacts.HDBTableTypeSynchronizationArtefactTyp
 import com.codbex.kronos.hdb.ds.artefacts.HDBViewSynchronizationArtefactType;
 import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
-import com.codbex.kronos.hdb.ds.model.hdbdd.CdsDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbprocedure.HDBProcedureDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbschema.HDBSchemaDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbsequence.HDBSequenceDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbtablefunction.HDBTableFunctionDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbtabletype.HDBTableTypeDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbview.HDBViewDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbdd.DataStructureCdsModel;
+import com.codbex.kronos.hdb.ds.model.hdbprocedure.DataStructureHDBProcedureModel;
+import com.codbex.kronos.hdb.ds.model.hdbschema.DataStructureHDBSchemaModel;
+import com.codbex.kronos.hdb.ds.model.hdbsequence.DataStructureHDBSequenceModel;
+import com.codbex.kronos.hdb.ds.model.hdbsynonym.DataStructureHDBSynonymModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableModel;
+import com.codbex.kronos.hdb.ds.model.hdbtablefunction.DataStructureHDBTableFunctionModel;
+import com.codbex.kronos.hdb.ds.model.hdbtabletype.DataStructureHDBTableTypeModel;
+import com.codbex.kronos.hdb.ds.model.hdbview.DataStructureHDBViewModel;
 import com.codbex.kronos.hdb.ds.module.HDBModule;
 import com.codbex.kronos.hdb.ds.parser.DataStructureParser;
 import com.codbex.kronos.hdb.ds.service.manager.IDataStructureManager;
@@ -42,6 +42,7 @@ import com.codbex.kronos.hdb.ds.service.parser.ICoreParserService;
 import com.codbex.kronos.hdb.ds.service.parser.CoreParserService;
 import com.codbex.kronos.hdb.ds.synchronizer.DataStructuresSynchronizer;
 import com.codbex.kronos.utils.CommonsConstants;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -174,21 +175,21 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
 
     @NotNull
     private List<TopologyDataStructureModelWrapper> constructListOfCdsModelWrappers(Connection connection, Map<String, TopologyDataStructureModelWrapper> wrappers) {
-        final Map<String, DataStructureModel> dataStructureCdsModels = managerServices.get(HDBDataStructureModel.TYPE_HDBDD).getDataStructureModels();
+        final Map<String, DataStructureModel> dataStructureCdsModels = managerServices.get(IDataStructureModel.TYPE_HDBDD).getDataStructureModels();
         final List<TopologyDataStructureModelWrapper> listOfWrappers = new ArrayList<>();
         dataStructureCdsModels.values().forEach(cdsStructure -> {
-            final IDataStructureManager<HDBTableDataStructureModel> tableManagerService = managerServices.get(HDBDataStructureModel.TYPE_HDB_TABLE);
-            ((CdsDataStructureModel) cdsStructure).getTableModels().forEach(tableModel -> {
+            final IDataStructureManager<DataStructureHDBTableModel> tableManagerService = managerServices.get(IDataStructureModel.TYPE_HDB_TABLE);
+            ((DataStructureCdsModel) cdsStructure).getTableModels().forEach(tableModel -> {
                 HDBTableSynchronizationArtefactType artefactType = new HDBTableSynchronizationArtefactType();
-                TopologyDataStructureModelWrapper<HDBTableDataStructureModel> tableWrapper = new TopologyDataStructureModelWrapper(connection, tableManagerService, tableModel,
+                TopologyDataStructureModelWrapper<DataStructureHDBTableModel> tableWrapper = new TopologyDataStructureModelWrapper(connection, tableManagerService, tableModel,
                     artefactType, wrappers);
                 listOfWrappers.add(tableWrapper);
             });
 
-            final IDataStructureManager<HDBTableTypeDataStructureModel> tableTypeManagerService = managerServices.get(HDBDataStructureModel.TYPE_HDB_TABLE_TYPE);
-            ((CdsDataStructureModel) cdsStructure).getTableTypeModels().forEach(tableTypeModel -> {
+            final IDataStructureManager<DataStructureHDBTableTypeModel> tableTypeManagerService = managerServices.get(IDataStructureModel.TYPE_HDB_TABLE_TYPE);
+            ((DataStructureCdsModel) cdsStructure).getTableTypeModels().forEach(tableTypeModel -> {
                 HDBTableTypeSynchronizationArtefactType artefactType = new HDBTableTypeSynchronizationArtefactType();
-                TopologyDataStructureModelWrapper<HDBTableTypeDataStructureModel> tableTypeWrapper = new TopologyDataStructureModelWrapper(connection, tableTypeManagerService,
+                TopologyDataStructureModelWrapper<DataStructureHDBTableTypeModel> tableTypeWrapper = new TopologyDataStructureModelWrapper(connection, tableTypeManagerService,
                     tableTypeModel, artefactType, wrappers);
                 listOfWrappers.add(tableTypeWrapper);
             });
@@ -198,13 +199,13 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
 
     @NotNull
     private List<TopologyDataStructureModelWrapper> constructListOfCdsViewWrappers(Connection connection, Map<String, TopologyDataStructureModelWrapper> wrappers) {
-      final Map<String, DataStructureModel> dataStructureCdsModels = managerServices.get(HDBDataStructureModel.TYPE_HDBDD).getDataStructureModels();
+      final Map<String, DataStructureModel> dataStructureCdsModels = managerServices.get(IDataStructureModel.TYPE_HDBDD).getDataStructureModels();
       final List<TopologyDataStructureModelWrapper> listOfWrappers = new ArrayList<>();
       dataStructureCdsModels.values().forEach(cdsStructure -> {
-        final IDataStructureManager<HDBViewDataStructureModel> viewManagerService = managerServices.get(HDBDataStructureModel.TYPE_HDB_VIEW);
-        ((CdsDataStructureModel) cdsStructure).getViewModels().forEach(viewModel -> {
+        final IDataStructureManager<DataStructureHDBViewModel> viewManagerService = managerServices.get(IDataStructureModel.TYPE_HDB_VIEW);
+        ((DataStructureCdsModel) cdsStructure).getViewModels().forEach(viewModel -> {
           HDBTableSynchronizationArtefactType artefactType = new HDBTableSynchronizationArtefactType();
-          TopologyDataStructureModelWrapper<HDBViewDataStructureModel> tableWrapper = new TopologyDataStructureModelWrapper(connection, viewManagerService, viewModel,
+          TopologyDataStructureModelWrapper<DataStructureHDBViewModel> tableWrapper = new TopologyDataStructureModelWrapper(connection, viewManagerService, viewModel,
               artefactType, wrappers);
           listOfWrappers.add(tableWrapper);
         });
@@ -227,12 +228,12 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
 
     @NotNull
     private List<TopologyDataStructureModelWrapper> constructListOfSynonymModelWrappers(Connection connection, Map<String, TopologyDataStructureModelWrapper> wrappersPhaseThree) {
-        final Map<String, DataStructureModel> dataStructureSynonymModels = managerServices.get(HDBDataStructureModel.TYPE_HDB_SYNONYM).getDataStructureModels();
+        final Map<String, DataStructureModel> dataStructureSynonymModels = managerServices.get(IDataStructureModel.TYPE_HDB_SYNONYM).getDataStructureModels();
         final List<TopologyDataStructureModelWrapper> listOfWrappers = new ArrayList<>();
-        final IDataStructureManager<HDBSynonymDataStructureModel> synonymManagerService = managerServices.get(HDBDataStructureModel.TYPE_HDB_SYNONYM);
+        final IDataStructureManager<DataStructureHDBSynonymModel> synonymManagerService = managerServices.get(IDataStructureModel.TYPE_HDB_SYNONYM);
         dataStructureSynonymModels.values().forEach(synonymModel -> {
             HDBSynonymSynchronizationArtefactType artefactType = new HDBSynonymSynchronizationArtefactType();
-            TopologyDataStructureModelWrapper<HDBSynonymDataStructureModel> synonymModelWrapper = new TopologyDataStructureModelWrapper(connection, synonymManagerService, synonymModel,
+            TopologyDataStructureModelWrapper<DataStructureHDBSynonymModel> synonymModelWrapper = new TopologyDataStructureModelWrapper(connection, synonymManagerService, synonymModel,
                 artefactType, wrappersPhaseThree);
             listOfWrappers.add(synonymModelWrapper);
         });
@@ -241,12 +242,12 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
 
     @NotNull
     private List<TopologyDataStructureModelWrapper> constructListOfScalarFunctionModelWrappers(Connection connection, Map<String, TopologyDataStructureModelWrapper> wrappers) {
-        final Map<String, DataStructureModel> dataStructureScalarFunctionsModels = managerServices.get(HDBDataStructureModel.TYPE_HDB_SCALAR_FUNCTION).getDataStructureModels();
+        final Map<String, DataStructureModel> dataStructureScalarFunctionsModels = managerServices.get(IDataStructureModel.TYPE_HDB_SCALAR_FUNCTION).getDataStructureModels();
         final List<TopologyDataStructureModelWrapper> listOfWrappers = new ArrayList<>();
-        final IDataStructureManager<HDBTableFunctionDataStructureModel> tableFunctionManagerService = managerServices.get(HDBDataStructureModel.TYPE_HDB_TABLE_FUNCTION);
+        final IDataStructureManager<DataStructureHDBTableFunctionModel> tableFunctionManagerService = managerServices.get(IDataStructureModel.TYPE_HDB_TABLE_FUNCTION);
         dataStructureScalarFunctionsModels.values().forEach(scalarFunctionModel -> {
             HDBScalarFunctionSynchronizationArtefactType artefactType = new HDBScalarFunctionSynchronizationArtefactType();
-            TopologyDataStructureModelWrapper<HDBTableFunctionDataStructureModel> scalarFunctionWrapper = new TopologyDataStructureModelWrapper(connection, tableFunctionManagerService,
+            TopologyDataStructureModelWrapper<DataStructureHDBTableFunctionModel> scalarFunctionWrapper = new TopologyDataStructureModelWrapper(connection, tableFunctionManagerService,
                 scalarFunctionModel, artefactType, wrappers);
             listOfWrappers.add(scalarFunctionWrapper);
         });
@@ -255,12 +256,12 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
 
     @NotNull
     private List<TopologyDataStructureModelWrapper> constructListOfTableFunctionModelWrappers(Connection connection, Map<String, TopologyDataStructureModelWrapper> wrappers) {
-        final Map<String, DataStructureModel> dataStructureTableFunctionsModels = managerServices.get(HDBDataStructureModel.TYPE_HDB_TABLE_FUNCTION).getDataStructureModels();
+        final Map<String, DataStructureModel> dataStructureTableFunctionsModels = managerServices.get(IDataStructureModel.TYPE_HDB_TABLE_FUNCTION).getDataStructureModels();
         final List<TopologyDataStructureModelWrapper> listOfWrappers = new ArrayList<>();
-        final IDataStructureManager<HDBTableFunctionDataStructureModel> tableFunctionManagerService = managerServices.get(HDBDataStructureModel.TYPE_HDB_TABLE_FUNCTION);
+        final IDataStructureManager<DataStructureHDBTableFunctionModel> tableFunctionManagerService = managerServices.get(IDataStructureModel.TYPE_HDB_TABLE_FUNCTION);
         dataStructureTableFunctionsModels.values().forEach(tableFunctionModel -> {
             HDBTableFunctionSynchronizationArtefactType artefactType = new HDBTableFunctionSynchronizationArtefactType();
-            TopologyDataStructureModelWrapper<HDBTableFunctionDataStructureModel> tableFunctionWrapper = new TopologyDataStructureModelWrapper(connection, tableFunctionManagerService,
+            TopologyDataStructureModelWrapper<DataStructureHDBTableFunctionModel> tableFunctionWrapper = new TopologyDataStructureModelWrapper(connection, tableFunctionManagerService,
                 tableFunctionModel, artefactType, wrappers);
             listOfWrappers.add(tableFunctionWrapper);
         });
@@ -269,12 +270,12 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
 
     @NotNull
     private List<TopologyDataStructureModelWrapper> constructListOfProcedureModelWrappers(Connection connection, Map<String, TopologyDataStructureModelWrapper> wrappers) {
-        final Map<String, DataStructureModel> dataStructureProceduresModels = managerServices.get(HDBDataStructureModel.TYPE_HDB_PROCEDURE).getDataStructureModels();
+        final Map<String, DataStructureModel> dataStructureProceduresModels = managerServices.get(IDataStructureModel.TYPE_HDB_PROCEDURE).getDataStructureModels();
         final List<TopologyDataStructureModelWrapper> listOfWrappers = new ArrayList<>();
-        final IDataStructureManager<HDBProcedureDataStructureModel> proceduresManagerService = managerServices.get(HDBDataStructureModel.TYPE_HDB_PROCEDURE);
+        final IDataStructureManager<DataStructureHDBProcedureModel> proceduresManagerService = managerServices.get(IDataStructureModel.TYPE_HDB_PROCEDURE);
         dataStructureProceduresModels.values().forEach(procedureModel -> {
             HDBProcedureSynchronizationArtefactType artefactType = new HDBProcedureSynchronizationArtefactType();
-            TopologyDataStructureModelWrapper<HDBProcedureDataStructureModel> procedureWrapper = new TopologyDataStructureModelWrapper(connection, proceduresManagerService, procedureModel,
+            TopologyDataStructureModelWrapper<DataStructureHDBProcedureModel> procedureWrapper = new TopologyDataStructureModelWrapper(connection, proceduresManagerService, procedureModel,
                 artefactType, wrappers);
             listOfWrappers.add(procedureWrapper);
         });
@@ -283,12 +284,12 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
 
     @NotNull
     private List<TopologyDataStructureModelWrapper> constructListOfViewModelWrappers(Connection connection, Map<String, TopologyDataStructureModelWrapper> wrappers) {
-        final Map<String, DataStructureModel> dataStructureViewsModels = managerServices.get(HDBDataStructureModel.TYPE_HDB_VIEW).getDataStructureModels();
+        final Map<String, DataStructureModel> dataStructureViewsModels = managerServices.get(IDataStructureModel.TYPE_HDB_VIEW).getDataStructureModels();
         final List<TopologyDataStructureModelWrapper> listOfWrappers = new ArrayList<>();
-        final IDataStructureManager<HDBViewDataStructureModel> viewManagerService = managerServices.get(HDBDataStructureModel.TYPE_HDB_VIEW);
+        final IDataStructureManager<DataStructureHDBViewModel> viewManagerService = managerServices.get(IDataStructureModel.TYPE_HDB_VIEW);
         dataStructureViewsModels.values().forEach(viewModel -> {
             HDBViewSynchronizationArtefactType artefactType = new HDBViewSynchronizationArtefactType();
-            TopologyDataStructureModelWrapper<HDBViewDataStructureModel> viewWrapper = new TopologyDataStructureModelWrapper(connection, viewManagerService, viewModel, artefactType,
+            TopologyDataStructureModelWrapper<DataStructureHDBViewModel> viewWrapper = new TopologyDataStructureModelWrapper(connection, viewManagerService, viewModel, artefactType,
                 wrappers);
             listOfWrappers.add(viewWrapper);
         });
@@ -310,12 +311,12 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
     }
 
     private List<TopologyDataStructureModelWrapper> constructListOfTableTypesModelWrappers(Connection connection, Map<String, TopologyDataStructureModelWrapper> wrappers) {
-        final Map<String, DataStructureModel> dataStructureTableTypesModels = managerServices.get(HDBDataStructureModel.TYPE_HDB_TABLE_TYPE).getDataStructureModels();
+        final Map<String, DataStructureModel> dataStructureTableTypesModels = managerServices.get(IDataStructureModel.TYPE_HDB_TABLE_TYPE).getDataStructureModels();
         final List<TopologyDataStructureModelWrapper> listOfWrappers = new ArrayList<>();
-        final IDataStructureManager<HDBTableTypeDataStructureModel> tableTypeManagerService = managerServices.get(HDBDataStructureModel.TYPE_HDB_TABLE_TYPE);
+        final IDataStructureManager<DataStructureHDBTableTypeModel> tableTypeManagerService = managerServices.get(IDataStructureModel.TYPE_HDB_TABLE_TYPE);
         dataStructureTableTypesModels.values().forEach(tableTypeModel -> {
             HDBTableTypeSynchronizationArtefactType artefactType = new HDBTableTypeSynchronizationArtefactType();
-            TopologyDataStructureModelWrapper<HDBTableTypeDataStructureModel> tableTypeWrapper = new TopologyDataStructureModelWrapper(connection, tableTypeManagerService, tableTypeModel,
+            TopologyDataStructureModelWrapper<DataStructureHDBTableTypeModel> tableTypeWrapper = new TopologyDataStructureModelWrapper(connection, tableTypeManagerService, tableTypeModel,
                 artefactType, wrappers);
             listOfWrappers.add(tableTypeWrapper);
         });
@@ -324,12 +325,12 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
     }
 
     private List<TopologyDataStructureModelWrapper> constructListOfSequenceModelWrapper(Connection connection, Map<String, TopologyDataStructureModelWrapper> wrappers) {
-        final Map<String, DataStructureModel> dataStructureSequencesModels = managerServices.get(HDBDataStructureModel.TYPE_HDB_SEQUENCE).getDataStructureModels();
+        final Map<String, DataStructureModel> dataStructureSequencesModels = managerServices.get(IDataStructureModel.TYPE_HDB_SEQUENCE).getDataStructureModels();
         final List<TopologyDataStructureModelWrapper> listOfWrappers = new ArrayList<>();
-        final IDataStructureManager<HDBSequenceDataStructureModel> sequenceManagerService = managerServices.get(HDBDataStructureModel.TYPE_HDB_SEQUENCE);
+        final IDataStructureManager<DataStructureHDBSequenceModel> sequenceManagerService = managerServices.get(IDataStructureModel.TYPE_HDB_SEQUENCE);
         dataStructureSequencesModels.values().forEach(sequenceModel -> {
             HDBSequenceSynchronizationArtefactType artefactType = new HDBSequenceSynchronizationArtefactType();
-            TopologyDataStructureModelWrapper<HDBSequenceDataStructureModel> sequenceWrapper = new TopologyDataStructureModelWrapper(connection, sequenceManagerService, sequenceModel,
+            TopologyDataStructureModelWrapper<DataStructureHDBSequenceModel> sequenceWrapper = new TopologyDataStructureModelWrapper(connection, sequenceManagerService, sequenceModel,
                 artefactType, wrappers);
             listOfWrappers.add(sequenceWrapper);
         });
@@ -338,12 +339,12 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
     }
 
     private List<TopologyDataStructureModelWrapper> constructListOfTableModelWrappers(Connection connection, Map<String, TopologyDataStructureModelWrapper> wrappers) {
-        final Map<String, DataStructureModel> dataStructureTablesModels = managerServices.get(HDBDataStructureModel.TYPE_HDB_TABLE).getDataStructureModels();
+        final Map<String, DataStructureModel> dataStructureTablesModels = managerServices.get(IDataStructureModel.TYPE_HDB_TABLE).getDataStructureModels();
         final List<TopologyDataStructureModelWrapper> listOfWrappers = new ArrayList<>();
-        final IDataStructureManager<HDBTableDataStructureModel> tableManagerService = managerServices.get(HDBDataStructureModel.TYPE_HDB_TABLE);
+        final IDataStructureManager<DataStructureHDBTableModel> tableManagerService = managerServices.get(IDataStructureModel.TYPE_HDB_TABLE);
         dataStructureTablesModels.values().forEach(tableModel -> {
             HDBTableSynchronizationArtefactType artefactType = new HDBTableSynchronizationArtefactType();
-            TopologyDataStructureModelWrapper<HDBTableDataStructureModel> tableWrapper = new TopologyDataStructureModelWrapper(connection, tableManagerService, tableModel, artefactType,
+            TopologyDataStructureModelWrapper<DataStructureHDBTableModel> tableWrapper = new TopologyDataStructureModelWrapper(connection, tableManagerService, tableModel, artefactType,
                 wrappers);
             listOfWrappers.add(tableWrapper);
         });
@@ -367,12 +368,12 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
 
     @NotNull
     private List<TopologyDataStructureModelWrapper> constructListOfSchemaModelWrappers(Connection connection) {
-        Map<String, DataStructureModel> dataStructureSchemasModels = managerServices.get(HDBDataStructureModel.TYPE_HDB_SCHEMA).getDataStructureModels();
+        Map<String, DataStructureModel> dataStructureSchemasModels = managerServices.get(IDataStructureModel.TYPE_HDB_SCHEMA).getDataStructureModels();
         final List<TopologyDataStructureModelWrapper> listSchemaWrappers = new ArrayList<>();
         Map<String, TopologyDataStructureModelWrapper> wrappers = new HashMap<>();
-        IDataStructureManager schemaModelManager = managerServices.get(HDBDataStructureModel.TYPE_HDB_SCHEMA);
+        IDataStructureManager schemaModelManager = managerServices.get(IDataStructureModel.TYPE_HDB_SCHEMA);
         dataStructureSchemasModels.values().forEach(schemaModel -> {
-            TopologyDataStructureModelWrapper<HDBSchemaDataStructureModel> schemaWrapper = new TopologyDataStructureModelWrapper<>(connection, schemaModelManager, schemaModel,
+            TopologyDataStructureModelWrapper<DataStructureHDBSchemaModel> schemaWrapper = new TopologyDataStructureModelWrapper<>(connection, schemaModelManager, schemaModel,
                 new HDBSchemaSynchronizationArtefactType(), wrappers);
             listSchemaWrappers.add(schemaWrapper);
         });

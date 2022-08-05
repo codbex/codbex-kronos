@@ -19,12 +19,13 @@
 
 package com.codbex.kronos.ndb.bimodeldimension;
 
-import com.codbex.kronos.ndb.basemodelbase.NodeStyle;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+
+import com.codbex.kronos.ndb.basemodelbase.NodeStyle;
 
 
 /**

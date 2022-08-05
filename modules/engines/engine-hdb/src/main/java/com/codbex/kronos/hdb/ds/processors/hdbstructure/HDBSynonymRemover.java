@@ -14,6 +14,7 @@ package com.codbex.kronos.hdb.ds.processors.hdbstructure;
 import com.codbex.kronos.hdb.ds.service.manager.IDataStructureManager;
 import com.codbex.kronos.hdb.ds.service.manager.SynonymManagerService;
 import com.codbex.kronos.utils.HDBUtils;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 

@@ -11,7 +11,6 @@
  */
 package com.codbex.kronos.hdbti.service;
 
-import com.codbex.kronos.hdbti.model.TableImportConfigurationDefinition;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -24,6 +23,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.codbex.kronos.hdbti.model.TableImportConfigurationDefinition;
 
 public class CSVDefinitionsTopologicalSorter {
 

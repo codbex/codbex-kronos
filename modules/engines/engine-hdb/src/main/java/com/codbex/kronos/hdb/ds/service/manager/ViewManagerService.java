@@ -11,12 +11,13 @@
  */
 package com.codbex.kronos.hdb.ds.service.manager;
 
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.api.IHDBProcessor;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
-import com.codbex.kronos.hdb.ds.model.hdbview.HDBViewDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbview.DataStructureHDBViewModel;
 import com.codbex.kronos.hdb.ds.processors.view.ViewCreateProcessor;
 import com.codbex.kronos.hdb.ds.processors.view.ViewDropProcessor;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,25 +29,25 @@ import javax.naming.OperationNotSupportedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ViewManagerService extends AbstractDataStructureManagerService<HDBViewDataStructureModel> {
+public class ViewManagerService extends AbstractDataStructureManagerService<DataStructureHDBViewModel> {
 
   private static final Logger logger = LoggerFactory.getLogger(ViewManagerService.class);
 
-  private final Map<String, HDBViewDataStructureModel> dataStructureViewsModels = new LinkedHashMap<>();
+  private final Map<String, DataStructureHDBViewModel> dataStructureViewsModels = new LinkedHashMap<>();
   private final List<String> viewsSynchronized = Collections.synchronizedList(new ArrayList<>());
 
   private IHDBProcessor viewCreateProcessor = new ViewCreateProcessor();
   private IHDBProcessor viewDropProcessor = new ViewDropProcessor();
 
   @Override
-  public void synchronizeRuntimeMetadata(HDBViewDataStructureModel viewModel) throws DataStructuresException {
+  public void synchronizeRuntimeMetadata(DataStructureHDBViewModel viewModel) throws DataStructuresException {
     if (!getDataStructuresCoreService().existsDataStructure(viewModel.getLocation(), viewModel.getType())) {
       getDataStructuresCoreService()
           .createDataStructure(viewModel.getLocation(), viewModel.getName(), viewModel.getHash(), viewModel.getType());
       dataStructureViewsModels.put(viewModel.getName(), viewModel);
       logger.info("Synchronized a new View file [{}] from location: {}", viewModel.getName(), viewModel.getLocation());
     } else {
-      HDBViewDataStructureModel existing = getDataStructuresCoreService().getDataStructure(viewModel.getLocation(), viewModel.getType());
+      DataStructureHDBViewModel existing = getDataStructuresCoreService().getDataStructure(viewModel.getLocation(), viewModel.getType());
       if (!viewModel.equals(existing)) {
         getDataStructuresCoreService()
             .updateDataStructure(viewModel.getLocation(), viewModel.getName(), viewModel.getHash(), viewModel.getType());
@@ -60,25 +61,25 @@ public class ViewManagerService extends AbstractDataStructureManagerService<HDBV
   }
 
   @Override
-  public boolean createDataStructure(Connection connection, HDBViewDataStructureModel viewModel)
+  public boolean createDataStructure(Connection connection, DataStructureHDBViewModel viewModel)
       throws SQLException {
     return this.viewCreateProcessor.execute(connection, viewModel);
   }
 
   @Override
-  public boolean dropDataStructure(Connection connection, HDBViewDataStructureModel viewModel)
+  public boolean dropDataStructure(Connection connection, DataStructureHDBViewModel viewModel)
       throws SQLException {
     return this.viewDropProcessor.execute(connection, viewModel);
   }
 
   @Override
-  public boolean updateDataStructure(Connection connection, HDBViewDataStructureModel viewModel)
+  public boolean updateDataStructure(Connection connection, DataStructureHDBViewModel viewModel)
       throws OperationNotSupportedException {
     throw new OperationNotSupportedException();
   }
 
   @Override
-  public Map<String, HDBViewDataStructureModel> getDataStructureModels() {
+  public Map<String, DataStructureHDBViewModel> getDataStructureModels() {
     return Collections.unmodifiableMap(this.dataStructureViewsModels);
   }
 
@@ -89,7 +90,7 @@ public class ViewManagerService extends AbstractDataStructureManagerService<HDBV
 
   @Override
   public String getDataStructureType() {
-    return HDBDataStructureModel.FILE_EXTENSION_VIEW;
+    return IDataStructureModel.FILE_EXTENSION_VIEW;
   }
 
   @Override

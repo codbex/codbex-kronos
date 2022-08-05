@@ -13,9 +13,10 @@ package com.codbex.kronos.hdb.ds.itest.hdbprocedure;
 
 import static org.junit.Assert.assertTrue;
 
-import com.codbex.kronos.hdb.ds.itest.AbstractHDBITTest;
-import com.codbex.kronos.hdb.ds.itest.module.HDBTestModule;
-import com.codbex.kronos.hdb.ds.itest.utils.HanaITestUtils;
+import com.codbex.kronos.hdb.ds.AbstractHDBITTest;
+import com.codbex.kronos.integration.tests.core.hdb.module.HDBTestModule;
+import com.codbex.kronos.integration.tests.core.hdb.utils.HanaITestUtils;
+
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.SQLException;

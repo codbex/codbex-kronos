@@ -13,12 +13,14 @@ package com.codbex.kronos.hdbti.api;
 
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.hdbti.model.ImportedCSVRecordModel;
+
 import java.sql.SQLException;
 import java.util.List;
 import javax.sql.DataSource;
 import org.eclipse.dirigible.database.persistence.PersistenceManager;
 
 public interface IImportedCSVRecordDao {
+
     ImportedCSVRecordModel save(ImportedCSVRecordModel importedRowModel) throws DataStructuresException;
 
     ImportedCSVRecordModel update(ImportedCSVRecordModel importedRowModel) throws SQLException;

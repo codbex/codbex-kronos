@@ -12,9 +12,9 @@
 package com.codbex.kronos.parser.hdbsequence.custom;
 
 
-import com.google.gson.*;
 import com.codbex.kronos.parser.hdbsequence.exceptions.HDBSequenceMissingPropertyException;
 import com.codbex.kronos.parser.hdbsequence.models.HDBSequenceModel;
+import com.google.gson.*;
 
 import java.lang.reflect.Type;
 import java.util.Objects;

@@ -3,16 +3,14 @@
     "users": [
         "DBADMIN"
     ],
-    "group": "MIGR_TOOLS_KRONOS_TEST_APP",
-    "container": "MIGR_TOOLS_KRONOS_TEST_APP",
+    "group": "HDI_MIGR_TOOLS_KRONOS_TEST_APP",
+    "container": "HDI_MIGR_TOOLS_KRONOS_TEST_APP",
     "deploy": [
         "/kronos_test_app/test.hdbcalculationview",
         "/kronos_test_app/usersAnalyticPrivilege.analyticprivilege",
         "/kronos_test_app/usersHDBAnalyticPrivilege.hdbanalyticprivilege",
         "/kronos_test_app/usersTableFunction.hdbtablefunction",
         "/kronos_test_app/usersView.calculationview",
-        "/customer_sample/hdi-synonyms.hdbsynonym",
-        "/customer_sample/hdi-public-synonyms.hdbpublicsynonym",
         "/kronos_test_app/hdi-public-synonyms.hdbpublicsynonym",
         "/kronos_test_app/hdi-synonyms.hdbsynonym",
         "/kronos_test_app/usersTableFunction.hdbtablefunction"

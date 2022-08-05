@@ -11,9 +11,6 @@
  */
 package com.codbex.kronos.hdbti.dao;
 
-import com.codbex.kronos.hdbti.api.ITableImportArtifactDao;
-import com.codbex.kronos.hdbti.api.TableImportException;
-import com.codbex.kronos.hdbti.model.TableImportArtifact;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -23,6 +20,10 @@ import org.eclipse.dirigible.commons.config.StaticObjects;
 import org.eclipse.dirigible.database.persistence.PersistenceManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.codbex.kronos.hdbti.api.ITableImportArtifactDao;
+import com.codbex.kronos.hdbti.api.TableImportException;
+import com.codbex.kronos.hdbti.model.TableImportArtifact;
 
 public class TableImportArtifactDao implements ITableImportArtifactDao {
 

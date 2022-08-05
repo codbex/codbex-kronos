@@ -1,10 +1,10 @@
 service namespace "np"{
 
-    "kronos.test.calcviews::calc" as "CalcView1"
+    "kneo.test.calcviews::calc" as "CalcView1"
          keys generate local "ID"
          parameters via key and entity;
 
-     "kronos.test.calcviews::calc" as "CalcView2"
+     "kneo.test.calcviews::calc" as "CalcView2"
          keys generate local "ID"
          parameters via entity "CVParams" results property "AllResults";
 

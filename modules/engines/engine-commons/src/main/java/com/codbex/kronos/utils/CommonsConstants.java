@@ -54,10 +54,10 @@ public final class CommonsConstants {
     public static final String HDB_SCHEMA_PARSER = "HDB Schema";
     public static final String HDB_SEQUENCE_PARSER = "HDB Sequence";
     public static final String HDB_VIEW_PARSER = "HDB View";
-    public static final String KRONOS_JOB_PARSER = "Kronos Job";
-    public static final String KRONOS_ODATA_PARSER = "XSOData";
+    public static final String JOB_PARSER = "Kronos Job";
+    public static final String ODATA_PARSER = "XSOData";
     public static final String HDB_ENTITY_PROCESSOR = "HDB Entity";
-    public static final String KRONOS_ENTITY_PROCESSOR = "Kronos Entity";
+    public static final String ENTITY_PROCESSOR = "Kronos Entity";
     public static final String HDI_PROCESSOR = "HDI";
     public static final String HDB_ANALYTIC_PRIVILEGE = "HDB Analytic Privilege";
     public static final String REGISTRY_PUBLIC = "/registry/public/";

@@ -11,18 +11,20 @@
  */
 package com.codbex.kronos.parser.hdbtable.custom;
 
+import com.codbex.kronos.parser.hdbtable.core.HdbtableBaseVisitor;
+import com.codbex.kronos.parser.hdbtable.core.HdbtableParser;
+import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableDuplicatePropertyException;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import com.codbex.kronos.parser.hdbtable.core.HdbtableBaseVisitor;
-import com.codbex.kronos.parser.hdbtable.core.HdbtableParser;
-import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableDuplicatePropertyException;
+
 import org.antlr.v4.runtime.tree.ParseTree;
-import java.util.HashSet;
-import java.util.List;
 
 import static com.codbex.kronos.parser.hdbtable.constants.HdbtablePropertiesConstants.*;
+
+import java.util.HashSet;
+import java.util.List;
 
 public class HDBTableCoreVisitor extends HdbtableBaseVisitor<JsonElement> {
 

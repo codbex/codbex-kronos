@@ -23,18 +23,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.codbex.kronos.hdb.ds.artefacts.HDBTableFunctionSynchronizationArtefactType;
-import com.codbex.kronos.hdb.ds.model.hdbtablefunction.HDBTableFunctionDataStructureModel;
-import com.codbex.kronos.hdb.ds.processors.AbstractProcessor;
+import com.codbex.kronos.hdb.ds.model.hdbtablefunction.DataStructureHDBTableFunctionModel;
+import com.codbex.kronos.hdb.ds.processors.AbstractHDBProcessor;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.utils.Constants;
 
-public class HDBTableFunctionCreateProcessor extends AbstractProcessor<HDBTableFunctionDataStructureModel> {
+public class HDBTableFunctionCreateProcessor extends AbstractHDBProcessor<DataStructureHDBTableFunctionModel> {
 
   private static final Logger logger = LoggerFactory.getLogger(HDBTableFunctionCreateProcessor.class);
   private static final HDBTableFunctionSynchronizationArtefactType TABLE_FUNCTION_ARTEFACT = new HDBTableFunctionSynchronizationArtefactType();
 
-  public boolean execute(Connection connection, HDBTableFunctionDataStructureModel hdbTableFunction)
+  public boolean execute(Connection connection, DataStructureHDBTableFunctionModel hdbTableFunction)
       throws SQLException {
     logger.info("Processing Create TableFunction: " + hdbTableFunction.getName());
 

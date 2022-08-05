@@ -12,12 +12,13 @@
 package com.codbex.kronos.hdb.ds.processors.synonym;
 
 import com.codbex.kronos.hdb.ds.artefacts.HDBSynonymSynchronizationArtefactType;
-import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbsynonym.DataStructureHDBSynonymModel;
 import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDefinitionModel;
-import com.codbex.kronos.hdb.ds.processors.AbstractProcessor;
+import com.codbex.kronos.hdb.ds.processors.AbstractHDBProcessor;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.utils.HDBUtils;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Map;
@@ -28,7 +29,7 @@ import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HDBSynonymDropProcessor extends AbstractProcessor<HDBSynonymDataStructureModel> {
+public class HDBSynonymDropProcessor extends AbstractHDBProcessor<DataStructureHDBSynonymModel> {
 
   private static final Logger logger = LoggerFactory.getLogger(HDBSynonymDropProcessor.class);
   private static final HDBSynonymSynchronizationArtefactType SYNONYM_ARTEFACT = new HDBSynonymSynchronizationArtefactType();
@@ -42,7 +43,7 @@ public class HDBSynonymDropProcessor extends AbstractProcessor<HDBSynonymDataStr
    * @see <a href="https://help.sap.com/viewer/4fe29514fd584807ac9f2a04f6754767/1.0.12/en-US/20d7e172751910148bccb49de92d9859.html">DROP SYNONYM Statement (Data Definition)</a>
    */
   @Override
-  public boolean execute(Connection connection, HDBSynonymDataStructureModel synonymModel) {
+  public boolean execute(Connection connection, DataStructureHDBSynonymModel synonymModel) {
 	  for (Map.Entry<String, HDBSynonymDefinitionModel> entry : synonymModel.getSynonymDefinitions().entrySet()) {
 
 	      String synonymName = (entry.getValue().getSynonymSchema() != null) ? HDBUtils.escapeArtifactName(entry.getKey(), entry.getValue().getSynonymSchema())

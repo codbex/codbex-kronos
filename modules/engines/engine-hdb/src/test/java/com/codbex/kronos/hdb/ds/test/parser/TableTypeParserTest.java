@@ -21,9 +21,10 @@ import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.hdb.ds.model.DBContentType;
 import com.codbex.kronos.hdb.ds.model.DataStructureModelFactory;
 import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableColumnDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbtabletype.HDBTableTypeDataStructureModel;
-import com.codbex.kronos.hdb.ds.parser.hdbtabletype.TableTypeParser;
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableColumnModel;
+import com.codbex.kronos.hdb.ds.model.hdbtabletype.DataStructureHDBTableTypeModel;
+import com.codbex.kronos.hdb.ds.parser.hdbtabletype.HDBTableTypeParser;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -37,7 +38,7 @@ public class TableTypeParserTest extends AbstractDirigibleTest {
   public void parse_WhenStructureDefinitionIsCorrect_ModelShouldBeSet() throws Exception {
     InputStream in = TableTypeParserTest.class.getResourceAsStream("/ParsingHDBStructure.hdbstructure");
     String contents = IOUtils.toString(in, StandardCharsets.UTF_8);
-    HDBTableTypeDataStructureModel model = DataStructureModelFactory.parseTableType("/ParsingHDBStructure.hdbstructure", contents);
+    DataStructureHDBTableTypeModel model = DataStructureModelFactory.parseTableType("/ParsingHDBStructure.hdbstructure", contents);
 
     assertEquals(4, model.getColumns().size());
     assertEquals("ParsingHDBStructure", model.getName());
@@ -50,7 +51,7 @@ public class TableTypeParserTest extends AbstractDirigibleTest {
     assertEquals(DBContentType.XS_CLASSIC, model.getDBContentType());
     assertEquals(contents, model.getRawContent());
 
-    HDBTableColumnDataStructureModel scenarioId = model.getColumns().get(0);
+    DataStructureHDBTableColumnModel scenarioId = model.getColumns().get(0);
     assertEquals("SCENARIO_ID", scenarioId.getName());
     assertEquals("VARCHAR", scenarioId.getType());
     assertEquals("32", scenarioId.getLength());
@@ -61,7 +62,7 @@ public class TableTypeParserTest extends AbstractDirigibleTest {
   @Test(expected = IllegalStateException.class)
   public void parse_WhenPKIsWrong_shouldThrowException()
       throws DataStructuresException, ArtifactParserException, IOException {
-    TableTypeParser parser = new TableTypeParser();
+    HDBTableTypeParser parser = new HDBTableTypeParser();
 
     String content = "table.schemaName = \"DBADMIN\";\n" +
         "table.columns = [\n" +
@@ -77,7 +78,7 @@ public class TableTypeParserTest extends AbstractDirigibleTest {
   @Test
   public void parse_WhenHanaXSAdvancedContent_ModelShouldBeSet() throws Exception {
     String content = "TYPE \"CUSTOMERS_STRUCTURE\" AS TABLE ( \"CATEGORY_ID\" INTEGER , \"NAME\" VARCHAR (255) , \"TYPES\" VARCHAR (220) NOT NULL PRIMARY KEY)";
-    HDBTableTypeDataStructureModel model = DataStructureModelFactory.parseTableType("/test.hdbstructure", content);
+    DataStructureHDBTableTypeModel model = DataStructureModelFactory.parseTableType("/test.hdbstructure", content);
     assertEquals(DBContentType.OTHERS, model.getDBContentType());
     assertEquals(content, model.getRawContent());
   }

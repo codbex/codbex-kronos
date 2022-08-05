@@ -11,9 +11,6 @@
  */
 package com.codbex.kronos.hdb.ds.processors.hdi;
 
-import static com.codbex.kronos.hdb.ds.util.Constants.RETURN_CODE_SUCCESS;
-import static com.codbex.kronos.hdb.ds.util.Constants.RETURN_CODE_WARNING;
-
 import com.codbex.kronos.hdb.ds.artefacts.CalculationViewSynchronizationArtefactType;
 import com.codbex.kronos.hdb.ds.artefacts.HDBProcedureSynchronizationArtefactType;
 import com.codbex.kronos.hdb.ds.artefacts.HDBSchemaSynchronizationArtefactType;
@@ -26,6 +23,10 @@ import com.codbex.kronos.hdb.ds.artefacts.HDBViewSynchronizationArtefactType;
 import com.codbex.kronos.hdb.ds.util.Constants;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
+
+import static com.codbex.kronos.hdb.ds.util.Constants.RETURN_CODE_SUCCESS;
+import static com.codbex.kronos.hdb.ds.util.Constants.RETURN_CODE_WARNING;
+
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

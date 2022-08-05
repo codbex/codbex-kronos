@@ -16,16 +16,18 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import com.codbex.kronos.parser.hdbview.core.HdbviewLexer;
-import com.codbex.kronos.parser.hdbview.core.HdbviewParser;
-import com.codbex.kronos.parser.hdbview.exceptions.HDBViewMissingPropertyException;
-import com.codbex.kronos.parser.hdbview.models.HDBViewDefinitionModel;
 import java.nio.charset.StandardCharsets;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.junit.Test;
+
+import com.codbex.kronos.parser.hdbview.core.HdbviewLexer;
+import com.codbex.kronos.parser.hdbview.core.HdbviewParser;
+import com.codbex.kronos.parser.hdbview.custom.HDBViewCoreListener;
+import com.codbex.kronos.parser.hdbview.exceptions.HDBViewMissingPropertyException;
+import com.codbex.kronos.parser.hdbview.models.HDBViewDefinitionModel;
 
 public class HDBViewCoreListenerTest {
 

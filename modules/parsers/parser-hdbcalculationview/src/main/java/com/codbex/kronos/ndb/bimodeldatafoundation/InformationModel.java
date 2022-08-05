@@ -19,13 +19,6 @@
 
 package com.codbex.kronos.ndb.bimodeldatafoundation;
 
-import com.codbex.kronos.ndb.basemodelbase.CacheInvalidationPeriod;
-import com.codbex.kronos.ndb.basemodelbase.PrivilegeType;
-import com.codbex.kronos.ndb.basemodelbase.SchemaMappingBasedObject;
-import com.codbex.kronos.ndb.bimodelcalculation.CalculationScenario;
-import com.codbex.kronos.ndb.bimodelcube.Cube;
-import com.codbex.kronos.ndb.bimodelvariable.LocalVariables;
-import com.codbex.kronos.ndb.bimodelvariable.VariableMappings;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -33,6 +26,14 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.codbex.kronos.ndb.basemodelbase.CacheInvalidationPeriod;
+import com.codbex.kronos.ndb.basemodelbase.PrivilegeType;
+import com.codbex.kronos.ndb.basemodelbase.SchemaMappingBasedObject;
+import com.codbex.kronos.ndb.bimodelcalculation.CalculationScenario;
+import com.codbex.kronos.ndb.bimodelcube.Cube;
+import com.codbex.kronos.ndb.bimodelvariable.LocalVariables;
+import com.codbex.kronos.ndb.bimodelvariable.VariableMappings;
 
 
 /**
