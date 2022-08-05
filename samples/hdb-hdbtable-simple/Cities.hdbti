@@ -6,7 +6,7 @@ import = [
 		useHeaderNames = false;
 		delimField = ",";
 		distinguishEmptyFromNull = true;
-		schema = "KRONOS_SAMPLES_HDB_HDBTABLE_SIMPLE";
+		schema = "SAMPLES_HDB_HDBTABLE_SIMPLE";
 	}
 ];
 

@@ -1,6 +1,6 @@
 {
     "configuration": "/hdi-cube/config.hdiconfig",
-    "users": ["KRONOS_SAMPLES_HDI_CUBE"],
+    "users": ["DBADMIN"],
     "group": "KRONOS_HDI_CUBE_GROUP",
     "container": "KRONOS_HDI_CUBE",
     "deploy": [

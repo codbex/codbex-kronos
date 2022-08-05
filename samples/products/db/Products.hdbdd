@@ -1,6 +1,6 @@
 namespace products.db;
 
-@Schema: 'KRONOS_SAMPLES_PRODUCTS'
+@Schema: 'SAMPLES_PRODUCTS'
 
 context Products {
    

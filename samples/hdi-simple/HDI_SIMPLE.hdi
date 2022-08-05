@@ -1,6 +1,6 @@
 {
     "configuration": "/hdi-simple/config.hdiconfig",
-    "users": ["KRONOS_SAMPLES_HDI_SIMPLE"],
+    "users": ["DBADMIN"],
     "group": "KRONOS_HDI_SIMPLE_GROUP",
     "container": "KRONOS_HDI_SIMPLE",
     "deploy": [

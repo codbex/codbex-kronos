@@ -69,55 +69,55 @@ function saveData(data){
         var conn = $.hdb.getConnection();
         for(var product of products){
             // ID taken from response - conflict on existing
-            var checkQuery = 'SELECT COUNT(*) AS "Amount" FROM "KRONOS_SAMPLES_PRODUCTS"."products.db::Products.Item" WHERE "Id" = \'' + product.Id + '\'';
+            var checkQuery = 'SELECT COUNT(*) AS "Amount" FROM "SAMPLES_PRODUCTS"."products.db::Products.Item" WHERE "Id" = \'' + product.Id + '\'';
             var exists = parseInt(conn.executeQuery(checkQuery)[0].Amount, 0) > 0;
             if(!exists){
                 $.trace.debug("Attempting to insert item with ID " + product.Id);
-                conn.executeUpdate('INSERT INTO "KRONOS_SAMPLES_PRODUCTS"."products.db::Products.Item" VALUES(?,?,?,?,?,?)', product.Id, product.Name, product.Type, product.Price, product.Currency, product.Comment);
+                conn.executeUpdate('INSERT INTO "SAMPLES_PRODUCTS"."products.db::Products.Item" VALUES(?,?,?,?,?,?)', product.Id, product.Name, product.Type, product.Price, product.Currency, product.Comment);
             }else{
                 $.trace.debug("Item with ID " + product.Id + " already exists");
             }
         }
         for(var address of shippingAddresses){
             // ID generated - check for existing
-            var checkQuery = 'SELECT COUNT(*) AS "Amount" FROM "KRONOS_SAMPLES_PRODUCTS"."products.db::Products.ShippingAddresses" WHERE "Country.Name" = \'' + address.Country + '\' AND "City" = \'' + address.City + '\' AND "PostalCode" = \'' + address.PostalCode + '\'';
+            var checkQuery = 'SELECT COUNT(*) AS "Amount" FROM "SAMPLES_PRODUCTS"."products.db::Products.ShippingAddresses" WHERE "Country.Name" = \'' + address.Country + '\' AND "City" = \'' + address.City + '\' AND "PostalCode" = \'' + address.PostalCode + '\'';
             var exists = parseInt(conn.executeQuery(checkQuery)[0].Amount, 0) > 0;
             if(!exists){
                 $.trace.debug("Attempting to insert shipping address with ID " + address.Id);
-                conn.executeUpdate('INSERT INTO "KRONOS_SAMPLES_PRODUCTS"."products.db::Products.ShippingAddresses" VALUES(?,?,?,?,?)', address.Id, 'unknown', address.Country, address.City, address.PostalCode);
+                conn.executeUpdate('INSERT INTO "SAMPLES_PRODUCTS"."products.db::Products.ShippingAddresses" VALUES(?,?,?,?,?)', address.Id, 'unknown', address.Country, address.City, address.PostalCode);
             }else{
                 $.trace.info("ShippingAddress for Country " + address.Country + " City " + address.City + " and PostalCode " + address.PostalCode + " already created");
             }
         }
         for(var customer of customers){
             // ID taken from response - conflict on existing
-            var checkQuery = 'SELECT COUNT(*) AS "Amount" FROM "KRONOS_SAMPLES_PRODUCTS"."products.db::Products.Customers" WHERE "Id" = \'' + customer.Id + '\'';
+            var checkQuery = 'SELECT COUNT(*) AS "Amount" FROM "SAMPLES_PRODUCTS"."products.db::Products.Customers" WHERE "Id" = \'' + customer.Id + '\'';
             var exists = parseInt(conn.executeQuery(checkQuery)[0].Amount, 0) > 0;
             if(!exists){
                 $.trace.debug("Attempting to insert customer with ID " + customer.Id);
-                conn.executeUpdate('INSERT INTO "KRONOS_SAMPLES_PRODUCTS"."products.db::Products.Customers" VALUES(?,?,?,?,?,?,?)', customer.Id, customer.Username, customer.FirstName, customer.LastName, customer.Phone, customer.Email, customer.ShippingAddressId);
+                conn.executeUpdate('INSERT INTO "SAMPLES_PRODUCTS"."products.db::Products.Customers" VALUES(?,?,?,?,?,?,?)', customer.Id, customer.Username, customer.FirstName, customer.LastName, customer.Phone, customer.Email, customer.ShippingAddressId);
             }else{
                 $.trace.debug("Customer with ID " + customer.Id + " already exists");
             }
         }
         for(var line of orderLines){
             // ID generated - check for existing
-            var checkQuery = 'SELECT COUNT(*) AS "Amount" FROM "KRONOS_SAMPLES_PRODUCTS"."products.db::Products.OrderLine" WHERE "OrderId" = \'' + line.OrderId + '\' AND "Item.Id" = \'' + line.ItemId + '\'';
+            var checkQuery = 'SELECT COUNT(*) AS "Amount" FROM "SAMPLES_PRODUCTS"."products.db::Products.OrderLine" WHERE "OrderId" = \'' + line.OrderId + '\' AND "Item.Id" = \'' + line.ItemId + '\'';
             var exists = parseInt(conn.executeQuery(checkQuery)[0].Amount, 0) > 0;
             if(!exists){
                 $.trace.debug("Attempting to insert order line with ID " + line.Id);
-                conn.executeUpdate('INSERT INTO "KRONOS_SAMPLES_PRODUCTS"."products.db::Products.OrderLine" VALUES(?,?,?,?)', line.Id, line.OrderId, line.ItemId, line.Quantity);
+                conn.executeUpdate('INSERT INTO "SAMPLES_PRODUCTS"."products.db::Products.OrderLine" VALUES(?,?,?,?)', line.Id, line.OrderId, line.ItemId, line.Quantity);
             }else{
                 $.trace.debug("OrderLine for Order " + line.OrderId + "and Item " + line.ItemId + " already exists");
             }
         }
         for(var order of orders){
             // ID taken from response - conflict on existing
-            var checkQuery = 'SELECT COUNT(*) AS "Amount" FROM "KRONOS_SAMPLES_PRODUCTS"."products.db::Products.Orders" WHERE "Id" = \'' + order.Id + '\'';
+            var checkQuery = 'SELECT COUNT(*) AS "Amount" FROM "SAMPLES_PRODUCTS"."products.db::Products.Orders" WHERE "Id" = \'' + order.Id + '\'';
             var exists = parseInt(conn.executeQuery(checkQuery)[0].Amount, 0) > 0;
             if(!exists){
                 $.trace.debug("Attempting to insert order with ID " + order.Id);
-                conn.executeUpdate('INSERT INTO "KRONOS_SAMPLES_PRODUCTS"."products.db::Products.Orders" VALUES(?,?,?,?,?,?)', order.Id, order.Status, order.CreatedAt, order.DeliveryDate, order.Description, order.CustomerId);
+                conn.executeUpdate('INSERT INTO "SAMPLES_PRODUCTS"."products.db::Products.Orders" VALUES(?,?,?,?,?,?)', order.Id, order.Status, order.CreatedAt, order.DeliveryDate, order.Description, order.CustomerId);
             }else{
                 $.trace.debug("Order with ID " + order.Id + " already exists");
             }

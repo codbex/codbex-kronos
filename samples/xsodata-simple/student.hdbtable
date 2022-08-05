@@ -1,4 +1,4 @@
-table.schemaName = "KRONOS_SAMPLES_XSODATA_SIMPLE";
+table.schemaName = "SAMPLES_XSODATA_SIMPLE";
 table.tableType = COLUMNSTORE; 
 table.columns = [
 	{name = "ID"; sqlType = INTEGER; nullable = false;},

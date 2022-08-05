@@ -1,6 +1,6 @@
 namespace hdb-hdbdd-simple.db;
 
-@Schema: 'KRONOS_SAMPLES_HDB_HDBDD_SIMPLE'
+@Schema: 'SAMPLES_HDB_HDBDD_SIMPLE'
 
 context CountryForHdbdd {
      entity Country {

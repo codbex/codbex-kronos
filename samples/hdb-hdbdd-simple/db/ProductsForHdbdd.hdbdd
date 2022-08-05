@@ -3,7 +3,7 @@ namespace hdb-hdbdd-simple.db;
 using hdb-hdbdd-simple.db::CountryForHdbdd as CountryContext;
 using hdb-hdbdd-simple.db::CustomTypes as CustomTypesContext;
 
-@Schema: 'KRONOS_SAMPLES_HDB_HDBDD_SIMPLE'
+@Schema: 'SAMPLES_HDB_HDBDD_SIMPLE'
 
 context ProductsForHdbdd {
    entity  Orders {

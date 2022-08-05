@@ -1,6 +1,6 @@
 import = [
 {
-	schema = "KRONOS_SAMPLES_PRODUCTS";
+	schema = "SAMPLES_PRODUCTS";
 	distinguishEmptyFromNull = true;
 	header = true;
 	table = "products.db::Products.Orders";
@@ -9,7 +9,7 @@ import = [
 	file = "products.data:Products_Orders.csv";
 }, 
 {
-	schema = "KRONOS_SAMPLES_PRODUCTS";
+	schema = "SAMPLES_PRODUCTS";
 	distinguishEmptyFromNull = true;
 	header = true;
 	table = "products.db::Products.Item";
@@ -18,7 +18,7 @@ import = [
 	file = "products.data:Products_Item.csv";
 }, 
 {
-	schema = "KRONOS_SAMPLES_PRODUCTS";
+	schema = "SAMPLES_PRODUCTS";
 	distinguishEmptyFromNull = true;
 	header = true;
 	table = "products.db::Products.Customers";
@@ -27,7 +27,7 @@ import = [
 	file = "products.data:Products_Customers.csv";
 }, 
 {
-	schema = "KRONOS_SAMPLES_PRODUCTS";
+	schema = "SAMPLES_PRODUCTS";
 	distinguishEmptyFromNull = true;
 	header = true;
 	table = "products.db::Products.ShippingAddresses";
@@ -36,7 +36,7 @@ import = [
 	file = "products.data:Products_ShippingAddresses.csv";
 },
 {
-	schema = "KRONOS_SAMPLES_PRODUCTS";
+	schema = "SAMPLES_PRODUCTS";
 	distinguishEmptyFromNull = true;
 	header = true;
 	table = "products.db::Products.OrderLine";

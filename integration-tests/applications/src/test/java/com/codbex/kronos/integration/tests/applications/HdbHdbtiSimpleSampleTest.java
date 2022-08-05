@@ -55,7 +55,7 @@ public class HDBHDBTISimpleSampleTest {
   private static HttpClientFactory httpClientFactory = new HttpClientFactory();
 
   private static final String APPLICATION_NAME = "hdb-hdbti-simple";
-  private static final String APPLICATION_SCHEMA = "KRONOS_SAMPLES_HDB_HDBTI_SIMPLE";
+  private static final String APPLICATION_SCHEMA = "SAMPLES_HDB_HDBTI_SIMPLE";
 
   private static final String ORDERS_TABLE = "hdb-hdbti-simple::Products.Orders";
 

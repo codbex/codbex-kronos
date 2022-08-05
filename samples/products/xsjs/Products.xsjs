@@ -26,7 +26,7 @@ function positiveResult(oResponse) {
  */
 function doPost() {
 	var request = JSON.parse($.request.body.asString());
-	var productsService = new ProductsService(connection, "KRONOS_SAMPLES_PRODUCTS");
+	var productsService = new ProductsService(connection, "SAMPLES_PRODUCTS");
 	var response = productsService.handlePostRequest(request);
 	connection.close();
 	positiveResult(response);
@@ -34,7 +34,7 @@ function doPost() {
 
 function doGet() {
 	var response;
-	var productsService = new ProductsService(connection, "KRONOS_SAMPLES_PRODUCTS");
+	var productsService = new ProductsService(connection, "SAMPLES_PRODUCTS");
 
 	try {
 		response = productsService.handleGetRequest();

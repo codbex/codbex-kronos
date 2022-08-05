@@ -1,4 +1,4 @@
-schema= "KRONOS_SAMPLES_PRODUCTS";
+schema= "SAMPLES_PRODUCTS";
 maxvalue = 10000000;
 nomaxvalue = false;
 minvalue= 1;
