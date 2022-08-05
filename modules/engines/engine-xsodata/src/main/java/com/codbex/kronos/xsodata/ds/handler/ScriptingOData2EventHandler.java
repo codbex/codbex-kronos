@@ -81,7 +81,7 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
   private static final String ENTRY_MAP = "entryMap";
 
   @Override
-  public void beforeCreateEntity(PostUriInfo uriInfo, String requestContentType, String contentType, ODataEntry entry,
+  public ODataResponse beforeCreateEntity(PostUriInfo uriInfo, String requestContentType, String contentType, ODataEntry entry,
       Map<Object, Object> context) {
     SQLInsertBuilder dummyBuilder = (SQLInsertBuilder) context.get(DUMMY_BUILDER);
     SQLInsertBuilder insertBuilder = (SQLInsertBuilder) context.get(INSERT_BUILDER);
@@ -100,7 +100,7 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
       context.put(CONNECTION, connectionParam);
       context.put(AFTER_TABLE_NAME, afterTableName);
 
-      super.beforeCreateEntity(uriInfo, requestContentType, contentType, entry, context);
+      return super.beforeCreateEntity(uriInfo, requestContentType, contentType, entry, context);
     } catch (ODataException | org.eclipse.dirigible.engine.odata2.api.ODataException | SQLException e) {
       throw new ScriptingOData2EventHandlerException(UNABLE_TO_HANDLE_BEFORE_CREATE_ENTITY_EVENT, e);
     } finally {
@@ -110,7 +110,7 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
   }
 
   @Override
-  public void afterCreateEntity(PostUriInfo uriInfo, String requestContentType, String contentType, ODataEntry entry,
+  public ODataResponse afterCreateEntity(PostUriInfo uriInfo, String requestContentType, String contentType, ODataEntry entry,
       Map<Object, Object> context) {
     SQLSelectBuilder selectBuilder = (SQLSelectBuilder) context.get(SELECT_BUILDER);
     SQLContext sqlContext = (SQLContext) context.get(SQL_CONTEXT);
@@ -130,7 +130,7 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
       context.put(CONNECTION, connectionParam);
       context.put(AFTER_TABLE_NAME, afterTableName);
 
-      super.afterCreateEntity(uriInfo, requestContentType, contentType, entry, context);
+      return super.afterCreateEntity(uriInfo, requestContentType, contentType, entry, context);
     } catch (ODataException | org.eclipse.dirigible.engine.odata2.api.ODataException | SQLException e) {
       throw new ScriptingOData2EventHandlerException(UNABLE_TO_HANDLE_AFTER_CREATE_ENTITY_EVENT, e);
     } finally {
@@ -171,7 +171,7 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
   }
 
   @Override
-  public void beforeUpdateEntity(PutMergePatchUriInfo uriInfo, String requestContentType, boolean merge, String contentType,
+  public ODataResponse beforeUpdateEntity(PutMergePatchUriInfo uriInfo, String requestContentType, boolean merge, String contentType,
       ODataEntry entry, Map<Object, Object> context) {
     SQLSelectBuilder selectBuilder = (SQLSelectBuilder) context.get(SELECT_BUILDER);
     SQLUpdateBuilder updateBuilder = (SQLUpdateBuilder) context.get(UPDATE_BUILDER);
@@ -195,7 +195,7 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
       context.put(AFTER_TABLE_NAME, afterTableName);
       context.put(BEFORE_UPDATE_ENTITY_TABLE_NAME, beforeUpdateEntityTableName);
 
-      super.beforeUpdateEntity(uriInfo, requestContentType, merge, contentType, entry, context);
+      return super.beforeUpdateEntity(uriInfo, requestContentType, merge, contentType, entry, context);
     } catch (ODataException | org.eclipse.dirigible.engine.odata2.api.ODataException | SQLException e) {
       throw new ScriptingOData2EventHandlerException(UNABLE_TO_HANDLE_BEFORE_UPDATE_ENTITY_EVENT, e);
     } finally {
@@ -206,7 +206,7 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
   }
 
   @Override
-  public void afterUpdateEntity(PutMergePatchUriInfo uriInfo, String requestContentType, boolean merge, String contentType,
+  public ODataResponse afterUpdateEntity(PutMergePatchUriInfo uriInfo, String requestContentType, boolean merge, String contentType,
       ODataEntry entry, Map<Object, Object> context) {
     SQLSelectBuilder selectBuilder = (SQLSelectBuilder) context.get(SELECT_BUILDER);
     SQLContext sqlContext = (SQLContext) context.get(SQL_CONTEXT);
@@ -222,7 +222,7 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
       context.put(BEFORE_TABLE_NAME, context.get(BEFORE_UPDATE_ENTITY_TABLE_NAME));
       context.put(AFTER_TABLE_NAME, afterTableName);
 
-      super.afterUpdateEntity(uriInfo, requestContentType, merge, contentType, entry, context);
+      return super.afterUpdateEntity(uriInfo, requestContentType, merge, contentType, entry, context);
     } catch (ODataException | org.eclipse.dirigible.engine.odata2.api.ODataException | SQLException e) {
       throw new ScriptingOData2EventHandlerException(UNABLE_TO_HANDLE_AFTER_UPDATE_ENTITY_EVENT, e);
     } finally {
@@ -265,7 +265,7 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
   }
 
   @Override
-  public void beforeDeleteEntity(DeleteUriInfo uriInfo, String contentType, Map<Object, Object> context) {
+  public ODataResponse beforeDeleteEntity(DeleteUriInfo uriInfo, String contentType, Map<Object, Object> context) {
     SQLSelectBuilder selectBuilder = (SQLSelectBuilder) context.get(SELECT_BUILDER);
     SQLContext sqlContext = (SQLContext) context.get(SQL_CONTEXT);
 
@@ -283,7 +283,7 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
       context.put(BEFORE_TABLE_NAME, beforeTableName);
       context.put(BEFORE_DELETE_ENTITY_TABLE_NAME, beforeDeleteEntityTableName);
 
-      super.beforeDeleteEntity(uriInfo, contentType, context);
+      return super.beforeDeleteEntity(uriInfo, contentType, context);
     } catch (ODataException | org.eclipse.dirigible.engine.odata2.api.ODataException | SQLException e) {
       throw new ScriptingOData2EventHandlerException(UNABLE_TO_HANDLE_BEFORE_DELETE_ENTITY_EVENT, e);
     } finally {
@@ -293,7 +293,7 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
   }
 
   @Override
-  public void afterDeleteEntity(DeleteUriInfo uriInfo, String contentType, Map<Object, Object> context) {
+  public ODataResponse afterDeleteEntity(DeleteUriInfo uriInfo, String contentType, Map<Object, Object> context) {
     Connection connectionParam = null;
     try {
       connectionParam = dataSource.getConnection();
@@ -301,7 +301,7 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
       context.put(CONNECTION, connectionParam);
       context.put(BEFORE_TABLE_NAME, context.get(BEFORE_DELETE_ENTITY_TABLE_NAME));
 
-      super.afterDeleteEntity(uriInfo, contentType, context);
+      return super.afterDeleteEntity(uriInfo, contentType, context);
     } catch (org.eclipse.dirigible.engine.odata2.api.ODataException | SQLException e) {
       throw new ScriptingOData2EventHandlerException(UNABLE_TO_HANDLE_AFTER_DELETE_ENTITY_EVENT, e);
     } finally {

@@ -110,19 +110,19 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
     String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_without_set_of_prop.xsodata"), StandardCharsets.UTF_8);
     ODataModel oDataModel = parser.parseODataArtifact("np/entity_without_set_of_prop.xsodata", content);
 
-    PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("COMPANY_ID", "Edm.Int32", false, true);
-    PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("EMPLOYEE_NUMBER", "Edm.Int32", false, true);
-    PersistenceTableColumnModel column9 = new PersistenceTableColumnModel("ORDER_ID", "Edm.Int32", false, true);
+    PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("COMPANY_ID", "Edm.Int32", false, true, 0, 0);
+    PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("EMPLOYEE_NUMBER", "Edm.Int32", false, true, 0, 0);
+    PersistenceTableColumnModel column9 = new PersistenceTableColumnModel("ORDER_ID", "Edm.Int32", false, true, 0, 0);
     column9.setNullable(true);
     PersistenceTableModel model = new PersistenceTableModel("kneo.test.helloodata.CompositeKey::employee",
         Arrays.asList(column1, column2, column9), new ArrayList<>());
     model.setTableType(ISqlKeywords.METADATA_TABLE);
     when(metadataProvider.getPersistenceTableModel("kneo.test.helloodata.CompositeKey::employee")).thenReturn(model);
 
-    PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("NUMBER", "Edm.Int32", false, true);
-    PersistenceTableColumnModel column4 = new PersistenceTableColumnModel("FK_COMPANY_ID", "Edm.Int32", true, false);
-    PersistenceTableColumnModel column5 = new PersistenceTableColumnModel("FK_EMPLOYEE_NUMBER", "Edm.Int32", true, false);
-    PersistenceTableColumnModel column6 = new PersistenceTableColumnModel("FK_ADDRESS_ID", "Edm.Int32", true, false);
+    PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("NUMBER", "Edm.Int32", false, true, 0, 0);
+    PersistenceTableColumnModel column4 = new PersistenceTableColumnModel("FK_COMPANY_ID", "Edm.Int32", true, false, 0, 0);
+    PersistenceTableColumnModel column5 = new PersistenceTableColumnModel("FK_EMPLOYEE_NUMBER", "Edm.Int32", true, false, 0, 0);
+    PersistenceTableColumnModel column6 = new PersistenceTableColumnModel("FK_ADDRESS_ID", "Edm.Int32", true, false, 0, 0);
     PersistenceTableRelationModel rel = new PersistenceTableRelationModel("kneo.test.helloodata.CompositeKey::phones",
         "kneo.test.helloodata.CompositeKey::employee", "FK_COMPANY_ID", "COMPANY_ID", "CONSTRAINT_8C", "CONSTRAINT_INDEX_4");
     PersistenceTableRelationModel rel2 = new PersistenceTableRelationModel("kneo.test.helloodata.CompositeKey::phones",
@@ -190,21 +190,21 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
     String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_set_of_prop.xsodata"), StandardCharsets.UTF_8);
     ODataModel oDataModel = parser.parseODataArtifact("np/entity_with_set_of_prop.xsodata", content);
 
-    PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("COMPANY_ID", "Edm.Int32", false, true);
-    PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("EMPLOYEE_NUMBER", "Edm.Int32", false, true);
-    PersistenceTableColumnModel column9 = new PersistenceTableColumnModel("ORDER_ID", "Edm.Int32", true, false);
+    PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("COMPANY_ID", "Edm.Int32", false, true, 0, 0);
+    PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("EMPLOYEE_NUMBER", "Edm.Int32", false, true, 0, 0);
+    PersistenceTableColumnModel column9 = new PersistenceTableColumnModel("ORDER_ID", "Edm.Int32", true, false, 0, 0);
     column9.setNullable(true);
-    PersistenceTableColumnModel column10 = new PersistenceTableColumnModel("ORDER_ID_2", "Edm.Int32", true, false);
+    PersistenceTableColumnModel column10 = new PersistenceTableColumnModel("ORDER_ID_2", "Edm.Int32", true, false, 0, 0);
     column10.setNullable(true);
     PersistenceTableModel model = new PersistenceTableModel("kneo.test.helloodata.CompositeKey::employee",
         Arrays.asList(column1, column2, column9, column10), new ArrayList<>());
     model.setTableType(ISqlKeywords.METADATA_TABLE);
     when(metadataProvider.getPersistenceTableModel("kneo.test.helloodata.CompositeKey::employee")).thenReturn(model);
 
-    PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("NUMBER", "Edm.Int32", false, true);
-    PersistenceTableColumnModel column4 = new PersistenceTableColumnModel("FK_COMPANY_ID", "Edm.Int32", true, false);
-    PersistenceTableColumnModel column5 = new PersistenceTableColumnModel("FK_EMPLOYEE_NUMBER", "Edm.Int32", true, false);
-    PersistenceTableColumnModel column6 = new PersistenceTableColumnModel("FK_ADDRESS_ID", "Edm.Int32", true, false);
+    PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("NUMBER", "Edm.Int32", false, true, 0, 0);
+    PersistenceTableColumnModel column4 = new PersistenceTableColumnModel("FK_COMPANY_ID", "Edm.Int32", true, false, 0, 0);
+    PersistenceTableColumnModel column5 = new PersistenceTableColumnModel("FK_EMPLOYEE_NUMBER", "Edm.Int32", true, false, 0, 0);
+    PersistenceTableColumnModel column6 = new PersistenceTableColumnModel("FK_ADDRESS_ID", "Edm.Int32", true, false, 0, 0);
     PersistenceTableRelationModel rel = new PersistenceTableRelationModel("kneo.test.helloodata.CompositeKey::phones",
         "kneo.test.helloodata.CompositeKey::employee", "FK_COMPANY_ID", "COMPANY_ID", "CONSTRAINT_8C", "CONSTRAINT_INDEX_4");
     PersistenceTableRelationModel rel2 = new PersistenceTableRelationModel("kneo.test.helloodata.CompositeKey::phones",
@@ -380,9 +380,9 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
     String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_calc_view.xsodata"), StandardCharsets.UTF_8);
     ODataModel oDataModel = parser.parseODataArtifact("np/entity_calc_view.xsodata", content);
 
-    PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("COLUMN1", "Edm.Int32", true, false);
-    PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("COLUMN2", "Edm.Int32", true, false);
-    PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("COLUMN3", "Edm.Int32", true, false);
+    PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("COLUMN1", "Edm.Int32", true, false, 0, 0);
+    PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("COLUMN2", "Edm.Int32", true, false, 0, 0);
+    PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("COLUMN3", "Edm.Int32", true, false, 0, 0);
     PersistenceTableModel model = new PersistenceTableModel("kneo.test.calcviews::calc", Arrays.asList(column1, column2, column3),
         new ArrayList<>());
     model.setTableType("CALC VIEW");
@@ -413,9 +413,9 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
 
     ODataModel oDataModel = parser.parseODataArtifact("np/entity_calc_view_with_input_parameters.xsodata", content);
 
-    PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("COLUMN1", "Edm.Int32", true, false);
-    PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("COLUMN2", "Edm.Int32", true, false);
-    PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("COLUMN3", "Edm.Int32", true, false);
+    PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("COLUMN1", "Edm.Int32", true, false, 0, 0);
+    PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("COLUMN2", "Edm.Int32", true, false, 0, 0);
+    PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("COLUMN3", "Edm.Int32", true, false, 0, 0);
     PersistenceTableModel model = new PersistenceTableModel("kneo.test.calcviews::calc", Arrays.asList(column1, column2, column3),
         new ArrayList<>());
     model.setTableType("CALC VIEW");
@@ -455,9 +455,9 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
       String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_synonym.xsodata"), StandardCharsets.UTF_8);
       ODataModel oDataModel = parser.parseODataArtifact("np/entity_synonym.xsodata", content);
 
-      PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("COLUMN1", "Edm.Int32", true, false);
-      PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("COLUMN2", "Edm.Int32", true, false);
-      PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("COLUMN3", "Edm.Int32", true, false);
+      PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("COLUMN1", "Edm.Int32", true, false, 0, 0);
+      PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("COLUMN2", "Edm.Int32", true, false, 0, 0);
+      PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("COLUMN3", "Edm.Int32", true, false, 0, 0);
 
       PersistenceTableModel calcViewModel = new PersistenceTableModel("kneo.test.calcviews::calc", Arrays.asList(column1, column2, column3),
           new ArrayList<>());
@@ -499,9 +499,9 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
     String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_aggregations_for_conversion.xsodata"), StandardCharsets.UTF_8);
     ODataModel oDataModel = parser.parseODataArtifact("np/entity_with_aggregations_for_conversion.xsodata", content);
 
-    PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("USER_ID", "Edm.Int32", false, true);
-    PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("USER_PAYMENT", "Edm.Int32", true, false);
-    PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("ROLE_NUMBER", "Edm.Int32", true, false);
+    PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("USER_ID", "Edm.Int32", false, true, 0, 0);
+    PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("USER_PAYMENT", "Edm.Int32", true, false, 0, 0);
+    PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("ROLE_NUMBER", "Edm.Int32", true, false, 0, 0);
     PersistenceTableModel model = new PersistenceTableModel("TEST_VIEW", Arrays.asList(column1, column2, column3),
         new ArrayList<>());
     model.setTableType("CALC VIEW");
