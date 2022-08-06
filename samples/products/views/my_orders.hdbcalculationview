@@ -13,27 +13,27 @@
   <attributes>
     <attribute id="CreatedAt" order="1" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="CreatedAt"/>
-      <keyMapping schemaName="KRONOS_SAMPLES_PRODUCTS" columnObjectName="products.db::Products.Orders" columnName="CreatedAt"/>
+      <keyMapping schemaName="SAMPLES_PRODUCTS" columnObjectName="products.db::Products.Orders" columnName="CreatedAt"/>
     </attribute>
     <attribute id="Customer_Id" order="2" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Customer_Id"/>
-      <keyMapping schemaName="KRONOS_SAMPLES_PRODUCTS" columnObjectName="products.db::Products.Orders" columnName="Customer.Id"/>
+      <keyMapping schemaName="SAMPLES_PRODUCTS" columnObjectName="products.db::Products.Orders" columnName="Customer.Id"/>
     </attribute>
     <attribute id="DeliveryDate" order="3" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="DeliveryDate"/>
-      <keyMapping schemaName="KRONOS_SAMPLES_PRODUCTS" columnObjectName="products.db::Products.Orders" columnName="DeliveryDate"/>
+      <keyMapping schemaName="SAMPLES_PRODUCTS" columnObjectName="products.db::Products.Orders" columnName="DeliveryDate"/>
     </attribute>
     <attribute id="Description" order="4" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Description"/>
-      <keyMapping schemaName="KRONOS_SAMPLES_PRODUCTS" columnObjectName="products.db::Products.Orders" columnName="Description"/>
+      <keyMapping schemaName="SAMPLES_PRODUCTS" columnObjectName="products.db::Products.Orders" columnName="Description"/>
     </attribute>
     <attribute id="Id" order="5" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Id"/>
-      <keyMapping schemaName="KRONOS_SAMPLES_PRODUCTS" columnObjectName="products.db::Products.Orders" columnName="Id"/>
+      <keyMapping schemaName="SAMPLES_PRODUCTS" columnObjectName="products.db::Products.Orders" columnName="Id"/>
     </attribute>
     <attribute id="Status" order="6" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Status"/>
-      <keyMapping schemaName="KRONOS_SAMPLES_PRODUCTS" columnObjectName="products.db::Products.Orders" columnName="Status"/>
+      <keyMapping schemaName="SAMPLES_PRODUCTS" columnObjectName="products.db::Products.Orders" columnName="Status"/>
     </attribute>
   </attributes>
   <calculatedAttributes/>

@@ -1,4 +1,4 @@
-table.schemaName = "KRONOS_SAMPLES_HDB_SYNONYM_SIMPLE";
+table.schemaName = "SAMPLES_HDB_SYNONYM_SIMPLE";
 table.tableType = COLUMNSTORE;
 table.columns = [
 	{name = "ID"; sqlType = INTEGER; nullable = false; },

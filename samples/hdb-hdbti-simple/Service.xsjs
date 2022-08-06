@@ -9,7 +9,7 @@ else if ($.request.queryPath === '/productsOrders') {
   try {
     connection = db.getConnection();
 
-    let resultSet = connection.executeQuery('SELECT * FROM "KRONOS_SAMPLES_HDB_HDBTI_SIMPLE"."hdb-hdbti-simple::Products.Orders"');
+    let resultSet = connection.executeQuery('SELECT * FROM "SAMPLES_HDB_HDBTI_SIMPLE"."hdb-hdbti-simple::Products.Orders"');
     let iterator = resultSet.getIterator();
     let result = [];
 

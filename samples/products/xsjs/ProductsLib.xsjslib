@@ -1,11 +1,11 @@
-var schema = "KRONOS_SAMPLES_PRODUCTS";
+var schema = "SAMPLES_PRODUCTS";
 var ORDERS_TABLE = "products.db::Products.Orders";
 var ORDER_LINES_TABLE = "products.db::Products.OrderLine";
 var CUSTOMERS_TABLE = "products.db::Products.Customers";
 var ITEMS_TABLE = "products.db::Products.Item";
 
 function getCustomerId(oConn) {
-	var customerIdResult = oConn.executeQuery('SELECT * FROM "KRONOS_SAMPLES_PRODUCTS"."products.db::Products.Customers" WHERE "Username" = SESSION_CONTEXT(APPLICATIONUSER)');
+	var customerIdResult = oConn.executeQuery('SELECT * FROM "SAMPLES_PRODUCTS"."products.db::Products.Customers" WHERE "Username" = SESSION_CONTEXT(APPLICATIONUSER)');
 	if (customerIdResult[0] !== undefined) {
 		return customerIdResult[0].Id;
 	}
@@ -13,7 +13,7 @@ function getCustomerId(oConn) {
 }
 
 function Products(connection, schema) {
-	schema = schema || "KRONOS_SAMPLES_PRODUCTS";
+	schema = schema || "SAMPLES_PRODUCTS";
 
 	/** Create a new UUID */
 	function createUUID() {
@@ -100,9 +100,9 @@ function Products(connection, schema) {
 function deleteOrder(paramObject) {
 	try {
 		var oConnection = paramObject.connection;
-		var deleteOrderLineQuery = 'delete from "KRONOS_SAMPLES_PRODUCTS"."products.db::Products.OrderLine" where "OrderId" = (select "Id" from "' + paramObject.beforeTableName +
+		var deleteOrderLineQuery = 'delete from "SAMPLES_PRODUCTS"."products.db::Products.OrderLine" where "OrderId" = (select "Id" from "' + paramObject.beforeTableName +
 			'")';
-		var deleteOrderQuery = 'delete from "KRONOS_SAMPLES_PRODUCTS"."products.db::Products.Orders" where "Id" = (select "Id" from "' + paramObject.beforeTableName + '")';
+		var deleteOrderQuery = 'delete from "SAMPLES_PRODUCTS"."products.db::Products.Orders" where "Id" = (select "Id" from "' + paramObject.beforeTableName + '")';
 
 		var pstmtOrderLine = oConnection.prepareStatement(deleteOrderLineQuery);
 		pstmtOrderLine.executeUpdate();

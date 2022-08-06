@@ -1,4 +1,4 @@
-table.schemaName = "KRONOS_SAMPLES_HDB_TABLEFUNCTION_SIMPLE";
+table.schemaName = "SAMPLES_HDB_TABLEFUNCTION_SIMPLE";
 table.tableType = COLUMNSTORE;
 table.columns = [    
     {
