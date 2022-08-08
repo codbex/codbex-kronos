@@ -1,0 +1,14 @@
+{
+    "test_app::usersProcedure": {
+        "target": {
+            "object": "test_app::usersProcedure",
+            "schema": "TEST_APP"
+        }
+    },
+    "test_app::usersTable": {
+        "target": {
+            "object": "test_app::usersTable",
+            "schema": "TEST_APP"
+        }
+    }
+}

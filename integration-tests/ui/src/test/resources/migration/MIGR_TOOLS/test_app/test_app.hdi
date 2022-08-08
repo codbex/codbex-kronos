@@ -1,0 +1,19 @@
+{
+    "configuration": "/test_app/test_app.hdiconfig",
+    "users": [
+        "DBADMIN"
+    ],
+    "group": "HDI_MIGR_TOOLS_TEST_APP",
+    "container": "HDI_MIGR_TOOLS_TEST_APP",
+    "deploy": [
+        "/test_app/test.hdbcalculationview",
+        "/test_app/usersAnalyticPrivilege.analyticprivilege",
+        "/test_app/usersHDBAnalyticPrivilege.hdbanalyticprivilege",
+        "/test_app/usersTableFunction.hdbtablefunction",
+        "/test_app/usersView.calculationview",
+        "/test_app/hdi-public-synonyms.hdbpublicsynonym",
+        "/test_app/hdi-synonyms.hdbsynonym",
+        "/test_app/usersTableFunction.hdbtablefunction"
+    ],
+    "undeploy": []
+}
