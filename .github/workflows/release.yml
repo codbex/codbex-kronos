@@ -22,9 +22,12 @@ jobs:
           distribution: 'jdkfile'
           jdkFile: ${{ runner.temp }}/sapmachine-jdk-17.tar.gz
           java-version: '17.0.2'
+          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
           architecture: x64
       - name: Set Kronos Version
         run: echo KRONOS_VERSION=${GITHUB_REF#refs/*/} | tr v " " | sed 's/ //'  >> $GITHUB_ENV
+      - name: Updates /.m2/settings.xml
+        run: echo '${{ secrets.MAVEN_M2_SETTINGS }}' > /home/runner/.m2/settings.xml
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
         with:
@@ -36,7 +39,7 @@ jobs:
       - name: Set Multi-Builder Docker Buildx
         run: docker buildx create --use --name multi-builder --platform linux/arm64,linux/amd64
       - name: Maven Build
-        run: mvn clean install
+        run: mvn clean install -Dmaven.javadoc.skip=false
       - name: Docker Login
         run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASSWORD}}
       - name: Push Kronos
@@ -150,6 +153,15 @@ jobs:
       #     docker tag ghcr.io/codbex/kronos-buildpacks-builder-cf ghcr.io/codbex/kronos-buildpacks-builder-cf:${{ env.KRONOS_VERSION }}
       #     docker push ghcr.io/codbex/kronos-buildpacks-builder-cf:${{ env.KRONOS_VERSION }}
       #     cd ../../../../
+
+
+      #---------------Publish to Maven Central-----------------#
+
+      - name: Publish packages to Maven Central
+        run: |
+          mvn javadoc:jar
+          mvn deploy -P release -DskipTests -Dgpg.passphrase=${{ secrets.MAVEN_GPG_PASS_PHRASE }}
+      #---------------Publish to Maven Central-----------------#
 
       #----------------Publish GitHub Release------------------#
 
