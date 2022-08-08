@@ -4,13 +4,13 @@
     <parent>
         <groupId>com.codbex.kronos</groupId>
         <artifactId>kronos-releng-parent</artifactId>
-        <version>0.1.0-SNAPSHOT</version>
+        <version>0.1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <name>Kronos - Releng - Kyma</name>
     <artifactId>kronos-releng-kyma-runtime</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <packaging>war</packaging>
 
     <build>

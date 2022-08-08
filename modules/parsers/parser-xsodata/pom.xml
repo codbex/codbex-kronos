@@ -5,13 +5,13 @@
     <parent>
         <groupId>com.codbex.kronos</groupId>
         <artifactId>kronos-modules-parsers-parent</artifactId>
-        <version>0.1.0-SNAPSHOT</version>
+        <version>0.1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <name>Kronos - Modules - Parsers - XS OData</name>
     <artifactId>kronos-modules-parsers-xsodata</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <packaging>jar</packaging>
 
     <build>
@@ -57,7 +57,7 @@
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>kronos-modules-parsers-commons</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
+            <version>0.1.0</version>
         </dependency>
     </dependencies>
 

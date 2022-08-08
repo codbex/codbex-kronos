@@ -5,13 +5,13 @@
     <parent>
         <groupId>com.codbex.kronos</groupId>
         <artifactId>kronos-releng-buildpacks-parent</artifactId>
-        <version>0.1.0-SNAPSHOT</version>
+        <version>0.1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <name>Kronos - Releng - Buildpacks - Cloud Foundry</name>
     <artifactId>kronos-releng-buildpacks-cf</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
 
     <build>
         <finalName>${project.artifactId}</finalName>
