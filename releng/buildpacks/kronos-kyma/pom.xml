@@ -5,13 +5,13 @@
     <parent>
         <groupId>com.codbex.kronos</groupId>
         <artifactId>kronos-releng-buildpacks-parent</artifactId>
-        <version>0.1.0</version>
+        <version>0.2.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <name>Kronos - Releng - Buildpacks - Kyma</name>
     <artifactId>kronos-releng-buildpacks-kyma</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0-SNAPSHOT</version>
 
     <build>
         <finalName>${project.artifactId}</finalName>
