@@ -18,7 +18,7 @@ exports.getResultSetValueByDataTypeAndRowNumber = function (resultSet, dataType,
         case "INTEGER":
             return resultSet.getInt(colNumber);
         case "BIGINT":
-            return resultSet.getLong(colNumber);
+            return new Int64(resultSet.getLong(colNumber));
         case "SMALLDECIMAL":
         case "DECIMAL":
             return resultSet.getBigDecimal(colNumber).toPlainString(); // convert to String as in HANA XSJS it is returned as String
@@ -145,4 +145,31 @@ function tryConvertNumberToBigDecimal(maybeNumber) {
         return BigDecimal.valueOf(maybeNumber);
     }
     return maybeNumber;
+}
+class Int64 {
+	constructor(value) {
+		let JavaInt64 = Java.type('com.codbex.kronos.api.int64.Int64');
+		this.internalInt64Value = new JavaInt64(value);
+	}
+
+	static lo(number) {
+		return Java.type('com.codbex.kronos.api.int64.Int64').getLow(number.internalInt64Value);
+	}
+
+	static hi(number) {
+		return Java.type('com.codbex.kronos.api.int64.Int64').getHi(number.internalInt64Value);
+	}
+
+	static compare(a, b) {
+		return Java.type('com.codbex.kronos.api.int64.Int64').compare(a.internalInt64Value, b.internalInt64Value)
+	}
+
+	static join(high, low) {
+		return this.internalInt64Value.join(high, low);
+	}
+
+	toString() {
+		return this.internalInt64Value.toString();
+	}
+
 }
