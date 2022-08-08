@@ -2,7 +2,7 @@
   <origin/>
   <descriptions defaultDescription="SalesOrdersCalculationView"/>
   <metadata changedAt="2021-02-02 15:24:42.005"/>
-  <defaultSchema schemaName="KRONOS_SAMPLES_HDI_CUBE"/>
+  <defaultSchema schemaName="SAMPLES_HDI_CUSTOMER"/>
   <localVariables/>
   <variableMappings/>
   <dataSources>

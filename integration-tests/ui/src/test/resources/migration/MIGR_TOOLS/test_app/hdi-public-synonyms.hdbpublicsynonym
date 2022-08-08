@@ -1,0 +1,20 @@
+{
+    "test_app::test": {
+        "target": {
+            "object": "test",
+            "schema": "HDI_MIGR_TOOLS_TEST_APP"
+        }
+    },
+    "test_app::usersTableFunction": {
+        "target": {
+            "object": "test_app::usersTableFunction",
+            "schema": "HDI_MIGR_TOOLS_TEST_APP"
+        }
+    },
+    "test_app::usersView": {
+        "target": {
+            "object": "usersView",
+            "schema": "HDI_MIGR_TOOLS_TEST_APP"
+        }
+    }
+}
