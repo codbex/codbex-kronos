@@ -29,9 +29,9 @@ import javax.xml.bind.annotation.XmlType;
  * Range definition for default values
  *
  *
- * <p>Java class for DefaultRange complex type.
+ * Java class for DefaultRange complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="DefaultRange"&gt;
@@ -49,8 +49,11 @@ import javax.xml.bind.annotation.XmlType;
 public class DefaultRange
     extends RangeValueFilter {
 
+  /** The low expression. */
   @XmlAttribute(name = "lowExpression")
   protected Boolean lowExpression;
+  
+  /** The high expression. */
   @XmlAttribute(name = "highExpression")
   protected Boolean highExpression;
 

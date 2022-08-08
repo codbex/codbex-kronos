@@ -16,6 +16,7 @@ package com.codbex.kronos.hdb.ds.model.hdbtable;
  */
 public class DataStructureHDBTableConstraintCheckModel extends DataStructureHDBTableConstraintModel {
 
+  /** The expression. */
   private String expression;
 
   /**

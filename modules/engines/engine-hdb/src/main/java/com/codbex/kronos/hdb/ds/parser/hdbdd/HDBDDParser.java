@@ -62,18 +62,43 @@ import org.eclipse.dirigible.repository.api.IResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class HDBDDParser.
+ */
 public class HDBDDParser implements DataStructureParser {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDBDDParser.class);
 
+  /** The hdbdd transformer. */
   private HdbddTransformer hdbddTransformer = new HdbddTransformer();
+  
+  /** The repository. */
   private IRepository repository = (IRepository) StaticObjects.get(StaticObjects.REPOSITORY);
+  
+  /** The symbol table. */
   private SymbolTable symbolTable = new SymbolTable();
+  
+  /** The dependency structure. */
   private Map<String, Set<String>> dependencyStructure = new HashMap<>();
+  
+  /** The parsed nodes. */
   private Set<String> parsedNodes = new HashSet<>();
+  
+  /** The entity artefact. */
   private HDBDDEntitySynchronizationArtefactType ENTITY_ARTEFACT = new HDBDDEntitySynchronizationArtefactType();
+  
+  /** The data structures synchronizer. */
   private DataStructuresSynchronizer dataStructuresSynchronizer = new DataStructuresSynchronizer();
 
+  /**
+   * Parses the.
+   *
+   * @param parametersModel the parameters model
+   * @return the data structure model
+   * @throws DataStructuresException the data structures exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   @Override
   public DataStructureModel parse(DataStructureParametersModel parametersModel) throws DataStructuresException, IOException {
     for (String fileLocation : this.getFilesToProcess(parametersModel.getLocation())) {
@@ -105,6 +130,14 @@ public class HDBDDParser implements DataStructureParser {
   }
 
 
+  /**
+   * Parses the hdbdd.
+   *
+   * @param location the location
+   * @param content the content
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws ArtifactParserException the artifact parser exception
+   */
   private void parseHdbdd(String location, String content) throws IOException, ArtifactParserException {
     ByteArrayInputStream is = new ByteArrayInputStream(content.getBytes());
     ANTLRInputStream inputStream = new ANTLRInputStream(is);
@@ -186,6 +219,12 @@ public class HDBDDParser implements DataStructureParser {
     }
   }
 
+  /**
+   * Adds the file to dependency tree.
+   *
+   * @param nodeFile the node file
+   * @param rootFile the root file
+   */
   private void addFileToDependencyTree(String nodeFile, String rootFile) {
     Set<String> rootFiles = dependencyStructure.get(nodeFile);
     if (rootFiles == null) {
@@ -196,16 +235,32 @@ public class HDBDDParser implements DataStructureParser {
     this.dependencyStructure.put(nodeFile, rootFiles);
   }
 
+  /**
+   * Gets the type.
+   *
+   * @return the type
+   */
   @Override
   public String getType() {
     return IDataStructureModel.TYPE_HDBDD;
   }
 
+  /**
+   * Gets the data structure class.
+   *
+   * @return the data structure class
+   */
   @Override
   public Class getDataStructureClass() {
     return DataStructureCdsModel.class;
   }
 
+  /**
+   * Gets the files to process.
+   *
+   * @param fileLocation the file location
+   * @return the files to process
+   */
   private List<String> getFilesToProcess(String fileLocation) {
     List<String> rootFiles = new ArrayList<>();
     getRootFiles(fileLocation, rootFiles);
@@ -213,6 +268,13 @@ public class HDBDDParser implements DataStructureParser {
     return rootFiles;
   }
 
+  /**
+   * Gets the root files.
+   *
+   * @param usedFileName the used file name
+   * @param rootFiles the root files
+   * @return the root files
+   */
   private void getRootFiles(String usedFileName, List<String> rootFiles) {
     Set<String> userFiles = dependencyStructure.get(usedFileName);
     if (userFiles == null) {
@@ -225,6 +287,13 @@ public class HDBDDParser implements DataStructureParser {
     });
   }
 
+  /**
+   * Populate data structure cds model.
+   *
+   * @param location the location
+   * @param content the content
+   * @return the data structure cds model
+   */
   private DataStructureCdsModel populateDataStructureCdsModel(String location, String content) {
     DataStructureCdsModel cdsModel = getCdsModelBaseData(location, content);
     getCdsModelWithParsedData(cdsModel);
@@ -232,6 +301,13 @@ public class HDBDDParser implements DataStructureParser {
     return cdsModel;
   }
 
+  /**
+   * Gets the cds model base data.
+   *
+   * @param location the location
+   * @param content the content
+   * @return the cds model base data
+   */
   private DataStructureCdsModel getCdsModelBaseData(String location, String content) {
     DataStructureCdsModel cdsModel = new DataStructureCdsModel();
     cdsModel.setName(location);
@@ -245,6 +321,12 @@ public class HDBDDParser implements DataStructureParser {
     return cdsModel;
   }
 
+  /**
+   * Gets the cds model with parsed data.
+   *
+   * @param cdsModel the cds model
+   * @return the cds model with parsed data
+   */
   private void getCdsModelWithParsedData(DataStructureCdsModel cdsModel) {
     List<EntitySymbol> parsedEntities = this.symbolTable.getSortedEntities();
     List<ViewSymbol> parsedViews = this.symbolTable.getSortedViews();
@@ -276,6 +358,12 @@ public class HDBDDParser implements DataStructureParser {
     cdsModel.setViewModels(viewModels);
   }
 
+  /**
+   * Gets the file location.
+   *
+   * @param fullPackagePath the full package path
+   * @return the file location
+   */
   private String getFileLocation(String fullPackagePath) {
     String[] splitPackagePath = fullPackagePath.split("::");
     String directory = splitPackagePath[0];
@@ -287,6 +375,13 @@ public class HDBDDParser implements DataStructureParser {
     return Constants.UNIX_SEPARATOR + fileLocation;
   }
 
+  /**
+   * Synchronize node metadata from root.
+   *
+   * @param location the location
+   * @param content the content
+   * @throws DataStructuresException the data structures exception
+   */
   private void synchronizeNodeMetadataFromRoot(String location, String content) throws DataStructuresException {
     DataStructureCdsModel nodeCdsModel = getCdsModelBaseData(location, content);
     HDBModule.getManagerServices().get(getType()).synchronizeParsedByRootMetadata(nodeCdsModel);

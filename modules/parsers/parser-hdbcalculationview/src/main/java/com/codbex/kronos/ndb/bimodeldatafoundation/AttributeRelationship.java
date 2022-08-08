@@ -28,9 +28,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**
- * <p>Java class for AttributeRelationship complex type.
+ * Java class for AttributeRelationship complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="AttributeRelationship"&gt;
@@ -47,9 +47,12 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "AttributeRelationship")
 public class AttributeRelationship {
 
+  /** The parent attribute. */
   @XmlAttribute(name = "parentAttribute", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String parentAttribute;
+  
+  /** The type. */
   @XmlAttribute(name = "type")
   protected AttributeRelationshipType type;
 

@@ -32,9 +32,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * For defining a variable
  *
  *
- * <p>Java class for EdgeVariable complex type.
+ * Java class for EdgeVariable complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="EdgeVariable"&gt;
@@ -55,9 +55,12 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class EdgeVariable
     extends Variable {
 
+  /** The source variable. */
   @XmlAttribute(name = "sourceVariable", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String sourceVariable;
+  
+  /** The target variable. */
   @XmlAttribute(name = "targetVariable", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String targetVariable;

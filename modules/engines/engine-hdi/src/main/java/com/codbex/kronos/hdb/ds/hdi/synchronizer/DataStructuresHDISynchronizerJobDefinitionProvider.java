@@ -21,10 +21,20 @@ import org.eclipse.dirigible.core.scheduler.service.definition.JobDefinition;
  */
 public class DataStructuresHDISynchronizerJobDefinitionProvider implements IJobDefinitionProvider {
 
+  /** The Constant DATA_STRUCTURES_HDI_SYNCHRONIZER_JOB. */
   static final String DATA_STRUCTURES_HDI_SYNCHRONIZER_JOB = "Kronos Data Structures HDI Synchronizer Job";
+  
+  /** The Constant KRONOS_JOB_EXPRESSION_DATA_HDI_STRUCTURE. */
   private static final String KRONOS_JOB_EXPRESSION_DATA_HDI_STRUCTURE = "KRONOS_JOB_EXPRESSION_DATA_STRUCTURE_HDI";
+  
+  /** The Constant KRONOS_DATA_STRUCTURES_HDI_SYNCHRONIZER_JOB. */
   private static final String KRONOS_DATA_STRUCTURES_HDI_SYNCHRONIZER_JOB = "kronos-data-structures-hdi-synchronizer-job";
 
+  /**
+   * Gets the job definition.
+   *
+   * @return the job definition
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.core.scheduler.api.IJobDefinitionProvider#getJobDefinition()

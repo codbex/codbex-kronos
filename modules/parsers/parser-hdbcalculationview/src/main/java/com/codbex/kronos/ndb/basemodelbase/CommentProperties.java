@@ -29,9 +29,9 @@ import javax.xml.bind.annotation.XmlType;
  * Comment properties like the mime type and the comment text
  *
  *
- * <p>Java class for CommentProperties complex type.
+ * Java class for CommentProperties complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="CommentProperties"&gt;
@@ -48,8 +48,11 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "CommentProperties")
 public class CommentProperties {
 
+  /** The text. */
   @XmlAttribute(name = "text", required = true)
   protected String text;
+  
+  /** The mimetype. */
   @XmlAttribute(name = "mimetype")
   protected Mimetype mimetype;
 

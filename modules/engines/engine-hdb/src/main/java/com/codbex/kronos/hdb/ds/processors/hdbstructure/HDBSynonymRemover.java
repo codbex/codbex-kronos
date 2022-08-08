@@ -18,14 +18,31 @@ import com.codbex.kronos.utils.HDBUtils;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * The Class HDBSynonymRemover.
+ */
 public class HDBSynonymRemover {
 
+  /** The synonym manager service. */
   private final IDataStructureManager synonymManagerService;
 
+  /**
+   * Instantiates a new HDB synonym remover.
+   *
+   * @param synonymManagerService the synonym manager service
+   */
   public HDBSynonymRemover(SynonymManagerService synonymManagerService) {
     this.synonymManagerService = synonymManagerService;
   }
 
+  /**
+   * Removes the public synonym.
+   *
+   * @param connection the connection
+   * @param targetObjectSchema the target object schema
+   * @param targetObjectName the target object name
+   * @throws SQLException the SQL exception
+   */
   public void removePublicSynonym(Connection connection, String targetObjectSchema, String targetObjectName) throws SQLException {
     HDBUtils.dropPublicSynonymForArtifact(synonymManagerService, targetObjectSchema, targetObjectName,
         connection);

@@ -29,11 +29,25 @@ import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.utils.Constants;
 
+/**
+ * The Class HDBTableFunctionDropProcessor.
+ */
 public class HDBTableFunctionDropProcessor extends AbstractHDBProcessor<DataStructureHDBTableFunctionModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDBTableFunctionDropProcessor.class);
+  
+  /** The Constant TABLE_FUNCTION_ARTEFACT. */
   private static final HDBTableFunctionSynchronizationArtefactType TABLE_FUNCTION_ARTEFACT = new HDBTableFunctionSynchronizationArtefactType();
 
+  /**
+   * Execute.
+   *
+   * @param connection the connection
+   * @param hdbTableFunction the hdb table function
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   public boolean execute(Connection connection, DataStructureHDBTableFunctionModel hdbTableFunction)
       throws SQLException {
     logger.info("Processing Drop TableFunction: " + hdbTableFunction.getName());

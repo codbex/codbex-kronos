@@ -14,8 +14,18 @@ package com.codbex.kronos.hdb.ds.processors.hdi;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * The Class CreateContainerGroupProcessor.
+ */
 public class CreateContainerGroupProcessor extends HDIAbstractProcessor {
 
+  /**
+   * Execute.
+   *
+   * @param connection the connection
+   * @param group the group
+   * @throws SQLException the SQL exception
+   */
   public final void execute(Connection connection, String group) throws SQLException {
     executeQuery(connection, "CALL _SYS_DI.CREATE_CONTAINER_GROUP(?, _SYS_DI.T_NO_PARAMETERS, ?, ?, ?);", group);
   }

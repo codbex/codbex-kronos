@@ -26,9 +26,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for RectangleSize complex type.
+ * Java class for RectangleSize complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="RectangleSize"&gt;
@@ -45,13 +45,18 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "RectangleSize")
 public class RectangleSize {
 
+  /** The width. */
   @XmlAttribute(name = "width", required = true)
   protected int width;
+  
+  /** The height. */
   @XmlAttribute(name = "height", required = true)
   protected int height;
 
   /**
    * Gets the value of the width property.
+   *
+   * @return the width
    */
   public int getWidth() {
     return width;
@@ -59,6 +64,8 @@ public class RectangleSize {
 
   /**
    * Sets the value of the width property.
+   *
+   * @param value the new width
    */
   public void setWidth(int value) {
     this.width = value;
@@ -66,6 +73,8 @@ public class RectangleSize {
 
   /**
    * Gets the value of the height property.
+   *
+   * @return the height
    */
   public int getHeight() {
     return height;
@@ -73,6 +82,8 @@ public class RectangleSize {
 
   /**
    * Sets the value of the height property.
+   *
+   * @param value the new height
    */
   public void setHeight(int value) {
     this.height = value;

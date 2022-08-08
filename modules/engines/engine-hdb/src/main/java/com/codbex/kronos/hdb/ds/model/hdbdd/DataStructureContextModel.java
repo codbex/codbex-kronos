@@ -21,10 +21,13 @@ import java.util.Map;
  */
 public class DataStructureContextModel {
 
+  /** The name. */
   private String name;
 
+  /** The types. */
   private Map<String, DataStructureTypeDefinitionModel> types = new HashMap<String, DataStructureTypeDefinitionModel>();
 
+  /** The entities. */
   private List<DataStructureEntityModel> entities = new ArrayList<DataStructureEntityModel>();
 
 

@@ -41,9 +41,9 @@ import com.codbex.kronos.ndb.searchmodelsearch.SearchableElementProperties;
  * via a formula in the expression	language
  *
  *
- * <p>Java class for AbstractAttribute complex type.
+ * Java class for AbstractAttribute complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="AbstractAttribute"&gt;
@@ -76,41 +76,58 @@ import com.codbex.kronos.ndb.searchmodelsearch.SearchableElementProperties;
 public abstract class AbstractAttribute
     extends LogicalColumn {
 
+  /** The attribute relationship. */
   protected List<AttributeRelationship> attributeRelationship;
+  
+  /** The search properties. */
   protected SearchableElementProperties searchProperties;
+  
+  /** The display attribute. */
   @XmlAttribute(name = "displayAttribute")
   protected Boolean displayAttribute;
+  
+  /** The attribute hierarchy active. */
   @XmlAttribute(name = "attributeHierarchyActive")
   protected Boolean attributeHierarchyActive;
+  
+  /** The attribute hierarchy default member. */
   @XmlAttribute(name = "attributeHierarchyDefaultMember")
   protected String attributeHierarchyDefaultMember;
+  
+  /** The currency. */
   @XmlAttribute(name = "currency")
   protected Boolean currency;
+  
+  /** The unit of measure. */
   @XmlAttribute(name = "unitOfMeasure")
   protected Boolean unitOfMeasure;
+  
+  /** The description column name. */
   @XmlAttribute(name = "descriptionColumnName")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String descriptionColumnName;
 
   /**
    * Gets the value of the attributeRelationship property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the attributeRelationship property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getAttributeRelationship().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link AttributeRelationship }
+   *
+   * @return the attribute relationship
    */
   public List<AttributeRelationship> getAttributeRelationship() {
     if (attributeRelationship == null) {

@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for TemporalCondition.
+ * Java class for TemporalCondition.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="TemporalCondition"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -43,15 +43,33 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum TemporalCondition {
 
+  /** The include to exclude from. */
   INCLUDE_TO_EXCLUDE_FROM,
+  
+  /** The exclude to include from. */
   EXCLUDE_TO_INCLUDE_FROM,
+  
+  /** The exclude both. */
   EXCLUDE_BOTH,
+  
+  /** The include both. */
   INCLUDE_BOTH;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the temporal condition
+   */
   public static TemporalCondition fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

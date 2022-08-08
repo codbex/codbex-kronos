@@ -43,17 +43,39 @@ import org.eclipse.dirigible.databases.helpers.DatabaseMetadataHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class TableAlterHandler.
+ */
 public class TableAlterHandler {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(TableAlterHandler.class);
+  
+  /** The Constant INCOMPATIBLE_CHANGE_OF_TABLE. */
   private static final String INCOMPATIBLE_CHANGE_OF_TABLE = "Incompatible change of table [%s] by adding a column [%s] which is [%s]"; //$NON-NLS-1$
+  
+  /** The Constant TABLE_ARTEFACT. */
   private static final HDBTableSynchronizationArtefactType TABLE_ARTEFACT = new HDBTableSynchronizationArtefactType();
+  
+  /** The Constant dataStructuresSynchronizer. */
   private static final DataStructuresSynchronizer dataStructuresSynchronizer = new DataStructuresSynchronizer();
 
+  /** The table model. */
   DataStructureHDBTableModel tableModel;
+  
+  /** The db column types. */
   private Map<String, String> dbColumnTypes;
+  
+  /** The model column names. */
   private List<String> modelColumnNames;
 
+  /**
+   * Instantiates a new table alter handler.
+   *
+   * @param connection the connection
+   * @param tableModel the table model
+   * @throws SQLException the SQL exception
+   */
   public TableAlterHandler(Connection connection, DataStructureHDBTableModel tableModel) throws SQLException {
     this.dbColumnTypes = new HashMap<>();
 
@@ -69,6 +91,12 @@ public class TableAlterHandler {
     this.tableModel = tableModel;
   }
 
+  /**
+   * Adds the columns.
+   *
+   * @param connection the connection
+   * @throws SQLException the SQL exception
+   */
   public void addColumns(Connection connection) throws SQLException {
     String tableName = HDBUtils.escapeArtifactName(this.tableModel.getName(), this.tableModel.getSchema());
 
@@ -133,6 +161,12 @@ public class TableAlterHandler {
     }
   }
 
+  /**
+   * Removes the columns.
+   *
+   * @param connection the connection
+   * @throws SQLException the SQL exception
+   */
   public void removeColumns(Connection connection) throws SQLException {
     boolean caseSensitive = Boolean.parseBoolean(Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"));
     for (String columnName : this.dbColumnTypes.keySet()) {
@@ -148,6 +182,12 @@ public class TableAlterHandler {
     }
   }
 
+  /**
+   * Update columns.
+   *
+   * @param connection the connection
+   * @throws SQLException the SQL exception
+   */
   public void updateColumns(Connection connection) throws SQLException {
     String tableName = HDBUtils.escapeArtifactName(this.tableModel.getName(), this.tableModel.getSchema());
     List<DataStructureHDBTableColumnModel> columns = this.getColumnsToUpdate();
@@ -192,6 +232,12 @@ public class TableAlterHandler {
     }
   }
 
+  /**
+   * Rebuild indeces.
+   *
+   * @param connection the connection
+   * @throws SQLException the SQL exception
+   */
   public void rebuildIndeces(Connection connection) throws SQLException {
     String tableName = HDBUtils.escapeArtifactName(this.tableModel.getName(), this.tableModel.getSchema());
     AlterTableBuilder alterTableBuilder = SqlFactory.getNative(connection).alter().table(tableName);
@@ -211,6 +257,12 @@ public class TableAlterHandler {
     executeAlterBuilder(connection, alterTableBuilder);
   }
 
+  /**
+   * Ensure primary key is unchanged.
+   *
+   * @param connection the connection
+   * @throws SQLException the SQL exception
+   */
   public void ensurePrimaryKeyIsUnchanged(Connection connection) throws SQLException {
     DatabaseMetaData dmd = connection.getMetaData();
     ResultSet rsPrimaryKeys = dmd.getPrimaryKeys(null, null, this.tableModel.getName());
@@ -233,6 +285,11 @@ public class TableAlterHandler {
     }
   }
 
+  /**
+   * Gets the columns to update.
+   *
+   * @return the columns to update
+   */
   private List<DataStructureHDBTableColumnModel> getColumnsToUpdate() {
     Set<String> dbColumnNames = this.dbColumnTypes.keySet();
     Set<String> columnsToUpdate = new HashSet<String>(dbColumnNames);
@@ -242,6 +299,15 @@ public class TableAlterHandler {
         .collect(Collectors.toList());
   }
 
+  /**
+   * Drop existing index.
+   *
+   * @param connection the connection
+   * @param stmt the stmt
+   * @param droppedIndices the dropped indices
+   * @param rsIndeces the rs indeces
+   * @throws SQLException the SQL exception
+   */
   private void dropExistingIndex(Connection connection, Statement stmt, Set<String> droppedIndices, ResultSet rsIndeces)
       throws SQLException {
     if (!droppedIndices.contains(rsIndeces.getString("INDEX_NAME"))) {
@@ -255,6 +321,13 @@ public class TableAlterHandler {
     }
   }
 
+  /**
+   * Execute alter builder.
+   *
+   * @param connection the connection
+   * @param alterTableBuilder the alter table builder
+   * @throws SQLException the SQL exception
+   */
   private void executeAlterBuilder(Connection connection, AlterTableBuilder alterTableBuilder)
       throws SQLException {
     final String multiSQL = alterTableBuilder.build();

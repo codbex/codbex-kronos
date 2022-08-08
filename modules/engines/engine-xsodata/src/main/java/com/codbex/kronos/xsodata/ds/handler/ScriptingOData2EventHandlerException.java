@@ -16,6 +16,7 @@ package com.codbex.kronos.xsodata.ds.handler;
  */
 public class ScriptingOData2EventHandlerException extends RuntimeException {
 
+  /** The Constant serialVersionUID. */
   private static final long serialVersionUID = 1560571830962118349L;
 
   /**

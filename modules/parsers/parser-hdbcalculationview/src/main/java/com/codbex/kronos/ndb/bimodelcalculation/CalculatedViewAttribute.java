@@ -34,9 +34,9 @@ import com.codbex.kronos.ndb.datamodeltype.ExpressionLanguage;
  * the calculation is always done after the aggregation
  *
  *
- * <p>Java class for CalculatedViewAttribute complex type.
+ * Java class for CalculatedViewAttribute complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="CalculatedViewAttribute"&gt;
@@ -60,9 +60,14 @@ import com.codbex.kronos.ndb.datamodeltype.ExpressionLanguage;
 public class CalculatedViewAttribute
     extends ViewAttribute {
 
+  /** The formula. */
   @XmlElement(required = true)
   protected String formula;
+  
+  /** The comment. */
   protected CommentProperties comment;
+  
+  /** The expression language. */
   @XmlAttribute(name = "expressionLanguage")
   protected ExpressionLanguage expressionLanguage;
 

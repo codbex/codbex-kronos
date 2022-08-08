@@ -18,13 +18,28 @@ import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * The Class XSJSLibSynchronizerDBCleaner.
+ */
 public class XSJSLibSynchronizerDBCleaner implements XSJSLibSynchronizerCleaner {
+  
+  /** The data source. */
   private final DataSource dataSource;
 
+  /**
+   * Instantiates a new XSJS lib synchronizer DB cleaner.
+   *
+   * @param dataSource the data source
+   */
   public XSJSLibSynchronizerDBCleaner(DataSource dataSource) {
     this.dataSource = dataSource;
   }
 
+  /**
+   * Cleanup.
+   *
+   * @param registryPath the registry path
+   */
   public void cleanup(String registryPath) {
     try (PreparedStatement deleteStatement =
         dataSource.getConnection().prepareStatement(

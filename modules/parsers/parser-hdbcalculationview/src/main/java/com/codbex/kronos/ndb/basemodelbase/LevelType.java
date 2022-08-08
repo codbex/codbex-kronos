@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for LevelType.
+ * Java class for LevelType.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="LevelType"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -54,26 +54,66 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum LevelType {
 
+  /** The mdlevel type regular. */
   MDLEVEL_TYPE_REGULAR,
+  
+  /** The mdlevel type all. */
   MDLEVEL_TYPE_ALL,
+  
+  /** The mdlevel type calculated. */
   MDLEVEL_TYPE_CALCULATED,
+  
+  /** The mdlevel type time. */
   MDLEVEL_TYPE_TIME,
+  
+  /** The mdlevel type time years. */
   MDLEVEL_TYPE_TIME_YEARS,
+  
+  /** The mdlevel type time half year. */
   MDLEVEL_TYPE_TIME_HALF_YEAR,
+  
+  /** The mdlevel type time quarters. */
   MDLEVEL_TYPE_TIME_QUARTERS,
+  
+  /** The mdlevel type time months. */
   MDLEVEL_TYPE_TIME_MONTHS,
+  
+  /** The mdlevel type time weeks. */
   MDLEVEL_TYPE_TIME_WEEKS,
+  
+  /** The mdlevel type time days. */
   MDLEVEL_TYPE_TIME_DAYS,
+  
+  /** The mdlevel type time hours. */
   MDLEVEL_TYPE_TIME_HOURS,
+  
+  /** The mdlevel type time minutes. */
   MDLEVEL_TYPE_TIME_MINUTES,
+  
+  /** The mdlevel type time seconds. */
   MDLEVEL_TYPE_TIME_SECONDS,
+  
+  /** The mdlevel type time undefined. */
   MDLEVEL_TYPE_TIME_UNDEFINED,
+  
+  /** The mdlevel type unknown. */
   MDLEVEL_TYPE_UNKNOWN;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the level type
+   */
   public static LevelType fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

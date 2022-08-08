@@ -16,10 +16,13 @@ package com.codbex.kronos.hdb.ds.model.hdbtable;
  */
 public class DataStructureHDBTableConstraintForeignKeyModel extends DataStructureHDBTableConstraintModel {
 
+  /** The referenced table. */
   private String referencedTable;
 
+  /** The referenced columns. */
   private String[] referencedColumns;
 
+  /** The referenced table schema. */
   private String referencedTableSchema;
 
   /**

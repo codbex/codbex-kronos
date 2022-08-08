@@ -13,8 +13,17 @@ package com.codbex.kronos.hdb.ds.artefacts;
 
 import org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizationArtefactType;
 
+/**
+ * The Class HDBScalarFunctionSynchronizationArtefactType.
+ */
 public class HDBScalarFunctionSynchronizationArtefactType extends AbstractSynchronizationArtefactType {
 
+  /**
+   * Gets the artefact state message.
+   *
+   * @param state the state
+   * @return the artefact state message
+   */
   @Override
   protected String getArtefactStateMessage(ArtefactState state) {
     switch (state) {
@@ -35,6 +44,11 @@ public class HDBScalarFunctionSynchronizationArtefactType extends AbstractSynchr
     }
   }
 
+  /**
+   * Gets the id.
+   *
+   * @return the id
+   */
   @Override
   public String getId() {
     return "HDBScalarFunction";

@@ -13,13 +13,25 @@ package com.codbex.kronos.parser.hana.core.models;
 
 import com.codbex.kronos.parser.hana.core.exceptions.TableFunctionMissingPropertyException;
 
+/**
+ * The Class TableFunctionDefinitionModel.
+ */
 public class TableFunctionDefinitionModel extends DefinitionModel {
 
 
+    /**
+     * Instantiates a new table function definition model.
+     *
+     * @param schema the schema
+     * @param name the name
+     */
     public TableFunctionDefinitionModel(String schema, String name) {
         super(schema, name);
     }
 
+    /**
+     * Check for all mandatory fields presence.
+     */
     public void checkForAllMandatoryFieldsPresence() {
         if (this.getName() == null) {
             throw new TableFunctionMissingPropertyException("Missing mandatory field name");

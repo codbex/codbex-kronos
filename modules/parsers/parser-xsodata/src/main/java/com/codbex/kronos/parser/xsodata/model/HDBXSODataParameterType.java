@@ -11,14 +11,32 @@
  */
 package com.codbex.kronos.parser.xsodata.model;
 
+/**
+ * The Enum HDBXSODataParameterType.
+ */
 public enum HDBXSODataParameterType {
+    
+    /** The key and entity. */
     KEY_AND_ENTITY,
+    
+    /** The entity. */
     ENTITY;
 
+    /**
+     * Value.
+     *
+     * @return the string
+     */
     public String value() {
         return name();
     }
 
+    /**
+     * From value.
+     *
+     * @param v the v
+     * @return the HDBXSO data parameter type
+     */
     public static HDBXSODataParameterType fromValue(String v) {
         return valueOf(v);
     }

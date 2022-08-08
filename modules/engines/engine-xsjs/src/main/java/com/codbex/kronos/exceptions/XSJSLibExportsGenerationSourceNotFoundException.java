@@ -11,12 +11,25 @@
  */
 package com.codbex.kronos.exceptions;
 
+/**
+ * The Class XSJSLibExportsGenerationSourceNotFoundException.
+ */
 public class XSJSLibExportsGenerationSourceNotFoundException extends RuntimeException {
 
+  /**
+   * Instantiates a new XSJS lib exports generation source not found exception.
+   *
+   * @param message the message
+   */
   public XSJSLibExportsGenerationSourceNotFoundException(String message) {
     super(message);
   }
 
+  /**
+   * Instantiates a new XSJS lib exports generation source not found exception.
+   *
+   * @param exception the exception
+   */
   public XSJSLibExportsGenerationSourceNotFoundException(Exception exception) {
     super(exception);
   }

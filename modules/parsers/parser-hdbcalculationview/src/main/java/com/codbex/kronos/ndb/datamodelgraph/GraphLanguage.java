@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for GraphLanguage.
+ * Java class for GraphLanguage.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="GraphLanguage"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token"&gt;
@@ -40,12 +40,24 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum GraphLanguage {
 
+  /** The cypher. */
   CYPHER;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the graph language
+   */
   public static GraphLanguage fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

@@ -32,9 +32,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * Type for referencing an SQL object by schema name and (column) object name
  *
  *
- * <p>Java class for QualifiedSQLObjectName complex type.
+ * Java class for QualifiedSQLObjectName complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="QualifiedSQLObjectName"&gt;
@@ -56,12 +56,17 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class QualifiedSQLObjectName
     extends SchemaMappingBasedObject {
 
+  /** The column object name. */
   @XmlAttribute(name = "columnObjectName")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String columnObjectName;
+  
+  /** The concatenated name. */
   @XmlAttribute(name = "concatenatedName")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String concatenatedName;
+  
+  /** The sql name. */
   @XmlAttribute(name = "sqlName")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String sqlName;

@@ -38,9 +38,9 @@ import com.codbex.kronos.ndb.searchmodelsearch.SearchableElementProperties;
  * The description of the element is taken from the type
  *
  *
- * <p>Java class for Element complex type.
+ * Java class for Element complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Element"&gt;
@@ -108,59 +108,118 @@ import com.codbex.kronos.ndb.searchmodelsearch.SearchableElementProperties;
 public class Element
     extends TypedObject {
 
+  /** The calculation definition. */
   protected Expression calculationDefinition;
+  
+  /** The unit currency element. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String unitCurrencyElement;
+  
+  /** The fixed currency. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "NMTOKEN")
   protected String fixedCurrency;
+  
+  /** The fixed unit. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "NMTOKEN")
   protected String fixedUnit;
+  
+  /** The currency conversion. */
   protected CurrencyConversion currencyConversion;
+  
+  /** The unit conversion. */
   protected UnitConversion unitConversion;
+  
+  /** The label element. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String labelElement;
+  
+  /** The quick info element. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String quickInfoElement;
+  
+  /** The element relationship. */
   protected List<ElementRelationship> elementRelationship;
+  
+  /** The restriction. */
   protected List<ElementRefFilter> restriction;
+  
+  /** The restriction expression. */
   protected Expression restrictionExpression;
+  
+  /** The exception aggregation step. */
   protected List<ExceptionAggregationStep> exceptionAggregationStep;
+  
+  /** The search properties. */
   protected SearchableElementProperties searchProperties;
+  
+  /** The generic property. */
   protected List<NameValuePair> genericProperty;
+  
+  /** The runtime. */
   protected ElementRuntime runtime;
+  
+  /** The transient. */
   @XmlAttribute(name = "transient")
   protected Boolean _transient;
+  
+  /** The hidden. */
   @XmlAttribute(name = "hidden")
   protected Boolean hidden;
+  
+  /** The keep. */
   @XmlAttribute(name = "keep")
   protected Boolean keep;
+  
+  /** The transparent filter. */
   @XmlAttribute(name = "transparentFilter")
   protected Boolean transparentFilter;
+  
+  /** The nullable. */
   @XmlAttribute(name = "nullable")
   protected Boolean nullable;
+  
+  /** The aggregation behavior. */
   @XmlAttribute(name = "aggregationBehavior")
   protected AggregationBehavior aggregationBehavior;
+  
+  /** The engine aggregation. */
   @XmlAttribute(name = "engineAggregation")
   protected AggregationBehavior engineAggregation;
+  
+  /** The drill down enablement. */
   @XmlAttribute(name = "drillDownEnablement")
   protected DrillDownEnablement drillDownEnablement;
+  
+  /** The attribute hierarchy default member. */
   @XmlAttribute(name = "attributeHierarchyDefaultMember")
   protected String attributeHierarchyDefaultMember;
+  
+  /** The calculate before aggregation. */
   @XmlAttribute(name = "calculateBeforeAggregation")
   protected Boolean calculateBeforeAggregation;
+  
+  /** The info object name. */
   @XmlAttribute(name = "infoObjectName")
   protected String infoObjectName;
+  
+  /** The display folder. */
   @XmlAttribute(name = "displayFolder")
   protected String displayFolder;
+  
+  /** The restricted. */
   @XmlAttribute(name = "restricted")
   protected Boolean restricted;
+  
+  /** The shared dimension. */
   @XmlAttribute(name = "sharedDimension")
   protected String sharedDimension;
+  
+  /** The name in shared dimension. */
   @XmlAttribute(name = "nameInSharedDimension")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String nameInSharedDimension;
@@ -327,23 +386,25 @@ public class Element
 
   /**
    * Gets the value of the elementRelationship property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the elementRelationship property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getElementRelationship().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link ElementRelationship }
+   *
+   * @return the element relationship
    */
   public List<ElementRelationship> getElementRelationship() {
     if (elementRelationship == null) {
@@ -354,23 +415,25 @@ public class Element
 
   /**
    * Gets the value of the restriction property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the restriction property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getRestriction().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link ElementRefFilter }
+   *
+   * @return the restriction
    */
   public List<ElementRefFilter> getRestriction() {
     if (restriction == null) {
@@ -401,23 +464,25 @@ public class Element
 
   /**
    * Gets the value of the exceptionAggregationStep property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the exceptionAggregationStep property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getExceptionAggregationStep().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link ExceptionAggregationStep }
+   *
+   * @return the exception aggregation step
    */
   public List<ExceptionAggregationStep> getExceptionAggregationStep() {
     if (exceptionAggregationStep == null) {
@@ -448,23 +513,25 @@ public class Element
 
   /**
    * Gets the value of the genericProperty property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the genericProperty property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getGenericProperty().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link NameValuePair }
+   *
+   * @return the generic property
    */
   public List<NameValuePair> getGenericProperty() {
     if (genericProperty == null) {

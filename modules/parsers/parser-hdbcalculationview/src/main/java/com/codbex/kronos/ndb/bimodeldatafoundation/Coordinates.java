@@ -26,9 +26,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Coordinates complex type.
+ * Java class for Coordinates complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Coordinates"&gt;
@@ -45,13 +45,18 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "Coordinates")
 public class Coordinates {
 
+  /** The x. */
   @XmlAttribute(name = "x", required = true)
   protected int x;
+  
+  /** The y. */
   @XmlAttribute(name = "y", required = true)
   protected int y;
 
   /**
    * Gets the value of the x property.
+   *
+   * @return the x
    */
   public int getX() {
     return x;
@@ -59,6 +64,8 @@ public class Coordinates {
 
   /**
    * Sets the value of the x property.
+   *
+   * @param value the new x
    */
   public void setX(int value) {
     this.x = value;
@@ -66,6 +73,8 @@ public class Coordinates {
 
   /**
    * Gets the value of the y property.
+   *
+   * @return the y
    */
   public int getY() {
     return y;
@@ -73,6 +82,8 @@ public class Coordinates {
 
   /**
    * Sets the value of the y property.
+   *
+   * @param value the new y
    */
   public void setY(int value) {
     this.y = value;

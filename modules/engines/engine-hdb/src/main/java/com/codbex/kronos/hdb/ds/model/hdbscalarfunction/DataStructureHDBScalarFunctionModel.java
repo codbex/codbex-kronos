@@ -13,6 +13,9 @@ package com.codbex.kronos.hdb.ds.model.hdbscalarfunction;
 
 import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 
+/**
+ * The Class DataStructureHDBScalarFunctionModel.
+ */
 public class DataStructureHDBScalarFunctionModel extends DataStructureModel {
 
 }

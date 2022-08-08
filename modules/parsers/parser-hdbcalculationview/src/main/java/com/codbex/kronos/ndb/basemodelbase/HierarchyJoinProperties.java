@@ -31,9 +31,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * Specification of hierarchy join properties.
  *
  *
- * <p>Java class for HierarchyJoinProperties complex type.
+ * Java class for HierarchyJoinProperties complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="HierarchyJoinProperties"&gt;
@@ -52,15 +52,22 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "HierarchyJoinProperties")
 public class HierarchyJoinProperties {
 
+  /** The node element name. */
   @XmlAttribute(name = "nodeElementName")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String nodeElementName;
+  
+  /** The level element name. */
   @XmlAttribute(name = "levelElementName")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String levelElementName;
+  
+  /** The ordinal element name. */
   @XmlAttribute(name = "ordinalElementName")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String ordinalElementName;
+  
+  /** The expression parameter name. */
   @XmlAttribute(name = "expressionParameterName")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String expressionParameterName;

@@ -30,9 +30,9 @@ import com.codbex.kronos.ndb.bimodeldatafoundation.SpatialJoinProperties;
 
 
 /**
- * <p>Java class for JoinAttribute complex type.
+ * Java class for JoinAttribute complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="JoinAttribute"&gt;
@@ -53,7 +53,10 @@ import com.codbex.kronos.ndb.bimodeldatafoundation.SpatialJoinProperties;
 })
 public class JoinAttribute {
 
+  /** The spatial join properties. */
   protected SpatialJoinProperties spatialJoinProperties;
+  
+  /** The name. */
   @XmlAttribute(name = "name", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String name;

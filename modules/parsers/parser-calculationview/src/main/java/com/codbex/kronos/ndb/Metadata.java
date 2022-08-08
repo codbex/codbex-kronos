@@ -28,9 +28,9 @@ import javax.xml.bind.annotation.XmlValue;
 
 
 /**
- * <p>Java class for anonymous complex type.
+ * Java class for anonymous complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -50,10 +50,15 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlRootElement(name = "metadata")
 public class Metadata {
 
+  /** The value. */
   @XmlValue
   protected String value;
+  
+  /** The changed at. */
   @XmlAttribute(name = "changedAt")
   protected String changedAt;
+  
+  /** The created at. */
   @XmlAttribute(name = "createdAt")
   protected String createdAt;
 

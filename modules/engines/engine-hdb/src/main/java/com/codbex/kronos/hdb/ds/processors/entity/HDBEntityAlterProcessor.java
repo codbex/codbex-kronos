@@ -39,8 +39,10 @@ import org.slf4j.LoggerFactory;
  */
 public class HDBEntityAlterProcessor {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDBEntityAlterProcessor.class);
 
+  /** The Constant INCOMPATIBLE_CHANGE_OF_ENTITY. */
   private static final String INCOMPATIBLE_CHANGE_OF_ENTITY = "Incompatible change of entity [%s] by adding a column [%s] which is [%s]"; //$NON-NLS-1$
 
   /**
@@ -147,6 +149,14 @@ public class HDBEntityAlterProcessor {
     }
   }
 
+  /**
+   * Execute alter builder.
+   *
+   * @param connection the connection
+   * @param alterTableBuilder the alter table builder
+   * @param entityModel the entity model
+   * @throws SQLException the SQL exception
+   */
   private void executeAlterBuilder(Connection connection, AlterTableBuilder alterTableBuilder, DataStructureEntityModel entityModel)
       throws SQLException {
     final String sql = alterTableBuilder.build();

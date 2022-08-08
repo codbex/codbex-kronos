@@ -13,12 +13,23 @@ package com.codbex.kronos.hdbti.module;
 
 import org.eclipse.dirigible.commons.api.module.AbstractDirigibleModule;
 
+/**
+ * The Class HDBTIModule.
+ */
 public class HDBTIModule extends AbstractDirigibleModule {
 
+    /**
+     * Configure.
+     */
     @Override
     public void configure() {
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     @Override
     public String getName() {
         return "Kronos HDBTI Module";

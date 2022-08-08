@@ -29,9 +29,9 @@ import javax.xml.bind.annotation.XmlType;
  * Properties needed for defining an internal/external conversion of
  *
  *
- * <p>Java class for InternalExternalConversion complex type.
+ * Java class for InternalExternalConversion complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="InternalExternalConversion"&gt;
@@ -49,10 +49,15 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "InternalExternalConversion")
 public class InternalExternalConversion {
 
+  /** The convert to external function. */
   @XmlAttribute(name = "convertToExternalFunction", required = true)
   protected String convertToExternalFunction;
+  
+  /** The convert to internal function. */
   @XmlAttribute(name = "convertToInternalFunction", required = true)
   protected String convertToInternalFunction;
+  
+  /** The order preserving. */
   @XmlAttribute(name = "orderPreserving")
   protected Boolean orderPreserving;
 

@@ -30,10 +30,20 @@ import java.util.List;
  */
 public class ODataCoreService implements IODataCoreService {
 
+    /** The o data artifact dao. */
     private IODataArtifactDao oDataArtifactDao = new ODataArtifactDao();
 
+    /** The o data parser. */
     private IODataParser oDataParser = new ODataParser();
 
+    /**
+     * Gets the entity.
+     *
+     * @param model the model
+     * @param alias the alias
+     * @param navigation the navigation
+     * @return the entity
+     */
     public static HDBXSODataEntity getEntity(ODataModel model, String alias, String navigation) {
         if (model != null && model.getService() != null) {
             for (HDBXSODataEntity entity : model.getService().getEntities()) {
@@ -46,6 +56,14 @@ public class ODataCoreService implements IODataCoreService {
                 String.format("There is no entity with ODataUtilsname: %s, referenced by the navigation: %s", alias, navigation));
     }
 
+    /**
+     * Gets the association.
+     *
+     * @param model the model
+     * @param name the name
+     * @param navigation the navigation
+     * @return the association
+     */
     public static HDBXSODataAssociation getAssociation(ODataModel model, String name, String navigation) {
         if (model != null && model.getService() != null) {
             for (HDBXSODataAssociation association : model.getService().getAssociations()) {
@@ -58,6 +76,15 @@ public class ODataCoreService implements IODataCoreService {
                 String.format("There is no association with name: %s, referenced by the navigation: %s", name, navigation));
     }
 
+    /**
+     * Creates the O data.
+     *
+     * @param location the location
+     * @param name the name
+     * @param hash the hash
+     * @return the o data model
+     * @throws ODataException the o data exception
+     */
     @Override
     public ODataModel createOData(String location, String name, String hash) throws ODataException {
         ODataModel tableModel = new ODataModel();
@@ -70,36 +97,85 @@ public class ODataCoreService implements IODataCoreService {
         return oDataArtifactDao.createODataArtifact(tableModel);
     }
 
+    /**
+     * Gets the o data.
+     *
+     * @param location the location
+     * @return the o data
+     * @throws ODataException the o data exception
+     */
     @Override
     public ODataModel getOData(String location) throws ODataException {
         return oDataArtifactDao.getODataArtifact(location);
     }
 
+    /**
+     * Gets the o data by name.
+     *
+     * @param name the name
+     * @return the o data by name
+     * @throws ODataException the o data exception
+     */
     @Override
     public ODataModel getODataByName(String name) throws ODataException {
         return oDataArtifactDao.getODataArtifactByName(name);
     }
 
+    /**
+     * Removes the O data.
+     *
+     * @param location the location
+     * @throws ODataException the o data exception
+     */
     @Override
     public void removeOData(String location) throws ODataException {
         oDataArtifactDao.removeODataArtifact(location);
     }
 
+    /**
+     * Update O data.
+     *
+     * @param location the location
+     * @param name the name
+     * @param hash the hash
+     * @throws ODataException the o data exception
+     */
     @Override
     public void updateOData(String location, String name, String hash) throws ODataException {
         oDataArtifactDao.updateODataArtifact(location, name, hash);
     }
 
+    /**
+     * Gets the all O data records.
+     *
+     * @return the all O data records
+     * @throws ODataException the o data exception
+     */
     @Override
     public List<ODataModel> getAllODataRecords() throws ODataException {
         return oDataArtifactDao.getAllODataArtifacts();
     }
 
+    /**
+     * Exists O data.
+     *
+     * @param location the location
+     * @return true, if successful
+     * @throws ODataException the o data exception
+     */
     @Override
     public boolean existsOData(String location) throws ODataException {
         return oDataArtifactDao.getODataArtifact(location) != null;
     }
 
+    /**
+     * Parses the O data.
+     *
+     * @param location the location
+     * @param content the content
+     * @return the o data model
+     * @throws Exception the exception
+     */
     @Override
     public ODataModel parseOData(String location, String content) throws Exception {
         return oDataParser.parseODataArtifact(location, content);

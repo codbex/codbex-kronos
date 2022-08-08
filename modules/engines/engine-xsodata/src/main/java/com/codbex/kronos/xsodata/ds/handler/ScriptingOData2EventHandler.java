@@ -46,40 +46,102 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * The Class ScriptingOData2EventHandler.
+ */
 public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.odata2.handler.ScriptingOData2EventHandler {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(ScriptingOData2EventHandler.class);
+  
+  /** The Constant ERROR_WHEN_PREPARING_TEMPORARY_TABLE_SQL. */
   private static final String ERROR_WHEN_PREPARING_TEMPORARY_TABLE_SQL = "Error when preparing temporary table SQL: ";
+  
+  /** The Constant UNABLE_TO_HANDLE_BEFORE_CREATE_ENTITY_EVENT. */
   private static final String UNABLE_TO_HANDLE_BEFORE_CREATE_ENTITY_EVENT = "Unable to handle beforeCreateEntity event";
+  
+  /** The Constant UNABLE_TO_HANDLE_AFTER_CREATE_ENTITY_EVENT. */
   private static final String UNABLE_TO_HANDLE_AFTER_CREATE_ENTITY_EVENT = "Unable to handle afterCreateEntity event";
+  
+  /** The Constant UNABLE_TO_HANDLE_ON_CREATE_ENTITY_EVENT. */
   private static final String UNABLE_TO_HANDLE_ON_CREATE_ENTITY_EVENT = "Unable to handle onCreateEntity event";
+  
+  /** The Constant UNABLE_TO_HANDLE_BEFORE_UPDATE_ENTITY_EVENT. */
   private static final String UNABLE_TO_HANDLE_BEFORE_UPDATE_ENTITY_EVENT = "Unable to handle beforeUpdateEntity event";
+  
+  /** The Constant UNABLE_TO_HANDLE_AFTER_UPDATE_ENTITY_EVENT. */
   private static final String UNABLE_TO_HANDLE_AFTER_UPDATE_ENTITY_EVENT = "Unable to handle afterUpdateEntity event";
+  
+  /** The Constant UNABLE_TO_HANDLE_ON_UPDATE_ENTITY_EVENT. */
   private static final String UNABLE_TO_HANDLE_ON_UPDATE_ENTITY_EVENT = "Unable to handle onUpdateEntity event";
+  
+  /** The Constant UNABLE_TO_HANDLE_BEFORE_DELETE_ENTITY_EVENT. */
   private static final String UNABLE_TO_HANDLE_BEFORE_DELETE_ENTITY_EVENT = "Unable to handle beforeDeleteEntity event";
+  
+  /** The Constant UNABLE_TO_HANDLE_AFTER_DELETE_ENTITY_EVENT. */
   private static final String UNABLE_TO_HANDLE_AFTER_DELETE_ENTITY_EVENT = "Unable to handle afterDeleteEntity event";
+  
+  /** The Constant UNABLE_TO_HANDLE_ON_DELETE_ENTITY_EVENT. */
   private static final String UNABLE_TO_HANDLE_ON_DELETE_ENTITY_EVENT = "Unable to handle onDeleteEntity event";
+  
+  /** The Constant UNABLE_TO_DROP_TEMPORARY_TABLE. */
   private static final String UNABLE_TO_DROP_TEMPORARY_TABLE = "Unable to drop temporary table";
+  
+  /** The Constant UNABLE_TO_CLOSE_CONNECTION. */
   private static final String UNABLE_TO_CLOSE_CONNECTION = "Unable to close connection";
 
+  /** The Constant ODATA2_EVENT_HANDLER_NAME. */
   private static final String ODATA2_EVENT_HANDLER_NAME = "kronos-odata-event-handler";
 
+  /** The data source. */
   private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
 
+  /** The Constant DUMMY_BUILDER. */
   private static final String DUMMY_BUILDER = "dummyBuilder";
+  
+  /** The Constant SELECT_BUILDER. */
   private static final String SELECT_BUILDER = "selectBuilder";
+  
+  /** The Constant INSERT_BUILDER. */
   private static final String INSERT_BUILDER = "insertBuilder";
+  
+  /** The Constant UPDATE_BUILDER. */
   private static final String UPDATE_BUILDER = "updateBuilder";
+  
+  /** The Constant SQL_CONTEXT. */
   private static final String SQL_CONTEXT = "sqlContext";
 
+  /** The Constant CONNECTION. */
   private static final String CONNECTION = "connection";
+  
+  /** The Constant BEFORE_TABLE_NAME. */
   private static final String BEFORE_TABLE_NAME = "beforeTableName";
+  
+  /** The Constant AFTER_TABLE_NAME. */
   private static final String AFTER_TABLE_NAME = "afterTableName";
+  
+  /** The Constant ON_CREATE_ENTITY_TABLE_NAME. */
   private static final String ON_CREATE_ENTITY_TABLE_NAME = "onCreateEntityTableName";
+  
+  /** The Constant BEFORE_UPDATE_ENTITY_TABLE_NAME. */
   private static final String BEFORE_UPDATE_ENTITY_TABLE_NAME = "beforeUpdateEntityTableName";
+  
+  /** The Constant BEFORE_DELETE_ENTITY_TABLE_NAME. */
   private static final String BEFORE_DELETE_ENTITY_TABLE_NAME = "beforeDeleteEntityTableName";
+  
+  /** The Constant ENTRY_MAP. */
   private static final String ENTRY_MAP = "entryMap";
 
+  /**
+   * Before create entity.
+   *
+   * @param uriInfo the uri info
+   * @param requestContentType the request content type
+   * @param contentType the content type
+   * @param entry the entry
+   * @param context the context
+   * @return the o data response
+   */
   @Override
   public ODataResponse beforeCreateEntity(PostUriInfo uriInfo, String requestContentType, String contentType, ODataEntry entry,
       Map<Object, Object> context) {
@@ -109,6 +171,16 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
     }
   }
 
+  /**
+   * After create entity.
+   *
+   * @param uriInfo the uri info
+   * @param requestContentType the request content type
+   * @param contentType the content type
+   * @param entry the entry
+   * @param context the context
+   * @return the o data response
+   */
   @Override
   public ODataResponse afterCreateEntity(PostUriInfo uriInfo, String requestContentType, String contentType, ODataEntry entry,
       Map<Object, Object> context) {
@@ -139,6 +211,16 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
     }
   }
 
+  /**
+   * On create entity.
+   *
+   * @param uriInfo the uri info
+   * @param content the content
+   * @param requestContentType the request content type
+   * @param contentType the content type
+   * @param context the context
+   * @return the o data response
+   */
   @Override
   public ODataResponse onCreateEntity(PostUriInfo uriInfo, InputStream content, String requestContentType, String contentType,
       Map<Object, Object> context) {
@@ -170,6 +252,17 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
     }
   }
 
+  /**
+   * Before update entity.
+   *
+   * @param uriInfo the uri info
+   * @param requestContentType the request content type
+   * @param merge the merge
+   * @param contentType the content type
+   * @param entry the entry
+   * @param context the context
+   * @return the o data response
+   */
   @Override
   public ODataResponse beforeUpdateEntity(PutMergePatchUriInfo uriInfo, String requestContentType, boolean merge, String contentType,
       ODataEntry entry, Map<Object, Object> context) {
@@ -205,6 +298,17 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
     }
   }
 
+  /**
+   * After update entity.
+   *
+   * @param uriInfo the uri info
+   * @param requestContentType the request content type
+   * @param merge the merge
+   * @param contentType the content type
+   * @param entry the entry
+   * @param context the context
+   * @return the o data response
+   */
   @Override
   public ODataResponse afterUpdateEntity(PutMergePatchUriInfo uriInfo, String requestContentType, boolean merge, String contentType,
       ODataEntry entry, Map<Object, Object> context) {
@@ -232,6 +336,17 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
     }
   }
 
+  /**
+   * On update entity.
+   *
+   * @param uriInfo the uri info
+   * @param content the content
+   * @param requestContentType the request content type
+   * @param merge the merge
+   * @param contentType the content type
+   * @param context the context
+   * @return the o data response
+   */
   @Override
   public ODataResponse onUpdateEntity(PutMergePatchUriInfo uriInfo, InputStream content, String requestContentType, boolean merge,
       String contentType, Map<Object, Object> context) {
@@ -264,6 +379,14 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
     }
   }
 
+  /**
+   * Before delete entity.
+   *
+   * @param uriInfo the uri info
+   * @param contentType the content type
+   * @param context the context
+   * @return the o data response
+   */
   @Override
   public ODataResponse beforeDeleteEntity(DeleteUriInfo uriInfo, String contentType, Map<Object, Object> context) {
     SQLSelectBuilder selectBuilder = (SQLSelectBuilder) context.get(SELECT_BUILDER);
@@ -292,6 +415,14 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
     }
   }
 
+  /**
+   * After delete entity.
+   *
+   * @param uriInfo the uri info
+   * @param contentType the content type
+   * @param context the context
+   * @return the o data response
+   */
   @Override
   public ODataResponse afterDeleteEntity(DeleteUriInfo uriInfo, String contentType, Map<Object, Object> context) {
     Connection connectionParam = null;
@@ -310,6 +441,14 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
     }
   }
 
+  /**
+   * On delete entity.
+   *
+   * @param uriInfo the uri info
+   * @param contentType the content type
+   * @param context the context
+   * @return the o data response
+   */
   @Override
   public ODataResponse onDeleteEntity(DeleteUriInfo uriInfo, String contentType, Map<Object, Object> context) {
     SQLSelectBuilder selectBuilder = (SQLSelectBuilder) context.get(SELECT_BUILDER);
@@ -334,17 +473,38 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
     }
   }
 
+  /**
+   * Gets the name.
+   *
+   * @return the name
+   */
   @Override
   public String getName() {
     return ODATA2_EVENT_HANDLER_NAME;
   }
 
+  /**
+   * Gets the SQL insert builder target table.
+   *
+   * @param insertBuilder the insert builder
+   * @param sqlContext the sql context
+   * @return the SQL insert builder target table
+   * @throws ODataException the o data exception
+   */
   private String getSQLInsertBuilderTargetTable(SQLInsertBuilder insertBuilder, SQLContext sqlContext) throws ODataException {
     SQLStatement sqlStatement = insertBuilder.build(sqlContext);
     sqlStatement.sql();
     return insertBuilder.getTargetTableName();
   }
 
+  /**
+   * Creates the temporary table like table.
+   *
+   * @param connection the connection
+   * @param temporaryTableName the temporary table name
+   * @param likeTableName the like table name
+   * @throws SQLException the SQL exception
+   */
   private void createTemporaryTableLikeTable(Connection connection, String temporaryTableName, String likeTableName) throws SQLException {
     String normalizedTableName = DBMetadataUtil.normalizeTableName(likeTableName);
     TableMetadataProvider tableMetadataProvider = new TableMetadataProvider();
@@ -367,6 +527,16 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
     }
   }
 
+  /**
+   * Creates the temporary table as select.
+   *
+   * @param connection the connection
+   * @param temporaryTableName the temporary table name
+   * @param selectBuilder the select builder
+   * @param sqlContext the sql context
+   * @throws SQLException the SQL exception
+   * @throws ODataException the o data exception
+   */
   private void createTemporaryTableAsSelect(Connection connection, String temporaryTableName, SQLSelectBuilder selectBuilder,
       SQLContext sqlContext) throws SQLException, ODataException {
     String sql = SqlFactory.getNative(connection).create().temporaryTable(temporaryTableName)
@@ -378,6 +548,13 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
     }
   }
 
+  /**
+   * Replace sql parameters.
+   *
+   * @param sql the sql
+   * @param parameters the parameters
+   * @return the string
+   */
   private String replaceSqlParameters(String sql, List<SQLStatementParam> parameters) {
     for (SQLStatementParam p : parameters) {
       sql = sql.replaceFirst("\\?", "'" + p.getValue() + "'");
@@ -386,6 +563,16 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
     return sql;
   }
 
+  /**
+   * Insert into temporary table.
+   *
+   * @param connection the connection
+   * @param insertBuilder the insert builder
+   * @param temporaryTableName the temporary table name
+   * @param sqlContext the sql context
+   * @throws ODataException the o data exception
+   * @throws SQLException the SQL exception
+   */
   private void insertIntoTemporaryTable(Connection connection, SQLInsertBuilder insertBuilder, String temporaryTableName,
       SQLContext sqlContext)
       throws ODataException, SQLException {
@@ -393,12 +580,27 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
     executeSQLStatement(connection, insertBuilder.build(sqlContext));
   }
 
+  /**
+   * Update temporary table.
+   *
+   * @param connection the connection
+   * @param updateBuilder the update builder
+   * @param temporaryTableName the temporary table name
+   * @param sqlContext the sql context
+   * @throws ODataException the o data exception
+   * @throws SQLException the SQL exception
+   */
   private void updateTemporaryTable(Connection connection, SQLUpdateBuilder updateBuilder, String temporaryTableName, SQLContext sqlContext)
       throws ODataException, SQLException {
     updateBuilder.setTableName("\"" + temporaryTableName + "\"");
     executeSQLStatement(connection, updateBuilder.build(sqlContext));
   }
 
+  /**
+   * Drop temporary table.
+   *
+   * @param temporaryTableName the temporary table name
+   */
   private void dropTemporaryTable(String temporaryTableName) {
     try (Connection connection = dataSource.getConnection()) {
       if (SqlFactory.getNative(connection).exists(connection, temporaryTableName)) {
@@ -412,6 +614,14 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
     }
   }
 
+  /**
+   * Execute SQL statement.
+   *
+   * @param connection the connection
+   * @param statement the statement
+   * @throws SQLException the SQL exception
+   * @throws ODataException the o data exception
+   */
   private void executeSQLStatement(Connection connection, SQLStatement statement) throws SQLException, ODataException {
     try (PreparedStatement preparedStatement = prepareStatement(connection, statement.sql())) {
       SQLUtils.setParamsOnStatement(preparedStatement, statement.getStatementParams());
@@ -419,6 +629,13 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
     }
   }
 
+  /**
+   * Prepare statement.
+   *
+   * @param connection the connection
+   * @param sql the sql
+   * @return the prepared statement
+   */
   private PreparedStatement prepareStatement(Connection connection, String sql) {
     try {
       logger.debug("Preparing temporary table statement: {}", sql);
@@ -428,6 +645,14 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
     }
   }
 
+  /**
+   * Read entry map.
+   *
+   * @param connection the connection
+   * @param tableName the table name
+   * @return the map
+   * @throws SQLException the SQL exception
+   */
   private Map<String, Object> readEntryMap(Connection connection, String tableName) throws SQLException {
     String selectCreatedEntitySQL = SqlFactory.getNative(connection).select().column("*").from(tableName).build();
     try (PreparedStatement statement = connection.prepareStatement(selectCreatedEntitySQL)) {
@@ -441,6 +666,13 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
     }
   }
 
+  /**
+   * Result set to entry map.
+   *
+   * @param resultSet the result set
+   * @return the map
+   * @throws SQLException the SQL exception
+   */
   private Map<String, Object> resultSetToEntryMap(ResultSet resultSet) throws SQLException {
     ResultSetMetaData resultSetMetadata = resultSet.getMetaData();
     int columnCount = resultSetMetadata.getColumnCount();
@@ -452,6 +684,11 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
     return entry;
   }
 
+  /**
+   * Close connection.
+   *
+   * @param connection the connection
+   */
   private void closeConnection(Connection connection) {
     try {
       if (connection != null && !connection.isClosed()) {
@@ -462,6 +699,12 @@ public class ScriptingOData2EventHandler extends org.eclipse.dirigible.engine.od
     }
   }
 
+  /**
+   * Generate temporary table name.
+   *
+   * @param targetTypeName the target type name
+   * @return the string
+   */
   private String generateTemporaryTableName(String targetTypeName) {
     return "#" + targetTypeName + UUID.randomUUID().toString().replace("-", "");
   }

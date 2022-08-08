@@ -12,10 +12,11 @@
 package com.codbex.kronos.xsodata.ds.service;
 
 /**
- * The {@link OData2TransformerException} is thrown in situations when there is an issue when transforming odata file
+ * The {@link OData2TransformerException} is thrown in situations when there is an issue when transforming odata file.
  */
 public class OData2TransformerException extends RuntimeException {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
     /**

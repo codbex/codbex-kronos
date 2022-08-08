@@ -33,9 +33,9 @@ import com.codbex.kronos.ndb.bimodelconversion.Parameterization;
  * Additional (join) properties neded to specify a spatial join
  *
  *
- * <p>Java class for SpatialJoinProperties complex type.
+ * Java class for SpatialJoinProperties complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="SpatialJoinProperties"&gt;
@@ -59,12 +59,19 @@ import com.codbex.kronos.ndb.bimodelconversion.Parameterization;
 })
 public class SpatialJoinProperties {
 
+  /** The distance. */
   @XmlElement(required = true)
   protected Parameterization distance;
+  
+  /** The intersection matrix. */
   @XmlElement(required = true)
   protected Parameterization intersectionMatrix;
+  
+  /** The predicate. */
   @XmlAttribute(name = "predicate", required = true)
   protected SpatialPredicate predicate;
+  
+  /** The predicate evaluates to. */
   @XmlAttribute(name = "predicateEvaluatesTo")
   protected Boolean predicateEvaluatesTo;
 

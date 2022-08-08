@@ -36,9 +36,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 2. A hierarchy expression. Then  the user is privileged to see all nodes in the result of the expression (e.g. all children of a specific node)
  *
  *
- * <p>Java class for HierarchyFilter complex type.
+ * Java class for HierarchyFilter complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="HierarchyFilter"&gt;
@@ -61,30 +61,35 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class HierarchyFilter {
 
+  /** The subtree node. */
   protected List<String> subtreeNode;
+  
+  /** The hierarchy name. */
   @XmlAttribute(name = "hierarchyName", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String hierarchyName;
 
   /**
    * Gets the value of the subtreeNode property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the subtreeNode property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getSubtreeNode().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link String }
+   *
+   * @return the subtree node
    */
   public List<String> getSubtreeNode() {
     if (subtreeNode == null) {

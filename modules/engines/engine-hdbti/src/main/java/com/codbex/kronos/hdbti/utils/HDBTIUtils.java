@@ -14,8 +14,14 @@ package com.codbex.kronos.hdbti.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The Class HDBTIUtils.
+ */
 public class HDBTIUtils {
 
+  /**
+   * Instantiates a new HDBTI utils.
+   */
   private HDBTIUtils() {
   }
 
@@ -24,7 +30,8 @@ public class HDBTIUtils {
    * For example:
    * convert from "sap.ti2.demo:myData.csv" to "/sap/ti2/demo/myData.csv"
    *
-   * @return
+   * @param fileNamePath the file name path
+   * @return the string
    */
   public static String convertHDBTIFilePropertyToPath(String fileNamePath) {
     String fileName = fileNamePath.substring(fileNamePath.lastIndexOf(':') + 1);
@@ -36,7 +43,9 @@ public class HDBTIUtils {
    * For example:
    * convert from "/sap/ti2/demo/myData.csv" to "sap.ti2.demo:myData.csv"
    *
+   * @param fileNamePath the file name path
    * @return converted string
+   * @throws IllegalArgumentException the illegal argument exception
    */
   public static String convertPathToHDBTIFileProperty(String fileNamePath) throws IllegalArgumentException {
     Pattern pattern = Pattern.compile("((?:[^\\/]*\\/)*)(.*)", Pattern.CASE_INSENSITIVE);
@@ -65,6 +74,10 @@ public class HDBTIUtils {
 
   /**
    * Check if the property support only symbols A-Za-z0-9_-$.
+   *
+   * @param property the property
+   * @return true, if is correct property syntax
+   * @throws IllegalArgumentException the illegal argument exception
    */
   public static boolean isCorrectPropertySyntax(String property) throws IllegalArgumentException {
     String regex = "[\\w\\-. $]+$";
@@ -74,6 +87,10 @@ public class HDBTIUtils {
 
   /**
    * Check if the table property has proper syntax.
+   *
+   * @param tableProperty the table property
+   * @return true, if is correct table property syntax
+   * @throws IllegalArgumentException the illegal argument exception
    */
   public static boolean isCorrectTablePropertySyntax(String tableProperty) throws IllegalArgumentException {
     String regex;
@@ -88,7 +105,12 @@ public class HDBTIUtils {
   }
 
   /**
-   * Check if property syntax matches regex
+   * Check if property syntax matches regex.
+   *
+   * @param property the property
+   * @param regex the regex
+   * @return true, if successful
+   * @throws IllegalArgumentException the illegal argument exception
    */
   public static boolean validateProperty(String property, String regex) throws IllegalArgumentException {
     Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);

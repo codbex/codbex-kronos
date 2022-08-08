@@ -20,55 +20,56 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  * This class provides an empty implementation of {@link HdbschemaListener},
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
+ *
  */
 public class HdbschemaBaseListener implements HdbschemaListener {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation does nothing.</p>
+	 * The default implementation does nothing.
 	 */
 	@Override public void enterHdbschemaDefinition(HdbschemaParser.HdbschemaDefinitionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation does nothing.</p>
+	 * The default implementation does nothing.
 	 */
 	@Override public void exitHdbschemaDefinition(HdbschemaParser.HdbschemaDefinitionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation does nothing.</p>
+	 * The default implementation does nothing.
 	 */
 	@Override public void enterSchemaNameProp(HdbschemaParser.SchemaNamePropContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation does nothing.</p>
+	 * The default implementation does nothing.
 	 */
 	@Override public void exitSchemaNameProp(HdbschemaParser.SchemaNamePropContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation does nothing.</p>
+	 * The default implementation does nothing.
 	 */
 	@Override public void enterEveryRule(ParserRuleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation does nothing.</p>
+	 * The default implementation does nothing.
 	 */
 	@Override public void exitEveryRule(ParserRuleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation does nothing.</p>
+	 * The default implementation does nothing.
 	 */
 	@Override public void visitTerminal(TerminalNode node) { }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation does nothing.</p>
+	 * The default implementation does nothing.
 	 */
 	@Override public void visitErrorNode(ErrorNode node) { }
 }

@@ -21,10 +21,23 @@ import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
 import com.codbex.kronos.hdb.ds.module.HDBModule;
 import com.codbex.kronos.hdb.ds.parser.DataStructureParser;
 
+/**
+ * The Class CoreParserService.
+ */
 public class CoreParserService implements ICoreParserService {
 
+  /** The parser services. */
   private Map<String, DataStructureParser> parserServices = HDBModule.getParserServices();
 
+  /**
+   * Parses the data structure.
+   *
+   * @param parametersModel the parameters model
+   * @return the data structure model
+   * @throws DataStructuresException the data structures exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws ArtifactParserException the artifact parser exception
+   */
   @Override
   public DataStructureModel parseDataStructure(DataStructureParametersModel parametersModel)
       throws DataStructuresException, IOException, ArtifactParserException {
@@ -33,6 +46,12 @@ public class CoreParserService implements ICoreParserService {
     return parser.parse(parametersModel);
   }
 
+  /**
+   * Gets the data structure class.
+   *
+   * @param type the type
+   * @return the data structure class
+   */
   @Override
   public Class<DataStructureModel> getDataStructureClass(String type) {
     return (Class<DataStructureModel>) parserServices.get(type).getDataStructureClass();

@@ -44,18 +44,40 @@ import com.codbex.kronos.hdb.ds.service.manager.IDataStructureManager;
 import com.codbex.kronos.parser.hana.core.HanaLexer;
 import com.codbex.kronos.parser.hana.core.HanaParser;
 
+/**
+ * The Class HDBUtils.
+ */
 public class HDBUtils {
 
+  /** The Constant commentRegex. */
   private static final String commentRegex = "(/\\*[^*]*\\*+(?:[^/*][^*]*\\*+)*/)|(--.*)";
+  
+  /** The Constant ESCAPE_SYMBOL. */
   private static final String ESCAPE_SYMBOL = "\"";
 
+  /**
+   * Instantiates a new HDB utils.
+   */
   private HDBUtils() {
   }
 
+  /**
+   * Gets the table name.
+   *
+   * @param model the model
+   * @return the table name
+   */
   public static String getTableName(DataStructureEntityModel model) {
     return getTableName(model, model.getName());
   }
 
+  /**
+   * Gets the table name.
+   *
+   * @param model the model
+   * @param tableName the table name
+   * @return the table name
+   */
   public static String getTableName(DataStructureEntityModel model, String tableName) {
     return new StringBuilder()
         .append(model.getNamespace()).append("::").append(model.getContext()).append(".").append(tableName)
@@ -63,7 +85,7 @@ public class HDBUtils {
   }
 
   /**
-   * Escape artifact name if DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE is activated
+   * Escape artifact name if DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE is activated.
    *
    * @param artifactName name of the artifact
    * @param schemaName   name of the schema that will be assembled to the artifact name
@@ -94,11 +116,23 @@ public class HDBUtils {
 
   /**
    * See also {@link #escapeArtifactName(String, String)}.
+   *
+   * @param artifactName the artifact name
+   * @return the string
    */
   public static String escapeArtifactName(String artifactName) {
     return escapeArtifactName(artifactName, null);
   }
 
+  /**
+   * Populate data structure model.
+   *
+   * @param location the location
+   * @param content the content
+   * @param model the model
+   * @param artifactType the artifact type
+   * @param DbContentType the db content type
+   */
   public static void populateDataStructureModel(String location, String content, DataStructureModel model, String artifactType,
       DBContentType DbContentType) {
     model.setName(CommonsUtils.getRepositoryBaseObjectName(location));
@@ -110,18 +144,43 @@ public class HDBUtils {
     model.setDbContentType(DbContentType);
   }
 
+  /**
+   * Creates the public synonym for artifact.
+   *
+   * @param synonymManagerService the synonym manager service
+   * @param artifactName the artifact name
+   * @param artifactSchema the artifact schema
+   * @param connection the connection
+   * @throws SQLException the SQL exception
+   */
   public static void createPublicSynonymForArtifact(IDataStructureManager<DataStructureModel> synonymManagerService,
       String artifactName, String artifactSchema, Connection connection)
       throws SQLException {
     synonymManagerService.createDataStructure(connection, assemblePublicSynonym(artifactName, artifactSchema));
   }
 
+  /**
+   * Drop public synonym for artifact.
+   *
+   * @param synonymManagerService the synonym manager service
+   * @param artifactName the artifact name
+   * @param artifactSchema the artifact schema
+   * @param connection the connection
+   * @throws SQLException the SQL exception
+   */
   public static void dropPublicSynonymForArtifact(IDataStructureManager<DataStructureModel> synonymManagerService,
       String artifactName, String artifactSchema, Connection connection)
       throws SQLException {
     synonymManagerService.dropDataStructure(connection, assemblePublicSynonym(artifactName, artifactSchema));
   }
 
+  /**
+   * Assemble public synonym.
+   *
+   * @param artifactName the artifact name
+   * @param artifactSchema the artifact schema
+   * @return the data structure HDB synonym model
+   */
   public static DataStructureHDBSynonymModel assemblePublicSynonym(String artifactName, String artifactSchema) {
     DataStructureHDBSynonymModel model = new DataStructureHDBSynonymModel();
 
@@ -139,6 +198,14 @@ public class HDBUtils {
     return model;
   }
 
+  /**
+   * Extract procedure name from content.
+   *
+   * @param content the content
+   * @param location the location
+   * @return the string
+   * @throws DataStructuresException the data structures exception
+   */
   public static String extractProcedureNameFromContent(String content, String location) throws DataStructuresException {
     content = removeSqlCommentsFromContent(content);
     int indexOfEndOfProcKeyword = content.toLowerCase().indexOf("procedure") + "procedure".length();
@@ -153,6 +220,15 @@ public class HDBUtils {
     return procedureName.replace("\\s", "").trim();
   }
 
+  /**
+   * Extract table function name from content.
+   *
+   * @param content the content
+   * @param location the location
+   * @param parser the parser
+   * @return the string
+   * @throws DataStructuresException the data structures exception
+   */
   public static String extractTableFunctionNameFromContent(String content, String location, String parser)
       throws DataStructuresException {
     content = removeSqlCommentsFromContent(content);
@@ -169,9 +245,23 @@ public class HDBUtils {
     throw new DataStructuresException(errMsg);
   }
 
+  /**
+   * Removes the sql comments from content.
+   *
+   * @param content the content
+   * @return the string
+   */
   public static String removeSqlCommentsFromContent(String content) {
     return content.replaceAll(commentRegex, "").trim();
   }
+  
+  /**
+   * Gets the parsed three.
+   *
+   * @param parametersModel the parameters model
+   * @return the parsed three
+   * @throws ArtifactParserException the artifact parser exception
+   */
   public static ParseTree getParsedThree (DataStructureParametersModel parametersModel) throws ArtifactParserException {
 
     CharStream inputStream;
@@ -193,6 +283,11 @@ public class HDBUtils {
 
   }
 
+  /**
+   * Gets the timestamp.
+   *
+   * @return the timestamp
+   */
   public static Timestamp getTimestamp(){
     return new Timestamp(new java.util.Date().getTime());
   }

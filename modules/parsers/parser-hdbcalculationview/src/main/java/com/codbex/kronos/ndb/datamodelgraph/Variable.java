@@ -32,9 +32,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * For defining a variable
  *
  *
- * <p>Java class for Variable complex type.
+ * Java class for Variable complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Variable"&gt;
@@ -54,6 +54,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public abstract class Variable {
 
+  /** The name. */
   @XmlAttribute(name = "name", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String name;

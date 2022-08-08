@@ -58,18 +58,32 @@ import com.codbex.kronos.utils.CommonsConstants;
  */
 public class DataStructuresHDISynchronizer extends AbstractSynchronizer implements IOrderedSynchronizerContribution {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(DataStructuresHDISynchronizer.class);
 
+  /** The Constant HDI_PREDELIVERED. */
   private static final Map<String, DataStructureHDIModel> HDI_PREDELIVERED = Collections
       .synchronizedMap(new HashMap<>());
 
+  /** The Constant HDI_SYNCHRONIZED. */
   private static final List<String> HDI_SYNCHRONIZED = Collections.synchronizedList(new ArrayList<String>());
 
+  /** The Constant DATA_STRUCTURE_HDI_MODELS. */
   private static final Map<String, DataStructureHDIModel> DATA_STRUCTURE_HDI_MODELS = new LinkedHashMap<String, DataStructureHDIModel>();
+  
+  /** The synchronizer name. */
   private final String SYNCHRONIZER_NAME = this.getClass().getCanonicalName();
+  
+  /** The core parser service. */
   private ICoreParserService coreParserService = new CoreParserService();
+  
+  /** The data structures core service. */
   private IDataStructuresCoreService dataStructuresCoreService = new DataStructuresCoreService();
+  
+  /** The hdi container create processor. */
   private HDIContainerCreateProcessor hdiContainerCreateProcessor = new HDIContainerCreateProcessor();
+  
+  /** The data source. */
   private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
 
 
@@ -89,6 +103,9 @@ public class DataStructuresHDISynchronizer extends AbstractSynchronizer implemen
     return buff.toString();
   }
 
+  /**
+   * Synchronize.
+   */
   /*
    * (non-Javadoc)
    *
@@ -152,6 +169,13 @@ public class DataStructuresHDISynchronizer extends AbstractSynchronizer implemen
     HDI_PREDELIVERED.put(contentPath, model);
   }
 
+  /**
+   * Load resource content.
+   *
+   * @param modelPath the model path
+   * @return the string
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   private String loadResourceContent(String modelPath) throws IOException {
     InputStream in = DataStructuresHDISynchronizer.class.getResourceAsStream(modelPath);
     try {
@@ -194,7 +218,7 @@ public class DataStructuresHDISynchronizer extends AbstractSynchronizer implemen
   }
 
   /**
-   * Synchronize HDI files
+   * Synchronize HDI files.
    *
    * @param hdi the view model
    * @throws SynchronizationException the synchronization exception
@@ -223,6 +247,11 @@ public class DataStructuresHDISynchronizer extends AbstractSynchronizer implemen
     }
   }
 
+  /**
+   * Synchronize registry.
+   *
+   * @throws SynchronizationException the synchronization exception
+   */
   /*
    * (non-Javadoc)
    *
@@ -238,6 +267,12 @@ public class DataStructuresHDISynchronizer extends AbstractSynchronizer implemen
     logger.trace("Done synchronizing Kronos Data Structures HDI from Registry.");
   }
 
+  /**
+   * Synchronize resource.
+   *
+   * @param resource the resource
+   * @throws SynchronizationException the synchronization exception
+   */
   /*
    * (non-Javadoc)
    *
@@ -275,6 +310,13 @@ public class DataStructuresHDISynchronizer extends AbstractSynchronizer implemen
 
   }
 
+  /**
+   * Gets the content.
+   *
+   * @param resource the resource
+   * @return the content
+   * @throws SynchronizationException the synchronization exception
+   */
   private String getContent(IResource resource) throws SynchronizationException {
     byte[] content = resource.getContent();
     String contentAsString;
@@ -286,6 +328,11 @@ public class DataStructuresHDISynchronizer extends AbstractSynchronizer implemen
     return contentAsString;
   }
 
+  /**
+   * Cleanup.
+   *
+   * @throws SynchronizationException the synchronization exception
+   */
   /*
    * (non-Javadoc)
    *
@@ -370,6 +417,13 @@ public class DataStructuresHDISynchronizer extends AbstractSynchronizer implemen
     }
   }
 
+  /**
+   * Execute HDI.
+   *
+   * @param connection the connection
+   * @param hdiModels the hdi models
+   * @throws SQLException the SQL exception
+   */
   private void executeHDI(Connection connection, List<DataStructureHDIModel> hdiModels)
       throws SQLException {
     hdiModels.forEach(hdiModel -> {
@@ -377,6 +431,11 @@ public class DataStructuresHDISynchronizer extends AbstractSynchronizer implemen
     });
   }
 
+	/**
+	 * Gets the priority.
+	 *
+	 * @return the priority
+	 */
 	@Override
 	public int getPriority() {
 		return 270;

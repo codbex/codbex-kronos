@@ -11,6 +11,15 @@
  */
 package com.codbex.kronos.synchronizer.cleaners;
 
+/**
+ * The Interface XSJSLibSynchronizerCleaner.
+ */
 public interface XSJSLibSynchronizerCleaner {
+  
+  /**
+   * Cleanup.
+   *
+   * @param registryPath the registry path
+   */
   void cleanup(String registryPath);
 }

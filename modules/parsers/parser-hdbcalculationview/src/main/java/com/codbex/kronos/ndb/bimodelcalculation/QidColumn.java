@@ -28,9 +28,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**
- * <p>Java class for QidColumn complex type.
+ * Java class for QidColumn complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="QidColumn"&gt;
@@ -49,13 +49,20 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "QidColumn")
 public class QidColumn {
 
+  /** The id. */
   @XmlAttribute(name = "ID")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String id;
+  
+  /** The weight. */
   @XmlAttribute(name = "weight")
   protected Double weight;
+  
+  /** The min level. */
   @XmlAttribute(name = "minLevel")
   protected Integer minLevel;
+  
+  /** The max level. */
   @XmlAttribute(name = "maxLevel")
   protected Integer maxLevel;
 

@@ -40,9 +40,9 @@ import com.codbex.kronos.ndb.bimodelvariable.VariableMappings;
  * Base type for reporting enabled BI resources i.e. resources you can	run client tools on = BW InfoProvider
  *
  *
- * <p>Java class for InformationModel complex type.
+ * Java class for InformationModel complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="InformationModel"&gt;
@@ -86,31 +86,60 @@ import com.codbex.kronos.ndb.bimodelvariable.VariableMappings;
 public abstract class InformationModel
     extends BIResource {
 
+  /** The default schema. */
   protected SchemaMappingBasedObject defaultSchema;
+  
+  /** The local variables. */
   protected LocalVariables localVariables;
+  
+  /** The history variable. */
   protected String historyVariable;
+  
+  /** The variable mappings. */
   protected VariableMappings variableMappings;
+  
+  /** The information model layout. */
   protected InformationModelLayoutProperties informationModelLayout;
+  
+  /** The default language. */
   @XmlAttribute(name = "defaultLanguage")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String defaultLanguage;
+  
+  /** The default client. */
   @XmlAttribute(name = "defaultClient")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String defaultClient;
+  
+  /** The check analytic privileges. */
   @XmlAttribute(name = "checkAnalyticPrivileges")
   protected Boolean checkAnalyticPrivileges;
+  
+  /** The apply privilege type. */
   @XmlAttribute(name = "applyPrivilegeType")
   protected PrivilegeType applyPrivilegeType;
+  
+  /** The history enabled. */
   @XmlAttribute(name = "historyEnabled")
   protected Boolean historyEnabled;
+  
+  /** The generate concat attributes. */
   @XmlAttribute(name = "generateConcatAttributes")
   protected Boolean generateConcatAttributes;
+  
+  /** The cache enabled. */
   @XmlAttribute(name = "cacheEnabled")
   protected Boolean cacheEnabled;
+  
+  /** The cache invalidation period. */
   @XmlAttribute(name = "cacheInvalidationPeriod")
   protected CacheInvalidationPeriod cacheInvalidationPeriod;
+  
+  /** The translation relevant. */
   @XmlAttribute(name = "translationRelevant")
   protected Boolean translationRelevant;
+  
+  /** The hierarchies SQL enabled. */
   @XmlAttribute(name = "hierarchiesSQLEnabled")
   protected Boolean hierarchiesSQLEnabled;
 

@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for CompoundOperator.
+ * Java class for CompoundOperator.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="CompoundOperator"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -40,12 +40,24 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum CompoundOperator {
 
+  /** The and. */
   AND;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the compound operator
+   */
   public static CompoundOperator fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

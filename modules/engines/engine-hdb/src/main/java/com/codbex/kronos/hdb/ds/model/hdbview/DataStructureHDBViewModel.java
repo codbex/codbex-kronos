@@ -20,10 +20,19 @@ import com.codbex.kronos.hdb.ds.model.DataStructureModel;
  */
 public class DataStructureHDBViewModel extends DataStructureModel {
 
+    /** The query. */
     private String query;
+    
+    /** The public prop. */
     private boolean publicProp;
+    
+    /** The depends on. */
     private List<String> dependsOn;
+    
+    /** The depends on table. */
     private List<String> dependsOnTable;
+    
+    /** The depends on view. */
     private List<String> dependsOnView;
 
     /**

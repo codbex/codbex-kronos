@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for PrivilegeType.
+ * Java class for PrivilegeType.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="PrivilegeType"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -42,14 +42,30 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum PrivilegeType {
 
+  /** The none. */
   NONE,
+  
+  /** The analytic privilege. */
   ANALYTIC_PRIVILEGE,
+  
+  /** The sql analytic privilege. */
   SQL_ANALYTIC_PRIVILEGE;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the privilege type
+   */
   public static PrivilegeType fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

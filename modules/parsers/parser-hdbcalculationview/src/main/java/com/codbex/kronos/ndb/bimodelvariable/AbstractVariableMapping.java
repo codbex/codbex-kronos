@@ -35,9 +35,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * target variable name might also point to an attribute of the view.
  *
  *
- * <p>Java class for AbstractVariableMapping complex type.
+ * Java class for AbstractVariableMapping complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="AbstractVariableMapping"&gt;
@@ -63,11 +63,16 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public abstract class AbstractVariableMapping {
 
+  /** The target variable. */
   @XmlElement(required = true)
   protected TargetVariable targetVariable;
+  
+  /** The data source. */
   @XmlAttribute(name = "dataSource")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String dataSource;
+  
+  /** The for star join. */
   @XmlAttribute(name = "forStarJoin")
   protected Boolean forStarJoin;
 

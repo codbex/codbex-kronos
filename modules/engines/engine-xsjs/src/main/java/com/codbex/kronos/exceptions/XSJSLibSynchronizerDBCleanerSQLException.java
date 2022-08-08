@@ -11,8 +11,17 @@
  */
 package com.codbex.kronos.exceptions;
 
+/**
+ * The Class XSJSLibSynchronizerDBCleanerSQLException.
+ */
 public class XSJSLibSynchronizerDBCleanerSQLException extends RuntimeException {
 
+  /**
+   * Instantiates a new XSJS lib synchronizer DB cleaner SQL exception.
+   *
+   * @param message the message
+   * @param cause the cause
+   */
   public XSJSLibSynchronizerDBCleanerSQLException(String message, Throwable cause) {
     super(message, cause);
   }

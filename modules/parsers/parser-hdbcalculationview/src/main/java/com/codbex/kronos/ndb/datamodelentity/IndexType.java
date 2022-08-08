@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for IndexType.
+ * Java class for IndexType.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="IndexType"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -41,13 +41,27 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum IndexType {
 
+  /** The secondary. */
   SECONDARY,
+  
+  /** The text. */
   TEXT;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the index type
+   */
   public static IndexType fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

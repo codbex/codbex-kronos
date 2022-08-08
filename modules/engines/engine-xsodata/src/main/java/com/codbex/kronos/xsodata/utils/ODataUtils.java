@@ -51,18 +51,38 @@ import org.eclipse.dirigible.engine.odata2.transformers.DBMetadataUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class ODataUtils.
+ */
 public class ODataUtils {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(ODataUtils.class);
+  
+  /** The data source. */
   private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
 
+  /** The metadata provider. */
   private TableMetadataProvider metadataProvider;
+  
+  /** The db metadata util. */
   private DBMetadataUtil dbMetadataUtil = new DBMetadataUtil();
 
+  /**
+   * Instantiates a new o data utils.
+   *
+   * @param metadataProvider the metadata provider
+   */
   public ODataUtils(TableMetadataProvider metadataProvider) {
     this.metadataProvider = metadataProvider;
   }
 
+  /**
+   * Convert O data model to O data definition.
+   *
+   * @param oDataModel the o data model
+   * @return the o data definition
+   */
   public ODataDefinition convertODataModelToODataDefinition(ODataModel oDataModel) {
     ODataDefinition oDataDefinitionModel = new ODataDefinition();
 
@@ -168,6 +188,13 @@ public class ODataUtils {
     return oDataDefinitionModel;
   }
 
+  /**
+   * Process modification.
+   *
+   * @param oDataEntityDefinition the o data entity definition
+   * @param handlers the handlers
+   * @return the consumer
+   */
   private Consumer<HDBXSODataModification> processModification(ODataEntityDefinition oDataEntityDefinition,
       List<ODataHandler> handlers) {
     return modification -> {
@@ -197,6 +224,14 @@ public class ODataUtils {
     };
   }
 
+  /**
+   * Process navigation.
+   *
+   * @param oDataModel the o data model
+   * @param oDataDefinitionModel the o data definition model
+   * @param oDataEntityDefinition the o data entity definition
+   * @return the consumer
+   */
   Consumer<HDBXSODataNavigation> processNavigation(ODataModel oDataModel,
       ODataDefinition oDataDefinitionModel, ODataEntityDefinition oDataEntityDefinition) {
     return navigate -> {
@@ -250,6 +285,9 @@ public class ODataUtils {
 
   /**
    * Validate if provided multiplicity from xsodata can be mapped to olingo ones.
+   *
+   * @param actualValue the actual value
+   * @param assName the ass name
    */
   void validateEdmMultiplicity(String actualValue, String assName) {
     try {
@@ -261,6 +299,9 @@ public class ODataUtils {
 
   /**
    * Validate if provided handler type is one of the org.eclipse.dirigible.engine.odata2.definition.ODataHandlerTypes
+   *
+   * @param eventType the event type
+   * @return true, if successful
    */
   boolean validateHandlerType(HDBXSODataEventType eventType) {
     try {
@@ -274,6 +315,11 @@ public class ODataUtils {
 
   /**
    * Get input parameters if entity data source is a calculation view.
+   *
+   * @param allEntityParameters the all entity parameters
+   * @param tableName the table name
+   * @return the parameters for calc view
+   * @throws SQLException the SQL exception
    */
   private void getParametersForCalcView(List<PersistenceTableColumnModel> allEntityParameters, String tableName) throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
@@ -318,6 +364,12 @@ public class ODataUtils {
 
   /**
    * Create a second parameter entity.
+   *
+   * @param oDataDefinitionModel the o data definition model
+   * @param oDataEntityDefinition the o data entity definition
+   * @param entity the entity
+   * @param allEntityParameters the all entity parameters
+   * @param tableName the table name
    */
   private void processParameters(ODataDefinition oDataDefinitionModel, ODataEntityDefinition oDataEntityDefinition,
       HDBXSODataEntity entity, List<PersistenceTableColumnModel> allEntityParameters, String tableName) {

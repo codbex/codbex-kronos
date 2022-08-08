@@ -16,10 +16,19 @@ import org.slf4j.LoggerFactory;
 
 import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 
+/**
+ * The Class ScalarFunctionManagerService.
+ */
 public class ScalarFunctionManagerService extends TableFunctionManagerService {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(ScalarFunctionManagerService.class);
 
+  /**
+   * Gets the data structure type.
+   *
+   * @return the data structure type
+   */
   @Override
   public String getDataStructureType() {
     return IDataStructureModel.FILE_EXTENSION_HDBSCALARFUNCTION;

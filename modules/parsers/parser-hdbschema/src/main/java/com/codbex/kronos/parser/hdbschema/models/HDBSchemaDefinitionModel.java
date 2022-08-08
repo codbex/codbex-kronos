@@ -13,21 +13,44 @@ package com.codbex.kronos.parser.hdbschema.models;
 
 import java.util.Objects;
 
+/**
+ * The Class HDBSchemaDefinitionModel.
+ */
 public class HDBSchemaDefinitionModel {
 
+  /** The schema name. */
   private String schemaName;
 
+  /**
+   * Instantiates a new HDB schema definition model.
+   */
   public HDBSchemaDefinitionModel() {
   }
 
+  /**
+   * Gets the schema name.
+   *
+   * @return the schema name
+   */
   public String getSchemaName() {
     return schemaName;
   }
 
+  /**
+   * Sets the schema name.
+   *
+   * @param schemaName the new schema name
+   */
   public void setSchemaName(String schemaName) {
     this.schemaName = schemaName;
   }
 
+  /**
+   * Equals.
+   *
+   * @param o the o
+   * @return true, if successful
+   */
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -40,6 +63,11 @@ public class HDBSchemaDefinitionModel {
     return Objects.equals(schemaName, that.schemaName);
   }
 
+  /**
+   * Hash code.
+   *
+   * @return the int
+   */
   @Override
   public int hashCode() {
     return Objects.hash(schemaName);

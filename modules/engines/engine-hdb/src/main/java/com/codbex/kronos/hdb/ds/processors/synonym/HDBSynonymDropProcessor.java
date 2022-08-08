@@ -29,17 +29,26 @@ import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class HDBSynonymDropProcessor.
+ */
 public class HDBSynonymDropProcessor extends AbstractHDBProcessor<DataStructureHDBSynonymModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDBSynonymDropProcessor.class);
+  
+  /** The Constant SYNONYM_ARTEFACT. */
   private static final HDBSynonymSynchronizationArtefactType SYNONYM_ARTEFACT = new HDBSynonymSynchronizationArtefactType();
 
   /**
    * Execute :
-   * DROP SYNONYM <synonym_name> [<drop_option>]
-   * If <drop_option> is not specified, then a non-cascaded drop is performed which only drops the specified synonym.
+   * <code>DROP SYNONYM {synonym_name} [{drop_option}]</code>
+   * If {drop_option} is not specified, then a non-cascaded drop is performed which only drops the specified synonym.
    * Dependent objects of the synonym are invalidated but not dropped.
    *
+   * @param connection the connection
+   * @param synonymModel the synonym model
+   * @return true, if successful
    * @see <a href="https://help.sap.com/viewer/4fe29514fd584807ac9f2a04f6754767/1.0.12/en-US/20d7e172751910148bccb49de92d9859.html">DROP SYNONYM Statement (Data Definition)</a>
    */
   @Override

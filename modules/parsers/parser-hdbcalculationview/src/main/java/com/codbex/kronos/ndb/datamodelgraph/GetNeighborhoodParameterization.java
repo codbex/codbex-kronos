@@ -36,9 +36,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * -DEPTH
  *
  *
- * <p>Java class for GetNeighborhoodParameterization complex type.
+ * Java class for GetNeighborhoodParameterization complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="GetNeighborhoodParameterization"&gt;
@@ -85,24 +85,43 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class GetNeighborhoodParameterization
     extends GraphActionParameterization {
 
+  /** The start vertices. */
   protected String startVertices;
+  
+  /** The start vertices parameter. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String startVerticesParameter;
+  
+  /** The direction. */
   @XmlSchemaType(name = "NMTOKEN")
   protected Direction direction;
+  
+  /** The direction parameter. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String directionParameter;
+  
+  /** The min depth. */
   protected BigInteger minDepth;
+  
+  /** The min depth parameter. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String minDepthParameter;
+  
+  /** The max depth. */
   protected BigInteger maxDepth;
+  
+  /** The max depth parameter. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String maxDepthParameter;
+  
+  /** The vertex filter. */
   protected String vertexFilter;
+  
+  /** The edge filter. */
   protected String edgeFilter;
 
   /**

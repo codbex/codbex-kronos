@@ -35,9 +35,13 @@ import org.slf4j.LoggerFactory;
  */
 public class ViewDropProcessor extends AbstractHDBProcessor<DataStructureHDBViewModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(ViewDropProcessor.class);
+  
+  /** The Constant VIEW_ARTEFACT. */
   private static final HDBViewSynchronizationArtefactType VIEW_ARTEFACT = new HDBViewSynchronizationArtefactType();
 
+  /** The manager services. */
   private Map<String, IDataStructureManager> managerServices = HDBModule.getManagerServices();
 
   /**
@@ -45,6 +49,7 @@ public class ViewDropProcessor extends AbstractHDBProcessor<DataStructureHDBView
    *
    * @param connection the connection
    * @param viewModel  the view model
+   * @return true, if successful
    * @throws SQLException the SQL exception
    */
   public boolean execute(Connection connection, DataStructureHDBViewModel viewModel)

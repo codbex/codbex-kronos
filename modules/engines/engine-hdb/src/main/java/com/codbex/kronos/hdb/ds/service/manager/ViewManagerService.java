@@ -29,16 +29,32 @@ import javax.naming.OperationNotSupportedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class ViewManagerService.
+ */
 public class ViewManagerService extends AbstractDataStructureManagerService<DataStructureHDBViewModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(ViewManagerService.class);
 
+  /** The data structure views models. */
   private final Map<String, DataStructureHDBViewModel> dataStructureViewsModels = new LinkedHashMap<>();
+  
+  /** The views synchronized. */
   private final List<String> viewsSynchronized = Collections.synchronizedList(new ArrayList<>());
 
+  /** The view create processor. */
   private IHDBProcessor viewCreateProcessor = new ViewCreateProcessor();
+  
+  /** The view drop processor. */
   private IHDBProcessor viewDropProcessor = new ViewDropProcessor();
 
+  /**
+   * Synchronize runtime metadata.
+   *
+   * @param viewModel the view model
+   * @throws DataStructuresException the data structures exception
+   */
   @Override
   public void synchronizeRuntimeMetadata(DataStructureHDBViewModel viewModel) throws DataStructuresException {
     if (!getDataStructuresCoreService().existsDataStructure(viewModel.getLocation(), viewModel.getType())) {
@@ -60,39 +76,81 @@ public class ViewManagerService extends AbstractDataStructureManagerService<Data
     }
   }
 
+  /**
+   * Creates the data structure.
+   *
+   * @param connection the connection
+   * @param viewModel the view model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   @Override
   public boolean createDataStructure(Connection connection, DataStructureHDBViewModel viewModel)
       throws SQLException {
     return this.viewCreateProcessor.execute(connection, viewModel);
   }
 
+  /**
+   * Drop data structure.
+   *
+   * @param connection the connection
+   * @param viewModel the view model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   @Override
   public boolean dropDataStructure(Connection connection, DataStructureHDBViewModel viewModel)
       throws SQLException {
     return this.viewDropProcessor.execute(connection, viewModel);
   }
 
+  /**
+   * Update data structure.
+   *
+   * @param connection the connection
+   * @param viewModel the view model
+   * @return true, if successful
+   * @throws OperationNotSupportedException the operation not supported exception
+   */
   @Override
   public boolean updateDataStructure(Connection connection, DataStructureHDBViewModel viewModel)
       throws OperationNotSupportedException {
     throw new OperationNotSupportedException();
   }
 
+  /**
+   * Gets the data structure models.
+   *
+   * @return the data structure models
+   */
   @Override
   public Map<String, DataStructureHDBViewModel> getDataStructureModels() {
     return Collections.unmodifiableMap(this.dataStructureViewsModels);
   }
 
+  /**
+   * Gets the data structure synchronized.
+   *
+   * @return the data structure synchronized
+   */
   @Override
   public List<String> getDataStructureSynchronized() {
     return Collections.unmodifiableList(this.viewsSynchronized);
   }
 
+  /**
+   * Gets the data structure type.
+   *
+   * @return the data structure type
+   */
   @Override
   public String getDataStructureType() {
     return IDataStructureModel.FILE_EXTENSION_VIEW;
   }
 
+  /**
+   * Clear cache.
+   */
   @Override
   public void clearCache() {
     dataStructureViewsModels.clear();

@@ -35,9 +35,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * Replaces the ABAP data element in the CDS meta model
  *
  *
- * <p>Java class for SimpleType complex type.
+ * Java class for SimpleType complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="SimpleType"&gt;
@@ -69,48 +69,71 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class SimpleType
     extends DataType {
 
+  /** The value range. */
   protected List<ValueRange> valueRange;
+  
+  /** The data element name. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "NMTOKEN")
   protected List<String> dataElementName;
+  
+  /** The primitive type. */
   @XmlAttribute(name = "primitiveType", required = true)
   protected PrimitiveType primitiveType;
+  
+  /** The length. */
   @XmlAttribute(name = "length")
   protected Short length;
+  
+  /** The precision. */
   @XmlAttribute(name = "precision")
   protected Short precision;
+  
+  /** The scale. */
   @XmlAttribute(name = "scale")
   protected Short scale;
+  
+  /** The check entity. */
   @XmlAttribute(name = "checkEntity")
   protected String checkEntity;
+  
+  /** The semantic type. */
   @XmlAttribute(name = "semanticType")
   protected SemanticType semanticType;
+  
+  /** The derived. */
   @XmlAttribute(name = "derived")
   protected Boolean derived;
+  
+  /** The default aggregation behavior. */
   @XmlAttribute(name = "defaultAggregationBehavior")
   protected AggregationBehavior defaultAggregationBehavior;
+  
+  /** The global element name. */
   @XmlAttribute(name = "globalElementName")
   protected String globalElementName;
 
   /**
    * Gets the value of the valueRange property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the valueRange property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getValueRange().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link ValueRange }
+   *
+   * @return the value range
    */
   public List<ValueRange> getValueRange() {
     if (valueRange == null) {
@@ -121,23 +144,25 @@ public class SimpleType
 
   /**
    * Gets the value of the dataElementName property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the dataElementName property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getDataElementName().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link String }
+   *
+   * @return the data element name
    */
   public List<String> getDataElementName() {
     if (dataElementName == null) {

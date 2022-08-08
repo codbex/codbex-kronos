@@ -11,9 +11,24 @@
  */
 package com.codbex.kronos.xssecurestore.ds.api;
 
+/**
+ * The Interface ISecureStoreEncryptor.
+ */
 public interface ISecureStoreEncryptor {
 
+  /**
+   * Encode.
+   *
+   * @param input the input
+   * @return the byte[]
+   */
   byte[] encode(byte[] input);
 
+  /**
+   * Decode.
+   *
+   * @param input the input
+   * @return the byte[]
+   */
   byte[] decode(byte[] input);
 }

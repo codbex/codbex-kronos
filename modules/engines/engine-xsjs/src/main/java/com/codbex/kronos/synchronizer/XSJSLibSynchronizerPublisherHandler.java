@@ -21,19 +21,42 @@ import com.codbex.kronos.synchronizer.cleaners.XSJSLibSynchronizerFileCleaner;
 
 import javax.sql.DataSource;
 
+/**
+ * The Class XSJSLibSynchronizerPublisherHandler.
+ */
 public class XSJSLibSynchronizerPublisherHandler extends MetadataPublisherHandler {
+  
+  /** The Constant dataSource. */
   private static final DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
+  
+  /** The Constant repository. */
   private static final IRepository repository = (IRepository) StaticObjects.get(StaticObjects.REPOSITORY);
 
+  /** The db cleaner. */
   private final XSJSLibSynchronizerCleaner dbCleaner = new XSJSLibSynchronizerDBCleaner(dataSource);
+  
+  /** The file cleaner. */
   private final XSJSLibSynchronizerCleaner fileCleaner = new XSJSLibSynchronizerFileCleaner(repository);
+  
+  /** The unpublisher. */
   private final XSJSLibSynchronizerUnpublisher unpublisher = new XSJSLibSynchronizerUnpublisher(fileCleaner, dbCleaner);
 
+  /**
+   * After publish.
+   *
+   * @param workspaceLocation the workspace location
+   * @param registryLocation the registry location
+   */
   @Override
   public void afterPublish(String workspaceLocation, String registryLocation) {
     XSJSLibSynchronizer.forceSynchronization(registryLocation);
   }
 
+  /**
+   * Before unpublish.
+   *
+   * @param location the location
+   */
   @Override
   public void beforeUnpublish(String location) {
     XSJSLibSynchronizerRegistryEntity entity = new XSJSLibSynchronizerRegistryEntity(location, repository, true);

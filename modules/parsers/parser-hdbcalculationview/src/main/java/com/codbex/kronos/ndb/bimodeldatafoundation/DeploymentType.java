@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for DeploymentType.
+ * Java class for DeploymentType.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="DeploymentType"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -42,16 +42,32 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum DeploymentType {
 
+  /** The system derived. */
   @XmlEnumValue("systemDerived")
   SYSTEM_DERIVED("systemDerived"),
+  
+  /** The join view. */
   @XmlEnumValue("joinView")
   JOIN_VIEW("joinView");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new deployment type.
+   *
+   * @param v the v
+   */
   DeploymentType(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the deployment type
+   */
   public static DeploymentType fromValue(String v) {
     for (DeploymentType c : DeploymentType.values()) {
       if (c.value.equals(v)) {
@@ -61,6 +77,11 @@ public enum DeploymentType {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

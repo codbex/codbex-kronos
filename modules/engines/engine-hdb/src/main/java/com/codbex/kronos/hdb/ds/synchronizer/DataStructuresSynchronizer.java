@@ -52,18 +52,40 @@ import com.codbex.kronos.utils.CommonsConstants;
  */
 public class DataStructuresSynchronizer extends AbstractSynchronizer implements IOrderedSynchronizerContribution {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(DataStructuresSynchronizer.class);
 
+  /** The Constant ENTITIES_PREDELIVERED. */
   private static final Map<String, DataStructureEntitiesModel> ENTITIES_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
+  
+  /** The Constant TABLES_PREDELIVERED. */
   private static final Map<String, DataStructureHDBTableModel> TABLES_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
+  
+  /** The Constant VIEWS_PREDELIVERED. */
   private static final Map<String, DataStructureHDBViewModel> VIEWS_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
+  
+  /** The Constant PROCEDURES_PREDELIVERED. */
   private static final Map<String, DataStructureHDBProcedureModel> PROCEDURES_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
+  
+  /** The Constant TABLEFUNCTIONS_PREDELIVERED. */
   private static final Map<String, DataStructureHDBTableFunctionModel> TABLEFUNCTIONS_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
+  
+  /** The Constant SCHEMAS_PREDELIVERED. */
   private static final Map<String, DataStructureHDBSchemaModel> SCHEMAS_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
+  
+  /** The Constant SYNONYMS_PREDELIVERED. */
   private static final Map<String, DataStructureHDBSynonymModel> SYNONYMS_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
+  
+  /** The Constant TABLE_TYPES_PREDELIVERED. */
   private static final Map<String, DataStructureHDBTableTypeModel> TABLE_TYPES_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
+  
+  /** The synchronizer name. */
   private final String SYNCHRONIZER_NAME = this.getClass().getCanonicalName();
+  
+  /** The core parser service. */
   private ICoreParserService coreParserService = new CoreParserService();
+  
+  /** The hdb core facade. */
   private IHDBCoreSynchronizationFacade hdbCoreFacade = new HDBCoreSynchronizationFacade();
 
 
@@ -72,7 +94,7 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
    * Register predelivered entities files.
    *
    * @param contentPath the data path
-   * @throws Exception
+   * @throws Exception the exception
    */
   public void registerPredeliveredEntities(String contentPath) throws Exception {
     String data = loadResourceContent(contentPath);
@@ -87,7 +109,7 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
    * Register predelivered table files.
    *
    * @param contentPath the data path
-   * @throws Exception
+   * @throws Exception the exception
    */
   public void registerPredeliveredTable(String contentPath) throws Exception {
     String data = loadResourceContent(contentPath);
@@ -102,7 +124,7 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
    * Register predelivered view files.
    *
    * @param contentPath the data path
-   * @throws Exception
+   * @throws Exception the exception
    */
   public void registerPredeliveredView(String contentPath) throws Exception {
     String data = loadResourceContent(contentPath);
@@ -117,7 +139,7 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
    * Register predelivered view files.
    *
    * @param contentPath the data path
-   * @throws Exception
+   * @throws Exception the exception
    */
   public void registerPredeliveredSynonym(String contentPath) throws Exception {
     String data = loadResourceContent(contentPath);
@@ -134,6 +156,7 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
    * @param contentPath the data path
    * @throws IOException                in case of an error
    * @throws DataStructuresException in case of an error
+   * @throws ArtifactParserException the artifact parser exception
    */
   public void registerPredeliveredHDBProcedure(String contentPath)
       throws IOException, DataStructuresException, ArtifactParserException {
@@ -151,6 +174,8 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
    *
    * @param contentPath the data path
    * @throws IOException in case of an error
+   * @throws DataStructuresException the data structures exception
+   * @throws ArtifactParserException the artifact parser exception
    */
   public void registerPredeliveredHDBTableFunction(String contentPath)
       throws IOException, DataStructuresException, ArtifactParserException {
@@ -169,6 +194,7 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
    * @param contentPath the data path
    * @throws IOException                in case of an error
    * @throws DataStructuresException in case of an error
+   * @throws ArtifactParserException the artifact parser exception
    */
   public void registerPredeliveredHDBSchema(String contentPath)
       throws IOException, DataStructuresException, ArtifactParserException {
@@ -185,7 +211,7 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
    * Register predelivered *.hdbstructure files.
    *
    * @param contentPath the data path
-   * @throws Exception
+   * @throws Exception the exception
    */
   public void registerPredeliveredHDBStructure(String contentPath) throws Exception {
     String data = loadResourceContent(contentPath);
@@ -196,6 +222,13 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
     TABLE_TYPES_PREDELIVERED.put(contentPath, model);
   }
 
+  /**
+   * Load resource content.
+   *
+   * @param modelPath the model path
+   * @return the string
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   private String loadResourceContent(String modelPath) throws IOException {
     InputStream in = DataStructuresSynchronizer.class.getResourceAsStream(modelPath);
     try {
@@ -208,6 +241,9 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
     }
   }
 
+  /**
+   * Synchronize.
+   */
   /*
    * (non-Javadoc)
    *
@@ -369,6 +405,11 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
     logger.trace("Done synchronizing predelivered Kronos Data Structures.");
   }
 
+  /**
+   * Synchronize registry.
+   *
+   * @throws SynchronizationException the synchronization exception
+   */
   /*
    * (non-Javadoc)
    *
@@ -384,6 +425,12 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
     logger.trace("Done synchronizing Kronos Data Structures from Registry.");
   }
 
+  /**
+   * Synchronize resource.
+   *
+   * @param resource the resource
+   * @throws SynchronizationException the synchronization exception
+   */
   /*
    * (non-Javadoc)
    *
@@ -400,6 +447,11 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
     }
   }
 
+  /**
+   * Cleanup.
+   *
+   * @throws SynchronizationException the synchronization exception
+   */
   /*
    * (non-Javadoc)
    *
@@ -414,6 +466,11 @@ public class DataStructuresSynchronizer extends AbstractSynchronizer implements 
     }
   }
 
+	/**
+	 * Gets the priority.
+	 *
+	 * @return the priority
+	 */
 	@Override
 	public int getPriority() {
 		return 250;

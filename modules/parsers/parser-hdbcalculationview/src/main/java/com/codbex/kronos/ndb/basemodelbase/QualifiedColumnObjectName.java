@@ -36,9 +36,9 @@ import com.codbex.kronos.ndb.bimodeldatafoundation.ColumnMapping;
  * In addition this type  contains the alias in case the same table is used several times in the same data foundation.
  *
  *
- * <p>Java class for QualifiedColumnObjectName complex type.
+ * Java class for QualifiedColumnObjectName complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="QualifiedColumnObjectName"&gt;
@@ -58,6 +58,7 @@ import com.codbex.kronos.ndb.bimodeldatafoundation.ColumnMapping;
 public class QualifiedColumnObjectName
     extends QualifiedSQLObjectName {
 
+  /** The alias. */
   @XmlAttribute(name = "alias")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String alias;

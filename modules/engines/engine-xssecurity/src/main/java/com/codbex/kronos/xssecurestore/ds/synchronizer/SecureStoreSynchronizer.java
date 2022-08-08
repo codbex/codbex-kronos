@@ -27,12 +27,23 @@ import com.codbex.kronos.xssecurestore.ds.api.SecureStoreException;
 import com.codbex.kronos.xssecurestore.ds.model.SecureStore;
 import com.codbex.kronos.xssecurestore.ds.service.SecureStoreCoreService;
 
+/**
+ * The Class SecureStoreSynchronizer.
+ */
 public class SecureStoreSynchronizer extends AbstractSynchronizer {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(SecureStoreSynchronizer.class);
+  
+  /** The synchronizer name. */
   private final String SYNCHRONIZER_NAME = this.getClass().getCanonicalName();
+  
+  /** The secure store core service. */
   private SecureStoreCoreService secureStoreCoreService = new SecureStoreCoreService();
 
+  /**
+   * Synchronize.
+   */
   @Override
   public void synchronize() {
     synchronized (SecureStoreSynchronizer.class) {
@@ -57,6 +68,12 @@ public class SecureStoreSynchronizer extends AbstractSynchronizer {
     }
   }
 
+  /**
+   * Synchronize resource.
+   *
+   * @param resource the resource
+   * @throws SynchronizationException the synchronization exception
+   */
   @Override
   protected void synchronizeResource(IResource resource) throws SynchronizationException {
     String resourceName = resource.getName();
@@ -73,6 +90,11 @@ public class SecureStoreSynchronizer extends AbstractSynchronizer {
     }
   }
 
+  /**
+   * Cleanup.
+   *
+   * @throws SynchronizationException the synchronization exception
+   */
   @Override
   protected void cleanup() throws SynchronizationException {
     logger.trace("Cleaning up Secure Stores");
@@ -94,6 +116,11 @@ public class SecureStoreSynchronizer extends AbstractSynchronizer {
     }
   }
 
+  /**
+   * Synchronize registry.
+   *
+   * @throws SynchronizationException the synchronization exception
+   */
   @Override
   protected void synchronizeRegistry() throws SynchronizationException {
     logger.trace("Synchronizing Secure Store from Registry...");

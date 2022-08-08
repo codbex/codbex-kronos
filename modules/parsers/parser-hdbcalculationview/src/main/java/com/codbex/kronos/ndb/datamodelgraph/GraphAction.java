@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for GraphAction.
+ * Java class for GraphAction.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="GraphAction"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token"&gt;
@@ -45,17 +45,39 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum GraphAction {
 
+  /** The pattern matching. */
   PATTERN_MATCHING,
+  
+  /** The script pattern matching. */
   SCRIPT_PATTERN_MATCHING,
+  
+  /** The get neighborhood. */
   GET_NEIGHBORHOOD,
+  
+  /** The get shortest paths one to all. */
   GET_SHORTEST_PATHS_ONE_TO_ALL,
+  
+  /** The get shortest paths one to one. */
   GET_SHORTEST_PATHS_ONE_TO_ONE,
+  
+  /** The get strongly connected components. */
   GET_STRONGLY_CONNECTED_COMPONENTS;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the graph action
+   */
   public static GraphAction fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

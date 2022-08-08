@@ -34,15 +34,36 @@ import com.codbex.kronos.xsjob.ds.api.IJobCoreService;
 import com.codbex.kronos.xsjob.ds.model.JobArtifact;
 import com.codbex.kronos.xsjob.ds.model.JobDefinition;
 
+/**
+ * The Class JobCoreService.
+ */
 public class JobCoreService implements IJobCoreService {
 
+  /** The data source. */
   private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
 
+  /** The persistence manager. */
   private PersistenceManager<JobDefinition> persistenceManager = new PersistenceManager<JobDefinition>();
 
+  /**
+   * Instantiates a new job core service.
+   */
   public JobCoreService() {
   }
 
+  /**
+   * Creates the job.
+   *
+   * @param name the name
+   * @param group the group
+   * @param description the description
+   * @param module the module
+   * @param action the action
+   * @param cronExpression the cron expression
+   * @param parametersAsMap the parameters as map
+   * @return the job definition
+   * @throws SchedulerException the scheduler exception
+   */
   @Override
   public JobDefinition
   createJob(String name, String group, String description, String module, String action, String cronExpression,
@@ -75,6 +96,21 @@ public class JobCoreService implements IJobCoreService {
     }
   }
 
+  /**
+   * Update job.
+   *
+   * @param name the name
+   * @param group the group
+   * @param description the description
+   * @param module the module
+   * @param action the action
+   * @param cronExpression the cron expression
+   * @param startAt the start at
+   * @param endAt the end at
+   * @param parametersAsMap the parameters as map
+   * @return the job definition
+   * @throws SchedulerException the scheduler exception
+   */
   @Override
   public JobDefinition updateJob(String name, String group, String description, String module, String action, String cronExpression,
       Timestamp startAt, Timestamp endAt,
@@ -105,6 +141,13 @@ public class JobCoreService implements IJobCoreService {
     }
   }
 
+  /**
+   * Gets the job.
+   *
+   * @param name the name
+   * @return the job
+   * @throws SchedulerException the scheduler exception
+   */
   @Override
   public JobDefinition getJob(String name) throws SchedulerException {
     try {
@@ -128,6 +171,12 @@ public class JobCoreService implements IJobCoreService {
     }
   }
 
+  /**
+   * Removes the job.
+   *
+   * @param name the name
+   * @throws SchedulerException the scheduler exception
+   */
   @Override
   public void removeJob(String name) throws SchedulerException {
     try {
@@ -145,6 +194,12 @@ public class JobCoreService implements IJobCoreService {
     }
   }
 
+  /**
+   * Gets the jobs.
+   *
+   * @return the jobs
+   * @throws SchedulerException the scheduler exception
+   */
   @Override
   public List<JobDefinition> getJobs() throws SchedulerException {
     try {
@@ -169,17 +224,36 @@ public class JobCoreService implements IJobCoreService {
     }
   }
 
+  /**
+   * Exists job.
+   *
+   * @param name the name
+   * @return true, if successful
+   * @throws SchedulerException the scheduler exception
+   */
   @Override
   public boolean existsJob(String name) throws SchedulerException {
     return getJob(name) != null;
   }
 
+  /**
+   * Parses the job.
+   *
+   * @param json the json
+   * @return the job artifact
+   */
   @Override
   public JobArtifact parseJob(String json) {
     JobArtifact jobDefinition = GsonHelper.GSON.fromJson(json, JobArtifact.class);
     return jobDefinition;
   }
 
+  /**
+   * Parses the job.
+   *
+   * @param content the content
+   * @return the job artifact
+   */
   @Override
   public JobArtifact parseJob(byte[] content) {
     JobArtifact jobDefinition = GsonHelper.GSON

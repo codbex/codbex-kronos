@@ -18,27 +18,66 @@ package com.codbex.kronos.hdb.ds.transformer.hdbdd;
  * @see <a href="https://help.sap.com/viewer/52715f71adba4aaeb480d946c742d1f6/2.0.03/en-US/cf394efd3fb4400f9c09d10315028515.html">CDS Primitive Data Types</a>
  */
 public enum CdsTypeEnum {
+  
+  /** The String. */
   String("NVARCHAR"),
+  
+  /** The Large string. */
   LargeString("NCLOB"),
+  
+  /** The Binary. */
   Binary("VARBINARY"),
+  
+  /** The Large binary. */
   LargeBinary("BLOB"),
+  
+  /** The Integer. */
   Integer("INTEGER"),
+  
+  /** The Integer 64. */
   Integer64("BIGINT"),
+  
+  /** The Decimal. */
   Decimal("DECIMAL"),
+  
+  /** The Binary float. */
   BinaryFloat("DOUBLE"),
+  
+  /** The Decimal float. */
   DecimalFloat("DECIMAL"),
+  
+  /** The Local date. */
   LocalDate("DATE"),
+  
+  /** The Local time. */
   LocalTime("TIME"),
+  
+  /** The UTC date time. */
   UTCDateTime("SECONDDATE"),
+  
+  /** The UTC timestamp. */
   UTCTimestamp("TIMESTAMP"),
+  
+  /** The Boolean. */
   Boolean("BOOLEAN");
 
+  /**
+   * Instantiates a new cds type enum.
+   *
+   * @param sqlType the sql type
+   */
   CdsTypeEnum(java.lang.String sqlType) {
     this.sqlType = sqlType;
   }
 
+  /** The sql type. */
   private String sqlType;
 
+  /**
+   * Gets the sql type.
+   *
+   * @return the sql type
+   */
   public java.lang.String getSqlType() {
     return sqlType;
   }

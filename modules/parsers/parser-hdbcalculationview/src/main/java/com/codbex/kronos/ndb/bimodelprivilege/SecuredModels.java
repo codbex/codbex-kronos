@@ -31,9 +31,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**
- * <p>Java class for SecuredModels complex type.
+ * Java class for SecuredModels complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="SecuredModels"&gt;
@@ -54,31 +54,36 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class SecuredModels {
 
+  /** The model uri. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected List<String> modelUri;
+  
+  /** The all information models. */
   @XmlAttribute(name = "allInformationModels")
   protected Boolean allInformationModels;
 
   /**
    * Gets the value of the modelUri property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the modelUri property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getModelUri().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link String }
+   *
+   * @return the model uri
    */
   public List<String> getModelUri() {
     if (modelUri == null) {

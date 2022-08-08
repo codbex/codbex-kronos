@@ -28,9 +28,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for anonymous complex type.
+ * Java class for anonymous complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -83,52 +83,99 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "CalculationScenario")
 public class CalculationScenario {
 
+  /** The origin. */
   @XmlElement(required = true)
   protected String origin;
+  
+  /** The descriptions. */
   @XmlElement(required = true)
   protected Descriptions descriptions;
+  
+  /** The metadata. */
   @XmlElement(required = true)
   protected Metadata metadata;
+  
+  /** The default schema. */
   @XmlElement(required = true)
   protected DefaultSchema defaultSchema;
+  
+  /** The local variables. */
   @XmlElement(required = true)
   protected String localVariables;
+  
+  /** The variable mappings. */
   @XmlElement(required = true)
   protected String variableMappings;
+  
+  /** The data sources. */
   @XmlElement(required = true)
   protected DataSources dataSources;
+  
+  /** The calculation views. */
   @XmlElement(required = true)
   protected CalculationViews calculationViews;
+  
+  /** The logical model. */
   @XmlElement(required = true)
   protected LogicalModel logicalModel;
+  
+  /** The layout. */
   @XmlElement(required = true)
   protected Layout layout;
+  
+  /** The schema version. */
   @XmlAttribute(name = "schemaVersion")
   protected Float schemaVersion;
+  
+  /** The id. */
   @XmlAttribute(name = "id")
   protected String id;
+  
+  /** The apply privilege type. */
   @XmlAttribute(name = "applyPrivilegeType")
   protected String applyPrivilegeType;
+  
+  /** The check analytic privileges. */
   @XmlAttribute(name = "checkAnalyticPrivileges")
   protected String checkAnalyticPrivileges;
+  
+  /** The default client. */
   @XmlAttribute(name = "defaultClient")
   protected String defaultClient;
+  
+  /** The default language. */
   @XmlAttribute(name = "defaultLanguage")
   protected String defaultLanguage;
+  
+  /** The hierarchies SQL enabled. */
   @XmlAttribute(name = "hierarchiesSQLEnabled")
   protected String hierarchiesSQLEnabled;
+  
+  /** The translation relevant. */
   @XmlAttribute(name = "translationRelevant")
   protected String translationRelevant;
+  
+  /** The visibility. */
   @XmlAttribute(name = "visibility")
   protected String visibility;
+  
+  /** The calculation scenario type. */
   @XmlAttribute(name = "calculationScenarioType")
   protected String calculationScenarioType;
+  
+  /** The data category. */
   @XmlAttribute(name = "dataCategory")
   protected String dataCategory;
+  
+  /** The enforce sql execution. */
   @XmlAttribute(name = "enforceSqlExecution")
   protected String enforceSqlExecution;
+  
+  /** The execution semantic. */
   @XmlAttribute(name = "executionSemantic")
   protected String executionSemantic;
+  
+  /** The output view type. */
   @XmlAttribute(name = "outputViewType")
   protected String outputViewType;
 

@@ -21,10 +21,20 @@ import org.eclipse.dirigible.core.scheduler.service.definition.JobDefinition;
  */
 public class ODataSynchronizerJobDefinitionProvider implements IJobDefinitionProvider {
 
+  /** The Constant ODATA_SYNCHRONIZER_JOB. */
   static final String ODATA_SYNCHRONIZER_JOB = "Kronos OData Synchronizer Job";
+  
+  /** The Constant KRONOS_JOB_EXPRESSION_ODATA. */
   private static final String KRONOS_JOB_EXPRESSION_ODATA = "KRONOS_JOB_EXPRESSION_ODATA";
+  
+  /** The Constant KRONOS_ODATA_SYNCHRONIZER_JOB. */
   private static final String KRONOS_ODATA_SYNCHRONIZER_JOB = "kronos-odata-synchronizer-job";
 
+  /**
+   * Gets the job definition.
+   *
+   * @return the job definition
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.core.scheduler.api.IJobDefinitionProvider#getJobDefinition()

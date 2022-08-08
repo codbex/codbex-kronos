@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRegistry;
  * This object contains factory methods for each
  * Java content interface and Java element interface
  * generated in the com.sap.ndb.datamodelhierarchy package.
- * <p>An ObjectFactory allows you to programatically
+ * An ObjectFactory allows you to programatically
  * construct new instances of the Java representation
  * for XML content. The Java representation of XML
  * content can consist of schema derived interfaces
@@ -46,105 +46,135 @@ public class ObjectFactory {
   }
 
   /**
-   * Create an instance of {@link LeveledHierarchy }
+   * Create an instance of {@link LeveledHierarchy }.
+   *
+   * @return the leveled hierarchy
    */
   public LeveledHierarchy createLeveledHierarchy() {
     return new LeveledHierarchy();
   }
 
   /**
-   * Create an instance of {@link Level }
+   * Create an instance of {@link Level }.
+   *
+   * @return the level
    */
   public Level createLevel() {
     return new Level();
   }
 
   /**
-   * Create an instance of {@link ParentChildHierarchy }
+   * Create an instance of {@link ParentChildHierarchy }.
+   *
+   * @return the parent child hierarchy
    */
   public ParentChildHierarchy createParentChildHierarchy() {
     return new ParentChildHierarchy();
   }
 
   /**
-   * Create an instance of {@link ParentDefinition }
+   * Create an instance of {@link ParentDefinition }.
+   *
+   * @return the parent definition
    */
   public ParentDefinition createParentDefinition() {
     return new ParentDefinition();
   }
 
   /**
-   * Create an instance of {@link HierarchyTimeProperties }
+   * Create an instance of {@link HierarchyTimeProperties }.
+   *
+   * @return the hierarchy time properties
    */
   public HierarchyTimeProperties createHierarchyTimeProperties() {
     return new HierarchyTimeProperties();
   }
 
   /**
-   * Create an instance of {@link EdgeAttribute }
+   * Create an instance of {@link EdgeAttribute }.
+   *
+   * @return the edge attribute
    */
   public EdgeAttribute createEdgeAttribute() {
     return new EdgeAttribute();
   }
 
   /**
-   * Create an instance of {@link HierarchyParameterization }
+   * Create an instance of {@link HierarchyParameterization }.
+   *
+   * @return the hierarchy parameterization
    */
   public HierarchyParameterization createHierarchyParameterization() {
     return new HierarchyParameterization();
   }
 
   /**
-   * Create an instance of {@link HierarchyLeveledParameterization }
+   * Create an instance of {@link HierarchyLeveledParameterization }.
+   *
+   * @return the hierarchy leveled parameterization
    */
   public HierarchyLeveledParameterization createHierarchyLeveledParameterization() {
     return new HierarchyLeveledParameterization();
   }
 
   /**
-   * Create an instance of {@link Levels }
+   * Create an instance of {@link Levels }.
+   *
+   * @return the levels
    */
   public Levels createLevels() {
     return new Levels();
   }
 
   /**
-   * Create an instance of {@link HierarchyTemporalParameterization }
+   * Create an instance of {@link HierarchyTemporalParameterization }.
+   *
+   * @return the hierarchy temporal parameterization
    */
   public HierarchyTemporalParameterization createHierarchyTemporalParameterization() {
     return new HierarchyTemporalParameterization();
   }
 
   /**
-   * Create an instance of {@link HierarchySpanTreeParameterization }
+   * Create an instance of {@link HierarchySpanTreeParameterization }.
+   *
+   * @return the hierarchy span tree parameterization
    */
   public HierarchySpanTreeParameterization createHierarchySpanTreeParameterization() {
     return new HierarchySpanTreeParameterization();
   }
 
   /**
-   * Create an instance of {@link HierarchyDescendantsParameterization }
+   * Create an instance of {@link HierarchyDescendantsParameterization }.
+   *
+   * @return the hierarchy descendants parameterization
    */
   public HierarchyDescendantsParameterization createHierarchyDescendantsParameterization() {
     return new HierarchyDescendantsParameterization();
   }
 
   /**
-   * Create an instance of {@link HierarchyAncestorsParameterization }
+   * Create an instance of {@link HierarchyAncestorsParameterization }.
+   *
+   * @return the hierarchy ancestors parameterization
    */
   public HierarchyAncestorsParameterization createHierarchyAncestorsParameterization() {
     return new HierarchyAncestorsParameterization();
   }
 
   /**
-   * Create an instance of {@link HierarchySiblingsParameterization }
+   * Create an instance of {@link HierarchySiblingsParameterization }.
+   *
+   * @return the hierarchy siblings parameterization
    */
   public HierarchySiblingsParameterization createHierarchySiblingsParameterization() {
     return new HierarchySiblingsParameterization();
   }
 
   /**
-   * Create an instance of {@link Start }
+   * Create an instance of {@link Start }.
+   *
+   * @return the start
    */
   public Start createStart() {
     return new Start();

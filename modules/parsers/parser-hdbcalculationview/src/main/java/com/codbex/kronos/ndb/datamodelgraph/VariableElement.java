@@ -32,9 +32,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * For referencing an element of a variable
  *
  *
- * <p>Java class for VariableElement complex type.
+ * Java class for VariableElement complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="VariableElement"&gt;
@@ -55,9 +55,12 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class VariableElement {
 
+  /** The variable. */
   @XmlAttribute(name = "variable", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String variable;
+  
+  /** The element. */
   @XmlAttribute(name = "element", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String element;

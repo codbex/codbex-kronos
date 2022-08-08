@@ -33,9 +33,9 @@ import com.codbex.kronos.ndb.basemodelbase.SortDirection;
  * Defines the order of one column
  *
  *
- * <p>Java class for Order complex type.
+ * Java class for Order complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Order"&gt;
@@ -52,9 +52,12 @@ import com.codbex.kronos.ndb.basemodelbase.SortDirection;
 @XmlType(name = "Order")
 public class Order {
 
+  /** The by element. */
   @XmlAttribute(name = "byElement", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String byElement;
+  
+  /** The direction. */
   @XmlAttribute(name = "direction")
   protected SortDirection direction;
 

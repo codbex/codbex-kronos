@@ -33,7 +33,10 @@ import org.slf4j.LoggerFactory;
  */
 public class HDBEntityDropProcessor extends AbstractHDBProcessor<DataStructureEntityModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDBEntityDropProcessor.class);
+  
+  /** The Constant ENTITY_ARTEFACT. */
   private static final HDBDDEntitySynchronizationArtefactType ENTITY_ARTEFACT = new HDBDDEntitySynchronizationArtefactType();
 
   /**
@@ -41,6 +44,7 @@ public class HDBEntityDropProcessor extends AbstractHDBProcessor<DataStructureEn
    *
    * @param connection  the connection
    * @param entityModel the table model
+   * @return true, if successful
    * @throws SQLException the SQL exception
    */
   public boolean execute(Connection connection, DataStructureEntityModel entityModel) throws SQLException {

@@ -32,17 +32,27 @@ import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.utils.HDBUtils;
 
 
+/**
+ * The Class HDBSynonymCreateProcessor.
+ */
 public class HDBSynonymCreateProcessor extends AbstractHDBProcessor<DataStructureHDBSynonymModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDBSynonymCreateProcessor.class);
+  
+  /** The Constant SYNONYM_ARTEFACT. */
   private static final HDBSynonymSynchronizationArtefactType SYNONYM_ARTEFACT = new HDBSynonymSynchronizationArtefactType();
 
   /**
    * Execute :
-   * CREATE [PUBLIC] SYNONYM <synonym_name> FOR <synonym_source_object_name>
-   * <synonym_name> ::= [<schema_name>.]<identifier>
-   * <synonym_source_object_name>:==[<object_schema_name>.]<object_name>
+   * <code>CREATE [PUBLIC] SYNONYM {synonym_name} FOR {synonym_source_object_name}
+   * {synonym_name} ::= [{schema_name}.]{identifier}
+   * {synonym_source_object_name}:==[{object_schema_name}.]{object_name}</code>
    *
+   * @param connection the connection
+   * @param synonymModel the synonym model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
    * @see <a href="https://help.sap.com/viewer/4fe29514fd584807ac9f2a04f6754767/1.0.12/en-US/20d5412b75191014bc7ec7e133ce5bf5.html">CREATE SYNONYM Statement (Data Definition)</a>
    */
   @Override

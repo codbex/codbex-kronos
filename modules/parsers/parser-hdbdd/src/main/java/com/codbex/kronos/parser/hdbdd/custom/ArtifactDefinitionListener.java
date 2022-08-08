@@ -84,24 +84,68 @@ import com.codbex.kronos.parser.hdbdd.symbols.view.SelectSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.view.ViewSymbol;
 import com.codbex.kronos.parser.hdbdd.util.HdbddUtils;
 
+/**
+ * The listener interface for receiving artifactDefinition events.
+ * The class that is interested in processing a artifactDefinition
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addArtifactDefinitionListener</code> method. When
+ * the artifactDefinition event occurs, that object's appropriate
+ * method is invoked.
+ *
+ */
 public class ArtifactDefinitionListener extends CdsBaseListener {
 
+  /** The symbol table. */
   private SymbolTable symbolTable;
+  
+  /** The file location. */
   private String fileLocation;
+  
+  /** The schema. */
   private String schema;
+  
+  /** The cds file scope. */
   private CDSFileScope cdsFileScope = new CDSFileScope();
+  
+  /** The current scope. */
   private Scope currentScope = cdsFileScope;
+  
+  /** The entity elements. */
   private final ParseTreeProperty<EntityElementSymbol> entityElements = new ParseTreeProperty<>();
+  
+  /** The typeables. */
   private final ParseTreeProperty<Typeable> typeables = new ParseTreeProperty<>();
+  
+  /** The symbols by parse tree context. */
   private final ParseTreeProperty<Symbol> symbolsByParseTreeContext = new ParseTreeProperty<>();
+  
+  /** The full symbol names. */
   private final Deque<String> fullSymbolNames = new ArrayDeque<>();
+  
+  /** The associations. */
   private final ParseTreeProperty<AssociationSymbol> associations = new ParseTreeProperty<>();
+  
+  /** The values. */
   private final ParseTreeProperty<AbstractAnnotationValue> values = new ParseTreeProperty<>();
+  
+  /** The packages used. */
   private final Set<String> packagesUsed = new HashSet<>();
+  
+  /** The symbol factory. */
   private final SymbolFactory symbolFactory = new SymbolFactory();
+  
+  /** The package id. */
   private String packageId;
+  
+  /** The Constant NOKEY_ANNOTATION. */
   private static final String NOKEY_ANNOTATION = "nokey";
 
+  /**
+   * Enter namespace rule.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterNamespaceRule(NamespaceRuleContext ctx) {
     String packageName = ctx.members.stream().map(IdentifierContext::getText).map(HdbddUtils::processEscapedSymbolName)
@@ -114,6 +158,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     this.packageId = packageName;
   }
 
+  /**
+   * Enter using rule.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterUsingRule(UsingRuleContext ctx) {
     String packagePath = ctx.pack.stream().map(IdentifierContext::getText).map(HdbddUtils::processEscapedSymbolName)
@@ -135,6 +184,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     }
   }
 
+  /**
+   * Enter context rule.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterContextRule(ContextRuleContext ctx) {
     Symbol newSymbol = this.symbolFactory.getSymbol(ctx, this.currentScope, this.schema);
@@ -144,6 +198,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     this.currentScope = (Scope) newSymbol;
   }
 
+  /**
+   * Exit context rule.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void exitContextRule(ContextRuleContext ctx) {
     this.currentScope = this.currentScope.getEnclosingScope(); // pop com.codbex.kronos.parser.hdbdd.symbols.scope
@@ -151,6 +210,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     fullSymbolNames.removeLast();
   }
 
+  /**
+   * Enter calculated association.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterCalculatedAssociation(CalculatedAssociationContext ctx) {
     EntityElementSymbol elementSymbol = this.symbolFactory.getCalculatedColumnSymbol(ctx, currentScope);
@@ -159,12 +223,22 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     this.typeables.put(ctx, elementSymbol);
   }
 
+  /**
+   * Exit calculated association.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void exitCalculatedAssociation(CalculatedAssociationContext ctx) {
     EntityElementSymbol elementSymbol = this.entityElements.get(ctx);
     this.currentScope.define(elementSymbol);
   }
 
+  /**
+   * Enter entity rule.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterEntityRule(EntityRuleContext ctx) {
     Symbol newSymbol = this.symbolFactory.getSymbol(ctx, this.currentScope, this.schema);
@@ -175,6 +249,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     this.symbolTable.addEntityToGraph(newSymbol.getFullName());
   }
 
+  /**
+   * Exit entity rule.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void exitEntityRule(EntityRuleContext ctx) {
     this.currentScope = this.currentScope.getEnclosingScope(); // pop com.codbex.kronos.parser.hdbdd.symbols.scope
@@ -182,6 +261,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     fullSymbolNames.removeLast();
   }
 
+  /**
+   * Enter data type rule.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterDataTypeRule(DataTypeRuleContext ctx) {
     Symbol dataTypeSymbol = this.symbolFactory.getDataTypeSymbol(ctx, this.currentScope, this.schema);
@@ -191,11 +275,21 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     this.currentScope.define(dataTypeSymbol);
   }
 
+  /**
+   * Exit data type rule.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void exitDataTypeRule(DataTypeRuleContext ctx) {
     validateTopLevelSymbol(this.symbolsByParseTreeContext.get(ctx));
   }
 
+  /**
+   * Enter structured type rule.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterStructuredTypeRule(StructuredTypeRuleContext ctx) {
     Symbol newSymbol = this.symbolFactory.getSymbol(ctx, this.currentScope, this.schema);
@@ -205,6 +299,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     this.currentScope = (Scope) newSymbol;
   }
 
+  /**
+   * Exit structured type rule.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void exitStructuredTypeRule(StructuredTypeRuleContext ctx) {
     this.currentScope = this.currentScope.getEnclosingScope(); // pop com.codbex.kronos.parser.hdbdd.symbols.scope
@@ -212,6 +311,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     fullSymbolNames.removeLast();
   }
 
+  /**
+   * Enter element decl rule.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterElementDeclRule(ElementDeclRuleContext ctx) {
     EntityElementSymbol elementSymbol = this.symbolFactory.getEntityElementSymbol(ctx, this.currentScope);
@@ -220,12 +324,22 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     this.typeables.put(ctx, elementSymbol);
   }
 
+  /**
+   * Exit element decl rule.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void exitElementDeclRule(ElementDeclRuleContext ctx) {
     EntityElementSymbol elementSymbol = this.entityElements.get(ctx);
     this.currentScope.define(elementSymbol);
   }
 
+  /**
+   * Enter element constraints.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterElementConstraints(ElementConstraintsContext ctx) {
     EntityElementSymbol elementSymbol = this.entityElements.get(ctx.getParent().getParent());
@@ -240,6 +354,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     elementSymbol.setNotNull(isNotNull);
   }
 
+  /**
+   * Enter association constraints.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterAssociationConstraints(AssociationConstraintsContext ctx) {
     AssociationSymbol associationSymbol = this.associations.get(ctx.getParent());
@@ -254,6 +373,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     associationSymbol.setNotNull(isNotNull);
   }
 
+  /**
+   * Enter field decl rule.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterFieldDeclRule(FieldDeclRuleContext ctx) {
     FieldSymbol fieldSymbol = this.symbolFactory.getFieldSymbol(ctx, currentScope);
@@ -262,6 +386,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     this.currentScope.define(fieldSymbol);
   }
 
+  /**
+   * Enter association.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterAssociation(AssociationContext ctx) {
     AssociationSymbol associationSymbol = this.symbolFactory.getAssociationSymbol(ctx, currentScope);
@@ -273,18 +402,33 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     this.associations.put(ctx, associationSymbol);
   }
 
+  /**
+   * Enter max cardinality.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterMaxCardinality(MaxCardinalityContext ctx) {
     AssociationSymbol associationSymbol = this.associations.get(ctx.getParent());
     associationSymbol.setCardinality(CardinalityEnum.ONE_TO_MANY);
   }
 
+  /**
+   * Enter no cardinality.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterNoCardinality(NoCardinalityContext ctx) {
     AssociationSymbol associationSymbol = this.associations.get(ctx.getParent());
     associationSymbol.setCardinality(CardinalityEnum.ONE_TO_MANY);
   }
 
+  /**
+   * Enter min max cardinality.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterMinMaxCardinality(MinMaxCardinalityContext ctx) {
     AssociationSymbol associationSymbol = this.associations.get(ctx.getParent());
@@ -322,6 +466,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     }
   }
 
+  /**
+   * Enter assign built in type with args.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterAssignBuiltInTypeWithArgs(AssignBuiltInTypeWithArgsContext ctx) {
     Token typeIdToken = ctx.ref.ID().getSymbol();
@@ -334,6 +483,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     typeable.setReference(ctx.ref.getText());
   }
 
+  /**
+   * Enter assign type.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterAssignType(AssignTypeContext ctx) {
     Typeable typeable = typeables.get(ctx.getParent());
@@ -343,6 +497,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     typeable.setReference(fullReference);
   }
 
+  /**
+   * Enter assign hana type.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterAssignHanaType(AssignHanaTypeContext ctx) {
     String hanaType = ctx.hanaType.getText();
@@ -356,6 +515,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     }
   }
 
+  /**
+   * Enter assign hana type with args.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterAssignHanaTypeWithArgs(AssignHanaTypeWithArgsContext ctx) {
     Token typeIdToken = ctx.hanaType.ID().getSymbol();
@@ -368,6 +532,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     typeable.setReference(ctx.hanaType.getText());
   }
 
+  /**
+   * Exit ann object rule.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void exitAnnObjectRule(AnnObjectRuleContext ctx) {
     String annId = ctx.identifier().getText();
@@ -411,6 +580,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     }
   }
 
+  /**
+   * Exit ann property rule.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void exitAnnPropertyRule(AnnPropertyRuleContext ctx) {
     String annId = ctx.annId.getText();
@@ -441,6 +615,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     }
   }
 
+  /**
+   * Exit ann marker rule.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void exitAnnMarkerRule(AnnMarkerRuleContext ctx) {
     String annId = ctx.identifier().getText();
@@ -469,6 +648,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     symbolToBeAssigned.addAnnotation(annToAssign.getName(), annToAssign);
   }
 
+  /**
+   * Enter view rule.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterViewRule(ViewRuleContext ctx) {
     Symbol newSymbol = this.symbolFactory.getSymbol(ctx, this.currentScope, this.schema);
@@ -481,12 +665,22 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     this.symbolTable.addViewToGraph(newSymbol.getFullName());
   }
 
+  /**
+   * Exit view rule.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void exitViewRule(ViewRuleContext ctx) {
     this.currentScope = this.currentScope.getEnclosingScope(); // pop com.codbex.kronos.parser.hdbdd.symbols.scope
     fullSymbolNames.removeLast();
   }
 
+  /**
+   * Enter select rule.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterSelectRule(SelectRuleContext ctx) {
     SelectSymbol selectSymbol = new SelectSymbol();
@@ -530,11 +724,21 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     this.currentScope = selectSymbol;
   }
 
+  /**
+   * Exit select rule.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void exitSelectRule(SelectRuleContext ctx) {
     this.currentScope = this.currentScope.getEnclosingScope(); // pop com.codbex.kronos.parser.hdbdd.symbols.scope
   }
 
+  /**
+   * Enter join rule.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterJoinRule(JoinRuleContext ctx) {
     JoinSymbol joinSymbol = new JoinSymbol();
@@ -564,6 +768,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     this.currentScope.define(joinSymbol);
   }
 
+  /**
+   * Exit ann value.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void exitAnnValue(AnnValueContext ctx) {
     if (ctx.literal != null) {
@@ -573,6 +782,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     }
   }
 
+  /**
+   * Enter enum rule.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterEnumRule(EnumRuleContext ctx) {
     AnnotationEnum annotationEnum = new AnnotationEnum();
@@ -580,6 +794,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     this.values.put(ctx.getParent(), annotationEnum);
   }
 
+  /**
+   * Exit arr rule.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void exitArrRule(ArrRuleContext ctx) {
     AnnotationArray annotationArray = new AnnotationArray(CDSLiteralEnum.ENUM.getLiteralType());
@@ -587,6 +806,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     this.values.put(ctx.getParent(), annotationArray);
   }
 
+  /**
+   * Exit obj.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void exitObj(ObjContext ctx) {
     AnnotationObj annotationObj = new AnnotationObj();
@@ -600,6 +824,13 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     this.values.put(ctx.getParent(), annotationObj);
   }
 
+  /**
+   * Resolve reference.
+   *
+   * @param referencedId the referenced id
+   * @param referencingSymbol the referencing symbol
+   * @return the symbol
+   */
   public Symbol resolveReference(String referencedId, Symbol referencingSymbol) {
     if (symbolTable.getGlobalBuiltInTypeScope().resolve(referencedId) != null) {
       return symbolTable.getGlobalBuiltInTypeScope().resolve(referencedId);
@@ -621,6 +852,12 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     return resolvedTypeSymbol;
   }
 
+  /**
+   * Validate annotation.
+   *
+   * @param annIdToken the ann id token
+   * @param symbol the symbol
+   */
   private void validateAnnotation(IdentifierContext annIdToken, Symbol symbol) {
     String annId = annIdToken.getText();
     AnnotationObj annotationObj = this.symbolTable.getAnnotation(annId);
@@ -642,6 +879,14 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     }
   }
 
+  /**
+   * Assign built in type.
+   *
+   * @param builtInType the built in type
+   * @param args the args
+   * @param typeIdToken the type id token
+   * @param ctx the ctx
+   */
   private void assignBuiltInType(Symbol builtInType, List<Token> args, Token typeIdToken, ParserRuleContext ctx) {
     String typeId = typeIdToken.getText();
     if (builtInType == null) {
@@ -668,6 +913,12 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     typeable.setType(builtInTypeToProvide);
   }
 
+  /**
+   * Compare ann values.
+   *
+   * @param providedValue the provided value
+   * @param expectedValue the expected value
+   */
   private void compareAnnValues(AbstractAnnotationValue providedValue, AbstractAnnotationValue expectedValue) {
     if (providedValue.getClass() != expectedValue.getClass()) {
       throw new CDSRuntimeException("ERROR: Invalid value type provided");
@@ -701,6 +952,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     }
   }
 
+  /**
+   * Register symbol to symbol table.
+   *
+   * @param symbol the symbol
+   */
   private void registerSymbolToSymbolTable(Symbol symbol) {
     String fullName;
     if (fullSymbolNames.isEmpty()) {
@@ -713,6 +969,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     symbolTable.addSymbol(symbol);
   }
 
+  /**
+   * Validate top level symbol.
+   *
+   * @param symbol the symbol
+   */
   private void validateTopLevelSymbol(Symbol symbol) {
     if (!(symbol.getScope() instanceof CDSFileScope)) {
       return;
@@ -738,6 +999,12 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     }
   }
 
+  /**
+   * Sets the context child schemas.
+   *
+   * @param symbol the symbol
+   * @param schema the schema
+   */
   private void setContextChildSchemas(ContextSymbol symbol, String schema) {
     symbol.getSymbols().forEach((k, v) -> {
       if (v instanceof ContextSymbol) {
@@ -748,6 +1015,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     });
   }
 
+  /**
+   * Gets the top level symbol expected name.
+   *
+   * @return the top level symbol expected name
+   */
   private String getTopLevelSymbolExpectedName() {
     String[] splitFileLocation = this.fileLocation.split("/");
     String fileName = splitFileLocation[splitFileLocation.length - 1];
@@ -755,6 +1027,11 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     return fileName.split("\\.")[0];
   }
 
+  /**
+   * Gets the expected namespace.
+   *
+   * @return the expected namespace
+   */
   private String getExpectedNamespace() {
     String[] splitFileLocation = this.fileLocation.split("/");
     splitFileLocation = Arrays.stream(splitFileLocation).filter(s -> !s.isEmpty()).toArray(String[]::new);
@@ -762,38 +1039,84 @@ public class ArtifactDefinitionListener extends CdsBaseListener {
     return String.join(".", splitFileLocation);
   }
 
+  /**
+   * Gets the entity elements.
+   *
+   * @return the entity elements
+   */
   public ParseTreeProperty<EntityElementSymbol> getEntityElements() {
     return entityElements;
   }
 
+  /**
+   * Gets the typeables.
+   *
+   * @return the typeables
+   */
   public ParseTreeProperty<Typeable> getTypeables() {
     return typeables;
   }
 
+  /**
+   * Gets the cds file scope.
+   *
+   * @return the cds file scope
+   */
   public CDSFileScope getCdsFileScope() {
     return cdsFileScope;
   }
 
+  /**
+   * Sets the cds file scope.
+   *
+   * @param cdsFileScope the new cds file scope
+   */
   public void setCdsFileScope(CDSFileScope cdsFileScope) {
     this.cdsFileScope = cdsFileScope;
   }
 
+  /**
+   * Sets the symbol table.
+   *
+   * @param symbolTable the new symbol table
+   */
   public void setSymbolTable(SymbolTable symbolTable) {
     this.symbolTable = symbolTable;
   }
 
+  /**
+   * Gets the associations.
+   *
+   * @return the associations
+   */
   public ParseTreeProperty<AssociationSymbol> getAssociations() {
     return associations;
   }
 
+  /**
+   * Gets the packages used.
+   *
+   * @return the packages used
+   */
   public Set<String> getPackagesUsed() {
     return this.packagesUsed;
   }
 
+  /**
+   * Sets the file location.
+   *
+   * @param fileLocation the new file location
+   */
   public void setFileLocation(String fileLocation) {
     this.fileLocation = fileLocation;
   }
 
+  /**
+   * Handle string literal.
+   *
+   * @param value the value
+   * @return the string
+   */
   private String handleStringLiteral(String value) {
     if (value.length() > 0 && value.charAt(0) == '"' && value.charAt(value.length() - 1) == '"') {
       String subStr = value.substring(1, value.length() - 1);

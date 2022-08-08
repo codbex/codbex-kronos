@@ -34,9 +34,9 @@ import com.codbex.kronos.ndb.bimodeldimension.Dimension;
  * Common base for objects having attributes and data foundations
  *
  *
- * <p>Java class for LogicalObject complex type.
+ * Java class for LogicalObject complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="LogicalObject"&gt;
@@ -67,9 +67,16 @@ import com.codbex.kronos.ndb.bimodeldimension.Dimension;
 public class LogicalObject
     extends InformationModel {
 
+  /** The attributes. */
   protected Attributes attributes;
+  
+  /** The calculated attributes. */
   protected CalculatedAttributes calculatedAttributes;
+  
+  /** The all attributes. */
   protected List<AbstractAttribute> allAttributes;
+  
+  /** The private data foundation. */
   protected DataFoundation privateDataFoundation;
 
   /**
@@ -114,23 +121,25 @@ public class LogicalObject
 
   /**
    * Gets the value of the allAttributes property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the allAttributes property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getAllAttributes().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link AbstractAttribute }
+   *
+   * @return the all attributes
    */
   public List<AbstractAttribute> getAllAttributes() {
     if (allAttributes == null) {

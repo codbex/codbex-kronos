@@ -21,10 +21,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The Class JobToKronosJobDefinitionTransformer.
+ */
 public class JobToKronosJobDefinitionTransformer {
 
+  /** The cron to quartz cron transformer. */
   private CronToQuartzCronTransformer cronToQuartzCronTransformer = new CronToQuartzCronTransformer();
 
+  /**
+   * Transform.
+   *
+   * @param jobArtifact the job artifact
+   * @return the array list
+   * @throws ParseException the parse exception
+   */
   public ArrayList<JobDefinition> transform(JobArtifact jobArtifact) throws ParseException {
     ArrayList<JobDefinition> jobDefinitions = new ArrayList<>();
     String[] parseAction = jobArtifact.getAction().split("::");
@@ -57,6 +68,12 @@ public class JobToKronosJobDefinitionTransformer {
     return jobDefinitions;
   }
 
+  /**
+   * Kronos path to dirigible path.
+   *
+   * @param filePath the file path
+   * @return the string
+   */
   public String kronosPathToDirigiblePath(String filePath) {
     String[] splitXscFilePath = filePath.split(":");
     List<String> splitPackage = Arrays.asList(splitXscFilePath[0].split("\\."));

@@ -30,10 +30,24 @@ import com.codbex.kronos.hdb.ds.model.hdbsynonym.DataStructureHDBSynonymModel;
 import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDefinitionModel;
 
 
+/**
+ * The Class GrantPrivilegesExternalArtifactsSchemaProcessor.
+ */
 public class GrantPrivilegesExternalArtifactsSchemaProcessor extends HDIAbstractProcessor {
 
+  /** The Constant HDBSYNONYM_FILE_EXTENSION. */
   private static final String HDBSYNONYM_FILE_EXTENSION = "hdbsynonym";
 
+  /**
+   * Execute.
+   *
+   * @param connection the connection
+   * @param container the container
+   * @param deploys the deploys
+   * @throws SQLException the SQL exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws DataStructuresException the data structures exception
+   */
   public void execute(Connection connection, String container, String[] deploys)
       throws SQLException, IOException, DataStructuresException {
     Set<String> externalArtifactsSchemas = collectExternalArtifactsSchemas(deploys);
@@ -41,6 +55,14 @@ public class GrantPrivilegesExternalArtifactsSchemaProcessor extends HDIAbstract
     grantPrivileges(connection, container, externalArtifactsSchemas);
   }
 
+  /**
+   * Collect external artifacts schemas.
+   *
+   * @param deploys the deploys
+   * @return the sets the
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws DataStructuresException the data structures exception
+   */
   @NotNull
   private Set<String> collectExternalArtifactsSchemas(String[] deploys) throws IOException, DataStructuresException {
     Set<String> externalArtifactsSchemas = new HashSet<>();
@@ -58,10 +80,25 @@ public class GrantPrivilegesExternalArtifactsSchemaProcessor extends HDIAbstract
     return externalArtifactsSchemas;
   }
 
+  /**
+   * Gets the synonym content.
+   *
+   * @param deploy the deploy
+   * @return the synonym content
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   protected String getSynonymContent(String deploy) throws IOException {
     return RegistryFacade.getText(deploy);
   }
 
+  /**
+   * Grant privileges.
+   *
+   * @param connection the connection
+   * @param container the container
+   * @param externalArtifactsSchemas the external artifacts schemas
+   * @throws SQLException the SQL exception
+   */
   private void grantPrivileges(Connection connection, String container, Set<String> externalArtifactsSchemas) throws SQLException {
     String containerOwner = container + "#OO";
     for (String externalSchema: externalArtifactsSchemas) {
@@ -73,6 +110,15 @@ public class GrantPrivilegesExternalArtifactsSchemaProcessor extends HDIAbstract
     }
   }
 
+  /**
+   * Gets the synonym model.
+   *
+   * @param location the location
+   * @param content the content
+   * @return the synonym model
+   * @throws DataStructuresException the data structures exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   protected DataStructureHDBSynonymModel getSynonymModel(String location, String content) throws DataStructuresException, IOException {
     return DataStructureModelFactory.parseSynonym(location, content);
   }

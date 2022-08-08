@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Mimetype.
+ * Java class for Mimetype.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="Mimetype"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -42,16 +42,32 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum Mimetype {
 
+  /** The text plain. */
   @XmlEnumValue("text/plain")
   TEXT_PLAIN("text/plain"),
+  
+  /** The text html. */
   @XmlEnumValue("text/html")
   TEXT_HTML("text/html");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new mimetype.
+   *
+   * @param v the v
+   */
   Mimetype(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the mimetype
+   */
   public static Mimetype fromValue(String v) {
     for (Mimetype c : Mimetype.values()) {
       if (c.value.equals(v)) {
@@ -61,6 +77,11 @@ public enum Mimetype {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

@@ -11,8 +11,16 @@
  */
 package com.codbex.kronos.parser.hana.core.exceptions;
 
+/**
+ * The Class ProcedureMissingPropertyException.
+ */
 public class ProcedureMissingPropertyException extends RuntimeException {
 
+    /**
+     * Instantiates a new procedure missing property exception.
+     *
+     * @param message the message
+     */
     public ProcedureMissingPropertyException(String message) {
         super(message);
     }

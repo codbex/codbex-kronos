@@ -38,9 +38,9 @@ import com.codbex.kronos.ndb.repositorymodelresource.IDObjectWithDescription;
  * It has no own data foundation see Dimension.
  *
  *
- * <p>Java class for LocalDimension complex type.
+ * Java class for LocalDimension complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="LocalDimension"&gt;
@@ -65,35 +65,44 @@ import com.codbex.kronos.ndb.repositorymodelresource.IDObjectWithDescription;
 public class LocalDimension
     extends IDObjectWithDescription {
 
+  /** The attribute ref. */
   @XmlElement(required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected List<String> attributeRef;
+  
+  /** The hierarchies. */
   protected Hierarchies hierarchies;
+  
+  /** The dimension type. */
   @XmlAttribute(name = "dimensionType", required = true)
   protected DimensionType dimensionType;
+  
+  /** The default member. */
   @XmlAttribute(name = "defaultMember")
   protected String defaultMember;
 
   /**
    * Gets the value of the attributeRef property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the attributeRef property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getAttributeRef().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link String }
+   *
+   * @return the attribute ref
    */
   public List<String> getAttributeRef() {
     if (attributeRef == null) {

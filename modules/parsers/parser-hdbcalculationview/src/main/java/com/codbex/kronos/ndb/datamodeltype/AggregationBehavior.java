@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for AggregationBehavior.
+ * Java class for AggregationBehavior.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="AggregationBehavior"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -53,26 +53,31 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum AggregationBehavior {
 
+  /** The none. */
   NONE("NONE"),
+  
+  /** The sum. */
   SUM("SUM"),
+  
+  /** The min. */
   MIN("MIN"),
+  
+  /** The max. */
   MAX("MAX"),
+  
+  /** The count. */
   COUNT("COUNT"),
 
-  /**
-   * Average defined as SUM( column ) / COUNT( column )
-   */
+  /** Average defined as SUM( column ) / COUNT( column ). */
   AVG("AVG"),
 
-  /**
-   * Standard deviation: Sum over the squares of the differences to the average divided by (COUNT-1)
-   */
+  /** Standard deviation: Sum over the squares of the differences to the average divided by (COUNT-1). */
   VAR("VAR"),
 
-  /**
-   * Standard deviation: Square root of the variance
-   */
+  /** Standard deviation: Square root of the variance. */
   STDDEV("STDDEV"),
+  
+  /** The formula. */
   FORMULA("FORMULA"),
 
   /**
@@ -92,16 +97,27 @@ public enum AggregationBehavior {
   @XmlEnumValue("NO2")
   NO_2("NO2"),
 
-  /**
-   * Move - Only needed by BW transformations
-   */
+  /** Move - Only needed by BW transformations. */
   MOV("MOV");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new aggregation behavior.
+   *
+   * @param v the v
+   */
   AggregationBehavior(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the aggregation behavior
+   */
   public static AggregationBehavior fromValue(String v) {
     for (AggregationBehavior c : AggregationBehavior.values()) {
       if (c.value.equals(v)) {
@@ -111,6 +127,11 @@ public enum AggregationBehavior {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

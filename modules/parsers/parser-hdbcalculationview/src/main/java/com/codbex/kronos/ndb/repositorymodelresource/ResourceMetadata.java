@@ -35,9 +35,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * and not stored in the XML
  *
  *
- * <p>Java class for ResourceMetadata complex type.
+ * Java class for ResourceMetadata complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ResourceMetadata"&gt;
@@ -62,28 +62,47 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "ResourceMetadata")
 public class ResourceMetadata {
 
+  /** The activated at. */
   @XmlAttribute(name = "activatedAt")
   protected String activatedAt;
+  
+  /** The activated by. */
   @XmlAttribute(name = "activatedBy")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String activatedBy;
+  
+  /** The changed at. */
   @XmlAttribute(name = "changedAt")
   protected String changedAt;
+  
+  /** The changed by. */
   @XmlAttribute(name = "changedBy")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String changedBy;
+  
+  /** The created at. */
   @XmlAttribute(name = "createdAt")
   protected String createdAt;
+  
+  /** The created by. */
   @XmlAttribute(name = "createdBy")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String createdBy;
+  
+  /** The package name. */
   @XmlAttribute(name = "packageName")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String packageName;
+  
+  /** The status. */
   @XmlAttribute(name = "status")
   protected Status status;
+  
+  /** The version. */
   @XmlAttribute(name = "version")
   protected Version version;
+  
+  /** The version number. */
   @XmlAttribute(name = "versionNumber")
   protected Integer versionNumber;
 

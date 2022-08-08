@@ -41,9 +41,9 @@ import com.codbex.kronos.ndb.datamodelgraph.ScriptPatternMatching;
  * A view node that contains a graph action
  *
  *
- * <p>Java class for GraphView complex type.
+ * Java class for GraphView complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="GraphView"&gt;
@@ -80,16 +80,33 @@ import com.codbex.kronos.ndb.datamodelgraph.ScriptPatternMatching;
 public class GraphView
     extends Node {
 
+  /** The pattern matching. */
   protected PatternMatching patternMatching;
+  
+  /** The script pattern matching. */
   protected ScriptPatternMatching scriptPatternMatching;
+  
+  /** The get neighborhood parameterization. */
   protected GetNeighborhoodParameterization getNeighborhoodParameterization;
+  
+  /** The output. */
   protected List<Output> output;
+  
+  /** The get shortest paths parameterization. */
   protected GetShortestPathsParameterization getShortestPathsParameterization;
+  
+  /** The get shortest path parameterization. */
   protected GetShortestPathParameterization getShortestPathParameterization;
+  
+  /** The get strongly connected components. */
   protected GetStronglyConnectedComponents getStronglyConnectedComponents;
+  
+  /** The workspace. */
   @XmlAttribute(name = "workspace", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String workspace;
+  
+  /** The action. */
   @XmlAttribute(name = "action", required = true)
   protected GraphAction action;
 
@@ -155,23 +172,25 @@ public class GraphView
 
   /**
    * Gets the value of the output property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the output property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getOutput().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link Output }
+   *
+   * @return the output
    */
   public List<Output> getOutput() {
     if (output == null) {

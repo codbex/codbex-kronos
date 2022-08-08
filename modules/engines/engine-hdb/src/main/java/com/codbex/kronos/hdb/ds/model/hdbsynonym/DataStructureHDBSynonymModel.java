@@ -20,12 +20,24 @@ import com.codbex.kronos.hdb.ds.model.DataStructureModel;
  * The synonym model representation.
  */
 public class DataStructureHDBSynonymModel extends DataStructureModel {
+  
+  /** The synonym definitions. */
   Map<String, HDBSynonymDefinitionModel> synonymDefinitions = new HashMap<>();
 
+  /**
+   * Gets the synonym definitions.
+   *
+   * @return the synonym definitions
+   */
   public Map<String, HDBSynonymDefinitionModel> getSynonymDefinitions() {
     return synonymDefinitions;
   }
 
+  /**
+   * Sets the synonym definitions.
+   *
+   * @param synonymDefinitions the synonym definitions
+   */
   public void setSynonymDefinitions(Map<String, HDBSynonymDefinitionModel> synonymDefinitions) {
     this.synonymDefinitions = synonymDefinitions;
   }

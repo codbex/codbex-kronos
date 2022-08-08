@@ -11,8 +11,17 @@
  */
 package com.codbex.kronos.hdb.ds.exceptions;
 
+/**
+ * The Class GrantPrivilegesSQLException.
+ */
 public class GrantPrivilegesSQLException extends RuntimeException {
 
+  /**
+   * Instantiates a new grant privileges SQL exception.
+   *
+   * @param message the message
+   * @param cause the cause
+   */
   public GrantPrivilegesSQLException(String message, Throwable cause) {
     super(message, cause);
   }

@@ -42,30 +42,47 @@ import com.codbex.kronos.xsaccess.ds.model.privilege.PrivilegeDefinition;
 import com.codbex.kronos.xsaccess.ds.service.AccessCoreService;
 import com.codbex.kronos.xsaccess.ds.service.PrivilegeCoreService;
 
+/**
+ * The Class SecuritySynchronizer.
+ */
 public class SecuritySynchronizer extends AbstractSynchronizer {
 
+    /** The Constant logger. */
     private static final Logger logger = LoggerFactory.getLogger(SecuritySynchronizer.class);
 
+    /** The Constant PRIVILEGES_PREDELIVERED. */
     private static final Map<String, List<PrivilegeDefinition>> PRIVILEGES_PREDELIVERED = Collections.synchronizedMap(new HashMap<>());
 
+    /** The Constant ACCESS_PREDELIVERED. */
     private static final Map<String, AccessDefinition> ACCESS_PREDELIVERED = Collections
         .synchronizedMap(new HashMap<>());
 
+    /** The Constant PRIVILEGES_TO_BE_PROCESSED. */
     private static final Set<PrivilegeDefinition> PRIVILEGES_TO_BE_PROCESSED = Collections.synchronizedSet(
         new HashSet<>());
 
+    /** The Constant ACCESS_TO_BE_PROCESSED. */
     private static final Set<AccessDefinition> ACCESS_TO_BE_PROCESSED = Collections
         .synchronizedSet(new HashSet<>());
 
+    /** The Constant PRIVILEGES_SYNCHRONIZED. */
     private static final Set<String> PRIVILEGES_SYNCHRONIZED = Collections.synchronizedSet(new HashSet<>());
 
+    /** The Constant ACCESS_SYNCHRONIZED. */
     private static final Set<String> ACCESS_SYNCHRONIZED = Collections.synchronizedSet(new HashSet<>());
+    
+    /** The synchronizer name. */
     private final String SYNCHRONIZER_NAME = this.getClass().getCanonicalName();
 
+    /** The access core service. */
     private final AccessCoreService accessCoreService = new AccessCoreService();
 
+    /** The privilege core service. */
     private final PrivilegeCoreService privilegeCoreService = new PrivilegeCoreService();
 
+    /**
+     * Synchronize.
+     */
     /*
      * (non-Javadoc)
      * @see org.eclipse.dirigible.core.scheduler.api.ISynchronizer#synchronize()
@@ -247,6 +264,11 @@ public class SecuritySynchronizer extends AbstractSynchronizer {
         }
     }
 
+    /**
+     * Synchronize registry.
+     *
+     * @throws SynchronizationException the synchronization exception
+     */
     /*
      * (non-Javadoc)
      * @see org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizer#synchronizeRegistry()
@@ -260,6 +282,12 @@ public class SecuritySynchronizer extends AbstractSynchronizer {
         logger.trace("Done synchronizing Extension Points and Extensions from Registry.");
     }
 
+    /**
+     * Synchronize resource.
+     *
+     * @param resource the resource
+     * @throws SynchronizationException the synchronization exception
+     */
     /*
      * (non-Javadoc)
      * @see org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizer#synchronizeResource(com.codbex.kronos.hdb.ds.parser.DataStructureParser
@@ -291,6 +319,11 @@ public class SecuritySynchronizer extends AbstractSynchronizer {
         }
     }
 
+    /**
+     * Cleanup.
+     *
+     * @throws SynchronizationException the synchronization exception
+     */
     /*
      * (non-Javadoc)
      * @see org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizer#cleanup()
@@ -325,6 +358,12 @@ public class SecuritySynchronizer extends AbstractSynchronizer {
         logger.debug("Done cleaning up Kronos Privileges and Kronos Access artifacts.");
     }
 
+    /**
+     * Removes the xsc file from path.
+     *
+     * @param path the path
+     * @return the string
+     */
     private String removeXscFileFromPath(String path) {
         return path.split("\\.")[0];
     }

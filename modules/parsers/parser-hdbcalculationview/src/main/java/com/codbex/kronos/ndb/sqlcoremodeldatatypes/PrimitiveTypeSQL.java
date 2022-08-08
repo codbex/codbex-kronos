@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for PrimitiveTypeSQL.
+ * Java class for PrimitiveTypeSQL.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="PrimitiveTypeSQL"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -71,43 +71,117 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum PrimitiveTypeSQL {
 
+  /** The table. */
   TABLE,
+  
+  /** The array. */
   ARRAY,
+  
+  /** The bintext. */
   BINTEXT,
+  
+  /** The char. */
   CHAR,
+  
+  /** The varchar. */
   VARCHAR,
+  
+  /** The nchar. */
   NCHAR,
+  
+  /** The nvarchar. */
   NVARCHAR,
+  
+  /** The tinyint. */
   TINYINT,
+  
+  /** The smallint. */
   SMALLINT,
+  
+  /** The integer. */
   INTEGER,
+  
+  /** The bigint. */
   BIGINT,
+  
+  /** The decimal. */
   DECIMAL,
+  
+  /** The numeric. */
   NUMERIC,
+  
+  /** The real. */
   REAL,
+  
+  /** The float. */
   FLOAT,
+  
+  /** The double. */
   DOUBLE,
+  
+  /** The date. */
   DATE,
+  
+  /** The time. */
   TIME,
+  
+  /** The timestamp. */
   TIMESTAMP,
+  
+  /** The blob. */
   BLOB,
+  
+  /** The clob. */
   CLOB,
+  
+  /** The nclob. */
   NCLOB,
+  
+  /** The binary. */
   BINARY,
+  
+  /** The varbinary. */
   VARBINARY,
+  
+  /** The smalldecimal. */
   SMALLDECIMAL,
+  
+  /** The text. */
   TEXT,
+  
+  /** The shorttext. */
   SHORTTEXT,
+  
+  /** The alphanum. */
   ALPHANUM,
+  
+  /** The st point. */
   ST_POINT,
+  
+  /** The st geometry. */
   ST_GEOMETRY,
+  
+  /** The seconddate. */
   SECONDDATE,
+  
+  /** The boolean. */
   BOOLEAN;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the primitive type SQL
+   */
   public static PrimitiveTypeSQL fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

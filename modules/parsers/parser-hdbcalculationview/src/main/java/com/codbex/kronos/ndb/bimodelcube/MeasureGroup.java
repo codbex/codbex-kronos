@@ -35,9 +35,9 @@ import com.codbex.kronos.ndb.datamodeltype.ExpressionLanguage;
 
 
 /**
- * <p>Java class for MeasureGroup complex type.
+ * Java class for MeasureGroup complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="MeasureGroup"&gt;
@@ -77,20 +77,43 @@ import com.codbex.kronos.ndb.datamodeltype.ExpressionLanguage;
 public class MeasureGroup
     extends LogicalObject {
 
+  /** The base measures. */
   protected BaseMeasures baseMeasures;
+  
+  /** The calculated measures. */
   protected CalculatedMeasures calculatedMeasures;
+  
+  /** The restricted measures. */
   protected RestrictedMeasures restrictedMeasures;
+  
+  /** The measures. */
   protected List<Measure> measures;
+  
+  /** The local dimensions. */
   protected LocalDimensions localDimensions;
+  
+  /** The shared dimensions. */
   protected LogicalJoins sharedDimensions;
+  
+  /** The sort attributes. */
   protected SortAttributes sortAttributes;
+  
+  /** The filter. */
   protected String filter;
+  
+  /** The layout. */
   protected Layout layout;
+  
+  /** The output name. */
   @XmlAttribute(name = "outputName")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String outputName;
+  
+  /** The filter expression language. */
   @XmlAttribute(name = "filterExpressionLanguage")
   protected ExpressionLanguage filterExpressionLanguage;
+  
+  /** The ignore multiple outputs for filter. */
   @XmlAttribute(name = "ignoreMultipleOutputsForFilter")
   protected Boolean ignoreMultipleOutputsForFilter;
 
@@ -156,23 +179,25 @@ public class MeasureGroup
 
   /**
    * Gets the value of the measures property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the measures property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getMeasures().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link Measure }
+   *
+   * @return the measures
    */
   public List<Measure> getMeasures() {
     if (measures == null) {

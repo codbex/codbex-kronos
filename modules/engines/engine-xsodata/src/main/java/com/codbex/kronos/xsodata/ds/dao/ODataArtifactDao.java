@@ -27,12 +27,24 @@ import java.util.List;
 
 import static java.text.MessageFormat.format;
 
+/**
+ * The Class ODataArtifactDao.
+ */
 public class ODataArtifactDao implements IODataArtifactDao {
 
+    /** The data source. */
     private final DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
 
+    /** The persistence manager. */
     private final PersistenceManager<ODataModel> persistenceManager = new PersistenceManager<>();
 
+    /**
+     * Creates the O data artifact.
+     *
+     * @param tableModel the table model
+     * @return the o data model
+     * @throws ODataException the o data exception
+     */
     @Override
     public ODataModel createODataArtifact(ODataModel tableModel) throws ODataException {
         try (Connection connection = dataSource.getConnection()) {
@@ -43,6 +55,13 @@ public class ODataArtifactDao implements IODataArtifactDao {
         }
     }
 
+    /**
+     * Gets the o data artifact.
+     *
+     * @param location the location
+     * @return the o data artifact
+     * @throws ODataException the o data exception
+     */
     @Override
     public ODataModel getODataArtifact(String location) throws ODataException {
         try (Connection connection = dataSource.getConnection()) {
@@ -52,6 +71,13 @@ public class ODataArtifactDao implements IODataArtifactDao {
         }
     }
 
+    /**
+     * Gets the o data artifact by name.
+     *
+     * @param name the name
+     * @return the o data artifact by name
+     * @throws ODataException the o data exception
+     */
     @Override
     public ODataModel getODataArtifactByName(String name) throws ODataException {
         try (Connection connection = dataSource.getConnection()) {
@@ -72,6 +98,12 @@ public class ODataArtifactDao implements IODataArtifactDao {
         }
     }
 
+    /**
+     * Removes the O data artifact.
+     *
+     * @param location the location
+     * @throws ODataException the o data exception
+     */
     @Override
     public void removeODataArtifact(String location) throws ODataException {
         try (Connection connection = dataSource.getConnection()) {
@@ -81,6 +113,14 @@ public class ODataArtifactDao implements IODataArtifactDao {
         }
     }
 
+    /**
+     * Update O data artifact.
+     *
+     * @param location the location
+     * @param name the name
+     * @param hash the hash
+     * @throws ODataException the o data exception
+     */
     @Override
     public void updateODataArtifact(String location, String name, String hash) throws ODataException {
         try (Connection connection = dataSource.getConnection()) {
@@ -93,6 +133,12 @@ public class ODataArtifactDao implements IODataArtifactDao {
         }
     }
 
+    /**
+     * Gets the all O data artifacts.
+     *
+     * @return the all O data artifacts
+     * @throws ODataException the o data exception
+     */
     @Override
     public List<ODataModel> getAllODataArtifacts() throws ODataException {
         try (Connection connection = dataSource.getConnection()) {

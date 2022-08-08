@@ -35,12 +35,23 @@ import org.quartz.impl.matchers.GroupMatcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class SchedulerManager.
+ */
 public class SchedulerManager {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(SchedulerManager.class);
 
+  /** The scheduler. */
   private static Scheduler scheduler = org.eclipse.dirigible.core.scheduler.manager.SchedulerManager.getScheduler();
 
+  /**
+   * Schedule job.
+   *
+   * @param jobDefinition the job definition
+   * @throws SchedulerException the scheduler exception
+   */
   public static void scheduleJob(JobDefinition jobDefinition) throws SchedulerException {
     try {
       JobKey jobKey = new JobKey(jobDefinition.getName(), jobDefinition.getGroup());
@@ -82,6 +93,13 @@ public class SchedulerManager {
     }
   }
 
+  /**
+   * Unschedule job.
+   *
+   * @param name the name
+   * @param group the group
+   * @throws SchedulerException the scheduler exception
+   */
   public static void unscheduleJob(String name, String group) throws SchedulerException {
     if (!IJobCoreService.KRONOS_DEFINED_GROUP.equals(group)) {
       return;
@@ -102,6 +120,12 @@ public class SchedulerManager {
     }
   }
 
+  /**
+   * List jobs.
+   *
+   * @return the sets the
+   * @throws SchedulerException the scheduler exception
+   */
   public static Set<TriggerKey> listJobs() throws SchedulerException {
     try {
       Set<TriggerKey> triggerKeys = scheduler.getTriggerKeys(GroupMatcher.anyTriggerGroup());
@@ -112,6 +136,13 @@ public class SchedulerManager {
     }
   }
 
+  /**
+   * Exists job.
+   *
+   * @param name the name
+   * @return true, if successful
+   * @throws SchedulerException the scheduler exception
+   */
   public static boolean existsJob(String name) throws SchedulerException {
     Set<TriggerKey> triggerKeys = listJobs();
     for (TriggerKey triggerKey : triggerKeys) {

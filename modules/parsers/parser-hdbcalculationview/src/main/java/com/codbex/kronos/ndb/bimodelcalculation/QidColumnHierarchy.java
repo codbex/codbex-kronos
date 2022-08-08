@@ -28,9 +28,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**
- * <p>Java class for QidColumnHierarchy complex type.
+ * Java class for QidColumnHierarchy complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="QidColumnHierarchy"&gt;
@@ -53,8 +53,13 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class QidColumnHierarchy {
 
+  /** The hierarchy. */
   protected String hierarchy;
+  
+  /** The hierarchy embeded. */
   protected String hierarchyEmbeded;
+  
+  /** The id. */
   @XmlAttribute(name = "ID")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String id;

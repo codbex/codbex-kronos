@@ -52,17 +52,38 @@ import com.codbex.kronos.parser.hdbti.models.HDBTIImportConfigModel.Pair;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 
+/**
+ * The Class HDBTIProcessor.
+ */
 public class HDBTIProcessor implements IHDBTIProcessor {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDBTIProcessor.class);
 
+  /** The Constant ERROR_MESSAGE_COLUMNS_COUNT. */
   private static final String ERROR_MESSAGE_COLUMNS_COUNT = "Error while trying to process csv location [%s]. The number of csv records should be equal to the number of columns of a db entity.";
 
+  /** The db metadata util. */
   private final DBMetadataUtil dbMetadataUtil = new DBMetadataUtil();
+  
+  /** The repository. */
   private final IRepository repository = (IRepository) StaticObjects.get(StaticObjects.REPOSITORY);
+  
+  /** The hdbti core service. */
   private final IHDBTICoreService hdbtiCoreService = new HDBTICoreService();
+  
+  /** The hdbti parser. */
   private final HDBTIParser hdbtiParser = new HDBTIParser();
 
+  /**
+   * Process.
+   *
+   * @param tableImportConfigurationDefinition the table import configuration definition
+   * @param connection the connection
+   * @throws DataStructuresException the data structures exception
+   * @throws TableImportException the table import exception
+   * @throws SQLException the SQL exception
+   */
   @Override
   public void process(TableImportConfigurationDefinition tableImportConfigurationDefinition, Connection connection)
       throws DataStructuresException, TableImportException, SQLException {
@@ -115,6 +136,14 @@ public class HDBTIProcessor implements IHDBTIProcessor {
     hdbtiCoreService.removeCsvRecords(new ArrayList<>(allImportedRecordsByCsv.values()), tableName);
   }
 
+  /**
+   * Record should be included.
+   *
+   * @param record the record
+   * @param columns the columns
+   * @param keys the keys
+   * @return true, if successful
+   */
   private boolean recordShouldBeIncluded(CSVRecord record, List<PersistenceTableColumnModel> columns, Map<String, ArrayList<String>> keys) {
     if (keys == null || keys.isEmpty()) {
       return true;
@@ -133,6 +162,12 @@ public class HDBTIProcessor implements IHDBTIProcessor {
     return match;
   }
 
+  /**
+   * Gets the table metadata.
+   *
+   * @param tableImportConfigurationDefinition the table import configuration definition
+   * @return the table metadata
+   */
   private PersistenceTableModel getTableMetadata(TableImportConfigurationDefinition tableImportConfigurationDefinition) {
     String tableName = hdbtiCoreService.convertToActualTableName(tableImportConfigurationDefinition.getTable());
     try {
@@ -146,6 +181,14 @@ public class HDBTIProcessor implements IHDBTIProcessor {
     return null;
   }
 
+  /**
+   * Gets the csv parser.
+   *
+   * @param tableImportConfigurationDefinition the table import configuration definition
+   * @param resource the resource
+   * @return the csv parser
+   * @throws TableImportException the table import exception
+   */
   private CSVParser getCsvParser(TableImportConfigurationDefinition tableImportConfigurationDefinition, IResource resource)
       throws TableImportException {
     try {
@@ -164,6 +207,13 @@ public class HDBTIProcessor implements IHDBTIProcessor {
     return null;
   }
 
+  /**
+   * Creates the CSV format.
+   *
+   * @param tableImportConfigurationDefinition the table import configuration definition
+   * @return the CSV format
+   * @throws TableImportException the table import exception
+   */
   private CSVFormat createCSVFormat(TableImportConfigurationDefinition tableImportConfigurationDefinition)
       throws TableImportException {
     if (tableImportConfigurationDefinition.getDelimField() != null && (!tableImportConfigurationDefinition.getDelimField().equals(",")
@@ -194,6 +244,16 @@ public class HDBTIProcessor implements IHDBTIProcessor {
     return csvFormat;
   }
 
+  /**
+   * Parses the HDBTI to JSON.
+   *
+   * @param location the location
+   * @param file the file
+   * @return the list
+   * @throws ArtifactParserException the artifact parser exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws HDBTISyntaxErrorException the HDBTI syntax error exception
+   */
   public List<HDBTIImportConfigModel> parseHDBTIToJSON(String location, byte[] file)
       throws ArtifactParserException, IOException, HDBTISyntaxErrorException {
     if (location == null) {
@@ -204,6 +264,12 @@ public class HDBTIProcessor implements IHDBTIProcessor {
     return parsedFile.getConfigModels();
   }
 
+  /**
+   * Parses the JSO nto hdbti.
+   *
+   * @param json the json
+   * @return the string
+   */
   public String parseJSONtoHdbti(ArrayList<HDBTIImportConfigModel> json) {
     for (HDBTIImportConfigModel el : json) {
       try {

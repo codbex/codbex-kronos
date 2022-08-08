@@ -18,8 +18,10 @@ import java.util.Objects;
  */
 public class DataStructureDependencyModel {
 
+  /** The name. */
   private String name;
 
+  /** The type. */
   private String type;
 
   /**
@@ -70,6 +72,12 @@ public class DataStructureDependencyModel {
     this.type = type;
   }
 
+  /**
+   * Equals.
+   *
+   * @param o the o
+   * @return true, if successful
+   */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -78,6 +86,11 @@ public class DataStructureDependencyModel {
     return Objects.equals(name, that.name) && Objects.equals(type, that.type);
   }
 
+  /**
+   * Hash code.
+   *
+   * @return the int
+   */
   @Override
   public int hashCode() {
     return Objects.hash(name, type);

@@ -35,9 +35,9 @@ import com.codbex.kronos.ndb.basemodelbase.QualifiedColumnObjectName;
  * if the name and the schema name are equal (the column name is ignored)
  *
  *
- * <p>Java class for ColumnMapping complex type.
+ * Java class for ColumnMapping complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ColumnMapping"&gt;
@@ -54,6 +54,7 @@ import com.codbex.kronos.ndb.basemodelbase.QualifiedColumnObjectName;
 public class ColumnMapping
     extends QualifiedColumnObjectName {
 
+  /** The column name. */
   @XmlAttribute(name = "columnName", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String columnName;

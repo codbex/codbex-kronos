@@ -34,6 +34,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * The Class SecurityFilter.
+ */
 @WebFilter(urlPatterns = {
 
         "/services/v3/js/*",
@@ -81,14 +84,27 @@ import java.util.Set;
 }, filterName = "Kronos SecurityFilter", description = "Check all the URIs for access permissions")
 public class SecurityFilter implements Filter {
 
+    /** The Constant PATH_WEB_RESOURCES. */
     private static final String PATH_WEB_RESOURCES = "/web/resources";
 
+    /** The Constant ROLE_PUBLIC. */
     private static final String ROLE_PUBLIC = "Public";
 
+    /** The Constant logger. */
     private static final Logger logger = LoggerFactory.getLogger(SecurityFilter.class);
+    
+    /** The Constant SECURED_PREFIXES. */
     private static final Set<String> SECURED_PREFIXES = new HashSet<>();
+    
+    /** The Constant accessCoreService. */
     private static final IAccessCoreService accessCoreService = new AccessCoreService();
 
+    /**
+     * Inits the.
+     *
+     * @param filterConfig the filter config
+     * @throws ServletException the servlet exception
+     */
     /*
      * (non-Javadoc)
      * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
@@ -106,6 +122,15 @@ public class SecurityFilter implements Filter {
         SECURED_PREFIXES.add("/kronos");
     }
 
+    /**
+     * Do filter.
+     *
+     * @param request the request
+     * @param response the response
+     * @param chain the chain
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ServletException the servlet exception
+     */
     /*
      * (non-Javadoc)
      * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse,
@@ -196,6 +221,9 @@ public class SecurityFilter implements Filter {
         response.sendError(HttpServletResponse.SC_FORBIDDEN, error);
     }
 
+    /**
+     * Destroy.
+     */
     /*
      * (non-Javadoc)
      * @see javax.servlet.Filter#destroy()

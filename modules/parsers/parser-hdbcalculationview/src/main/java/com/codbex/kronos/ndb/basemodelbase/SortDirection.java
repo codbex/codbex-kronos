@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for SortDirection.
+ * Java class for SortDirection.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="SortDirection"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -41,13 +41,27 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum SortDirection {
 
+  /** The asc. */
   ASC,
+  
+  /** The desc. */
   DESC;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the sort direction
+   */
   public static SortDirection fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

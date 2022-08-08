@@ -34,9 +34,9 @@ import com.codbex.kronos.ndb.sqlcoremodeldatatypes.PrimitiveTypeSQL;
  * formula in CalculatedAttribute
  *
  *
- * <p>Java class for Calculation complex type.
+ * Java class for Calculation complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Calculation"&gt;
@@ -60,14 +60,23 @@ import com.codbex.kronos.ndb.sqlcoremodeldatatypes.PrimitiveTypeSQL;
 })
 public class Calculation {
 
+  /** The formula. */
   @XmlElement(required = true)
   protected String formula;
+  
+  /** The datatype. */
   @XmlAttribute(name = "datatype")
   protected PrimitiveTypeSQL datatype;
+  
+  /** The length. */
   @XmlAttribute(name = "length")
   protected Short length;
+  
+  /** The scale. */
   @XmlAttribute(name = "scale")
   protected Short scale;
+  
+  /** The expression language. */
   @XmlAttribute(name = "expressionLanguage")
   protected ExpressionLanguage expressionLanguage;
 

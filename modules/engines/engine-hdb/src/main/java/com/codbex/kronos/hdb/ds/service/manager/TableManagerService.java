@@ -29,23 +29,44 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class TableManagerService.
+ */
 public class TableManagerService extends AbstractDataStructureManagerService<DataStructureHDBTableModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(TableManagerService.class);
 
+  /** The data structure table models. */
   private final Map<String, DataStructureHDBTableModel> dataStructureTableModels;
+  
+  /** The tables synchronized. */
   private final List<String> tablesSynchronized;
 
+  /** The table create processor. */
   private IHDBProcessor tableCreateProcessor = new TableCreateProcessor();
+  
+  /** The table drop processor. */
   private IHDBProcessor tableDropProcessor = new TableDropProcessor();
+  
+  /** The table alter processor. */
   private IHDBProcessor tableAlterProcessor = new TableAlterProcessor();
 
 
+  /**
+   * Instantiates a new table manager service.
+   */
   public TableManagerService() {
     dataStructureTableModels = new LinkedHashMap<>();
     tablesSynchronized = Collections.synchronizedList(new ArrayList<>());
   }
 
+  /**
+   * Synchronize runtime metadata.
+   *
+   * @param tableModel the table model
+   * @throws DataStructuresException the data structures exception
+   */
   public void synchronizeRuntimeMetadata(DataStructureHDBTableModel tableModel)
       throws DataStructuresException {
     if (!getDataStructuresCoreService().existsDataStructure(tableModel.getLocation(), tableModel.getType())) {
@@ -69,16 +90,40 @@ public class TableManagerService extends AbstractDataStructureManagerService<Dat
     }
   }
 
+  /**
+   * Creates the data structure.
+   *
+   * @param connection the connection
+   * @param tableModel the table model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   public boolean createDataStructure(Connection connection, DataStructureHDBTableModel tableModel)
       throws SQLException {
 	return this.tableCreateProcessor.execute(connection, tableModel);
   }
 
+  /**
+   * Drop data structure.
+   *
+   * @param connection the connection
+   * @param tableModel the table model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   public boolean dropDataStructure(Connection connection, DataStructureHDBTableModel tableModel)
       throws SQLException {
 	return this.tableDropProcessor.execute(connection, tableModel);
   }
 
+  /**
+   * Update data structure.
+   *
+   * @param connection the connection
+   * @param tableModel the table model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   public boolean updateDataStructure(Connection connection, DataStructureHDBTableModel tableModel)
       throws SQLException {
     //TODO: Create logic for updating hdb table
@@ -87,19 +132,37 @@ public class TableManagerService extends AbstractDataStructureManagerService<Dat
     return tableAlterProcessor.execute(connection, tableModel);
   }
 
+  /**
+   * Gets the data structure models.
+   *
+   * @return the data structure models
+   */
   public Map<String, DataStructureHDBTableModel> getDataStructureModels() {
     return this.dataStructureTableModels;
   }
 
+  /**
+   * Gets the data structure synchronized.
+   *
+   * @return the data structure synchronized
+   */
   public List<String> getDataStructureSynchronized() {
     return this.tablesSynchronized;
   }
 
+  /**
+   * Gets the data structure type.
+   *
+   * @return the data structure type
+   */
   @Override
   public String getDataStructureType() {
     return IDataStructureModel.FILE_EXTENSION_TABLE;
   }
 
+  /**
+   * Clear cache.
+   */
   @Override
   public void clearCache() {
     dataStructureTableModels.clear();

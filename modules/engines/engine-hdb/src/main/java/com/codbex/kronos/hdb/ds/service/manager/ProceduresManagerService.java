@@ -29,22 +29,41 @@ import javax.naming.OperationNotSupportedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class ProceduresManagerService.
+ */
 public class ProceduresManagerService extends AbstractDataStructureManagerService<DataStructureHDBProcedureModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(ProceduresManagerService.class);
 
 
+  /** The data structure procedures models. */
   private final Map<String, DataStructureHDBProcedureModel> dataStructureProceduresModels;
+  
+  /** The procedures synchronized. */
   private final List<String> proceduresSynchronized;
 
+  /** The hdb procedure drop processor. */
   private IHDBProcessor hdbProcedureDropProcessor = new HDBProcedureDropProcessor();
+  
+  /** The hdb procedure create processor. */
   private IHDBProcessor hdbProcedureCreateProcessor = new HDBProcedureCreateProcessor();
 
+  /**
+   * Instantiates a new procedures manager service.
+   */
   public ProceduresManagerService() {
     dataStructureProceduresModels = new LinkedHashMap<>();
     proceduresSynchronized = Collections.synchronizedList(new ArrayList<>());
   }
 
+  /**
+   * Synchronize runtime metadata.
+   *
+   * @param hdbProcedureModel the hdb procedure model
+   * @throws DataStructuresException the data structures exception
+   */
   @Override
   public void synchronizeRuntimeMetadata(DataStructureHDBProcedureModel hdbProcedureModel) throws DataStructuresException {
     // TODO: ommit double calling of finding the hdbProcedure by extracting it in
@@ -75,39 +94,81 @@ public class ProceduresManagerService extends AbstractDataStructureManagerServic
     }
   }
 
+  /**
+   * Creates the data structure.
+   *
+   * @param connection the connection
+   * @param viewModel the view model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   @Override
   public boolean createDataStructure(Connection connection, DataStructureHDBProcedureModel viewModel)
       throws SQLException {
 	return this.hdbProcedureCreateProcessor.execute(connection, viewModel);
   }
 
+  /**
+   * Drop data structure.
+   *
+   * @param connection the connection
+   * @param viewModel the view model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   @Override
   public boolean dropDataStructure(Connection connection, DataStructureHDBProcedureModel viewModel)
       throws SQLException {
 	return this.hdbProcedureDropProcessor.execute(connection, viewModel);
   }
 
+  /**
+   * Update data structure.
+   *
+   * @param connection the connection
+   * @param viewModel the view model
+   * @return true, if successful
+   * @throws OperationNotSupportedException the operation not supported exception
+   */
   @Override
   public boolean updateDataStructure(Connection connection, DataStructureHDBProcedureModel viewModel)
       throws OperationNotSupportedException {
     throw new OperationNotSupportedException();
   }
 
+  /**
+   * Gets the data structure synchronized.
+   *
+   * @return the data structure synchronized
+   */
   @Override
   public List<String> getDataStructureSynchronized() {
     return Collections.unmodifiableList(this.proceduresSynchronized);
   }
 
+  /**
+   * Gets the data structure type.
+   *
+   * @return the data structure type
+   */
   @Override
   public String getDataStructureType() {
     return IDataStructureModel.FILE_EXTENSION_HDBPROCEDURE;
   }
 
+  /**
+   * Clear cache.
+   */
   @Override
   public void clearCache() {
     dataStructureProceduresModels.clear();
   }
 
+  /**
+   * Gets the data structure models.
+   *
+   * @return the data structure models
+   */
   @Override
   public Map<String, DataStructureHDBProcedureModel> getDataStructureModels() {
     return Collections.unmodifiableMap(this.dataStructureProceduresModels);

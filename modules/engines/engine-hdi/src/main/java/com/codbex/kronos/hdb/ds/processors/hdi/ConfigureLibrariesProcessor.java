@@ -15,8 +15,19 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Set;
 
+/**
+ * The Class ConfigureLibrariesProcessor.
+ */
 public class ConfigureLibrariesProcessor extends HDIAbstractProcessor {
 
+  /**
+   * Execute.
+   *
+   * @param connection the connection
+   * @param container the container
+   * @param pluginsToBeActivated the plugins to be activated
+   * @throws SQLException the SQL exception
+   */
   public final void execute(Connection connection, String container, Set<String> pluginsToBeActivated) throws SQLException {
     executeQuery(connection,
         "CALL " + container + "#DI.CONFIGURE_LIBRARIES(_SYS_DI.T_DEFAULT_LIBRARIES, _SYS_DI.T_NO_PARAMETERS, ?, ?, ?);");

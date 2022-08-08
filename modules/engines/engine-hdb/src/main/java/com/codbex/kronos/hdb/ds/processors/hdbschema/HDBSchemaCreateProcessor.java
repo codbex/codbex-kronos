@@ -28,11 +28,25 @@ import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class HDBSchemaCreateProcessor.
+ */
 public class HDBSchemaCreateProcessor extends AbstractHDBProcessor<DataStructureHDBSchemaModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDBSchemaCreateProcessor.class);
+  
+  /** The Constant SCHEMA_ARTEFACT. */
   private static final HDBSchemaSynchronizationArtefactType SCHEMA_ARTEFACT = new HDBSchemaSynchronizationArtefactType();
 
+  /**
+   * Execute.
+   *
+   * @param connection the connection
+   * @param hdbSchema the hdb schema
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   public boolean execute(Connection connection, DataStructureHDBSchemaModel hdbSchema) throws SQLException {
     logger.info("Processing Create Schema: " + hdbSchema.getSchema());
 

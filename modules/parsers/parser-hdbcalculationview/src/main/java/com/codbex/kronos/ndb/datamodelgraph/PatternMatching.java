@@ -33,9 +33,9 @@ import javax.xml.bind.annotation.XmlType;
  * Specification of the graph action PATTERN_MATCHING
  *
  *
- * <p>Java class for PatternMatching complex type.
+ * Java class for PatternMatching complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="PatternMatching"&gt;
@@ -65,37 +65,52 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class PatternMatching {
 
+  /** The vertex variable. */
   protected List<VertexVariable> vertexVariable;
+  
+  /** The edge variable. */
   protected List<EdgeVariable> edgeVariable;
+  
+  /** The order by. */
   protected List<GraphVariableOrderBy> orderBy;
+  
+  /** The mapping. */
   @XmlElement(required = true)
   protected List<GraphVariableMapping> mapping;
+  
+  /** The operation. */
   @XmlElement(required = true)
   protected Operation operation;
+  
+  /** The limit. */
   @XmlAttribute(name = "limit")
   protected BigInteger limit;
+  
+  /** The offset. */
   @XmlAttribute(name = "offset")
   protected BigInteger offset;
 
   /**
    * Gets the value of the vertexVariable property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the vertexVariable property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getVertexVariable().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link VertexVariable }
+   *
+   * @return the vertex variable
    */
   public List<VertexVariable> getVertexVariable() {
     if (vertexVariable == null) {
@@ -106,23 +121,25 @@ public class PatternMatching {
 
   /**
    * Gets the value of the edgeVariable property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the edgeVariable property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getEdgeVariable().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link EdgeVariable }
+   *
+   * @return the edge variable
    */
   public List<EdgeVariable> getEdgeVariable() {
     if (edgeVariable == null) {
@@ -133,23 +150,25 @@ public class PatternMatching {
 
   /**
    * Gets the value of the orderBy property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the orderBy property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getOrderBy().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link GraphVariableOrderBy }
+   *
+   * @return the order by
    */
   public List<GraphVariableOrderBy> getOrderBy() {
     if (orderBy == null) {
@@ -160,23 +179,25 @@ public class PatternMatching {
 
   /**
    * Gets the value of the mapping property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the mapping property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getMapping().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link GraphVariableMapping }
+   *
+   * @return the mapping
    */
   public List<GraphVariableMapping> getMapping() {
     if (mapping == null) {

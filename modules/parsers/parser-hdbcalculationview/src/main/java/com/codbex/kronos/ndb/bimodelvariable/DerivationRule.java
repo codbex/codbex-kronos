@@ -40,9 +40,9 @@ import com.codbex.kronos.ndb.bimodeldatafoundation.ColumnFilter;
  * Then resourceUri must point to the procedure/function and (optionally) variableMapping can be filled
  *
  *
- * <p>Java class for DerivationRule complex type.
+ * Java class for DerivationRule complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="DerivationRule"&gt;
@@ -79,16 +79,29 @@ import com.codbex.kronos.ndb.bimodeldatafoundation.ColumnFilter;
 })
 public class DerivationRule {
 
+  /** The resource uri. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String resourceUri;
+  
+  /** The procedure name. */
   protected String procedureName;
+  
+  /** The scalar function name. */
   protected String scalarFunctionName;
+  
+  /** The result element name. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String resultElementName;
+  
+  /** The column filter. */
   protected List<ColumnFilter> columnFilter;
+  
+  /** The variable mapping. */
   protected List<AbstractVariableMapping> variableMapping;
+  
+  /** The input enabled. */
   @XmlAttribute(name = "inputEnabled")
   protected Boolean inputEnabled;
 
@@ -174,23 +187,25 @@ public class DerivationRule {
 
   /**
    * Gets the value of the columnFilter property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the columnFilter property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getColumnFilter().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link ColumnFilter }
+   *
+   * @return the column filter
    */
   public List<ColumnFilter> getColumnFilter() {
     if (columnFilter == null) {
@@ -201,23 +216,25 @@ public class DerivationRule {
 
   /**
    * Gets the value of the variableMapping property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the variableMapping property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getVariableMapping().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link AbstractVariableMapping }
+   *
+   * @return the variable mapping
    */
   public List<AbstractVariableMapping> getVariableMapping() {
     if (variableMapping == null) {

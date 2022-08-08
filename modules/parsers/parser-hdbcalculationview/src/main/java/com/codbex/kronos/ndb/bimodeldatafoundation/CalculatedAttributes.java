@@ -27,9 +27,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for CalculatedAttributes complex type.
+ * Java class for CalculatedAttributes complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="CalculatedAttributes"&gt;
@@ -49,27 +49,30 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class CalculatedAttributes {
 
+  /** The calculated attribute. */
   protected List<CalculatedAttribute> calculatedAttribute;
 
   /**
    * Gets the value of the calculatedAttribute property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the calculatedAttribute property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getCalculatedAttribute().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link CalculatedAttribute }
+   *
+   * @return the calculated attribute
    */
   public List<CalculatedAttribute> getCalculatedAttribute() {
     if (calculatedAttribute == null) {

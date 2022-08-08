@@ -11,23 +11,49 @@
  */
 package com.codbex.kronos.parser.hana.core.models;
 
+/**
+ * The Class JoinClauseDefinitionModel.
+ */
 public class JoinClauseDefinitionModel extends TableReferenceModel {
 
+  /** The on part. */
   private String onPart;
+  
+  /** The raw content. */
   private String rawContent;
 
+  /**
+   * Gets the on part.
+   *
+   * @return the on part
+   */
   public String getOnPart() {
     return onPart;
   }
 
+  /**
+   * Sets the on part.
+   *
+   * @param onPart the new on part
+   */
   public void setOnPart(String onPart) {
     this.onPart = onPart;
   }
 
+  /**
+   * Gets the raw content.
+   *
+   * @return the raw content
+   */
   public String getRawContent() {
     return rawContent;
   }
 
+  /**
+   * Sets the raw content.
+   *
+   * @param rawContent the new raw content
+   */
   public void setRawContent(String rawContent) {
     this.rawContent = rawContent;
   }

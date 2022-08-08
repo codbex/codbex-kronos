@@ -38,11 +38,28 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+/**
+ * The Class HDBSynonymParser.
+ */
 public class HDBSynonymParser implements DataStructureParser {
+  
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDBSynonymParser.class);
+  
+  /** The Constant SYNONYM_ARTEFACT. */
   private static final HDBSynonymSynchronizationArtefactType SYNONYM_ARTEFACT = new HDBSynonymSynchronizationArtefactType();
+  
+  /** The Constant dataStructuresSynchronizer. */
   private static final DataStructuresSynchronizer dataStructuresSynchronizer = new DataStructuresSynchronizer();
 
+  /**
+   * Parses the.
+   *
+   * @param parametersModel the parameters model
+   * @return the data structure HDB synonym model
+   * @throws DataStructuresException the data structures exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   @Override
   public DataStructureHDBSynonymModel parse(DataStructureParametersModel parametersModel) throws DataStructuresException, IOException {
     DataStructureHDBSynonymModel hdbSynonymModel = new DataStructureHDBSynonymModel();
@@ -76,11 +93,21 @@ public class HDBSynonymParser implements DataStructureParser {
     return hdbSynonymModel;
   }
 
+  /**
+   * Gets the type.
+   *
+   * @return the type
+   */
   @Override
   public String getType() {
     return IDataStructureModel.TYPE_HDB_SYNONYM;
   }
 
+  /**
+   * Gets the data structure class.
+   *
+   * @return the data structure class
+   */
   @Override
   public Class getDataStructureClass() {
     return DataStructureHDBSynonymModel.class;

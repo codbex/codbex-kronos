@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRegistry;
  * This object contains factory methods for each
  * Java content interface and Java element interface
  * generated in the com.sap.ndb.bimodeldimension package.
- * <p>An ObjectFactory allows you to programatically
+ * An ObjectFactory allows you to programatically
  * construct new instances of the Java representation
  * for XML content. The Java representation of XML
  * content can consist of schema derived interfaces
@@ -46,91 +46,117 @@ public class ObjectFactory {
   }
 
   /**
-   * Create an instance of {@link Dimension }
+   * Create an instance of {@link Dimension }.
+   *
+   * @return the dimension
    */
   public Dimension createDimension() {
     return new Dimension();
   }
 
   /**
-   * Create an instance of {@link LocalDimension }
+   * Create an instance of {@link LocalDimension }.
+   *
+   * @return the local dimension
    */
   public LocalDimension createLocalDimension() {
     return new LocalDimension();
   }
 
   /**
-   * Create an instance of {@link DerivedDimension }
+   * Create an instance of {@link DerivedDimension }.
+   *
+   * @return the derived dimension
    */
   public DerivedDimension createDerivedDimension() {
     return new DerivedDimension();
   }
 
   /**
-   * Create an instance of {@link Hierarchies }
+   * Create an instance of {@link Hierarchies }.
+   *
+   * @return the hierarchies
    */
   public Hierarchies createHierarchies() {
     return new Hierarchies();
   }
 
   /**
-   * Create an instance of {@link ParentChildHierarchy }
+   * Create an instance of {@link ParentChildHierarchy }.
+   *
+   * @return the parent child hierarchy
    */
   public ParentChildHierarchy createParentChildHierarchy() {
     return new ParentChildHierarchy();
   }
 
   /**
-   * Create an instance of {@link SiblingOrder }
+   * Create an instance of {@link SiblingOrder }.
+   *
+   * @return the sibling order
    */
   public SiblingOrder createSiblingOrder() {
     return new SiblingOrder();
   }
 
   /**
-   * Create an instance of {@link AttributeParentPair }
+   * Create an instance of {@link AttributeParentPair }.
+   *
+   * @return the attribute parent pair
    */
   public AttributeParentPair createAttributeParentPair() {
     return new AttributeParentPair();
   }
 
   /**
-   * Create an instance of {@link HierarchyTimeProperties }
+   * Create an instance of {@link HierarchyTimeProperties }.
+   *
+   * @return the hierarchy time properties
    */
   public HierarchyTimeProperties createHierarchyTimeProperties() {
     return new HierarchyTimeProperties();
   }
 
   /**
-   * Create an instance of {@link EdgeAttribute }
+   * Create an instance of {@link EdgeAttribute }.
+   *
+   * @return the edge attribute
    */
   public EdgeAttribute createEdgeAttribute() {
     return new EdgeAttribute();
   }
 
   /**
-   * Create an instance of {@link ExternalHierarchy }
+   * Create an instance of {@link ExternalHierarchy }.
+   *
+   * @return the external hierarchy
    */
   public ExternalHierarchy createExternalHierarchy() {
     return new ExternalHierarchy();
   }
 
   /**
-   * Create an instance of {@link LeveledHierarchy }
+   * Create an instance of {@link LeveledHierarchy }.
+   *
+   * @return the leveled hierarchy
    */
   public LeveledHierarchy createLeveledHierarchy() {
     return new LeveledHierarchy();
   }
 
   /**
-   * Create an instance of {@link Levels }
+   * Create an instance of {@link Levels }.
+   *
+   * @return the levels
    */
   public Levels createLevels() {
     return new Levels();
   }
 
   /**
-   * Create an instance of {@link Level }
+   * Create an instance of {@link Level }.
+   *
+   * @return the level
    */
   public Level createLevel() {
     return new Level();

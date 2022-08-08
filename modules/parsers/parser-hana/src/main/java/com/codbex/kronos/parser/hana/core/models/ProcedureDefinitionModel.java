@@ -17,27 +17,57 @@ import java.util.Objects;
 
 import com.codbex.kronos.parser.hana.core.exceptions.ProcedureMissingPropertyException;
 
+/**
+ * The Class ProcedureDefinitionModel.
+ */
 public class ProcedureDefinitionModel extends DefinitionModel {
 
+  /** The update statements. */
   private List<UpdateStatementDefinitionModel> updateStatements;
 
+  /**
+   * Instantiates a new procedure definition model.
+   *
+   * @param schema the schema
+   * @param name the name
+   */
   public ProcedureDefinitionModel(String schema, String name) {
     super(schema, name);
     this.updateStatements = new ArrayList<>();
   }
 
+  /**
+   * Gets the update statements.
+   *
+   * @return the update statements
+   */
   public List<UpdateStatementDefinitionModel> getUpdateStatements() {
     return updateStatements;
   }
 
+  /**
+   * Adds the update statement.
+   *
+   * @param updateStatement the update statement
+   */
   public void addUpdateStatement(UpdateStatementDefinitionModel updateStatement) {
     this.updateStatements.add(updateStatement);
   }
 
+  /**
+   * Check for all mandatory fields presence.
+   */
   public void checkForAllMandatoryFieldsPresence() {
     checkPresence(this.getName(), "name");
   }
 
+  /**
+   * Check presence.
+   *
+   * @param <T> the generic type
+   * @param field the field
+   * @param fieldName the field name
+   */
   private <T> void checkPresence(T field, String fieldName) {
     if (Objects.isNull(field)) {
       throw new ProcedureMissingPropertyException("Missing mandatory field " + fieldName);

@@ -11,14 +11,28 @@
  */
 package com.codbex.kronos.parser.hana.core.models;
 
+/**
+ * The Class WhereClauseDefinitionModel.
+ */
 public class WhereClauseDefinitionModel {
 
+  /** The raw content. */
   private String rawContent;
 
+  /**
+   * Gets the raw content.
+   *
+   * @return the raw content
+   */
   public String getRawContent() {
     return rawContent;
   }
 
+  /**
+   * Sets the raw content.
+   *
+   * @param rawContent the new raw content
+   */
   public void setRawContent(String rawContent) {
     this.rawContent = rawContent;
   }

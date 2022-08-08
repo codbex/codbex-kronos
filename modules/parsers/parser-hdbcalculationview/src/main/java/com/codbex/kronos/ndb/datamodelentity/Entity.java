@@ -35,9 +35,9 @@ import com.codbex.kronos.ndb.datamodeltype.StructureType;
  * Data type including a semantic description. Replaces the ABAP data element in the common and int the meta model
  *
  *
- * <p>Java class for Entity complex type.
+ * Java class for Entity complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Entity"&gt;
@@ -75,52 +75,83 @@ import com.codbex.kronos.ndb.datamodeltype.StructureType;
 public class Entity
     extends StructureType {
 
+  /** The inline hierarchy. */
   protected List<InlineHierarchy> inlineHierarchy;
+  
+  /** The index. */
   protected List<Index> index;
+  
+  /** The partition specification. */
   protected List<PartitionSpecification> partitionSpecification;
+  
+  /** The table group. */
   protected TableGroup tableGroup;
+  
+  /** The read only. */
   @XmlAttribute(name = "readOnly")
   protected Boolean readOnly;
+  
+  /** The view. */
   @XmlAttribute(name = "view")
   protected Boolean view;
+  
+  /** The table type. */
   @XmlAttribute(name = "tableType")
   protected TableType tableType;
+  
+  /** The history enabled. */
   @XmlAttribute(name = "historyEnabled")
   protected Boolean historyEnabled;
+  
+  /** The data category. */
   @XmlAttribute(name = "dataCategory")
   protected DataCategory dataCategory;
+  
+  /** The dimension type. */
   @XmlAttribute(name = "dimensionType")
   protected DimensionType dimensionType;
+  
+  /** The default member. */
   @XmlAttribute(name = "defaultMember")
   protected String defaultMember;
+  
+  /** The hidden. */
   @XmlAttribute(name = "hidden")
   protected Boolean hidden;
+  
+  /** The replication enabled. */
   @XmlAttribute(name = "replicationEnabled")
   protected Boolean replicationEnabled;
+  
+  /** The hierarchies SQL enabled. */
   @XmlAttribute(name = "hierarchiesSQLEnabled")
   protected Boolean hierarchiesSQLEnabled;
+  
+  /** The object type. */
   @XmlAttribute(name = "objectType")
   protected ObjectType objectType;
 
   /**
    * Gets the value of the inlineHierarchy property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the inlineHierarchy property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getInlineHierarchy().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link InlineHierarchy }
+   *
+   * @return the inline hierarchy
    */
   public List<InlineHierarchy> getInlineHierarchy() {
     if (inlineHierarchy == null) {
@@ -131,23 +162,25 @@ public class Entity
 
   /**
    * Gets the value of the index property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the index property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getIndex().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link Index }
+   *
+   * @return the index
    */
   public List<Index> getIndex() {
     if (index == null) {
@@ -158,23 +191,25 @@ public class Entity
 
   /**
    * Gets the value of the partitionSpecification property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the partitionSpecification property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getPartitionSpecification().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link PartitionSpecification }
+   *
+   * @return the partition specification
    */
   public List<PartitionSpecification> getPartitionSpecification() {
     if (partitionSpecification == null) {

@@ -29,9 +29,9 @@ import com.codbex.kronos.ndb.basemodelbase.SortDirection;
 
 
 /**
- * <p>Java class for SortAttribute complex type.
+ * Java class for SortAttribute complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="SortAttribute"&gt;
@@ -53,8 +53,11 @@ import com.codbex.kronos.ndb.basemodelbase.SortDirection;
 })
 public class SortAttribute {
 
+  /** The id. */
   @XmlElement(required = true)
   protected String id;
+  
+  /** The direction. */
   @XmlElement(required = true)
   @XmlSchemaType(name = "string")
   protected SortDirection direction;

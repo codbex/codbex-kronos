@@ -44,12 +44,29 @@ import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.utils.HDBUtils;
 
+/**
+ * The Class HDBViewParser.
+ */
 public class HDBViewParser implements DataStructureParser<DataStructureHDBViewModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDBViewParser.class);
+  
+  /** The Constant VIEW_ARTEFACT. */
   private static final HDBViewSynchronizationArtefactType VIEW_ARTEFACT = new HDBViewSynchronizationArtefactType();
+  
+  /** The Constant dataStructuresSynchronizer. */
   private static final DataStructuresSynchronizer dataStructuresSynchronizer = new DataStructuresSynchronizer();
 
+  /**
+   * Parses the.
+   *
+   * @param parametersModel the parameters model
+   * @return the data structure HDB view model
+   * @throws DataStructuresException the data structures exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws ArtifactParserException the artifact parser exception
+   */
   @Override
   public DataStructureHDBViewModel parse(DataStructureParametersModel parametersModel)
       throws DataStructuresException, IOException, ArtifactParserException {
@@ -61,6 +78,13 @@ public class HDBViewParser implements DataStructureParser<DataStructureHDBViewMo
         : parseHanaXSClassicContent(parametersModel.getLocation(), parametersModel.getContent());
   }
 
+  /**
+   * Parses the hana XS advanced content.
+   *
+   * @param location the location
+   * @param content the content
+   * @return the data structure HDB view model
+   */
   private DataStructureHDBViewModel parseHanaXSAdvancedContent(String location, String content) {
     logger.debug("Parsing hdbview as Hana XS Advanced format");
     DataStructureHDBViewModel hdbViewModel = new DataStructureHDBViewModel();
@@ -70,6 +94,16 @@ public class HDBViewParser implements DataStructureParser<DataStructureHDBViewMo
     return hdbViewModel;
   }
 
+  /**
+   * Parses the hana XS classic content.
+   *
+   * @param location the location
+   * @param content the content
+   * @return the data structure HDB view model
+   * @throws DataStructuresException the data structures exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws ArtifactParserException the artifact parser exception
+   */
   private DataStructureHDBViewModel parseHanaXSClassicContent(String location, String content)
       throws DataStructuresException, IOException, ArtifactParserException {
     logger.debug("Parsing hdbview as Hana XS Classic format");
@@ -146,11 +180,21 @@ public class HDBViewParser implements DataStructureParser<DataStructureHDBViewMo
     return hdbViewModel;
   }
 
+  /**
+   * Gets the type.
+   *
+   * @return the type
+   */
   @Override
   public String getType() {
     return IDataStructureModel.TYPE_HDB_VIEW;
   }
 
+  /**
+   * Gets the data structure class.
+   *
+   * @return the data structure class
+   */
   @Override
   public Class<DataStructureHDBViewModel> getDataStructureClass() {
     return DataStructureHDBViewModel.class;

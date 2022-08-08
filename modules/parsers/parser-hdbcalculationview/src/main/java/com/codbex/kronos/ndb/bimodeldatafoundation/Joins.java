@@ -28,9 +28,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Joins complex type.
+ * Java class for Joins complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Joins"&gt;
@@ -50,28 +50,31 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class Joins {
 
+  /** The join. */
   @XmlElement(required = true)
   protected List<Join> join;
 
   /**
    * Gets the value of the join property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the join property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getJoin().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link Join }
+   *
+   * @return the join
    */
   public List<Join> getJoin() {
     if (join == null) {

@@ -32,9 +32,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * Could als be acheived by resource:QualifiedNameReference
  *
  *
- * <p>Java class for QualifiedAttributeReference complex type.
+ * Java class for QualifiedAttributeReference complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="QualifiedAttributeReference"&gt;
@@ -51,9 +51,12 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "QualifiedAttributeReference")
 public class QualifiedAttributeReference {
 
+  /** The attribute name. */
   @XmlAttribute(name = "attributeName", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String attributeName;
+  
+  /** The dimension uri. */
   @XmlAttribute(name = "dimensionUri")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String dimensionUri;

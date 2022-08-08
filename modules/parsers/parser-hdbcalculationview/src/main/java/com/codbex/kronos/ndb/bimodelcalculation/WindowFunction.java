@@ -34,9 +34,9 @@ import com.codbex.kronos.ndb.bimodelconversion.Parameterization;
  * Models the part of SQL windows functions that are supported by the calc engine
  *
  *
- * <p>Java class for WindowFunction complex type.
+ * Java class for WindowFunction complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="WindowFunction"&gt;
@@ -65,39 +65,54 @@ import com.codbex.kronos.ndb.bimodelconversion.Parameterization;
 })
 public class WindowFunction {
 
+  /** The partition view attribute name. */
   @XmlElement(required = true)
   protected List<String> partitionViewAttributeName;
+  
+  /** The order. */
   @XmlElement(required = true)
   protected List<Order> order;
+  
+  /** The rank threshold. */
   @XmlElement(required = true)
   protected Parameterization rankThreshold;
+  
+  /** The rank view attribute name. */
   protected String rankViewAttributeName;
+  
+  /** The type. */
   @XmlAttribute(name = "type")
   protected TopType type;
+  
+  /** The olympic ranking. */
   @XmlAttribute(name = "olympicRanking")
   protected Boolean olympicRanking;
+  
+  /** The dynamic partition attributes. */
   @XmlAttribute(name = "dynamicPartitionAttributes")
   protected Boolean dynamicPartitionAttributes;
 
   /**
    * Gets the value of the partitionViewAttributeName property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the partitionViewAttributeName property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getPartitionViewAttributeName().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link String }
+   *
+   * @return the partition view attribute name
    */
   public List<String> getPartitionViewAttributeName() {
     if (partitionViewAttributeName == null) {
@@ -108,23 +123,25 @@ public class WindowFunction {
 
   /**
    * Gets the value of the order property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the order property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getOrder().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link Order }
+   *
+   * @return the order
    */
   public List<Order> getOrder() {
     if (order == null) {

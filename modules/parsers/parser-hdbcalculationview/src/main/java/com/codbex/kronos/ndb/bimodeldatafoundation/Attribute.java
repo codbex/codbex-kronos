@@ -32,9 +32,9 @@ import javax.xml.bind.annotation.XmlType;
  * used in a logical join as of now
  *
  *
- * <p>Java class for Attribute complex type.
+ * Java class for Attribute complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Attribute"&gt;
@@ -58,12 +58,19 @@ import javax.xml.bind.annotation.XmlType;
 public class Attribute
     extends AbstractAttribute {
 
+  /** The key mapping. */
   @XmlElement(required = true)
   protected ColumnMapping keyMapping;
+  
+  /** The principal key. */
   @XmlAttribute(name = "principalKey")
   protected Boolean principalKey;
+  
+  /** The keep flag. */
   @XmlAttribute(name = "keepFlag")
   protected Boolean keepFlag;
+  
+  /** The transparent filter. */
   @XmlAttribute(name = "transparentFilter")
   protected Boolean transparentFilter;
 

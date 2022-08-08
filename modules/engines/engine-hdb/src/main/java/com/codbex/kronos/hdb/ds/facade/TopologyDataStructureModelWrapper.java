@@ -28,17 +28,43 @@ import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 import com.codbex.kronos.hdb.ds.service.manager.IDataStructureManager;
 import com.codbex.kronos.hdb.ds.synchronizer.DataStructuresSynchronizer;
 
+/**
+ * The Class TopologyDataStructureModelWrapper.
+ *
+ * @param <T> the generic type
+ */
 public class TopologyDataStructureModelWrapper<T extends DataStructureModel> implements ITopologicallySortable, ITopologicallyDepletable {
 
+    /** The Constant logger. */
     private static final Logger logger = LoggerFactory.getLogger(TopologyDataStructureModelWrapper.class);
+    
+    /** The Constant DATA_STRUCTURES_SYNCHRONIZER. */
     private static final DataStructuresSynchronizer DATA_STRUCTURES_SYNCHRONIZER = new DataStructuresSynchronizer();
+    
+    /** The artefact type. */
     private final AbstractSynchronizationArtefactType artefactType;
 
+    /** The model manager. */
     private final IDataStructureManager<T> modelManager;
+    
+    /** The model. */
     private final T model;
+    
+    /** The connection. */
     private final Connection connection;
+    
+    /** The wrappers. */
     private final Map<String, TopologyDataStructureModelWrapper> wrappers;
 
+    /**
+     * Instantiates a new topology data structure model wrapper.
+     *
+     * @param connection the connection
+     * @param modelManager the model manager
+     * @param model the model
+     * @param artefactType the artefact type
+     * @param wrappers the wrappers
+     */
     public TopologyDataStructureModelWrapper(Connection connection, IDataStructureManager<T> modelManager, T model, AbstractSynchronizationArtefactType artefactType,
         Map<String, TopologyDataStructureModelWrapper> wrappers) {
         this.connection = connection;
@@ -49,19 +75,39 @@ public class TopologyDataStructureModelWrapper<T extends DataStructureModel> imp
         this.wrappers.put(getId(), this);
     }
 
+    /**
+     * Gets the model.
+     *
+     * @return the model
+     */
     public DataStructureModel getModel() {
         return model;
     }
 
+    /**
+     * Gets the artefact type.
+     *
+     * @return the artefact type
+     */
     public AbstractSynchronizationArtefactType getArtefactType() {
         return artefactType;
     }
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     @Override
     public String getId() {
         return this.model.getName();
     }
 
+    /**
+     * Gets the dependencies.
+     *
+     * @return the dependencies
+     */
     @Override
     public List<ITopologicallySortable> getDependencies() {
         List<ITopologicallySortable> dependencies = new ArrayList<ITopologicallySortable>();
@@ -76,6 +122,12 @@ public class TopologyDataStructureModelWrapper<T extends DataStructureModel> imp
         return dependencies;
     }
 
+    /**
+     * Complete.
+     *
+     * @param flow the flow
+     * @return true, if successful
+     */
     @Override
     public boolean complete(String flow) {
         try {
@@ -86,6 +138,15 @@ public class TopologyDataStructureModelWrapper<T extends DataStructureModel> imp
         }
     }
 
+    /**
+     * Apply artefact state.
+     *
+     * @param artefactName the artefact name
+     * @param artefactLocation the artefact location
+     * @param type the type
+     * @param state the state
+     * @param message the message
+     */
     public void applyArtefactState(String artefactName, String artefactLocation, AbstractSynchronizationArtefactType type, ISynchronizerArtefactType.ArtefactState state, String message) {
         DATA_STRUCTURES_SYNCHRONIZER.applyArtefactState(artefactName, artefactLocation, type, state, message);
     }

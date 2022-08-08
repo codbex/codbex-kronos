@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for TableType.
+ * Java class for TableType.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="TableType"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -43,15 +43,33 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum TableType {
 
+  /** The column. */
   COLUMN,
+  
+  /** The row. */
   ROW,
+  
+  /** The virtual. */
   VIRTUAL,
+  
+  /** The extended. */
   EXTENDED;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the table type
+   */
   public static TableType fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for HierarchyFunction.
+ * Java class for HierarchyFunction.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="HierarchyFunction"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -46,18 +46,42 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum HierarchyFunction {
 
+  /** The hierarchy. */
   HIERARCHY,
+  
+  /** The hierarchy leveled. */
   HIERARCHY_LEVELED,
+  
+  /** The hierarchy temporal. */
   HIERARCHY_TEMPORAL,
+  
+  /** The hierarchy spantree. */
   HIERARCHY_SPANTREE,
+  
+  /** The hierarchy descendants. */
   HIERARCHY_DESCENDANTS,
+  
+  /** The hierarchy ancestors. */
   HIERARCHY_ANCESTORS,
+  
+  /** The hierarchy siblings. */
   HIERARCHY_SIBLINGS;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the hierarchy function
+   */
   public static HierarchyFunction fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

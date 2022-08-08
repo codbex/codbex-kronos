@@ -20,12 +20,30 @@ import com.codbex.kronos.parser.xsodata.model.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * The listener interface for receiving HDBXSODataCore events.
+ * The class that is interested in processing a HDBXSODataCore
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addHDBXSODataCoreListener</code> method. When
+ * the HDBXSODataCore event occurs, that object's appropriate
+ * method is invoked.
+ *
+ */
 public class HDBXSODataCoreListener extends HdbxsodataBaseListener {
 
 
+    /** The service model. */
     private final HDBXSODataService serviceModel = new HDBXSODataService();
+    
+    /** The nav entries. */
     private ArrayList<HdbxsodataParser.NaventryContext> navEntries = new ArrayList<>();
 
+    /**
+     * Exit xsodata definition.
+     *
+     * @param ctx the ctx
+     */
     @Override
     public void exitXsodataDefinition(HdbxsodataParser.XsodataDefinitionContext ctx) {
         //set Annotations
@@ -84,6 +102,11 @@ public class HDBXSODataCoreListener extends HdbxsodataBaseListener {
         }
     }
 
+    /**
+     * Exit entity.
+     *
+     * @param ctx the ctx
+     */
     @Override
     public void exitEntity(HdbxsodataParser.EntityContext ctx) {
         HDBXSODataEntity entity = new HDBXSODataEntity();
@@ -190,6 +213,11 @@ public class HDBXSODataCoreListener extends HdbxsodataBaseListener {
         this.navEntries = new ArrayList<>();
     }
 
+    /**
+     * Exit association.
+     *
+     * @param ctx the ctx
+     */
     @Override
     public void exitAssociation(HdbxsodataParser.AssociationContext ctx) {
         HDBXSODataAssociation association = new HDBXSODataAssociation();
@@ -258,15 +286,31 @@ public class HDBXSODataCoreListener extends HdbxsodataBaseListener {
         serviceModel.getAssociations().add(association);
     }
 
+    /**
+     * Exit naventry.
+     *
+     * @param ctx the ctx
+     */
     @Override
     public void exitNaventry(HdbxsodataParser.NaventryContext ctx) {
         this.navEntries.add(ctx);
     }
 
+    /**
+     * Gets the service model.
+     *
+     * @return the service model
+     */
     public HDBXSODataService getServiceModel() {
         return serviceModel;
     }
 
+    /**
+     * Handle string literal.
+     *
+     * @param value the value
+     * @return the string
+     */
     private String handleStringLiteral(String value) {
         if (value != null && value.length() > 1) {
             String subStr = value.substring(1, value.length() - 1);
@@ -276,6 +320,13 @@ public class HDBXSODataCoreListener extends HdbxsodataBaseListener {
         return null;
     }
 
+    /**
+     * Assemble binding from association context.
+     *
+     * @param context the context
+     * @param type the type
+     * @return the HDBXSO data binding
+     */
     private HDBXSODataBinding assembleBindingFromAssociationContext(ParserRuleContext context, HDBXSODataBindingType type) {
         HDBXSODataBindingRole role = new HDBXSODataBindingRole();
         HDBXSODataBinding binding = new HDBXSODataBinding();
@@ -291,6 +342,13 @@ public class HDBXSODataCoreListener extends HdbxsodataBaseListener {
         return binding;
     }
 
+    /**
+     * Assemble binding role from association table context.
+     *
+     * @param context the context
+     * @param type the type
+     * @return the HDBXSO data binding role
+     */
     private HDBXSODataBindingRole assembleBindingRoleFromAssociationTableContext(ParserRuleContext context, HDBXSODataBindingType type) {
         HDBXSODataBindingRole bindingRole = new HDBXSODataBindingRole();
         bindingRole.setBindingType(type);
@@ -301,6 +359,12 @@ public class HDBXSODataCoreListener extends HdbxsodataBaseListener {
         return bindingRole;
     }
 
+    /**
+     * Assemble modifications from context.
+     *
+     * @param modificationBody the modification body
+     * @return the list
+     */
     private List<HDBXSODataModification> assembleModificationsFromContext(HdbxsodataParser.ModificationBodyContext modificationBody) {
         List<HDBXSODataModification> modifications = new ArrayList<>();
 

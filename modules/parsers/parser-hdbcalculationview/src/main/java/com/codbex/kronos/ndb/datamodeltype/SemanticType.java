@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for SemanticType.
+ * Java class for SemanticType.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="SemanticType"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -56,56 +56,63 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum SemanticType {
 
+  /** The empty. */
   @XmlEnumValue("empty")
   EMPTY("empty"),
+  
+  /** The amount. */
   @XmlEnumValue("amount")
   AMOUNT("amount"),
+  
+  /** The quantity. */
   @XmlEnumValue("quantity")
   QUANTITY("quantity"),
+  
+  /** The currency code. */
   @XmlEnumValue("currencyCode")
   CURRENCY_CODE("currencyCode"),
+  
+  /** The unit of measure. */
   @XmlEnumValue("unitOfMeasure")
   UNIT_OF_MEASURE("unitOfMeasure"),
 
-  /**
-   * Can be used for STRING typed fields (ABAP type TIMS) to indicate the additional semantic
-   * Not needed if the primitive type is already TIME
-   */
+  /** Can be used for STRING typed fields (ABAP type TIMS) to indicate the additional semantic Not needed if the primitive type is already TIME. */
   @XmlEnumValue("time")
   TIME("time"),
 
-  /**
-   * Can be used for STRING typed fields (ABAP type DATS) to indicate the additional semantic
-   * Not needed if the primitive type is already DATE
-   */
+  /** Can be used for STRING typed fields (ABAP type DATS) to indicate the additional semantic Not needed if the primitive type is already DATE. */
   @XmlEnumValue("date")
   DATE("date"),
 
-  /**
-   * Date field containing the from data for time dependent data
-   */
+  /** Date field containing the from data for time dependent data. */
   @XmlEnumValue("date.businessDateFrom")
   DATE_BUSINESS_DATE_FROM("date.businessDateFrom"),
 
-  /**
-   * Date field containing the to data for time dependent data
-   */
+  /** Date field containing the to data for time dependent data. */
   @XmlEnumValue("date.businessDateTo")
   DATE_BUSINESS_DATE_TO("date.businessDateTo"),
+  
+  /** The geo location longitude. */
   @XmlEnumValue("geoLocation.longitude")
   GEO_LOCATION_LONGITUDE("geoLocation.longitude"),
+  
+  /** The geo location latitude. */
   @XmlEnumValue("geoLocation.latitude")
   GEO_LOCATION_LATITUDE("geoLocation.latitude"),
+  
+  /** The geo location carto id. */
   @XmlEnumValue("geoLocation.cartoId")
   GEO_LOCATION_CARTO_ID("geoLocation.cartoId"),
+  
+  /** The geo location normalized name. */
   @XmlEnumValue("geoLocation.normalizedName")
   GEO_LOCATION_NORMALIZED_NAME("geoLocation.normalizedName"),
 
-  /**
-   * APAP field to identify the client = MANDT
-   */
+  /** APAP field to identify the client = MANDT. */
   @XmlEnumValue("client")
   CLIENT("client"),
+  
+  /** The language. */
   @XmlEnumValue("language")
   LANGUAGE("language"),
 
@@ -114,12 +121,25 @@ public enum SemanticType {
    */
   @XmlEnumValue("description")
   DESCRIPTION("description");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new semantic type.
+   *
+   * @param v the v
+   */
   SemanticType(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the semantic type
+   */
   public static SemanticType fromValue(String v) {
     for (SemanticType c : SemanticType.values()) {
       if (c.value.equals(v)) {
@@ -129,6 +149,11 @@ public enum SemanticType {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRegistry;
  * This object contains factory methods for each
  * Java content interface and Java element interface
  * generated in the com.sap.ndb.searchmodelsearch package.
- * <p>An ObjectFactory allows you to programatically
+ * An ObjectFactory allows you to programatically
  * construct new instances of the Java representation
  * for XML content. The Java representation of XML
  * content can consist of schema derived interfaces
@@ -46,7 +46,9 @@ public class ObjectFactory {
   }
 
   /**
-   * Create an instance of {@link SearchableElementProperties }
+   * Create an instance of {@link SearchableElementProperties }.
+   *
+   * @return the searchable element properties
    */
   public SearchableElementProperties createSearchableElementProperties() {
     return new SearchableElementProperties();

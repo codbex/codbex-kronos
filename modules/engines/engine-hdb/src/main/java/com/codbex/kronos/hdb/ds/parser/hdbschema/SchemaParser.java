@@ -40,22 +40,49 @@ import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.utils.HDBUtils;
 
+/**
+ * The Class SchemaParser.
+ */
 public class SchemaParser implements DataStructureParser<DataStructureHDBSchemaModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(SchemaParser.class);
+  
+  /** The Constant SCHEMA_ARTEFACT. */
   private static final HDBSchemaSynchronizationArtefactType SCHEMA_ARTEFACT = new HDBSchemaSynchronizationArtefactType();
+  
+  /** The Constant dataStructuresSynchronizer. */
   private static final DataStructuresSynchronizer dataStructuresSynchronizer = new DataStructuresSynchronizer();
 
+  /**
+   * Gets the type.
+   *
+   * @return the type
+   */
   @Override
   public String getType() {
     return IDataStructureModel.TYPE_HDB_SCHEMA;
   }
 
+  /**
+   * Gets the data structure class.
+   *
+   * @return the data structure class
+   */
   @Override
   public Class<DataStructureHDBSchemaModel> getDataStructureClass() {
     return DataStructureHDBSchemaModel.class;
   }
 
+  /**
+   * Parses the.
+   *
+   * @param parametersModel the parameters model
+   * @return the data structure HDB schema model
+   * @throws DataStructuresException the data structures exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws ArtifactParserException the artifact parser exception
+   */
   @Override
   public DataStructureHDBSchemaModel parse(DataStructureParametersModel parametersModel)
       throws DataStructuresException, IOException, ArtifactParserException {

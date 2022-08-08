@@ -29,9 +29,9 @@ import javax.xml.bind.annotation.XmlType;
  * Docs: https://help.sap.com/viewer/4fe29514fd584807ac9f2a04f6754767/2.0.02/en-US/ffc0d810a9274f789e6667cf0f73c388.html
  *
  *
- * <p>Java class for HierarchySiblingsParameterization complex type.
+ * Java class for HierarchySiblingsParameterization complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="HierarchySiblingsParameterization"&gt;
@@ -53,7 +53,10 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class HierarchySiblingsParameterization {
 
+  /** The start. */
   protected Start start;
+  
+  /** The start where. */
   protected String startWhere;
 
   /**

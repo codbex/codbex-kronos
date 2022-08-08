@@ -21,8 +21,20 @@ import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
 
 
+/**
+ * The Class HDIModelAdapter.
+ */
 public class HDIModelAdapter implements JsonDeserializer<DataStructureHDIModel> {
 
+  /**
+   * Deserialize.
+   *
+   * @param jsonElement the json element
+   * @param type the type
+   * @param context the context
+   * @return the data structure HDI model
+   * @throws JsonParseException the json parse exception
+   */
   @Override
   public DataStructureHDIModel deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context)
       throws JsonParseException {

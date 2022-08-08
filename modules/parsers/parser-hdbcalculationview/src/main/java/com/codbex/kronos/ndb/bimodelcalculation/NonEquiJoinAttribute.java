@@ -30,9 +30,9 @@ import com.codbex.kronos.ndb.sqlcoremodelaccesscontrol.ValueFilterOperator;
 
 
 /**
- * <p>Java class for NonEquiJoinAttribute complex type.
+ * Java class for NonEquiJoinAttribute complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="NonEquiJoinAttribute"&gt;
@@ -52,16 +52,25 @@ import com.codbex.kronos.ndb.sqlcoremodelaccesscontrol.ValueFilterOperator;
 @XmlType(name = "NonEquiJoinAttribute")
 public class NonEquiJoinAttribute {
 
+  /** The left column. */
   @XmlAttribute(name = "leftColumn")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String leftColumn;
+  
+  /** The left value. */
   @XmlAttribute(name = "leftValue")
   protected String leftValue;
+  
+  /** The right column. */
   @XmlAttribute(name = "rightColumn")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String rightColumn;
+  
+  /** The right value. */
   @XmlAttribute(name = "rightValue")
   protected String rightValue;
+  
+  /** The operator. */
   @XmlAttribute(name = "operator", required = true)
   protected ValueFilterOperator operator;
 

@@ -28,9 +28,9 @@ import com.codbex.kronos.ndb.basemodelbase.QualifiedColumnObjectName;
 
 
 /**
- * <p>Java class for ExternalHierarchy complex type.
+ * Java class for ExternalHierarchy complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ExternalHierarchy"&gt;
@@ -51,6 +51,7 @@ import com.codbex.kronos.ndb.basemodelbase.QualifiedColumnObjectName;
 public class ExternalHierarchy
     extends Hierarchy {
 
+  /** The hierarchy table name. */
   @XmlElement(required = true)
   protected QualifiedColumnObjectName hierarchyTableName;
 

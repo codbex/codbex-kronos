@@ -22,8 +22,12 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+/**
+ * The Class CalculationViewTransformation.
+ */
 public class CalculationViewTransformation {
 
+    /** The Constant CALCULATION_VIEW_DATA_SOURCE_TRANSFORMATION_XSLT. */
     private static final String CALCULATION_VIEW_DATA_SOURCE_TRANSFORMATION_XSLT = "<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">\n"
         + "    <xsl:template match=\"DataSource/@type\" />\n"
         + "    <xsl:template match=\"@*|node()\">\n"
@@ -41,6 +45,13 @@ public class CalculationViewTransformation {
         + "     </xsl:template>\n"
         + "</xsl:stylesheet>";
 
+    /**
+     * Removes the type artifact.
+     *
+     * @param bytes the bytes
+     * @return the byte[]
+     * @throws TransformerException the transformer exception
+     */
     public byte[] removeTypeArtifact(byte[] bytes) throws TransformerException {
         TransformerFactory factory = TransformerFactory.newInstance();
         factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);

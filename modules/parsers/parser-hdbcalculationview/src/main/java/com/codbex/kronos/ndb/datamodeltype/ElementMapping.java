@@ -30,9 +30,9 @@ import com.codbex.kronos.ndb.basemodelbase.EndUserTexts;
 
 
 /**
- * <p>Java class for ElementMapping complex type.
+ * Java class for ElementMapping complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ElementMapping"&gt;
@@ -55,10 +55,15 @@ import com.codbex.kronos.ndb.basemodelbase.EndUserTexts;
 public class ElementMapping
     extends AbstractElementMapping {
 
+  /** The target end user texts. */
   protected EndUserTexts targetEndUserTexts;
+  
+  /** The source name. */
   @XmlAttribute(name = "sourceName", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String sourceName;
+  
+  /** The transparent filter. */
   @XmlAttribute(name = "transparentFilter")
   protected Boolean transparentFilter;
 

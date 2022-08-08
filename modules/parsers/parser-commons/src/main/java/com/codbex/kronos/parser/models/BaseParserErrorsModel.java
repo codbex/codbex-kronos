@@ -11,13 +11,31 @@
  */
 package com.codbex.kronos.parser.models;
 
+/**
+ * The Class BaseParserErrorsModel.
+ */
 public class BaseParserErrorsModel {
 
+  /** The line. */
   private int line;
+  
+  /** The char position in line. */
   private int charPositionInLine;
+  
+  /** The offending symbol. */
   private String offendingSymbol;
+  
+  /** The msg. */
   private String msg;
 
+  /**
+   * Instantiates a new base parser errors model.
+   *
+   * @param line the line
+   * @param charPositionInLine the char position in line
+   * @param offendingSymbol the offending symbol
+   * @param msg the msg
+   */
   public BaseParserErrorsModel(int line, int charPositionInLine, String offendingSymbol, String msg) {
     this.line = line;
     this.charPositionInLine = charPositionInLine;
@@ -25,26 +43,56 @@ public class BaseParserErrorsModel {
     this.msg = msg;
   }
 
+  /**
+   * Gets the line.
+   *
+   * @return the line
+   */
   public int getLine() {
     return line;
   }
 
+  /**
+   * Sets the line.
+   *
+   * @param line the new line
+   */
   public void setLine(int line) {
     this.line = line;
   }
 
+  /**
+   * Gets the char position in line.
+   *
+   * @return the char position in line
+   */
   public int getCharPositionInLine() {
     return charPositionInLine;
   }
 
+  /**
+   * Gets the offending symbol.
+   *
+   * @return the offending symbol
+   */
   public String getOffendingSymbol() {
     return offendingSymbol;
   }
 
+  /**
+   * Gets the msg.
+   *
+   * @return the msg
+   */
   public String getMsg() {
     return msg;
   }
 
+  /**
+   * Sets the msg.
+   *
+   * @param msg the new msg
+   */
   public void setMsg(String msg) {
     this.msg = msg;
   }

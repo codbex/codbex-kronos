@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRegistry;
  * This object contains factory methods for each
  * Java content interface and Java element interface
  * generated in the com.sap.ndb.bimodeldatafoundation package.
- * <p>An ObjectFactory allows you to programatically
+ * An ObjectFactory allows you to programatically
  * construct new instances of the Java representation
  * for XML content. The Java representation of XML
  * content can consist of schema derived interfaces
@@ -46,231 +46,297 @@ public class ObjectFactory {
   }
 
   /**
-   * Create an instance of {@link DataFoundation }
+   * Create an instance of {@link DataFoundation }.
+   *
+   * @return the data foundation
    */
   public DataFoundation createDataFoundation() {
     return new DataFoundation();
   }
 
   /**
-   * Create an instance of {@link TableProxies }
+   * Create an instance of {@link TableProxies }.
+   *
+   * @return the table proxies
    */
   public TableProxies createTableProxies() {
     return new TableProxies();
   }
 
   /**
-   * Create an instance of {@link TableProxy }
+   * Create an instance of {@link TableProxy }.
+   *
+   * @return the table proxy
    */
   public TableProxy createTableProxy() {
     return new TableProxy();
   }
 
   /**
-   * Create an instance of {@link ColumnFilter }
+   * Create an instance of {@link ColumnFilter }.
+   *
+   * @return the column filter
    */
   public ColumnFilter createColumnFilter() {
     return new ColumnFilter();
   }
 
   /**
-   * Create an instance of {@link Joins }
+   * Create an instance of {@link Joins }.
+   *
+   * @return the joins
    */
   public Joins createJoins() {
     return new Joins();
   }
 
   /**
-   * Create an instance of {@link Join }
+   * Create an instance of {@link Join }.
+   *
+   * @return the join
    */
   public Join createJoin() {
     return new Join();
   }
 
   /**
-   * Create an instance of {@link JoinProperties }
+   * Create an instance of {@link JoinProperties }.
+   *
+   * @return the join properties
    */
   public JoinProperties createJoinProperties() {
     return new JoinProperties();
   }
 
   /**
-   * Create an instance of {@link SpatialJoinProperties }
+   * Create an instance of {@link SpatialJoinProperties }.
+   *
+   * @return the spatial join properties
    */
   public SpatialJoinProperties createSpatialJoinProperties() {
     return new SpatialJoinProperties();
   }
 
   /**
-   * Create an instance of {@link Columns }
+   * Create an instance of {@link Columns }.
+   *
+   * @return the columns
    */
   public Columns createColumns() {
     return new Columns();
   }
 
   /**
-   * Create an instance of {@link ColumnMapping }
+   * Create an instance of {@link ColumnMapping }.
+   *
+   * @return the column mapping
    */
   public ColumnMapping createColumnMapping() {
     return new ColumnMapping();
   }
 
   /**
-   * Create an instance of {@link LogicalObject }
+   * Create an instance of {@link LogicalObject }.
+   *
+   * @return the logical object
    */
   public LogicalObject createLogicalObject() {
     return new LogicalObject();
   }
 
   /**
-   * Create an instance of {@link Attributes }
+   * Create an instance of {@link Attributes }.
+   *
+   * @return the attributes
    */
   public Attributes createAttributes() {
     return new Attributes();
   }
 
   /**
-   * Create an instance of {@link CalculatedAttributes }
+   * Create an instance of {@link CalculatedAttributes }.
+   *
+   * @return the calculated attributes
    */
   public CalculatedAttributes createCalculatedAttributes() {
     return new CalculatedAttributes();
   }
 
   /**
-   * Create an instance of {@link Attribute }
+   * Create an instance of {@link Attribute }.
+   *
+   * @return the attribute
    */
   public Attribute createAttribute() {
     return new Attribute();
   }
 
   /**
-   * Create an instance of {@link CalculatedAttribute }
+   * Create an instance of {@link CalculatedAttribute }.
+   *
+   * @return the calculated attribute
    */
   public CalculatedAttribute createCalculatedAttribute() {
     return new CalculatedAttribute();
   }
 
   /**
-   * Create an instance of {@link Calculation }
+   * Create an instance of {@link Calculation }.
+   *
+   * @return the calculation
    */
   public Calculation createCalculation() {
     return new Calculation();
   }
 
   /**
-   * Create an instance of {@link SimpleDataType }
+   * Create an instance of {@link SimpleDataType }.
+   *
+   * @return the simple data type
    */
   public SimpleDataType createSimpleDataType() {
     return new SimpleDataType();
   }
 
   /**
-   * Create an instance of {@link AttributeRelationship }
+   * Create an instance of {@link AttributeRelationship }.
+   *
+   * @return the attribute relationship
    */
   public AttributeRelationship createAttributeRelationship() {
     return new AttributeRelationship();
   }
 
   /**
-   * Create an instance of {@link LogicalJoins }
+   * Create an instance of {@link LogicalJoins }.
+   *
+   * @return the logical joins
    */
   public LogicalJoins createLogicalJoins() {
     return new LogicalJoins();
   }
 
   /**
-   * Create an instance of {@link LogicalJoin }
+   * Create an instance of {@link LogicalJoin }.
+   *
+   * @return the logical join
    */
   public LogicalJoin createLogicalJoin() {
     return new LogicalJoin();
   }
 
   /**
-   * Create an instance of {@link AttributeRefs }
+   * Create an instance of {@link AttributeRefs }.
+   *
+   * @return the attribute refs
    */
   public AttributeRefs createAttributeRefs() {
     return new AttributeRefs();
   }
 
   /**
-   * Create an instance of {@link AttributeNames }
+   * Create an instance of {@link AttributeNames }.
+   *
+   * @return the attribute names
    */
   public AttributeNames createAttributeNames() {
     return new AttributeNames();
   }
 
   /**
-   * Create an instance of {@link FeaturedAttributeReferences }
+   * Create an instance of {@link FeaturedAttributeReferences }.
+   *
+   * @return the featured attribute references
    */
   public FeaturedAttributeReferences createFeaturedAttributeReferences() {
     return new FeaturedAttributeReferences();
   }
 
   /**
-   * Create an instance of {@link AliasWithDescription }
+   * Create an instance of {@link AliasWithDescription }.
+   *
+   * @return the alias with description
    */
   public AliasWithDescription createAliasWithDescription() {
     return new AliasWithDescription();
   }
 
   /**
-   * Create an instance of {@link FeaturedAttributeReference }
+   * Create an instance of {@link FeaturedAttributeReference }.
+   *
+   * @return the featured attribute reference
    */
   public FeaturedAttributeReference createFeaturedAttributeReference() {
     return new FeaturedAttributeReference();
   }
 
   /**
-   * Create an instance of {@link QualifiedAttributeReference }
+   * Create an instance of {@link QualifiedAttributeReference }.
+   *
+   * @return the qualified attribute reference
    */
   public QualifiedAttributeReference createQualifiedAttributeReference() {
     return new QualifiedAttributeReference();
   }
 
   /**
-   * Create an instance of {@link Layout }
+   * Create an instance of {@link Layout }.
+   *
+   * @return the layout
    */
   public Layout createLayout() {
     return new Layout();
   }
 
   /**
-   * Create an instance of {@link Shapes }
+   * Create an instance of {@link Shapes }.
+   *
+   * @return the shapes
    */
   public Shapes createShapes() {
     return new Shapes();
   }
 
   /**
-   * Create an instance of {@link Shape }
+   * Create an instance of {@link Shape }.
+   *
+   * @return the shape
    */
   public Shape createShape() {
     return new Shape();
   }
 
   /**
-   * Create an instance of {@link RectangularShape }
+   * Create an instance of {@link RectangularShape }.
+   *
+   * @return the rectangular shape
    */
   public RectangularShape createRectangularShape() {
     return new RectangularShape();
   }
 
   /**
-   * Create an instance of {@link RectangleSize }
+   * Create an instance of {@link RectangleSize }.
+   *
+   * @return the rectangle size
    */
   public RectangleSize createRectangleSize() {
     return new RectangleSize();
   }
 
   /**
-   * Create an instance of {@link Coordinates }
+   * Create an instance of {@link Coordinates }.
+   *
+   * @return the coordinates
    */
   public Coordinates createCoordinates() {
     return new Coordinates();
   }
 
   /**
-   * Create an instance of {@link InformationModelLayoutProperties }
+   * Create an instance of {@link InformationModelLayoutProperties }.
+   *
+   * @return the information model layout properties
    */
   public InformationModelLayoutProperties createInformationModelLayoutProperties() {
     return new InformationModelLayoutProperties();

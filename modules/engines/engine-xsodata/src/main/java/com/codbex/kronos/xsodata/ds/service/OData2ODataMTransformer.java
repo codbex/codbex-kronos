@@ -17,10 +17,21 @@ import org.eclipse.dirigible.engine.odata2.definition.ODataDefinition;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 
+/**
+ * The Class OData2ODataMTransformer.
+ */
 public class OData2ODataMTransformer {
 
+    /** The o data 2 O data M transformer. */
     private org.eclipse.dirigible.engine.odata2.transformers.OData2ODataMTransformer oData2ODataMTransformer = new org.eclipse.dirigible.engine.odata2.transformers.OData2ODataMTransformer(new TableMetadataProvider(), new XSODataPropertyNameEscaper());
 
+    /**
+     * Transform.
+     *
+     * @param oDataDefinition the o data definition
+     * @return the string[]
+     * @throws SQLException the SQL exception
+     */
     public String[] transform(ODataDefinition oDataDefinition) throws SQLException {
         try {
             return oData2ODataMTransformer.transform(oDataDefinition);

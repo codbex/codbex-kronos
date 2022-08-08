@@ -11,8 +11,16 @@
  */
 package com.codbex.kronos.parser.hana.core.exceptions;
 
+/**
+ * The Class TableFunctionMissingPropertyException.
+ */
 public class TableFunctionMissingPropertyException extends RuntimeException {
 
+  /**
+   * Instantiates a new table function missing property exception.
+   *
+   * @param message the message
+   */
   public TableFunctionMissingPropertyException(String message) {
     super(message);
   }

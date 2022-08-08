@@ -22,13 +22,22 @@ import org.eclipse.dirigible.engine.js.api.IJavascriptModuleSourceProvider;
  */
 public class RepositoryModuleSourceProvider implements IJavascriptModuleSourceProvider {
 
+  /** The Constant XSJS_EXTENSION. */
   private static final String XSJS_EXTENSION = ".xsjs"; //$NON-NLS-1$
+  
+  /** The Constant XSJSLIB_EXTENSION. */
   private static final String XSJSLIB_EXTENSION = ".xsjslib"; //$NON-NLS-1$
+  
+  /** The Constant XSJSLIB_EXPORTS_RESERVED_EXTENSION. */
   private static final String XSJSLIB_EXPORTS_RESERVED_EXTENSION = ".generated_exports";
+  
+  /** The Constant JS_EXTENSION. */
   private static final String JS_EXTENSION = ".js"; //$NON-NLS-1$
 
+  /** The executor. */
   private IScriptEngineExecutor executor;
 
+  /** The root. */
   private String root;
 
   /**

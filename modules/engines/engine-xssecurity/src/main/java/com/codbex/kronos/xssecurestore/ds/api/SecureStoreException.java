@@ -11,16 +11,32 @@
  */
 package com.codbex.kronos.xssecurestore.ds.api;
 
+/**
+ * The Class SecureStoreException.
+ */
 public class SecureStoreException extends Exception {
 
+  /**
+   * Instantiates a new secure store exception.
+   */
   public SecureStoreException() {
     super();
   }
 
+  /**
+   * Instantiates a new secure store exception.
+   *
+   * @param message the message
+   */
   public SecureStoreException(String message) {
     super(message);
   }
 
+  /**
+   * Instantiates a new secure store exception.
+   *
+   * @param cause the cause
+   */
   public SecureStoreException(Throwable cause) {
     super(cause);
   }

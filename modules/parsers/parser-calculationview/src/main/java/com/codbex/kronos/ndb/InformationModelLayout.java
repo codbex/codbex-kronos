@@ -28,9 +28,9 @@ import javax.xml.bind.annotation.XmlValue;
 
 
 /**
- * <p>Java class for anonymous complex type.
+ * Java class for anonymous complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -49,8 +49,11 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlRootElement(name = "informationModelLayout")
 public class InformationModelLayout {
 
+  /** The value. */
   @XmlValue
   protected String value;
+  
+  /** The relative width scenario. */
   @XmlAttribute(name = "relativeWidthScenario")
   protected Byte relativeWidthScenario;
 

@@ -11,8 +11,16 @@
  */
 package com.codbex.kronos.parser.hdbti.exception;
 
+/**
+ * The Class HDBTISyntaxErrorException.
+ */
 public class HDBTISyntaxErrorException extends Exception {
 
+  /**
+   * Instantiates a new HDBTI syntax error exception.
+   *
+   * @param message the message
+   */
   public HDBTISyntaxErrorException(String message) {
     super(message);
   }

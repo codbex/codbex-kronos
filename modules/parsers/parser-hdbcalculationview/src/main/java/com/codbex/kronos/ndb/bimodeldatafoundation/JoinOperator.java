@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for JoinOperator.
+ * Java class for JoinOperator.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="JoinOperator"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -48,28 +48,56 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum JoinOperator {
 
+  /** The equal. */
   @XmlEnumValue("Equal")
   EQUAL("Equal"),
+  
+  /** The not equal. */
   @XmlEnumValue("NotEqual")
   NOT_EQUAL("NotEqual"),
+  
+  /** The greater. */
   @XmlEnumValue("Greater")
   GREATER("Greater"),
+  
+  /** The greater or equal. */
   @XmlEnumValue("GreaterOrEqual")
   GREATER_OR_EQUAL("GreaterOrEqual"),
+  
+  /** The less. */
   @XmlEnumValue("Less")
   LESS("Less"),
+  
+  /** The less or equal. */
   @XmlEnumValue("LessOrEqual")
   LESS_OR_EQUAL("LessOrEqual"),
+  
+  /** The complex. */
   @XmlEnumValue("Complex")
   COMPLEX("Complex"),
+  
+  /** The unknown. */
   @XmlEnumValue("Unknown")
   UNKNOWN("Unknown");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new join operator.
+   *
+   * @param v the v
+   */
   JoinOperator(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the join operator
+   */
   public static JoinOperator fromValue(String v) {
     for (JoinOperator c : JoinOperator.values()) {
       if (c.value.equals(v)) {
@@ -79,6 +107,11 @@ public enum JoinOperator {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

@@ -37,9 +37,9 @@ import com.codbex.kronos.ndb.basemodelbase.UnitConversionTables;
  * Common father class for special user defined functions such as currency and unit conversion.
  *
  *
- * <p>Java class for BaseUserDefinedFunction complex type.
+ * Java class for BaseUserDefinedFunction complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="BaseUserDefinedFunction"&gt;
@@ -79,16 +79,33 @@ import com.codbex.kronos.ndb.basemodelbase.UnitConversionTables;
 })
 public abstract class BaseUserDefinedFunction {
 
+  /** The client. */
   protected UDFParameter client;
+  
+  /** The schema. */
   protected SchemaMappingBasedObject schema;
+  
+  /** The currency conversion tables. */
   protected CurrencyConversionTables currencyConversionTables;
+  
+  /** The unit conversion tables. */
   protected UnitConversionTables unitConversionTables;
+  
+  /** The error handling. */
   protected UDFParameter errorHandling;
+  
+  /** The output data type. */
   @XmlElement(required = true)
   protected SimpleType outputDataType;
+  
+  /** The output unit currency element. */
   protected Element outputUnitCurrencyElement;
+  
+  /** The generate output unit currency element. */
   @XmlAttribute(name = "generateOutputUnitCurrencyElement")
   protected Boolean generateOutputUnitCurrencyElement;
+  
+  /** The output unit currency element name. */
   @XmlAttribute(name = "outputUnitCurrencyElementName")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String outputUnitCurrencyElementName;

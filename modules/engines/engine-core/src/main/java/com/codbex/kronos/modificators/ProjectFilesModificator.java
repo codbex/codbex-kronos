@@ -49,38 +49,89 @@ import org.eclipse.dirigible.core.workspace.api.IFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class ProjectFilesModificator.
+ */
 public class ProjectFilesModificator {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(ProjectFilesModificator.class);
 
+  /** The Constant CALC_VIEW_REFERENCE_MATCH_PATTERN. */
   private static final String CALC_VIEW_REFERENCE_MATCH_PATTERN = "\"_SYS_BIC\".\"(.*)\\/(.*)\"";
+  
+  /** The Constant XSLT_RESOURCE_PATH. */
   private static final String XSLT_RESOURCE_PATH = "META-INF/modificators/xslt/analyticprivilege.xslt";
+  
+  /** The Constant HDB_PROCEDURE_FILE_EXTENSION. */
   private static final String HDB_PROCEDURE_FILE_EXTENSION = "hdbprocedure";
+  
+  /** The Constant REPLACE_SESSION_USER_FILE_EXTENSIONS. */
   private static final List<String> REPLACE_SESSION_USER_FILE_EXTENSIONS = List.of("xsjs", "xsjslib", HDB_PROCEDURE_FILE_EXTENSION,
       "hdbtablefunction", "analyticprivilege", "hdbanalyticprivilege");
+  
+  /** The Constant ANALYTIC_PRIVILEGE_FILE_EXTENSIONS. */
   private static final List<String> ANALYTIC_PRIVILEGE_FILE_EXTENSIONS = List.of("analyticprivilege", "hdbanalyticprivilege");
+  
+  /** The Constant ROW_DEFINITION. */
   private static final String ROW_DEFINITION = "(?i)\\bin row\\b";
+  
+  /** The Constant ROW_DEFINITION_REPLACEMENT. */
   private static final String ROW_DEFINITION_REPLACEMENT = "IN row1";
+  
+  /** The Constant ROW_VALUE. */
   private static final String ROW_VALUE = "(?i)\\:row[^0-9a-z]";
+  
+  /** The Constant ROW_VALUE_REPLACEMENT. */
   private static final String ROW_VALUE_REPLACEMENT = ":row1;";
+  
+  /** The Constant MERGE_INTO. */
   private static final String MERGE_INTO = "MERGE INTO ";
+  
+  /** The Constant AS. */
   private static final String AS = "AS ";
+  
+  /** The Constant USING. */
   private static final String USING = "USING ";
+  
+  /** The Constant UPDATE. */
   private static final String UPDATE = "UPDATE ";
+  
+  /** The Constant ON. */
   private static final String ON = "ON";
+  
+  /** The Constant AND. */
   private static final String AND = "AND";
+  
+  /** The Constant ON_TRUE. */
   private static final String ON_TRUE = "ON (1 = 1)";
+  
+  /** The Constant WHEN_MATCHED_THEN_UPDATE. */
   private static final String WHEN_MATCHED_THEN_UPDATE = "WHEN MATCHED THEN UPDATE";
+  
+  /** The Constant WHEN_MATCHED. */
   private static final String WHEN_MATCHED = "WHEN MATCHED ";
+  
+  /** The Constant THEN_UPDATE. */
   private static final String THEN_UPDATE = "THEN UPDATE";
+  
+  /** The Constant TAB. */
   private static final String TAB = "\t";
+  
+  /** The Constant NEW_LINE. */
   private static final String NEW_LINE = "\n";
+  
+  /** The Constant SPACE. */
   private static final String SPACE = " ";
+  
+  /** The Constant CASE_INSENSITIVE_WHERE. */
   private static final String CASE_INSENSITIVE_WHERE = "(?i)WHERE";
+  
   /**
    * Modify a list of delivery unit project files during the migration process.
    *
    * @param projectFiles the list of project files which will be modified
+   * @throws IOException Signals that an I/O exception has occurred.
    */
   public void modifyProjectFiles(List<IFile> projectFiles) throws IOException {
     for (IFile projectFile : projectFiles) {
@@ -110,6 +161,7 @@ public class ProjectFilesModificator {
    *
    * @param fileExtension         the extension of the file being modified
    * @param analyticPrivilegeFile the file being modified
+   * @throws IOException Signals that an I/O exception has occurred.
    */
   private void modifyAnalyticPrivilegeFile(String fileExtension, IFile analyticPrivilegeFile) throws IOException {
     if (ANALYTIC_PRIVILEGE_FILE_EXTENSIONS.contains(fileExtension)) {
@@ -234,6 +286,7 @@ public class ProjectFilesModificator {
    * Parses the procedure model from the given file content.
    *
    * @param fileContent the content of the file being modified
+   * @return the procedure model
    */
   private ProcedureDefinitionModel getProcedureModel(String fileContent){
     CharStream inputStream = CharStreams.fromString(fileContent);
@@ -258,6 +311,7 @@ public class ProjectFilesModificator {
    *
    * @param updateStatement the content of update from statement
    * @param fromClause the from clause of the update statement
+   * @return the string
    */
   private String modifyHdbprocedureUpdateFromWithoutJoinClauses(UpdateStatementDefinitionModel updateStatement, FromClauseDefinitionModel fromClause) {
     StringBuilder modifiedUpdateStatement = new StringBuilder();
@@ -291,6 +345,7 @@ public class ProjectFilesModificator {
    * @param updateStatement the content of update from statement
    * @param fromClause the from clause of the update statement
    * @param joinClauses the join clause of the update statement
+   * @return the string
    */
   private String modifyHdbprocedureUpdateFromWithJoinClauses(UpdateStatementDefinitionModel updateStatement, FromClauseDefinitionModel fromClause,
       List<JoinClauseDefinitionModel> joinClauses) {
@@ -318,6 +373,13 @@ public class ProjectFilesModificator {
     return modifiedUpdateStatement.toString();
   }
 
+  /**
+   * Merge into with update table name.
+   *
+   * @param modifiedUpdateStatement the modified update statement
+   * @param fromClauseTableReference the from clause table reference
+   * @param joinClauses the join clauses
+   */
   private void mergeIntoWithUpdateTableName(StringBuilder modifiedUpdateStatement, TableReferenceModel fromClauseTableReference, List<JoinClauseDefinitionModel> joinClauses){
     String fromClauseTableName = fromClauseTableReference.getName();
     String fromClauseTableAlias = fromClauseTableReference.getAlias();
@@ -333,6 +395,14 @@ public class ProjectFilesModificator {
     modifiedUpdateStatement.append(TAB).append(joinClauseForUpdate.getOnPart()).append(NEW_LINE);
   }
 
+  /**
+   * Merge into without update table name.
+   *
+   * @param modifiedUpdateStatement the modified update statement
+   * @param fromClauseTableReference the from clause table reference
+   * @param joinClauseForUpdate the join clause for update
+   * @param joinClausesRawContent the join clauses raw content
+   */
   private void mergeIntoWithoutUpdateTableName(StringBuilder modifiedUpdateStatement, TableReferenceModel fromClauseTableReference,
       JoinClauseDefinitionModel joinClauseForUpdate, String joinClausesRawContent){
     String fromClauseTableName = fromClauseTableReference.getName();
@@ -347,6 +417,15 @@ public class ProjectFilesModificator {
     modifiedUpdateStatement.append(TAB).append(joinClauseForUpdate.getOnPart()).append(NEW_LINE);
   }
 
+  /**
+   * Merge into without join with 2 from statements.
+   *
+   * @param modifiedUpdateStatement the modified update statement
+   * @param whereClause the where clause
+   * @param updatedTableReference the updated table reference
+   * @param usingTableReference the using table reference
+   * @param updateSetClauseRawContent the update set clause raw content
+   */
   private void mergeIntoWithoutJoinWith2FromStatements(StringBuilder modifiedUpdateStatement, WhereClauseDefinitionModel whereClause,
       TableReferenceModel updatedTableReference, TableReferenceModel usingTableReference, String updateSetClauseRawContent ){
     modifiedUpdateStatement.append(MERGE_INTO).append(updatedTableReference.getName());
@@ -359,6 +438,14 @@ public class ProjectFilesModificator {
     modifiedUpdateStatement.append(TAB).append(updateSetClauseRawContent);
   }
 
+  /**
+   * Merge into without join.
+   *
+   * @param modifiedUpdateStatement the modified update statement
+   * @param fromClauseTableReference the from clause table reference
+   * @param whereClause the where clause
+   * @param updateSetClauseRawContent the update set clause raw content
+   */
   private void mergeIntoWithoutJoin(StringBuilder modifiedUpdateStatement, TableReferenceModel fromClauseTableReference,
     WhereClauseDefinitionModel whereClause, String updateSetClauseRawContent ){
     String fromClauseTableName = fromClauseTableReference.getName();
@@ -371,14 +458,33 @@ public class ProjectFilesModificator {
     modifiedUpdateStatement.append(whereClause != null ? TAB + whereClause.getRawContent() : "");
   }
 
+  /**
+   * Adds the as table name.
+   *
+   * @param tableName the table name
+   * @return the string
+   */
   private String addAsTableName(String tableName){
     return tableName != null ? AS + tableName + NEW_LINE : "";
   }
 
+  /**
+   * Gets the where clause.
+   *
+   * @param whereClause the where clause
+   * @return the where clause
+   */
   private String getWhereClause(WhereClauseDefinitionModel whereClause){
     return whereClause != null ? ON + whereClause.getRawContent().replaceFirst(CASE_INSENSITIVE_WHERE, "") + SPACE : ON_TRUE;
   }
 
+  /**
+   * Gets the updated table reference model.
+   *
+   * @param updatedTableName the updated table name
+   * @param fromClauseTableReferences the from clause table references
+   * @return the updated table reference model
+   */
   private TableReferenceModel getUpdatedTableReferenceModel(String updatedTableName, List<TableReferenceModel> fromClauseTableReferences){
     TableReferenceModel updatedTableReference = new TableReferenceModel();
     for (TableReferenceModel tableReferenceModel : fromClauseTableReferences) {
@@ -389,6 +495,13 @@ public class ProjectFilesModificator {
     return updatedTableReference;
   }
 
+  /**
+   * Gets the using table reference model.
+   *
+   * @param updatedTableName the updated table name
+   * @param fromClauseTableReferences the from clause table references
+   * @return the using table reference model
+   */
   private TableReferenceModel getUsingTableReferenceModel(String updatedTableName, List<TableReferenceModel> fromClauseTableReferences){
     TableReferenceModel usingTableReference = new TableReferenceModel();
     for (TableReferenceModel tableReferenceModel : fromClauseTableReferences) {
@@ -399,6 +512,13 @@ public class ProjectFilesModificator {
     return usingTableReference;
   }
 
+  /**
+   * Gets the join clause definition model.
+   *
+   * @param updatedTableName the updated table name
+   * @param joinClauses the join clauses
+   * @return the join clause definition model
+   */
   private JoinClauseDefinitionModel getJoinClauseDefinitionModel(String updatedTableName, List<JoinClauseDefinitionModel> joinClauses){
     JoinClauseDefinitionModel updatedJoinClauseModel = new JoinClauseDefinitionModel();
     for (JoinClauseDefinitionModel joinClauseDefinitionModel : joinClauses) {
@@ -409,6 +529,13 @@ public class ProjectFilesModificator {
     return updatedJoinClauseModel;
   }
 
+  /**
+   * Gets the join clause raw content without table name.
+   *
+   * @param updatedTableName the updated table name
+   * @param joinClauses the join clauses
+   * @return the join clause raw content without table name
+   */
   private String getJoinClauseRawContentWithoutTableName(String updatedTableName, List<JoinClauseDefinitionModel> joinClauses){
     StringBuilder updatedJoinClauseRawContent = new StringBuilder();
     joinClauses.forEach(joinClauseDefinitionModel -> {
@@ -419,6 +546,12 @@ public class ProjectFilesModificator {
     return updatedJoinClauseRawContent.toString();
   }
 
+  /**
+   * Gets the join clause raw content.
+   *
+   * @param joinClauses the join clauses
+   * @return the join clause raw content
+   */
   private String getJoinClauseRawContent(List<JoinClauseDefinitionModel> joinClauses){
     StringBuilder joinClausesRawContent = new StringBuilder();
     joinClauses.forEach(joinClause -> { joinClausesRawContent.append(TAB).append(joinClause.getRawContent()).append(NEW_LINE);});

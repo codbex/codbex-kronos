@@ -33,9 +33,9 @@ import com.codbex.kronos.ndb.basemodelbase.SortDirection;
  * Defines the order of one attribute
  *
  *
- * <p>Java class for SiblingOrder complex type.
+ * Java class for SiblingOrder complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="SiblingOrder"&gt;
@@ -52,9 +52,12 @@ import com.codbex.kronos.ndb.basemodelbase.SortDirection;
 @XmlType(name = "SiblingOrder")
 public class SiblingOrder {
 
+  /** The by attribute. */
   @XmlAttribute(name = "byAttribute", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String byAttribute;
+  
+  /** The direction. */
   @XmlAttribute(name = "direction")
   protected SortDirection direction;
 

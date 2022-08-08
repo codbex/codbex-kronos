@@ -24,14 +24,19 @@ import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableIndexModel;
  */
 public class DataStructureEntityModel extends DataStructureModel {
 
+  /** The columns. */
   private List<DataStructureHDBTableColumnModel> columns = new ArrayList<DataStructureHDBTableColumnModel>();
 
+  /** The constraints. */
   private DataStructureHDBTableConstraintsModel constraints = new DataStructureHDBTableConstraintsModel();
 
+  /** The indexes. */
   private List<DataStructureHDBTableIndexModel> indexes = new ArrayList<>();
 
+  /** The namespace. */
   private String namespace;
 
+  /** The context. */
   private String context;
 
   /**
@@ -53,6 +58,8 @@ public class DataStructureEntityModel extends DataStructureModel {
   }
 
   /**
+   * Gets the context.
+   *
    * @return the context
    */
   public String getContext() {
@@ -60,6 +67,8 @@ public class DataStructureEntityModel extends DataStructureModel {
   }
 
   /**
+   * Sets the context.
+   *
    * @param context the context to set
    */
   public void setContext(String context) {
@@ -67,6 +76,8 @@ public class DataStructureEntityModel extends DataStructureModel {
   }
 
   /**
+   * Gets the namespace.
+   *
    * @return the namespace
    */
   public String getNamespace() {
@@ -74,12 +85,19 @@ public class DataStructureEntityModel extends DataStructureModel {
   }
 
   /**
+   * Sets the namespace.
+   *
    * @param namespace the namespace to set
    */
   public void setNamespace(String namespace) {
     this.namespace = namespace;
   }
 
+  /**
+   * Gets the indexes.
+   *
+   * @return the indexes
+   */
   public List<DataStructureHDBTableIndexModel> getIndexes() {
     return indexes;
   }

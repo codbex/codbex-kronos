@@ -29,9 +29,9 @@ import com.codbex.kronos.ndb.basemodelbase.NodeStyle;
 
 
 /**
- * <p>Java class for LeveledHierarchy complex type.
+ * Java class for LeveledHierarchy complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="LeveledHierarchy"&gt;
@@ -54,10 +54,15 @@ import com.codbex.kronos.ndb.basemodelbase.NodeStyle;
 public class LeveledHierarchy
     extends Hierarchy {
 
+  /** The levels. */
   @XmlElement(required = true)
   protected Levels levels;
+  
+  /** The node style. */
   @XmlAttribute(name = "nodeStyle")
   protected NodeStyle nodeStyle;
+  
+  /** The step parent node ID. */
   @XmlAttribute(name = "stepParentNodeID")
   protected String stepParentNodeID;
 

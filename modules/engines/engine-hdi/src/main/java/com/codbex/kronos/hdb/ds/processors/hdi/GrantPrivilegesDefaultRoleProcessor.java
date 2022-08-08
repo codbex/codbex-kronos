@@ -17,8 +17,19 @@ import java.util.Arrays;
 
 import com.codbex.kronos.hdb.ds.exceptions.GrantPrivilegesSQLException;
 
+/**
+ * The Class GrantPrivilegesDefaultRoleProcessor.
+ */
 public class GrantPrivilegesDefaultRoleProcessor extends HDIAbstractProcessor {
 
+  /**
+   * Execute.
+   *
+   * @param connection the connection
+   * @param container the container
+   * @param user the user
+   * @param deployPaths the deploy paths
+   */
   public void execute(Connection connection, String container, String user, String[] deployPaths) {
     if (user == null) {
       throw new IllegalStateException("kronos_technical_privileges.hdbrole assignment failed. No user provided.");
@@ -34,6 +45,14 @@ public class GrantPrivilegesDefaultRoleProcessor extends HDIAbstractProcessor {
 
   }
 
+  /**
+   * Grant privileges.
+   *
+   * @param connection the connection
+   * @param container the container
+   * @param user the user
+   * @throws SQLException the SQL exception
+   */
   private void grantPrivileges(Connection connection, String container, String user) throws SQLException {
     executeUpdate(connection, "CREATE LOCAL TEMPORARY COLUMN TABLE #ROLES LIKE _SYS_DI.TT_SCHEMA_ROLES;");
 

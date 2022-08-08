@@ -38,9 +38,9 @@ import com.codbex.kronos.ndb.sqlcoremodeldatatypes.PrimitiveTypeSQL;
  * Common set of variable properties to be used with global and local variables
  *
  *
- * <p>Java class for VariableProperties complex type.
+ * Java class for VariableProperties complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="VariableProperties"&gt;
@@ -78,25 +78,50 @@ import com.codbex.kronos.ndb.sqlcoremodeldatatypes.PrimitiveTypeSQL;
 })
 public class VariableProperties {
 
+  /** The value domain. */
   protected ValueDomain valueDomain;
+  
+  /** The selection. */
   protected Selection selection;
+  
+  /** The derivation rule. */
   protected DerivationRule derivationRule;
+  
+  /** The default expression. */
   @XmlElement(required = true)
   protected String defaultExpression;
+  
+  /** The default range. */
   protected List<DefaultRange> defaultRange;
+  
+  /** The internal external conversion. */
   protected InternalExternalConversion internalExternalConversion;
+  
+  /** The fuzzy similarity. */
   @XmlElement(required = true)
   protected Parameterization fuzzySimilarity;
+  
+  /** The default expression language. */
   @XmlAttribute(name = "defaultExpressionLanguage")
   protected ExpressionLanguage defaultExpressionLanguage;
+  
+  /** The mandatory. */
   @XmlAttribute(name = "mandatory", required = true)
   protected boolean mandatory;
+  
+  /** The default value. */
   @XmlAttribute(name = "defaultValue")
   protected String defaultValue;
+  
+  /** The datatype. */
   @XmlAttribute(name = "datatype")
   protected PrimitiveTypeSQL datatype;
+  
+  /** The length. */
   @XmlAttribute(name = "length")
   protected Short length;
+  
+  /** The scale. */
   @XmlAttribute(name = "scale")
   protected Short scale;
 
@@ -182,23 +207,25 @@ public class VariableProperties {
 
   /**
    * Gets the value of the defaultRange property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the defaultRange property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getDefaultRange().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link DefaultRange }
+   *
+   * @return the default range
    */
   public List<DefaultRange> getDefaultRange() {
     if (defaultRange == null) {
@@ -269,6 +296,8 @@ public class VariableProperties {
 
   /**
    * Gets the value of the mandatory property.
+   *
+   * @return true, if is mandatory
    */
   public boolean isMandatory() {
     return mandatory;
@@ -276,6 +305,8 @@ public class VariableProperties {
 
   /**
    * Sets the value of the mandatory property.
+   *
+   * @param value the new mandatory
    */
   public void setMandatory(boolean value) {
     this.mandatory = value;

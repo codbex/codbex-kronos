@@ -21,7 +21,7 @@ jobs:
     #--------Restore success job-------# 
     - uses: actions/checkout@v2
       with:
-        token: ${{ secrets.GH_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         fetch-depth: 0
     - name: Download sapmachine JDK 17
       run: |

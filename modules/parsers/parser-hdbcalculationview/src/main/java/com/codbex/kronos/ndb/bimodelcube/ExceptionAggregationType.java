@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for ExceptionAggregationType.
+ * Java class for ExceptionAggregationType.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="ExceptionAggregationType"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -41,14 +41,28 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum ExceptionAggregationType {
 
+  /** The count distinct. */
   @XmlEnumValue("countDistinct")
   COUNT_DISTINCT("countDistinct");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new exception aggregation type.
+   *
+   * @param v the v
+   */
   ExceptionAggregationType(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the exception aggregation type
+   */
   public static ExceptionAggregationType fromValue(String v) {
     for (ExceptionAggregationType c : ExceptionAggregationType.values()) {
       if (c.value.equals(v)) {
@@ -58,6 +72,11 @@ public enum ExceptionAggregationType {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

@@ -31,9 +31,9 @@ import javax.xml.bind.annotation.XmlType;
  * The result consists of all rows of the first input for which no identical row exists in the second input.
  *
  *
- * <p>Java class for MinusView complex type.
+ * Java class for MinusView complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="MinusView"&gt;

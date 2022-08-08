@@ -17,10 +17,26 @@ import com.codbex.kronos.parser.hana.core.HanaParser.Create_func_bodyContext;
 
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * The listener interface for receiving hanaTableFunction events.
+ * The class that is interested in processing a hanaTableFunction
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addHanaTableFunctionListener</code> method. When
+ * the hanaTableFunction event occurs, that object's appropriate
+ * method is invoked.
+ *
+ */
 public class HanaTableFunctionListener extends HanaBaseListener {
 
+  /** The model. */
   private TableFunctionDefinitionModel model;
 
+  /**
+   * Exit create func body.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void exitCreate_func_body(Create_func_bodyContext ctx) {
     String strippedSchema = null;
@@ -41,6 +57,11 @@ public class HanaTableFunctionListener extends HanaBaseListener {
     model = new TableFunctionDefinitionModel(strippedSchema, strippedName);
   }
 
+  /**
+   * Gets the model.
+   *
+   * @return the model
+   */
   public TableFunctionDefinitionModel getModel() {
     return model;
   }

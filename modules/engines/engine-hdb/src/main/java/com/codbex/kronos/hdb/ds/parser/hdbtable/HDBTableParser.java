@@ -55,23 +55,52 @@ import org.eclipse.dirigible.core.scheduler.api.ISynchronizerArtefactType.Artefa
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class HDBTableParser.
+ */
 public class HDBTableParser implements DataStructureParser<DataStructureHDBTableModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDBTableParser.class);
+  
+  /** The column model transformer. */
   private HDBTableDefinitionModelToHDBTableColumnModelTransformer columnModelTransformer = new HDBTableDefinitionModelToHDBTableColumnModelTransformer();
+  
+  /** The Constant TABLE_ARTEFACT. */
   private static final HDBTableSynchronizationArtefactType TABLE_ARTEFACT = new HDBTableSynchronizationArtefactType();
+  
+  /** The Constant dataStructuresSynchronizer. */
   private static final DataStructuresSynchronizer dataStructuresSynchronizer = new DataStructuresSynchronizer();
 
+  /**
+   * Gets the type.
+   *
+   * @return the type
+   */
   @Override
   public String getType() {
     return IDataStructureModel.TYPE_HDB_TABLE;
   }
 
+  /**
+   * Gets the data structure class.
+   *
+   * @return the data structure class
+   */
   @Override
   public Class<DataStructureHDBTableModel> getDataStructureClass() {
     return DataStructureHDBTableModel.class;
   }
 
+  /**
+   * Parses the.
+   *
+   * @param parametersModel the parameters model
+   * @return the data structure HDB table model
+   * @throws DataStructuresException the data structures exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws ArtifactParserException the artifact parser exception
+   */
   @Override
   public DataStructureHDBTableModel parse(DataStructureParametersModel parametersModel)
       throws DataStructuresException, IOException, ArtifactParserException {
@@ -83,6 +112,15 @@ public class HDBTableParser implements DataStructureParser<DataStructureHDBTable
         : parseHanaXSClassicContent(parametersModel.getLocation(), parametersModel.getContent());
   }
 
+  /**
+   * Parses the hana XS classic content.
+   *
+   * @param location the location
+   * @param content the content
+   * @return the data structure HDB table model
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws ArtifactParserException the artifact parser exception
+   */
   private DataStructureHDBTableModel parseHanaXSClassicContent(String location, String content)
       throws IOException, ArtifactParserException {
     logger.debug("Parsing hdbtable as Hana XS Classic format");
@@ -200,6 +238,13 @@ public class HDBTableParser implements DataStructureParser<DataStructureHDBTable
     return dataStructureHDBTableModel;
   }
 
+  /**
+   * Parses the hana XS advanced content.
+   *
+   * @param location the location
+   * @param content the content
+   * @return the data structure HDB table model
+   */
   private DataStructureHDBTableModel parseHanaXSAdvancedContent(String location, String content) {
     logger.debug("Parsing hdbtable as Hana XS Advanced format");
     DataStructureHDBTableModel dataStructureHDBTableModel = new DataStructureHDBTableModel();
@@ -209,6 +254,13 @@ public class HDBTableParser implements DataStructureParser<DataStructureHDBTable
     return dataStructureHDBTableModel;
   }
 
+  /**
+   * Validate index.
+   *
+   * @param hdbtableDefinitionModel the hdbtable definition model
+   * @param location the location
+   * @param index the index
+   */
   private void validateIndex(HDBTableDefinitionModel hdbtableDefinitionModel, String location, HDBTableIndexesModel index) {
     String artefactName = CommonsUtils.getRepositoryBaseObjectName(location);
     try {
@@ -236,6 +288,12 @@ public class HDBTableParser implements DataStructureParser<DataStructureHDBTable
     });
   }
 
+  /**
+   * Convert if hana classic syntax.
+   *
+   * @param index the index
+   * @return the string
+   */
   private String convertIfHanaClassicSyntax(HDBTableIndexesModel index) {
     if (index.getIndexType().equals("CPB_TREE")) {
       return "CPBTREE";

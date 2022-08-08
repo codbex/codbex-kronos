@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Version.
+ * Java class for Version.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="Version"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -43,18 +43,36 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum Version {
 
+  /** The active. */
   @XmlEnumValue("active")
   ACTIVE("active"),
+  
+  /** The inactive. */
   @XmlEnumValue("inactive")
   INACTIVE("inactive"),
+  
+  /** The historical. */
   @XmlEnumValue("historical")
   HISTORICAL("historical");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new version.
+   *
+   * @param v the v
+   */
   Version(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the version
+   */
   public static Version fromValue(String v) {
     for (Version c : Version.values()) {
       if (c.value.equals(v)) {
@@ -64,6 +82,11 @@ public enum Version {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

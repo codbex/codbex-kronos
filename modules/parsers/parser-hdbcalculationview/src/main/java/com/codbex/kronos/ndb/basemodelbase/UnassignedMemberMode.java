@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for UnassignedMemberMode.
+ * Java class for UnassignedMemberMode.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="UnassignedMemberMode"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -43,14 +43,10 @@ import javax.xml.bind.annotation.XmlType;
 public enum UnassignedMemberMode {
 
 
-  /**
-   * No NotAssigned member (the default)
-   */
+  /** No NotAssigned member (the default). */
   FALSE,
 
-  /**
-   * Add a visible NotAssigned member
-   */
+  /** Add a visible NotAssigned member. */
   TRUE,
 
   /**
@@ -62,10 +58,21 @@ public enum UnassignedMemberMode {
    */
   AUTO;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the unassigned member mode
+   */
   public static UnassignedMemberMode fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

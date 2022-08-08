@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRegistry;
  * This object contains factory methods for each
  * Java content interface and Java element interface
  * generated in the com.sap.ndb.repositorymodelresource package.
- * <p>An ObjectFactory allows you to programatically
+ * An ObjectFactory allows you to programatically
  * construct new instances of the Java representation
  * for XML content. The Java representation of XML
  * content can consist of schema derived interfaces
@@ -46,21 +46,27 @@ public class ObjectFactory {
   }
 
   /**
-   * Create an instance of {@link Origin }
+   * Create an instance of {@link Origin }.
+   *
+   * @return the origin
    */
   public Origin createOrigin() {
     return new Origin();
   }
 
   /**
-   * Create an instance of {@link ResourceMetadata }
+   * Create an instance of {@link ResourceMetadata }.
+   *
+   * @return the resource metadata
    */
   public ResourceMetadata createResourceMetadata() {
     return new ResourceMetadata();
   }
 
   /**
-   * Create an instance of {@link QualifiedNameReference }
+   * Create an instance of {@link QualifiedNameReference }.
+   *
+   * @return the qualified name reference
    */
   public QualifiedNameReference createQualifiedNameReference() {
     return new QualifiedNameReference();

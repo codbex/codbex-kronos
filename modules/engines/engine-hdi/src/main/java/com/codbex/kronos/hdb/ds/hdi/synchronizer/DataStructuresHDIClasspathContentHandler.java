@@ -25,10 +25,18 @@ import com.codbex.kronos.hdb.ds.api.DataStructuresException;
  */
 public class DataStructuresHDIClasspathContentHandler extends AbstractClasspathContentHandler {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(DataStructuresHDIClasspathContentHandler.class);
 
+  /** The data structures HDI synchronizer. */
   private DataStructuresHDISynchronizer dataStructuresHDISynchronizer = new DataStructuresHDISynchronizer();
 
+  /**
+   * Checks if is valid.
+   *
+   * @param path the path
+   * @return true, if is valid
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.commons.api.content.AbstractClasspathContentHandler#isValid(java.lang.String)
@@ -58,6 +66,11 @@ public class DataStructuresHDIClasspathContentHandler extends AbstractClasspathC
     return false;
   }
 
+  /**
+   * Gets the logger.
+   *
+   * @return the logger
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.commons.api.content.AbstractClasspathContentHandler#getLogger()

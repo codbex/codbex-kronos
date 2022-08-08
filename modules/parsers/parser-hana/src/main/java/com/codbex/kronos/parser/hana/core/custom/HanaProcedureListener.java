@@ -17,10 +17,26 @@ import com.codbex.kronos.parser.hana.core.HanaParser.Create_procedure_bodyContex
 
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * The listener interface for receiving hanaProcedure events.
+ * The class that is interested in processing a hanaProcedure
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addHanaProcedureListener</code> method. When
+ * the hanaProcedure event occurs, that object's appropriate
+ * method is invoked.
+ *
+ */
 public class HanaProcedureListener extends HanaBaseListener {
 
+    /** The model. */
     private ProcedureDefinitionModel model;
 
+        /**
+         * Exit create procedure body.
+         *
+         * @param ctx the ctx
+         */
         @Override
         public void exitCreate_procedure_body(Create_procedure_bodyContext ctx) {
 
@@ -42,6 +58,11 @@ public class HanaProcedureListener extends HanaBaseListener {
             model = new ProcedureDefinitionModel(strippedSchema, strippedName);
         }
 
+        /**
+         * Gets the model.
+         *
+         * @return the model
+         */
         public ProcedureDefinitionModel getModel() {
             return model;
         }

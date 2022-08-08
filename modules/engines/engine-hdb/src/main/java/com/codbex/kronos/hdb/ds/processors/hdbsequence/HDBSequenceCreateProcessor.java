@@ -28,12 +28,26 @@ import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class HDBSequenceCreateProcessor.
+ */
 public class HDBSequenceCreateProcessor extends AbstractHDBProcessor<DataStructureHDBSequenceModel> {
 
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDBSequenceCreateProcessor.class);
+  
+  /** The Constant SEQUENCE_ARTEFACT. */
   private static final HDBSequenceSynchronizationArtefactType SEQUENCE_ARTEFACT = new HDBSequenceSynchronizationArtefactType();
 
+  /**
+   * Execute.
+   *
+   * @param connection the connection
+   * @param hdbSequenceModel the hdb sequence model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   @Override
   public boolean execute(Connection connection, DataStructureHDBSequenceModel hdbSequenceModel) throws SQLException {
     String hdbSequenceName = HDBUtils.escapeArtifactName(hdbSequenceModel.getName(), hdbSequenceModel.getSchema());
@@ -75,6 +89,14 @@ public class HDBSequenceCreateProcessor extends AbstractHDBProcessor<DataStructu
     }
   }
 
+  /**
+   * Gets the database specific SQL.
+   *
+   * @param connection the connection
+   * @param hdbSequenceModel the hdb sequence model
+   * @param hdbSequenceName the hdb sequence name
+   * @return the database specific SQL
+   */
   private String getDatabaseSpecificSQL(Connection connection, DataStructureHDBSequenceModel hdbSequenceModel,
       String hdbSequenceName) {
     return SqlFactory.getNative(connection).create().sequence(hdbSequenceName)

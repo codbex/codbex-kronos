@@ -30,9 +30,9 @@ import javax.xml.bind.annotation.XmlType;
  * and then aggregates the measures according to their aggregation type - the attributes act as group by attributes.
  *
  *
- * <p>Java class for AggregationView complex type.
+ * Java class for AggregationView complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="AggregationView"&gt;
@@ -53,6 +53,7 @@ import javax.xml.bind.annotation.XmlType;
 public class AggregationView
     extends CalculationView {
 
+  /** The restricted view attributes. */
   protected RestrictedViewAttributes restrictedViewAttributes;
 
   /**

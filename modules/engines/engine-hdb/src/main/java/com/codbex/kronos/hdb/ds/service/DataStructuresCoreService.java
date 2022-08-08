@@ -32,14 +32,30 @@ import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 import com.codbex.kronos.hdb.ds.service.parser.ICoreParserService;
 import com.codbex.kronos.hdb.ds.service.parser.CoreParserService;
 
+/**
+ * The Class DataStructuresCoreService.
+ */
 public class DataStructuresCoreService implements IDataStructuresCoreService {
 
+  /** The data source. */
   private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
 
+  /** The persistence manager. */
   private PersistenceManager<DataStructureModel> persistenceManager = new PersistenceManager<DataStructureModel>();
 
+  /** The core parser service. */
   private ICoreParserService coreParserService = new CoreParserService();
 
+  /**
+   * Creates the data structure.
+   *
+   * @param location the location
+   * @param name the name
+   * @param hash the hash
+   * @param type the type
+   * @return the data structure model
+   * @throws DataStructuresException the data structures exception
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.database.ds.api.IDataStructuresCoreService#createDataStructure(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
@@ -63,6 +79,15 @@ public class DataStructuresCoreService implements IDataStructuresCoreService {
     }
   }
 
+  /**
+   * Gets the data structure.
+   *
+   * @param <T> the generic type
+   * @param location the location
+   * @param type the type
+   * @return the data structure
+   * @throws DataStructuresException the data structures exception
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.database.ds.api.IDataStructuresCoreService#getDataStructure(java.lang.String, java.lang.String)
@@ -76,6 +101,15 @@ public class DataStructuresCoreService implements IDataStructuresCoreService {
     }
   }
 
+  /**
+   * Gets the data structure by name.
+   *
+   * @param <T> the generic type
+   * @param name the name
+   * @param type the type
+   * @return the data structure by name
+   * @throws DataStructuresException the data structures exception
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.database.ds.api.IDataStructuresCoreService#getDataStructureByName(java.lang.String, java.lang.String)
@@ -100,6 +134,12 @@ public class DataStructuresCoreService implements IDataStructuresCoreService {
     }
   }
 
+  /**
+   * Removes the data structure.
+   *
+   * @param location the location
+   * @throws DataStructuresException the data structures exception
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.database.ds.api.IDataStructuresCoreService#removeDataStructure(java.lang.String)
@@ -113,6 +153,15 @@ public class DataStructuresCoreService implements IDataStructuresCoreService {
     }
   }
 
+  /**
+   * Update data structure.
+   *
+   * @param location the location
+   * @param name the name
+   * @param hash the hash
+   * @param type the type
+   * @throws DataStructuresException the data structures exception
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.database.ds.api.IDataStructuresCoreService#updateDataStructure(java.lang.String,
@@ -130,6 +179,14 @@ public class DataStructuresCoreService implements IDataStructuresCoreService {
     }
   }
 
+  /**
+   * Gets the data structures by type.
+   *
+   * @param <T> the generic type
+   * @param type the type
+   * @return the data structures by type
+   * @throws DataStructuresException the data structures exception
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.database.ds.api.IDataStructuresCoreService#getDataStructures(java.lang.String)
@@ -145,6 +202,14 @@ public class DataStructuresCoreService implements IDataStructuresCoreService {
     }
   }
 
+  /**
+   * Exists data structure.
+   *
+   * @param location the location
+   * @param type the type
+   * @return true, if successful
+   * @throws DataStructuresException the data structures exception
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.database.ds.api.IDataStructuresCoreService#existsDataStructure(java.lang.String, java.lang.String)
@@ -154,6 +219,15 @@ public class DataStructuresCoreService implements IDataStructuresCoreService {
     return getDataStructure(location, type) != null;
   }
 
+  /**
+   * Exists data structure by location and hash.
+   *
+   * @param location the location
+   * @param hash the hash
+   * @param type the type
+   * @return true, if successful
+   * @throws DataStructuresException the data structures exception
+   */
   @Override
   public boolean existsDataStructureByLocationAndHash(String location, String hash, String type) throws DataStructuresException {
     try (Connection connection = dataSource.getConnection()) {

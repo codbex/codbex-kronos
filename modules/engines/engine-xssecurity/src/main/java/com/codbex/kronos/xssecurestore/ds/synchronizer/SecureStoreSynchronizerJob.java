@@ -14,10 +14,19 @@ package com.codbex.kronos.xssecurestore.ds.synchronizer;
 import org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizerJob;
 import org.eclipse.dirigible.core.scheduler.api.ISynchronizer;
 
+/**
+ * The Class SecureStoreSynchronizerJob.
+ */
 public class SecureStoreSynchronizerJob extends AbstractSynchronizerJob {
 
+	/** The secure store synchronizer. */
 	private SecureStoreSynchronizer secureStoreSynchronizer = new SecureStoreSynchronizer();
 
+	/**
+	 * Gets the synchronizer.
+	 *
+	 * @return the synchronizer
+	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -29,6 +38,11 @@ public class SecureStoreSynchronizerJob extends AbstractSynchronizerJob {
 		return secureStoreSynchronizer;
 	}
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	/*
 	 * (non-Javadoc)
 	 * 

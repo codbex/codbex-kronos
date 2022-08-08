@@ -33,12 +33,27 @@ import com.codbex.kronos.utils.HDBUtils;
 
 import org.eclipse.dirigible.core.scheduler.api.ISynchronizerArtefactType.ArtefactState;
 
+/**
+ * The Class HDBTableFunctionParser.
+ */
 public class HDBTableFunctionParser implements DataStructureParser<DataStructureHDBTableFunctionModel> {
 
+  /** The data structures synchronizer. */
   private final DataStructuresSynchronizer dataStructuresSynchronizer;
+  
+  /** The table function synchronization artefact type. */
   private final HDBTableFunctionSynchronizationArtefactType tableFunctionSynchronizationArtefactType;
+  
+  /** The table function logger. */
   private final HDBTableFunctionLogger tableFunctionLogger;
 
+  /**
+   * Instantiates a new HDB table function parser.
+   *
+   * @param dataStructuresSynchronizer the data structures synchronizer
+   * @param tableFunctionSynchronizationArtefactType the table function synchronization artefact type
+   * @param tableFunctionLogger the table function logger
+   */
   public HDBTableFunctionParser(
       DataStructuresSynchronizer dataStructuresSynchronizer,
       HDBTableFunctionSynchronizationArtefactType tableFunctionSynchronizationArtefactType,
@@ -49,6 +64,14 @@ public class HDBTableFunctionParser implements DataStructureParser<DataStructure
     this.tableFunctionLogger = tableFunctionLogger;
   }
 
+  /**
+   * Parses the.
+   *
+   * @param parametersModel the parameters model
+   * @return the data structure HDB table function model
+   * @throws DataStructuresException the data structures exception
+   * @throws ArtifactParserException the artifact parser exception
+   */
   @Override
   public DataStructureHDBTableFunctionModel parse(DataStructureParametersModel parametersModel)
           throws DataStructuresException, ArtifactParserException {
@@ -67,6 +90,13 @@ public class HDBTableFunctionParser implements DataStructureParser<DataStructure
     return createModel(antlr4Model, parametersModel);
   }
 
+  /**
+   * Creates the model.
+   *
+   * @param antlrModel the antlr model
+   * @param params the params
+   * @return the data structure HDB table function model
+   */
   private DataStructureHDBTableFunctionModel createModel(TableFunctionDefinitionModel antlrModel,
       DataStructureParametersModel params) {
 
@@ -83,6 +113,13 @@ public class HDBTableFunctionParser implements DataStructureParser<DataStructure
     return new DataStructureHDBTableFunctionModel(builder);
   }
 
+  /**
+   * Validate antlr model.
+   *
+   * @param antlrModel the antlr model
+   * @param location the location
+   * @throws DataStructuresException the data structures exception
+   */
   private void validateAntlrModel(TableFunctionDefinitionModel antlrModel, String location) throws DataStructuresException {
     try {
       antlrModel.checkForAllMandatoryFieldsPresence();
@@ -98,11 +135,21 @@ public class HDBTableFunctionParser implements DataStructureParser<DataStructure
     }
   }
 
+  /**
+   * Gets the type.
+   *
+   * @return the type
+   */
   @Override
   public String getType() {
     return IDataStructureModel.TYPE_HDB_TABLE_FUNCTION;
   }
 
+  /**
+   * Gets the data structure class.
+   *
+   * @return the data structure class
+   */
   @Override
   public Class<DataStructureHDBTableFunctionModel> getDataStructureClass() {
     return DataStructureHDBTableFunctionModel.class;

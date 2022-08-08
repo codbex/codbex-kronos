@@ -28,9 +28,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for DataSources complex type.
+ * Java class for DataSources complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="DataSources"&gt;
@@ -50,28 +50,31 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class DataSources {
 
+  /** The data source. */
   @XmlElement(name = "DataSource", required = true)
   protected List<DataSource> dataSource;
 
   /**
    * Gets the value of the dataSource property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the dataSource property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getDataSource().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link DataSource }
+   *
+   * @return the data source
    */
   public List<DataSource> getDataSource() {
     if (dataSource == null) {

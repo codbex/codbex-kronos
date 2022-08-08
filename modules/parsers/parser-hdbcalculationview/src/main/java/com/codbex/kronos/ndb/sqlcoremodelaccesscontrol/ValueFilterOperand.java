@@ -26,9 +26,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for ValueFilterOperand complex type.
+ * Java class for ValueFilterOperand complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ValueFilterOperand"&gt;
@@ -44,6 +44,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "ValueFilterOperand")
 public class ValueFilterOperand {
 
+  /** The value. */
   @XmlAttribute(name = "value")
   protected String value;
 

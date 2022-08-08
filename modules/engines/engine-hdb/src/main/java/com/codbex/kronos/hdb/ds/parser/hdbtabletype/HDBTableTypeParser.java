@@ -47,16 +47,35 @@ import com.codbex.kronos.utils.HDBUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
+/**
+ * The Class HDBTableTypeParser.
+ */
 public class HDBTableTypeParser implements DataStructureParser<DataStructureHDBTableTypeModel> {
 
   // TYPE (?:["'](.*)["'].)?["'](.*)["']
   // uses non-capturing group in order to handle the
+  /** The Constant TABLE_TYPE_SCHEMA_AND_NAME_PATTERN. */
   // possible case of a table type with only a name and no schema
   private static final Pattern TABLE_TYPE_SCHEMA_AND_NAME_PATTERN = Pattern.compile("TYPE\\s+(?:[\"'](.*)[\"'].)?[\"'](.*)[\"']");
+  
+  /** The Constant XS_ADVANCED_TABLE_TYPE_PATTERN. */
   private static final Pattern XS_ADVANCED_TABLE_TYPE_PATTERN = Pattern.compile("^(\\t\\n)*(\\s)*TYPE", Pattern.CASE_INSENSITIVE);
+  
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDBTableTypeParser.class);
+  
+  /** The column model transformer. */
   private final HDBTableDefinitionModelToHDBTableColumnModelTransformer columnModelTransformer = new HDBTableDefinitionModelToHDBTableColumnModelTransformer();
 
+  /**
+   * Parses the.
+   *
+   * @param parametersModel the parameters model
+   * @return the data structure HDB table type model
+   * @throws DataStructuresException the data structures exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws ArtifactParserException the artifact parser exception
+   */
   @Override
   public DataStructureHDBTableTypeModel parse(DataStructureParametersModel parametersModel)
       throws DataStructuresException, IOException, ArtifactParserException {
@@ -68,6 +87,15 @@ public class HDBTableTypeParser implements DataStructureParser<DataStructureHDBT
         : parseHanaXSClassicContent(parametersModel.getLocation(), parametersModel.getContent());
   }
 
+  /**
+   * Parses the hana XS classic content.
+   *
+   * @param location the location
+   * @param content the content
+   * @return the data structure HDB table type model
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws ArtifactParserException the artifact parser exception
+   */
   private DataStructureHDBTableTypeModel parseHanaXSClassicContent(String location, String content)
       throws IOException, ArtifactParserException {
     logger.debug("Parsing hdbstructure in Hana XS Classic format");
@@ -137,6 +165,13 @@ public class HDBTableTypeParser implements DataStructureParser<DataStructureHDBT
     return dataStructureHDBTableTypeModel;
   }
 
+  /**
+   * Parses the hana XS advanced content.
+   *
+   * @param location the location
+   * @param content the content
+   * @return the data structure HDB table type model
+   */
   private DataStructureHDBTableTypeModel parseHanaXSAdvancedContent(String location, String content) {
     logger.debug("Parsing hdbstructure as Hana XS Advanced format");
     DataStructureHDBTableTypeModel dataStructureHDBTableTypeModel = new DataStructureHDBTableTypeModel();
@@ -152,6 +187,12 @@ public class HDBTableTypeParser implements DataStructureParser<DataStructureHDBT
     return dataStructureHDBTableTypeModel;
   }
 
+  /**
+   * Extract table type schema and name.
+   *
+   * @param content the content
+   * @return the pair
+   */
   private Pair<String, String> extractTableTypeSchemaAndName(String content) {
     String contentWithoutPossibleComments = HDBUtils.removeSqlCommentsFromContent(content);
     Matcher matcher = TABLE_TYPE_SCHEMA_AND_NAME_PATTERN.matcher(contentWithoutPossibleComments);
@@ -163,11 +204,21 @@ public class HDBTableTypeParser implements DataStructureParser<DataStructureHDBT
     return Pair.of(matcher.group(1), matcher.group(2));
   }
 
+  /**
+   * Gets the type.
+   *
+   * @return the type
+   */
   @Override
   public String getType() {
     return IDataStructureModel.TYPE_HDB_TABLE_TYPE;
   }
 
+  /**
+   * Gets the data structure class.
+   *
+   * @return the data structure class
+   */
   @Override
   public Class<DataStructureHDBTableTypeModel> getDataStructureClass() {
     return DataStructureHDBTableTypeModel.class;

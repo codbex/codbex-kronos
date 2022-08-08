@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Cardinality.
+ * Java class for Cardinality.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="Cardinality"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -44,18 +44,38 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum Cardinality {
 
+  /** The c 1 1. */
   @XmlEnumValue("C1_1")
   C_1_1("C1_1"),
+  
+  /** The c 1 n. */
   @XmlEnumValue("C1_N")
   C_1_N("C1_N"),
+  
+  /** The cn 1. */
   CN_1("CN_1"),
+  
+  /** The cn n. */
   CN_N("CN_N");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new cardinality.
+   *
+   * @param v the v
+   */
   Cardinality(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the cardinality
+   */
   public static Cardinality fromValue(String v) {
     for (Cardinality c : Cardinality.values()) {
       if (c.value.equals(v)) {
@@ -65,6 +85,11 @@ public enum Cardinality {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

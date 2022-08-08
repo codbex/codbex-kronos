@@ -18,8 +18,12 @@ import com.codbex.kronos.xsaccess.ds.api.IAccessCoreService;
 import com.codbex.kronos.xsaccess.ds.api.AccessException;
 import com.codbex.kronos.xsaccess.ds.model.access.AccessDefinition;
 
+/**
+ * The Class AccessVerifier.
+ */
 public class AccessVerifier {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(AccessVerifier.class);
 
   /**

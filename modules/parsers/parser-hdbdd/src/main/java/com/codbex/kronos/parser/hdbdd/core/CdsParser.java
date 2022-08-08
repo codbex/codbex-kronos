@@ -20,13 +20,21 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
+/**
+ * The Class CdsParser.
+ */
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class CdsParser extends Parser {
 	static { RuntimeMetaData.checkVersion("4.10.1", RuntimeMetaData.VERSION); }
 
+	/** The Constant _decisionToDFA. */
 	protected static final DFA[] _decisionToDFA;
+	
+	/** The Constant _sharedContextCache. */
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
+	
+	/** The Constant Z. */
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
@@ -41,6 +49,8 @@ public class CdsParser extends Parser {
 		LINE_COMMENT2=64, A=65, B=66, C=67, D=68, E=69, F=70, G=71, H=72, I=73, 
 		J=74, K=75, L=76, M=77, N=78, O=79, P=80, Q=81, R=82, S=83, T=84, U=85, 
 		V=86, W=87, X=88, Y=89, Z=90;
+	
+	/** The Constant RULE_identifier. */
 	public static final int
 		RULE_cdsFile = 0, RULE_namespaceRule = 1, RULE_usingRule = 2, RULE_topLevelSymbol = 3, 
 		RULE_dataTypeRule = 4, RULE_contextRule = 5, RULE_structuredTypeRule = 6, 
@@ -53,6 +63,12 @@ public class CdsParser extends Parser {
 		RULE_annValue = 26, RULE_enumRule = 27, RULE_arrRule = 28, RULE_obj = 29, 
 		RULE_keyValue = 30, RULE_selectRule = 31, RULE_joinRule = 32, RULE_joinFields = 33, 
 		RULE_selectedColumnsRule = 34, RULE_whereRule = 35, RULE_identifier = 36;
+	
+	/**
+	 * Make rule names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"cdsFile", "namespaceRule", "usingRule", "topLevelSymbol", "dataTypeRule", 
@@ -65,8 +81,15 @@ public class CdsParser extends Parser {
 			"selectedColumnsRule", "whereRule", "identifier"
 		};
 	}
+	
+	/** The Constant ruleNames. */
 	public static final String[] ruleNames = makeRuleNames();
 
+	/**
+	 * Make literal names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'.'", "'::'", "':'", "'{'", "'}'", "'\"'", "'('", "','", "')'", 
@@ -77,7 +100,15 @@ public class CdsParser extends Parser {
 			null, "';'"
 		};
 	}
+	
+	/** The Constant _LITERAL_NAMES. */
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
+	
+	/**
+	 * Make symbolic names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
@@ -93,10 +124,16 @@ public class CdsParser extends Parser {
 			"O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
 		};
 	}
+	
+	/** The Constant _SYMBOLIC_NAMES. */
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
+	
+	/** The Constant VOCABULARY. */
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
 	/**
+	 * The Constant tokenNames.
+	 *
 	 * @deprecated Use {@link #VOCABULARY} instead.
 	 */
 	@Deprecated
@@ -115,62 +152,156 @@ public class CdsParser extends Parser {
 		}
 	}
 
+	/**
+	 * Gets the token names.
+	 *
+	 * @return the token names
+	 */
 	@Override
 	@Deprecated
 	public String[] getTokenNames() {
 		return tokenNames;
 	}
 
+	/**
+	 * Gets the vocabulary.
+	 *
+	 * @return the vocabulary
+	 */
 	@Override
 
 	public Vocabulary getVocabulary() {
 		return VOCABULARY;
 	}
 
+	/**
+	 * Gets the grammar file name.
+	 *
+	 * @return the grammar file name
+	 */
 	@Override
 	public String getGrammarFileName() { return "Cds.g4"; }
 
+	/**
+	 * Gets the rule names.
+	 *
+	 * @return the rule names
+	 */
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
 
+	/**
+	 * Gets the serialized ATN.
+	 *
+	 * @return the serialized ATN
+	 */
 	@Override
 	public String getSerializedATN() { return _serializedATN; }
 
+	/**
+	 * Gets the atn.
+	 *
+	 * @return the atn
+	 */
 	@Override
 	public ATN getATN() { return _ATN; }
 
+	/**
+	 * Instantiates a new cds parser.
+	 *
+	 * @param input the input
+	 */
 	public CdsParser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
+	/**
+	 * The Class CdsFileContext.
+	 */
 	public static class CdsFileContext extends ParserRuleContext {
+		
+		/**
+		 * Namespace rule.
+		 *
+		 * @return the namespace rule context
+		 */
 		public NamespaceRuleContext namespaceRule() {
 			return getRuleContext(NamespaceRuleContext.class,0);
 		}
+		
+		/**
+		 * Top level symbol.
+		 *
+		 * @return the top level symbol context
+		 */
 		public TopLevelSymbolContext topLevelSymbol() {
 			return getRuleContext(TopLevelSymbolContext.class,0);
 		}
+		
+		/**
+		 * Using rule.
+		 *
+		 * @return the list
+		 */
 		public List<UsingRuleContext> usingRule() {
 			return getRuleContexts(UsingRuleContext.class);
 		}
+		
+		/**
+		 * Using rule.
+		 *
+		 * @param i the i
+		 * @return the using rule context
+		 */
 		public UsingRuleContext usingRule(int i) {
 			return getRuleContext(UsingRuleContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new cds file context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public CdsFileContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_cdsFile; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterCdsFile(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitCdsFile(this);
 		}
 	}
 
+	/**
+	 * Cds file.
+	 *
+	 * @return the cds file context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final CdsFileContext cdsFile() throws RecognitionException {
 		CdsFileContext _localctx = new CdsFileContext(_ctx, getState());
 		enterRule(_localctx, 0, RULE_cdsFile);
@@ -209,31 +340,94 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class NamespaceRuleContext.
+	 */
 	public static class NamespaceRuleContext extends ParserRuleContext {
+		
+		/** The identifier. */
 		public IdentifierContext identifier;
+		
+		/** The members. */
 		public List<IdentifierContext> members = new ArrayList<IdentifierContext>();
+		
+		/**
+		 * Namespace.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode NAMESPACE() { return getToken(CdsParser.NAMESPACE, 0); }
+		
+		/**
+		 * Semicolumn.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLUMN() { return getToken(CdsParser.SEMICOLUMN, 0); }
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the list
+		 */
 		public List<IdentifierContext> identifier() {
 			return getRuleContexts(IdentifierContext.class);
 		}
+		
+		/**
+		 * Identifier.
+		 *
+		 * @param i the i
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier(int i) {
 			return getRuleContext(IdentifierContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new namespace rule context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public NamespaceRuleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_namespaceRule; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterNamespaceRule(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitNamespaceRule(this);
 		}
 	}
 
+	/**
+	 * Namespace rule.
+	 *
+	 * @return the namespace rule context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final NamespaceRuleContext namespaceRule() throws RecognitionException {
 		NamespaceRuleContext _localctx = new NamespaceRuleContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_namespaceRule);
@@ -278,34 +472,107 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class UsingRuleContext.
+	 */
 	public static class UsingRuleContext extends ParserRuleContext {
+		
+		/** The identifier. */
 		public IdentifierContext identifier;
+		
+		/** The pack. */
 		public List<IdentifierContext> pack = new ArrayList<IdentifierContext>();
+		
+		/** The members. */
 		public List<IdentifierContext> members = new ArrayList<IdentifierContext>();
+		
+		/** The alias. */
 		public IdentifierContext alias;
+		
+		/**
+		 * Using.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode USING() { return getToken(CdsParser.USING, 0); }
+		
+		/**
+		 * Semicolumn.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLUMN() { return getToken(CdsParser.SEMICOLUMN, 0); }
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the list
+		 */
 		public List<IdentifierContext> identifier() {
 			return getRuleContexts(IdentifierContext.class);
 		}
+		
+		/**
+		 * Identifier.
+		 *
+		 * @param i the i
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier(int i) {
 			return getRuleContext(IdentifierContext.class,i);
 		}
+		
+		/**
+		 * As.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode AS() { return getToken(CdsParser.AS, 0); }
+		
+		/**
+		 * Instantiates a new using rule context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public UsingRuleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_usingRule; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterUsingRule(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitUsingRule(this);
 		}
 	}
 
+	/**
+	 * Using rule.
+	 *
+	 * @return the using rule context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final UsingRuleContext usingRule() throws RecognitionException {
 		UsingRuleContext _localctx = new UsingRuleContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_usingRule);
@@ -384,39 +651,110 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class TopLevelSymbolContext.
+	 */
 	public static class TopLevelSymbolContext extends ParserRuleContext {
+		
+		/**
+		 * Data type rule.
+		 *
+		 * @return the list
+		 */
 		public List<DataTypeRuleContext> dataTypeRule() {
 			return getRuleContexts(DataTypeRuleContext.class);
 		}
+		
+		/**
+		 * Data type rule.
+		 *
+		 * @param i the i
+		 * @return the data type rule context
+		 */
 		public DataTypeRuleContext dataTypeRule(int i) {
 			return getRuleContext(DataTypeRuleContext.class,i);
 		}
+		
+		/**
+		 * Context rule.
+		 *
+		 * @return the context rule context
+		 */
 		public ContextRuleContext contextRule() {
 			return getRuleContext(ContextRuleContext.class,0);
 		}
+		
+		/**
+		 * Structured type rule.
+		 *
+		 * @return the structured type rule context
+		 */
 		public StructuredTypeRuleContext structuredTypeRule() {
 			return getRuleContext(StructuredTypeRuleContext.class,0);
 		}
+		
+		/**
+		 * Entity rule.
+		 *
+		 * @return the entity rule context
+		 */
 		public EntityRuleContext entityRule() {
 			return getRuleContext(EntityRuleContext.class,0);
 		}
+		
+		/**
+		 * View rule.
+		 *
+		 * @return the view rule context
+		 */
 		public ViewRuleContext viewRule() {
 			return getRuleContext(ViewRuleContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new top level symbol context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public TopLevelSymbolContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_topLevelSymbol; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterTopLevelSymbol(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitTopLevelSymbol(this);
 		}
 	}
 
+	/**
+	 * Top level symbol.
+	 *
+	 * @return the top level symbol context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final TopLevelSymbolContext topLevelSymbol() throws RecognitionException {
 		TopLevelSymbolContext _localctx = new TopLevelSymbolContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_topLevelSymbol);
@@ -517,37 +855,112 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class DataTypeRuleContext.
+	 */
 	public static class DataTypeRuleContext extends ParserRuleContext {
+		
+		/** The artifact type. */
 		public Token artifactType;
+		
+		/** The artifact name. */
 		public IdentifierContext artifactName;
+		
+		/**
+		 * Type assign rule.
+		 *
+		 * @return the type assign rule context
+		 */
 		public TypeAssignRuleContext typeAssignRule() {
 			return getRuleContext(TypeAssignRuleContext.class,0);
 		}
+		
+		/**
+		 * Semicolumn.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLUMN() { return getToken(CdsParser.SEMICOLUMN, 0); }
+		
+		/**
+		 * Type.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode TYPE() { return getToken(CdsParser.TYPE, 0); }
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier() {
 			return getRuleContext(IdentifierContext.class,0);
 		}
+		
+		/**
+		 * Annotation rule.
+		 *
+		 * @return the list
+		 */
 		public List<AnnotationRuleContext> annotationRule() {
 			return getRuleContexts(AnnotationRuleContext.class);
 		}
+		
+		/**
+		 * Annotation rule.
+		 *
+		 * @param i the i
+		 * @return the annotation rule context
+		 */
 		public AnnotationRuleContext annotationRule(int i) {
 			return getRuleContext(AnnotationRuleContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new data type rule context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public DataTypeRuleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_dataTypeRule; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterDataTypeRule(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitDataTypeRule(this);
 		}
 	}
 
+	/**
+	 * Data type rule.
+	 *
+	 * @return the data type rule context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final DataTypeRuleContext dataTypeRule() throws RecognitionException {
 		DataTypeRuleContext _localctx = new DataTypeRuleContext(_ctx, getState());
 		enterRule(_localctx, 8, RULE_dataTypeRule);
@@ -592,64 +1005,198 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ContextRuleContext.
+	 */
 	public static class ContextRuleContext extends ParserRuleContext {
+		
+		/** The artifact type. */
 		public Token artifactType;
+		
+		/** The artifact name. */
 		public IdentifierContext artifactName;
+		
+		/**
+		 * Context.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode CONTEXT() { return getToken(CdsParser.CONTEXT, 0); }
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier() {
 			return getRuleContext(IdentifierContext.class,0);
 		}
+		
+		/**
+		 * Annotation rule.
+		 *
+		 * @return the list
+		 */
 		public List<AnnotationRuleContext> annotationRule() {
 			return getRuleContexts(AnnotationRuleContext.class);
 		}
+		
+		/**
+		 * Annotation rule.
+		 *
+		 * @param i the i
+		 * @return the annotation rule context
+		 */
 		public AnnotationRuleContext annotationRule(int i) {
 			return getRuleContext(AnnotationRuleContext.class,i);
 		}
+		
+		/**
+		 * Context rule.
+		 *
+		 * @return the list
+		 */
 		public List<ContextRuleContext> contextRule() {
 			return getRuleContexts(ContextRuleContext.class);
 		}
+		
+		/**
+		 * Context rule.
+		 *
+		 * @param i the i
+		 * @return the context rule context
+		 */
 		public ContextRuleContext contextRule(int i) {
 			return getRuleContext(ContextRuleContext.class,i);
 		}
+		
+		/**
+		 * Data type rule.
+		 *
+		 * @return the list
+		 */
 		public List<DataTypeRuleContext> dataTypeRule() {
 			return getRuleContexts(DataTypeRuleContext.class);
 		}
+		
+		/**
+		 * Data type rule.
+		 *
+		 * @param i the i
+		 * @return the data type rule context
+		 */
 		public DataTypeRuleContext dataTypeRule(int i) {
 			return getRuleContext(DataTypeRuleContext.class,i);
 		}
+		
+		/**
+		 * Structured type rule.
+		 *
+		 * @return the list
+		 */
 		public List<StructuredTypeRuleContext> structuredTypeRule() {
 			return getRuleContexts(StructuredTypeRuleContext.class);
 		}
+		
+		/**
+		 * Structured type rule.
+		 *
+		 * @param i the i
+		 * @return the structured type rule context
+		 */
 		public StructuredTypeRuleContext structuredTypeRule(int i) {
 			return getRuleContext(StructuredTypeRuleContext.class,i);
 		}
+		
+		/**
+		 * Entity rule.
+		 *
+		 * @return the list
+		 */
 		public List<EntityRuleContext> entityRule() {
 			return getRuleContexts(EntityRuleContext.class);
 		}
+		
+		/**
+		 * Entity rule.
+		 *
+		 * @param i the i
+		 * @return the entity rule context
+		 */
 		public EntityRuleContext entityRule(int i) {
 			return getRuleContext(EntityRuleContext.class,i);
 		}
+		
+		/**
+		 * View rule.
+		 *
+		 * @return the list
+		 */
 		public List<ViewRuleContext> viewRule() {
 			return getRuleContexts(ViewRuleContext.class);
 		}
+		
+		/**
+		 * View rule.
+		 *
+		 * @param i the i
+		 * @return the view rule context
+		 */
 		public ViewRuleContext viewRule(int i) {
 			return getRuleContext(ViewRuleContext.class,i);
 		}
+		
+		/**
+		 * Semicolumn.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLUMN() { return getToken(CdsParser.SEMICOLUMN, 0); }
+		
+		/**
+		 * Instantiates a new context rule context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ContextRuleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_contextRule; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterContextRule(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitContextRule(this);
 		}
 	}
 
+	/**
+	 * Context rule.
+	 *
+	 * @return the context rule context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ContextRuleContext contextRule() throws RecognitionException {
 		ContextRuleContext _localctx = new ContextRuleContext(_ctx, getState());
 		enterRule(_localctx, 10, RULE_contextRule);
@@ -746,46 +1293,141 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class StructuredTypeRuleContext.
+	 */
 	public static class StructuredTypeRuleContext extends ParserRuleContext {
+		
+		/** The artifact type. */
 		public Token artifactType;
+		
+		/** The artifact name. */
 		public IdentifierContext artifactName;
+		
+		/**
+		 * Type.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode TYPE() { return getToken(CdsParser.TYPE, 0); }
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier() {
 			return getRuleContext(IdentifierContext.class,0);
 		}
+		
+		/**
+		 * Annotation rule.
+		 *
+		 * @return the list
+		 */
 		public List<AnnotationRuleContext> annotationRule() {
 			return getRuleContexts(AnnotationRuleContext.class);
 		}
+		
+		/**
+		 * Annotation rule.
+		 *
+		 * @param i the i
+		 * @return the annotation rule context
+		 */
 		public AnnotationRuleContext annotationRule(int i) {
 			return getRuleContext(AnnotationRuleContext.class,i);
 		}
+		
+		/**
+		 * Field decl rule.
+		 *
+		 * @return the list
+		 */
 		public List<FieldDeclRuleContext> fieldDeclRule() {
 			return getRuleContexts(FieldDeclRuleContext.class);
 		}
+		
+		/**
+		 * Field decl rule.
+		 *
+		 * @param i the i
+		 * @return the field decl rule context
+		 */
 		public FieldDeclRuleContext fieldDeclRule(int i) {
 			return getRuleContext(FieldDeclRuleContext.class,i);
 		}
+		
+		/**
+		 * Association.
+		 *
+		 * @return the list
+		 */
 		public List<AssociationContext> association() {
 			return getRuleContexts(AssociationContext.class);
 		}
+		
+		/**
+		 * Association.
+		 *
+		 * @param i the i
+		 * @return the association context
+		 */
 		public AssociationContext association(int i) {
 			return getRuleContext(AssociationContext.class,i);
 		}
+		
+		/**
+		 * Semicolumn.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLUMN() { return getToken(CdsParser.SEMICOLUMN, 0); }
+		
+		/**
+		 * Instantiates a new structured type rule context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public StructuredTypeRuleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_structuredTypeRule; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterStructuredTypeRule(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitStructuredTypeRule(this);
 		}
 	}
 
+	/**
+	 * Structured type rule.
+	 *
+	 * @return the structured type rule context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final StructuredTypeRuleContext structuredTypeRule() throws RecognitionException {
 		StructuredTypeRuleContext _localctx = new StructuredTypeRuleContext(_ctx, getState());
 		enterRule(_localctx, 12, RULE_structuredTypeRule);
@@ -864,52 +1506,160 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class EntityRuleContext.
+	 */
 	public static class EntityRuleContext extends ParserRuleContext {
+		
+		/** The artifact type. */
 		public Token artifactType;
+		
+		/** The artifact name. */
 		public IdentifierContext artifactName;
+		
+		/**
+		 * Entity.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode ENTITY() { return getToken(CdsParser.ENTITY, 0); }
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier() {
 			return getRuleContext(IdentifierContext.class,0);
 		}
+		
+		/**
+		 * Annotation rule.
+		 *
+		 * @return the list
+		 */
 		public List<AnnotationRuleContext> annotationRule() {
 			return getRuleContexts(AnnotationRuleContext.class);
 		}
+		
+		/**
+		 * Annotation rule.
+		 *
+		 * @param i the i
+		 * @return the annotation rule context
+		 */
 		public AnnotationRuleContext annotationRule(int i) {
 			return getRuleContext(AnnotationRuleContext.class,i);
 		}
+		
+		/**
+		 * Element decl rule.
+		 *
+		 * @return the list
+		 */
 		public List<ElementDeclRuleContext> elementDeclRule() {
 			return getRuleContexts(ElementDeclRuleContext.class);
 		}
+		
+		/**
+		 * Element decl rule.
+		 *
+		 * @param i the i
+		 * @return the element decl rule context
+		 */
 		public ElementDeclRuleContext elementDeclRule(int i) {
 			return getRuleContext(ElementDeclRuleContext.class,i);
 		}
+		
+		/**
+		 * Association.
+		 *
+		 * @return the list
+		 */
 		public List<AssociationContext> association() {
 			return getRuleContexts(AssociationContext.class);
 		}
+		
+		/**
+		 * Association.
+		 *
+		 * @param i the i
+		 * @return the association context
+		 */
 		public AssociationContext association(int i) {
 			return getRuleContext(AssociationContext.class,i);
 		}
+		
+		/**
+		 * Calculated association.
+		 *
+		 * @return the list
+		 */
 		public List<CalculatedAssociationContext> calculatedAssociation() {
 			return getRuleContexts(CalculatedAssociationContext.class);
 		}
+		
+		/**
+		 * Calculated association.
+		 *
+		 * @param i the i
+		 * @return the calculated association context
+		 */
 		public CalculatedAssociationContext calculatedAssociation(int i) {
 			return getRuleContext(CalculatedAssociationContext.class,i);
 		}
+		
+		/**
+		 * Semicolumn.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLUMN() { return getToken(CdsParser.SEMICOLUMN, 0); }
+		
+		/**
+		 * Instantiates a new entity rule context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public EntityRuleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_entityRule; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterEntityRule(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitEntityRule(this);
 		}
 	}
 
+	/**
+	 * Entity rule.
+	 *
+	 * @return the entity rule context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final EntityRuleContext entityRule() throws RecognitionException {
 		EntityRuleContext _localctx = new EntityRuleContext(_ctx, getState());
 		enterRule(_localctx, 14, RULE_entityRule);
@@ -994,41 +1744,129 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ViewRuleContext.
+	 */
 	public static class ViewRuleContext extends ParserRuleContext {
+		
+		/** The artifact type. */
 		public Token artifactType;
+		
+		/** The artifact name. */
 		public IdentifierContext artifactName;
+		
+		/**
+		 * As.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode AS() { return getToken(CdsParser.AS, 0); }
+		
+		/**
+		 * View.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode VIEW() { return getToken(CdsParser.VIEW, 0); }
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier() {
 			return getRuleContext(IdentifierContext.class,0);
 		}
+		
+		/**
+		 * Annotation rule.
+		 *
+		 * @return the list
+		 */
 		public List<AnnotationRuleContext> annotationRule() {
 			return getRuleContexts(AnnotationRuleContext.class);
 		}
+		
+		/**
+		 * Annotation rule.
+		 *
+		 * @param i the i
+		 * @return the annotation rule context
+		 */
 		public AnnotationRuleContext annotationRule(int i) {
 			return getRuleContext(AnnotationRuleContext.class,i);
 		}
+		
+		/**
+		 * Define.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode DEFINE() { return getToken(CdsParser.DEFINE, 0); }
+		
+		/**
+		 * Select rule.
+		 *
+		 * @return the list
+		 */
 		public List<SelectRuleContext> selectRule() {
 			return getRuleContexts(SelectRuleContext.class);
 		}
+		
+		/**
+		 * Select rule.
+		 *
+		 * @param i the i
+		 * @return the select rule context
+		 */
 		public SelectRuleContext selectRule(int i) {
 			return getRuleContext(SelectRuleContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new view rule context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ViewRuleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_viewRule; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterViewRule(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitViewRule(this);
 		}
 	}
 
+	/**
+	 * View rule.
+	 *
+	 * @return the view rule context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ViewRuleContext viewRule() throws RecognitionException {
 		ViewRuleContext _localctx = new ViewRuleContext(_ctx, getState());
 		enterRule(_localctx, 16, RULE_viewRule);
@@ -1093,28 +1931,80 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class FieldDeclRuleContext.
+	 */
 	public static class FieldDeclRuleContext extends ParserRuleContext {
+		
+		/**
+		 * Type assign rule.
+		 *
+		 * @return the type assign rule context
+		 */
 		public TypeAssignRuleContext typeAssignRule() {
 			return getRuleContext(TypeAssignRuleContext.class,0);
 		}
+		
+		/**
+		 * Semicolumn.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLUMN() { return getToken(CdsParser.SEMICOLUMN, 0); }
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier() {
 			return getRuleContext(IdentifierContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new field decl rule context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public FieldDeclRuleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_fieldDeclRule; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterFieldDeclRule(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitFieldDeclRule(this);
 		}
 	}
 
+	/**
+	 * Field decl rule.
+	 *
+	 * @return the field decl rule context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final FieldDeclRuleContext fieldDeclRule() throws RecognitionException {
 		FieldDeclRuleContext _localctx = new FieldDeclRuleContext(_ctx, getState());
 		enterRule(_localctx, 18, RULE_fieldDeclRule);
@@ -1182,97 +2072,309 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class TypeAssignRuleContext.
+	 */
 	public static class TypeAssignRuleContext extends ParserRuleContext {
+		
+		/**
+		 * Instantiates a new type assign rule context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public TypeAssignRuleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_typeAssignRule; }
 	 
+		/**
+		 * Instantiates a new type assign rule context.
+		 */
 		public TypeAssignRuleContext() { }
+		
+		/**
+		 * Copy from.
+		 *
+		 * @param ctx the ctx
+		 */
 		public void copyFrom(TypeAssignRuleContext ctx) {
 			super.copyFrom(ctx);
 		}
 	}
+	
+	/**
+	 * The Class AssignBuiltInTypeWithArgsContext.
+	 */
 	public static class AssignBuiltInTypeWithArgsContext extends TypeAssignRuleContext {
+		
+		/** The ref. */
 		public IdentifierContext ref;
+		
+		/** The integer. */
 		public Token INTEGER;
+		
+		/** The args. */
 		public List<Token> args = new ArrayList<Token>();
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier() {
 			return getRuleContext(IdentifierContext.class,0);
 		}
+		
+		/**
+		 * Integer.
+		 *
+		 * @return the list
+		 */
 		public List<TerminalNode> INTEGER() { return getTokens(CdsParser.INTEGER); }
+		
+		/**
+		 * Integer.
+		 *
+		 * @param i the i
+		 * @return the terminal node
+		 */
 		public TerminalNode INTEGER(int i) {
 			return getToken(CdsParser.INTEGER, i);
 		}
+		
+		/**
+		 * Instantiates a new assign built in type with args context.
+		 *
+		 * @param ctx the ctx
+		 */
 		public AssignBuiltInTypeWithArgsContext(TypeAssignRuleContext ctx) { copyFrom(ctx); }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterAssignBuiltInTypeWithArgs(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitAssignBuiltInTypeWithArgs(this);
 		}
 	}
+	
+	/**
+	 * The Class AssignHanaTypeWithArgsContext.
+	 */
 	public static class AssignHanaTypeWithArgsContext extends TypeAssignRuleContext {
+		
+		/** The hana type. */
 		public IdentifierContext hanaType;
+		
+		/** The integer. */
 		public Token INTEGER;
+		
+		/** The args. */
 		public List<Token> args = new ArrayList<Token>();
+		
+		/**
+		 * Hana.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode HANA() { return getToken(CdsParser.HANA, 0); }
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier() {
 			return getRuleContext(IdentifierContext.class,0);
 		}
+		
+		/**
+		 * Integer.
+		 *
+		 * @return the list
+		 */
 		public List<TerminalNode> INTEGER() { return getTokens(CdsParser.INTEGER); }
+		
+		/**
+		 * Integer.
+		 *
+		 * @param i the i
+		 * @return the terminal node
+		 */
 		public TerminalNode INTEGER(int i) {
 			return getToken(CdsParser.INTEGER, i);
 		}
+		
+		/**
+		 * Instantiates a new assign hana type with args context.
+		 *
+		 * @param ctx the ctx
+		 */
 		public AssignHanaTypeWithArgsContext(TypeAssignRuleContext ctx) { copyFrom(ctx); }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterAssignHanaTypeWithArgs(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitAssignHanaTypeWithArgs(this);
 		}
 	}
+	
+	/**
+	 * The Class AssignHanaTypeContext.
+	 */
 	public static class AssignHanaTypeContext extends TypeAssignRuleContext {
+		
+		/** The hana type. */
 		public IdentifierContext hanaType;
+		
+		/**
+		 * Hana.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode HANA() { return getToken(CdsParser.HANA, 0); }
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier() {
 			return getRuleContext(IdentifierContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new assign hana type context.
+		 *
+		 * @param ctx the ctx
+		 */
 		public AssignHanaTypeContext(TypeAssignRuleContext ctx) { copyFrom(ctx); }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterAssignHanaType(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitAssignHanaType(this);
 		}
 	}
+	
+	/**
+	 * The Class AssignTypeContext.
+	 */
 	public static class AssignTypeContext extends TypeAssignRuleContext {
+		
+		/** The identifier. */
 		public IdentifierContext identifier;
+		
+		/** The path sub members. */
 		public List<IdentifierContext> pathSubMembers = new ArrayList<IdentifierContext>();
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the list
+		 */
 		public List<IdentifierContext> identifier() {
 			return getRuleContexts(IdentifierContext.class);
 		}
+		
+		/**
+		 * Identifier.
+		 *
+		 * @param i the i
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier(int i) {
 			return getRuleContext(IdentifierContext.class,i);
 		}
+		
+		/**
+		 * Type of.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode TYPE_OF() { return getToken(CdsParser.TYPE_OF, 0); }
+		
+		/**
+		 * Instantiates a new assign type context.
+		 *
+		 * @param ctx the ctx
+		 */
 		public AssignTypeContext(TypeAssignRuleContext ctx) { copyFrom(ctx); }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterAssignType(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitAssignType(this);
 		}
 	}
 
+	/**
+	 * Type assign rule.
+	 *
+	 * @return the type assign rule context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final TypeAssignRuleContext typeAssignRule() throws RecognitionException {
 		TypeAssignRuleContext _localctx = new TypeAssignRuleContext(_ctx, getState());
 		enterRule(_localctx, 20, RULE_typeAssignRule);
@@ -1410,45 +2512,134 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ElementDeclRuleContext.
+	 */
 	public static class ElementDeclRuleContext extends ParserRuleContext {
+		
+		/** The key. */
 		public IdentifierContext key;
+		
+		/** The name. */
 		public IdentifierContext name;
+		
+		/**
+		 * Type assign rule.
+		 *
+		 * @return the type assign rule context
+		 */
 		public TypeAssignRuleContext typeAssignRule() {
 			return getRuleContext(TypeAssignRuleContext.class,0);
 		}
+		
+		/**
+		 * Semicolumn.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLUMN() { return getToken(CdsParser.SEMICOLUMN, 0); }
+		
+		/**
+		 * Annotation rule.
+		 *
+		 * @return the list
+		 */
 		public List<AnnotationRuleContext> annotationRule() {
 			return getRuleContexts(AnnotationRuleContext.class);
 		}
+		
+		/**
+		 * Annotation rule.
+		 *
+		 * @param i the i
+		 * @return the annotation rule context
+		 */
 		public AnnotationRuleContext annotationRule(int i) {
 			return getRuleContext(AnnotationRuleContext.class,i);
 		}
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the list
+		 */
 		public List<IdentifierContext> identifier() {
 			return getRuleContexts(IdentifierContext.class);
 		}
+		
+		/**
+		 * Identifier.
+		 *
+		 * @param i the i
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier(int i) {
 			return getRuleContext(IdentifierContext.class,i);
 		}
+		
+		/**
+		 * Element details.
+		 *
+		 * @return the list
+		 */
 		public List<ElementDetailsContext> elementDetails() {
 			return getRuleContexts(ElementDetailsContext.class);
 		}
+		
+		/**
+		 * Element details.
+		 *
+		 * @param i the i
+		 * @return the element details context
+		 */
 		public ElementDetailsContext elementDetails(int i) {
 			return getRuleContext(ElementDetailsContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new element decl rule context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ElementDeclRuleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_elementDeclRule; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterElementDeclRule(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitElementDeclRule(this);
 		}
 	}
 
+	/**
+	 * Element decl rule.
+	 *
+	 * @return the element decl rule context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ElementDeclRuleContext elementDeclRule() throws RecognitionException {
 		ElementDeclRuleContext _localctx = new ElementDeclRuleContext(_ctx, getState());
 		enterRule(_localctx, 22, RULE_elementDeclRule);
@@ -1555,27 +2746,73 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ElementDetailsContext.
+	 */
 	public static class ElementDetailsContext extends ParserRuleContext {
+		
+		/**
+		 * Default value.
+		 *
+		 * @return the default value context
+		 */
 		public DefaultValueContext defaultValue() {
 			return getRuleContext(DefaultValueContext.class,0);
 		}
+		
+		/**
+		 * Element constraints.
+		 *
+		 * @return the element constraints context
+		 */
 		public ElementConstraintsContext elementConstraints() {
 			return getRuleContext(ElementConstraintsContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new element details context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ElementDetailsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_elementDetails; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterElementDetails(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitElementDetails(this);
 		}
 	}
 
+	/**
+	 * Element details.
+	 *
+	 * @return the element details context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ElementDetailsContext elementDetails() throws RecognitionException {
 		ElementDetailsContext _localctx = new ElementDetailsContext(_ctx, getState());
 		enterRule(_localctx, 24, RULE_elementDetails);
@@ -1615,24 +2852,64 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ElementConstraintsContext.
+	 */
 	public static class ElementConstraintsContext extends ParserRuleContext {
+		
+		/**
+		 * Constraints.
+		 *
+		 * @return the constraints context
+		 */
 		public ConstraintsContext constraints() {
 			return getRuleContext(ConstraintsContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new element constraints context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ElementConstraintsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_elementConstraints; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterElementConstraints(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitElementConstraints(this);
 		}
 	}
 
+	/**
+	 * Element constraints.
+	 *
+	 * @return the element constraints context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ElementConstraintsContext elementConstraints() throws RecognitionException {
 		ElementConstraintsContext _localctx = new ElementConstraintsContext(_ctx, getState());
 		enterRule(_localctx, 26, RULE_elementConstraints);
@@ -1654,24 +2931,64 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AssociationConstraintsContext.
+	 */
 	public static class AssociationConstraintsContext extends ParserRuleContext {
+		
+		/**
+		 * Constraints.
+		 *
+		 * @return the constraints context
+		 */
 		public ConstraintsContext constraints() {
 			return getRuleContext(ConstraintsContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new association constraints context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AssociationConstraintsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_associationConstraints; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterAssociationConstraints(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitAssociationConstraints(this);
 		}
 	}
 
+	/**
+	 * Association constraints.
+	 *
+	 * @return the association constraints context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AssociationConstraintsContext associationConstraints() throws RecognitionException {
 		AssociationConstraintsContext _localctx = new AssociationConstraintsContext(_ctx, getState());
 		enterRule(_localctx, 28, RULE_associationConstraints);
@@ -1693,22 +3010,62 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ConstraintsContext.
+	 */
 	public static class ConstraintsContext extends ParserRuleContext {
+		
+		/**
+		 * Null.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode NULL() { return getToken(CdsParser.NULL, 0); }
+		
+		/**
+		 * Instantiates a new constraints context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ConstraintsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_constraints; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterConstraints(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitConstraints(this);
 		}
 	}
 
+	/**
+	 * Constraints.
+	 *
+	 * @return the constraints context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ConstraintsContext constraints() throws RecognitionException {
 		ConstraintsContext _localctx = new ConstraintsContext(_ctx, getState());
 		enterRule(_localctx, 30, RULE_constraints);
@@ -1739,53 +3096,166 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AssociationContext.
+	 */
 	public static class AssociationContext extends ParserRuleContext {
+		
+		/** The key. */
 		public IdentifierContext key;
+		
+		/** The asc id. */
 		public IdentifierContext ascId;
+		
+		/**
+		 * Association.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode ASSOCIATION() { return getToken(CdsParser.ASSOCIATION, 0); }
+		
+		/**
+		 * To.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode TO() { return getToken(CdsParser.TO, 0); }
+		
+		/**
+		 * Association target.
+		 *
+		 * @return the association target context
+		 */
 		public AssociationTargetContext associationTarget() {
 			return getRuleContext(AssociationTargetContext.class,0);
 		}
+		
+		/**
+		 * Semicolumn.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLUMN() { return getToken(CdsParser.SEMICOLUMN, 0); }
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the list
+		 */
 		public List<IdentifierContext> identifier() {
 			return getRuleContexts(IdentifierContext.class);
 		}
+		
+		/**
+		 * Identifier.
+		 *
+		 * @param i the i
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier(int i) {
 			return getRuleContext(IdentifierContext.class,i);
 		}
+		
+		/**
+		 * Cardinality.
+		 *
+		 * @return the cardinality context
+		 */
 		public CardinalityContext cardinality() {
 			return getRuleContext(CardinalityContext.class,0);
 		}
+		
+		/**
+		 * Managed foreign keys.
+		 *
+		 * @return the list
+		 */
 		public List<ManagedForeignKeysContext> managedForeignKeys() {
 			return getRuleContexts(ManagedForeignKeysContext.class);
 		}
+		
+		/**
+		 * Managed foreign keys.
+		 *
+		 * @param i the i
+		 * @return the managed foreign keys context
+		 */
 		public ManagedForeignKeysContext managedForeignKeys(int i) {
 			return getRuleContext(ManagedForeignKeysContext.class,i);
 		}
+		
+		/**
+		 * Unmanaged foreign key.
+		 *
+		 * @return the list
+		 */
 		public List<UnmanagedForeignKeyContext> unmanagedForeignKey() {
 			return getRuleContexts(UnmanagedForeignKeyContext.class);
 		}
+		
+		/**
+		 * Unmanaged foreign key.
+		 *
+		 * @param i the i
+		 * @return the unmanaged foreign key context
+		 */
 		public UnmanagedForeignKeyContext unmanagedForeignKey(int i) {
 			return getRuleContext(UnmanagedForeignKeyContext.class,i);
 		}
+		
+		/**
+		 * Association constraints.
+		 *
+		 * @return the association constraints context
+		 */
 		public AssociationConstraintsContext associationConstraints() {
 			return getRuleContext(AssociationConstraintsContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new association context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AssociationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_association; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterAssociation(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitAssociation(this);
 		}
 	}
 
+	/**
+	 * Association.
+	 *
+	 * @return the association context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AssociationContext association() throws RecognitionException {
 		AssociationContext _localctx = new AssociationContext(_ctx, getState());
 		enterRule(_localctx, 32, RULE_association);
@@ -1876,38 +3346,111 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class CalculatedAssociationContext.
+	 */
 	public static class CalculatedAssociationContext extends ParserRuleContext {
+		
+		/** The asc id. */
 		public IdentifierContext ascId;
+		
+		/**
+		 * Type assign rule.
+		 *
+		 * @return the type assign rule context
+		 */
 		public TypeAssignRuleContext typeAssignRule() {
 			return getRuleContext(TypeAssignRuleContext.class,0);
 		}
+		
+		/**
+		 * Statement.
+		 *
+		 * @return the statement context
+		 */
 		public StatementContext statement() {
 			return getRuleContext(StatementContext.class,0);
 		}
+		
+		/**
+		 * Semicolumn.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLUMN() { return getToken(CdsParser.SEMICOLUMN, 0); }
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier() {
 			return getRuleContext(IdentifierContext.class,0);
 		}
+		
+		/**
+		 * Element details.
+		 *
+		 * @return the list
+		 */
 		public List<ElementDetailsContext> elementDetails() {
 			return getRuleContexts(ElementDetailsContext.class);
 		}
+		
+		/**
+		 * Element details.
+		 *
+		 * @param i the i
+		 * @return the element details context
+		 */
 		public ElementDetailsContext elementDetails(int i) {
 			return getRuleContext(ElementDetailsContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new calculated association context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public CalculatedAssociationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_calculatedAssociation; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterCalculatedAssociation(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitCalculatedAssociation(this);
 		}
 	}
 
+	/**
+	 * Calculated association.
+	 *
+	 * @return the calculated association context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final CalculatedAssociationContext calculatedAssociation() throws RecognitionException {
 		CalculatedAssociationContext _localctx = new CalculatedAssociationContext(_ctx, getState());
 		enterRule(_localctx, 34, RULE_calculatedAssociation);
@@ -1954,21 +3497,55 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class StatementContext.
+	 */
 	public static class StatementContext extends ParserRuleContext {
+		
+		/**
+		 * Instantiates a new statement context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public StatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_statement; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterStatement(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitStatement(this);
 		}
 	}
 
+	/**
+	 * Statement.
+	 *
+	 * @return the statement context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final StatementContext statement() throws RecognitionException {
 		StatementContext _localctx = new StatementContext(_ctx, getState());
 		enterRule(_localctx, 36, RULE_statement);
@@ -2005,29 +3582,80 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AssociationTargetContext.
+	 */
 	public static class AssociationTargetContext extends ParserRuleContext {
+		
+		/** The identifier. */
 		public IdentifierContext identifier;
+		
+		/** The path sub members. */
 		public List<IdentifierContext> pathSubMembers = new ArrayList<IdentifierContext>();
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the list
+		 */
 		public List<IdentifierContext> identifier() {
 			return getRuleContexts(IdentifierContext.class);
 		}
+		
+		/**
+		 * Identifier.
+		 *
+		 * @param i the i
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier(int i) {
 			return getRuleContext(IdentifierContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new association target context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AssociationTargetContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_associationTarget; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterAssociationTarget(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitAssociationTarget(this);
 		}
 	}
 
+	/**
+	 * Association target.
+	 *
+	 * @return the association target context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AssociationTargetContext associationTarget() throws RecognitionException {
 		AssociationTargetContext _localctx = new AssociationTargetContext(_ctx, getState());
 		enterRule(_localctx, 38, RULE_associationTarget);
@@ -2068,31 +3696,90 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class UnmanagedForeignKeyContext.
+	 */
 	public static class UnmanagedForeignKeyContext extends ParserRuleContext {
+		
+		/** The identifier. */
 		public IdentifierContext identifier;
+		
+		/** The path sub members. */
 		public List<IdentifierContext> pathSubMembers = new ArrayList<IdentifierContext>();
+		
+		/** The source. */
 		public IdentifierContext source;
+		
+		/**
+		 * On.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode ON() { return getToken(CdsParser.ON, 0); }
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the list
+		 */
 		public List<IdentifierContext> identifier() {
 			return getRuleContexts(IdentifierContext.class);
 		}
+		
+		/**
+		 * Identifier.
+		 *
+		 * @param i the i
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier(int i) {
 			return getRuleContext(IdentifierContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new unmanaged foreign key context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public UnmanagedForeignKeyContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_unmanagedForeignKey; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterUnmanagedForeignKey(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitUnmanagedForeignKey(this);
 		}
 	}
 
+	/**
+	 * Unmanaged foreign key.
+	 *
+	 * @return the unmanaged foreign key context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final UnmanagedForeignKeyContext unmanagedForeignKey() throws RecognitionException {
 		UnmanagedForeignKeyContext _localctx = new UnmanagedForeignKeyContext(_ctx, getState());
 		enterRule(_localctx, 40, RULE_unmanagedForeignKey);
@@ -2139,27 +3826,74 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ManagedForeignKeysContext.
+	 */
 	public static class ManagedForeignKeysContext extends ParserRuleContext {
+		
+		/**
+		 * Foreign key.
+		 *
+		 * @return the list
+		 */
 		public List<ForeignKeyContext> foreignKey() {
 			return getRuleContexts(ForeignKeyContext.class);
 		}
+		
+		/**
+		 * Foreign key.
+		 *
+		 * @param i the i
+		 * @return the foreign key context
+		 */
 		public ForeignKeyContext foreignKey(int i) {
 			return getRuleContext(ForeignKeyContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new managed foreign keys context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ManagedForeignKeysContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_managedForeignKeys; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterManagedForeignKeys(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitManagedForeignKeys(this);
 		}
 	}
 
+	/**
+	 * Managed foreign keys.
+	 *
+	 * @return the managed foreign keys context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ManagedForeignKeysContext managedForeignKeys() throws RecognitionException {
 		ManagedForeignKeysContext _localctx = new ManagedForeignKeysContext(_ctx, getState());
 		enterRule(_localctx, 42, RULE_managedForeignKeys);
@@ -2202,31 +3936,90 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ForeignKeyContext.
+	 */
 	public static class ForeignKeyContext extends ParserRuleContext {
+		
+		/** The identifier. */
 		public IdentifierContext identifier;
+		
+		/** The path sub members. */
 		public List<IdentifierContext> pathSubMembers = new ArrayList<IdentifierContext>();
+		
+		/** The alias. */
 		public IdentifierContext alias;
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the list
+		 */
 		public List<IdentifierContext> identifier() {
 			return getRuleContexts(IdentifierContext.class);
 		}
+		
+		/**
+		 * Identifier.
+		 *
+		 * @param i the i
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier(int i) {
 			return getRuleContext(IdentifierContext.class,i);
 		}
+		
+		/**
+		 * As.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode AS() { return getToken(CdsParser.AS, 0); }
+		
+		/**
+		 * Instantiates a new foreign key context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ForeignKeyContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_foreignKey; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterForeignKey(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitForeignKey(this);
 		}
 	}
 
+	/**
+	 * Foreign key.
+	 *
+	 * @return the foreign key context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ForeignKeyContext foreignKey() throws RecognitionException {
 		ForeignKeyContext _localctx = new ForeignKeyContext(_ctx, getState());
 		enterRule(_localctx, 44, RULE_foreignKey);
@@ -2279,58 +4072,181 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class CardinalityContext.
+	 */
 	public static class CardinalityContext extends ParserRuleContext {
+		
+		/**
+		 * Instantiates a new cardinality context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public CardinalityContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_cardinality; }
 	 
+		/**
+		 * Instantiates a new cardinality context.
+		 */
 		public CardinalityContext() { }
+		
+		/**
+		 * Copy from.
+		 *
+		 * @param ctx the ctx
+		 */
 		public void copyFrom(CardinalityContext ctx) {
 			super.copyFrom(ctx);
 		}
 	}
+	
+	/**
+	 * The Class NoCardinalityContext.
+	 */
 	public static class NoCardinalityContext extends CardinalityContext {
+		
+		/**
+		 * Instantiates a new no cardinality context.
+		 *
+		 * @param ctx the ctx
+		 */
 		public NoCardinalityContext(CardinalityContext ctx) { copyFrom(ctx); }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterNoCardinality(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitNoCardinality(this);
 		}
 	}
+	
+	/**
+	 * The Class MaxCardinalityContext.
+	 */
 	public static class MaxCardinalityContext extends CardinalityContext {
+		
+		/** The max. */
 		public Token max;
+		
+		/** The many. */
 		public Token many;
+		
+		/**
+		 * Integer.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode INTEGER() { return getToken(CdsParser.INTEGER, 0); }
+		
+		/**
+		 * Instantiates a new max cardinality context.
+		 *
+		 * @param ctx the ctx
+		 */
 		public MaxCardinalityContext(CardinalityContext ctx) { copyFrom(ctx); }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterMaxCardinality(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitMaxCardinality(this);
 		}
 	}
+	
+	/**
+	 * The Class MinMaxCardinalityContext.
+	 */
 	public static class MinMaxCardinalityContext extends CardinalityContext {
+		
+		/** The max. */
 		public Token max;
+		
+		/** The many. */
 		public Token many;
+		
+		/**
+		 * Association min.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode ASSOCIATION_MIN() { return getToken(CdsParser.ASSOCIATION_MIN, 0); }
+		
+		/**
+		 * Integer.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode INTEGER() { return getToken(CdsParser.INTEGER, 0); }
+		
+		/**
+		 * Instantiates a new min max cardinality context.
+		 *
+		 * @param ctx the ctx
+		 */
 		public MinMaxCardinalityContext(CardinalityContext ctx) { copyFrom(ctx); }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterMinMaxCardinality(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitMinMaxCardinality(this);
 		}
 	}
 
+	/**
+	 * Cardinality.
+	 *
+	 * @return the cardinality context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final CardinalityContext cardinality() throws RecognitionException {
 		CardinalityContext _localctx = new CardinalityContext(_ctx, getState());
 		enterRule(_localctx, 46, RULE_cardinality);
@@ -2419,34 +4335,142 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class DefaultValueContext.
+	 */
 	public static class DefaultValueContext extends ParserRuleContext {
+		
+		/** The value. */
 		public Token value;
+		
+		/**
+		 * Default.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode DEFAULT() { return getToken(CdsParser.DEFAULT, 0); }
+		
+		/**
+		 * String.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING() { return getToken(CdsParser.STRING, 0); }
+		
+		/**
+		 * Integer.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode INTEGER() { return getToken(CdsParser.INTEGER, 0); }
+		
+		/**
+		 * Decimal.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode DECIMAL() { return getToken(CdsParser.DECIMAL, 0); }
+		
+		/**
+		 * Boolean.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode BOOLEAN() { return getToken(CdsParser.BOOLEAN, 0); }
+		
+		/**
+		 * Local time.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode LOCAL_TIME() { return getToken(CdsParser.LOCAL_TIME, 0); }
+		
+		/**
+		 * Local date.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode LOCAL_DATE() { return getToken(CdsParser.LOCAL_DATE, 0); }
+		
+		/**
+		 * Utc date time.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode UTC_DATE_TIME() { return getToken(CdsParser.UTC_DATE_TIME, 0); }
+		
+		/**
+		 * Utc timestamp.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode UTC_TIMESTAMP() { return getToken(CdsParser.UTC_TIMESTAMP, 0); }
+		
+		/**
+		 * Varbinary.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode VARBINARY() { return getToken(CdsParser.VARBINARY, 0); }
+		
+		/**
+		 * Datetime value function.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode DATETIME_VALUE_FUNCTION() { return getToken(CdsParser.DATETIME_VALUE_FUNCTION, 0); }
+		
+		/**
+		 * Null.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode NULL() { return getToken(CdsParser.NULL, 0); }
+		
+		/**
+		 * Instantiates a new default value context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public DefaultValueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_defaultValue; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterDefaultValue(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitDefaultValue(this);
 		}
 	}
 
+	/**
+	 * Default value.
+	 *
+	 * @return the default value context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final DefaultValueContext defaultValue() throws RecognitionException {
 		DefaultValueContext _localctx = new DefaultValueContext(_ctx, getState());
 		enterRule(_localctx, 48, RULE_defaultValue);
@@ -2480,71 +4504,209 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AnnotationRuleContext.
+	 */
 	public static class AnnotationRuleContext extends ParserRuleContext {
+		
+		/**
+		 * Instantiates a new annotation rule context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AnnotationRuleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_annotationRule; }
 	 
+		/**
+		 * Instantiates a new annotation rule context.
+		 */
 		public AnnotationRuleContext() { }
+		
+		/**
+		 * Copy from.
+		 *
+		 * @param ctx the ctx
+		 */
 		public void copyFrom(AnnotationRuleContext ctx) {
 			super.copyFrom(ctx);
 		}
 	}
+	
+	/**
+	 * The Class AnnPropertyRuleContext.
+	 */
 	public static class AnnPropertyRuleContext extends AnnotationRuleContext {
+		
+		/** The ann id. */
 		public IdentifierContext annId;
+		
+		/** The prop. */
 		public IdentifierContext prop;
+		
+		/**
+		 * Ann value.
+		 *
+		 * @return the ann value context
+		 */
 		public AnnValueContext annValue() {
 			return getRuleContext(AnnValueContext.class,0);
 		}
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the list
+		 */
 		public List<IdentifierContext> identifier() {
 			return getRuleContexts(IdentifierContext.class);
 		}
+		
+		/**
+		 * Identifier.
+		 *
+		 * @param i the i
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier(int i) {
 			return getRuleContext(IdentifierContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new ann property rule context.
+		 *
+		 * @param ctx the ctx
+		 */
 		public AnnPropertyRuleContext(AnnotationRuleContext ctx) { copyFrom(ctx); }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterAnnPropertyRule(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitAnnPropertyRule(this);
 		}
 	}
+	
+	/**
+	 * The Class AnnObjectRuleContext.
+	 */
 	public static class AnnObjectRuleContext extends AnnotationRuleContext {
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier() {
 			return getRuleContext(IdentifierContext.class,0);
 		}
+		
+		/**
+		 * Ann value.
+		 *
+		 * @return the ann value context
+		 */
 		public AnnValueContext annValue() {
 			return getRuleContext(AnnValueContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new ann object rule context.
+		 *
+		 * @param ctx the ctx
+		 */
 		public AnnObjectRuleContext(AnnotationRuleContext ctx) { copyFrom(ctx); }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterAnnObjectRule(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitAnnObjectRule(this);
 		}
 	}
+	
+	/**
+	 * The Class AnnMarkerRuleContext.
+	 */
 	public static class AnnMarkerRuleContext extends AnnotationRuleContext {
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier() {
 			return getRuleContext(IdentifierContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new ann marker rule context.
+		 *
+		 * @param ctx the ctx
+		 */
 		public AnnMarkerRuleContext(AnnotationRuleContext ctx) { copyFrom(ctx); }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterAnnMarkerRule(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitAnnMarkerRule(this);
 		}
 	}
 
+	/**
+	 * Annotation rule.
+	 *
+	 * @return the annotation rule context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AnnotationRuleContext annotationRule() throws RecognitionException {
 		AnnotationRuleContext _localctx = new AnnotationRuleContext(_ctx, getState());
 		enterRule(_localctx, 50, RULE_annotationRule);
@@ -2620,33 +4782,99 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AnnValueContext.
+	 */
 	public static class AnnValueContext extends ParserRuleContext {
+		
+		/** The literal. */
 		public Token literal;
+		
+		/**
+		 * Arr rule.
+		 *
+		 * @return the arr rule context
+		 */
 		public ArrRuleContext arrRule() {
 			return getRuleContext(ArrRuleContext.class,0);
 		}
+		
+		/**
+		 * Enum rule.
+		 *
+		 * @return the enum rule context
+		 */
 		public EnumRuleContext enumRule() {
 			return getRuleContext(EnumRuleContext.class,0);
 		}
+		
+		/**
+		 * Obj.
+		 *
+		 * @return the obj context
+		 */
 		public ObjContext obj() {
 			return getRuleContext(ObjContext.class,0);
 		}
+		
+		/**
+		 * String.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING() { return getToken(CdsParser.STRING, 0); }
+		
+		/**
+		 * Boolean.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode BOOLEAN() { return getToken(CdsParser.BOOLEAN, 0); }
+		
+		/**
+		 * Instantiates a new ann value context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AnnValueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_annValue; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterAnnValue(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitAnnValue(this);
 		}
 	}
 
+	/**
+	 * Ann value.
+	 *
+	 * @return the ann value context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AnnValueContext annValue() throws RecognitionException {
 		AnnValueContext _localctx = new AnnValueContext(_ctx, getState());
 		enterRule(_localctx, 52, RULE_annValue);
@@ -2708,24 +4936,64 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class EnumRuleContext.
+	 */
 	public static class EnumRuleContext extends ParserRuleContext {
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier() {
 			return getRuleContext(IdentifierContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new enum rule context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public EnumRuleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_enumRule; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterEnumRule(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitEnumRule(this);
 		}
 	}
 
+	/**
+	 * Enum rule.
+	 *
+	 * @return the enum rule context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final EnumRuleContext enumRule() throws RecognitionException {
 		EnumRuleContext _localctx = new EnumRuleContext(_ctx, getState());
 		enterRule(_localctx, 54, RULE_enumRule);
@@ -2749,27 +5017,74 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ArrRuleContext.
+	 */
 	public static class ArrRuleContext extends ParserRuleContext {
+		
+		/**
+		 * Ann value.
+		 *
+		 * @return the list
+		 */
 		public List<AnnValueContext> annValue() {
 			return getRuleContexts(AnnValueContext.class);
 		}
+		
+		/**
+		 * Ann value.
+		 *
+		 * @param i the i
+		 * @return the ann value context
+		 */
 		public AnnValueContext annValue(int i) {
 			return getRuleContext(AnnValueContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new arr rule context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ArrRuleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_arrRule; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterArrRule(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitArrRule(this);
 		}
 	}
 
+	/**
+	 * Arr rule.
+	 *
+	 * @return the arr rule context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ArrRuleContext arrRule() throws RecognitionException {
 		ArrRuleContext _localctx = new ArrRuleContext(_ctx, getState());
 		enterRule(_localctx, 56, RULE_arrRule);
@@ -2812,27 +5127,74 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ObjContext.
+	 */
 	public static class ObjContext extends ParserRuleContext {
+		
+		/**
+		 * Key value.
+		 *
+		 * @return the list
+		 */
 		public List<KeyValueContext> keyValue() {
 			return getRuleContexts(KeyValueContext.class);
 		}
+		
+		/**
+		 * Key value.
+		 *
+		 * @param i the i
+		 * @return the key value context
+		 */
 		public KeyValueContext keyValue(int i) {
 			return getRuleContext(KeyValueContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new obj context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ObjContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_obj; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterObj(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitObj(this);
 		}
 	}
 
+	/**
+	 * Obj.
+	 *
+	 * @return the obj context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ObjContext obj() throws RecognitionException {
 		ObjContext _localctx = new ObjContext(_ctx, getState());
 		enterRule(_localctx, 58, RULE_obj);
@@ -2875,27 +5237,73 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class KeyValueContext.
+	 */
 	public static class KeyValueContext extends ParserRuleContext {
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier() {
 			return getRuleContext(IdentifierContext.class,0);
 		}
+		
+		/**
+		 * Ann value.
+		 *
+		 * @return the ann value context
+		 */
 		public AnnValueContext annValue() {
 			return getRuleContext(AnnValueContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new key value context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public KeyValueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_keyValue; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterKeyValue(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitKeyValue(this);
 		}
 	}
 
+	/**
+	 * Key value.
+	 *
+	 * @return the key value context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final KeyValueContext keyValue() throws RecognitionException {
 		KeyValueContext _localctx = new KeyValueContext(_ctx, getState());
 		enterRule(_localctx, 60, RULE_keyValue);
@@ -2921,54 +5329,185 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class SelectRuleContext.
+	 */
 	public static class SelectRuleContext extends ParserRuleContext {
+		
+		/** The is union. */
 		public Token isUnion;
+		
+		/** The identifier. */
 		public IdentifierContext identifier;
+		
+		/** The depends on table. */
 		public List<IdentifierContext> dependsOnTable = new ArrayList<IdentifierContext>();
+		
+		/** The depending table alias. */
 		public IdentifierContext dependingTableAlias;
+		
+		/** The is distinct. */
 		public Token isDistinct;
+		
+		/**
+		 * Select.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SELECT() { return getToken(CdsParser.SELECT, 0); }
+		
+		/**
+		 * From.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode FROM() { return getToken(CdsParser.FROM, 0); }
+		
+		/**
+		 * Selected columns rule.
+		 *
+		 * @return the selected columns rule context
+		 */
 		public SelectedColumnsRuleContext selectedColumnsRule() {
 			return getRuleContext(SelectedColumnsRuleContext.class,0);
 		}
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the list
+		 */
 		public List<IdentifierContext> identifier() {
 			return getRuleContexts(IdentifierContext.class);
 		}
+		
+		/**
+		 * Identifier.
+		 *
+		 * @param i the i
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier(int i) {
 			return getRuleContext(IdentifierContext.class,i);
 		}
+		
+		/**
+		 * Join rule.
+		 *
+		 * @return the list
+		 */
 		public List<JoinRuleContext> joinRule() {
 			return getRuleContexts(JoinRuleContext.class);
 		}
+		
+		/**
+		 * Join rule.
+		 *
+		 * @param i the i
+		 * @return the join rule context
+		 */
 		public JoinRuleContext joinRule(int i) {
 			return getRuleContext(JoinRuleContext.class,i);
 		}
+		
+		/**
+		 * Semicolumn.
+		 *
+		 * @return the list
+		 */
 		public List<TerminalNode> SEMICOLUMN() { return getTokens(CdsParser.SEMICOLUMN); }
+		
+		/**
+		 * Semicolumn.
+		 *
+		 * @param i the i
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLUMN(int i) {
 			return getToken(CdsParser.SEMICOLUMN, i);
 		}
+		
+		/**
+		 * Where.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode WHERE() { return getToken(CdsParser.WHERE, 0); }
+		
+		/**
+		 * Where rule.
+		 *
+		 * @return the where rule context
+		 */
 		public WhereRuleContext whereRule() {
 			return getRuleContext(WhereRuleContext.class,0);
 		}
+		
+		/**
+		 * Union.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode UNION() { return getToken(CdsParser.UNION, 0); }
+		
+		/**
+		 * Distinct.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode DISTINCT() { return getToken(CdsParser.DISTINCT, 0); }
+		
+		/**
+		 * As.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode AS() { return getToken(CdsParser.AS, 0); }
+		
+		/**
+		 * Instantiates a new select rule context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public SelectRuleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_selectRule; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterSelectRule(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitSelectRule(this);
 		}
 	}
 
+	/**
+	 * Select rule.
+	 *
+	 * @return the select rule context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final SelectRuleContext selectRule() throws RecognitionException {
 		SelectRuleContext _localctx = new SelectRuleContext(_ctx, getState());
 		enterRule(_localctx, 62, RULE_selectRule);
@@ -3105,35 +5644,106 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class JoinRuleContext.
+	 */
 	public static class JoinRuleContext extends ParserRuleContext {
+		
+		/** The join type. */
 		public Token joinType;
+		
+		/** The join artifact name. */
 		public IdentifierContext joinArtifactName;
+		
+		/** The join table alias. */
 		public IdentifierContext joinTableAlias;
+		
+		/**
+		 * Join fields.
+		 *
+		 * @return the join fields context
+		 */
 		public JoinFieldsContext joinFields() {
 			return getRuleContext(JoinFieldsContext.class,0);
 		}
+		
+		/**
+		 * Join types.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode JOIN_TYPES() { return getToken(CdsParser.JOIN_TYPES, 0); }
+		
+		/**
+		 * Identifier.
+		 *
+		 * @return the list
+		 */
 		public List<IdentifierContext> identifier() {
 			return getRuleContexts(IdentifierContext.class);
 		}
+		
+		/**
+		 * Identifier.
+		 *
+		 * @param i the i
+		 * @return the identifier context
+		 */
 		public IdentifierContext identifier(int i) {
 			return getRuleContext(IdentifierContext.class,i);
 		}
+		
+		/**
+		 * As.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode AS() { return getToken(CdsParser.AS, 0); }
+		
+		/**
+		 * Instantiates a new join rule context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public JoinRuleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_joinRule; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterJoinRule(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitJoinRule(this);
 		}
 	}
 
+	/**
+	 * Join rule.
+	 *
+	 * @return the join rule context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final JoinRuleContext joinRule() throws RecognitionException {
 		JoinRuleContext _localctx = new JoinRuleContext(_ctx, getState());
 		enterRule(_localctx, 64, RULE_joinRule);
@@ -3179,21 +5789,55 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class JoinFieldsContext.
+	 */
 	public static class JoinFieldsContext extends ParserRuleContext {
+		
+		/**
+		 * Instantiates a new join fields context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public JoinFieldsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_joinFields; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterJoinFields(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitJoinFields(this);
 		}
 	}
 
+	/**
+	 * Join fields.
+	 *
+	 * @return the join fields context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final JoinFieldsContext joinFields() throws RecognitionException {
 		JoinFieldsContext _localctx = new JoinFieldsContext(_ctx, getState());
 		enterRule(_localctx, 66, RULE_joinFields);
@@ -3230,21 +5874,55 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class SelectedColumnsRuleContext.
+	 */
 	public static class SelectedColumnsRuleContext extends ParserRuleContext {
+		
+		/**
+		 * Instantiates a new selected columns rule context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public SelectedColumnsRuleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_selectedColumnsRule; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterSelectedColumnsRule(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitSelectedColumnsRule(this);
 		}
 	}
 
+	/**
+	 * Selected columns rule.
+	 *
+	 * @return the selected columns rule context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final SelectedColumnsRuleContext selectedColumnsRule() throws RecognitionException {
 		SelectedColumnsRuleContext _localctx = new SelectedColumnsRuleContext(_ctx, getState());
 		enterRule(_localctx, 68, RULE_selectedColumnsRule);
@@ -3281,21 +5959,55 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class WhereRuleContext.
+	 */
 	public static class WhereRuleContext extends ParserRuleContext {
+		
+		/**
+		 * Instantiates a new where rule context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public WhereRuleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_whereRule; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterWhereRule(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitWhereRule(this);
 		}
 	}
 
+	/**
+	 * Where rule.
+	 *
+	 * @return the where rule context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final WhereRuleContext whereRule() throws RecognitionException {
 		WhereRuleContext _localctx = new WhereRuleContext(_ctx, getState());
 		enterRule(_localctx, 70, RULE_whereRule);
@@ -3332,42 +6044,202 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class IdentifierContext.
+	 */
 	public static class IdentifierContext extends ParserRuleContext {
+		
+		/**
+		 * Id.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode ID() { return getToken(CdsParser.ID, 0); }
+		
+		/**
+		 * String.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING() { return getToken(CdsParser.STRING, 0); }
+		
+		/**
+		 * Namespace.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode NAMESPACE() { return getToken(CdsParser.NAMESPACE, 0); }
+		
+		/**
+		 * Hana.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode HANA() { return getToken(CdsParser.HANA, 0); }
+		
+		/**
+		 * As.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode AS() { return getToken(CdsParser.AS, 0); }
+		
+		/**
+		 * On.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode ON() { return getToken(CdsParser.ON, 0); }
+		
+		/**
+		 * Select.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SELECT() { return getToken(CdsParser.SELECT, 0); }
+		
+		/**
+		 * From.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode FROM() { return getToken(CdsParser.FROM, 0); }
+		
+		/**
+		 * Where.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode WHERE() { return getToken(CdsParser.WHERE, 0); }
+		
+		/**
+		 * Define.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode DEFINE() { return getToken(CdsParser.DEFINE, 0); }
+		
+		/**
+		 * Union.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode UNION() { return getToken(CdsParser.UNION, 0); }
+		
+		/**
+		 * Distinct.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode DISTINCT() { return getToken(CdsParser.DISTINCT, 0); }
+		
+		/**
+		 * Context.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode CONTEXT() { return getToken(CdsParser.CONTEXT, 0); }
+		
+		/**
+		 * Entity.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode ENTITY() { return getToken(CdsParser.ENTITY, 0); }
+		
+		/**
+		 * Type.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode TYPE() { return getToken(CdsParser.TYPE, 0); }
+		
+		/**
+		 * View.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode VIEW() { return getToken(CdsParser.VIEW, 0); }
+		
+		/**
+		 * Association.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode ASSOCIATION() { return getToken(CdsParser.ASSOCIATION, 0); }
+		
+		/**
+		 * To.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode TO() { return getToken(CdsParser.TO, 0); }
+		
+		/**
+		 * Join types.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode JOIN_TYPES() { return getToken(CdsParser.JOIN_TYPES, 0); }
+		
+		/**
+		 * Using.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode USING() { return getToken(CdsParser.USING, 0); }
+		
+		/**
+		 * Default.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode DEFAULT() { return getToken(CdsParser.DEFAULT, 0); }
+		
+		/**
+		 * Instantiates a new identifier context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public IdentifierContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_identifier; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).enterIdentifier(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CdsListener ) ((CdsListener)listener).exitIdentifier(this);
 		}
 	}
 
+	/**
+	 * Identifier.
+	 *
+	 * @return the identifier context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final IdentifierContext identifier() throws RecognitionException {
 		IdentifierContext _localctx = new IdentifierContext(_ctx, getState());
 		enterRule(_localctx, 72, RULE_identifier);
@@ -3398,6 +6270,7 @@ public class CdsParser extends Parser {
 		return _localctx;
 	}
 
+	/** The Constant _serializedATN. */
 	public static final String _serializedATN =
 		"\u0004\u0001Z\u0228\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
@@ -3766,6 +6639,8 @@ public class CdsParser extends Parser {
 		"\u015e\u0168\u0170\u0179\u0185\u018f\u0194\u019a\u01a0\u01a5\u01b5\u01bd"+
 		"\u01c3\u01ce\u01d9\u01e3\u01ec\u01f2\u01f7\u01fb\u0201\u0206\u0208\u020f"+
 		"\u0216\u021c\u0222";
+	
+	/** The Constant _ATN. */
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

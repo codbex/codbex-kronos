@@ -41,9 +41,9 @@ import com.codbex.kronos.ndb.datamodeltype.Order;
  * assigned to a Manager
  *
  *
- * <p>Java class for ParentChildHierarchy complex type.
+ * Java class for ParentChildHierarchy complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ParentChildHierarchy"&gt;
@@ -70,31 +70,40 @@ import com.codbex.kronos.ndb.datamodeltype.Order;
 public class ParentChildHierarchy
     extends InlineHierarchy {
 
+  /** The parent definition. */
   @XmlElement(required = true)
   protected List<ParentDefinition> parentDefinition;
+  
+  /** The sibling order. */
   protected List<Order> siblingOrder;
+  
+  /** The time properties. */
   protected HierarchyTimeProperties timeProperties;
+  
+  /** The edge attribute. */
   protected List<EdgeAttribute> edgeAttribute;
 
   /**
    * Gets the value of the parentDefinition property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the parentDefinition property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getParentDefinition().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link ParentDefinition }
+   *
+   * @return the parent definition
    */
   public List<ParentDefinition> getParentDefinition() {
     if (parentDefinition == null) {
@@ -105,23 +114,25 @@ public class ParentChildHierarchy
 
   /**
    * Gets the value of the siblingOrder property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the siblingOrder property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getSiblingOrder().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link Order }
+   *
+   * @return the sibling order
    */
   public List<Order> getSiblingOrder() {
     if (siblingOrder == null) {
@@ -152,23 +163,25 @@ public class ParentChildHierarchy
 
   /**
    * Gets the value of the edgeAttribute property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the edgeAttribute property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getEdgeAttribute().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link EdgeAttribute }
+   *
+   * @return the edge attribute
    */
   public List<EdgeAttribute> getEdgeAttribute() {
     if (edgeAttribute == null) {

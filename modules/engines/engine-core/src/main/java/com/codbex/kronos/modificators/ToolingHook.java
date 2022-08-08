@@ -11,6 +11,9 @@
  */
 package com.codbex.kronos.modificators;
 
+/**
+ * The Interface ToolingHook.
+ */
 public @interface ToolingHook {
 
 }

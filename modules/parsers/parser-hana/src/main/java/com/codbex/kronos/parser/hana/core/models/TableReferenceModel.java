@@ -12,26 +12,55 @@
 package com.codbex.kronos.parser.hana.core.models;
 
 
+/**
+ * The Class TableReferenceModel.
+ */
 public class TableReferenceModel {
 
+  /** The name. */
   private String name;
+  
+  /** The alias. */
   private String alias;
 
+  /**
+   * Instantiates a new table reference model.
+   */
   public TableReferenceModel() {
   }
 
+  /**
+   * Gets the name.
+   *
+   * @return the name
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Sets the name.
+   *
+   * @param name the new name
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * Gets the alias.
+   *
+   * @return the alias
+   */
   public String getAlias() {
     return alias;
   }
 
+  /**
+   * Sets the alias.
+   *
+   * @param alias the new alias
+   */
   public void setAlias(String alias) {
     this.alias = alias;
   }

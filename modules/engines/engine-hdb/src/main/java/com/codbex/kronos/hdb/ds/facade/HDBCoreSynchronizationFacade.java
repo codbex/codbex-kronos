@@ -70,14 +70,30 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class HDBCoreSynchronizationFacade.
+ */
 public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFacade {
 
+    /** The Constant logger. */
     private static final Logger logger = LoggerFactory.getLogger(HDBCoreSynchronizationFacade.class);
+    
+    /** The Constant DATA_STRUCTURES_SYNCHRONIZER. */
     private static final DataStructuresSynchronizer DATA_STRUCTURES_SYNCHRONIZER = new DataStructuresSynchronizer();
+    
+    /** The data source. */
     private final DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
+    
+    /** The manager services. */
     private final Map<String, IDataStructureManager> managerServices = HDBModule.getManagerServices();
+    
+    /** The parser services. */
     private final Map<String, DataStructureParser> parserServices = HDBModule.getParserServices();
+    
+    /** The parser types. */
     private final Map<String, String> parserTypes = HDBModule.getParserTypes();
+    
+    /** The core parser service. */
     private final ICoreParserService coreParserService = new CoreParserService();
 
     /**
@@ -94,6 +110,16 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
         return buff.toString();
     }
 
+    /**
+     * Parses the data structure model.
+     *
+     * @param fileName the file name
+     * @param path the path
+     * @param content the content
+     * @param workspace the workspace
+     * @return the data structure model
+     * @throws SynchronizationException the synchronization exception
+     */
     public DataStructureModel parseDataStructureModel(String fileName, String path, String content, String workspace) throws SynchronizationException {
         String[] splitResourceName = fileName.split("\\.");
         String resourceExtension = "." + splitResourceName[splitResourceName.length - 1];
@@ -119,10 +145,24 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
         return dataStructureModel;
     }
 
+    /**
+     * Parses the data structure model.
+     *
+     * @param resource the resource
+     * @return the data structure model
+     * @throws SynchronizationException the synchronization exception
+     */
     public DataStructureModel parseDataStructureModel(IResource resource) throws SynchronizationException {
         return this.parseDataStructureModel(resource.getName(), getRegistryPath(resource), getContent(resource), CommonsConstants.REGISTRY_PUBLIC);
     }
 
+    /**
+     * Handle resource synchronization.
+     *
+     * @param resource the resource
+     * @throws SynchronizationException the synchronization exception
+     * @throws DataStructuresException the data structures exception
+     */
     @Override
     public void handleResourceSynchronization(IResource resource) throws SynchronizationException, DataStructuresException {
         DataStructureModel dataStructureModel = parseDataStructureModel(resource);
@@ -131,11 +171,21 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
         }
     }
 
+    /**
+     * Handle resource synchronization.
+     *
+     * @param fileExtension the file extension
+     * @param dataStructureModel the data structure model
+     * @throws DataStructuresException the data structures exception
+     */
     @Override
     public void handleResourceSynchronization(String fileExtension, DataStructureModel dataStructureModel) throws DataStructuresException {
         managerServices.get(dataStructureModel.getType()).synchronizeRuntimeMetadata(dataStructureModel);
     }
 
+    /**
+     * Update entities.
+     */
     @Override
     public void updateEntities() {
         List<String> errors = new ArrayList<>();
@@ -173,6 +223,13 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
         }
     }
 
+    /**
+     * Construct list of cds model wrappers.
+     *
+     * @param connection the connection
+     * @param wrappers the wrappers
+     * @return the list
+     */
     @NotNull
     private List<TopologyDataStructureModelWrapper> constructListOfCdsModelWrappers(Connection connection, Map<String, TopologyDataStructureModelWrapper> wrappers) {
         final Map<String, DataStructureModel> dataStructureCdsModels = managerServices.get(IDataStructureModel.TYPE_HDBDD).getDataStructureModels();
@@ -197,6 +254,13 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
         return listOfWrappers;
     }
 
+    /**
+     * Construct list of cds view wrappers.
+     *
+     * @param connection the connection
+     * @param wrappers the wrappers
+     * @return the list
+     */
     @NotNull
     private List<TopologyDataStructureModelWrapper> constructListOfCdsViewWrappers(Connection connection, Map<String, TopologyDataStructureModelWrapper> wrappers) {
       final Map<String, DataStructureModel> dataStructureCdsModels = managerServices.get(IDataStructureModel.TYPE_HDBDD).getDataStructureModels();
@@ -213,6 +277,12 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
       return listOfWrappers;
     }
 
+    /**
+     * Creates the artefacts on phase three.
+     *
+     * @param errors the errors
+     * @param listOfWrappersPhaseThree the list of wrappers phase three
+     */
     private void createArtefactsOnPhaseThree(List<String> errors, List<TopologyDataStructureModelWrapper> listOfWrappersPhaseThree) {
         TopologicalDepleter<TopologyDataStructureModelWrapper> depleter = new TopologicalDepleter<>();
         TopologicalSorter<TopologyDataStructureModelWrapper> sorter = new TopologicalSorter<>();
@@ -226,6 +296,13 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
         }
     }
 
+    /**
+     * Construct list of synonym model wrappers.
+     *
+     * @param connection the connection
+     * @param wrappersPhaseThree the wrappers phase three
+     * @return the list
+     */
     @NotNull
     private List<TopologyDataStructureModelWrapper> constructListOfSynonymModelWrappers(Connection connection, Map<String, TopologyDataStructureModelWrapper> wrappersPhaseThree) {
         final Map<String, DataStructureModel> dataStructureSynonymModels = managerServices.get(IDataStructureModel.TYPE_HDB_SYNONYM).getDataStructureModels();
@@ -240,6 +317,13 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
         return listOfWrappers;
     }
 
+    /**
+     * Construct list of scalar function model wrappers.
+     *
+     * @param connection the connection
+     * @param wrappers the wrappers
+     * @return the list
+     */
     @NotNull
     private List<TopologyDataStructureModelWrapper> constructListOfScalarFunctionModelWrappers(Connection connection, Map<String, TopologyDataStructureModelWrapper> wrappers) {
         final Map<String, DataStructureModel> dataStructureScalarFunctionsModels = managerServices.get(IDataStructureModel.TYPE_HDB_SCALAR_FUNCTION).getDataStructureModels();
@@ -254,6 +338,13 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
         return listOfWrappers;
     }
 
+    /**
+     * Construct list of table function model wrappers.
+     *
+     * @param connection the connection
+     * @param wrappers the wrappers
+     * @return the list
+     */
     @NotNull
     private List<TopologyDataStructureModelWrapper> constructListOfTableFunctionModelWrappers(Connection connection, Map<String, TopologyDataStructureModelWrapper> wrappers) {
         final Map<String, DataStructureModel> dataStructureTableFunctionsModels = managerServices.get(IDataStructureModel.TYPE_HDB_TABLE_FUNCTION).getDataStructureModels();
@@ -268,6 +359,13 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
         return listOfWrappers;
     }
 
+    /**
+     * Construct list of procedure model wrappers.
+     *
+     * @param connection the connection
+     * @param wrappers the wrappers
+     * @return the list
+     */
     @NotNull
     private List<TopologyDataStructureModelWrapper> constructListOfProcedureModelWrappers(Connection connection, Map<String, TopologyDataStructureModelWrapper> wrappers) {
         final Map<String, DataStructureModel> dataStructureProceduresModels = managerServices.get(IDataStructureModel.TYPE_HDB_PROCEDURE).getDataStructureModels();
@@ -282,6 +380,13 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
         return listOfWrappers;
     }
 
+    /**
+     * Construct list of view model wrappers.
+     *
+     * @param connection the connection
+     * @param wrappers the wrappers
+     * @return the list
+     */
     @NotNull
     private List<TopologyDataStructureModelWrapper> constructListOfViewModelWrappers(Connection connection, Map<String, TopologyDataStructureModelWrapper> wrappers) {
         final Map<String, DataStructureModel> dataStructureViewsModels = managerServices.get(IDataStructureModel.TYPE_HDB_VIEW).getDataStructureModels();
@@ -296,6 +401,12 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
         return listOfWrappers;
     }
 
+    /**
+     * Creates the artefacts on phase two.
+     *
+     * @param errors the errors
+     * @param listOfWrappers the list of wrappers
+     */
     private void createArtefactsOnPhaseTwo(List<String> errors, List<TopologyDataStructureModelWrapper> listOfWrappers) {
         TopologicalDepleter<TopologyDataStructureModelWrapper> depleter = new TopologicalDepleter<>();
         TopologicalSorter<TopologyDataStructureModelWrapper> sorter = new TopologicalSorter<>();
@@ -310,6 +421,13 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
         }
     }
 
+    /**
+     * Construct list of table types model wrappers.
+     *
+     * @param connection the connection
+     * @param wrappers the wrappers
+     * @return the list
+     */
     private List<TopologyDataStructureModelWrapper> constructListOfTableTypesModelWrappers(Connection connection, Map<String, TopologyDataStructureModelWrapper> wrappers) {
         final Map<String, DataStructureModel> dataStructureTableTypesModels = managerServices.get(IDataStructureModel.TYPE_HDB_TABLE_TYPE).getDataStructureModels();
         final List<TopologyDataStructureModelWrapper> listOfWrappers = new ArrayList<>();
@@ -324,6 +442,13 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
         return listOfWrappers;
     }
 
+    /**
+     * Construct list of sequence model wrapper.
+     *
+     * @param connection the connection
+     * @param wrappers the wrappers
+     * @return the list
+     */
     private List<TopologyDataStructureModelWrapper> constructListOfSequenceModelWrapper(Connection connection, Map<String, TopologyDataStructureModelWrapper> wrappers) {
         final Map<String, DataStructureModel> dataStructureSequencesModels = managerServices.get(IDataStructureModel.TYPE_HDB_SEQUENCE).getDataStructureModels();
         final List<TopologyDataStructureModelWrapper> listOfWrappers = new ArrayList<>();
@@ -338,6 +463,13 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
         return listOfWrappers;
     }
 
+    /**
+     * Construct list of table model wrappers.
+     *
+     * @param connection the connection
+     * @param wrappers the wrappers
+     * @return the list
+     */
     private List<TopologyDataStructureModelWrapper> constructListOfTableModelWrappers(Connection connection, Map<String, TopologyDataStructureModelWrapper> wrappers) {
         final Map<String, DataStructureModel> dataStructureTablesModels = managerServices.get(IDataStructureModel.TYPE_HDB_TABLE).getDataStructureModels();
         final List<TopologyDataStructureModelWrapper> listOfWrappers = new ArrayList<>();
@@ -352,6 +484,12 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
         return listOfWrappers;
     }
 
+    /**
+     * Creates the artefacts on phase one.
+     *
+     * @param errors the errors
+     * @param listSchemaWrappers the list schema wrappers
+     */
     private void createArtefactsOnPhaseOne(List<String> errors, List<TopologyDataStructureModelWrapper> listSchemaWrappers) {
         TopologicalDepleter<TopologyDataStructureModelWrapper> depleter = new TopologicalDepleter<>();
         TopologicalSorter<TopologyDataStructureModelWrapper> sorter = new TopologicalSorter<>();
@@ -366,6 +504,12 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
         }
     }
 
+    /**
+     * Construct list of schema model wrappers.
+     *
+     * @param connection the connection
+     * @return the list
+     */
     @NotNull
     private List<TopologyDataStructureModelWrapper> constructListOfSchemaModelWrappers(Connection connection) {
         Map<String, DataStructureModel> dataStructureSchemasModels = managerServices.get(IDataStructureModel.TYPE_HDB_SCHEMA).getDataStructureModels();
@@ -381,6 +525,11 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
         return listSchemaWrappers;
     }
 
+    /**
+     * Cleanup.
+     *
+     * @throws DataStructuresException the data structures exception
+     */
     @Override
     public void cleanup() throws DataStructuresException {
         for (IDataStructureManager dataStructureManager : managerServices.values()) {
@@ -390,16 +539,32 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
         logger.trace("Done cleaning up Kronos Data Structures.");
     }
 
+    /**
+     * Clear cache.
+     */
     @Override
     public void clearCache() {
         this.managerServices.values().forEach(IDataStructureManager::clearCache);
     }
 
+    /**
+     * Gets the registry path.
+     *
+     * @param resource the resource
+     * @return the registry path
+     */
     private String getRegistryPath(IResource resource) {
         String resourcePath = resource.getPath();
         return resourcePath.startsWith("/registry/public") ? resourcePath.substring("/registry/public".length()) : resourcePath;
     }
 
+    /**
+     * Gets the content.
+     *
+     * @param resource the resource
+     * @return the content
+     * @throws SynchronizationException the synchronization exception
+     */
     private String getContent(IResource resource) throws SynchronizationException {
         byte[] content = resource.getContent();
         String contentAsString;
@@ -411,10 +576,30 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
         return contentAsString;
     }
 
+    /**
+     * Gets the type.
+     *
+     * @param resourceExtension the resource extension
+     * @return the type
+     */
     private String getType(String resourceExtension) {
         return parserTypes.get(resourceExtension);
     }
 
+    /**
+     * Checks if is parsed.
+     *
+     * @param location the location
+     * @param content the content
+     * @param resourceExtension the resource extension
+     * @return true, if is parsed
+     * @throws DataStructuresException the data structures exception
+     * @throws ClassNotFoundException the class not found exception
+     * @throws InstantiationException the instantiation exception
+     * @throws IllegalAccessException the illegal access exception
+     * @throws NoSuchMethodException the no such method exception
+     * @throws InvocationTargetException the invocation target exception
+     */
     private boolean isParsed(String location, String content, String resourceExtension)
         throws DataStructuresException, ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 
@@ -432,6 +617,14 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
         return managerServices.get(baseDataStructureModel.getType()).existsArtifactMetadata(baseDataStructureModel);
     }
 
+    /**
+     * Prints the errors.
+     *
+     * @param errors the errors
+     * @param results the results
+     * @param flow the flow
+     * @param state the state
+     */
     private void printErrors(List<String> errors, List<TopologyDataStructureModelWrapper> results, String flow, ISynchronizerArtefactType.ArtefactState state) {
         if (results.size() > 0) {
             for (TopologyDataStructureModelWrapper result : results) {
@@ -443,6 +636,15 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
         }
     }
 
+    /**
+     * Apply artefact state.
+     *
+     * @param artefactName the artefact name
+     * @param artefactLocation the artefact location
+     * @param type the type
+     * @param state the state
+     * @param message the message
+     */
     public void applyArtefactState(String artefactName, String artefactLocation, AbstractSynchronizationArtefactType type, ISynchronizerArtefactType.ArtefactState state, String message) {
         DATA_STRUCTURES_SYNCHRONIZER.applyArtefactState(artefactName, artefactLocation, type, state, message);
     }

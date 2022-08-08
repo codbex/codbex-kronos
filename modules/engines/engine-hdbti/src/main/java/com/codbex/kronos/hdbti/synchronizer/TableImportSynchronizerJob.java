@@ -14,10 +14,19 @@ package com.codbex.kronos.hdbti.synchronizer;
 import org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizerJob;
 import org.eclipse.dirigible.core.scheduler.api.ISynchronizer;
 
+/**
+ * The Class TableImportSynchronizerJob.
+ */
 public class TableImportSynchronizerJob extends AbstractSynchronizerJob {
 
+  /** The table import synchronizer. */
   private TableImportSynchronizer tableImportSynchronizer = new TableImportSynchronizer();
 
+  /**
+   * Gets the synchronizer.
+   *
+   * @return the synchronizer
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizerJob#getSynchronizer()
@@ -27,6 +36,11 @@ public class TableImportSynchronizerJob extends AbstractSynchronizerJob {
     return tableImportSynchronizer;
   }
 
+  /**
+   * Gets the name.
+   *
+   * @return the name
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizerJob#getName()

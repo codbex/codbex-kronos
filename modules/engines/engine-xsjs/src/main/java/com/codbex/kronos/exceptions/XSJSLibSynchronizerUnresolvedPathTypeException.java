@@ -11,7 +11,16 @@
  */
 package com.codbex.kronos.exceptions;
 
+/**
+ * The Class XSJSLibSynchronizerUnresolvedPathTypeException.
+ */
 public class XSJSLibSynchronizerUnresolvedPathTypeException extends RuntimeException {
+  
+  /**
+   * Instantiates a new XSJS lib synchronizer unresolved path type exception.
+   *
+   * @param message the message
+   */
   public XSJSLibSynchronizerUnresolvedPathTypeException(String message) {
     super(message);
   }

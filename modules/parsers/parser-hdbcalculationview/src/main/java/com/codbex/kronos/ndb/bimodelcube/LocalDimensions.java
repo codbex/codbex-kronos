@@ -32,9 +32,9 @@ import com.codbex.kronos.ndb.bimodeldimension.LocalDimension;
  * Local dimension of a measure group / information model
  *
  *
- * <p>Java class for LocalDimensions complex type.
+ * Java class for LocalDimensions complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="LocalDimensions"&gt;
@@ -54,27 +54,30 @@ import com.codbex.kronos.ndb.bimodeldimension.LocalDimension;
 })
 public class LocalDimensions {
 
+  /** The local dimension. */
   protected List<LocalDimension> localDimension;
 
   /**
    * Gets the value of the localDimension property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the localDimension property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getLocalDimension().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link LocalDimension }
+   *
+   * @return the local dimension
    */
   public List<LocalDimension> getLocalDimension() {
     if (localDimension == null) {

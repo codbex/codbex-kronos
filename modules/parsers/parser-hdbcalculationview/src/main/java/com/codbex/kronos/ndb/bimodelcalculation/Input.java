@@ -32,9 +32,9 @@ import com.codbex.kronos.ndb.basemodelbase.EmptyUnionBehavior;
 
 
 /**
- * <p>Java class for Input complex type.
+ * Java class for Input complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Input"&gt;
@@ -60,43 +60,58 @@ import com.codbex.kronos.ndb.basemodelbase.EmptyUnionBehavior;
 })
 public class Input {
 
+  /** The mapping. */
   protected List<AbstractAttributeMapping> mapping;
+  
+  /** The node. */
   @XmlAttribute(name = "node", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String node;
+  
+  /** The map all. */
   @XmlAttribute(name = "mapAll")
   protected Boolean mapAll;
+  
+  /** The empty union behavior. */
   @XmlAttribute(name = "emptyUnionBehavior")
   protected EmptyUnionBehavior emptyUnionBehavior;
+  
+  /** The output name. */
   @XmlAttribute(name = "outputName")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String outputName;
+  
+  /** The table parameter name. */
   @XmlAttribute(name = "tableParameterName")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String tableParameterName;
+  
+  /** The type. */
   @XmlAttribute(name = "type")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String type;
 
   /**
    * Gets the value of the mapping property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the mapping property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getMapping().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link AbstractAttributeMapping }
+   *
+   * @return the mapping
    */
   public List<AbstractAttributeMapping> getMapping() {
     if (mapping == null) {

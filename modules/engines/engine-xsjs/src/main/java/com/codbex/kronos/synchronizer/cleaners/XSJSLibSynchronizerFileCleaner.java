@@ -14,13 +14,28 @@ package com.codbex.kronos.synchronizer.cleaners;
 import org.eclipse.dirigible.repository.api.IRepository;
 import org.eclipse.dirigible.repository.api.IResource;
 
+/**
+ * The Class XSJSLibSynchronizerFileCleaner.
+ */
 public class XSJSLibSynchronizerFileCleaner implements XSJSLibSynchronizerCleaner {
+  
+  /** The repository. */
   private final IRepository repository;
 
+  /**
+   * Instantiates a new XSJS lib synchronizer file cleaner.
+   *
+   * @param repository the repository
+   */
   public XSJSLibSynchronizerFileCleaner(IRepository repository) {
     this.repository = repository;
   }
 
+  /**
+   * Cleanup.
+   *
+   * @param registryPath the registry path
+   */
   public void cleanup(String registryPath) {
 
     IResource resource = repository.getResource(registryPath + ".generated_exports");

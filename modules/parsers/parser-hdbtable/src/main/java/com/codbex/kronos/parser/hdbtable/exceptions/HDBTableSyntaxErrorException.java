@@ -11,8 +11,16 @@
  */
 package com.codbex.kronos.parser.hdbtable.exceptions;
 
+/**
+ * The Class HDBTableSyntaxErrorException.
+ */
 public class HDBTableSyntaxErrorException extends Exception {
 
+  /**
+   * Instantiates a new HDB table syntax error exception.
+   *
+   * @param message the message
+   */
   public HDBTableSyntaxErrorException(String message) {
     super(message);
   }

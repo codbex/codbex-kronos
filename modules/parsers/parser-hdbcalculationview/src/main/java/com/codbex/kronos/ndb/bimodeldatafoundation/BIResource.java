@@ -32,9 +32,9 @@ import com.codbex.kronos.ndb.repositorymodelresource.ResourceObject;
  * General base type for all BI resources
  *
  *
- * <p>Java class for BIResource complex type.
+ * Java class for BIResource complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="BIResource"&gt;

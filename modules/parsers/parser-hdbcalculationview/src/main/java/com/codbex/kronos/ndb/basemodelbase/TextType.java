@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for TextType.
+ * Java class for TextType.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="TextType"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -41,13 +41,27 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum TextType {
 
+  /** The xcol. */
   XCOL,
+  
+  /** The xtit. */
   XTIT;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the text type
+   */
   public static TextType fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

@@ -32,9 +32,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * Renaming might follow later.
  *
  *
- * <p>Java class for EdgeAttribute complex type.
+ * Java class for EdgeAttribute complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="EdgeAttribute"&gt;
@@ -50,6 +50,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "EdgeAttribute")
 public class EdgeAttribute {
 
+  /** The element. */
   @XmlAttribute(name = "element", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String element;

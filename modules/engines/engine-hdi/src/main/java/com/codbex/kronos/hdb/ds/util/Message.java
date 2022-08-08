@@ -15,23 +15,57 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * The Class Message.
+ */
 public class Message {
 
+    /** The request id. */
     public final long requestId;
+    
+    /** The row id. */
     public final long rowId;
+    
+    /** The level. */
     public final int level;
+    
+    /** The type. */
     public final String type;
+    
+    /** The library. */
     public final String library;
+    
+    /** The plugin id. */
     public final String pluginId;
+    
+    /** The path. */
     public final String path;
+    
+    /** The severity. */
     public final String severity;
+    
+    /** The message code. */
     public final long messageCode;
+    
+    /** The message. */
     public final String message;
+    
+    /** The location. */
     public final String location;
+    
+    /** The location path. */
     public final String locationPath;
+    
+    /** The timestamp UTC. */
     public final Timestamp timestampUTC;
 
 
+    /**
+     * Instantiates a new message.
+     *
+     * @param rs the rs
+     * @throws SQLException the SQL exception
+     */
     public Message(ResultSet rs) throws SQLException
     {
       this.requestId = rs.getLong(1);
@@ -49,6 +83,23 @@ public class Message {
       this.timestampUTC = rs.getTimestamp(13);
     }
 
+    /**
+     * Instantiates a new message.
+     *
+     * @param requestId the request id
+     * @param rowId the row id
+     * @param level the level
+     * @param type the type
+     * @param library the library
+     * @param pluginId the plugin id
+     * @param path the path
+     * @param severity the severity
+     * @param messageCode the message code
+     * @param message the message
+     * @param location the location
+     * @param locationPath the location path
+     * @param timestampUTC the timestamp UTC
+     */
     public Message(long requestId,
     long rowId,
     int level,
@@ -78,6 +129,11 @@ public class Message {
     this.timestampUTC = timestampUTC;
   }
 
+    /**
+     * To string.
+     *
+     * @return the string
+     */
     @Override
     public String toString()
     {

@@ -34,9 +34,9 @@ import com.codbex.kronos.ndb.repositorymodelresource.IDObject;
  * If not there the modeler UI will do an auto arrange of the various shapes.
  *
  *
- * <p>Java class for Layout complex type.
+ * Java class for Layout complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Layout"&gt;
@@ -62,9 +62,16 @@ import com.codbex.kronos.ndb.repositorymodelresource.IDObject;
 public class Layout
     extends IDObject {
 
+  /** The size. */
   protected RectangleSize size;
+  
+  /** The view pane upper left coordinates. */
   protected Coordinates viewPaneUpperLeftCoordinates;
+  
+  /** The shapes. */
   protected Shapes shapes;
+  
+  /** The zoom factor. */
   @XmlAttribute(name = "zoomFactor")
   protected Integer zoomFactor;
 

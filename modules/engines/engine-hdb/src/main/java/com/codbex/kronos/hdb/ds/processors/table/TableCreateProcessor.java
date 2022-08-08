@@ -40,9 +40,13 @@ import org.slf4j.LoggerFactory;
  */
 public class TableCreateProcessor extends AbstractHDBProcessor<DataStructureHDBTableModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(TableCreateProcessor.class);
+  
+  /** The Constant TABLE_ARTEFACT. */
   private static final HDBTableSynchronizationArtefactType TABLE_ARTEFACT = new HDBTableSynchronizationArtefactType();
 
+  /** The manager services. */
   private final Map<String, IDataStructureManager> managerServices = HDBModule.getManagerServices();
 
   /**
@@ -51,6 +55,7 @@ public class TableCreateProcessor extends AbstractHDBProcessor<DataStructureHDBT
    *
    * @param connection the connection
    * @param tableModel the table model
+   * @return true, if successful
    * @throws SQLException the SQL exception
    */
   public boolean execute(Connection connection, DataStructureHDBTableModel tableModel)
@@ -82,6 +87,15 @@ public class TableCreateProcessor extends AbstractHDBProcessor<DataStructureHDBT
     return success;
   }
 
+  /**
+   * Process synonym.
+   *
+   * @param connection the connection
+   * @param tableModel the table model
+   * @param tableNameWithoutSchema the table name without schema
+   * @param tableNameWithSchema the table name with schema
+   * @throws SQLException the SQL exception
+   */
   private void processSynonym(Connection connection, DataStructureHDBTableModel tableModel, String tableNameWithoutSchema,
       String tableNameWithSchema) throws SQLException {
     boolean shouldCreatePublicSynonym = SqlFactory.getNative(connection)
@@ -92,6 +106,15 @@ public class TableCreateProcessor extends AbstractHDBProcessor<DataStructureHDBT
     }
   }
 
+  /**
+   * Process statements.
+   *
+   * @param connection the connection
+   * @param tableModel the table model
+   * @param indicesStatements the indices statements
+   * @param tableCreateStatement the table create statement
+   * @return true, if successful
+   */
   private boolean processStatements(Connection connection, DataStructureHDBTableModel tableModel, Collection<String> indicesStatements,
       String tableCreateStatement) {
     try {
@@ -115,6 +138,13 @@ public class TableCreateProcessor extends AbstractHDBProcessor<DataStructureHDBT
     }
   }
 
+  /**
+   * Execute batch.
+   *
+   * @param createStatements the create statements
+   * @param connection the connection
+   * @throws SQLException the SQL exception
+   */
   private void executeBatch(Collection<String> createStatements, Connection connection) throws SQLException {
     try (Statement statement = connection.createStatement()) {
       for (String createSQL : createStatements) {

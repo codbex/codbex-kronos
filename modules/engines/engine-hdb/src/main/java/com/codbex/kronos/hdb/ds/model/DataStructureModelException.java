@@ -16,6 +16,7 @@ package com.codbex.kronos.hdb.ds.model;
  */
 public class DataStructureModelException extends Exception {
 
+  /** The Constant serialVersionUID. */
   private static final long serialVersionUID = 8008932847050301958L;
 
   /**

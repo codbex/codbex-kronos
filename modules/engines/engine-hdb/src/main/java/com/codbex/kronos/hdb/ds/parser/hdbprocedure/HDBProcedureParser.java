@@ -33,13 +33,28 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.eclipse.dirigible.api.v3.security.UserFacade;
 import org.eclipse.dirigible.core.scheduler.api.ISynchronizerArtefactType;
 
+/**
+ * The Class HDBProcedureParser.
+ */
 public class HDBProcedureParser implements DataStructureParser<DataStructureHDBProcedureModel> {
 
+    /** The data structures synchronizer. */
     private final DataStructuresSynchronizer dataStructuresSynchronizer;
+    
+    /** The procedure synchronization artefact type. */
     private final HDBProcedureSynchronizationArtefactType procedureSynchronizationArtefactType;
+    
+    /** The procedure logger. */
     private final HDBProcedureLogger procedureLogger;
 
 
+    /**
+     * Instantiates a new HDB procedure parser.
+     *
+     * @param dataStructuresSynchronizer the data structures synchronizer
+     * @param procedureSynchronizationArtefactType the procedure synchronization artefact type
+     * @param procedureLogger the procedure logger
+     */
     public HDBProcedureParser(DataStructuresSynchronizer dataStructuresSynchronizer,
                                  HDBProcedureSynchronizationArtefactType procedureSynchronizationArtefactType,
                                  HDBProcedureLogger procedureLogger) {
@@ -48,6 +63,14 @@ public class HDBProcedureParser implements DataStructureParser<DataStructureHDBP
         this.procedureLogger = procedureLogger;
     }
 
+    /**
+     * Parses the.
+     *
+     * @param parametersModel the parameters model
+     * @return the data structure HDB procedure model
+     * @throws DataStructuresException the data structures exception
+     * @throws ArtifactParserException the artifact parser exception
+     */
     @Override
     public DataStructureHDBProcedureModel parse(DataStructureParametersModel parametersModel)
             throws DataStructuresException, ArtifactParserException {
@@ -67,6 +90,13 @@ public class HDBProcedureParser implements DataStructureParser<DataStructureHDBP
         return createModel(antlr4Model, parametersModel);
     }
 
+    /**
+     * Creates the model.
+     *
+     * @param antlrModel the antlr model
+     * @param params the params
+     * @return the data structure HDB procedure model
+     */
     private DataStructureHDBProcedureModel createModel(ProcedureDefinitionModel antlrModel,
                                                           DataStructureParametersModel params) {
 
@@ -84,6 +114,13 @@ public class HDBProcedureParser implements DataStructureParser<DataStructureHDBP
 
     }
 
+    /**
+     * Validate antlr model.
+     *
+     * @param antlrModel the antlr model
+     * @param location the location
+     * @throws DataStructuresException the data structures exception
+     */
     private void validateAntlrModel(ProcedureDefinitionModel antlrModel, String location) throws DataStructuresException {
         try {
             antlrModel.checkForAllMandatoryFieldsPresence();
@@ -99,11 +136,21 @@ public class HDBProcedureParser implements DataStructureParser<DataStructureHDBP
         }
     }
 
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     @Override
     public String getType() {
         return IDataStructureModel.TYPE_HDB_PROCEDURE;
     }
 
+    /**
+     * Gets the data structure class.
+     *
+     * @return the data structure class
+     */
     @Override
     public Class<DataStructureHDBProcedureModel> getDataStructureClass() {
         return DataStructureHDBProcedureModel.class;

@@ -34,9 +34,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * Docs: https://help.sap.com/viewer/4fe29514fd584807ac9f2a04f6754767/2.0.02/en-US/589208b0582245a782a1f3667a5b80c1.html
  *
  *
- * <p>Java class for HierarchyDescendantsParameterization complex type.
+ * Java class for HierarchyDescendantsParameterization complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="HierarchyDescendantsParameterization"&gt;
@@ -77,17 +77,32 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class HierarchyDescendantsParameterization {
 
+  /** The start. */
   protected Start start;
+  
+  /** The start where. */
   protected String startWhere;
+  
+  /** The distance. */
   protected BigInteger distance;
+  
+  /** The distance parameter. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String distanceParameter;
+  
+  /** The distance from. */
   protected BigInteger distanceFrom;
+  
+  /** The distance from parameter. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String distanceFromParameter;
+  
+  /** The distance to. */
   protected BigInteger distanceTo;
+  
+  /** The distance to parameter. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String distanceToParameter;

@@ -11,8 +11,16 @@
  */
 package com.codbex.kronos.parser.hdbsequence.exceptions;
 
+/**
+ * The Class HDBSequenceDuplicatePropertyException.
+ */
 public class HDBSequenceDuplicatePropertyException extends RuntimeException {
 
+  /**
+   * Instantiates a new HDB sequence duplicate property exception.
+   *
+   * @param message the message
+   */
   public HDBSequenceDuplicatePropertyException(String message) {
     super(message);
   }

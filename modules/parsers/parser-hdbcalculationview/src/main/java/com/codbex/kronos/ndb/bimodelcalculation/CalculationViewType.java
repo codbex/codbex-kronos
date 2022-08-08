@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for CalculationViewType.
+ * Java class for CalculationViewType.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="CalculationViewType"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -42,16 +42,32 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum CalculationViewType {
 
+  /** The aggregation. */
   @XmlEnumValue("Aggregation")
   AGGREGATION("Aggregation"),
+  
+  /** The projection. */
   @XmlEnumValue("Projection")
   PROJECTION("Projection");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new calculation view type.
+   *
+   * @param v the v
+   */
   CalculationViewType(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the calculation view type
+   */
   public static CalculationViewType fromValue(String v) {
     for (CalculationViewType c : CalculationViewType.values()) {
       if (c.value.equals(v)) {
@@ -61,6 +77,11 @@ public enum CalculationViewType {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

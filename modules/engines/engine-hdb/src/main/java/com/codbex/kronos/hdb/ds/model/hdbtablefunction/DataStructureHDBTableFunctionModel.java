@@ -14,12 +14,23 @@ package com.codbex.kronos.hdb.ds.model.hdbtablefunction;
 import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 import com.codbex.kronos.hdb.ds.model.DataStructureModelBuilder;
 
+/**
+ * The Class DataStructureHDBTableFunctionModel.
+ */
 public class DataStructureHDBTableFunctionModel extends DataStructureModel {
 
+  /**
+   * Instantiates a new data structure HDB table function model.
+   *
+   * @param builder the builder
+   */
   public DataStructureHDBTableFunctionModel(DataStructureModelBuilder builder) {
     super(builder);
   }
 
+  /**
+   * Instantiates a new data structure HDB table function model.
+   */
   public DataStructureHDBTableFunctionModel() {
     super();
   }

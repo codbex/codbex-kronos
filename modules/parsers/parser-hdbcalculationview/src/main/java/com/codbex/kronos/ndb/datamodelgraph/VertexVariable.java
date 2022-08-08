@@ -28,9 +28,9 @@ import javax.xml.bind.annotation.XmlType;
  * For defining a vertex variable (so far only the name is required)
  *
  *
- * <p>Java class for VertexVariable complex type.
+ * Java class for VertexVariable complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="VertexVariable"&gt;

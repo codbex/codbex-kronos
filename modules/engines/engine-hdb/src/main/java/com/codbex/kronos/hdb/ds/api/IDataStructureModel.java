@@ -11,6 +11,9 @@
  */
 package com.codbex.kronos.hdb.ds.api;
 
+/**
+ * The Interface IDataStructureModel.
+ */
 public interface IDataStructureModel {
 
   /**
@@ -76,67 +79,45 @@ public interface IDataStructureModel {
    */
   public static final String FILE_EXTENSION_HDB_TABLE_TYPE = ".hdbtabletype";
 
-  /**
-   * Type hdbdd
-   */
+  /** Type hdbdd. */
   public static final String TYPE_HDBDD = "HDBDD";
 
-  /**
-   * Type synonym
-   */
+  /** Type synonym. */
   public static final String TYPE_HDB_SYNONYM = "HDBSYNONYM";
 
-  /**
-   * Type table
-   */
+  /** Type table. */
   public static final String TYPE_HDB_TABLE = "HDBTABLE";
-  /**
-   * Type view
-   */
+  
+  /** Type view. */
   public static final String TYPE_HDB_VIEW = "HDBVIEW";
-  /**
-   * Type entities
-   */
+  
+  /** Type entities. */
   public static final String TYPE_HDB_ENTITIES = "HDBENTITIES";
-  /**
-   * Type calculation view
-   */
+  
+  /** Type calculation view. */
   public static final String TYPE_CALCVIEW = "CALCVIEW";
-  /**
-   * Type hdb calculation view
-   */
+  
+  /** Type hdb calculation view. */
   public static final String TYPE_HDB_CALCVIEW = "HDBCALCVIEW";
-  /**
-   * Type hdbprocedure
-   */
+  
+  /** Type hdbprocedure. */
   public static final String TYPE_HDB_PROCEDURE = "HDBPROC";
-  /**
-   * Type hdbdschema
-   */
+  
+  /** Type hdbdschema. */
   public static final String TYPE_HDB_SCHEMA = "HDBSCHEMA";
 
-  /**
-   * Type hdbtablefunction
-   */
+  /** Type hdbtablefunction. */
   public static final String TYPE_HDB_TABLE_FUNCTION = "HDBTABLEFUNC";
 
-  /**
-   * Type hdi
-   */
+  /** Type hdi. */
   public static final String TYPE_HDI = "HDI";
 
-  /**
-   * Type hdbsequence
-   */
+  /** Type hdbsequence. */
   public static final String TYPE_HDB_SEQUENCE = "HDBSEQUENCE";
 
-  /**
-   * Type hdbscalarfunction
-   */
+  /** Type hdbscalarfunction. */
   public static final String TYPE_HDB_SCALAR_FUNCTION = "HDBSCALARFUNCTION";
 
-  /**
-   * Type hdbtabletype
-   */
+  /** Type hdbtabletype. */
   public static final String TYPE_HDB_TABLE_TYPE = "HDBTABLETYPE";
 }

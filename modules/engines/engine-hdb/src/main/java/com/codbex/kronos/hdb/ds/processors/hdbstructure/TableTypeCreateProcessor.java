@@ -37,9 +37,15 @@ import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class TableTypeCreateProcessor.
+ */
 public class TableTypeCreateProcessor extends AbstractHDBProcessor<DataStructureHDBTableTypeModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(TableTypeCreateProcessor.class);
+  
+  /** The manager services. */
   private Map<String, IDataStructureManager> managerServices = HDBModule.getManagerServices();
 
   /**
@@ -48,6 +54,7 @@ public class TableTypeCreateProcessor extends AbstractHDBProcessor<DataStructure
    *
    * @param connection     the connection
    * @param tableTypeModel the table type model
+   * @return true, if successful
    * @throws SQLException the SQL exception
    */
   @Override
@@ -113,6 +120,12 @@ public class TableTypeCreateProcessor extends AbstractHDBProcessor<DataStructure
     return success;
   }
 
+  /**
+   * Gets the column model args.
+   *
+   * @param columnModel the column model
+   * @return the column model args
+   */
   private String getColumnModelArgs(DataStructureHDBTableColumnModel columnModel) {
     DataType type = DataType.valueOf(columnModel.getType());
     String args = "";

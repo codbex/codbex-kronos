@@ -16,13 +16,26 @@ import org.slf4j.LoggerFactory;
 
 import com.codbex.kronos.synchronizer.cleaners.XSJSLibSynchronizerCleaner;
 
+/**
+ * The Class XSJSLibSynchronizerUnpublisher.
+ */
 public class XSJSLibSynchronizerUnpublisher {
+  
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(XSJSLibSynchronizerUnpublisher.class);
 
+  /** The file cleaner. */
   private final XSJSLibSynchronizerCleaner fileCleaner;
 
+  /** The db cleaner. */
   private final XSJSLibSynchronizerCleaner dbCleaner;
 
+  /**
+   * Instantiates a new XSJS lib synchronizer unpublisher.
+   *
+   * @param fileCleaner the file cleaner
+   * @param dbCleaner the db cleaner
+   */
   XSJSLibSynchronizerUnpublisher(
       XSJSLibSynchronizerCleaner fileCleaner,
       XSJSLibSynchronizerCleaner dbCleaner
@@ -31,6 +44,11 @@ public class XSJSLibSynchronizerUnpublisher {
     this.dbCleaner = dbCleaner;
   }
 
+  /**
+   * Unpublish.
+   *
+   * @param entity the entity
+   */
   public void unpublish(XSJSLibSynchronizerRegistryEntity entity) {
     if(entity.isSynchronizable()) {
       String registryPath = entity.getEntity().getPath();

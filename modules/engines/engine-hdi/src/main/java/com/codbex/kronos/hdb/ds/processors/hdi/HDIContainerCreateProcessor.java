@@ -29,25 +29,69 @@ import org.eclipse.dirigible.commons.config.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class HDIContainerCreateProcessor.
+ */
 public class HDIContainerCreateProcessor {
 
+  /** The Constant LOGGER. */
   private static final Logger LOGGER = LoggerFactory.getLogger(HDIContainerCreateProcessor.class);
 
+  /** The grant privileges container group API processor. */
   private final GrantPrivilegesContainerGroupAPIProcessor grantPrivilegesContainerGroupAPIProcessor;
+  
+  /** The create container group processor. */
   private final CreateContainerGroupProcessor createContainerGroupProcessor;
+  
+  /** The grant privileges container group processor. */
   private final GrantPrivilegesContainerGroupProcessor grantPrivilegesContainerGroupProcessor;
+  
+  /** The create container processor. */
   private final CreateContainerProcessor createContainerProcessor;
+  
+  /** The grant privileges container API processor. */
   private final GrantPrivilegesContainerAPIProcessor grantPrivilegesContainerAPIProcessor;
+  
+  /** The write container content processor. */
   private final WriteContainerContentProcessor writeContainerContentProcessor;
+  
+  /** The configure libraries processor. */
   private final ConfigureLibrariesProcessor configureLibrariesProcessor;
+  
+  /** The deploy container content processor. */
   private final DeployContainerContentProcessor deployContainerContentProcessor;
+  
+  /** The grant privileges container schema processor. */
   private final GrantPrivilegesContainerSchemaProcessor grantPrivilegesContainerSchemaProcessor;
+  
+  /** The grant privileges external artifacts schema processor. */
   private final GrantPrivilegesExternalArtifactsSchemaProcessor grantPrivilegesExternalArtifactsSchemaProcessor;
+  
+  /** The grant privileges default role processor. */
   private final GrantPrivilegesDefaultRoleProcessor grantPrivilegesDefaultRoleProcessor;
 
+  /**
+   * Instantiates a new HDI container create processor.
+   */
   public HDIContainerCreateProcessor() {
     this(new GrantPrivilegesContainerGroupAPIProcessor(), new CreateContainerGroupProcessor(), new GrantPrivilegesContainerGroupProcessor(), new CreateContainerProcessor(), new GrantPrivilegesContainerAPIProcessor(), new WriteContainerContentProcessor(), new ConfigureLibrariesProcessor(), new DeployContainerContentProcessor(), new GrantPrivilegesContainerSchemaProcessor(), new GrantPrivilegesExternalArtifactsSchemaProcessor(), new GrantPrivilegesDefaultRoleProcessor());
   }
+  
+  /**
+   * Instantiates a new HDI container create processor.
+   *
+   * @param grantPrivilegesContainerGroupAPIProcessor the grant privileges container group API processor
+   * @param createContainerGroupProcessor the create container group processor
+   * @param grantPrivilegesContainerGroupProcessor the grant privileges container group processor
+   * @param createContainerProcessor the create container processor
+   * @param grantPrivilegesContainerAPIProcessor the grant privileges container API processor
+   * @param writeContainerContentProcessor the write container content processor
+   * @param configureLibrariesProcessor the configure libraries processor
+   * @param deployContainerContentProcessor the deploy container content processor
+   * @param grantPrivilegesContainerSchemaProcesso the grant privileges container schema processo
+   * @param grantPrivilegesExternalArtifactsSchemaProcessor the grant privileges external artifacts schema processor
+   * @param grantPrivilegesDefaultRoleProcessor the grant privileges default role processor
+   */
   public HDIContainerCreateProcessor(
       GrantPrivilegesContainerGroupAPIProcessor grantPrivilegesContainerGroupAPIProcessor,
       CreateContainerGroupProcessor createContainerGroupProcessor,
@@ -74,6 +118,12 @@ public class HDIContainerCreateProcessor {
     this.writeContainerContentProcessor = writeContainerContentProcessor;
   }
 
+  /**
+   * Execute.
+   *
+   * @param connection the connection
+   * @param hdiModel the hdi model
+   */
   public void execute(Connection connection, DataStructureHDIModel hdiModel) {
     LOGGER.info("Start processing HDI Containers...");
     try {

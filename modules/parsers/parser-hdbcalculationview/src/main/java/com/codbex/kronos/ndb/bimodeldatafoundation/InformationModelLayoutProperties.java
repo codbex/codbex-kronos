@@ -29,9 +29,9 @@ import javax.xml.bind.annotation.XmlType;
  * Holds the layout properties the whole InformationModel
  *
  *
- * <p>Java class for InformationModelLayoutProperties complex type.
+ * Java class for InformationModelLayoutProperties complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="InformationModelLayoutProperties"&gt;
@@ -49,10 +49,15 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "InformationModelLayoutProperties")
 public class InformationModelLayoutProperties {
 
+  /** The relative width scenario. */
   @XmlAttribute(name = "relativeWidthScenario")
   protected Integer relativeWidthScenario;
+  
+  /** The data foundation expanded. */
   @XmlAttribute(name = "dataFoundationExpanded")
   protected Boolean dataFoundationExpanded;
+  
+  /** The logical join expanded. */
   @XmlAttribute(name = "logicalJoinExpanded")
   protected Boolean logicalJoinExpanded;
 

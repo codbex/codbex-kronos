@@ -20,22 +20,38 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
+/**
+ * The Class HdbsequenceParser.
+ */
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class HdbsequenceParser extends Parser {
 	static { RuntimeMetaData.checkVersion("4.10.1", RuntimeMetaData.VERSION); }
 
+	/** The Constant _decisionToDFA. */
 	protected static final DFA[] _decisionToDFA;
+	
+	/** The Constant _sharedContextCache. */
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
+	
+	/** The Constant COMMENT. */
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		T__9=10, T__10=11, T__11=12, STRING=13, INT=14, BOOLEAN=15, TRUE=16, FALSE=17, 
 		WS=18, LB=19, RB=20, EQ=21, SC=22, SIGNED_INT=23, LINE_COMMENT=24, COMMENT=25;
+	
+	/** The Constant RULE_dependsOnView. */
 	public static final int
 		RULE_hdbsequence = 0, RULE_property = 1, RULE_schema = 2, RULE_increment_by = 3, 
 		RULE_start_with = 4, RULE_maxvalue = 5, RULE_nomaxvalue = 6, RULE_minvalue = 7, 
 		RULE_nominvalue = 8, RULE_cycles = 9, RULE_reset_by = 10, RULE_publicc = 11, 
 		RULE_dependsOnTable = 12, RULE_dependsOnView = 13;
+	
+	/**
+	 * Make rule names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"hdbsequence", "property", "schema", "increment_by", "start_with", "maxvalue", 
@@ -43,8 +59,15 @@ public class HdbsequenceParser extends Parser {
 			"dependsOnTable", "dependsOnView"
 		};
 	}
+	
+	/** The Constant ruleNames. */
 	public static final String[] ruleNames = makeRuleNames();
 
+	/**
+	 * Make literal names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'schema'", "'increment_by'", "'start_with'", "'maxvalue'", "'nomaxvalue'", 
@@ -53,7 +76,15 @@ public class HdbsequenceParser extends Parser {
 			"']'", "'='", "';'", "'-'"
 		};
 	}
+	
+	/** The Constant _LITERAL_NAMES. */
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
+	
+	/**
+	 * Make symbolic names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
@@ -61,10 +92,16 @@ public class HdbsequenceParser extends Parser {
 			"EQ", "SC", "SIGNED_INT", "LINE_COMMENT", "COMMENT"
 		};
 	}
+	
+	/** The Constant _SYMBOLIC_NAMES. */
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
+	
+	/** The Constant VOCABULARY. */
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
 	/**
+	 * The Constant tokenNames.
+	 *
 	 * @deprecated Use {@link #VOCABULARY} instead.
 	 */
 	@Deprecated
@@ -83,54 +120,138 @@ public class HdbsequenceParser extends Parser {
 		}
 	}
 
+	/**
+	 * Gets the token names.
+	 *
+	 * @return the token names
+	 */
 	@Override
 	@Deprecated
 	public String[] getTokenNames() {
 		return tokenNames;
 	}
 
+	/**
+	 * Gets the vocabulary.
+	 *
+	 * @return the vocabulary
+	 */
 	@Override
 
 	public Vocabulary getVocabulary() {
 		return VOCABULARY;
 	}
 
+	/**
+	 * Gets the grammar file name.
+	 *
+	 * @return the grammar file name
+	 */
 	@Override
 	public String getGrammarFileName() { return "Hdbsequence.g4"; }
 
+	/**
+	 * Gets the rule names.
+	 *
+	 * @return the rule names
+	 */
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
 
+	/**
+	 * Gets the serialized ATN.
+	 *
+	 * @return the serialized ATN
+	 */
 	@Override
 	public String getSerializedATN() { return _serializedATN; }
 
+	/**
+	 * Gets the atn.
+	 *
+	 * @return the atn
+	 */
 	@Override
 	public ATN getATN() { return _ATN; }
 
+	/**
+	 * Instantiates a new hdbsequence parser.
+	 *
+	 * @param input the input
+	 */
 	public HdbsequenceParser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
+	/**
+	 * The Class HdbsequenceContext.
+	 */
 	public static class HdbsequenceContext extends ParserRuleContext {
+		
+		/**
+		 * Property.
+		 *
+		 * @return the list
+		 */
 		public List<PropertyContext> property() {
 			return getRuleContexts(PropertyContext.class);
 		}
+		
+		/**
+		 * Property.
+		 *
+		 * @param i the i
+		 * @return the property context
+		 */
 		public PropertyContext property(int i) {
 			return getRuleContext(PropertyContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new hdbsequence context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public HdbsequenceContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_hdbsequence; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).enterHdbsequence(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).exitHdbsequence(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbsequenceVisitor ) return ((HdbsequenceVisitor<? extends T>)visitor).visitHdbsequence(this);
@@ -138,6 +259,12 @@ public class HdbsequenceParser extends Parser {
 		}
 	}
 
+	/**
+	 * Hdbsequence.
+	 *
+	 * @return the hdbsequence context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final HdbsequenceContext hdbsequence() throws RecognitionException {
 		HdbsequenceContext _localctx = new HdbsequenceContext(_ctx, getState());
 		enterRule(_localctx, 0, RULE_hdbsequence);
@@ -172,55 +299,163 @@ public class HdbsequenceParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class PropertyContext.
+	 */
 	public static class PropertyContext extends ParserRuleContext {
+		
+		/**
+		 * Schema.
+		 *
+		 * @return the schema context
+		 */
 		public SchemaContext schema() {
 			return getRuleContext(SchemaContext.class,0);
 		}
+		
+		/**
+		 * Increment by.
+		 *
+		 * @return the increment by context
+		 */
 		public Increment_byContext increment_by() {
 			return getRuleContext(Increment_byContext.class,0);
 		}
+		
+		/**
+		 * Start with.
+		 *
+		 * @return the start with context
+		 */
 		public Start_withContext start_with() {
 			return getRuleContext(Start_withContext.class,0);
 		}
+		
+		/**
+		 * Maxvalue.
+		 *
+		 * @return the maxvalue context
+		 */
 		public MaxvalueContext maxvalue() {
 			return getRuleContext(MaxvalueContext.class,0);
 		}
+		
+		/**
+		 * Nomaxvalue.
+		 *
+		 * @return the nomaxvalue context
+		 */
 		public NomaxvalueContext nomaxvalue() {
 			return getRuleContext(NomaxvalueContext.class,0);
 		}
+		
+		/**
+		 * Minvalue.
+		 *
+		 * @return the minvalue context
+		 */
 		public MinvalueContext minvalue() {
 			return getRuleContext(MinvalueContext.class,0);
 		}
+		
+		/**
+		 * Nominvalue.
+		 *
+		 * @return the nominvalue context
+		 */
 		public NominvalueContext nominvalue() {
 			return getRuleContext(NominvalueContext.class,0);
 		}
+		
+		/**
+		 * Cycles.
+		 *
+		 * @return the cycles context
+		 */
 		public CyclesContext cycles() {
 			return getRuleContext(CyclesContext.class,0);
 		}
+		
+		/**
+		 * Reset by.
+		 *
+		 * @return the reset by context
+		 */
 		public Reset_byContext reset_by() {
 			return getRuleContext(Reset_byContext.class,0);
 		}
+		
+		/**
+		 * Publicc.
+		 *
+		 * @return the publicc context
+		 */
 		public PubliccContext publicc() {
 			return getRuleContext(PubliccContext.class,0);
 		}
+		
+		/**
+		 * Depends on table.
+		 *
+		 * @return the depends on table context
+		 */
 		public DependsOnTableContext dependsOnTable() {
 			return getRuleContext(DependsOnTableContext.class,0);
 		}
+		
+		/**
+		 * Depends on view.
+		 *
+		 * @return the depends on view context
+		 */
 		public DependsOnViewContext dependsOnView() {
 			return getRuleContext(DependsOnViewContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new property context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public PropertyContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_property; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).enterProperty(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).exitProperty(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbsequenceVisitor ) return ((HdbsequenceVisitor<? extends T>)visitor).visitProperty(this);
@@ -228,6 +463,12 @@ public class HdbsequenceParser extends Parser {
 		}
 	}
 
+	/**
+	 * Property.
+	 *
+	 * @return the property context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final PropertyContext property() throws RecognitionException {
 		PropertyContext _localctx = new PropertyContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_property);
@@ -334,22 +575,76 @@ public class HdbsequenceParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class SchemaContext.
+	 */
 	public static class SchemaContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbsequenceParser.EQ, 0); }
+		
+		/**
+		 * String.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING() { return getToken(HdbsequenceParser.STRING, 0); }
+		
+		/**
+		 * Sc.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SC() { return getToken(HdbsequenceParser.SC, 0); }
+		
+		/**
+		 * Instantiates a new schema context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public SchemaContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_schema; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).enterSchema(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).exitSchema(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbsequenceVisitor ) return ((HdbsequenceVisitor<? extends T>)visitor).visitSchema(this);
@@ -357,6 +652,12 @@ public class HdbsequenceParser extends Parser {
 		}
 	}
 
+	/**
+	 * Schema.
+	 *
+	 * @return the schema context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final SchemaContext schema() throws RecognitionException {
 		SchemaContext _localctx = new SchemaContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_schema);
@@ -384,22 +685,76 @@ public class HdbsequenceParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class Increment_byContext.
+	 */
 	public static class Increment_byContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbsequenceParser.EQ, 0); }
+		
+		/**
+		 * Int.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode INT() { return getToken(HdbsequenceParser.INT, 0); }
+		
+		/**
+		 * Sc.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SC() { return getToken(HdbsequenceParser.SC, 0); }
+		
+		/**
+		 * Instantiates a new increment by context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public Increment_byContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_increment_by; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).enterIncrement_by(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).exitIncrement_by(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbsequenceVisitor ) return ((HdbsequenceVisitor<? extends T>)visitor).visitIncrement_by(this);
@@ -407,6 +762,12 @@ public class HdbsequenceParser extends Parser {
 		}
 	}
 
+	/**
+	 * Increment by.
+	 *
+	 * @return the increment by context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final Increment_byContext increment_by() throws RecognitionException {
 		Increment_byContext _localctx = new Increment_byContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_increment_by);
@@ -434,22 +795,76 @@ public class HdbsequenceParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class Start_withContext.
+	 */
 	public static class Start_withContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbsequenceParser.EQ, 0); }
+		
+		/**
+		 * Int.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode INT() { return getToken(HdbsequenceParser.INT, 0); }
+		
+		/**
+		 * Sc.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SC() { return getToken(HdbsequenceParser.SC, 0); }
+		
+		/**
+		 * Instantiates a new start with context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public Start_withContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_start_with; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).enterStart_with(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).exitStart_with(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbsequenceVisitor ) return ((HdbsequenceVisitor<? extends T>)visitor).visitStart_with(this);
@@ -457,6 +872,12 @@ public class HdbsequenceParser extends Parser {
 		}
 	}
 
+	/**
+	 * Start with.
+	 *
+	 * @return the start with context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final Start_withContext start_with() throws RecognitionException {
 		Start_withContext _localctx = new Start_withContext(_ctx, getState());
 		enterRule(_localctx, 8, RULE_start_with);
@@ -484,22 +905,76 @@ public class HdbsequenceParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class MaxvalueContext.
+	 */
 	public static class MaxvalueContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbsequenceParser.EQ, 0); }
+		
+		/**
+		 * Int.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode INT() { return getToken(HdbsequenceParser.INT, 0); }
+		
+		/**
+		 * Sc.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SC() { return getToken(HdbsequenceParser.SC, 0); }
+		
+		/**
+		 * Instantiates a new maxvalue context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public MaxvalueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_maxvalue; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).enterMaxvalue(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).exitMaxvalue(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbsequenceVisitor ) return ((HdbsequenceVisitor<? extends T>)visitor).visitMaxvalue(this);
@@ -507,6 +982,12 @@ public class HdbsequenceParser extends Parser {
 		}
 	}
 
+	/**
+	 * Maxvalue.
+	 *
+	 * @return the maxvalue context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final MaxvalueContext maxvalue() throws RecognitionException {
 		MaxvalueContext _localctx = new MaxvalueContext(_ctx, getState());
 		enterRule(_localctx, 10, RULE_maxvalue);
@@ -534,22 +1015,76 @@ public class HdbsequenceParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class NomaxvalueContext.
+	 */
 	public static class NomaxvalueContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbsequenceParser.EQ, 0); }
+		
+		/**
+		 * Boolean.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode BOOLEAN() { return getToken(HdbsequenceParser.BOOLEAN, 0); }
+		
+		/**
+		 * Sc.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SC() { return getToken(HdbsequenceParser.SC, 0); }
+		
+		/**
+		 * Instantiates a new nomaxvalue context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public NomaxvalueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_nomaxvalue; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).enterNomaxvalue(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).exitNomaxvalue(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbsequenceVisitor ) return ((HdbsequenceVisitor<? extends T>)visitor).visitNomaxvalue(this);
@@ -557,6 +1092,12 @@ public class HdbsequenceParser extends Parser {
 		}
 	}
 
+	/**
+	 * Nomaxvalue.
+	 *
+	 * @return the nomaxvalue context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final NomaxvalueContext nomaxvalue() throws RecognitionException {
 		NomaxvalueContext _localctx = new NomaxvalueContext(_ctx, getState());
 		enterRule(_localctx, 12, RULE_nomaxvalue);
@@ -584,22 +1125,76 @@ public class HdbsequenceParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class MinvalueContext.
+	 */
 	public static class MinvalueContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbsequenceParser.EQ, 0); }
+		
+		/**
+		 * Int.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode INT() { return getToken(HdbsequenceParser.INT, 0); }
+		
+		/**
+		 * Sc.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SC() { return getToken(HdbsequenceParser.SC, 0); }
+		
+		/**
+		 * Instantiates a new minvalue context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public MinvalueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_minvalue; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).enterMinvalue(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).exitMinvalue(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbsequenceVisitor ) return ((HdbsequenceVisitor<? extends T>)visitor).visitMinvalue(this);
@@ -607,6 +1202,12 @@ public class HdbsequenceParser extends Parser {
 		}
 	}
 
+	/**
+	 * Minvalue.
+	 *
+	 * @return the minvalue context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final MinvalueContext minvalue() throws RecognitionException {
 		MinvalueContext _localctx = new MinvalueContext(_ctx, getState());
 		enterRule(_localctx, 14, RULE_minvalue);
@@ -634,22 +1235,76 @@ public class HdbsequenceParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class NominvalueContext.
+	 */
 	public static class NominvalueContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbsequenceParser.EQ, 0); }
+		
+		/**
+		 * Boolean.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode BOOLEAN() { return getToken(HdbsequenceParser.BOOLEAN, 0); }
+		
+		/**
+		 * Sc.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SC() { return getToken(HdbsequenceParser.SC, 0); }
+		
+		/**
+		 * Instantiates a new nominvalue context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public NominvalueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_nominvalue; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).enterNominvalue(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).exitNominvalue(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbsequenceVisitor ) return ((HdbsequenceVisitor<? extends T>)visitor).visitNominvalue(this);
@@ -657,6 +1312,12 @@ public class HdbsequenceParser extends Parser {
 		}
 	}
 
+	/**
+	 * Nominvalue.
+	 *
+	 * @return the nominvalue context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final NominvalueContext nominvalue() throws RecognitionException {
 		NominvalueContext _localctx = new NominvalueContext(_ctx, getState());
 		enterRule(_localctx, 16, RULE_nominvalue);
@@ -684,22 +1345,76 @@ public class HdbsequenceParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class CyclesContext.
+	 */
 	public static class CyclesContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbsequenceParser.EQ, 0); }
+		
+		/**
+		 * Boolean.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode BOOLEAN() { return getToken(HdbsequenceParser.BOOLEAN, 0); }
+		
+		/**
+		 * Sc.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SC() { return getToken(HdbsequenceParser.SC, 0); }
+		
+		/**
+		 * Instantiates a new cycles context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public CyclesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_cycles; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).enterCycles(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).exitCycles(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbsequenceVisitor ) return ((HdbsequenceVisitor<? extends T>)visitor).visitCycles(this);
@@ -707,6 +1422,12 @@ public class HdbsequenceParser extends Parser {
 		}
 	}
 
+	/**
+	 * Cycles.
+	 *
+	 * @return the cycles context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final CyclesContext cycles() throws RecognitionException {
 		CyclesContext _localctx = new CyclesContext(_ctx, getState());
 		enterRule(_localctx, 18, RULE_cycles);
@@ -734,22 +1455,76 @@ public class HdbsequenceParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class Reset_byContext.
+	 */
 	public static class Reset_byContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbsequenceParser.EQ, 0); }
+		
+		/**
+		 * String.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING() { return getToken(HdbsequenceParser.STRING, 0); }
+		
+		/**
+		 * Sc.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SC() { return getToken(HdbsequenceParser.SC, 0); }
+		
+		/**
+		 * Instantiates a new reset by context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public Reset_byContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_reset_by; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).enterReset_by(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).exitReset_by(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbsequenceVisitor ) return ((HdbsequenceVisitor<? extends T>)visitor).visitReset_by(this);
@@ -757,6 +1532,12 @@ public class HdbsequenceParser extends Parser {
 		}
 	}
 
+	/**
+	 * Reset by.
+	 *
+	 * @return the reset by context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final Reset_byContext reset_by() throws RecognitionException {
 		Reset_byContext _localctx = new Reset_byContext(_ctx, getState());
 		enterRule(_localctx, 20, RULE_reset_by);
@@ -784,22 +1565,76 @@ public class HdbsequenceParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class PubliccContext.
+	 */
 	public static class PubliccContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbsequenceParser.EQ, 0); }
+		
+		/**
+		 * Boolean.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode BOOLEAN() { return getToken(HdbsequenceParser.BOOLEAN, 0); }
+		
+		/**
+		 * Sc.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SC() { return getToken(HdbsequenceParser.SC, 0); }
+		
+		/**
+		 * Instantiates a new publicc context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public PubliccContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_publicc; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).enterPublicc(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).exitPublicc(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbsequenceVisitor ) return ((HdbsequenceVisitor<? extends T>)visitor).visitPublicc(this);
@@ -807,6 +1642,12 @@ public class HdbsequenceParser extends Parser {
 		}
 	}
 
+	/**
+	 * Publicc.
+	 *
+	 * @return the publicc context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final PubliccContext publicc() throws RecognitionException {
 		PubliccContext _localctx = new PubliccContext(_ctx, getState());
 		enterRule(_localctx, 22, RULE_publicc);
@@ -834,22 +1675,76 @@ public class HdbsequenceParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class DependsOnTableContext.
+	 */
 	public static class DependsOnTableContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbsequenceParser.EQ, 0); }
+		
+		/**
+		 * String.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING() { return getToken(HdbsequenceParser.STRING, 0); }
+		
+		/**
+		 * Sc.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SC() { return getToken(HdbsequenceParser.SC, 0); }
+		
+		/**
+		 * Instantiates a new depends on table context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public DependsOnTableContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_dependsOnTable; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).enterDependsOnTable(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).exitDependsOnTable(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbsequenceVisitor ) return ((HdbsequenceVisitor<? extends T>)visitor).visitDependsOnTable(this);
@@ -857,6 +1752,12 @@ public class HdbsequenceParser extends Parser {
 		}
 	}
 
+	/**
+	 * Depends on table.
+	 *
+	 * @return the depends on table context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final DependsOnTableContext dependsOnTable() throws RecognitionException {
 		DependsOnTableContext _localctx = new DependsOnTableContext(_ctx, getState());
 		enterRule(_localctx, 24, RULE_dependsOnTable);
@@ -884,22 +1785,76 @@ public class HdbsequenceParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class DependsOnViewContext.
+	 */
 	public static class DependsOnViewContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbsequenceParser.EQ, 0); }
+		
+		/**
+		 * String.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING() { return getToken(HdbsequenceParser.STRING, 0); }
+		
+		/**
+		 * Sc.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SC() { return getToken(HdbsequenceParser.SC, 0); }
+		
+		/**
+		 * Instantiates a new depends on view context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public DependsOnViewContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_dependsOnView; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).enterDependsOnView(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbsequenceListener ) ((HdbsequenceListener)listener).exitDependsOnView(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbsequenceVisitor ) return ((HdbsequenceVisitor<? extends T>)visitor).visitDependsOnView(this);
@@ -907,6 +1862,12 @@ public class HdbsequenceParser extends Parser {
 		}
 	}
 
+	/**
+	 * Depends on view.
+	 *
+	 * @return the depends on view context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final DependsOnViewContext dependsOnView() throws RecognitionException {
 		DependsOnViewContext _localctx = new DependsOnViewContext(_ctx, getState());
 		enterRule(_localctx, 26, RULE_dependsOnView);
@@ -934,6 +1895,7 @@ public class HdbsequenceParser extends Parser {
 		return _localctx;
 	}
 
+	/** The Constant _serializedATN. */
 	public static final String _serializedATN =
 		"\u0004\u0001\u0019l\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
@@ -993,6 +1955,8 @@ public class HdbsequenceParser extends Parser {
 		"de\u0005\u0016\u0000\u0000e\u0019\u0001\u0000\u0000\u0000fg\u0005\f\u0000"+
 		"\u0000gh\u0005\u0015\u0000\u0000hi\u0005\r\u0000\u0000ij\u0005\u0016\u0000"+
 		"\u0000j\u001b\u0001\u0000\u0000\u0000\u0002\u001f-";
+	
+	/** The Constant _ATN. */
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

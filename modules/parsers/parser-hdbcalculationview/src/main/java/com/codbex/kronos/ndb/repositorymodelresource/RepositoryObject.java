@@ -36,9 +36,9 @@ import com.codbex.kronos.ndb.datamodeltype.DataType;
  * have been removed from this to separate concerns
  *
  *
- * <p>Java class for RepositoryObject complex type.
+ * Java class for RepositoryObject complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="RepositoryObject"&gt;
@@ -65,12 +65,19 @@ import com.codbex.kronos.ndb.datamodeltype.DataType;
 public abstract class RepositoryObject
     extends AbstractRepositoryObject {
 
+  /** The end user texts. */
   protected EndUserTexts endUserTexts;
+  
+  /** The name. */
   @XmlAttribute(name = "name", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String name;
+  
+  /** The name qualifier. */
   @XmlAttribute(name = "nameQualifier")
   protected String nameQualifier;
+  
+  /** The deprecated. */
   @XmlAttribute(name = "deprecated")
   protected Boolean deprecated;
 

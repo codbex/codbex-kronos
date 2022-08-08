@@ -13,32 +13,70 @@ package com.codbex.kronos.api.destination;
 
 import java.util.List;
 
+/**
+ * The Class DestinationRequest.
+ */
 public class DestinationRequest {
 
+  /** The method. */
   private int method;
+  
+  /** The path. */
   private String path;
+  
+  /** The headers. */
   private List<Header> headers;
 
+  /**
+   * Gets the method.
+   *
+   * @return the method
+   */
   public int getMethod() {
     return method;
   }
 
+  /**
+   * Sets the method.
+   *
+   * @param method the new method
+   */
   public void setMethod(int method) {
     this.method = method;
   }
 
+  /**
+   * Gets the path.
+   *
+   * @return the path
+   */
   public String getPath() {
     return path;
   }
 
+  /**
+   * Sets the path.
+   *
+   * @param path the new path
+   */
   public void setPath(String path) {
     this.path = path;
   }
 
+  /**
+   * Gets the headers.
+   *
+   * @return the headers
+   */
   public List<Header> getHeaders() {
     return headers;
   }
 
+  /**
+   * Sets the headers.
+   *
+   * @param headers the new headers
+   */
   public void setHeaders(List<Header> headers) {
     this.headers = headers;
   }

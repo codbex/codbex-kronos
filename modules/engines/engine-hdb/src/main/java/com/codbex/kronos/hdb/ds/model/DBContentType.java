@@ -11,7 +11,14 @@
  */
 package com.codbex.kronos.hdb.ds.model;
 
+/**
+ * The Enum DBContentType.
+ */
 public enum DBContentType {
+  
+  /** The xs classic. */
   XS_CLASSIC,
+  
+  /** The others. */
   OTHERS
 }

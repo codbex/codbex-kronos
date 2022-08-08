@@ -11,6 +11,9 @@
  */
 package com.codbex.kronos.xsodata.ds.api;
 
+/**
+ * The Interface IODataModel.
+ */
 public interface IODataModel {
 
     /**
@@ -18,9 +21,7 @@ public interface IODataModel {
      */
     String FILE_EXTENSION_XSODATA = ".xsodata";
 
-    /**
-     * Type OData
-     */
+    /** Type OData. */
     String TYPE_ODATA = "XSODATA";
 
 }

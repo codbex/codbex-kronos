@@ -18,13 +18,26 @@ import org.slf4j.LoggerFactory;
 
 import com.codbex.kronos.hdb.ds.model.hdi.DataStructureHDIModel;
 
+/**
+ * The Class HDIContainerDropProcessor.
+ */
 public class HDIContainerDropProcessor {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDIContainerDropProcessor.class);
 
+  /**
+   * Instantiates a new HDI container drop processor.
+   */
   private HDIContainerDropProcessor() {
   }
 
+  /**
+   * Execute.
+   *
+   * @param connection the connection
+   * @param hdiModels the hdi models
+   */
   public static void execute(Connection connection, List<DataStructureHDIModel> hdiModels) {
   }
 

@@ -37,7 +37,10 @@ import org.slf4j.LoggerFactory;
  */
 public class HDBEntityCreateProcessor extends AbstractHDBProcessor<DataStructureEntityModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDBEntityCreateProcessor.class);
+  
+  /** The Constant ENTITY_ARTEFACT. */
   private static final HDBDDEntitySynchronizationArtefactType ENTITY_ARTEFACT = new HDBDDEntitySynchronizationArtefactType();
 
   /**
@@ -45,6 +48,7 @@ public class HDBEntityCreateProcessor extends AbstractHDBProcessor<DataStructure
    *
    * @param connection  the connection
    * @param entityModel the entity model
+   * @return true, if successful
    * @throws SQLException the SQL exception
    */
   public boolean execute(Connection connection, DataStructureEntityModel entityModel) throws SQLException {

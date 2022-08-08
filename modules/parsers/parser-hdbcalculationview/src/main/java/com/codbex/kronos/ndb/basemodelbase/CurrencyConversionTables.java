@@ -31,9 +31,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * Root class for specifying tables for conversion (currency conversion and unit conversion)
  *
  *
- * <p>Java class for CurrencyConversionTables complex type.
+ * Java class for CurrencyConversionTables complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="CurrencyConversionTables"&gt;
@@ -53,18 +53,27 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "CurrencyConversionTables")
 public class CurrencyConversionTables {
 
+  /** The rates. */
   @XmlAttribute(name = "rates", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String rates;
+  
+  /** The configuration. */
   @XmlAttribute(name = "configuration", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String configuration;
+  
+  /** The prefactors. */
   @XmlAttribute(name = "prefactors", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String prefactors;
+  
+  /** The notations. */
   @XmlAttribute(name = "notations", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String notations;
+  
+  /** The precisions. */
   @XmlAttribute(name = "precisions", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String precisions;

@@ -34,9 +34,9 @@ import com.codbex.kronos.ndb.bimodeldatafoundation.LogicalObject;
  * Constraints: All key attributes must have the same table in the key mapping (see also df:DataFoundation)
  *
  *
- * <p>Java class for Dimension complex type.
+ * Java class for Dimension complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Dimension"&gt;
@@ -63,11 +63,18 @@ import com.codbex.kronos.ndb.bimodeldatafoundation.LogicalObject;
 public class Dimension
     extends LogicalObject {
 
+  /** The hierarchies. */
   protected Hierarchies hierarchies;
+  
+  /** The dimension type. */
   @XmlAttribute(name = "dimensionType", required = true)
   protected DimensionType dimensionType;
+  
+  /** The derived. */
   @XmlAttribute(name = "derived")
   protected Boolean derived;
+  
+  /** The default member. */
   @XmlAttribute(name = "defaultMember")
   protected String defaultMember;
 

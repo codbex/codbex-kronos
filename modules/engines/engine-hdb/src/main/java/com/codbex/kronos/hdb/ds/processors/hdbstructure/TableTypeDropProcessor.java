@@ -24,16 +24,34 @@ import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class TableTypeDropProcessor.
+ */
 public class TableTypeDropProcessor extends AbstractHDBProcessor<DataStructureHDBTableTypeModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(TableTypeDropProcessor.class);
 
+  /** The synonym remover. */
   private final HDBSynonymRemover synonymRemover;
 
+  /**
+   * Instantiates a new table type drop processor.
+   *
+   * @param synonymRemover the synonym remover
+   */
   public TableTypeDropProcessor(HDBSynonymRemover synonymRemover) {
     this.synonymRemover = synonymRemover;
   }
 
+  /**
+   * Execute.
+   *
+   * @param connection the connection
+   * @param tableTypeModel the table type model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   @Override
   public boolean execute(Connection connection, DataStructureHDBTableTypeModel tableTypeModel) throws SQLException {
     synonymRemover.removePublicSynonym(connection, tableTypeModel.getSchema(), tableTypeModel.getName());
@@ -55,20 +73,49 @@ public class TableTypeDropProcessor extends AbstractHDBProcessor<DataStructureHD
     }
   }
 
+  /**
+   * Process exception.
+   *
+   * @param tableTypeModel the table type model
+   * @param ex the ex
+   */
   void processException(DataStructureHDBTableTypeModel tableTypeModel, Exception ex) {
     logger.error("Failed to drop table type [{}] in schema [{}]", tableTypeModel.getName(), tableTypeModel.getSchema(), ex);
     CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, tableTypeModel.getLocation(),
         CommonsConstants.HDB_TABLE_TYPE_PARSER);
   }
 
+  /**
+   * Escape table type name.
+   *
+   * @param connection the connection
+   * @param tableTypeModel the table type model
+   * @return the string
+   */
   String escapeTableTypeName(Connection connection, DataStructureHDBTableTypeModel tableTypeModel) {
     return HDBUtils.escapeArtifactName(tableTypeModel.getName(), tableTypeModel.getSchema());
   }
 
+  /**
+   * Gets the drop table type SQL.
+   *
+   * @param connection the connection
+   * @param tableTypeName the table type name
+   * @return the drop table type SQL
+   * @throws IllegalStateException the illegal state exception
+   */
   String getDropTableTypeSQL(Connection connection, String tableTypeName) throws IllegalStateException {
     return SqlFactory.getNative(connection).drop().tableType(tableTypeName).build();
   }
 
+  /**
+   * Table type does not exist.
+   *
+   * @param connection the connection
+   * @param tableTypeModel the table type model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   boolean tableTypeDoesNotExist(Connection connection, DataStructureHDBTableTypeModel tableTypeModel) throws SQLException {
     return !SqlFactory.getNative(connection)
         .exists(connection, tableTypeModel.getSchema(), tableTypeModel.getName(), DatabaseArtifactTypes.TABLE_TYPE);

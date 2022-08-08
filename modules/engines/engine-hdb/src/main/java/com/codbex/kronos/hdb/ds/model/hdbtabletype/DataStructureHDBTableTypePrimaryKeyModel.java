@@ -11,10 +11,15 @@
  */
 package com.codbex.kronos.hdb.ds.model.hdbtabletype;
 
+/**
+ * The Class DataStructureHDBTableTypePrimaryKeyModel.
+ */
 public class DataStructureHDBTableTypePrimaryKeyModel {
 
+  /** The name. */
   private String name;
 
+  /** The primary key columns. */
   private String[] primaryKeyColumns;
 
 

@@ -14,6 +14,9 @@ package com.codbex.kronos.xsaccess.ds.synchronizer;
 import org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizerJob;
 import org.eclipse.dirigible.core.scheduler.api.ISynchronizer;
 
+/**
+ * The Class SecuritySynchronizerJob.
+ */
 public class SecuritySynchronizerJob extends AbstractSynchronizerJob {
 
   /**
@@ -21,6 +24,11 @@ public class SecuritySynchronizerJob extends AbstractSynchronizerJob {
    */
   private SecuritySynchronizer extensionsSynchronizer = new SecuritySynchronizer();
 
+  /**
+   * Gets the synchronizer.
+   *
+   * @return the synchronizer
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizerJob#getSynchronizer()
@@ -30,6 +38,11 @@ public class SecuritySynchronizerJob extends AbstractSynchronizerJob {
     return extensionsSynchronizer;
   }
 
+  /**
+   * Gets the name.
+   *
+   * @return the name
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizerJob#getName()

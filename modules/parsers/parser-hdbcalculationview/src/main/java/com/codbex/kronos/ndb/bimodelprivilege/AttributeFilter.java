@@ -32,9 +32,9 @@ import com.codbex.kronos.ndb.sqlcoremodelaccesscontrol.ValueFilter;
 
 
 /**
- * <p>Java class for AttributeFilter complex type.
+ * Java class for AttributeFilter complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="AttributeFilter"&gt;
@@ -60,32 +60,41 @@ import com.codbex.kronos.ndb.sqlcoremodelaccesscontrol.ValueFilter;
 public class AttributeFilter
     extends Filter {
 
+  /** The value filter. */
   protected List<ValueFilter> valueFilter;
+  
+  /** The hierarchy filter. */
   protected List<HierarchyFilter> hierarchyFilter;
+  
+  /** The procedure filter. */
   protected List<ProcedureFilter> procedureFilter;
+  
+  /** The attribute name. */
   @XmlAttribute(name = "attributeName", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String attributeName;
 
   /**
    * Gets the value of the valueFilter property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the valueFilter property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getValueFilter().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link ValueFilter }
+   *
+   * @return the value filter
    */
   public List<ValueFilter> getValueFilter() {
     if (valueFilter == null) {
@@ -96,23 +105,25 @@ public class AttributeFilter
 
   /**
    * Gets the value of the hierarchyFilter property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the hierarchyFilter property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getHierarchyFilter().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link HierarchyFilter }
+   *
+   * @return the hierarchy filter
    */
   public List<HierarchyFilter> getHierarchyFilter() {
     if (hierarchyFilter == null) {
@@ -123,23 +134,25 @@ public class AttributeFilter
 
   /**
    * Gets the value of the procedureFilter property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the procedureFilter property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getProcedureFilter().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link ProcedureFilter }
+   *
+   * @return the procedure filter
    */
   public List<ProcedureFilter> getProcedureFilter() {
     if (procedureFilter == null) {

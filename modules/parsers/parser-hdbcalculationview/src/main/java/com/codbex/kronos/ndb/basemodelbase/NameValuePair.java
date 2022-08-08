@@ -26,9 +26,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for NameValuePair complex type.
+ * Java class for NameValuePair complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="NameValuePair"&gt;
@@ -45,8 +45,11 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "NameValuePair")
 public class NameValuePair {
 
+  /** The name. */
   @XmlAttribute(name = "name")
   protected String name;
+  
+  /** The value. */
   @XmlAttribute(name = "value")
   protected String value;
 

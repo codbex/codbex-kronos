@@ -37,24 +37,62 @@ import org.eclipse.dirigible.core.scheduler.api.ISynchronizerArtefactType.Artefa
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class DeployContainerContentProcessor.
+ */
 public class DeployContainerContentProcessor extends HDIAbstractProcessor {
 
+  /** The Constant LOGGER. */
   private static final Logger LOGGER = LoggerFactory.getLogger(DeployContainerContentProcessor.class);
+  
+  /** The Constant ERROR_LOCATION. */
   private static final String ERROR_LOCATION = "-";
+  
+  /** The Constant SQL_SELECT_FROM_DEPLOY_PATHS. */
   private static final String SQL_SELECT_FROM_DEPLOY_PATHS = "SELECT * FROM #DEPLOY_PATHS";
+  
+  /** The Constant SQL_SELECT_FROM_UNDEPLOY_PATHS. */
   private static final String SQL_SELECT_FROM_UNDEPLOY_PATHS = "SELECT * FROM #UNDEPLOY_PATHS";
+  
+  /** The Constant FIRST_OUTPUT_PARAMETER_INDEX. */
   private static final int FIRST_OUTPUT_PARAMETER_INDEX = 1;
 
+  /** The Constant CALCULATION_VIEW_SYNCHRONIZATION_ARTEFACT_TYPE. */
   private static final CalculationViewSynchronizationArtefactType CALCULATION_VIEW_SYNCHRONIZATION_ARTEFACT_TYPE = new CalculationViewSynchronizationArtefactType();
+  
+  /** The Constant TABLE_SYNCHRONIZATION_ARTEFACT_TYPE. */
   private static final HDBTableSynchronizationArtefactType TABLE_SYNCHRONIZATION_ARTEFACT_TYPE = new HDBTableSynchronizationArtefactType();
+  
+  /** The Constant PROCEDURE_SYNCHRONIZATION_ARTEFACT_TYPE. */
   private static final HDBProcedureSynchronizationArtefactType PROCEDURE_SYNCHRONIZATION_ARTEFACT_TYPE = new HDBProcedureSynchronizationArtefactType();
+  
+  /** The Constant SCHEMA_SYNCHRONIZATION_ARTEFACT_TYPE. */
   private static final HDBSchemaSynchronizationArtefactType SCHEMA_SYNCHRONIZATION_ARTEFACT_TYPE = new HDBSchemaSynchronizationArtefactType();
+  
+  /** The Constant SEQUENCE_SYNCHRONIZATION_ARTEFACT_TYPE. */
   private static final HDBSequenceSynchronizationArtefactType SEQUENCE_SYNCHRONIZATION_ARTEFACT_TYPE = new HDBSequenceSynchronizationArtefactType();
+  
+  /** The Constant SYNONYM_SYNCHRONIZATION_ARTEFACT_TYPE. */
   private static final HDBSynonymSynchronizationArtefactType SYNONYM_SYNCHRONIZATION_ARTEFACT_TYPE = new HDBSynonymSynchronizationArtefactType();
+  
+  /** The Constant TABLE_FUNCTION_SYNCHRONIZATION_ARTEFACT_TYPE. */
   private static final HDBTableFunctionSynchronizationArtefactType TABLE_FUNCTION_SYNCHRONIZATION_ARTEFACT_TYPE = new HDBTableFunctionSynchronizationArtefactType();
+  
+  /** The Constant TABLE_TYPE_SYNCHRONIZATION_ARTEFACT_TYPE. */
   private static final HDBTableTypeSynchronizationArtefactType TABLE_TYPE_SYNCHRONIZATION_ARTEFACT_TYPE = new HDBTableTypeSynchronizationArtefactType();
+  
+  /** The Constant VIEW_SYNCHRONIZATION_ARTEFACT_TYPE. */
   private static final HDBViewSynchronizationArtefactType VIEW_SYNCHRONIZATION_ARTEFACT_TYPE = new HDBViewSynchronizationArtefactType();
 
+  /**
+   * Execute.
+   *
+   * @param connection the connection
+   * @param container the container
+   * @param deployPaths the deploy paths
+   * @param undeployPaths the undeploy paths
+   * @throws SQLException the SQL exception
+   */
   public final void execute(Connection connection, String container, String[] deployPaths, String[] undeployPaths) throws SQLException {
     executeUpdate(connection, "CREATE LOCAL TEMPORARY COLUMN TABLE #DEPLOY_PATHS LIKE _SYS_DI.TT_FILESFOLDERS;");
     executeUpdate(connection, "INSERT INTO #DEPLOY_PATHS (PATH) VALUES ('.hdiconfig');");
@@ -75,6 +113,12 @@ public class DeployContainerContentProcessor extends HDIAbstractProcessor {
     executeUpdate(connection, "DROP TABLE #PATH_PARAMETERS;");
   }
 
+  /**
+   * Execute call.
+   *
+   * @param connection the connection
+   * @param sql the sql
+   */
   protected void executeCall(Connection connection, String sql) {
     try (CallableStatement statement = connection.prepareCall(sql)) {
       statement.registerOutParameter(FIRST_OUTPUT_PARAMETER_INDEX, Types.INTEGER);
@@ -92,6 +136,14 @@ public class DeployContainerContentProcessor extends HDIAbstractProcessor {
     }
   }
 
+  /**
+   * Check paths.
+   *
+   * @param connection the connection
+   * @param returnCode the return code
+   * @param sql the sql
+   * @throws SQLException the SQL exception
+   */
   private void checkPaths(Connection connection, int returnCode, String sql) throws SQLException {
     try (PreparedStatement prepareStatement = connection.prepareStatement(sql)) {
       try (ResultSet rs = prepareStatement.executeQuery()) {
@@ -119,6 +171,14 @@ public class DeployContainerContentProcessor extends HDIAbstractProcessor {
     }
   }
 
+  /**
+   * Apply state.
+   *
+   * @param fileExtension the file extension
+   * @param fileName the file name
+   * @param artefactState the artefact state
+   * @param location the location
+   */
   protected void applyState(String fileExtension, String fileName, ArtefactState artefactState, String location) {
     switch (fileExtension) {
       case Constants.CALCULATION_VIEW_EXTENSION:
@@ -162,6 +222,12 @@ public class DeployContainerContentProcessor extends HDIAbstractProcessor {
     }
   }
 
+  /**
+   * Gets the extension.
+   *
+   * @param filename the filename
+   * @return the extension
+   */
   private String getExtension(String filename) {
     String extension = "";
     if (filename.indexOf(Constants.DOT) != -1) {

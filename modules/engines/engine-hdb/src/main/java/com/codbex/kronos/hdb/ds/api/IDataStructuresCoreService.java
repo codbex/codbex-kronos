@@ -38,6 +38,7 @@ public interface IDataStructuresCoreService extends ICoreService {
   /**
    * Gets the DataStructure.
    *
+   * @param <T> the generic type
    * @param location the location
    * @param type     the type of the DataStructure
    * @return the DataStructure
@@ -48,6 +49,7 @@ public interface IDataStructuresCoreService extends ICoreService {
   /**
    * Gets the DataStructure by name.
    *
+   * @param <T> the generic type
    * @param name the name
    * @param type the type
    * @return the DataStructure by name
@@ -87,9 +89,10 @@ public interface IDataStructuresCoreService extends ICoreService {
   /**
    * Gets the DataStructures.
    *
+   * @param <T> the generic type
+   * @param type the type
    * @return the tables
    * @throws DataStructuresException the data structures exception
-   * @params type
    * the type of the DataStructure
    */
   public <T extends DataStructureModel> List<T> getDataStructuresByType(String type) throws DataStructuresException;

@@ -31,9 +31,9 @@ import javax.xml.bind.annotation.XmlValue;
 
 
 /**
- * <p>Java class for anonymous complex type.
+ * Java class for anonymous complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -314,22 +314,39 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlRootElement(name = "logicalModel")
 public class LogicalModel {
 
+  /** The descriptions. */
   @XmlElement(required = true)
   protected String descriptions;
+  
+  /** The attributes. */
   @XmlElement(required = true)
   protected LogicalModel.Attributes attributes;
+  
+  /** The calculated attributes. */
   @XmlElement(required = true)
   protected String calculatedAttributes;
+  
+  /** The private data foundation. */
   @XmlElement(required = true)
   protected LogicalModel.PrivateDataFoundation privateDataFoundation;
+  
+  /** The base measures. */
   @XmlElement(required = true)
   protected LogicalModel.BaseMeasures baseMeasures;
+  
+  /** The calculated measures. */
   @XmlElement(required = true)
   protected LogicalModel.CalculatedMeasures calculatedMeasures;
+  
+  /** The restricted measures. */
   @XmlElement(required = true)
   protected String restrictedMeasures;
+  
+  /** The local dimensions. */
   @XmlElement(required = true)
   protected LogicalModel.LocalDimensions localDimensions;
+  
+  /** The id. */
   @XmlAttribute(name = "id")
   protected String id;
 
@@ -515,9 +532,9 @@ public class LogicalModel {
 
 
   /**
-   * <p>Java class for anonymous complex type.
+   * Java class for anonymous complex type.
    *
-   * <p>The following schema fragment specifies the expected content contained within this class.
+   * The following schema fragment specifies the expected content contained within this class.
    *
    * <pre>
    * &lt;complexType&gt;
@@ -573,27 +590,30 @@ public class LogicalModel {
   })
   public static class Attributes {
 
+    /** The attribute. */
     protected List<LogicalModel.Attributes.Attribute> attribute;
 
     /**
      * Gets the value of the attribute property.
-     *
-     * <p>
+     * 
+     * 
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the attribute property.
-     *
-     * <p>
+     * 
+     * 
      * For example, to add a new item, do as follows:
      * <pre>
      *    getAttribute().add(newItem);
      * </pre>
-     *
-     *
-     * <p>
+     * 
+     * 
+     * 
      * Objects of the following type(s) are allowed in the list
      * {@link LogicalModel.Attributes.Attribute }
+     *
+     * @return the attribute
      */
     public List<LogicalModel.Attributes.Attribute> getAttribute() {
       if (attribute == null) {
@@ -604,9 +624,9 @@ public class LogicalModel {
 
 
     /**
-     * <p>Java class for anonymous complex type.
+     * Java class for anonymous complex type.
      *
-     * <p>The following schema fragment specifies the expected content contained within this class.
+     * The following schema fragment specifies the expected content contained within this class.
      *
      * <pre>
      * &lt;complexType&gt;
@@ -655,22 +675,41 @@ public class LogicalModel {
     })
     public static class Attribute {
 
+      /** The descriptions. */
       @XmlElement(required = true)
       protected LogicalModel.Attributes.Attribute.Descriptions descriptions;
+      
+      /** The external like structure name. */
       protected String externalLikeStructureName;
+      
+      /** The external like element name. */
       protected String externalLikeElementName;
+      
+      /** The key mapping. */
       @XmlElement(required = true)
       protected LogicalModel.Attributes.Attribute.KeyMapping keyMapping;
+      
+      /** The id. */
       @XmlAttribute(name = "id")
       protected String id;
+      
+      /** The key. */
       @XmlAttribute(name = "key")
       protected String key;
+      
+      /** The order. */
       @XmlAttribute(name = "order")
       protected Byte order;
+      
+      /** The attribute hierarchy active. */
       @XmlAttribute(name = "attributeHierarchyActive")
       protected String attributeHierarchyActive;
+      
+      /** The display attribute. */
       @XmlAttribute(name = "displayAttribute")
       protected String displayAttribute;
+      
+      /** The description column name. */
       @XmlAttribute(name = "descriptionColumnName")
       protected String descriptionColumnName;
 
@@ -876,9 +915,9 @@ public class LogicalModel {
 
 
       /**
-       * <p>Java class for anonymous complex type.
+       * Java class for anonymous complex type.
        *
-       * <p>The following schema fragment specifies the expected content contained within this class.
+       * The following schema fragment specifies the expected content contained within this class.
        *
        * <pre>
        * &lt;complexType&gt;
@@ -896,8 +935,11 @@ public class LogicalModel {
       })
       public static class Descriptions {
 
+        /** The value. */
         @XmlValue
         protected String value;
+        
+        /** The default description. */
         @XmlAttribute(name = "defaultDescription")
         protected String defaultDescription;
 
@@ -945,9 +987,9 @@ public class LogicalModel {
 
 
       /**
-       * <p>Java class for anonymous complex type.
+       * Java class for anonymous complex type.
        *
-       * <p>The following schema fragment specifies the expected content contained within this class.
+       * The following schema fragment specifies the expected content contained within this class.
        *
        * <pre>
        * &lt;complexType&gt;
@@ -966,10 +1008,15 @@ public class LogicalModel {
       })
       public static class KeyMapping {
 
+        /** The value. */
         @XmlValue
         protected String value;
+        
+        /** The column object name. */
         @XmlAttribute(name = "columnObjectName")
         protected String columnObjectName;
+        
+        /** The column name. */
         @XmlAttribute(name = "columnName")
         protected String columnName;
 
@@ -1041,9 +1088,9 @@ public class LogicalModel {
 
 
   /**
-   * <p>Java class for anonymous complex type.
+   * Java class for anonymous complex type.
    *
-   * <p>The following schema fragment specifies the expected content contained within this class.
+   * The following schema fragment specifies the expected content contained within this class.
    *
    * <pre>
    * &lt;complexType&gt;
@@ -1096,27 +1143,30 @@ public class LogicalModel {
   })
   public static class BaseMeasures {
 
+    /** The measure. */
     protected List<LogicalModel.BaseMeasures.Measure> measure;
 
     /**
      * Gets the value of the measure property.
-     *
-     * <p>
+     * 
+     * 
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the measure property.
-     *
-     * <p>
+     * 
+     * 
      * For example, to add a new item, do as follows:
      * <pre>
      *    getMeasure().add(newItem);
      * </pre>
-     *
-     *
-     * <p>
+     * 
+     * 
+     * 
      * Objects of the following type(s) are allowed in the list
      * {@link LogicalModel.BaseMeasures.Measure }
+     *
+     * @return the measure
      */
     public List<LogicalModel.BaseMeasures.Measure> getMeasure() {
       if (measure == null) {
@@ -1127,9 +1177,9 @@ public class LogicalModel {
 
 
     /**
-     * <p>Java class for anonymous complex type.
+     * Java class for anonymous complex type.
      *
-     * <p>The following schema fragment specifies the expected content contained within this class.
+     * The following schema fragment specifies the expected content contained within this class.
      *
      * <pre>
      * &lt;complexType&gt;
@@ -1173,18 +1223,31 @@ public class LogicalModel {
     })
     public static class Measure {
 
+      /** The descriptions. */
       @XmlElement(required = true)
       protected LogicalModel.BaseMeasures.Measure.Descriptions descriptions;
+      
+      /** The measure mapping. */
       @XmlElement(required = true)
       protected LogicalModel.BaseMeasures.Measure.MeasureMapping measureMapping;
+      
+      /** The id. */
       @XmlAttribute(name = "id")
       protected String id;
+      
+      /** The order. */
       @XmlAttribute(name = "order")
       protected Byte order;
+      
+      /** The semantic type. */
       @XmlAttribute(name = "semanticType")
       protected String semanticType;
+      
+      /** The aggregation type. */
       @XmlAttribute(name = "aggregationType")
       protected String aggregationType;
+      
+      /** The measure type. */
       @XmlAttribute(name = "measureType")
       protected String measureType;
 
@@ -1330,9 +1393,9 @@ public class LogicalModel {
 
 
       /**
-       * <p>Java class for anonymous complex type.
+       * Java class for anonymous complex type.
        *
-       * <p>The following schema fragment specifies the expected content contained within this class.
+       * The following schema fragment specifies the expected content contained within this class.
        *
        * <pre>
        * &lt;complexType&gt;
@@ -1350,8 +1413,11 @@ public class LogicalModel {
       })
       public static class Descriptions {
 
+        /** The value. */
         @XmlValue
         protected String value;
+        
+        /** The default description. */
         @XmlAttribute(name = "defaultDescription")
         protected String defaultDescription;
 
@@ -1399,9 +1465,9 @@ public class LogicalModel {
 
 
       /**
-       * <p>Java class for anonymous complex type.
+       * Java class for anonymous complex type.
        *
-       * <p>The following schema fragment specifies the expected content contained within this class.
+       * The following schema fragment specifies the expected content contained within this class.
        *
        * <pre>
        * &lt;complexType&gt;
@@ -1420,10 +1486,15 @@ public class LogicalModel {
       })
       public static class MeasureMapping {
 
+        /** The value. */
         @XmlValue
         protected String value;
+        
+        /** The column object name. */
         @XmlAttribute(name = "columnObjectName")
         protected String columnObjectName;
+        
+        /** The column name. */
         @XmlAttribute(name = "columnName")
         protected String columnName;
 
@@ -1495,9 +1566,9 @@ public class LogicalModel {
 
 
   /**
-   * <p>Java class for anonymous complex type.
+   * Java class for anonymous complex type.
    *
-   * <p>The following schema fragment specifies the expected content contained within this class.
+   * The following schema fragment specifies the expected content contained within this class.
    *
    * <pre>
    * &lt;complexType&gt;
@@ -1564,27 +1635,30 @@ public class LogicalModel {
   })
   public static class CalculatedMeasures {
 
+    /** The measure. */
     protected List<LogicalModel.CalculatedMeasures.Measure> measure;
 
     /**
      * Gets the value of the measure property.
-     *
-     * <p>
+     * 
+     * 
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the measure property.
-     *
-     * <p>
+     * 
+     * 
      * For example, to add a new item, do as follows:
      * <pre>
      *    getMeasure().add(newItem);
      * </pre>
-     *
-     *
-     * <p>
+     * 
+     * 
+     * 
      * Objects of the following type(s) are allowed in the list
      * {@link LogicalModel.CalculatedMeasures.Measure }
+     *
+     * @return the measure
      */
     public List<LogicalModel.CalculatedMeasures.Measure> getMeasure() {
       if (measure == null) {
@@ -1595,9 +1669,9 @@ public class LogicalModel {
 
 
     /**
-     * <p>Java class for anonymous complex type.
+     * Java class for anonymous complex type.
      *
-     * <p>The following schema fragment specifies the expected content contained within this class.
+     * The following schema fragment specifies the expected content contained within this class.
      *
      * <pre>
      * &lt;complexType&gt;
@@ -1656,25 +1730,46 @@ public class LogicalModel {
     })
     public static class Measure {
 
+      /** The descriptions. */
       @XmlElement(required = true)
       protected LogicalModel.CalculatedMeasures.Measure.Descriptions descriptions;
+      
+      /** The exception aggregation. */
       @XmlElement(required = true)
       protected LogicalModel.CalculatedMeasures.Measure.ExceptionAggregation exceptionAggregation;
+      
+      /** The formula. */
       protected byte formula;
+      
+      /** The id. */
       @XmlAttribute(name = "id")
       protected String id;
+      
+      /** The hidden. */
       @XmlAttribute(name = "hidden")
       protected String hidden;
+      
+      /** The order. */
       @XmlAttribute(name = "order")
       protected Byte order;
+      
+      /** The aggregation type. */
       @XmlAttribute(name = "aggregationType")
       protected String aggregationType;
+      
+      /** The measure type. */
       @XmlAttribute(name = "measureType")
       protected String measureType;
+      
+      /** The calculated measure type. */
       @XmlAttribute(name = "calculatedMeasureType")
       protected String calculatedMeasureType;
+      
+      /** The datatype. */
       @XmlAttribute(name = "datatype")
       protected String datatype;
+      
+      /** The expression language. */
       @XmlAttribute(name = "expressionLanguage")
       protected String expressionLanguage;
 
@@ -1720,6 +1815,8 @@ public class LogicalModel {
 
       /**
        * Gets the value of the formula property.
+       *
+       * @return the formula
        */
       public byte getFormula() {
         return formula;
@@ -1727,6 +1824,8 @@ public class LogicalModel {
 
       /**
        * Sets the value of the formula property.
+       *
+       * @param value the new formula
        */
       public void setFormula(byte value) {
         this.formula = value;
@@ -1894,9 +1993,9 @@ public class LogicalModel {
 
 
       /**
-       * <p>Java class for anonymous complex type.
+       * Java class for anonymous complex type.
        *
-       * <p>The following schema fragment specifies the expected content contained within this class.
+       * The following schema fragment specifies the expected content contained within this class.
        *
        * <pre>
        * &lt;complexType&gt;
@@ -1914,8 +2013,11 @@ public class LogicalModel {
       })
       public static class Descriptions {
 
+        /** The value. */
         @XmlValue
         protected String value;
+        
+        /** The default description. */
         @XmlAttribute(name = "defaultDescription")
         protected String defaultDescription;
 
@@ -1963,9 +2065,9 @@ public class LogicalModel {
 
 
       /**
-       * <p>Java class for anonymous complex type.
+       * Java class for anonymous complex type.
        *
-       * <p>The following schema fragment specifies the expected content contained within this class.
+       * The following schema fragment specifies the expected content contained within this class.
        *
        * <pre>
        * &lt;complexType&gt;
@@ -1994,29 +2096,34 @@ public class LogicalModel {
       })
       public static class ExceptionAggregation {
 
+        /** The attribute. */
         protected List<LogicalModel.CalculatedMeasures.Measure.ExceptionAggregation.Attribute> attribute;
+        
+        /** The exception aggregation type. */
         @XmlAttribute(name = "exceptionAggregationType")
         protected String exceptionAggregationType;
 
         /**
          * Gets the value of the attribute property.
-         *
-         * <p>
+         * 
+         * 
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the attribute property.
-         *
-         * <p>
+         * 
+         * 
          * For example, to add a new item, do as follows:
          * <pre>
          *    getAttribute().add(newItem);
          * </pre>
-         *
-         *
-         * <p>
+         * 
+         * 
+         * 
          * Objects of the following type(s) are allowed in the list
          * {@link LogicalModel.CalculatedMeasures.Measure.ExceptionAggregation.Attribute }
+         *
+         * @return the attribute
          */
         public List<LogicalModel.CalculatedMeasures.Measure.ExceptionAggregation.Attribute> getAttribute() {
           if (attribute == null) {
@@ -2047,9 +2154,9 @@ public class LogicalModel {
 
 
         /**
-         * <p>Java class for anonymous complex type.
+         * Java class for anonymous complex type.
          *
-         * <p>The following schema fragment specifies the expected content contained within this class.
+         * The following schema fragment specifies the expected content contained within this class.
          *
          * <pre>
          * &lt;complexType&gt;
@@ -2067,8 +2174,11 @@ public class LogicalModel {
         })
         public static class Attribute {
 
+          /** The value. */
           @XmlValue
           protected String value;
+          
+          /** The attribute name. */
           @XmlAttribute(name = "attributeName")
           protected String attributeName;
 
@@ -2122,9 +2232,9 @@ public class LogicalModel {
 
 
   /**
-   * <p>Java class for anonymous complex type.
+   * Java class for anonymous complex type.
    *
-   * <p>The following schema fragment specifies the expected content contained within this class.
+   * The following schema fragment specifies the expected content contained within this class.
    *
    * <pre>
    * &lt;complexType&gt;
@@ -2211,27 +2321,30 @@ public class LogicalModel {
   })
   public static class LocalDimensions {
 
+    /** The local dimension. */
     protected List<LogicalModel.LocalDimensions.LocalDimension> localDimension;
 
     /**
      * Gets the value of the localDimension property.
-     *
-     * <p>
+     * 
+     * 
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the localDimension property.
-     *
-     * <p>
+     * 
+     * 
      * For example, to add a new item, do as follows:
      * <pre>
      *    getLocalDimension().add(newItem);
      * </pre>
-     *
-     *
-     * <p>
+     * 
+     * 
+     * 
      * Objects of the following type(s) are allowed in the list
      * {@link LogicalModel.LocalDimensions.LocalDimension }
+     *
+     * @return the local dimension
      */
     public List<LogicalModel.LocalDimensions.LocalDimension> getLocalDimension() {
       if (localDimension == null) {
@@ -2242,9 +2355,9 @@ public class LogicalModel {
 
 
     /**
-     * <p>Java class for anonymous complex type.
+     * Java class for anonymous complex type.
      *
-     * <p>The following schema fragment specifies the expected content contained within this class.
+     * The following schema fragment specifies the expected content contained within this class.
      *
      * <pre>
      * &lt;complexType&gt;
@@ -2322,31 +2435,38 @@ public class LogicalModel {
     })
     public static class LocalDimension {
 
+      /** The attribute ref. */
       protected List<String> attributeRef;
+      
+      /** The hierarchies. */
       @XmlElement(required = true)
       protected LogicalModel.LocalDimensions.LocalDimension.Hierarchies hierarchies;
+      
+      /** The id. */
       @XmlAttribute(name = "id")
       protected String id;
 
       /**
        * Gets the value of the attributeRef property.
-       *
-       * <p>
+       * 
+       * 
        * This accessor method returns a reference to the live list,
        * not a snapshot. Therefore any modification you make to the
        * returned list will be present inside the JAXB object.
        * This is why there is not a <CODE>set</CODE> method for the attributeRef property.
-       *
-       * <p>
+       * 
+       * 
        * For example, to add a new item, do as follows:
        * <pre>
        *    getAttributeRef().add(newItem);
        * </pre>
-       *
-       *
-       * <p>
+       * 
+       * 
+       * 
        * Objects of the following type(s) are allowed in the list
        * {@link String }
+       *
+       * @return the attribute ref
        */
       public List<String> getAttributeRef() {
         if (attributeRef == null) {
@@ -2397,9 +2517,9 @@ public class LogicalModel {
 
 
       /**
-       * <p>Java class for anonymous complex type.
+       * Java class for anonymous complex type.
        *
-       * <p>The following schema fragment specifies the expected content contained within this class.
+       * The following schema fragment specifies the expected content contained within this class.
        *
        * <pre>
        * &lt;complexType&gt;
@@ -2464,6 +2584,7 @@ public class LogicalModel {
       })
       public static class Hierarchies {
 
+        /** The hierarchy. */
         @XmlElement(required = true)
         protected LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy hierarchy;
 
@@ -2489,9 +2610,9 @@ public class LogicalModel {
 
 
         /**
-         * <p>Java class for anonymous complex type.
+         * Java class for anonymous complex type.
          *
-         * <p>The following schema fragment specifies the expected content contained within this class.
+         * The following schema fragment specifies the expected content contained within this class.
          *
          * <pre>
          * &lt;complexType&gt;
@@ -2547,18 +2668,31 @@ public class LogicalModel {
         })
         public static class Hierarchy {
 
+          /** The descriptions. */
           @XmlElement(required = true)
           protected LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Descriptions descriptions;
+          
+          /** The levels. */
           @XmlElement(required = true)
           protected LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels levels;
+          
+          /** The id. */
           @XmlAttribute(name = "id")
           protected String id;
+          
+          /** The aggregate all nodes. */
           @XmlAttribute(name = "aggregateAllNodes")
           protected String aggregateAllNodes;
+          
+          /** The root node visibility. */
           @XmlAttribute(name = "rootNodeVisibility")
           protected String rootNodeVisibility;
+          
+          /** The with root node. */
           @XmlAttribute(name = "withRootNode")
           protected String withRootNode;
+          
+          /** The node style. */
           @XmlAttribute(name = "nodeStyle")
           protected String nodeStyle;
 
@@ -2704,9 +2838,9 @@ public class LogicalModel {
 
 
           /**
-           * <p>Java class for anonymous complex type.
+           * Java class for anonymous complex type.
            *
-           * <p>The following schema fragment specifies the expected content contained within this class.
+           * The following schema fragment specifies the expected content contained within this class.
            *
            * <pre>
            * &lt;complexType&gt;
@@ -2724,8 +2858,11 @@ public class LogicalModel {
           })
           public static class Descriptions {
 
+            /** The value. */
             @XmlValue
             protected String value;
+            
+            /** The default description. */
             @XmlAttribute(name = "defaultDescription")
             protected String defaultDescription;
 
@@ -2773,9 +2910,9 @@ public class LogicalModel {
 
 
           /**
-           * <p>Java class for anonymous complex type.
+           * Java class for anonymous complex type.
            *
-           * <p>The following schema fragment specifies the expected content contained within this class.
+           * The following schema fragment specifies the expected content contained within this class.
            *
            * <pre>
            * &lt;complexType&gt;
@@ -2806,27 +2943,30 @@ public class LogicalModel {
           })
           public static class Levels {
 
+            /** The level. */
             protected List<LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels.Level> level;
 
             /**
              * Gets the value of the level property.
-             *
-             * <p>
+             * 
+             * 
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the JAXB object.
              * This is why there is not a <CODE>set</CODE> method for the level property.
-             *
-             * <p>
+             * 
+             * 
              * For example, to add a new item, do as follows:
              * <pre>
              *    getLevel().add(newItem);
              * </pre>
-             *
-             *
-             * <p>
+             * 
+             * 
+             * 
              * Objects of the following type(s) are allowed in the list
              * {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels.Level }
+             *
+             * @return the level
              */
             public List<LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels.Level> getLevel() {
               if (level == null) {
@@ -2837,9 +2977,9 @@ public class LogicalModel {
 
 
             /**
-             * <p>Java class for anonymous complex type.
+             * Java class for anonymous complex type.
              *
-             * <p>The following schema fragment specifies the expected content contained within this class.
+             * The following schema fragment specifies the expected content contained within this class.
              *
              * <pre>
              * &lt;complexType&gt;
@@ -2860,14 +3000,23 @@ public class LogicalModel {
             })
             public static class Level {
 
+              /** The value. */
               @XmlValue
               protected String value;
+              
+              /** The level attribute. */
               @XmlAttribute(name = "levelAttribute")
               protected String levelAttribute;
+              
+              /** The level type. */
               @XmlAttribute(name = "levelType")
               protected String levelType;
+              
+              /** The order. */
               @XmlAttribute(name = "order")
               protected Byte order;
+              
+              /** The order attribute. */
               @XmlAttribute(name = "orderAttribute")
               protected String orderAttribute;
 
@@ -2985,9 +3134,9 @@ public class LogicalModel {
 
 
   /**
-   * <p>Java class for anonymous complex type.
+   * Java class for anonymous complex type.
    *
-   * <p>The following schema fragment specifies the expected content contained within this class.
+   * The following schema fragment specifies the expected content contained within this class.
    *
    * <pre>
    * &lt;complexType&gt;
@@ -3021,10 +3170,15 @@ public class LogicalModel {
   })
   public static class PrivateDataFoundation {
 
+    /** The table proxies. */
     @XmlElement(required = true)
     protected String tableProxies;
+    
+    /** The joins. */
     @XmlElement(required = true)
     protected String joins;
+    
+    /** The layout. */
     @XmlElement(required = true)
     protected LogicalModel.PrivateDataFoundation.Layout layout;
 
@@ -3090,9 +3244,9 @@ public class LogicalModel {
 
 
     /**
-     * <p>Java class for anonymous complex type.
+     * Java class for anonymous complex type.
      *
-     * <p>The following schema fragment specifies the expected content contained within this class.
+     * The following schema fragment specifies the expected content contained within this class.
      *
      * <pre>
      * &lt;complexType&gt;
@@ -3112,6 +3266,7 @@ public class LogicalModel {
     })
     public static class Layout {
 
+      /** The shapes. */
       @XmlElement(required = true)
       protected String shapes;
 

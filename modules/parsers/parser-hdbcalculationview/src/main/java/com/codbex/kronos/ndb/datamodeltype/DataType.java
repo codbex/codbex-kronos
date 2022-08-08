@@ -31,9 +31,9 @@ import com.codbex.kronos.ndb.repositorymodelresource.RepositoryObject;
  * Base object for data types.
  *
  *
- * <p>Java class for DataType complex type.
+ * Java class for DataType complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="DataType"&gt;

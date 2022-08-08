@@ -18,22 +18,45 @@ import org.eclipse.dirigible.core.scheduler.api.ISchedulerCoreService;
 import org.eclipse.dirigible.core.scheduler.api.ISynchronizer;
 import org.eclipse.dirigible.core.scheduler.service.definition.JobDefinition;
 
+/**
+ * The Class XSJSLibSynchronizerJob.
+ */
 public class XSJSLibSynchronizerJob extends AbstractSynchronizerJob implements IJobDefinitionProvider {
 
+  /** The Constant XSJSLIB_SYNCHRONIZER_JOB. */
   private static final String XSJSLIB_SYNCHRONIZER_JOB = "Kronos XSJSLib Synchronizer Job";
+  
+  /** The Constant KRONOS_JOB_EXPRESSION_XSJSLIB. */
   private static final String KRONOS_JOB_EXPRESSION_XSJSLIB = "KRONOS_JOB_EXPRESSION_XSJSLIB";
+  
+  /** The Constant KRONOS_XSJSLIB_SYNCHRONIZER_JOB. */
   private static final String KRONOS_XSJSLIB_SYNCHRONIZER_JOB = "kronos-xsjslib-synchronizer-job";
 
+  /**
+   * Gets the name.
+   *
+   * @return the name
+   */
   @Override
   public String getName() {
     return XSJSLIB_SYNCHRONIZER_JOB;
   }
 
+  /**
+   * Gets the synchronizer.
+   *
+   * @return the synchronizer
+   */
   @Override
   public ISynchronizer getSynchronizer() {
     return new XSJSLibSynchronizer();
   }
 
+  /**
+   * Gets the job definition.
+   *
+   * @return the job definition
+   */
   @Override
   public JobDefinition getJobDefinition() {
     JobDefinition jobDefinition = new JobDefinition();

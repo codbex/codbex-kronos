@@ -28,19 +28,32 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 
+/**
+ * The Class HDBTIRestService.
+ */
 @Path("/parse")
 @Api(value = "HDBTI Engine - HANA XS Classic", authorizations = {@Authorization(value = "basicAuth", scopes = {})})
 @ApiResponses({@ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
         @ApiResponse(code = 404, message = "Not Found"), @ApiResponse(code = 500, message = "Internal Server Error")})
 public class HDBTIRestService extends AbstractRestService implements IRestService {
 
+    /** The Constant logger. */
     private static final Logger logger = LoggerFactory.getLogger(HDBTIRestService.class);
 
+    /** The response. */
     @Context
     private HttpServletResponse response;
 
+    /** The hdbti processor. */
     private final HDBTIProcessor hdbtiProcessor = new HDBTIProcessor();
 
+    /**
+     * Parses the hdbti to JSON.
+     *
+     * @param location the location
+     * @param file the file
+     * @return the response
+     */
     @POST
     @Path("/hdbti")
     @ApiOperation("Parse HDBTI file")
@@ -60,6 +73,12 @@ public class HDBTIRestService extends AbstractRestService implements IRestServic
         }
     }
 
+    /**
+     * Parses the JSO nto hdbti.
+     *
+     * @param json the json
+     * @return the response
+     */
     @POST
     @Path("/csvim")
     @ApiOperation("Parse CSVIM file")
@@ -78,6 +97,11 @@ public class HDBTIRestService extends AbstractRestService implements IRestServic
     }
 
 
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     /*
      * (non-Javadoc)
      * @see org.eclipse.dirigible.commons.api.service.IRestService#getType()
@@ -87,6 +111,11 @@ public class HDBTIRestService extends AbstractRestService implements IRestServic
         return HDBTIRestService.class;
     }
 
+    /**
+     * Gets the logger.
+     *
+     * @return the logger
+     */
     /*
      * (non-Javadoc)
      * @see org.eclipse.dirigible.commons.api.service.AbstractRestService#getLogger()

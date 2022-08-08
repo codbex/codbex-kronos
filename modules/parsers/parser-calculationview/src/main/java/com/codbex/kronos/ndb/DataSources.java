@@ -31,9 +31,9 @@ import javax.xml.bind.annotation.XmlValue;
 
 
 /**
- * <p>Java class for anonymous complex type.
+ * Java class for anonymous complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -85,28 +85,31 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlRootElement(name = "dataSources")
 public class DataSources {
 
+  /** The data source. */
   @XmlElement(name = "DataSource")
   protected List<DataSources.DataSource> dataSource;
 
   /**
    * Gets the value of the dataSource property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the dataSource property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getDataSource().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link DataSources.DataSource }
+   *
+   * @return the data source
    */
   public List<DataSources.DataSource> getDataSource() {
     if (dataSource == null) {
@@ -117,9 +120,9 @@ public class DataSources {
 
 
   /**
-   * <p>Java class for anonymous complex type.
+   * Java class for anonymous complex type.
    *
-   * <p>The following schema fragment specifies the expected content contained within this class.
+   * The following schema fragment specifies the expected content contained within this class.
    *
    * <pre>
    * &lt;complexType&gt;
@@ -162,12 +165,21 @@ public class DataSources {
   })
   public static class DataSource {
 
+    /** The view attributes. */
     @XmlElement(required = true)
     protected DataSources.DataSource.ViewAttributes viewAttributes;
+    
+    /** The column object. */
     protected DataSources.DataSource.ColumnObject columnObject;
+    
+    /** The resource uri. */
     protected String resourceUri;
+    
+    /** The id. */
     @XmlAttribute(name = "id")
     protected String id;
+    
+    /** The type. */
     @XmlAttribute(name = "type")
     protected String type;
 
@@ -273,9 +285,9 @@ public class DataSources {
 
 
     /**
-     * <p>Java class for anonymous complex type.
+     * Java class for anonymous complex type.
      *
-     * <p>The following schema fragment specifies the expected content contained within this class.
+     * The following schema fragment specifies the expected content contained within this class.
      *
      * <pre>
      * &lt;complexType&gt;
@@ -294,10 +306,15 @@ public class DataSources {
     })
     public static class ColumnObject {
 
+      /** The value. */
       @XmlValue
       protected String value;
+      
+      /** The schema name. */
       @XmlAttribute(name = "schemaName")
       protected String schemaName;
+      
+      /** The column object name. */
       @XmlAttribute(name = "columnObjectName")
       protected String columnObjectName;
 
@@ -365,9 +382,9 @@ public class DataSources {
 
 
     /**
-     * <p>Java class for anonymous complex type.
+     * Java class for anonymous complex type.
      *
-     * <p>The following schema fragment specifies the expected content contained within this class.
+     * The following schema fragment specifies the expected content contained within this class.
      *
      * <pre>
      * &lt;complexType&gt;
@@ -385,8 +402,11 @@ public class DataSources {
     })
     public static class ViewAttributes {
 
+      /** The value. */
       @XmlValue
       protected String value;
+      
+      /** The all view attributes. */
       @XmlAttribute(name = "allViewAttributes")
       protected String allViewAttributes;
 

@@ -48,24 +48,63 @@ import org.eclipse.dirigible.database.sql.ISqlKeywords;
 
 import static org.eclipse.dirigible.database.sql.ISqlKeywords.SPACE;
 
+/**
+ * The Class HdbddTransformer.
+ */
 public class HdbddTransformer {
 
+  /** The Constant UNMANAGED_ASSOCIATION_MARKER. */
   private static final String UNMANAGED_ASSOCIATION_MARKER = "@";
+  
+  /** The Constant CATALOG_ANNOTATION. */
   private static final String CATALOG_ANNOTATION = "Catalog";
+  
+  /** The Constant CATALOG_OBJ_TABLE_TYPE. */
   private static final String CATALOG_OBJ_TABLE_TYPE = "tableType";
+  
+  /** The Constant SEARCH_INDEX_ANNOTATION. */
   private static final String SEARCH_INDEX_ANNOTATION = "SearchIndex";
+  
+  /** The Constant FUZZY_ANNOTATION. */
   private static final String FUZZY_ANNOTATION = "fuzzy";
+  
+  /** The Constant FUZZY_SEARCH_INDEX_ENABLED. */
   private static final String FUZZY_SEARCH_INDEX_ENABLED = "enabled";
+  
+  /** The Constant DUMMY_TABLE. */
   private static final String DUMMY_TABLE = "DUMMY";
+  
+  /** The Constant QUOTE. */
   private static final String QUOTE = "\"";
+  
+  /** The Constant DOT. */
   private static final String DOT = ".";
+  
+  /** The Constant PACKAGE_DELIMITER. */
   private static final String PACKAGE_DELIMITER = "::";
+  
+  /** The Constant INDEX. */
   private static final String INDEX = "index";
+  
+  /** The Constant UNIQUE. */
   private static final String UNIQUE = "unique";
+  
+  /** The Constant NAME. */
   private static final String NAME = "name";
+  
+  /** The Constant ORDER. */
   private static final String ORDER = "order";
+  
+  /** The Constant ELEMENT_NAMES. */
   private static final String ELEMENT_NAMES = "elementNames";
 
+  /**
+   * Transform entity symbol to table model.
+   *
+   * @param entitySymbol the entity symbol
+   * @param location the location
+   * @return the data structure HDB table model
+   */
   public DataStructureHDBTableModel transformEntitySymbolToTableModel(EntitySymbol entitySymbol, String location) {
     DataStructureHDBTableModel tableModel = new DataStructureHDBTableModel();
     tableModel.setDbContentType(DBContentType.XS_CLASSIC);
@@ -166,6 +205,12 @@ public class HdbddTransformer {
     return tableModel;
   }
 
+  /**
+   * Handle possible search index annotations.
+   *
+   * @param entitySymbol the entity symbol
+   * @param tableModel the table model
+   */
   private void handlePossibleSearchIndexAnnotations(EntitySymbol entitySymbol, DataStructureHDBTableModel tableModel){
     for (int i = 0; i < entitySymbol.getElements().size(); i++) {
       EntityElementSymbol currentElement = entitySymbol.getElements().get(i);
@@ -190,6 +235,13 @@ public class HdbddTransformer {
     }
   }
 
+  /**
+   * Transform view symbol to hdb view model.
+   *
+   * @param viewSymbol the view symbol
+   * @param location the location
+   * @return the data structure HDB view model
+   */
   public DataStructureHDBViewModel transformViewSymbolToHdbViewModel(ViewSymbol viewSymbol, String location) {
     DataStructureHDBViewModel viewModel = new DataStructureHDBViewModel();
 
@@ -217,6 +269,14 @@ public class HdbddTransformer {
     return viewModel;
   }
 
+  /**
+   * Traverse select statements.
+   *
+   * @param viewSymbol the view symbol
+   * @param aliasesForReplacement the aliases for replacement
+   * @param viewModel the view model
+   * @return the string
+   */
   public String traverseSelectStatements(ViewSymbol viewSymbol, List<String> aliasesForReplacement, DataStructureHDBViewModel viewModel) {
     List<String> dependsOnTableList = new ArrayList<>();
     StringBuilder selectSql = new StringBuilder();
@@ -268,6 +328,15 @@ public class HdbddTransformer {
     return selectSql.toString();
   }
 
+  /**
+   * Traverse join statements.
+   *
+   * @param selectSymbol the select symbol
+   * @param viewSymbol the view symbol
+   * @param dependsOnTable the depends on table
+   * @param aliasesForReplacement the aliases for replacement
+   * @return the string
+   */
   public String traverseJoinStatements(SelectSymbol selectSymbol, ViewSymbol viewSymbol, String dependsOnTable,
       List<String> aliasesForReplacement) {
     StringBuilder joinStatements = new StringBuilder();
@@ -301,14 +370,35 @@ public class HdbddTransformer {
     return joinStatements.toString();
   }
 
+  /**
+   * Short table name extractor from view symbol.
+   *
+   * @param fullTableName the full table name
+   * @param viewSymbol the view symbol
+   * @return the string
+   */
   private String shortTableNameExtractorFromViewSymbol(String fullTableName, ViewSymbol viewSymbol) {
     return fullTableName.replace(viewSymbol.getPackageId() + PACKAGE_DELIMITER + viewSymbol.getContext() + DOT, "");
   }
 
+  /**
+   * Replace with quotes.
+   *
+   * @param inContent the in content
+   * @param toBeReplaced the to be replaced
+   * @param replacement the replacement
+   * @return the string
+   */
   private String replaceWithQuotes(String inContent, String toBeReplaced, String replacement) {
     return inContent.replaceAll(toBeReplaced + "[.]|\"" + toBeReplaced + "\"[.]", "\"" + replacement + "\".");
   }
 
+  /**
+   * Transform structured data type to hdb table type.
+   *
+   * @param structuredDataTypeSymbol the structured data type symbol
+   * @return the data structure HDB table type model
+   */
   public DataStructureHDBTableTypeModel transformStructuredDataTypeToHdbTableType(StructuredDataTypeSymbol structuredDataTypeSymbol) {
     DataStructureHDBTableTypeModel hdbTableTypeModel = new DataStructureHDBTableTypeModel();
     List<DataStructureHDBTableColumnModel> tableColumns = new ArrayList<>();
@@ -334,8 +424,11 @@ public class HdbddTransformer {
   }
 
   /**
-   * @param fieldSymbol: fieldSymbol
-   * @param bAssignPK:   false if the entityElement is coming from  association, otherwise it should be true
+   * Transform field symbol to column model.
+   *
+   * @param fieldSymbol the field symbol
+   * @param bAssignPK the b assign PK
+   * @return the data structure HDB table column model
    */
   private DataStructureHDBTableColumnModel transformFieldSymbolToColumnModel(FieldSymbol fieldSymbol, boolean bAssignPK) {
     DataStructureHDBTableColumnModel columnModel = new DataStructureHDBTableColumnModel();
@@ -380,6 +473,12 @@ public class HdbddTransformer {
     return columnModel;
   }
 
+  /**
+   * Transform association to column models.
+   *
+   * @param associationSymbol the association symbol
+   * @return the list
+   */
   private List<DataStructureHDBTableColumnModel> transformAssociationToColumnModels(AssociationSymbol associationSymbol) {
     List<DataStructureHDBTableColumnModel> tableColumns = new ArrayList<>();
     associationSymbol.getForeignKeys().forEach(fk -> {
@@ -394,6 +493,12 @@ public class HdbddTransformer {
     return tableColumns;
   }
 
+  /**
+   * Sets the sql type.
+   *
+   * @param columnModel the column model
+   * @param builtInTypeSymbol the built in type symbol
+   */
   private void setSqlType(DataStructureHDBTableColumnModel columnModel, BuiltInTypeSymbol builtInTypeSymbol) {
     String typeName = builtInTypeSymbol.getName();
     CdsTypeEnum cdsTypeEnum = CdsTypeEnum.valueOf(typeName);
@@ -408,6 +513,12 @@ public class HdbddTransformer {
     columnModel.setType(cdsTypeEnum.getSqlType());
   }
 
+  /**
+   * Sets the hana type.
+   *
+   * @param columnModel the column model
+   * @param builtInTypeSymbol the built in type symbol
+   */
   private void setHanaType(DataStructureHDBTableColumnModel columnModel, BuiltInTypeSymbol builtInTypeSymbol) {
     String typeName = builtInTypeSymbol.getName();
     CdsHanaTypeEnum cdsHanaTypeEnum = CdsHanaTypeEnum.valueOf(typeName);
@@ -419,6 +530,12 @@ public class HdbddTransformer {
     columnModel.setType(typeName);
   }
 
+  /**
+   * Gets the structured type sub elements.
+   *
+   * @param entityElementSymbol the entity element symbol
+   * @return the structured type sub elements
+   */
   private List<EntityElementSymbol> getStructuredTypeSubElements(FieldSymbol entityElementSymbol) {
     StructuredDataTypeSymbol structuredDataType = (StructuredDataTypeSymbol) entityElementSymbol.getType();
     String elementName = entityElementSymbol.getName();
@@ -437,6 +554,13 @@ public class HdbddTransformer {
     return subElements;
   }
 
+  /**
+   * Gets the association foreign key column.
+   *
+   * @param associationSymbol the association symbol
+   * @param foreignKey the foreign key
+   * @return the association foreign key column
+   */
   private DataStructureHDBTableColumnModel getAssociationForeignKeyColumn(AssociationSymbol associationSymbol,
       EntityElementSymbol foreignKey) {
     DataStructureHDBTableColumnModel columnModel = transformFieldSymbolToColumnModel(foreignKey, false);
@@ -446,6 +570,13 @@ public class HdbddTransformer {
     return columnModel;
   }
 
+  /**
+   * Gets the full table name.
+   *
+   * @param dependingView the depending view
+   * @param tableName the table name
+   * @return the full table name
+   */
   private String getFullTableName(ViewSymbol dependingView, String tableName) {
     // Check if the dependant table name is DUMMY. This is a reserved table name for hana dummy tables. We make sure to make it in uppercase
     if (tableName.equalsIgnoreCase(DUMMY_TABLE)) {
@@ -459,6 +590,13 @@ public class HdbddTransformer {
     }
   }
 
+  /**
+   * Gets the catalog annotation value.
+   *
+   * @param annotationObject the annotation object
+   * @param value the value
+   * @return the catalog annotation value
+   */
   private String getCatalogAnnotationValue(AnnotationObj annotationObject, String value) {
     return annotationObject.getValue(value) != null ? annotationObject.getValue(value).getValue() : null;
   }

@@ -27,9 +27,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for CalculatedMeasures complex type.
+ * Java class for CalculatedMeasures complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="CalculatedMeasures"&gt;
@@ -49,27 +49,30 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class CalculatedMeasures {
 
+  /** The measure. */
   protected List<CalculatedMeasure> measure;
 
   /**
    * Gets the value of the measure property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the measure property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getMeasure().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link CalculatedMeasure }
+   *
+   * @return the measure
    */
   public List<CalculatedMeasure> getMeasure() {
     if (measure == null) {

@@ -29,14 +29,32 @@ import javax.naming.OperationNotSupportedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class SynonymManagerService.
+ */
 public class SynonymManagerService extends AbstractDataStructureManagerService<DataStructureHDBSynonymModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(SynonymManagerService.class);
+  
+  /** The data structure synonym models. */
   private final Map<String, DataStructureHDBSynonymModel> dataStructureSynonymModels = new LinkedHashMap<>();
+  
+  /** The synonyms synchronized. */
   private final List<String> synonymsSynchronized = Collections.synchronizedList(new ArrayList<>());
+  
+  /** The synonym create processor. */
   private IHDBProcessor synonymCreateProcessor = new HDBSynonymCreateProcessor();
+  
+  /** The synonym drop processor. */
   private IHDBProcessor synonymDropProcessor = new HDBSynonymDropProcessor();
 
+  /**
+   * Synchronize runtime metadata.
+   *
+   * @param synonymModel the synonym model
+   * @throws DataStructuresException the data structures exception
+   */
   @Override
   public void synchronizeRuntimeMetadata(DataStructureHDBSynonymModel synonymModel) throws DataStructuresException {
     if (!getDataStructuresCoreService().existsDataStructure(synonymModel.getLocation(), synonymModel.getType())) {
@@ -59,39 +77,82 @@ public class SynonymManagerService extends AbstractDataStructureManagerService<D
     }
   }
 
+  /**
+   * Creates the data structure.
+   *
+   * @param connection the connection
+   * @param synonymModel the synonym model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   @Override
   public boolean createDataStructure(Connection connection, DataStructureHDBSynonymModel synonymModel)
       throws SQLException {
 	return this.synonymCreateProcessor.execute(connection, synonymModel);
   }
 
+  /**
+   * Drop data structure.
+   *
+   * @param connection the connection
+   * @param synonymModel the synonym model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   @Override
   public boolean dropDataStructure(Connection connection, DataStructureHDBSynonymModel synonymModel)
       throws SQLException {
 	return this.synonymDropProcessor.execute(connection, synonymModel);
   }
 
+  /**
+   * Update data structure.
+   *
+   * @param connection the connection
+   * @param synonymModel the synonym model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   * @throws OperationNotSupportedException the operation not supported exception
+   */
   @Override
   public boolean updateDataStructure(Connection connection, DataStructureHDBSynonymModel synonymModel)
       throws SQLException, OperationNotSupportedException {
     throw new OperationNotSupportedException();
   }
 
+  /**
+   * Gets the data structure models.
+   *
+   * @return the data structure models
+   */
   @Override
   public Map<String, DataStructureHDBSynonymModel> getDataStructureModels() {
     return Collections.unmodifiableMap(this.dataStructureSynonymModels);
   }
 
+  /**
+   * Gets the data structure synchronized.
+   *
+   * @return the data structure synchronized
+   */
   @Override
   public List<String> getDataStructureSynchronized() {
     return Collections.unmodifiableList(this.synonymsSynchronized);
   }
 
+  /**
+   * Gets the data structure type.
+   *
+   * @return the data structure type
+   */
   @Override
   public String getDataStructureType() {
     return IDataStructureModel.FILE_EXTENSION_SYNONYM;
   }
 
+  /**
+   * Clear cache.
+   */
   @Override
   public void clearCache() {
     dataStructureSynonymModels.clear();

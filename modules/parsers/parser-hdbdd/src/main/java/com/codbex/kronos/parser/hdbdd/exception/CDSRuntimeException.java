@@ -11,8 +11,16 @@
  */
 package com.codbex.kronos.parser.hdbdd.exception;
 
+/**
+ * The Class CDSRuntimeException.
+ */
 public class CDSRuntimeException extends RuntimeException{
 
+    /**
+     * Instantiates a new CDS runtime exception.
+     *
+     * @param message the message
+     */
     public CDSRuntimeException(String message) {
         super(message);
     }

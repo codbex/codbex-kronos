@@ -28,9 +28,9 @@ import com.codbex.kronos.ndb.repositorymodelresource.IDObjectWithDescription;
 
 
 /**
- * <p>Java class for Node complex type.
+ * Java class for Node complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Node"&gt;
@@ -58,7 +58,10 @@ import com.codbex.kronos.ndb.repositorymodelresource.IDObjectWithDescription;
 public abstract class Node
     extends IDObjectWithDescription {
 
+  /** The view attributes. */
   protected ViewAttributes viewAttributes;
+  
+  /** The calculated view attributes. */
   protected CalculatedViewAttributes calculatedViewAttributes;
 
   /**

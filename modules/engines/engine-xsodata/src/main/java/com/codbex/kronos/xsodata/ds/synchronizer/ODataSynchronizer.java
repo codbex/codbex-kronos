@@ -54,24 +54,35 @@ import com.codbex.kronos.xsodata.utils.ODataUtils;
  */
 public class ODataSynchronizer extends AbstractSynchronizer implements IOrderedSynchronizerContribution {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(ODataSynchronizer.class);
 
+  /** The Constant ODATA_PREDELIVERED. */
   private static final Map<String, ODataModel> ODATA_PREDELIVERED = Collections
       .synchronizedMap(new HashMap<>());
 
+  /** The Constant ODATA_SYNCHRONIZED. */
   private static final List<String> ODATA_SYNCHRONIZED = Collections.synchronizedList(new ArrayList<>());
 
+  /** The Constant ODATA_MODELS. */
   private static final Map<String, ODataModel> ODATA_MODELS = new LinkedHashMap<>();
+  
+  /** The synchronizer name. */
   private final String SYNCHRONIZER_NAME = this.getClass().getCanonicalName();
 
+  /** The o data core service. */
   private IODataCoreService oDataCoreService = new ODataCoreService();
 
+  /** The odata core service. */
   private org.eclipse.dirigible.engine.odata2.service.ODataCoreService odataCoreService = new org.eclipse.dirigible.engine.odata2.service.ODataCoreService();
 
+  /** The o data 2 O data M transformer. */
   private OData2ODataMTransformer oData2ODataMTransformer = new OData2ODataMTransformer();
 
+  /** The o data 2 O data X transformer. */
   private OData2ODataXTransformer oData2ODataXTransformer = new OData2ODataXTransformer();
 
+  /** The o data 2 O data H transformer. */
   private OData2ODataHTransformer oData2ODataHTransformer = new OData2ODataHTransformer();
 
   /**
@@ -89,6 +100,9 @@ public class ODataSynchronizer extends AbstractSynchronizer implements IOrderedS
     return buff.toString();
   }
 
+  /**
+   * Synchronize.
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.core.scheduler.api.ISynchronizer#synchronize()
@@ -134,7 +148,7 @@ public class ODataSynchronizer extends AbstractSynchronizer implements IOrderedS
    * Register predelivered odata files.
    *
    * @param contentPath the data path
-   * @throws Exception
+   * @throws Exception the exception
    */
   public void registerPredeliveredOData(String contentPath) throws Exception {
     String data = loadResourceContent(contentPath);
@@ -142,6 +156,13 @@ public class ODataSynchronizer extends AbstractSynchronizer implements IOrderedS
     ODATA_PREDELIVERED.put(contentPath, model);
   }
 
+  /**
+   * Load resource content.
+   *
+   * @param modelPath the model path
+   * @return the string
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   private String loadResourceContent(String modelPath) throws IOException {
     try (InputStream in = ODataSynchronizer.class.getResourceAsStream(modelPath)) {
       return IOUtils.toString(in, StandardCharsets.UTF_8);
@@ -198,6 +219,11 @@ public class ODataSynchronizer extends AbstractSynchronizer implements IOrderedS
     }
   }
 
+  /**
+   * Synchronize registry.
+   *
+   * @throws SynchronizationException the synchronization exception
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizer#synchronizeRegistry()
@@ -211,6 +237,12 @@ public class ODataSynchronizer extends AbstractSynchronizer implements IOrderedS
     logger.trace("Done synchronizing XSOData from Registry.");
   }
 
+  /**
+   * Synchronize resource.
+   *
+   * @param resource the resource
+   * @throws SynchronizationException the synchronization exception
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizer#synchronizeResource(com.codbex.kronos.hdb.ds.parser.DataStructureParser
@@ -241,6 +273,11 @@ public class ODataSynchronizer extends AbstractSynchronizer implements IOrderedS
   }
 
 
+  /**
+   * Cleanup.
+   *
+   * @throws SynchronizationException the synchronization exception
+   */
   @Override
   protected void cleanup() throws SynchronizationException {
     logger.trace("Cleaning up XSOData...");
@@ -258,6 +295,11 @@ public class ODataSynchronizer extends AbstractSynchronizer implements IOrderedS
     logger.trace("Done cleaning up XSOData.");
   }
 
+  /**
+   * Update XSO data.
+   *
+   * @throws ODataException the o data exception
+   */
   private void updateXSOData() throws org.eclipse.dirigible.engine.odata2.api.ODataException {
     // Update XSOData
 
@@ -340,18 +382,44 @@ public class ODataSynchronizer extends AbstractSynchronizer implements IOrderedS
     }
   }
 
+  /**
+   * Generate O data X.
+   *
+   * @param oDataDefinition the o data definition
+   * @return the string[]
+   * @throws SQLException the SQL exception
+   */
   private String[] generateODataX(ODataDefinition oDataDefinition) throws SQLException {
     return oData2ODataXTransformer.transform(oDataDefinition);
   }
 
+  /**
+   * Generate O data ms.
+   *
+   * @param oDataDefinition the o data definition
+   * @return the string[]
+   * @throws SQLException the SQL exception
+   */
   private String[] generateODataMs(ODataDefinition oDataDefinition) throws SQLException {
     return oData2ODataMTransformer.transform(oDataDefinition);
   }
 
+  /**
+   * Generate O data hs.
+   *
+   * @param oDataDefinition the o data definition
+   * @return the list
+   * @throws SQLException the SQL exception
+   */
   private List<ODataHandlerDefinition> generateODataHs(ODataDefinition oDataDefinition) throws SQLException {
     return oData2ODataHTransformer.transform(oDataDefinition);
   }
 
+	/**
+	 * Gets the priority.
+	 *
+	 * @return the priority
+	 */
 	@Override
 	public int getPriority() {
 		return 550;

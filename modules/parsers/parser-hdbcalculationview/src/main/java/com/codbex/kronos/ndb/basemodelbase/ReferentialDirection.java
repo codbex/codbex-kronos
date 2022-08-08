@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for ReferentialDirection.
+ * Java class for ReferentialDirection.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="ReferentialDirection"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -43,18 +43,36 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum ReferentialDirection {
 
+  /** The left. */
   @XmlEnumValue("left")
   LEFT("left"),
+  
+  /** The right. */
   @XmlEnumValue("right")
   RIGHT("right"),
+  
+  /** The both. */
   @XmlEnumValue("both")
   BOTH("both");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new referential direction.
+   *
+   * @param v the v
+   */
   ReferentialDirection(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the referential direction
+   */
   public static ReferentialDirection fromValue(String v) {
     for (ReferentialDirection c : ReferentialDirection.values()) {
       if (c.value.equals(v)) {
@@ -64,6 +82,11 @@ public enum ReferentialDirection {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

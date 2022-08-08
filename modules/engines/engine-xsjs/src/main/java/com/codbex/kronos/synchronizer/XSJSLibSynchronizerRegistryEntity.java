@@ -16,17 +16,40 @@ import org.eclipse.dirigible.repository.api.IEntity;
 import org.eclipse.dirigible.repository.api.IRepository;
 import org.eclipse.dirigible.repository.api.IResource;
 
+/**
+ * The Class XSJSLibSynchronizerRegistryEntity.
+ */
 public class XSJSLibSynchronizerRegistryEntity {
+  
+  /** The Constant XSJSLIB_FILE_EXTENSION. */
   private static final String XSJSLIB_FILE_EXTENSION = ".xsjslib";
 
+  /** The repository. */
   private final IRepository repository;
+  
+  /** The is collection. */
   private boolean isCollection = false;
+  
+  /** The entity. */
   private IEntity entity = null;
 
+  /**
+   * Instantiates a new XSJS lib synchronizer registry entity.
+   *
+   * @param registryPath the registry path
+   * @param repository the repository
+   */
   public XSJSLibSynchronizerRegistryEntity(String registryPath, IRepository repository) {
     this(registryPath, repository,false);
   }
 
+  /**
+   * Instantiates a new XSJS lib synchronizer registry entity.
+   *
+   * @param registryPath the registry path
+   * @param repository the repository
+   * @param resolveWithCollectionFirst the resolve with collection first
+   */
   public XSJSLibSynchronizerRegistryEntity(String registryPath, IRepository repository, boolean resolveWithCollectionFirst) {
     this.repository = repository;
 
@@ -37,6 +60,11 @@ public class XSJSLibSynchronizerRegistryEntity {
     }
   }
 
+  /**
+   * Resolve with resource first.
+   *
+   * @param registryPath the registry path
+   */
   private void resolveWithResourceFirst(String registryPath) {
     IResource resource = repository.getResource(registryPath);
 
@@ -56,6 +84,11 @@ public class XSJSLibSynchronizerRegistryEntity {
     }
   }
 
+  /**
+   * Resolve with collection first.
+   *
+   * @param registryPath the registry path
+   */
   private void resolveWithCollectionFirst(String registryPath) {
     ICollection collection = repository.getCollection(registryPath);
 
@@ -75,14 +108,29 @@ public class XSJSLibSynchronizerRegistryEntity {
     }
   }
 
+  /**
+   * Checks if is collection.
+   *
+   * @return true, if is collection
+   */
   public boolean isCollection() {
     return isCollection;
   }
 
+  /**
+   * Checks if is synchronizable.
+   *
+   * @return true, if is synchronizable
+   */
   public boolean isSynchronizable() {
     return entity != null;
   }
 
+  /**
+   * Gets the entity.
+   *
+   * @return the entity
+   */
   public IEntity getEntity() {
     return entity;
   }

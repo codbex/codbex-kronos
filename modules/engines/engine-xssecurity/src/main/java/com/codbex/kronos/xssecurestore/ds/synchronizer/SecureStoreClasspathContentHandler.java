@@ -17,10 +17,20 @@ import org.slf4j.LoggerFactory;
 
 import com.codbex.kronos.xssecurestore.ds.api.ISecureStoreModel;
 
+/**
+ * The Class SecureStoreClasspathContentHandler.
+ */
 public class SecureStoreClasspathContentHandler extends AbstractClasspathContentHandler {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(SecureStoreClasspathContentHandler.class);
 
+  /**
+   * Checks if is valid.
+   *
+   * @param path the path
+   * @return true, if is valid
+   */
   @Override
   protected boolean isValid(String path) {
 
@@ -30,6 +40,11 @@ public class SecureStoreClasspathContentHandler extends AbstractClasspathContent
     return false;
   }
 
+  /**
+   * Gets the logger.
+   *
+   * @return the logger
+   */
   @Override
   protected Logger getLogger() {
     return logger;

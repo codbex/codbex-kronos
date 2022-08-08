@@ -32,9 +32,9 @@ import com.codbex.kronos.ndb.sqlcoremodelaccesscontrol.ValueFilterOperator;
  * to determine the filter values dynamically at runtime.
  *
  *
- * <p>Java class for ProcedureFilter complex type.
+ * Java class for ProcedureFilter complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ProcedureFilter"&gt;
@@ -51,8 +51,11 @@ import com.codbex.kronos.ndb.sqlcoremodelaccesscontrol.ValueFilterOperator;
 @XmlType(name = "ProcedureFilter")
 public class ProcedureFilter {
 
+  /** The operator. */
   @XmlAttribute(name = "operator", required = true)
   protected ValueFilterOperator operator;
+  
+  /** The procedure name. */
   @XmlAttribute(name = "procedureName", required = true)
   protected String procedureName;
 

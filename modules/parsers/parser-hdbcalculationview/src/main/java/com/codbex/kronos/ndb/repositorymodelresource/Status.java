@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Status.
+ * Java class for Status.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="Status"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -42,16 +42,32 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum Status {
 
+  /** The ok. */
   @XmlEnumValue("ok")
   OK("ok"),
+  
+  /** The inconsistent. */
   @XmlEnumValue("inconsistent")
   INCONSISTENT("inconsistent");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new status.
+   *
+   * @param v the v
+   */
   Status(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the status
+   */
   public static Status fromValue(String v) {
     for (Status c : Status.values()) {
       if (c.value.equals(v)) {
@@ -61,6 +77,11 @@ public enum Status {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

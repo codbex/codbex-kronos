@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRegistry;
  * This object contains factory methods for each
  * Java content interface and Java element interface
  * generated in the com.sap.ndb.bimodelcube package.
- * <p>An ObjectFactory allows you to programatically
+ * An ObjectFactory allows you to programatically
  * construct new instances of the Java representation
  * for XML content. The Java representation of XML
  * content can consist of schema derived interfaces
@@ -46,91 +46,117 @@ public class ObjectFactory {
   }
 
   /**
-   * Create an instance of {@link Cube }
+   * Create an instance of {@link Cube }.
+   *
+   * @return the cube
    */
   public Cube createCube() {
     return new Cube();
   }
 
   /**
-   * Create an instance of {@link MeasureGroup }
+   * Create an instance of {@link MeasureGroup }.
+   *
+   * @return the measure group
    */
   public MeasureGroup createMeasureGroup() {
     return new MeasureGroup();
   }
 
   /**
-   * Create an instance of {@link BaseMeasures }
+   * Create an instance of {@link BaseMeasures }.
+   *
+   * @return the base measures
    */
   public BaseMeasures createBaseMeasures() {
     return new BaseMeasures();
   }
 
   /**
-   * Create an instance of {@link CalculatedMeasures }
+   * Create an instance of {@link CalculatedMeasures }.
+   *
+   * @return the calculated measures
    */
   public CalculatedMeasures createCalculatedMeasures() {
     return new CalculatedMeasures();
   }
 
   /**
-   * Create an instance of {@link RestrictedMeasures }
+   * Create an instance of {@link RestrictedMeasures }.
+   *
+   * @return the restricted measures
    */
   public RestrictedMeasures createRestrictedMeasures() {
     return new RestrictedMeasures();
   }
 
   /**
-   * Create an instance of {@link Measure }
+   * Create an instance of {@link Measure }.
+   *
+   * @return the measure
    */
   public Measure createMeasure() {
     return new Measure();
   }
 
   /**
-   * Create an instance of {@link MeasureDimensionality }
+   * Create an instance of {@link MeasureDimensionality }.
+   *
+   * @return the measure dimensionality
    */
   public MeasureDimensionality createMeasureDimensionality() {
     return new MeasureDimensionality();
   }
 
   /**
-   * Create an instance of {@link BaseMeasure }
+   * Create an instance of {@link BaseMeasure }.
+   *
+   * @return the base measure
    */
   public BaseMeasure createBaseMeasure() {
     return new BaseMeasure();
   }
 
   /**
-   * Create an instance of {@link CalculatedMeasure }
+   * Create an instance of {@link CalculatedMeasure }.
+   *
+   * @return the calculated measure
    */
   public CalculatedMeasure createCalculatedMeasure() {
     return new CalculatedMeasure();
   }
 
   /**
-   * Create an instance of {@link RestrictedMeasure }
+   * Create an instance of {@link RestrictedMeasure }.
+   *
+   * @return the restricted measure
    */
   public RestrictedMeasure createRestrictedMeasure() {
     return new RestrictedMeasure();
   }
 
   /**
-   * Create an instance of {@link LocalDimensions }
+   * Create an instance of {@link LocalDimensions }.
+   *
+   * @return the local dimensions
    */
   public LocalDimensions createLocalDimensions() {
     return new LocalDimensions();
   }
 
   /**
-   * Create an instance of {@link SortAttribute }
+   * Create an instance of {@link SortAttribute }.
+   *
+   * @return the sort attribute
    */
   public SortAttribute createSortAttribute() {
     return new SortAttribute();
   }
 
   /**
-   * Create an instance of {@link SortAttributes }
+   * Create an instance of {@link SortAttributes }.
+   *
+   * @return the sort attributes
    */
   public SortAttributes createSortAttributes() {
     return new SortAttributes();

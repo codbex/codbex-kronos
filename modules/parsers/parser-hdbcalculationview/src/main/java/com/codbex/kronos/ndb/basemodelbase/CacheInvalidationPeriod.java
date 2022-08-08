@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for CacheInvalidationPeriod.
+ * Java class for CacheInvalidationPeriod.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="CacheInvalidationPeriod"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -42,14 +42,30 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum CacheInvalidationPeriod {
 
+  /** The none. */
   NONE,
+  
+  /** The daily. */
   DAILY,
+  
+  /** The hourly. */
   HOURLY;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the cache invalidation period
+   */
   public static CacheInvalidationPeriod fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

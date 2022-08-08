@@ -44,9 +44,9 @@ import com.codbex.kronos.ndb.repositorymodelresource.NamedObjectWithEndUserTexts
  * become attributes of that dimension. The concept of	local dimensions with several hierarchies is not supported.
  *
  *
- * <p>Java class for InlineHierarchy complex type.
+ * Java class for InlineHierarchy complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="InlineHierarchy"&gt;
@@ -82,24 +82,45 @@ import com.codbex.kronos.ndb.repositorymodelresource.NamedObjectWithEndUserTexts
 public abstract class InlineHierarchy
     extends NamedObjectWithEndUserTexts {
 
+  /** The join properties. */
   protected HierarchyJoinProperties joinProperties;
+  
+  /** The unassigned member properties. */
   protected UnassignedMemberProperties unassignedMemberProperties;
+  
+  /** The root node visibility. */
   @XmlAttribute(name = "rootNodeVisibility")
   protected RootNodeVisibility rootNodeVisibility;
+  
+  /** The aggregate all nodes. */
   @XmlAttribute(name = "aggregateAllNodes")
   protected Boolean aggregateAllNodes;
+  
+  /** The default member. */
   @XmlAttribute(name = "defaultMember")
   protected String defaultMember;
+  
+  /** The multiple parents. */
   @XmlAttribute(name = "multipleParents")
   protected Boolean multipleParents;
+  
+  /** The orphaned nodes handling. */
   @XmlAttribute(name = "orphanedNodesHandling")
   protected OrphanedNodesHandling orphanedNodesHandling;
+  
+  /** The time dependent. */
   @XmlAttribute(name = "timeDependent")
   protected Boolean timeDependent;
+  
+  /** The with hierarchy join. */
   @XmlAttribute(name = "withHierarchyJoin")
   protected Boolean withHierarchyJoin;
+  
+  /** The cycle handling. */
   @XmlAttribute(name = "cycleHandling")
   protected CycleHandling cycleHandling;
+  
+  /** The cache enabled. */
   @XmlAttribute(name = "cacheEnabled")
   protected Boolean cacheEnabled;
 

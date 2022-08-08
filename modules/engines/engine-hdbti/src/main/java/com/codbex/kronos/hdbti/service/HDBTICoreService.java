@@ -53,18 +53,43 @@ import org.eclipse.dirigible.repository.api.IRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class HDBTICoreService.
+ */
 public class HDBTICoreService implements IHDBTICoreService {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDBTICoreService.class);
 
+  /** The csv record dao. */
   private ICSVRecordDao csvRecordDao = new CSVRecordDao();
+  
+  /** The imported CSV record dao. */
   private IImportedCSVRecordDao importedCSVRecordDao = new ImportedCSVRecordDao();
+  
+  /** The table import artifact dao. */
   private ITableImportArtifactDao tableImportArtifactDao = new TableImportArtifactDao();
+  
+  /** The csv to hdbti relation dao. */
   private ICSVToHDBTIRelationDao csvToHdbtiRelationDao = new CSVToHDBTIRelationDao();
+  
+  /** The repository. */
   private IRepository repository = (IRepository) StaticObjects.get(StaticObjects.REPOSITORY);
+  
+  /** The db metadata util. */
   private DBMetadataUtil dbMetadataUtil = new DBMetadataUtil();
+  
+  /** The data source. */
   private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
 
+  /**
+   * Insert csv records.
+   *
+   * @param recordsToInsert the records to insert
+   * @param headerNames the header names
+   * @param tableImportConfigurationDefinition the table import configuration definition
+   * @throws SQLException the SQL exception
+   */
   @Override
   public void insertCsvRecords(List<CSVRecord> recordsToInsert, List<String> headerNames,
       TableImportConfigurationDefinition tableImportConfigurationDefinition)
@@ -104,6 +129,14 @@ public class HDBTICoreService implements IHDBTICoreService {
     }
   }
 
+  /**
+   * Gets the imported CSV records by table and CSV location.
+   *
+   * @param tableName the table name
+   * @param csvLocation the csv location
+   * @return the imported CSV records by table and CSV location
+   * @throws DataStructuresException the data structures exception
+   */
   @Override
   public Map<String, ImportedCSVRecordModel> getImportedCSVRecordsByTableAndCSVLocation(String tableName, String csvLocation)
       throws DataStructuresException {
@@ -112,6 +145,11 @@ public class HDBTICoreService implements IHDBTICoreService {
         .collect(Collectors.toMap(ImportedCSVRecordModel::getRowId, importModel -> importModel));
   }
 
+  /**
+   * Clean up hdbti related data.
+   *
+   * @throws TableImportException the table import exception
+   */
   @Override
   public void cleanUpHdbtiRelatedData() throws TableImportException {
     List<TableImportArtifact> tableImportArtifacts = tableImportArtifactDao.getTableImportArtifacts();
@@ -129,6 +167,15 @@ public class HDBTICoreService implements IHDBTICoreService {
     }
   }
 
+  /**
+   * Update csv records.
+   *
+   * @param csvRecords the csv records
+   * @param headerNames the header names
+   * @param importedCsvRecordsToUpdate the imported csv records to update
+   * @param tableImportConfigurationDefinition the table import configuration definition
+   * @throws SQLException the SQL exception
+   */
   @Override
   public void updateCsvRecords(List<CSVRecord> csvRecords, List<String> headerNames,
       List<ImportedCSVRecordModel> importedCsvRecordsToUpdate,
@@ -155,6 +202,13 @@ public class HDBTICoreService implements IHDBTICoreService {
     }
   }
 
+  /**
+   * Log table not found error.
+   *
+   * @param tableName the table name
+   * @param schema the schema
+   * @param tableImportConfigurationDefinition the table import configuration definition
+   */
   private void logTableNotFoundError(String tableName, String schema, TableImportConfigurationDefinition tableImportConfigurationDefinition) {
     String errorMsg = "Error occurred while processing csv file."
         + " Table with name [" + tableName + "] was not found in schema [" + schema + "].";
@@ -163,6 +217,12 @@ public class HDBTICoreService implements IHDBTICoreService {
         tableImportConfigurationDefinition.getHdbtiFileName(), CommonsConstants.HDBTI_PARSER);
   }
 
+  /**
+   * Removes the csv records.
+   *
+   * @param importedCSVRecordModels the imported CSV record models
+   * @param tableName the table name
+   */
   @Override
   public void removeCsvRecords(List<ImportedCSVRecordModel> importedCSVRecordModels, String tableName) {
     List<String> idsToRemove = importedCSVRecordModels.stream().map(ImportedCSVRecordModel::getRowId).collect(Collectors.toList());
@@ -177,12 +237,25 @@ public class HDBTICoreService implements IHDBTICoreService {
     }
   }
 
+  /**
+   * Refresh csv relations.
+   *
+   * @param tableImportArtifact the table import artifact
+   */
   @Override
   public void refreshCsvRelations(TableImportArtifact tableImportArtifact) {
     csvToHdbtiRelationDao.deleteCsvAndHdbtiRelations(Utils.convertToFullPath(tableImportArtifact.getLocation()));
     csvToHdbtiRelationDao.persistNewCsvAndHdbtiRelations(tableImportArtifact);
   }
 
+  /**
+   * Gets the pk index for CSV record.
+   *
+   * @param csvRecord the csv record
+   * @param tableName the table name
+   * @param headerNames the header names
+   * @return the pk index for CSV record
+   */
   @Override
   public int getPkIndexForCSVRecord(CSVRecord csvRecord, String tableName, List<String> headerNames) {
 	  PersistenceTableModel tableMetadata = getTableMetadata(tableName);
@@ -206,6 +279,12 @@ public class HDBTICoreService implements IHDBTICoreService {
 	    return 0;
   }
 
+  /**
+   * Gets the CSV record hash.
+   *
+   * @param csvRecord the csv record
+   * @return the CSV record hash
+   */
   @Override
   public String getCSVRecordHash(CSVRecord csvRecord) {
     StringBuilder joinedValues = new StringBuilder();
@@ -220,6 +299,12 @@ public class HDBTICoreService implements IHDBTICoreService {
     return DigestUtils.md5Hex(joinedValues.toString());
   }
 
+  /**
+   * Convert to actual table name.
+   *
+   * @param tableName the table name
+   * @return the string
+   */
   @Override
   public String convertToActualTableName(String tableName) {
     boolean caseSensitive = Boolean.parseBoolean(Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"));
@@ -229,6 +314,12 @@ public class HDBTICoreService implements IHDBTICoreService {
     return tableName;
   }
 
+  /**
+   * Convert to actual file name.
+   *
+   * @param fileNamePath the file name path
+   * @return the string
+   */
   @Override
   public String convertToActualFileName(String fileNamePath) {
     String fileName = fileNamePath.substring(fileNamePath.lastIndexOf(':') + 1);
@@ -236,6 +327,12 @@ public class HDBTICoreService implements IHDBTICoreService {
     return "/registry/public/" + fileNamePath.substring(0, fileNamePath.indexOf(':')).replaceAll("\\.", "/") + "/" + fileName;
   }
 
+  /**
+   * Gets the table metadata.
+   *
+   * @param tableName the table name
+   * @return the table metadata
+   */
   private PersistenceTableModel getTableMetadata(String tableName) {
     try {
       return dbMetadataUtil.getTableMetadata(tableName, CommonsDBUtils.getTableSchema(dataSource, tableName));
@@ -245,6 +342,11 @@ public class HDBTICoreService implements IHDBTICoreService {
     return null;
   }
 
+  /**
+   * Removes the CSV records from db.
+   *
+   * @param hdbtiLocation the hdbti location
+   */
   private void removeCSVRecordsFromDb(String hdbtiLocation) {
     List<ImportedCSVRecordModel> csvRecordsToRemove = importedCSVRecordDao.getImportedCSVsByHdbtiLocation(hdbtiLocation);
     csvRecordsToRemove.sort(Comparator.comparing(ImportedCSVRecordModel::getCreatedAt, Comparator.reverseOrder()));

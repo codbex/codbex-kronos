@@ -28,9 +28,9 @@ import com.codbex.kronos.ndb.datamodeltype.PrimitiveType;
 
 
 /**
- * <p>Java class for ConstantArgument complex type.
+ * Java class for ConstantArgument complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ConstantArgument"&gt;
@@ -47,8 +47,11 @@ import com.codbex.kronos.ndb.datamodeltype.PrimitiveType;
 @XmlType(name = "ConstantArgument")
 public class ConstantArgument {
 
+  /** The value. */
   @XmlAttribute(name = "value", required = true)
   protected String value;
+  
+  /** The datatype. */
   @XmlAttribute(name = "datatype", required = true)
   protected PrimitiveType datatype;
 

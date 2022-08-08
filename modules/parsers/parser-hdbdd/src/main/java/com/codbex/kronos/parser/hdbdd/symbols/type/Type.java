@@ -11,6 +11,15 @@
  */
 package com.codbex.kronos.parser.hdbdd.symbols.type;
 
+/**
+ * The Interface Type.
+ */
 public interface Type {
+    
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     String getName();
 }

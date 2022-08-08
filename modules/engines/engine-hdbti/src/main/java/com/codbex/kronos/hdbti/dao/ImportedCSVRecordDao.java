@@ -32,13 +32,27 @@ import com.codbex.kronos.hdbti.api.IImportedCSVRecordDao;
 import com.codbex.kronos.hdbti.model.ImportedCSVRecordModel;
 import com.codbex.kronos.hdbti.processors.HDBTIProcessor;
 
+/**
+ * The Class ImportedCSVRecordDao.
+ */
 public class ImportedCSVRecordDao implements IImportedCSVRecordDao {
+    
+    /** The Constant logger. */
     private static final Logger logger = LoggerFactory.getLogger(HDBTIProcessor.class);
 
+    /** The data source. */
     private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
 
+    /** The persistence manager. */
     private PersistenceManager<ImportedCSVRecordModel> persistenceManager = new PersistenceManager<ImportedCSVRecordModel>();
 
+    /**
+     * Save.
+     *
+     * @param importedRowModel the imported row model
+     * @return the imported CSV record model
+     * @throws DataStructuresException the data structures exception
+     */
     @Override
     public ImportedCSVRecordModel save(ImportedCSVRecordModel importedRowModel) throws DataStructuresException {
         try (Connection connection = dataSource.getConnection()) {
@@ -53,6 +67,13 @@ public class ImportedCSVRecordDao implements IImportedCSVRecordDao {
 
     }
 
+    /**
+     * Update.
+     *
+     * @param importedRowModel the imported row model
+     * @return the imported CSV record model
+     * @throws SQLException the SQL exception
+     */
     @Override
     public ImportedCSVRecordModel update(ImportedCSVRecordModel importedRowModel) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
@@ -63,6 +84,12 @@ public class ImportedCSVRecordDao implements IImportedCSVRecordDao {
     }
 
 
+    /**
+     * Delete all.
+     *
+     * @param importedCSVRecordModels the imported CSV record models
+     * @throws SQLException the SQL exception
+     */
     @Override
     public void deleteAll(List<ImportedCSVRecordModel> importedCSVRecordModels) throws SQLException {
         if (importedCSVRecordModels.isEmpty()) {
@@ -80,6 +107,14 @@ public class ImportedCSVRecordDao implements IImportedCSVRecordDao {
 
     }
 
+    /**
+     * Gets the imported CSV records by table and CSV location.
+     *
+     * @param tableName the table name
+     * @param csvLocation the csv location
+     * @return the imported CSV records by table and CSV location
+     * @throws DataStructuresException the data structures exception
+     */
     @Override
     public List<ImportedCSVRecordModel> getImportedCSVRecordsByTableAndCSVLocation(String tableName, String csvLocation) throws DataStructuresException {
         try (Connection connection = dataSource.getConnection()) {
@@ -91,6 +126,12 @@ public class ImportedCSVRecordDao implements IImportedCSVRecordDao {
         }
     }
 
+    /**
+     * Gets the imported CS vs by hdbti location.
+     *
+     * @param hdbtiLocation the hdbti location
+     * @return the imported CS vs by hdbti location
+     */
     @Override
     public List<ImportedCSVRecordModel> getImportedCSVsByHdbtiLocation(String hdbtiLocation) {
         try (Connection connection = dataSource.getConnection()) {
@@ -104,11 +145,21 @@ public class ImportedCSVRecordDao implements IImportedCSVRecordDao {
         return new ArrayList<>();
     }
 
+    /**
+     * Gets the data source.
+     *
+     * @return the data source
+     */
     @Override
     public DataSource getDataSource() {
         return dataSource;
     }
 
+    /**
+     * Gets the persistence manager.
+     *
+     * @return the persistence manager
+     */
     @Override
     public PersistenceManager<ImportedCSVRecordModel> getPersistenceManager() {
         return persistenceManager;

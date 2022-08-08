@@ -29,9 +29,9 @@ import javax.xml.bind.annotation.XmlType;
  * Describes which format/complexity is allowed when entering value for a variable
  *
  *
- * <p>Java class for Selection complex type.
+ * Java class for Selection complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Selection"&gt;
@@ -48,8 +48,11 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "Selection")
 public class Selection {
 
+  /** The type. */
   @XmlAttribute(name = "type", required = true)
   protected SelectionType type;
+  
+  /** The multi line. */
   @XmlAttribute(name = "multiLine", required = true)
   protected boolean multiLine;
 
@@ -75,6 +78,8 @@ public class Selection {
 
   /**
    * Gets the value of the multiLine property.
+   *
+   * @return true, if is multi line
    */
   public boolean isMultiLine() {
     return multiLine;
@@ -82,6 +87,8 @@ public class Selection {
 
   /**
    * Sets the value of the multiLine property.
+   *
+   * @param value the new multi line
    */
   public void setMultiLine(boolean value) {
     this.multiLine = value;

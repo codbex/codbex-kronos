@@ -17,25 +17,51 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javax.ws.rs.core.Response.Status;
 
+/**
+ * The Class ContextExceptionHandler.
+ */
 public class ContextExceptionHandler extends AbstractExceptionHandler<ContextException> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(ContextExceptionHandler.class);
 
+  /**
+   * Gets the type.
+   *
+   * @return the type
+   */
   @Override
   public Class<? extends AbstractExceptionHandler<ContextException>> getType() {
     return ContextExceptionHandler.class;
   }
 
+  /**
+   * Gets the logger.
+   *
+   * @return the logger
+   */
   @Override
   protected Logger getLogger() {
     return logger;
   }
 
+  /**
+   * Gets the response status.
+   *
+   * @param e the e
+   * @return the response status
+   */
   @Override
   protected Status getResponseStatus(ContextException e) {
     return Status.INTERNAL_SERVER_ERROR;
   }
 
+  /**
+   * Gets the response message.
+   *
+   * @param e the e
+   * @return the response message
+   */
   @Override
   protected String getResponseMessage(ContextException e) {
     return e.getMessage();

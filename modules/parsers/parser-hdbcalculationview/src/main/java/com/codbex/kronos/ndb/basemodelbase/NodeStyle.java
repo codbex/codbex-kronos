@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for NodeStyle.
+ * Java class for NodeStyle.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="NodeStyle"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -82,10 +82,21 @@ public enum NodeStyle {
    */
   NAME_ONLY_ENFORCED;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the node style
+   */
   public static NodeStyle fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

@@ -33,9 +33,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * pointer to the original attribute.
  *
  *
- * <p>Java class for FeaturedAttributeReference complex type.
+ * Java class for FeaturedAttributeReference complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="FeaturedAttributeReference"&gt;
@@ -55,13 +55,20 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class FeaturedAttributeReference
     extends AliasWithDescription {
 
+  /** The attribute name. */
   @XmlAttribute(name = "attributeName", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String attributeName;
+  
+  /** The hidden. */
   @XmlAttribute(name = "hidden")
   protected Boolean hidden;
+  
+  /** The transparent filter. */
   @XmlAttribute(name = "transparentFilter")
   protected Boolean transparentFilter;
+  
+  /** The keep flag. */
   @XmlAttribute(name = "keepFlag")
   protected Boolean keepFlag;
 

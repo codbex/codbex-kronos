@@ -17,6 +17,9 @@ import java.sql.SQLException;
 import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableModel;
 import com.codbex.kronos.hdb.ds.processors.AbstractHDBProcessor;
 
+/**
+ * The Class TableAlterProcessor.
+ */
 public class TableAlterProcessor extends AbstractHDBProcessor<DataStructureHDBTableModel> {
 
   /**
@@ -24,6 +27,7 @@ public class TableAlterProcessor extends AbstractHDBProcessor<DataStructureHDBTa
    *
    * @param connection the connection
    * @param tableModel the table model
+   * @return true, if successful
    * @throws SQLException the SQL exception
    */
   @Override
@@ -37,6 +41,14 @@ public class TableAlterProcessor extends AbstractHDBProcessor<DataStructureHDBTa
     return true;
   }
 
+  /**
+   * Creates the table alter handler.
+   *
+   * @param connection the connection
+   * @param tableModel the table model
+   * @return the table alter handler
+   * @throws SQLException the SQL exception
+   */
   public TableAlterHandler createTableAlterHandler(Connection connection, DataStructureHDBTableModel tableModel)
       throws SQLException {
     return new TableAlterHandler(connection, tableModel);

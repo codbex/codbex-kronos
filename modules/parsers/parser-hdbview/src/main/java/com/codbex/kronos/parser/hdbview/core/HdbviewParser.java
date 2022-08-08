@@ -20,28 +20,51 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
+/**
+ * The Class HdbviewParser.
+ */
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class HdbviewParser extends Parser {
 	static { RuntimeMetaData.checkVersion("4.10.1", RuntimeMetaData.VERSION); }
 
+	/** The Constant _decisionToDFA. */
 	protected static final DFA[] _decisionToDFA;
+	
+	/** The Constant _sharedContextCache. */
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
+	
+	/** The Constant COMMENT. */
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		BOOLEAN=10, STRING=11, EQ=12, SEMICOLON=13, WS=14, ESC=15, LINE_COMMENT=16, 
 		COMMENT=17;
+	
+	/** The Constant RULE_dependsOnView. */
 	public static final int
 		RULE_hdbviewDefinition = 0, RULE_property = 1, RULE_schemaProp = 2, RULE_publicProp = 3, 
 		RULE_queryProp = 4, RULE_dependsOnProp = 5, RULE_dependsOnTable = 6, RULE_dependsOnView = 7;
+	
+	/**
+	 * Make rule names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"hdbviewDefinition", "property", "schemaProp", "publicProp", "queryProp", 
 			"dependsOnProp", "dependsOnTable", "dependsOnView"
 		};
 	}
+	
+	/** The Constant ruleNames. */
 	public static final String[] ruleNames = makeRuleNames();
 
+	/**
+	 * Make literal names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'schema'", "'public'", "'query'", "'depends_on'", "'['", "','", 
@@ -49,17 +72,31 @@ public class HdbviewParser extends Parser {
 			"';'"
 		};
 	}
+	
+	/** The Constant _LITERAL_NAMES. */
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
+	
+	/**
+	 * Make symbolic names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, "BOOLEAN", 
 			"STRING", "EQ", "SEMICOLON", "WS", "ESC", "LINE_COMMENT", "COMMENT"
 		};
 	}
+	
+	/** The Constant _SYMBOLIC_NAMES. */
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
+	
+	/** The Constant VOCABULARY. */
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
 	/**
+	 * The Constant tokenNames.
+	 *
 	 * @deprecated Use {@link #VOCABULARY} instead.
 	 */
 	@Deprecated
@@ -78,54 +115,138 @@ public class HdbviewParser extends Parser {
 		}
 	}
 
+	/**
+	 * Gets the token names.
+	 *
+	 * @return the token names
+	 */
 	@Override
 	@Deprecated
 	public String[] getTokenNames() {
 		return tokenNames;
 	}
 
+	/**
+	 * Gets the vocabulary.
+	 *
+	 * @return the vocabulary
+	 */
 	@Override
 
 	public Vocabulary getVocabulary() {
 		return VOCABULARY;
 	}
 
+	/**
+	 * Gets the grammar file name.
+	 *
+	 * @return the grammar file name
+	 */
 	@Override
 	public String getGrammarFileName() { return "Hdbview.g4"; }
 
+	/**
+	 * Gets the rule names.
+	 *
+	 * @return the rule names
+	 */
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
 
+	/**
+	 * Gets the serialized ATN.
+	 *
+	 * @return the serialized ATN
+	 */
 	@Override
 	public String getSerializedATN() { return _serializedATN; }
 
+	/**
+	 * Gets the atn.
+	 *
+	 * @return the atn
+	 */
 	@Override
 	public ATN getATN() { return _ATN; }
 
+	/**
+	 * Instantiates a new hdbview parser.
+	 *
+	 * @param input the input
+	 */
 	public HdbviewParser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
+	/**
+	 * The Class HdbviewDefinitionContext.
+	 */
 	public static class HdbviewDefinitionContext extends ParserRuleContext {
+		
+		/**
+		 * Property.
+		 *
+		 * @return the list
+		 */
 		public List<PropertyContext> property() {
 			return getRuleContexts(PropertyContext.class);
 		}
+		
+		/**
+		 * Property.
+		 *
+		 * @param i the i
+		 * @return the property context
+		 */
 		public PropertyContext property(int i) {
 			return getRuleContext(PropertyContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new hdbview definition context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public HdbviewDefinitionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_hdbviewDefinition; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbviewListener ) ((HdbviewListener)listener).enterHdbviewDefinition(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbviewListener ) ((HdbviewListener)listener).exitHdbviewDefinition(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbviewVisitor ) return ((HdbviewVisitor<? extends T>)visitor).visitHdbviewDefinition(this);
@@ -133,6 +254,12 @@ public class HdbviewParser extends Parser {
 		}
 	}
 
+	/**
+	 * Hdbview definition.
+	 *
+	 * @return the hdbview definition context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final HdbviewDefinitionContext hdbviewDefinition() throws RecognitionException {
 		HdbviewDefinitionContext _localctx = new HdbviewDefinitionContext(_ctx, getState());
 		enterRule(_localctx, 0, RULE_hdbviewDefinition);
@@ -167,37 +294,109 @@ public class HdbviewParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class PropertyContext.
+	 */
 	public static class PropertyContext extends ParserRuleContext {
+		
+		/**
+		 * Schema prop.
+		 *
+		 * @return the schema prop context
+		 */
 		public SchemaPropContext schemaProp() {
 			return getRuleContext(SchemaPropContext.class,0);
 		}
+		
+		/**
+		 * Public prop.
+		 *
+		 * @return the public prop context
+		 */
 		public PublicPropContext publicProp() {
 			return getRuleContext(PublicPropContext.class,0);
 		}
+		
+		/**
+		 * Query prop.
+		 *
+		 * @return the query prop context
+		 */
 		public QueryPropContext queryProp() {
 			return getRuleContext(QueryPropContext.class,0);
 		}
+		
+		/**
+		 * Depends on prop.
+		 *
+		 * @return the depends on prop context
+		 */
 		public DependsOnPropContext dependsOnProp() {
 			return getRuleContext(DependsOnPropContext.class,0);
 		}
+		
+		/**
+		 * Depends on table.
+		 *
+		 * @return the depends on table context
+		 */
 		public DependsOnTableContext dependsOnTable() {
 			return getRuleContext(DependsOnTableContext.class,0);
 		}
+		
+		/**
+		 * Depends on view.
+		 *
+		 * @return the depends on view context
+		 */
 		public DependsOnViewContext dependsOnView() {
 			return getRuleContext(DependsOnViewContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new property context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public PropertyContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_property; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbviewListener ) ((HdbviewListener)listener).enterProperty(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbviewListener ) ((HdbviewListener)listener).exitProperty(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbviewVisitor ) return ((HdbviewVisitor<? extends T>)visitor).visitProperty(this);
@@ -205,6 +404,12 @@ public class HdbviewParser extends Parser {
 		}
 	}
 
+	/**
+	 * Property.
+	 *
+	 * @return the property context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final PropertyContext property() throws RecognitionException {
 		PropertyContext _localctx = new PropertyContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_property);
@@ -269,22 +474,76 @@ public class HdbviewParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class SchemaPropContext.
+	 */
 	public static class SchemaPropContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbviewParser.EQ, 0); }
+		
+		/**
+		 * String.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING() { return getToken(HdbviewParser.STRING, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbviewParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new schema prop context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public SchemaPropContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_schemaProp; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbviewListener ) ((HdbviewListener)listener).enterSchemaProp(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbviewListener ) ((HdbviewListener)listener).exitSchemaProp(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbviewVisitor ) return ((HdbviewVisitor<? extends T>)visitor).visitSchemaProp(this);
@@ -292,6 +551,12 @@ public class HdbviewParser extends Parser {
 		}
 	}
 
+	/**
+	 * Schema prop.
+	 *
+	 * @return the schema prop context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final SchemaPropContext schemaProp() throws RecognitionException {
 		SchemaPropContext _localctx = new SchemaPropContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_schemaProp);
@@ -319,22 +584,76 @@ public class HdbviewParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class PublicPropContext.
+	 */
 	public static class PublicPropContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbviewParser.EQ, 0); }
+		
+		/**
+		 * Boolean.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode BOOLEAN() { return getToken(HdbviewParser.BOOLEAN, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbviewParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new public prop context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public PublicPropContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_publicProp; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbviewListener ) ((HdbviewListener)listener).enterPublicProp(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbviewListener ) ((HdbviewListener)listener).exitPublicProp(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbviewVisitor ) return ((HdbviewVisitor<? extends T>)visitor).visitPublicProp(this);
@@ -342,6 +661,12 @@ public class HdbviewParser extends Parser {
 		}
 	}
 
+	/**
+	 * Public prop.
+	 *
+	 * @return the public prop context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final PublicPropContext publicProp() throws RecognitionException {
 		PublicPropContext _localctx = new PublicPropContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_publicProp);
@@ -369,22 +694,76 @@ public class HdbviewParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class QueryPropContext.
+	 */
 	public static class QueryPropContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbviewParser.EQ, 0); }
+		
+		/**
+		 * String.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING() { return getToken(HdbviewParser.STRING, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbviewParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new query prop context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public QueryPropContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_queryProp; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbviewListener ) ((HdbviewListener)listener).enterQueryProp(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbviewListener ) ((HdbviewListener)listener).exitQueryProp(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbviewVisitor ) return ((HdbviewVisitor<? extends T>)visitor).visitQueryProp(this);
@@ -392,6 +771,12 @@ public class HdbviewParser extends Parser {
 		}
 	}
 
+	/**
+	 * Query prop.
+	 *
+	 * @return the query prop context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final QueryPropContext queryProp() throws RecognitionException {
 		QueryPropContext _localctx = new QueryPropContext(_ctx, getState());
 		enterRule(_localctx, 8, RULE_queryProp);
@@ -419,25 +804,86 @@ public class HdbviewParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class DependsOnPropContext.
+	 */
 	public static class DependsOnPropContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbviewParser.EQ, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbviewParser.SEMICOLON, 0); }
+		
+		/**
+		 * String.
+		 *
+		 * @return the list
+		 */
 		public List<TerminalNode> STRING() { return getTokens(HdbviewParser.STRING); }
+		
+		/**
+		 * String.
+		 *
+		 * @param i the i
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING(int i) {
 			return getToken(HdbviewParser.STRING, i);
 		}
+		
+		/**
+		 * Instantiates a new depends on prop context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public DependsOnPropContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_dependsOnProp; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbviewListener ) ((HdbviewListener)listener).enterDependsOnProp(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbviewListener ) ((HdbviewListener)listener).exitDependsOnProp(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbviewVisitor ) return ((HdbviewVisitor<? extends T>)visitor).visitDependsOnProp(this);
@@ -445,6 +891,12 @@ public class HdbviewParser extends Parser {
 		}
 	}
 
+	/**
+	 * Depends on prop.
+	 *
+	 * @return the depends on prop context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final DependsOnPropContext dependsOnProp() throws RecognitionException {
 		DependsOnPropContext _localctx = new DependsOnPropContext(_ctx, getState());
 		enterRule(_localctx, 10, RULE_dependsOnProp);
@@ -501,25 +953,86 @@ public class HdbviewParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class DependsOnTableContext.
+	 */
 	public static class DependsOnTableContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbviewParser.EQ, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbviewParser.SEMICOLON, 0); }
+		
+		/**
+		 * String.
+		 *
+		 * @return the list
+		 */
 		public List<TerminalNode> STRING() { return getTokens(HdbviewParser.STRING); }
+		
+		/**
+		 * String.
+		 *
+		 * @param i the i
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING(int i) {
 			return getToken(HdbviewParser.STRING, i);
 		}
+		
+		/**
+		 * Instantiates a new depends on table context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public DependsOnTableContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_dependsOnTable; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbviewListener ) ((HdbviewListener)listener).enterDependsOnTable(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbviewListener ) ((HdbviewListener)listener).exitDependsOnTable(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbviewVisitor ) return ((HdbviewVisitor<? extends T>)visitor).visitDependsOnTable(this);
@@ -527,6 +1040,12 @@ public class HdbviewParser extends Parser {
 		}
 	}
 
+	/**
+	 * Depends on table.
+	 *
+	 * @return the depends on table context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final DependsOnTableContext dependsOnTable() throws RecognitionException {
 		DependsOnTableContext _localctx = new DependsOnTableContext(_ctx, getState());
 		enterRule(_localctx, 12, RULE_dependsOnTable);
@@ -583,25 +1102,86 @@ public class HdbviewParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class DependsOnViewContext.
+	 */
 	public static class DependsOnViewContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbviewParser.EQ, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbviewParser.SEMICOLON, 0); }
+		
+		/**
+		 * String.
+		 *
+		 * @return the list
+		 */
 		public List<TerminalNode> STRING() { return getTokens(HdbviewParser.STRING); }
+		
+		/**
+		 * String.
+		 *
+		 * @param i the i
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING(int i) {
 			return getToken(HdbviewParser.STRING, i);
 		}
+		
+		/**
+		 * Instantiates a new depends on view context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public DependsOnViewContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_dependsOnView; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbviewListener ) ((HdbviewListener)listener).enterDependsOnView(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbviewListener ) ((HdbviewListener)listener).exitDependsOnView(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbviewVisitor ) return ((HdbviewVisitor<? extends T>)visitor).visitDependsOnView(this);
@@ -609,6 +1189,12 @@ public class HdbviewParser extends Parser {
 		}
 	}
 
+	/**
+	 * Depends on view.
+	 *
+	 * @return the depends on view context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final DependsOnViewContext dependsOnView() throws RecognitionException {
 		DependsOnViewContext _localctx = new DependsOnViewContext(_ctx, getState());
 		enterRule(_localctx, 14, RULE_dependsOnView);
@@ -665,6 +1251,7 @@ public class HdbviewParser extends Parser {
 		return _localctx;
 	}
 
+	/** The Constant _serializedATN. */
 	public static final String _serializedATN =
 		"\u0004\u0001\u0011]\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
@@ -721,6 +1308,8 @@ public class HdbviewParser extends Parser {
 		"WX\u0001\u0000\u0000\u0000XY\u0001\u0000\u0000\u0000YZ\u0005\u0007\u0000"+
 		"\u0000Z[\u0005\r\u0000\u0000[\u000f\u0001\u0000\u0000\u0000\b\u0013\u001b"+
 		"47DGTW";
+	
+	/** The Constant _ATN. */
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

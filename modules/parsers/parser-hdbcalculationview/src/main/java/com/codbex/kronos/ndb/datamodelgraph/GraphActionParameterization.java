@@ -29,9 +29,9 @@ import javax.xml.bind.annotation.XmlType;
  * Tagging interface for graph engine parameterizations
  *
  *
- * <p>Java class for GraphActionParameterization complex type.
+ * Java class for GraphActionParameterization complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="GraphActionParameterization"&gt;

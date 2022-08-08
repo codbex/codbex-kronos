@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRegistry;
  * This object contains factory methods for each
  * Java content interface and Java element interface
  * generated in the com.sap.ndb.datamodelentity package.
- * <p>An ObjectFactory allows you to programatically
+ * An ObjectFactory allows you to programatically
  * construct new instances of the Java representation
  * for XML content. The Java representation of XML
  * content can consist of schema derived interfaces
@@ -46,49 +46,63 @@ public class ObjectFactory {
   }
 
   /**
-   * Create an instance of {@link Entity }
+   * Create an instance of {@link Entity }.
+   *
+   * @return the entity
    */
   public Entity createEntity() {
     return new Entity();
   }
 
   /**
-   * Create an instance of {@link Index }
+   * Create an instance of {@link Index }.
+   *
+   * @return the index
    */
   public Index createIndex() {
     return new Index();
   }
 
   /**
-   * Create an instance of {@link RoundRobinPartitionSpecification }
+   * Create an instance of {@link RoundRobinPartitionSpecification }.
+   *
+   * @return the round robin partition specification
    */
   public RoundRobinPartitionSpecification createRoundRobinPartitionSpecification() {
     return new RoundRobinPartitionSpecification();
   }
 
   /**
-   * Create an instance of {@link HashPartitionSpecification }
+   * Create an instance of {@link HashPartitionSpecification }.
+   *
+   * @return the hash partition specification
    */
   public HashPartitionSpecification createHashPartitionSpecification() {
     return new HashPartitionSpecification();
   }
 
   /**
-   * Create an instance of {@link PartitionExpression }
+   * Create an instance of {@link PartitionExpression }.
+   *
+   * @return the partition expression
    */
   public PartitionExpression createPartitionExpression() {
     return new PartitionExpression();
   }
 
   /**
-   * Create an instance of {@link RangePartitionSpecification }
+   * Create an instance of {@link RangePartitionSpecification }.
+   *
+   * @return the range partition specification
    */
   public RangePartitionSpecification createRangePartitionSpecification() {
     return new RangePartitionSpecification();
   }
 
   /**
-   * Create an instance of {@link TableGroup }
+   * Create an instance of {@link TableGroup }.
+   *
+   * @return the table group
    */
   public TableGroup createTableGroup() {
     return new TableGroup();

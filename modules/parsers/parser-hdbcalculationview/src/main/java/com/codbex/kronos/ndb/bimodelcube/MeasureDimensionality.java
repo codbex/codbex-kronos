@@ -35,9 +35,9 @@ import com.codbex.kronos.ndb.bimodeldatafoundation.QualifiedAttributeReference;
  * used along a certain attribute (dimension)
  *
  *
- * <p>Java class for MeasureDimensionality complex type.
+ * Java class for MeasureDimensionality complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="MeasureDimensionality"&gt;
@@ -58,30 +58,35 @@ import com.codbex.kronos.ndb.bimodeldatafoundation.QualifiedAttributeReference;
 })
 public class MeasureDimensionality {
 
+  /** The attribute. */
   @XmlElement(required = true)
   protected List<QualifiedAttributeReference> attribute;
+  
+  /** The exception aggregation type. */
   @XmlAttribute(name = "exceptionAggregationType")
   protected ExceptionAggregationType exceptionAggregationType;
 
   /**
    * Gets the value of the attribute property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the attribute property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getAttribute().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link QualifiedAttributeReference }
+   *
+   * @return the attribute
    */
   public List<QualifiedAttributeReference> getAttribute() {
     if (attribute == null) {

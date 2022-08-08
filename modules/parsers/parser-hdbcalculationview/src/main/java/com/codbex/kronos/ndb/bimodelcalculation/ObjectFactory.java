@@ -29,7 +29,7 @@ import javax.xml.namespace.QName;
  * This object contains factory methods for each
  * Java content interface and Java element interface
  * generated in the com.sap.ndb.bimodelcalculation package.
- * <p>An ObjectFactory allows you to programatically
+ * An ObjectFactory allows you to programatically
  * construct new instances of the Java representation
  * for XML content. The Java representation of XML
  * content can consist of schema derived interfaces
@@ -41,6 +41,7 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+  /** The Constant _Scenario_QNAME. */
   private final static QName _Scenario_QNAME = new QName("http://www.sap.com/ndb/BiModelCalculation.ecore", "scenario");
 
   /**
@@ -50,259 +51,331 @@ public class ObjectFactory {
   }
 
   /**
-   * Create an instance of {@link CalculationScenario }
+   * Create an instance of {@link CalculationScenario }.
+   *
+   * @return the calculation scenario
    */
   public CalculationScenario createCalculationScenario() {
     return new CalculationScenario();
   }
 
   /**
-   * Create an instance of {@link DataSources }
+   * Create an instance of {@link DataSources }.
+   *
+   * @return the data sources
    */
   public DataSources createDataSources() {
     return new DataSources();
   }
 
   /**
-   * Create an instance of {@link CalculationViews }
+   * Create an instance of {@link CalculationViews }.
+   *
+   * @return the calculation views
    */
   public CalculationViews createCalculationViews() {
     return new CalculationViews();
   }
 
   /**
-   * Create an instance of {@link ViewAttributes }
+   * Create an instance of {@link ViewAttributes }.
+   *
+   * @return the view attributes
    */
   public ViewAttributes createViewAttributes() {
     return new ViewAttributes();
   }
 
   /**
-   * Create an instance of {@link CalculatedViewAttributes }
+   * Create an instance of {@link CalculatedViewAttributes }.
+   *
+   * @return the calculated view attributes
    */
   public CalculatedViewAttributes createCalculatedViewAttributes() {
     return new CalculatedViewAttributes();
   }
 
   /**
-   * Create an instance of {@link ViewAttribute }
+   * Create an instance of {@link ViewAttribute }.
+   *
+   * @return the view attribute
    */
   public ViewAttribute createViewAttribute() {
     return new ViewAttribute();
   }
 
   /**
-   * Create an instance of {@link CalculatedViewAttribute }
+   * Create an instance of {@link CalculatedViewAttribute }.
+   *
+   * @return the calculated view attribute
    */
   public CalculatedViewAttribute createCalculatedViewAttribute() {
     return new CalculatedViewAttribute();
   }
 
   /**
-   * Create an instance of {@link DataSource }
+   * Create an instance of {@link DataSource }.
+   *
+   * @return the data source
    */
   public DataSource createDataSource() {
     return new DataSource();
   }
 
   /**
-   * Create an instance of {@link CalculationView }
+   * Create an instance of {@link CalculationView }.
+   *
+   * @return the calculation view
    */
   public CalculationView createCalculationView() {
     return new CalculationView();
   }
 
   /**
-   * Create an instance of {@link Input }
+   * Create an instance of {@link Input }.
+   *
+   * @return the input
    */
   public Input createInput() {
     return new Input();
   }
 
   /**
-   * Create an instance of {@link ProjectionView }
+   * Create an instance of {@link ProjectionView }.
+   *
+   * @return the projection view
    */
   public ProjectionView createProjectionView() {
     return new ProjectionView();
   }
 
   /**
-   * Create an instance of {@link RankView }
+   * Create an instance of {@link RankView }.
+   *
+   * @return the rank view
    */
   public RankView createRankView() {
     return new RankView();
   }
 
   /**
-   * Create an instance of {@link WindowFunction }
+   * Create an instance of {@link WindowFunction }.
+   *
+   * @return the window function
    */
   public WindowFunction createWindowFunction() {
     return new WindowFunction();
   }
 
   /**
-   * Create an instance of {@link RankingFilter }
+   * Create an instance of {@link RankingFilter }.
+   *
+   * @return the ranking filter
    */
   public RankingFilter createRankingFilter() {
     return new RankingFilter();
   }
 
   /**
-   * Create an instance of {@link Order }
+   * Create an instance of {@link Order }.
+   *
+   * @return the order
    */
   public Order createOrder() {
     return new Order();
   }
 
   /**
-   * Create an instance of {@link JoinView }
+   * Create an instance of {@link JoinView }.
+   *
+   * @return the join view
    */
   public JoinView createJoinView() {
     return new JoinView();
   }
 
   /**
-   * Create an instance of {@link JoinAttribute }
+   * Create an instance of {@link JoinAttribute }.
+   *
+   * @return the join attribute
    */
   public JoinAttribute createJoinAttribute() {
     return new JoinAttribute();
   }
 
   /**
-   * Create an instance of {@link UnionView }
+   * Create an instance of {@link UnionView }.
+   *
+   * @return the union view
    */
   public UnionView createUnionView() {
     return new UnionView();
   }
 
   /**
-   * Create an instance of {@link MinusView }
+   * Create an instance of {@link MinusView }.
+   *
+   * @return the minus view
    */
   public MinusView createMinusView() {
     return new MinusView();
   }
 
   /**
-   * Create an instance of {@link IntersectView }
+   * Create an instance of {@link IntersectView }.
+   *
+   * @return the intersect view
    */
   public IntersectView createIntersectView() {
     return new IntersectView();
   }
 
   /**
-   * Create an instance of {@link AggregationView }
+   * Create an instance of {@link AggregationView }.
+   *
+   * @return the aggregation view
    */
   public AggregationView createAggregationView() {
     return new AggregationView();
   }
 
   /**
-   * Create an instance of {@link TableFunctionView }
+   * Create an instance of {@link TableFunctionView }.
+   *
+   * @return the table function view
    */
   public TableFunctionView createTableFunctionView() {
     return new TableFunctionView();
   }
 
   /**
-   * Create an instance of {@link RestrictedViewAttributes }
+   * Create an instance of {@link RestrictedViewAttributes }.
+   *
+   * @return the restricted view attributes
    */
   public RestrictedViewAttributes createRestrictedViewAttributes() {
     return new RestrictedViewAttributes();
   }
 
   /**
-   * Create an instance of {@link RestrictedViewAttribute }
+   * Create an instance of {@link RestrictedViewAttribute }.
+   *
+   * @return the restricted view attribute
    */
   public RestrictedViewAttribute createRestrictedViewAttribute() {
     return new RestrictedViewAttribute();
   }
 
   /**
-   * Create an instance of {@link MultiViewAttributes }
+   * Create an instance of {@link MultiViewAttributes }.
+   *
+   * @return the multi view attributes
    */
   public MultiViewAttributes createMultiViewAttributes() {
     return new MultiViewAttributes();
   }
 
   /**
-   * Create an instance of {@link GraphView }
+   * Create an instance of {@link GraphView }.
+   *
+   * @return the graph view
    */
   public GraphView createGraphView() {
     return new GraphView();
   }
 
   /**
-   * Create an instance of {@link Output }
+   * Create an instance of {@link Output }.
+   *
+   * @return the output
    */
   public Output createOutput() {
     return new Output();
   }
 
   /**
-   * Create an instance of {@link AttributeMapping }
+   * Create an instance of {@link AttributeMapping }.
+   *
+   * @return the attribute mapping
    */
   public AttributeMapping createAttributeMapping() {
     return new AttributeMapping();
   }
 
   /**
-   * Create an instance of {@link ConstantAttributeMapping }
+   * Create an instance of {@link ConstantAttributeMapping }.
+   *
+   * @return the constant attribute mapping
    */
   public ConstantAttributeMapping createConstantAttributeMapping() {
     return new ConstantAttributeMapping();
   }
 
   /**
-   * Create an instance of {@link NonEquiJoinView }
+   * Create an instance of {@link NonEquiJoinView }.
+   *
+   * @return the non equi join view
    */
   public NonEquiJoinView createNonEquiJoinView() {
     return new NonEquiJoinView();
   }
 
   /**
-   * Create an instance of {@link NonEquiJoinAttribute }
+   * Create an instance of {@link NonEquiJoinAttribute }.
+   *
+   * @return the non equi join attribute
    */
   public NonEquiJoinAttribute createNonEquiJoinAttribute() {
     return new NonEquiJoinAttribute();
   }
 
   /**
-   * Create an instance of {@link HierarchyView }
+   * Create an instance of {@link HierarchyView }.
+   *
+   * @return the hierarchy view
    */
   public HierarchyView createHierarchyView() {
     return new HierarchyView();
   }
 
   /**
-   * Create an instance of {@link AnonymizeView }
+   * Create an instance of {@link AnonymizeView }.
+   *
+   * @return the anonymize view
    */
   public AnonymizeView createAnonymizeView() {
     return new AnonymizeView();
   }
 
   /**
-   * Create an instance of {@link AnonymizeParameterization }
+   * Create an instance of {@link AnonymizeParameterization }.
+   *
+   * @return the anonymize parameterization
    */
   public AnonymizeParameterization createAnonymizeParameterization() {
     return new AnonymizeParameterization();
   }
 
   /**
-   * Create an instance of {@link QidColumn }
+   * Create an instance of {@link QidColumn }.
+   *
+   * @return the qid column
    */
   public QidColumn createQidColumn() {
     return new QidColumn();
   }
 
   /**
-   * Create an instance of {@link QidColumnHierarchy }
+   * Create an instance of {@link QidColumnHierarchy }.
+   *
+   * @return the qid column hierarchy
    */
   public QidColumnHierarchy createQidColumnHierarchy() {
     return new QidColumnHierarchy();
   }
 
   /**
-   * Create an instance of {@link JAXBElement }{@code <}{@link CalculationScenario }{@code >}
+   * Create an instance of {@link JAXBElement }{@code <}{@link CalculationScenario }{@code >}.
    *
    * @param value Java instance representing xml element's value.
    * @return the new instance of {@link JAXBElement }{@code <}{@link CalculationScenario }{@code >}

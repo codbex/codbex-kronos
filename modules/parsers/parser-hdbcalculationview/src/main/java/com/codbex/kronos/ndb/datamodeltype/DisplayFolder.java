@@ -34,9 +34,9 @@ import com.codbex.kronos.ndb.repositorymodelresource.NamedObjectWithEndUserTexts
  * See http://msdn.microsoft.com/en-us/library/ms126250.aspx measure_display_folder.
  *
  *
- * <p>Java class for DisplayFolder complex type.
+ * Java class for DisplayFolder complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="DisplayFolder"&gt;

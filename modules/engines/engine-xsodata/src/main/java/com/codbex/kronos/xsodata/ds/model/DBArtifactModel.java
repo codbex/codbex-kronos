@@ -11,30 +11,65 @@
  */
 package com.codbex.kronos.xsodata.ds.model;
 
+/**
+ * The Class DBArtifactModel.
+ */
 public class DBArtifactModel {
 
+  /** The name. */
   private final String name;
+  
+  /** The type. */
   private final String type;
+  
+  /** The schema. */
   private final String schema;
 
+  /**
+   * Instantiates a new DB artifact model.
+   *
+   * @param name the name
+   * @param type the type
+   * @param schema the schema
+   */
   public DBArtifactModel(String name, String type, String schema) {
     this.name = name;
     this.type = type;
     this.schema = schema;
   }
 
+  /**
+   * Gets the name.
+   *
+   * @return the name
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Gets the type.
+   *
+   * @return the type
+   */
   public String getType() {
     return type;
   }
 
+  /**
+   * Gets the schema.
+   *
+   * @return the schema
+   */
   public String getSchema() {
     return schema;
   }
 
+  /**
+   * To string.
+   *
+   * @return the string
+   */
   @Override
   public String toString() {
     return "DBArtifact{" +

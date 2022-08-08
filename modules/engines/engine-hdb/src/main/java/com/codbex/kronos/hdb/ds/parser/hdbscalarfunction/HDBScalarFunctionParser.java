@@ -24,8 +24,18 @@ import com.codbex.kronos.hdb.ds.parser.DataStructureParser;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.HDBUtils;
 
+/**
+ * The Class HDBScalarFunctionParser.
+ */
 public class HDBScalarFunctionParser implements DataStructureParser<DataStructureHDBScalarFunctionModel> {
 
+  /**
+   * Parses the.
+   *
+   * @param parametersModel the parameters model
+   * @return the data structure HDB scalar function model
+   * @throws DataStructuresException the data structures exception
+   */
   @Override
   public DataStructureHDBScalarFunctionModel parse(DataStructureParametersModel parametersModel) throws DataStructuresException {
 	  DataStructureHDBScalarFunctionModel hdbScalarFunction = new DataStructureHDBScalarFunctionModel();
@@ -40,11 +50,21 @@ public class HDBScalarFunctionParser implements DataStructureParser<DataStructur
     return hdbScalarFunction;
   }
 
+  /**
+   * Gets the type.
+   *
+   * @return the type
+   */
   @Override
   public String getType() {
     return IDataStructureModel.TYPE_HDB_SCALAR_FUNCTION;
   }
 
+  /**
+   * Gets the data structure class.
+   *
+   * @return the data structure class
+   */
   @Override
   public Class<DataStructureHDBScalarFunctionModel> getDataStructureClass() {
     return DataStructureHDBScalarFunctionModel.class;

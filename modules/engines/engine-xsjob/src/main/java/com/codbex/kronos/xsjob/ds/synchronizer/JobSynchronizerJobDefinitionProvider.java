@@ -16,12 +16,25 @@ import org.eclipse.dirigible.core.scheduler.api.IJobDefinitionProvider;
 import org.eclipse.dirigible.core.scheduler.api.ISchedulerCoreService;
 import org.eclipse.dirigible.core.scheduler.service.definition.JobDefinition;
 
+/**
+ * The Class JobSynchronizerJobDefinitionProvider.
+ */
 public class JobSynchronizerJobDefinitionProvider implements IJobDefinitionProvider {
 
+  /** The Constant JOB_SYNCHRONIZER_JOB. */
   static final String JOB_SYNCHRONIZER_JOB = "Kronos Job Synchronizer Job";
+  
+  /** The Constant KRONOS_JOB_EXPRESSION_JOB. */
   private static final String KRONOS_JOB_EXPRESSION_JOB = "KRONOS_JOB_EXPRESSION_JOB";
+  
+  /** The Constant KRONOS_JOB_SYNCHRONIZER_JOB. */
   private static final String KRONOS_JOB_SYNCHRONIZER_JOB = "kronos-job-synchronizer-job";
 
+  /**
+   * Gets the job definition.
+   *
+   * @return the job definition
+   */
   @Override
   public JobDefinition getJobDefinition() {
     JobDefinition jobDefinition = new JobDefinition();

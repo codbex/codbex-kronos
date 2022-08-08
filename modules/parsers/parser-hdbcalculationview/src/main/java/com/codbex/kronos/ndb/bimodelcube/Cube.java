@@ -40,9 +40,9 @@ import com.codbex.kronos.ndb.bimodeldatafoundation.InformationModel;
  * for more constraints see also df:DataFoundation
  *
  *
- * <p>Java class for Cube complex type.
+ * Java class for Cube complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Cube"&gt;
@@ -64,8 +64,11 @@ import com.codbex.kronos.ndb.bimodeldatafoundation.InformationModel;
 public class Cube
     extends InformationModel {
 
+  /** The private measure group. */
   @XmlElement(required = true)
   protected MeasureGroup privateMeasureGroup;
+  
+  /** The deployment type. */
   @XmlAttribute(name = "deploymentType")
   protected DeploymentType deploymentType;
 

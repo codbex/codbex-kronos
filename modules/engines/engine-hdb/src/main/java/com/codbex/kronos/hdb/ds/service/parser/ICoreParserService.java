@@ -18,10 +18,28 @@ import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
 
 import java.io.IOException;
 
+/**
+ * The Interface ICoreParserService.
+ */
 public interface ICoreParserService {
 
+  /**
+   * Parses the data structure.
+   *
+   * @param parametersModel the parameters model
+   * @return the data structure model
+   * @throws DataStructuresException the data structures exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws ArtifactParserException the artifact parser exception
+   */
   DataStructureModel parseDataStructure(DataStructureParametersModel parametersModel)
       throws DataStructuresException, IOException, ArtifactParserException;
 
+  /**
+   * Gets the data structure class.
+   *
+   * @param type the type
+   * @return the data structure class
+   */
   Class<DataStructureModel> getDataStructureClass(String type);
 }

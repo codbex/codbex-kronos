@@ -31,9 +31,9 @@ import javax.xml.bind.annotation.XmlValue;
 
 
 /**
- * <p>Java class for anonymous complex type.
+ * Java class for anonymous complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -96,6 +96,7 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlRootElement(name = "layout")
 public class Layout {
 
+  /** The shapes. */
   @XmlElement(required = true)
   protected Layout.Shapes shapes;
 
@@ -121,9 +122,9 @@ public class Layout {
 
 
   /**
-   * <p>Java class for anonymous complex type.
+   * Java class for anonymous complex type.
    *
-   * <p>The following schema fragment specifies the expected content contained within this class.
+   * The following schema fragment specifies the expected content contained within this class.
    *
    * <pre>
    * &lt;complexType&gt;
@@ -175,27 +176,30 @@ public class Layout {
   })
   public static class Shapes {
 
+    /** The shape. */
     protected List<Layout.Shapes.Shape> shape;
 
     /**
      * Gets the value of the shape property.
-     *
-     * <p>
+     * 
+     * 
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the shape property.
-     *
-     * <p>
+     * 
+     * 
      * For example, to add a new item, do as follows:
      * <pre>
      *    getShape().add(newItem);
      * </pre>
-     *
-     *
-     * <p>
+     * 
+     * 
+     * 
      * Objects of the following type(s) are allowed in the list
      * {@link Layout.Shapes.Shape }
+     *
+     * @return the shape
      */
     public List<Layout.Shapes.Shape> getShape() {
       if (shape == null) {
@@ -206,9 +210,9 @@ public class Layout {
 
 
     /**
-     * <p>Java class for anonymous complex type.
+     * Java class for anonymous complex type.
      *
-     * <p>The following schema fragment specifies the expected content contained within this class.
+     * The following schema fragment specifies the expected content contained within this class.
      *
      * <pre>
      * &lt;complexType&gt;
@@ -251,14 +255,23 @@ public class Layout {
     })
     public static class Shape {
 
+      /** The upper left corner. */
       @XmlElement(required = true)
       protected Layout.Shapes.Shape.UpperLeftCorner upperLeftCorner;
+      
+      /** The rectangle size. */
       @XmlElement(required = true)
       protected Layout.Shapes.Shape.RectangleSize rectangleSize;
+      
+      /** The expanded. */
       @XmlAttribute(name = "expanded")
       protected String expanded;
+      
+      /** The model object name. */
       @XmlAttribute(name = "modelObjectName")
       protected String modelObjectName;
+      
+      /** The model object name space. */
       @XmlAttribute(name = "modelObjectNameSpace")
       protected String modelObjectNameSpace;
 
@@ -364,9 +377,9 @@ public class Layout {
 
 
       /**
-       * <p>Java class for anonymous complex type.
+       * Java class for anonymous complex type.
        *
-       * <p>The following schema fragment specifies the expected content contained within this class.
+       * The following schema fragment specifies the expected content contained within this class.
        *
        * <pre>
        * &lt;complexType&gt;
@@ -385,10 +398,15 @@ public class Layout {
       })
       public static class RectangleSize {
 
+        /** The value. */
         @XmlValue
         protected String value;
+        
+        /** The height. */
         @XmlAttribute(name = "height")
         protected Byte height;
+        
+        /** The width. */
         @XmlAttribute(name = "width")
         protected Byte width;
 
@@ -456,9 +474,9 @@ public class Layout {
 
 
       /**
-       * <p>Java class for anonymous complex type.
+       * Java class for anonymous complex type.
        *
-       * <p>The following schema fragment specifies the expected content contained within this class.
+       * The following schema fragment specifies the expected content contained within this class.
        *
        * <pre>
        * &lt;complexType&gt;
@@ -477,10 +495,15 @@ public class Layout {
       })
       public static class UpperLeftCorner {
 
+        /** The value. */
         @XmlValue
         protected String value;
+        
+        /** The x. */
         @XmlAttribute(name = "x")
         protected Short x;
+        
+        /** The y. */
         @XmlAttribute(name = "y")
         protected Short y;
 

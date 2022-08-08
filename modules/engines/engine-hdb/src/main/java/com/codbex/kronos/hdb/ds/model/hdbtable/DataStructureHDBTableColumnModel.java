@@ -16,34 +16,49 @@ package com.codbex.kronos.hdb.ds.model.hdbtable;
  */
 public class DataStructureHDBTableColumnModel {
 
+  /** The name. */
   private String name;
 
+  /** The sql type. */
   private String sqlType;
 
+  /** The length. */
   private String length;
 
+  /** The nullable. */
   private boolean nullable;
 
+  /** The primary key. */
   private boolean primaryKey;
 
+  /** The default value. */
   private String defaultValue;
 
+  /** The is default value date time function. */
   private boolean isDefaultValueDateTimeFunction;
 
+  /** The precision. */
   private String precision;
 
+  /** The scale. */
   private String scale;
 
+  /** The unique. */
   private boolean unique;
 
+  /** The comment. */
   private String comment;
 
+  /** The alias. */
   private String alias;
 
+  /** The fuzzy search index. */
   private boolean fuzzySearchIndex;
 
+  /** The statement. */
   private String statement;
 
+  /** The is calculated column. */
   private boolean isCalculatedColumn;
 
   /**
@@ -62,9 +77,11 @@ public class DataStructureHDBTableColumnModel {
    * @param nullable     whether null values are allowed
    * @param primaryKey   whether it is a primary key
    * @param defaultValue the default value
+   * @param isDefaultValueDateTimeFunction the is default value date time function
    * @param precision    the precision value for floating point types
    * @param scale        the scale value for floating point types
    * @param unique       the unique
+   * @param alias the alias
    */
   public DataStructureHDBTableColumnModel(String name, String type, String length, boolean nullable, boolean primaryKey,
       String defaultValue, boolean isDefaultValueDateTimeFunction, String precision, String scale, boolean unique, String alias) {
@@ -271,14 +288,29 @@ public class DataStructureHDBTableColumnModel {
     this.comment = comment;
   }
 
+  /**
+   * Gets the comment.
+   *
+   * @return the comment
+   */
   public String getComment() {
     return comment;
   }
 
+  /**
+   * Sets the alias.
+   *
+   * @param alias the new alias
+   */
   public void setAlias(String alias) {
     this.alias = alias;
   }
 
+  /**
+   * Gets the alias.
+   *
+   * @return the alias
+   */
   public String getAlias() {
     return alias;
   }
@@ -301,18 +333,38 @@ public class DataStructureHDBTableColumnModel {
     this.fuzzySearchIndex = fuzzySearchIndex;
   }
 
+  /**
+   * Gets the statement.
+   *
+   * @return the statement
+   */
   public String getStatement() {
     return statement;
   }
 
+  /**
+   * Sets the statement.
+   *
+   * @param statement the new statement
+   */
   public void setStatement(String statement) {
     this.statement = statement;
   }
 
+  /**
+   * Checks if is calculated column.
+   *
+   * @return true, if is calculated column
+   */
   public boolean isCalculatedColumn() {
     return isCalculatedColumn;
   }
 
+  /**
+   * Sets the calculated column.
+   *
+   * @param calculatedColumn the new calculated column
+   */
   public void setCalculatedColumn(boolean calculatedColumn) {
     isCalculatedColumn = calculatedColumn;
   }

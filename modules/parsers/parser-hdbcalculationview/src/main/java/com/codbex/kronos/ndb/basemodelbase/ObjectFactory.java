@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRegistry;
  * This object contains factory methods for each
  * Java content interface and Java element interface
  * generated in the com.sap.ndb.basemodelbase package.
- * <p>An ObjectFactory allows you to programatically
+ * An ObjectFactory allows you to programatically
  * construct new instances of the Java representation
  * for XML content. The Java representation of XML
  * content can consist of schema derived interfaces
@@ -46,98 +46,126 @@ public class ObjectFactory {
   }
 
   /**
-   * Create an instance of {@link CurrencyConversionTables }
+   * Create an instance of {@link CurrencyConversionTables }.
+   *
+   * @return the currency conversion tables
    */
   public CurrencyConversionTables createCurrencyConversionTables() {
     return new CurrencyConversionTables();
   }
 
   /**
-   * Create an instance of {@link UnitConversionTables }
+   * Create an instance of {@link UnitConversionTables }.
+   *
+   * @return the unit conversion tables
    */
   public UnitConversionTables createUnitConversionTables() {
     return new UnitConversionTables();
   }
 
   /**
-   * Create an instance of {@link TemporalJoinProperties }
+   * Create an instance of {@link TemporalJoinProperties }.
+   *
+   * @return the temporal join properties
    */
   public TemporalJoinProperties createTemporalJoinProperties() {
     return new TemporalJoinProperties();
   }
 
   /**
-   * Create an instance of {@link FeaturedHierarchyReference }
+   * Create an instance of {@link FeaturedHierarchyReference }.
+   *
+   * @return the featured hierarchy reference
    */
   public FeaturedHierarchyReference createFeaturedHierarchyReference() {
     return new FeaturedHierarchyReference();
   }
 
   /**
-   * Create an instance of {@link HierarchyJoinProperties }
+   * Create an instance of {@link HierarchyJoinProperties }.
+   *
+   * @return the hierarchy join properties
    */
   public HierarchyJoinProperties createHierarchyJoinProperties() {
     return new HierarchyJoinProperties();
   }
 
   /**
-   * Create an instance of {@link UnassignedMemberProperties }
+   * Create an instance of {@link UnassignedMemberProperties }.
+   *
+   * @return the unassigned member properties
    */
   public UnassignedMemberProperties createUnassignedMemberProperties() {
     return new UnassignedMemberProperties();
   }
 
   /**
-   * Create an instance of {@link Descriptions }
+   * Create an instance of {@link Descriptions }.
+   *
+   * @return the descriptions
    */
   public Descriptions createDescriptions() {
     return new Descriptions();
   }
 
   /**
-   * Create an instance of {@link EndUserTexts }
+   * Create an instance of {@link EndUserTexts }.
+   *
+   * @return the end user texts
    */
   public EndUserTexts createEndUserTexts() {
     return new EndUserTexts();
   }
 
   /**
-   * Create an instance of {@link CommentProperties }
+   * Create an instance of {@link CommentProperties }.
+   *
+   * @return the comment properties
    */
   public CommentProperties createCommentProperties() {
     return new CommentProperties();
   }
 
   /**
-   * Create an instance of {@link LocalizedText }
+   * Create an instance of {@link LocalizedText }.
+   *
+   * @return the localized text
    */
   public LocalizedText createLocalizedText() {
     return new LocalizedText();
   }
 
   /**
-   * Create an instance of {@link SchemaMappingBasedObject }
+   * Create an instance of {@link SchemaMappingBasedObject }.
+   *
+   * @return the schema mapping based object
    */
   public SchemaMappingBasedObject createSchemaMappingBasedObject() {
     return new SchemaMappingBasedObject();
   }
 
   /**
-   * Create an instance of {@link QualifiedSQLObjectName }
+   * Create an instance of {@link QualifiedSQLObjectName }.
+   *
+   * @return the qualified SQL object name
    */
   public QualifiedSQLObjectName createQualifiedSQLObjectName() {
     return new QualifiedSQLObjectName();
   }
 
   /**
-   * Create an instance of {@link QualifiedColumnObjectName }
+   * Create an instance of {@link QualifiedColumnObjectName }.
+   *
+   * @return the qualified column object name
    */
   public QualifiedColumnObjectName createQualifiedColumnObjectName() {
     return new QualifiedColumnObjectName();
   }
 
   /**
-   * Create an instance of {@link NameValuePair }
+   * Create an instance of {@link NameValuePair }.
+   *
+   * @return the name value pair
    */
   public NameValuePair createNameValuePair() {
     return new NameValuePair();

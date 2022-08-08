@@ -15,10 +15,26 @@ import com.codbex.kronos.parser.hdbschema.core.HdbschemaBaseListener;
 import com.codbex.kronos.parser.hdbschema.core.HdbschemaParser;
 import com.codbex.kronos.parser.hdbschema.models.HDBSchemaDefinitionModel;
 
+/**
+ * The listener interface for receiving HDBSchemaCore events.
+ * The class that is interested in processing a HDBSchemaCore
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addHDBSchemaCoreListener</code> method. When
+ * the HDBSchemaCore event occurs, that object's appropriate
+ * method is invoked.
+ *
+ */
 public class HDBSchemaCoreListener extends HdbschemaBaseListener {
 
+  /** The model. */
   private HDBSchemaDefinitionModel model = new HDBSchemaDefinitionModel();
 
+  /**
+   * Exit hdbschema definition.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void exitHdbschemaDefinition(HdbschemaParser.HdbschemaDefinitionContext ctx) {
     if (ctx.schemaNameProp() != null && ctx.schemaNameProp().STRING() != null) {
@@ -26,6 +42,12 @@ public class HDBSchemaCoreListener extends HdbschemaBaseListener {
     }
   }
 
+  /**
+   * Handle string literal.
+   *
+   * @param value the value
+   * @return the string
+   */
   private String handleStringLiteral(String value) {
     if (value != null && value.length() > 1) {
       String subStr = value.substring(1, value.length() - 1);
@@ -35,6 +57,11 @@ public class HDBSchemaCoreListener extends HdbschemaBaseListener {
     return null;
   }
 
+  /**
+   * Gets the model.
+   *
+   * @return the model
+   */
   public HDBSchemaDefinitionModel getModel() {
     return model;
   }

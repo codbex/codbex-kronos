@@ -12,20 +12,42 @@
 package com.codbex.kronos.parser.hana.core.models;
 
 
+/**
+ * The Class DefinitionModel.
+ */
 public class DefinitionModel {
 
+  /** The schema. */
   private final String schema;
+  
+  /** The name. */
   private final String name;
 
+  /**
+   * Instantiates a new definition model.
+   *
+   * @param schema the schema
+   * @param name the name
+   */
   public DefinitionModel(String schema, String name) {
     this.schema = schema;
     this.name = name;
   }
 
+  /**
+   * Gets the schema.
+   *
+   * @return the schema
+   */
   public String getSchema() {
     return schema;
   }
 
+  /**
+   * Gets the name.
+   *
+   * @return the name
+   */
   public String getName() {
     return name;
   }

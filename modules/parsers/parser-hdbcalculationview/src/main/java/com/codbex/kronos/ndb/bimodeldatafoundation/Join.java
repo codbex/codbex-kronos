@@ -32,9 +32,9 @@ import com.codbex.kronos.ndb.basemodelbase.TemporalJoinProperties;
 
 
 /**
- * <p>Java class for Join complex type.
+ * Java class for Join complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Join"&gt;
@@ -65,17 +65,30 @@ import com.codbex.kronos.ndb.basemodelbase.TemporalJoinProperties;
 })
 public class Join {
 
+  /** The left table. */
   @XmlElement(required = true)
   protected QualifiedColumnObjectName leftTable;
+  
+  /** The right table. */
   @XmlElement(required = true)
   protected QualifiedColumnObjectName rightTable;
+  
+  /** The left columns. */
   @XmlElement(required = true)
   protected Columns leftColumns;
+  
+  /** The right columns. */
   @XmlElement(required = true)
   protected Columns rightColumns;
+  
+  /** The properties. */
   @XmlElement(required = true)
   protected JoinProperties properties;
+  
+  /** The temporal join properties. */
   protected TemporalJoinProperties temporalJoinProperties;
+  
+  /** The language column. */
   @XmlAttribute(name = "languageColumn")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String languageColumn;

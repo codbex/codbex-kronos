@@ -24,12 +24,25 @@ import com.codbex.kronos.xsaccess.ds.api.IPrivilegeCoreService;
 import com.codbex.kronos.xsaccess.ds.api.PrivilegeException;
 import com.codbex.kronos.xsaccess.ds.model.privilege.PrivilegeDefinition;
 
+/**
+ * The Class PrivilegeCoreService.
+ */
 public class PrivilegeCoreService implements IPrivilegeCoreService {
 
+  /** The data source. */
   private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
 
+  /** The persistence manager. */
   private PersistenceManager<PrivilegeDefinition> persistenceManager = new PersistenceManager<PrivilegeDefinition>();
 
+  /**
+   * Creates the privilege.
+   *
+   * @param name the name
+   * @param description the description
+   * @return the privilege definition
+   * @throws PrivilegeException the privilege exception
+   */
   @Override
   public PrivilegeDefinition createPrivilege(String name, String description) throws PrivilegeException {
     try {
@@ -55,6 +68,14 @@ public class PrivilegeCoreService implements IPrivilegeCoreService {
     }
   }
 
+  /**
+   * Update privileges.
+   *
+   * @param name the name
+   * @param description the description
+   * @return the privilege definition
+   * @throws PrivilegeException the privilege exception
+   */
   @Override
   public PrivilegeDefinition updatePrivileges(String name, String description) throws PrivilegeException {
     PrivilegeDefinition foundXscPrivilegeDefinition = getPrivilegeByName(name);
@@ -82,6 +103,12 @@ public class PrivilegeCoreService implements IPrivilegeCoreService {
   }
 
 
+  /**
+   * Gets the privileges.
+   *
+   * @return the privileges
+   * @throws PrivilegeException the privilege exception
+   */
   @Override
   public List<PrivilegeDefinition> getPrivileges() throws PrivilegeException {
     try {
@@ -99,6 +126,12 @@ public class PrivilegeCoreService implements IPrivilegeCoreService {
     }
   }
 
+  /**
+   * Removes the privilege by name.
+   *
+   * @param name the name
+   * @throws PrivilegeException the privilege exception
+   */
   @Override
   public void removePrivilegeByName(String name) throws PrivilegeException {
     try {
@@ -117,6 +150,13 @@ public class PrivilegeCoreService implements IPrivilegeCoreService {
     }
   }
 
+  /**
+   * Gets the privilege by name.
+   *
+   * @param name the name
+   * @return the privilege by name
+   * @throws PrivilegeException the privilege exception
+   */
   @Override
   public PrivilegeDefinition getPrivilegeByName(String name) throws PrivilegeException {
     try {
@@ -138,6 +178,13 @@ public class PrivilegeCoreService implements IPrivilegeCoreService {
     }
   }
 
+  /**
+   * Privilege exists.
+   *
+   * @param name the name
+   * @return true, if successful
+   * @throws PrivilegeException the privilege exception
+   */
   @Override
   public boolean privilegeExists(String name) throws PrivilegeException {
     return getPrivilegeByName(name) != null;

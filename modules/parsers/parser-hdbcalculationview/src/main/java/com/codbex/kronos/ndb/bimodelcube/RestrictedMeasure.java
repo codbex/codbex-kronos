@@ -33,9 +33,9 @@ import com.codbex.kronos.ndb.datamodeltype.ExpressionLanguage;
 
 
 /**
- * <p>Java class for RestrictedMeasure complex type.
+ * Java class for RestrictedMeasure complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="RestrictedMeasure"&gt;
@@ -60,33 +60,42 @@ import com.codbex.kronos.ndb.datamodeltype.ExpressionLanguage;
 public class RestrictedMeasure
     extends Measure {
 
+  /** The restriction. */
   protected List<Restriction> restriction;
+  
+  /** The restriction expression. */
   protected String restrictionExpression;
+  
+  /** The restriction expression language. */
   @XmlAttribute(name = "restrictionExpressionLanguage")
   protected ExpressionLanguage restrictionExpressionLanguage;
+  
+  /** The base measure. */
   @XmlAttribute(name = "baseMeasure", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String baseMeasure;
 
   /**
    * Gets the value of the restriction property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the restriction property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getRestriction().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link Restriction }
+   *
+   * @return the restriction
    */
   public List<Restriction> getRestriction() {
     if (restriction == null) {

@@ -38,9 +38,9 @@ import com.codbex.kronos.ndb.datamodelhierarchy.HierarchyTemporalParameterizatio
  * A View node for hierarchy generation functions and navigation functions.
  *
  *
- * <p>Java class for HierarchyView complex type.
+ * Java class for HierarchyView complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="HierarchyView"&gt;
@@ -74,13 +74,28 @@ import com.codbex.kronos.ndb.datamodelhierarchy.HierarchyTemporalParameterizatio
 public class HierarchyView
     extends CalculationView {
 
+  /** The hierarchy parameterization. */
   protected HierarchyParameterization hierarchyParameterization;
+  
+  /** The hierarchy leveled parameterization. */
   protected HierarchyLeveledParameterization hierarchyLeveledParameterization;
+  
+  /** The hierarchy temporal parameterization. */
   protected HierarchyTemporalParameterization hierarchyTemporalParameterization;
+  
+  /** The hierarchy span tree parameterization. */
   protected HierarchySpanTreeParameterization hierarchySpanTreeParameterization;
+  
+  /** The hierarchy descendants parameterization. */
   protected HierarchyDescendantsParameterization hierarchyDescendantsParameterization;
+  
+  /** The hierarchy ancestors parameterization. */
   protected HierarchyAncestorsParameterization hierarchyAncestorsParameterization;
+  
+  /** The hierarchy siblings parameterization. */
   protected HierarchySiblingsParameterization hierarchySiblingsParameterization;
+  
+  /** The function. */
   @XmlAttribute(name = "function")
   protected HierarchyFunction function;
 

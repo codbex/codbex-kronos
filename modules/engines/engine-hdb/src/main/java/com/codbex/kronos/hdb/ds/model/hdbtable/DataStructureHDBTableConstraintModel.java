@@ -16,10 +16,13 @@ package com.codbex.kronos.hdb.ds.model.hdbtable;
  */
 public class DataStructureHDBTableConstraintModel {
 
+  /** The name. */
   private String name;
 
+  /** The modifiers. */
   private String[] modifiers;
 
+  /** The columns. */
   private String[] columns;
 
   /**

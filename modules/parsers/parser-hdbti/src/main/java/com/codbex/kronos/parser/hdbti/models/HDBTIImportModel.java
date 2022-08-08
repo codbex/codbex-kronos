@@ -14,23 +14,45 @@ package com.codbex.kronos.parser.hdbti.models;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Class HDBTIImportModel.
+ */
 public class HDBTIImportModel {
 
+  /** The config models. */
   private List<HDBTIImportConfigModel> configModels = new ArrayList<>();
 
+  /**
+   * Gets the config models.
+   *
+   * @return the config models
+   */
   public List<HDBTIImportConfigModel> getConfigModels() {
     return configModels;
   }
 
+  /**
+   * Sets the config models.
+   *
+   * @param configModels the new config models
+   */
   public void setConfigModels(List<HDBTIImportConfigModel> configModels) {
     this.configModels = configModels;
   }
 
+  /**
+   * To string.
+   *
+   * @return the string
+   */
   @Override
   public String toString() {
     return "import = " + configModels.toString() + ";";
   }
 
+  /**
+   * Check mandatory fields in all config models.
+   */
   public void checkMandatoryFieldsInAllConfigModels() {
     configModels.forEach(HDBTIImportConfigModel::checkForAllMandatoryFieldsPresence);
   }

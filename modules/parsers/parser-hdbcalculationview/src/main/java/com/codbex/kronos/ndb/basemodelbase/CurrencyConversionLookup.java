@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for CurrencyConversionLookup.
+ * Java class for CurrencyConversionLookup.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="CurrencyConversionLookup"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -42,21 +42,27 @@ import javax.xml.bind.annotation.XmlType;
 public enum CurrencyConversionLookup {
 
 
-  /**
-   * Regular lookup for the conversion rate
-   */
+  /** Regular lookup for the conversion rate. */
   REGULAR,
 
-  /**
-   * Reverse lookup to do backward conversions ('reverse' determines the rate with swapped units and inverts
-   * the rate before conversion)
-   */
+  /** Reverse lookup to do backward conversions ('reverse' determines the rate with swapped units and inverts the rate before conversion). */
   REVERSE;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the currency conversion lookup
+   */
   public static CurrencyConversionLookup fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

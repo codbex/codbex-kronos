@@ -19,10 +19,21 @@ import org.eclipse.dirigible.engine.odata2.definition.ODataHandlerDefinition;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 
+/**
+ * The Class OData2ODataHTransformer.
+ */
 public class OData2ODataHTransformer {
 
+  /** The o data 2 O data H transformer. */
   private org.eclipse.dirigible.engine.odata2.transformers.OData2ODataHTransformer oData2ODataHTransformer = new org.eclipse.dirigible.engine.odata2.transformers.OData2ODataHTransformer();
 
+  /**
+   * Transform.
+   *
+   * @param oDataDefinition the o data definition
+   * @return the list
+   * @throws SQLException the SQL exception
+   */
   public List<ODataHandlerDefinition> transform(ODataDefinition oDataDefinition) throws SQLException {
     try {
       return oData2ODataHTransformer.transform(oDataDefinition);

@@ -33,9 +33,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * https://help.sap.com/viewer/4fe29514fd584807ac9f2a04f6754767/2.0.02/en-US/fc59f81a5c494f399cc2ff70b9c3b4c9.html
  *
  *
- * <p>Java class for HierarchyParameterization complex type.
+ * Java class for HierarchyParameterization complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="HierarchyParameterization"&gt;
@@ -65,14 +65,23 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class HierarchyParameterization {
 
+  /** The start where. */
   protected String startWhere;
+  
+  /** The depth. */
   protected BigInteger depth;
+  
+  /** The depth parameter. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String depthParameter;
+  
+  /** The orphan. */
   @XmlElement(required = true)
   @XmlSchemaType(name = "NMTOKEN")
   protected Orphan orphan;
+  
+  /** The cache. */
   @XmlElement(required = true)
   @XmlSchemaType(name = "NMTOKEN")
   protected Cache cache;

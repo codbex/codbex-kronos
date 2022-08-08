@@ -22,12 +22,24 @@ import com.codbex.kronos.hdb.ds.api.IDataStructuresCoreService;
 import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 import com.codbex.kronos.hdb.ds.service.DataStructuresCoreService;
 
+/**
+ * The Class AbstractDataStructureManagerService.
+ *
+ * @param <T> the generic type
+ */
 public abstract class AbstractDataStructureManagerService<T extends DataStructureModel> implements IDataStructureManager<T> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(AbstractDataStructureManagerService.class);
 
+  /** The data structures core service. */
   private IDataStructuresCoreService dataStructuresCoreService = new DataStructuresCoreService();
 
+  /**
+   * Cleanup.
+   *
+   * @throws DataStructuresException the data structures exception
+   */
   @Override
   public void cleanup() throws DataStructuresException {
     List<String> dtLocations = dataStructuresCoreService.getDataStructuresByType(getDataStructureType()).stream()
@@ -41,14 +53,30 @@ public abstract class AbstractDataStructureManagerService<T extends DataStructur
     }
   }
 
+  /**
+   * Gets the data structures core service.
+   *
+   * @return the data structures core service
+   */
   public IDataStructuresCoreService getDataStructuresCoreService() {
     return dataStructuresCoreService;
   }
 
+  /**
+   * Sets the data structures core service.
+   *
+   * @param dataStructuresCoreService the new data structures core service
+   */
   public void setDataStructuresCoreService(IDataStructuresCoreService dataStructuresCoreService) {
     this.dataStructuresCoreService = dataStructuresCoreService;
   }
 
+  /**
+   * Synchronize parsed by root metadata.
+   *
+   * @param tableModel the table model
+   * @throws DataStructuresException the data structures exception
+   */
   public void synchronizeParsedByRootMetadata(T tableModel) throws DataStructuresException {
     if (!getDataStructuresCoreService().existsDataStructure(tableModel.getLocation(), tableModel.getType())) {
       dataStructuresCoreService
@@ -57,6 +85,13 @@ public abstract class AbstractDataStructureManagerService<T extends DataStructur
     }
   }
 
+  /**
+   * Exists artifact metadata.
+   *
+   * @param tableModel the table model
+   * @return true, if successful
+   * @throws DataStructuresException the data structures exception
+   */
   public boolean existsArtifactMetadata(T tableModel) throws DataStructuresException {
     return dataStructuresCoreService.existsDataStructureByLocationAndHash(tableModel.getLocation(), tableModel.getHash(), tableModel.getType());
   }

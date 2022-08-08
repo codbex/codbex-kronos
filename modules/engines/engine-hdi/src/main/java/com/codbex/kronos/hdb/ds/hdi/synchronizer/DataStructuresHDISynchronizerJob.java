@@ -19,8 +19,14 @@ import org.eclipse.dirigible.core.scheduler.api.ISynchronizer;
  */
 public class DataStructuresHDISynchronizerJob extends AbstractSynchronizerJob {
 
+  /** The data structure HDI synchronizer. */
   private DataStructuresHDISynchronizer dataStructureHDISynchronizer = new DataStructuresHDISynchronizer();
 
+  /**
+   * Gets the synchronizer.
+   *
+   * @return the synchronizer
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizerJob#getSynchronizer()
@@ -30,6 +36,11 @@ public class DataStructuresHDISynchronizerJob extends AbstractSynchronizerJob {
     return dataStructureHDISynchronizer;
   }
 
+  /**
+   * Gets the name.
+   *
+   * @return the name
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizerJob#getName()

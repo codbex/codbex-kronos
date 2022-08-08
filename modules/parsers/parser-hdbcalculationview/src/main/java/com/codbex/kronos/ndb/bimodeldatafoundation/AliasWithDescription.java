@@ -35,9 +35,9 @@ import com.codbex.kronos.ndb.basemodelbase.Descriptions;
  * BI model one also needs to adjust the descriptions. These	object comprises both features
  *
  *
- * <p>Java class for AliasWithDescription complex type.
+ * Java class for AliasWithDescription complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="AliasWithDescription"&gt;
@@ -61,7 +61,10 @@ import com.codbex.kronos.ndb.basemodelbase.Descriptions;
 })
 public class AliasWithDescription {
 
+  /** The descriptions. */
   protected Descriptions descriptions;
+  
+  /** The alias. */
   @XmlAttribute(name = "alias")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String alias;

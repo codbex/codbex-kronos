@@ -30,9 +30,9 @@ import com.codbex.kronos.ndb.basemodelbase.ReferentialDirection;
 
 
 /**
- * <p>Java class for JoinProperties complex type.
+ * Java class for JoinProperties complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="JoinProperties"&gt;
@@ -52,14 +52,23 @@ import com.codbex.kronos.ndb.basemodelbase.ReferentialDirection;
 @XmlType(name = "JoinProperties")
 public class JoinProperties {
 
+  /** The join type. */
   @XmlAttribute(name = "joinType", required = true)
   protected JoinType joinType;
+  
+  /** The cardinality. */
   @XmlAttribute(name = "cardinality")
   protected Cardinality cardinality;
+  
+  /** The join operator. */
   @XmlAttribute(name = "joinOperator")
   protected JoinOperator joinOperator;
+  
+  /** The referential direction. */
   @XmlAttribute(name = "referentialDirection")
   protected ReferentialDirection referentialDirection;
+  
+  /** The optimize join columns. */
   @XmlAttribute(name = "optimizeJoinColumns")
   protected Boolean optimizeJoinColumns;
 

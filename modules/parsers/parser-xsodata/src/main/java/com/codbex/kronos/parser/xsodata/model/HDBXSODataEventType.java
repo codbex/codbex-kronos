@@ -17,33 +17,71 @@ import java.util.Optional;
  * The text should reflect the values from org.eclipse.dirigible.engine.odata2.definition.ODataHandlerTypes
  */
 public enum HDBXSODataEventType {
+    
+    /** The before. */
     BEFORE("before", "before"),
+    
+    /** The after. */
     AFTER("after", "after"),
+    
+    /** The precommit. */
     PRECOMMIT("precommit", ""),
+    
+    /** The postcommit. */
     POSTCOMMIT("postcommit", "");
 
+    /** The text. */
     private final String text;
+    
+    /** The odata handler type. */
     private final String odataHandlerType;
 
+    /**
+     * Instantiates a new HDBXSO data event type.
+     *
+     * @param text the text
+     * @param odataHandlerType the odata handler type
+     */
     HDBXSODataEventType(String text, String odataHandlerType) {
         this.text = text;
         this.odataHandlerType = odataHandlerType;
     }
 
+    /**
+     * Gets the text.
+     *
+     * @return the text
+     */
     public String getText() {
         return this.text;
     }
 
+    /**
+     * Gets the odata handler type.
+     *
+     * @return the odata handler type
+     */
     public String getOdataHandlerType() {
         return odataHandlerType;
     }
 
+    /**
+     * From value.
+     *
+     * @param text the text
+     * @return the optional
+     */
     public static Optional<HDBXSODataEventType> fromValue(String text) {
         return Arrays.stream(values())
                 .filter(bl -> bl.text.equalsIgnoreCase(text))
                 .findFirst();
     }
 
+    /**
+     * Value.
+     *
+     * @return the string
+     */
     public String value() {
         return name();
     }

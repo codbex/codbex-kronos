@@ -32,9 +32,9 @@ import javax.xml.bind.annotation.XmlType;
  * Comparison operation with two arguments. At least one of the arguments must be a variable element
  *
  *
- * <p>Java class for PredicateOperation complex type.
+ * Java class for PredicateOperation complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="PredicateOperation"&gt;
@@ -56,30 +56,35 @@ import javax.xml.bind.annotation.XmlType;
 public class PredicateOperation
     extends Operation {
 
+  /** The argument. */
   @XmlElement(required = true)
   protected List<Argument> argument;
+  
+  /** The operator. */
   @XmlAttribute(name = "operator", required = true)
   protected PredicateOperator operator;
 
   /**
    * Gets the value of the argument property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the argument property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getArgument().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link Argument }
+   *
+   * @return the argument
    */
   public List<Argument> getArgument() {
     if (argument == null) {

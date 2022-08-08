@@ -30,9 +30,9 @@ import javax.xml.bind.annotation.XmlType;
  * Base class for partitioning specification that specify the numbers of the partitions
  *
  *
- * <p>Java class for NumberedPartitionSpecification complex type.
+ * Java class for NumberedPartitionSpecification complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="NumberedPartitionSpecification"&gt;
@@ -54,8 +54,11 @@ import javax.xml.bind.annotation.XmlType;
 public abstract class NumberedPartitionSpecification
     extends PartitionSpecification {
 
+  /** The number of partitions. */
   @XmlAttribute(name = "numberOfPartitions")
   protected Integer numberOfPartitions;
+  
+  /** The use number of servers. */
   @XmlAttribute(name = "useNumberOfServers")
   protected Boolean useNumberOfServers;
 

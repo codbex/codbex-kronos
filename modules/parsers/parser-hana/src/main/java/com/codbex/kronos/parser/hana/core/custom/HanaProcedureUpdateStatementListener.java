@@ -31,13 +31,35 @@ import org.antlr.v4.runtime.RuleContext;
 import org.antlr.v4.runtime.misc.Interval;
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * The listener interface for receiving hanaProcedureUpdateStatement events.
+ * The class that is interested in processing a hanaProcedureUpdateStatement
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addHanaProcedureUpdateStatementListener</code> method. When
+ * the hanaProcedureUpdateStatement event occurs, that object's appropriate
+ * method is invoked.
+ *
+ */
 public class HanaProcedureUpdateStatementListener extends HanaBaseListener {
 
+  /** The procedure model. */
   ProcedureDefinitionModel procedureModel;
+  
+  /** The from clause model. */
   FromClauseDefinitionModel fromClauseModel;
+  
+  /** The update statement model. */
   UpdateStatementDefinitionModel updateStatementModel;
+  
+  /** The is update statement scope. */
   boolean isUpdateStatementScope = false;
 
+  /**
+   * Enter create procedure body.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterCreate_procedure_body(Create_procedure_bodyContext ctx) {
     String strippedSchema = null;
@@ -57,6 +79,11 @@ public class HanaProcedureUpdateStatementListener extends HanaBaseListener {
     procedureModel = new ProcedureDefinitionModel(strippedSchema, strippedName);
   }
 
+  /**
+   * Enter update stmt.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterUpdate_stmt(Update_stmtContext ctx) {
     isUpdateStatementScope = true;
@@ -69,11 +96,21 @@ public class HanaProcedureUpdateStatementListener extends HanaBaseListener {
     procedureModel.addUpdateStatement(updateStatementModel);
   }
 
+  /**
+   * Exit update stmt.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void exitUpdate_stmt(Update_stmtContext ctx) {
     isUpdateStatementScope = false;
   }
 
+  /**
+   * Enter update set clause.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterUpdate_set_clause(Update_set_clauseContext ctx) {
     if (isUpdateStatementScope && ctx.parent instanceof Update_stmtContext) {
@@ -83,6 +120,11 @@ public class HanaProcedureUpdateStatementListener extends HanaBaseListener {
     }
   }
 
+  /**
+   * Enter join clause.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterJoin_clause(Join_clauseContext ctx) {
     RuleContext ruleContext = ctx.parent.parent.parent.parent;
@@ -106,6 +148,11 @@ public class HanaProcedureUpdateStatementListener extends HanaBaseListener {
     }
   }
 
+  /**
+   * Enter where clause.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterWhere_clause(Where_clauseContext ctx) {
     if (isUpdateStatementScope && ctx.parent instanceof Update_stmtContext) {
@@ -115,6 +162,11 @@ public class HanaProcedureUpdateStatementListener extends HanaBaseListener {
     }
   }
 
+  /**
+   * Enter from clause.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterFrom_clause(From_clauseContext ctx) {
     if (isUpdateStatementScope && ctx.parent instanceof Update_stmtContext) {
@@ -133,6 +185,12 @@ public class HanaProcedureUpdateStatementListener extends HanaBaseListener {
     }
   }
 
+  /**
+   * Gets the string with spaces.
+   *
+   * @param ctx the ctx
+   * @return the string with spaces
+   */
   private String getStringWithSpaces(ParserRuleContext ctx) {
     int startIndex = ctx.start.getStartIndex();
     int stopIndex = ctx.stop.getStopIndex();
@@ -140,6 +198,11 @@ public class HanaProcedureUpdateStatementListener extends HanaBaseListener {
     return ctx.start.getInputStream().getText(selectedColumnsRuleSqlInterval);
   }
 
+  /**
+   * Gets the procedure model.
+   *
+   * @return the procedure model
+   */
   public ProcedureDefinitionModel getProcedureModel() {
     return procedureModel;
   }

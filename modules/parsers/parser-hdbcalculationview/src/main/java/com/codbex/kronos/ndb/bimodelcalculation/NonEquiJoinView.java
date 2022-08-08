@@ -39,9 +39,9 @@ import com.codbex.kronos.ndb.basemodelbase.JoinType;
  * There is also no support for the 'dynamic join property' or the 'ignore multiple outputs for filter	property'.
  *
  *
- * <p>Java class for NonEquiJoinView complex type.
+ * Java class for NonEquiJoinView complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="NonEquiJoinView"&gt;
@@ -64,10 +64,15 @@ import com.codbex.kronos.ndb.basemodelbase.JoinType;
 public class NonEquiJoinView
     extends CalculationView {
 
+  /** The join attribute. */
   @XmlElement(required = true)
   protected NonEquiJoinAttribute joinAttribute;
+  
+  /** The join type. */
   @XmlAttribute(name = "joinType", required = true)
   protected JoinType joinType;
+  
+  /** The cardinality. */
   @XmlAttribute(name = "cardinality")
   protected Cardinality cardinality;
 

@@ -13,8 +13,17 @@ package com.codbex.kronos.xsodata.ds.service;
 
 import org.eclipse.dirigible.engine.odata2.transformers.ODataPropertyNameEscaper;
 
+/**
+ * The Class XSODataPropertyNameEscaper.
+ */
 class XSODataPropertyNameEscaper implements ODataPropertyNameEscaper {
 
+    /**
+     * Escape.
+     *
+     * @param propertyName the property name
+     * @return the string
+     */
     @Override
     public String escape(String propertyName) {
         return propertyName;

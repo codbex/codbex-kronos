@@ -46,16 +46,27 @@ import java.util.Map;
 
 import org.eclipse.dirigible.commons.api.module.AbstractDirigibleModule;
 
+/**
+ * The Class HDBModule.
+ */
 public class HDBModule extends AbstractDirigibleModule {
 
+  /** The manager services. */
   private static Map<String, IDataStructureManager> managerServices;
 
+  /** The parser services. */
   private static Map<String, DataStructureParser> parserServices;
 
+  /** The parser types. */
   private static Map<String, String> parserTypes;
 
   // Do not initialize classes that may use the database or other Dirigible modules as the static initializer is called too early
 
+  /**
+   * Gets the manager services.
+   *
+   * @return the manager services
+   */
   public static synchronized Map<String, IDataStructureManager> getManagerServices() {
     if (managerServices == null) {
       managerServices = new HashMap<String, IDataStructureManager>();
@@ -64,6 +75,11 @@ public class HDBModule extends AbstractDirigibleModule {
     return managerServices;
   }
 
+  /**
+   * Gets the parser services.
+   *
+   * @return the parser services
+   */
   public static synchronized Map<String, DataStructureParser> getParserServices() {
     if (parserServices == null) {
       parserServices = new HashMap<String, DataStructureParser>();
@@ -72,6 +88,11 @@ public class HDBModule extends AbstractDirigibleModule {
     return parserServices;
   }
 
+  /**
+   * Gets the parser types.
+   *
+   * @return the parser types
+   */
   public static synchronized Map<String, String> getParserTypes() {
     if (parserTypes == null) {
       parserTypes = new HashMap<String, String>();
@@ -80,10 +101,18 @@ public class HDBModule extends AbstractDirigibleModule {
     return parserTypes;
   }
 
+  /**
+   * Configure.
+   */
   @Override
   public void configure() {
   }
 
+  /**
+   * Bind manager services to file extensions.
+   *
+   * @param managerServices the manager services
+   */
   private static void bindManagerServicesToFileExtensions(Map<String, IDataStructureManager> managerServices) {
     managerServices.put(IDataStructureModel.TYPE_HDBDD, new EntityManagerService());
     managerServices.put(IDataStructureModel.TYPE_HDB_TABLE, new TableManagerService());
@@ -98,6 +127,11 @@ public class HDBModule extends AbstractDirigibleModule {
     managerServices.put(IDataStructureModel.TYPE_HDB_TABLE_TYPE, new TableTypeManagerService(new HDBSynonymRemover(synonymManagerService)));
   }
 
+  /**
+   * Bind parsers to file extension.
+   *
+   * @param parserServices the parser services
+   */
   private static void bindParsersToFileExtension(Map<String, DataStructureParser> parserServices) {
     DataStructuresSynchronizer dataStructuresSynchronizer = new DataStructuresSynchronizer();
     HDBTableFunctionParser tableFunctionParser = new HDBTableFunctionParser(
@@ -136,6 +170,11 @@ public class HDBModule extends AbstractDirigibleModule {
     parserServices.put(IDataStructureModel.TYPE_HDB_TABLE_TYPE, new HDBTableTypeParser());
   }
 
+  /**
+   * Bind parser type to file extension.
+   *
+   * @param parserTypes the parser types
+   */
   private static void bindParserTypeToFileExtension(Map<String, String> parserTypes) {
     parserTypes.put(IDataStructureModel.FILE_EXTENSION_ENTITIES, IDataStructureModel.TYPE_HDBDD);
     parserTypes.put(IDataStructureModel.FILE_EXTENSION_TABLE, IDataStructureModel.TYPE_HDB_TABLE);
@@ -149,6 +188,11 @@ public class HDBModule extends AbstractDirigibleModule {
     parserTypes.put(IDataStructureModel.FILE_EXTENSION_STRUCTURE, IDataStructureModel.TYPE_HDB_TABLE_TYPE);
   }
 
+  /**
+   * Gets the name.
+   *
+   * @return the name
+   */
   @Override
   public String getName() {
     return "Kronos HDB Module";

@@ -22,11 +22,18 @@ import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class HDBEntityUpdateProcessor.
+ */
 public class HDBEntityUpdateProcessor extends AbstractHDBProcessor<DataStructureEntityModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDBEntityUpdateProcessor.class);
 
+  /** The entity drop processor. */
   private IHDBProcessor<DataStructureEntityModel> entityDropProcessor = new HDBEntityDropProcessor();
+  
+  /** The entity create processor. */
   private IHDBProcessor<DataStructureEntityModel> entityCreateProcessor = new HDBEntityCreateProcessor();
 
   /**
@@ -34,6 +41,7 @@ public class HDBEntityUpdateProcessor extends AbstractHDBProcessor<DataStructure
    *
    * @param connection  the connection
    * @param entityModel the entity model
+   * @return true, if successful
    * @throws SQLException the SQL exception
    */
   public boolean execute(Connection connection, DataStructureEntityModel entityModel)

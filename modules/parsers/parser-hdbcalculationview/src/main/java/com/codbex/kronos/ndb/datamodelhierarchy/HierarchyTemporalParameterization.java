@@ -36,9 +36,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * Docs :	https://help.sap.com/viewer/4fe29514fd584807ac9f2a04f6754767/2.0.02/en-US/ffc24d42a29443b5aa1ad2a8feeb0e0e.html
  *
  *
- * <p>Java class for hierarchyTemporalParameterization complex type.
+ * Java class for hierarchyTemporalParameterization complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="hierarchyTemporalParameterization"&gt;
@@ -78,21 +78,36 @@ import javax.xml.datatype.XMLGregorianCalendar;
 })
 public class HierarchyTemporalParameterization {
 
+  /** The start where. */
   protected String startWhere;
+  
+  /** The valid from. */
   @XmlSchemaType(name = "date")
   protected XMLGregorianCalendar validFrom;
+  
+  /** The valid from parameter. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String validFromParameter;
+  
+  /** The valid until. */
   @XmlSchemaType(name = "date")
   protected XMLGregorianCalendar validUntil;
+  
+  /** The valid until parameter. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String validUntilParameter;
+  
+  /** The depth. */
   protected BigInteger depth;
+  
+  /** The depth parameter. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String depthParameter;
+  
+  /** The cache. */
   @XmlElement(required = true)
   @XmlSchemaType(name = "NMTOKEN")
   protected Cache cache;

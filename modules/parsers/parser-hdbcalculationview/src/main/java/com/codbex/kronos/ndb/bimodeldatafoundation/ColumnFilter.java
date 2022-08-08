@@ -31,9 +31,9 @@ import com.codbex.kronos.ndb.sqlcoremodelaccesscontrol.ValueFilter;
 
 
 /**
- * <p>Java class for ColumnFilter complex type.
+ * Java class for ColumnFilter complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ColumnFilter"&gt;
@@ -55,11 +55,16 @@ import com.codbex.kronos.ndb.sqlcoremodelaccesscontrol.ValueFilter;
 })
 public class ColumnFilter {
 
+  /** The value filter. */
   @XmlElement(required = true)
   protected ValueFilter valueFilter;
+  
+  /** The column name. */
   @XmlAttribute(name = "columnName", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String columnName;
+  
+  /** The enable functions. */
   @XmlAttribute(name = "enableFunctions")
   protected Boolean enableFunctions;
 

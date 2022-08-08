@@ -20,26 +20,42 @@ import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
+/**
+ * The Class HdbtiLexer.
+ */
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class HdbtiLexer extends Lexer {
 	static { RuntimeMetaData.checkVersion("4.10.1", RuntimeMetaData.VERSION); }
 
+	/** The Constant _decisionToDFA. */
 	protected static final DFA[] _decisionToDFA;
+	
+	/** The Constant _sharedContextCache. */
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
+	
+	/** The Constant COMMENT. */
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
 		STRING=18, BOOLEAN=19, TRUE=20, FALSE=21, WS=22, RB=23, LB=24, EQ=25, 
 		LINE_COMMENT=26, COMMENT=27;
+	
+	/** The channel names. */
 	public static String[] channelNames = {
 		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
 	};
 
+	/** The mode names. */
 	public static String[] modeNames = {
 		"DEFAULT_MODE"
 	};
 
+	/**
+	 * Make rule names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"T__0", "T__1", "T__2", "T__3", "T__4", "T__5", "T__6", "T__7", "T__8", 
@@ -48,8 +64,15 @@ public class HdbtiLexer extends Lexer {
 			"FALSE", "WS", "RB", "LB", "EQ", "LINE_COMMENT", "COMMENT"
 		};
 	}
+	
+	/** The Constant ruleNames. */
 	public static final String[] ruleNames = makeRuleNames();
 
+	/**
+	 * Make literal names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'import'", "','", "';'", "'{'", "'}'", "'schema'", "'file'", "'header'", 
@@ -58,7 +81,15 @@ public class HdbtiLexer extends Lexer {
 			"'false'", null, "'['", "']'", "'='"
 		};
 	}
+	
+	/** The Constant _LITERAL_NAMES. */
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
+	
+	/**
+	 * Make symbolic names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
@@ -66,10 +97,16 @@ public class HdbtiLexer extends Lexer {
 			"WS", "RB", "LB", "EQ", "LINE_COMMENT", "COMMENT"
 		};
 	}
+	
+	/** The Constant _SYMBOLIC_NAMES. */
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
+	
+	/** The Constant VOCABULARY. */
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
 	/**
+	 * The Constant tokenNames.
+	 *
 	 * @deprecated Use {@link #VOCABULARY} instead.
 	 */
 	@Deprecated
@@ -88,12 +125,22 @@ public class HdbtiLexer extends Lexer {
 		}
 	}
 
+	/**
+	 * Gets the token names.
+	 *
+	 * @return the token names
+	 */
 	@Override
 	@Deprecated
 	public String[] getTokenNames() {
 		return tokenNames;
 	}
 
+	/**
+	 * Gets the vocabulary.
+	 *
+	 * @return the vocabulary
+	 */
 	@Override
 
 	public Vocabulary getVocabulary() {
@@ -101,29 +148,65 @@ public class HdbtiLexer extends Lexer {
 	}
 
 
+	/**
+	 * Instantiates a new hdbti lexer.
+	 *
+	 * @param input the input
+	 */
 	public HdbtiLexer(CharStream input) {
 		super(input);
 		_interp = new LexerATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
+	/**
+	 * Gets the grammar file name.
+	 *
+	 * @return the grammar file name
+	 */
 	@Override
 	public String getGrammarFileName() { return "Hdbti.g4"; }
 
+	/**
+	 * Gets the rule names.
+	 *
+	 * @return the rule names
+	 */
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
 
+	/**
+	 * Gets the serialized ATN.
+	 *
+	 * @return the serialized ATN
+	 */
 	@Override
 	public String getSerializedATN() { return _serializedATN; }
 
+	/**
+	 * Gets the channel names.
+	 *
+	 * @return the channel names
+	 */
 	@Override
 	public String[] getChannelNames() { return channelNames; }
 
+	/**
+	 * Gets the mode names.
+	 *
+	 * @return the mode names
+	 */
 	@Override
 	public String[] getModeNames() { return modeNames; }
 
+	/**
+	 * Gets the atn.
+	 *
+	 * @return the atn
+	 */
 	@Override
 	public ATN getATN() { return _ATN; }
 
+	/** The Constant _serializedATN. */
 	public static final String _serializedATN =
 		"\u0004\u0000\u001b\u0128\u0006\uffff\uffff\u0002\u0000\u0007\u0000\u0002"+
 		"\u0001\u0007\u0001\u0002\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002"+
@@ -310,6 +393,8 @@ public class HdbtiLexer extends Lexer {
 		"\u0000\u0000\u0126\u0127\u0006\u001d\u0000\u0000\u0127<\u0001\u0000\u0000"+
 		"\u0000\u000f\u0000\u00c3\u00c5\u00ce\u00d1\u00d8\u00df\u00e4\u00e6\u00ea"+
 		"\u00f0\u0100\u0110\u0114\u0120\u0001\u0006\u0000\u0000";
+	
+	/** The Constant _ATN. */
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

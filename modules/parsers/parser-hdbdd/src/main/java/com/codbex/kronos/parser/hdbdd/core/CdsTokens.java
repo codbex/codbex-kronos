@@ -20,13 +20,21 @@ import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
+/**
+ * The Class CdsTokens.
+ */
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class CdsTokens extends Lexer {
 	static { RuntimeMetaData.checkVersion("4.10.1", RuntimeMetaData.VERSION); }
 
+	/** The Constant _decisionToDFA. */
 	protected static final DFA[] _decisionToDFA;
+	
+	/** The Constant _sharedContextCache. */
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
+	
+	/** The Constant Z. */
 	public static final int
 		NAMESPACE=1, AS=2, ON=3, SELECT=4, FROM=5, WHERE=6, DEFINE=7, UNION=8, 
 		DISTINCT=9, HANA=10, JOIN_TYPES=11, INNER_JOIN=12, LEFT_JOIN=13, LEFT_OUTER_JOIN=14, 
@@ -39,14 +47,22 @@ public class CdsTokens extends Lexer {
 		B=48, C=49, D=50, E=51, F=52, G=53, H=54, I=55, J=56, K=57, L=58, M=59, 
 		N=60, O=61, P=62, Q=63, R=64, S=65, T=66, U=67, V=68, W=69, X=70, Y=71, 
 		Z=72;
+	
+	/** The channel names. */
 	public static String[] channelNames = {
 		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
 	};
 
+	/** The mode names. */
 	public static String[] modeNames = {
 		"DEFAULT_MODE"
 	};
 
+	/**
+	 * Make rule names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"NAMESPACE", "AS", "ON", "SELECT", "FROM", "WHERE", "DEFINE", "UNION", 
@@ -65,8 +81,15 @@ public class CdsTokens extends Lexer {
 			"V", "W", "X", "Y", "Z"
 		};
 	}
+	
+	/** The Constant ruleNames. */
 	public static final String[] ruleNames = makeRuleNames();
 
+	/**
+	 * Make literal names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, "'hana'", 
@@ -75,7 +98,15 @@ public class CdsTokens extends Lexer {
 			null, "';'"
 		};
 	}
+	
+	/** The Constant _LITERAL_NAMES. */
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
+	
+	/**
+	 * Make symbolic names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, "NAMESPACE", "AS", "ON", "SELECT", "FROM", "WHERE", "DEFINE", "UNION", 
@@ -90,10 +121,16 @@ public class CdsTokens extends Lexer {
 			"P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
 		};
 	}
+	
+	/** The Constant _SYMBOLIC_NAMES. */
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
+	
+	/** The Constant VOCABULARY. */
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
 	/**
+	 * The Constant tokenNames.
+	 *
 	 * @deprecated Use {@link #VOCABULARY} instead.
 	 */
 	@Deprecated
@@ -112,12 +149,22 @@ public class CdsTokens extends Lexer {
 		}
 	}
 
+	/**
+	 * Gets the token names.
+	 *
+	 * @return the token names
+	 */
 	@Override
 	@Deprecated
 	public String[] getTokenNames() {
 		return tokenNames;
 	}
 
+	/**
+	 * Gets the vocabulary.
+	 *
+	 * @return the vocabulary
+	 */
 	@Override
 
 	public Vocabulary getVocabulary() {
@@ -125,29 +172,71 @@ public class CdsTokens extends Lexer {
 	}
 
 
+	/**
+	 * Instantiates a new cds tokens.
+	 *
+	 * @param input the input
+	 */
 	public CdsTokens(CharStream input) {
 		super(input);
 		_interp = new LexerATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
+	/**
+	 * Gets the grammar file name.
+	 *
+	 * @return the grammar file name
+	 */
 	@Override
 	public String getGrammarFileName() { return "CdsTokens.g4"; }
 
+	/**
+	 * Gets the rule names.
+	 *
+	 * @return the rule names
+	 */
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
 
+	/**
+	 * Gets the serialized ATN.
+	 *
+	 * @return the serialized ATN
+	 */
 	@Override
 	public String getSerializedATN() { return _serializedATN; }
 
+	/**
+	 * Gets the channel names.
+	 *
+	 * @return the channel names
+	 */
 	@Override
 	public String[] getChannelNames() { return channelNames; }
 
+	/**
+	 * Gets the mode names.
+	 *
+	 * @return the mode names
+	 */
 	@Override
 	public String[] getModeNames() { return modeNames; }
 
+	/**
+	 * Gets the atn.
+	 *
+	 * @return the atn
+	 */
 	@Override
 	public ATN getATN() { return _ATN; }
 
+	/**
+	 * Action.
+	 *
+	 * @param _localctx the localctx
+	 * @param ruleIndex the rule index
+	 * @param actionIndex the action index
+	 */
 	@Override
 	public void action(RuleContext _localctx, int ruleIndex, int actionIndex) {
 		switch (ruleIndex) {
@@ -159,6 +248,13 @@ public class CdsTokens extends Lexer {
 			break;
 		}
 	}
+	
+	/**
+	 * STRIN G action.
+	 *
+	 * @param _localctx the localctx
+	 * @param actionIndex the action index
+	 */
 	private void STRING_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
 		case 0:
@@ -166,6 +262,13 @@ public class CdsTokens extends Lexer {
 			break;
 		}
 	}
+	
+	/**
+	 * VARBINAR Y action.
+	 *
+	 * @param _localctx the localctx
+	 * @param actionIndex the action index
+	 */
 	private void VARBINARY_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
 		case 1:
@@ -174,6 +277,7 @@ public class CdsTokens extends Lexer {
 		}
 	}
 
+	/** The Constant _serializedATN. */
 	public static final String _serializedATN =
 		"\u0004\u0000H\u0351\u0006\uffff\uffff\u0002\u0000\u0007\u0000\u0002\u0001"+
 		"\u0007\u0001\u0002\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004"+
@@ -701,6 +805,8 @@ public class CdsTokens extends Lexer {
 		"\u0235\u0238\u023a\u024c\u0256\u025a\u0266\u026f\u0272\u0274\u0278\u027a"+
 		"\u0280\u0282\u028b\u028e\u0295\u029c\u02a1\u02a3\u02a7\u02ae\u02b7\u02ba"+
 		"\u02bf\u02c7\u030d\u031b\u0003\u0001(\u0000\u0001)\u0001\u0006\u0000\u0000";
+	
+	/** The Constant _ATN. */
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for ErrorHandling.
+ * Java class for ErrorHandling.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="ErrorHandling"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -44,29 +44,36 @@ import javax.xml.bind.annotation.XmlType;
 public enum ErrorHandling {
 
 
-  /**
-   * this produces an SQL engine error
-   */
+  /** this produces an SQL engine error. */
   @XmlEnumValue("failOnError")
   FAIL_ON_ERROR("failOnError"),
 
-  /**
-   * the target measure and the currency are set to NULL
-   */
+  /** the target measure and the currency are set to NULL. */
   @XmlEnumValue("setToNull")
   SET_TO_NULL("setToNull"),
 
-  /**
-   * the measure is not converted
-   */
+  /** the measure is not converted. */
   @XmlEnumValue("keepUnconverted")
   KEEP_UNCONVERTED("keepUnconverted");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new error handling.
+   *
+   * @param v the v
+   */
   ErrorHandling(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the error handling
+   */
   public static ErrorHandling fromValue(String v) {
     for (ErrorHandling c : ErrorHandling.values()) {
       if (c.value.equals(v)) {
@@ -76,6 +83,11 @@ public enum ErrorHandling {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

@@ -18,32 +18,65 @@ import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableModel;
  */
 public class DataStructureEntitiesModel extends DataStructureHDBTableModel {
 
+  /** The namespace. */
   private String namespace;
 
+  /** The schema. */
   private String schema;
 
+  /** The context. */
   private DataStructureContextModel context;
 
+  /**
+   * Gets the namespace.
+   *
+   * @return the namespace
+   */
   public String getNamespace() {
     return namespace;
   }
 
+  /**
+   * Sets the namespace.
+   *
+   * @param namespace the new namespace
+   */
   public void setNamespace(String namespace) {
     this.namespace = namespace;
   }
 
+  /**
+   * Gets the schema.
+   *
+   * @return the schema
+   */
   public String getSchema() {
     return schema;
   }
 
+  /**
+   * Sets the schema.
+   *
+   * @param schema the new schema
+   */
   public void setSchema(String schema) {
     this.schema = schema;
   }
 
+  /**
+   * Gets the context.
+   *
+   * @return the context
+   */
   public DataStructureContextModel getContext() {
     return context;
   }
 
+  /**
+   * Sets the context.
+   *
+   * @param context the new context
+   */
   public void setContext(DataStructureContextModel context) {
     this.context = context;
   }

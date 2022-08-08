@@ -11,32 +11,70 @@
  */
 package com.codbex.kronos.api.destination;
 
+/**
+ * The Class DestinationResponse.
+ */
 public class DestinationResponse {
 
+  /** The headers. */
   private Header[] headers;
+  
+  /** The status code. */
   private int statusCode;
+  
+  /** The text. */
   private String text;
 
+  /**
+   * Gets the headers.
+   *
+   * @return the headers
+   */
   public Header[] getHeaders() {
     return headers;
   }
 
+  /**
+   * Sets the headers.
+   *
+   * @param headers the new headers
+   */
   public void setHeaders(Header[] headers) {
     this.headers = headers;
   }
 
+  /**
+   * Gets the status code.
+   *
+   * @return the status code
+   */
   public int getStatusCode() {
     return statusCode;
   }
 
+  /**
+   * Sets the status code.
+   *
+   * @param statusCode the new status code
+   */
   public void setStatusCode(int statusCode) {
     this.statusCode = statusCode;
   }
 
+  /**
+   * Gets the text.
+   *
+   * @return the text
+   */
   public String getText() {
     return text;
   }
 
+  /**
+   * Sets the text.
+   *
+   * @param text the new text
+   */
   public void setText(String text) {
     this.text = text;
   }

@@ -31,9 +31,9 @@ import com.codbex.kronos.ndb.basemodelbase.SortDirection;
  * Specifying oder by according to a variable element
  *
  *
- * <p>Java class for GraphVariableOrderBy complex type.
+ * Java class for GraphVariableOrderBy complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="GraphVariableOrderBy"&gt;
@@ -50,6 +50,7 @@ import com.codbex.kronos.ndb.basemodelbase.SortDirection;
 public class GraphVariableOrderBy
     extends VariableElement {
 
+  /** The direction. */
   @XmlAttribute(name = "direction", required = true)
   protected SortDirection direction;
 

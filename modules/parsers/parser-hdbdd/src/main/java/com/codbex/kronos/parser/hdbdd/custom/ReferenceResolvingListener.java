@@ -44,16 +44,41 @@ import com.codbex.kronos.parser.hdbdd.symbols.type.field.FieldSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.type.field.Typeable;
 import com.codbex.kronos.parser.hdbdd.util.HdbddUtils;
 
+/**
+ * The listener interface for receiving referenceResolving events.
+ * The class that is interested in processing a referenceResolving
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addReferenceResolvingListener</code> method. When
+ * the referenceResolving event occurs, that object's appropriate
+ * method is invoked.
+ *
+ */
 public class ReferenceResolvingListener extends CdsBaseListener {
 
+  /** The Constant UNMANAGED_ASSOCIATION_MARKER. */
   private static final String UNMANAGED_ASSOCIATION_MARKER = "@";
 
+  /** The symbol table. */
   private SymbolTable symbolTable;
+  
+  /** The cds file scope. */
   private CDSFileScope cdsFileScope = new CDSFileScope();
+  
+  /** The entity elements. */
   private ParseTreeProperty<EntityElementSymbol> entityElements;
+  
+  /** The typeables. */
   private ParseTreeProperty<Typeable> typeables;
+  
+  /** The associations. */
   private ParseTreeProperty<AssociationSymbol> associations;
 
+  /**
+   * Enter using rule.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterUsingRule(UsingRuleContext ctx) {
     String packagePath = ctx.pack.stream().map(IdentifierContext::getText).map(HdbddUtils::processEscapedSymbolName)
@@ -75,6 +100,11 @@ public class ReferenceResolvingListener extends CdsBaseListener {
     }
   }
 
+  /**
+   * Enter assign type.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterAssignType(AssignTypeContext ctx) {
     Typeable referencingSymbol = typeables.get(ctx.getParent());
@@ -88,6 +118,11 @@ public class ReferenceResolvingListener extends CdsBaseListener {
     setResolvedType(ctx.TYPE_OF() != null, referencingSymbol, resolvedTypeSymbol);
   }
 
+  /**
+   * Enter default value.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterDefaultValue(DefaultValueContext ctx) {
     int valueType = ctx.value.getType();
@@ -112,6 +147,11 @@ public class ReferenceResolvingListener extends CdsBaseListener {
     }
   }
 
+  /**
+   * Enter association target.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterAssociationTarget(AssociationTargetContext ctx) {
     AssociationSymbol associationSymbol = this.associations.get(ctx.getParent());
@@ -133,6 +173,11 @@ public class ReferenceResolvingListener extends CdsBaseListener {
     associationSymbol.setTarget((EntitySymbol) resolvedSymbol);
   }
 
+  /**
+   * Exit association.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void exitAssociation(AssociationContext ctx) {
     AssociationSymbol associationSymbol = this.associations.get(ctx);
@@ -146,6 +191,11 @@ public class ReferenceResolvingListener extends CdsBaseListener {
     }
   }
 
+  /**
+   * Enter foreign key.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterForeignKey(ForeignKeyContext ctx) {
     AssociationSymbol associationSymbol = this.associations.get(ctx.getParent().getParent());
@@ -173,6 +223,11 @@ public class ReferenceResolvingListener extends CdsBaseListener {
     this.symbolTable.addChildToEntity(entity.getFullName(), ((Symbol) resolvedSymbol.getScope()).getFullName());
   }
 
+  /**
+   * Enter unmanaged foreign key.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterUnmanagedForeignKey(UnmanagedForeignKeyContext ctx) {
     AssociationSymbol associationSymbol = this.associations.get(ctx.getParent());
@@ -211,6 +266,14 @@ public class ReferenceResolvingListener extends CdsBaseListener {
     this.symbolTable.addChildToEntity(targetEntity.getFullName(), associationHolder.getFullName());
   }
 
+  /**
+   * Resolve reference chain.
+   *
+   * @param reference the reference
+   * @param referencingSymbol the referencing symbol
+   * @param nonResolvedRefSymbols the non resolved ref symbols
+   * @return the symbol
+   */
   private Symbol resolveReferenceChain(String reference, Symbol referencingSymbol, Set<Symbol> nonResolvedRefSymbols) {
     String[] splitReference = reference.split("\\.");
 
@@ -248,6 +311,12 @@ public class ReferenceResolvingListener extends CdsBaseListener {
     return resolvedSubMember;
   }
 
+  /**
+   * Checks if is circular dependency.
+   *
+   * @param resolvedSubMember the resolved sub member
+   * @param nonResolvedRefSymbols the non resolved ref symbols
+   */
   private void isCircularDependency(Symbol resolvedSubMember, Set<Symbol> nonResolvedRefSymbols) {
     if (resolvedSubMember instanceof FieldSymbol) {
       FieldSymbol resolvedSubMemberField = (FieldSymbol) resolvedSubMember;
@@ -265,6 +334,13 @@ public class ReferenceResolvingListener extends CdsBaseListener {
     }
   }
 
+  /**
+   * Sets the resolved type.
+   *
+   * @param isTypeOfUsed the is type of used
+   * @param typeable the typeable
+   * @param resolvedSymbol the resolved symbol
+   */
   private void setResolvedType(boolean isTypeOfUsed, Typeable typeable, Symbol resolvedSymbol) {
     Symbol typeableSymbol = (Symbol) typeable;
     if (resolvedSymbol == null) {
@@ -287,6 +363,13 @@ public class ReferenceResolvingListener extends CdsBaseListener {
     }
   }
 
+  /**
+   * Resolve simple reference.
+   *
+   * @param resolvedMember the resolved member
+   * @param nonResolvedRefSymbols the non resolved ref symbols
+   * @return the symbol
+   */
   private Symbol resolveSimpleReference(Symbol resolvedMember, Set<Symbol> nonResolvedRefSymbols) {
     FieldSymbol resolvedField = (FieldSymbol) resolvedMember;
     Symbol resolvedFieldType = (Symbol) resolvedField.getType();
@@ -303,6 +386,13 @@ public class ReferenceResolvingListener extends CdsBaseListener {
     return resolvedFieldType;
   }
 
+  /**
+   * Resolve reference.
+   *
+   * @param referencedId the referenced id
+   * @param referencingSymbol the referencing symbol
+   * @return the symbol
+   */
   public Symbol resolveReference(String referencedId, Symbol referencingSymbol) {
     if (symbolTable.getGlobalBuiltInTypeScope().resolve(referencedId) != null) {
       return symbolTable.getGlobalBuiltInTypeScope().resolve(referencedId);
@@ -324,22 +414,47 @@ public class ReferenceResolvingListener extends CdsBaseListener {
     return resolvedTypeSymbol;
   }
 
+  /**
+   * Sets the entity elements.
+   *
+   * @param entityElements the new entity elements
+   */
   public void setEntityElements(ParseTreeProperty<EntityElementSymbol> entityElements) {
     this.entityElements = entityElements;
   }
 
+  /**
+   * Sets the typeables.
+   *
+   * @param typeables the new typeables
+   */
   public void setTypeables(ParseTreeProperty<Typeable> typeables) {
     this.typeables = typeables;
   }
 
+  /**
+   * Sets the associations.
+   *
+   * @param associations the new associations
+   */
   public void setAssociations(ParseTreeProperty<AssociationSymbol> associations) {
     this.associations = associations;
   }
 
+  /**
+   * Sets the symbol table.
+   *
+   * @param symbolTable the new symbol table
+   */
   public void setSymbolTable(SymbolTable symbolTable) {
     this.symbolTable = symbolTable;
   }
 
+  /**
+   * Sets the cds file scope.
+   *
+   * @param cdsFileScope the new cds file scope
+   */
   public void setCdsFileScope(CDSFileScope cdsFileScope) {
     this.cdsFileScope = cdsFileScope;
   }

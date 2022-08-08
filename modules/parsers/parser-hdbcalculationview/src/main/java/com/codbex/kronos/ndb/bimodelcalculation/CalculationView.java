@@ -34,9 +34,9 @@ import com.codbex.kronos.ndb.datamodeltype.ExpressionLanguage;
  * Base type for all calculation views/nodes. Models filters and the default view property
  *
  *
- * <p>Java class for CalculationView complex type.
+ * Java class for CalculationView complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="CalculationView"&gt;
@@ -77,35 +77,48 @@ import com.codbex.kronos.ndb.datamodeltype.ExpressionLanguage;
 public class CalculationView
     extends Node {
 
+  /** The input. */
   protected List<Input> input;
+  
+  /** The filter. */
   protected String filter;
+  
+  /** The fuzzy search filter. */
   protected List<ViewAttribute> fuzzySearchFilter;
+  
+  /** The default view. */
   @XmlAttribute(name = "defaultView")
   protected Boolean defaultView;
+  
+  /** The filter expression language. */
   @XmlAttribute(name = "filterExpressionLanguage")
   protected ExpressionLanguage filterExpressionLanguage;
+  
+  /** The ignore multiple outputs for filter. */
   @XmlAttribute(name = "ignoreMultipleOutputsForFilter")
   protected Boolean ignoreMultipleOutputsForFilter;
 
   /**
    * Gets the value of the input property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the input property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getInput().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link Input }
+   *
+   * @return the input
    */
   public List<Input> getInput() {
     if (input == null) {
@@ -136,23 +149,25 @@ public class CalculationView
 
   /**
    * Gets the value of the fuzzySearchFilter property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the fuzzySearchFilter property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getFuzzySearchFilter().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link ViewAttribute }
+   *
+   * @return the fuzzy search filter
    */
   public List<ViewAttribute> getFuzzySearchFilter() {
     if (fuzzySearchFilter == null) {

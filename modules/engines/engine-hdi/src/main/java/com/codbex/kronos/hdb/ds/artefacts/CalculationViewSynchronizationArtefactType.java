@@ -13,8 +13,17 @@ package com.codbex.kronos.hdb.ds.artefacts;
 
 import org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizationArtefactType;
 
+/**
+ * The Class CalculationViewSynchronizationArtefactType.
+ */
 public class CalculationViewSynchronizationArtefactType extends AbstractSynchronizationArtefactType {
 
+  /**
+   * Gets the artefact state message.
+   *
+   * @param artefactState the artefact state
+   * @return the artefact state message
+   */
   @Override
   protected String getArtefactStateMessage(ArtefactState artefactState) {
     switch (artefactState) {
@@ -35,6 +44,11 @@ public class CalculationViewSynchronizationArtefactType extends AbstractSynchron
     }
   }
 
+  /**
+   * Gets the id.
+   *
+   * @return the id
+   */
   @Override
   public String getId() {
     return "CalculationView";

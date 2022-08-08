@@ -19,12 +19,16 @@ import java.util.List;
  */
 public class DataStructureHDBTableConstraintsModel {
 
+  /** The primary key. */
   private DataStructureHDBTableConstraintPrimaryKeyModel primaryKey;
 
+  /** The foreign keys. */
   private List<DataStructureHDBTableConstraintForeignKeyModel> foreignKeys = new ArrayList<DataStructureHDBTableConstraintForeignKeyModel>();
 
+  /** The unique indices. */
   private List<DataStructureHDBTableConstraintUniqueModel> uniqueIndices = new ArrayList<DataStructureHDBTableConstraintUniqueModel>();
 
+  /** The checks. */
   private List<DataStructureHDBTableConstraintCheckModel> checks = new ArrayList<DataStructureHDBTableConstraintCheckModel>();
 
   /**
@@ -63,6 +67,11 @@ public class DataStructureHDBTableConstraintsModel {
     return uniqueIndices;
   }
 
+  /**
+   * Sets the unique indices.
+   *
+   * @param uniqueIndices the new unique indices
+   */
   public void setUniqueIndices(List<DataStructureHDBTableConstraintUniqueModel> uniqueIndices) {
     this.uniqueIndices = uniqueIndices;
   }

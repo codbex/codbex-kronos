@@ -30,9 +30,9 @@ import com.codbex.kronos.ndb.sqlcoremodeldatatypes.PrimitiveTypeSQL;
 
 
 /**
- * <p>Java class for CalculatedMeasure complex type.
+ * Java class for CalculatedMeasure complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="CalculatedMeasure"&gt;
@@ -60,20 +60,35 @@ import com.codbex.kronos.ndb.sqlcoremodeldatatypes.PrimitiveTypeSQL;
 public class CalculatedMeasure
     extends Measure {
 
+  /** The formula. */
   @XmlElement(required = true)
   protected String formula;
+  
+  /** The datatype. */
   @XmlAttribute(name = "datatype")
   protected PrimitiveTypeSQL datatype;
+  
+  /** The length. */
   @XmlAttribute(name = "length")
   protected Short length;
+  
+  /** The scale. */
   @XmlAttribute(name = "scale")
   protected Short scale;
+  
+  /** The calculate before aggregation. */
   @XmlAttribute(name = "calculateBeforeAggregation")
   protected Boolean calculateBeforeAggregation;
+  
+  /** The aggregatable. */
   @XmlAttribute(name = "aggregatable")
   protected Boolean aggregatable;
+  
+  /** The calculated measure type. */
   @XmlAttribute(name = "calculatedMeasureType")
   protected CalculatedMeasureType calculatedMeasureType;
+  
+  /** The expression language. */
   @XmlAttribute(name = "expressionLanguage")
   protected ExpressionLanguage expressionLanguage;
 

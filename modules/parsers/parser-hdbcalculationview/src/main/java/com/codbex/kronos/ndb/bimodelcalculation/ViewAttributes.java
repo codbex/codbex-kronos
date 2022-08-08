@@ -31,9 +31,9 @@ import javax.xml.bind.annotation.XmlType;
  * View Attributes Collection element for the Attributes of a Node
  *
  *
- * <p>Java class for ViewAttributes complex type.
+ * Java class for ViewAttributes complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ViewAttributes"&gt;
@@ -54,29 +54,34 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class ViewAttributes {
 
+  /** The view attribute. */
   protected List<ViewAttribute> viewAttribute;
+  
+  /** The all view attributes. */
   @XmlAttribute(name = "allViewAttributes")
   protected Boolean allViewAttributes;
 
   /**
    * Gets the value of the viewAttribute property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the viewAttribute property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getViewAttribute().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link ViewAttribute }
+   *
+   * @return the view attribute
    */
   public List<ViewAttribute> getViewAttribute() {
     if (viewAttribute == null) {

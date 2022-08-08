@@ -62,24 +62,37 @@ import org.slf4j.LoggerFactory;
  */
 public class ODataParser implements IODataParser {
 
+  /** The data source. */
   private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
 
+  /** The Constant METADATA_VIEW_TYPES. */
   private static final List<String> METADATA_VIEW_TYPES = List.of(ISqlKeywords.METADATA_CALC_VIEW, ISqlKeywords.METADATA_VIEW);
+  
+  /** The Constant METADATA_SYNONYM_TYPES. */
   private static final List<String> METADATA_SYNONYM_TYPES = List.of(ISqlKeywords.METADATA_SYNONYM);
+  
+  /** The Constant METADATA_ENTITY_TYPES. */
   private static final List<String> METADATA_ENTITY_TYPES = List.of(ISqlKeywords.METADATA_TABLE, ISqlKeywords.METADATA_CALC_VIEW,
       ISqlKeywords.METADATA_VIEW);
+  
+  /** The Constant PUBLIC_SCHEMA. */
   private static final String PUBLIC_SCHEMA = "PUBLIC";
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(ODataParser.class);
 
+  /** The db metadata util. */
   private DBMetadataUtil dbMetadataUtil = new DBMetadataUtil();
 
   /**
    * Creates a odata model from the raw content.
    *
+   * @param location the location
    * @param content the odata definition
    * @return the odata model instance
    * @throws IOException exception during parsing
+   * @throws SQLException the SQL exception
+   * @throws ArtifactParserException the artifact parser exception
    */
   public ODataModel parseODataArtifact(String location, String content)
       throws IOException, SQLException, ArtifactParserException {
@@ -121,6 +134,13 @@ public class ODataParser implements IODataParser {
     return odataModel;
   }
 
+  /**
+   * Apply conditions.
+   *
+   * @param location the location
+   * @param odataModel the odata model
+   * @throws SQLException the SQL exception
+   */
   private void applyConditions(String location, ODataModel odataModel) throws SQLException {
     try {
       //the order of invocation matter, so do not change it
@@ -140,6 +160,13 @@ public class ODataParser implements IODataParser {
     }
   }
 
+  /**
+   * Apply empty exist condition.
+   *
+   * @param location the location
+   * @param odataModel the odata model
+   * @throws SQLException the SQL exception
+   */
   private void applyEmptyExistCondition(String location, ODataModel odataModel) throws SQLException {
     for (HDBXSODataEntity entity : odataModel.getService().getEntities()) {
       if (entity.getKeyList().size() > 0) {
@@ -156,6 +183,9 @@ public class ODataParser implements IODataParser {
    * If the namespace is not specified, the schema namespace in the EDMX metadata document will be the repository package of
    * the service definition file concatenated with the repository object name.
    * E.g. if the location name of the .xsodata file is /hdb-xsodata/test.xsodata the namespace will implicitly be hdb-xsodata.test
+   *
+   * @param location the location
+   * @param odataModel the odata model
    */
   private void applyEmptyNamespaceCondition(String location, ODataModel odataModel) {
     if (odataModel.getService().getNamespace() == null) {
@@ -168,6 +198,9 @@ public class ODataParser implements IODataParser {
    * keyslist must not be specified for objects of type 'table'.
    * They must only be applied to objects referring a view type.
    * keygenerated in turn, can be applied to table objects
+   *
+   * @param odataModel the odata model
+   * @throws SQLException the SQL exception
    */
   private void applyKeysCondition(ODataModel odataModel) throws SQLException {
     for (HDBXSODataEntity entity : odataModel.getService().getEntities()) {
@@ -186,6 +219,8 @@ public class ODataParser implements IODataParser {
    * If the Alias is not specified in an entity, the Alias for this object is named after the repository object name.
    * For example, if object is "sap.hana.xs.doc/odata_docu", then the Alias is implicitly set to odata_docu,
    * which then can also be referenced in associations.
+   *
+   * @param odataModel the odata model
    */
   private void applyEntitySetCondition(ODataModel odataModel) {
     odataModel.getService().getEntities().forEach(entity -> {
@@ -209,6 +244,8 @@ public class ODataParser implements IODataParser {
    * 	principal "A"("SelfID") multiplicity "1"
    * 	dependent "A"("ID") multiplicity "0..1";
    * 	</pre>
+   *
+   * @param odataModel the odata model
    */
   private void applyNavEntryFromEndCondition(ODataModel odataModel) {
     odataModel.getService().getAssociations().forEach(ass -> {
@@ -240,6 +277,8 @@ public class ODataParser implements IODataParser {
    * 	principal "A"("ID1","ID2") multiplicity "1"
    * 	dependent "B"("ID3","ID4") multiplicity "0..1";
    * 	</pre>
+   *
+   * @param odataModel the odata model
    */
   private void applyNumberOfJoinPropertiesCondition(ODataModel odataModel) {
     odataModel.getService().getAssociations().forEach(ass -> {
@@ -255,10 +294,10 @@ public class ODataParser implements IODataParser {
    * The same statement is true for the dependent end.
    * Here is a working example:
    * <pre>
-   *
+   * 
    * "tables::A" navigates ("B_A_linktab" as "linkedBs");
    * "tables::B" navigates ("B_A_linktab" as "linkedAs");
-   *
+   * 
    * association "B_A_linktab"
    *  principal "A"("ID") multiplicity "*"
    *  dependent "B"("ID1") multiplicity "*"
@@ -266,6 +305,8 @@ public class ODataParser implements IODataParser {
    *  principal ("AID")
    *  dependent ("BID1","BID2");
    * 	</pre>
+   *
+   * @param odataModel the odata model
    */
   private void applyOrderOfJoinPropertiesCondition(ODataModel odataModel) {
     odataModel.getService().getAssociations().forEach(ass -> {
@@ -283,7 +324,10 @@ public class ODataParser implements IODataParser {
   }
 
   /**
-   * Specifying parameters is only possible for calculation views and analytic views
+   * Specifying parameters is only possible for calculation views and analytic views.
+   *
+   * @param odataModel the odata model
+   * @throws SQLException the SQL exception
    */
   private void applyParametersToViewsCondition(ODataModel odataModel) throws SQLException {
     for (HDBXSODataEntity entity : odataModel.getService().getEntities()) {
@@ -308,6 +352,8 @@ public class ODataParser implements IODataParser {
    * 		keys generate local "ID"
    * 		parameters via entity "CountParameters" results property "Results";
    * 	</pre>
+   *
+   * @param odataModel the odata model
    */
   private void applyOmittedParamResultCondition(ODataModel odataModel) {
     for (HDBXSODataEntity entity : odataModel.getService().getEntities()) {
@@ -323,14 +369,36 @@ public class ODataParser implements IODataParser {
     }
   }
 
+  /**
+   * Check if entity is of synonym type.
+   *
+   * @param artifactName the artifact name
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   private boolean checkIfEntityIsOfSynonymType(String artifactName) throws SQLException {
     return checkIfEntityIsFromAGivenDBType(artifactName, METADATA_SYNONYM_TYPES);
   }
 
+  /**
+   * Check if entity is of view type.
+   *
+   * @param artifactName the artifact name
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   private boolean checkIfEntityIsOfViewType(String artifactName) throws SQLException {
     return checkIfEntityIsFromAGivenDBType(artifactName, METADATA_VIEW_TYPES);
   }
 
+  /**
+   * Check if entity is from A given DB type.
+   *
+   * @param artifactName the artifact name
+   * @param dbTypes the db types
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   private boolean checkIfEntityIsFromAGivenDBType(String artifactName, List<String> dbTypes) throws SQLException {
     List<DBArtifactModel> artifacts = getDBArtifactsByName(artifactName);
     Optional<DBArtifactModel> filteredArtifact = artifacts.stream()
@@ -343,10 +411,24 @@ public class ODataParser implements IODataParser {
     return null != dbArtifact;
   }
 
+  /**
+   * Check if entity exist.
+   *
+   * @param artifactName the artifact name
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   private boolean checkIfEntityExist(String artifactName) throws SQLException {
     return checkIfEntityIsFromAGivenDBType(artifactName, METADATA_ENTITY_TYPES);
   }
 
+  /**
+   * Gets the correct catalog object name.
+   *
+   * @param entity the entity
+   * @return the correct catalog object name
+   * @throws SQLException the SQL exception
+   */
   private String getCorrectCatalogObjectName(HDBXSODataEntity entity) throws SQLException {
     PersistenceTableModel targetObjectMetadata = new PersistenceTableModel();
     String catalogObjectName;
@@ -365,6 +447,15 @@ public class ODataParser implements IODataParser {
     return catalogObjectName;
   }
 
+  /**
+   * Filter synonym objects.
+   *
+   * @param artifacts the artifacts
+   * @param dbTypes the db types
+   * @param artifactName the artifact name
+   * @return the DB artifact model
+   * @throws SQLException the SQL exception
+   */
   private DBArtifactModel filterSynonymObjects(List<DBArtifactModel> artifacts, List<String> dbTypes, String artifactName)
       throws SQLException {
     Optional<DBArtifactModel> synonym = artifacts.stream()
@@ -375,6 +466,15 @@ public class ODataParser implements IODataParser {
     return getTargetObjectOfSynonymIfAny(targetSchema, artifactName, dbTypes);
   }
 
+  /**
+   * Gets the target object of synonym if any.
+   *
+   * @param schemaName the schema name
+   * @param artifactName the artifact name
+   * @param dbTypes the db types
+   * @return the target object of synonym if any
+   * @throws SQLException the SQL exception
+   */
   private DBArtifactModel getTargetObjectOfSynonymIfAny(String schemaName, String artifactName, List<String> dbTypes)
       throws SQLException {
     PersistenceTableModel targetObjectMetadata = getSynonymTargetObjectMetadata(dataSource, artifactName, schemaName);
@@ -389,6 +489,13 @@ public class ODataParser implements IODataParser {
     return null;
   }
 
+  /**
+   * Gets the DB artifacts by name.
+   *
+   * @param artifactName the artifact name
+   * @return the DB artifacts by name
+   * @throws SQLException the SQL exception
+   */
   public List<DBArtifactModel> getDBArtifactsByName(String artifactName) throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
       DatabaseMetaData databaseMetaData = connection.getMetaData();

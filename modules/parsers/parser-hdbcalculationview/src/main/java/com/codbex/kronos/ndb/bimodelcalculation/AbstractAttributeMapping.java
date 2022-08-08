@@ -29,9 +29,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**
- * <p>Java class for AbstractAttributeMapping complex type.
+ * Java class for AbstractAttributeMapping complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="AbstractAttributeMapping"&gt;
@@ -51,6 +51,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public abstract class AbstractAttributeMapping {
 
+  /** The target. */
   @XmlAttribute(name = "target", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String target;

@@ -29,11 +29,25 @@ import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.utils.Constants;
 
+/**
+ * The Class HDBProcedureDropProcessor.
+ */
 public class HDBProcedureDropProcessor extends AbstractHDBProcessor<DataStructureHDBProcedureModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDBProcedureDropProcessor.class);
+  
+  /** The Constant PROCEDURE_ARTEFACT. */
   private static final HDBProcedureSynchronizationArtefactType PROCEDURE_ARTEFACT = new HDBProcedureSynchronizationArtefactType();
 
+  /**
+   * Execute.
+   *
+   * @param connection the connection
+   * @param hdbProcedure the hdb procedure
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   public boolean execute(Connection connection, DataStructureHDBProcedureModel hdbProcedure)
       throws SQLException {
     logger.info("Processing Drop Procedure: " + hdbProcedure.getName());

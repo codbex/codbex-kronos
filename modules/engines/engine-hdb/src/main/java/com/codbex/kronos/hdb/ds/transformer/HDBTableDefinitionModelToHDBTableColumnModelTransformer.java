@@ -22,9 +22,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The Class HDBTableDefinitionModelToHDBTableColumnModelTransformer.
+ */
 public class HDBTableDefinitionModelToHDBTableColumnModelTransformer {
 
 
+  /**
+   * Transform.
+   *
+   * @param hdbtableDefinitionModel the hdbtable definition model
+   * @param location the location
+   * @return the list
+   */
   public List<DataStructureHDBTableColumnModel> transform(HDBTableDefinitionModel hdbtableDefinitionModel, String location) {
 
     List<DataStructureHDBTableColumnModel> columns = new ArrayList<>();

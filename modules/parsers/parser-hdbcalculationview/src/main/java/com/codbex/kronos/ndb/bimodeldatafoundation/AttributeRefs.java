@@ -34,9 +34,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * Models a collection of local attribute references
  *
  *
- * <p>Java class for AttributeRefs complex type.
+ * Java class for AttributeRefs complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="AttributeRefs"&gt;
@@ -56,6 +56,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class AttributeRefs {
 
+  /** The attribute ref. */
   @XmlElement(required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
@@ -63,23 +64,25 @@ public class AttributeRefs {
 
   /**
    * Gets the value of the attributeRef property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the attributeRef property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getAttributeRef().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link String }
+   *
+   * @return the attribute ref
    */
   public List<String> getAttributeRef() {
     if (attributeRef == null) {

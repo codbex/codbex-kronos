@@ -30,9 +30,9 @@ import com.codbex.kronos.ndb.bimodeldatafoundation.QualifiedAttributeReference;
  * Helper class to comprise several ways of parameterization (fixed value, variables, attribute/column))
  *
  *
- * <p>Java class for Parameterization complex type.
+ * Java class for Parameterization complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Parameterization"&gt;
@@ -56,7 +56,10 @@ import com.codbex.kronos.ndb.bimodeldatafoundation.QualifiedAttributeReference;
 })
 public class Parameterization {
 
+  /** The value. */
   protected String value;
+  
+  /** The attribute. */
   protected QualifiedAttributeReference attribute;
 
   /**

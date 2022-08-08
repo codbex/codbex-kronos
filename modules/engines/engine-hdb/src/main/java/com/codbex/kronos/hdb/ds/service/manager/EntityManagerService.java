@@ -32,24 +32,43 @@ import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class EntityManagerService.
+ */
 public class EntityManagerService extends AbstractDataStructureManagerService<DataStructureCdsModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(EntityManagerService.class);
 
+  /** The data structure entities model. */
   private final Map<String, DataStructureCdsModel> dataStructureEntitiesModel;
+  
+  /** The entities synchronized. */
   private final List<String> entitiesSynchronized;
 
+  /** The table drop processor. */
   private TableDropProcessor tableDropProcessor = new TableDropProcessor();
 
+  /** The table alter processor. */
   private TableAlterProcessor tableAlterProcessor = new TableAlterProcessor();
 
+  /** The table create processor. */
   private TableCreateProcessor tableCreateProcessor = new TableCreateProcessor();
 
+  /**
+   * Instantiates a new entity manager service.
+   */
   public EntityManagerService() {
     dataStructureEntitiesModel = Collections.synchronizedMap(new LinkedHashMap<>());
     entitiesSynchronized = Collections.synchronizedList(new ArrayList<>());
   }
 
+  /**
+   * Synchronize runtime metadata.
+   *
+   * @param entitiesModel the entities model
+   * @throws DataStructuresException the data structures exception
+   */
   @Override
   public void synchronizeRuntimeMetadata(DataStructureCdsModel entitiesModel) throws DataStructuresException {
     if (!getDataStructuresCoreService().existsDataStructure(entitiesModel.getLocation(), entitiesModel.getType())) {
@@ -68,6 +87,14 @@ public class EntityManagerService extends AbstractDataStructureManagerService<Da
     }
   }
 
+  /**
+   * Creates the data structure.
+   *
+   * @param connection the connection
+   * @param entitiesModel the entities model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   @Override
   public boolean createDataStructure(Connection connection, DataStructureCdsModel entitiesModel)
       throws SQLException {
@@ -88,32 +115,67 @@ public class EntityManagerService extends AbstractDataStructureManagerService<Da
     return true;
   }
 
+  /**
+   * Drop data structure.
+   *
+   * @param connection the connection
+   * @param entitiesModel the entities model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   @Override
   public boolean dropDataStructure(Connection connection, DataStructureCdsModel entitiesModel) throws SQLException {
 	  return true;
   }
 
+  /**
+   * Update data structure.
+   *
+   * @param connection the connection
+   * @param entitiesModel the entities model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   * @throws OperationNotSupportedException the operation not supported exception
+   */
   @Override
   public boolean updateDataStructure(Connection connection, DataStructureCdsModel entitiesModel)
       throws SQLException, OperationNotSupportedException {
 	  return true;
   }
 
+  /**
+   * Gets the data structure models.
+   *
+   * @return the data structure models
+   */
   @Override
   public Map<String, DataStructureCdsModel> getDataStructureModels() {
     return Collections.unmodifiableMap(this.dataStructureEntitiesModel);
   }
 
+  /**
+   * Gets the data structure synchronized.
+   *
+   * @return the data structure synchronized
+   */
   @Override
   public List<String> getDataStructureSynchronized() {
     return Collections.unmodifiableList(this.entitiesSynchronized);
   }
 
+  /**
+   * Gets the data structure type.
+   *
+   * @return the data structure type
+   */
   @Override
   public String getDataStructureType() {
     return IDataStructureModel.FILE_EXTENSION_ENTITIES;
   }
 
+  /**
+   * Clear cache.
+   */
   @Override
   public void clearCache() {
     dataStructureEntitiesModel.clear();

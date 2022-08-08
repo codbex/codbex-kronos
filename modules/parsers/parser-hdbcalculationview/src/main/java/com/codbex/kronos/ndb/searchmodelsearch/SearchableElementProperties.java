@@ -29,9 +29,9 @@ import javax.xml.bind.annotation.XmlType;
  * Search specific properties of an Element
  *
  *
- * <p>Java class for SearchableElementProperties complex type.
+ * Java class for SearchableElementProperties complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="SearchableElementProperties"&gt;
@@ -57,10 +57,17 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class SearchableElementProperties {
 
+  /** The freestyle search. */
   protected Boolean freestyleSearch;
+  
+  /** The ranking weight. */
   @XmlElement(defaultValue = "0.5")
   protected Float rankingWeight;
+  
+  /** The fuzzy search. */
   protected Boolean fuzzySearch;
+  
+  /** The fuzziness threshold. */
   protected Float fuzzinessThreshold;
 
   /**

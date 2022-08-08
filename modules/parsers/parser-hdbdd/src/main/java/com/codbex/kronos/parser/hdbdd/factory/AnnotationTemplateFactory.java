@@ -24,8 +24,16 @@ import com.codbex.kronos.parser.hdbdd.symbols.entity.EntityElementSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.entity.EntitySymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.type.custom.StructuredDataTypeSymbol;
 
+/**
+ * A factory for creating AnnotationTemplate objects.
+ */
 public class AnnotationTemplateFactory {
 
+  /**
+   * Builds the template for catalog annotation.
+   *
+   * @return the annotation obj
+   */
   public AnnotationObj buildTemplateForCatalogAnnotation() {
     AnnotationObj catalogObj = new AnnotationObj();
     catalogObj.setAllowedForSymbols(Collections.singletonList(EntitySymbol.class));
@@ -51,6 +59,11 @@ public class AnnotationTemplateFactory {
     return catalogObj;
   }
 
+  /**
+   * Builds the template for schema annotation.
+   *
+   * @return the annotation obj
+   */
   public AnnotationObj buildTemplateForSchemaAnnotation() {
     AnnotationObj schemaObj = new AnnotationObj();
     schemaObj.setName("Schema");
@@ -62,6 +75,11 @@ public class AnnotationTemplateFactory {
     return schemaObj;
   }
 
+  /**
+   * Builds the template for no key annotation.
+   *
+   * @return the annotation obj
+   */
   public AnnotationObj buildTemplateForNoKeyAnnotation() {
     AnnotationObj noKeyObj = new AnnotationObj();
     noKeyObj.setName("nokey");
@@ -71,6 +89,11 @@ public class AnnotationTemplateFactory {
     return noKeyObj;
   }
 
+  /**
+   * Builds the template for generate table type annotation.
+   *
+   * @return the annotation obj
+   */
   public AnnotationObj buildTemplateForGenerateTableTypeAnnotation() {
     AnnotationObj generateTableTypeObj = new AnnotationObj();
     generateTableTypeObj.setName("GenerateTableType");
@@ -82,6 +105,11 @@ public class AnnotationTemplateFactory {
     return generateTableTypeObj;
   }
 
+  /**
+   * Builds the template for search index annotation.
+   *
+   * @return the annotation obj
+   */
   public AnnotationObj buildTemplateForSearchIndexAnnotation() {
     AnnotationObj searchIndexObj = new AnnotationObj();
     searchIndexObj.setName("SearchIndex");

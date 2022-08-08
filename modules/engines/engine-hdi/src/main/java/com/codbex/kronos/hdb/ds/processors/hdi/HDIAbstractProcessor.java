@@ -26,17 +26,29 @@ import org.eclipse.dirigible.core.scheduler.api.ISynchronizerArtefactType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class HDIAbstractProcessor.
+ */
 public abstract class HDIAbstractProcessor {
 
+	/** The Constant ERROR_LOCATION. */
 	private static final String ERROR_LOCATION = "-";
+	
+	/** The Constant MESSAGE_SEVERITY_ERROR. */
 	private static final String MESSAGE_SEVERITY_ERROR = "ERROR";
+  
+  /** The Constant MESSAGE_SEVERITY_WARNING. */
   private static final String MESSAGE_SEVERITY_WARNING = "WARNING";
+	
+	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(HDIAbstractProcessor.class);
+  
+  /** The Constant DATA_STRUCTURES_SYNCHRONIZER. */
   private static final DataStructuresSynchronizer DATA_STRUCTURES_SYNCHRONIZER = new DataStructuresSynchronizer();
 
 	/**
-	 * Execute non-select SQL statement with String parameters
-	 * 
+	 * Execute non-select SQL statement with String parameters.
+	 *
 	 * @param connection - DB connection
 	 * @param sql        - SQL to be executed
 	 * @param parameters - SQL parameters
@@ -54,8 +66,8 @@ public abstract class HDIAbstractProcessor {
 	}
 
 	/**
-	 * Execute SQL statement with String parameters that might return a result object
-	 * 
+	 * Execute SQL statement with String parameters that might return a result object.
+	 *
 	 * @param connection - DB connection
 	 * @param sql        - SQL to be executed
 	 * @param parameters - SQL parameters
@@ -74,6 +86,12 @@ public abstract class HDIAbstractProcessor {
 		}
 	}
 
+	/**
+	 * Parses the result set.
+	 *
+	 * @param resultSet the result set
+	 * @throws SQLException the SQL exception
+	 */
 	protected void parseResultSet(ResultSet resultSet) throws SQLException {
     ArrayList<Message> messages = new ArrayList<>();
     while (resultSet.next())
@@ -93,6 +111,13 @@ public abstract class HDIAbstractProcessor {
     }
 	}
 
+	/**
+	 * Sets the statement params.
+	 *
+	 * @param statement the statement
+	 * @param parameters the parameters
+	 * @throws SQLException the SQL exception
+	 */
 	protected void setStatementParams(PreparedStatement statement, String... parameters) throws SQLException {
 		int paramIndex = 0;
 		for (String param : parameters) {
@@ -101,6 +126,15 @@ public abstract class HDIAbstractProcessor {
 	}
 
 
+  /**
+   * Apply artefact state.
+   *
+   * @param artefactName the artefact name
+   * @param artefactLocation the artefact location
+   * @param type the type
+   * @param state the state
+   * @param message the message
+   */
   public void applyArtefactState(String artefactName, String artefactLocation, AbstractSynchronizationArtefactType type, ISynchronizerArtefactType.ArtefactState state, String message) {
     DATA_STRUCTURES_SYNCHRONIZER.applyArtefactState(artefactName, artefactLocation, type, state, message);
   }

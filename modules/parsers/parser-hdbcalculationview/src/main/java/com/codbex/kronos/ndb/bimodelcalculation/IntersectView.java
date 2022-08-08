@@ -31,9 +31,9 @@ import javax.xml.bind.annotation.XmlType;
  * The result consists of all rows that occur in the first and the	second input.
  *
  *
- * <p>Java class for IntersectView complex type.
+ * Java class for IntersectView complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="IntersectView"&gt;

@@ -28,9 +28,9 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * Information about the origin of the resource, if exported from external system
  *
- * <p>Java class for Origin complex type.
+ * Java class for Origin complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Origin"&gt;
@@ -48,10 +48,15 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "Origin")
 public class Origin {
 
+  /** The entity name. */
   @XmlAttribute(name = "entityName")
   protected String entityName;
+  
+  /** The entity type. */
   @XmlAttribute(name = "entityType")
   protected String entityType;
+  
+  /** The system. */
   @XmlAttribute(name = "system")
   protected String system;
 

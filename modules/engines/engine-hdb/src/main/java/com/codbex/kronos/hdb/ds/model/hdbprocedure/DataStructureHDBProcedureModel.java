@@ -14,12 +14,23 @@ package com.codbex.kronos.hdb.ds.model.hdbprocedure;
 import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 import com.codbex.kronos.hdb.ds.model.DataStructureModelBuilder;
 
+/**
+ * The Class DataStructureHDBProcedureModel.
+ */
 public class DataStructureHDBProcedureModel extends DataStructureModel {
 
+  /**
+   * Instantiates a new data structure HDB procedure model.
+   *
+   * @param builder the builder
+   */
   public DataStructureHDBProcedureModel(DataStructureModelBuilder builder) {
     super(builder);
   }
 
+  /**
+   * Instantiates a new data structure HDB procedure model.
+   */
   public DataStructureHDBProcedureModel() {
     super();
   }

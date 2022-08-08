@@ -20,8 +20,17 @@ import org.eclipse.dirigible.api.v3.platform.RegistryFacade;
 import org.eclipse.dirigible.commons.api.scripting.ScriptingException;
 import org.eclipse.dirigible.repository.api.RepositoryPath;
 
+/**
+ * The Class WriteContainerContentProcessor.
+ */
 public class WriteContainerContentProcessor extends HDIAbstractProcessor {
 
+  /**
+   * Enumerate folders.
+   *
+   * @param files the files
+   * @return the string[]
+   */
   protected static String[] enumerateFolders(String[] files) {
     Set<String> folders = new TreeSet<>();
     for (String file : files) {
@@ -38,6 +47,17 @@ public class WriteContainerContentProcessor extends HDIAbstractProcessor {
     return folders.toArray(new String[]{});
   }
 
+  /**
+   * Execute.
+   *
+   * @param connection the connection
+   * @param container the container
+   * @param files the files
+   * @param configuration the configuration
+   * @throws SQLException the SQL exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws ScriptingException the scripting exception
+   */
   public void execute(Connection connection, String container, String[] files, String configuration)
       throws SQLException, IOException, ScriptingException {
 

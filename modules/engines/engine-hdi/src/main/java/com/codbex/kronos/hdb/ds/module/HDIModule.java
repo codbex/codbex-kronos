@@ -21,14 +21,23 @@ import com.codbex.kronos.hdb.ds.parser.DataStructureParser;
 import com.codbex.kronos.hdb.ds.parser.hdi.HDIParser;
 
 
+/**
+ * The Class HDIModule.
+ */
 public class HDIModule extends AbstractDirigibleModule {
 
+  /**
+   * Configure.
+   */
   @Override
   public void configure() {
 
     bindParsersToFileExtension();
   }
 
+  /**
+   * Bind parsers to file extension.
+   */
   private void bindParsersToFileExtension() {
 //    MapBinder<String, DataStructureParser> mapBinder
 //        = MapBinder.newMapBinder(binder(), String.class, DataStructureParser.class);
@@ -38,6 +47,11 @@ public class HDIModule extends AbstractDirigibleModule {
   }
 
 
+  /**
+   * Gets the name.
+   *
+   * @return the name
+   */
   @Override
   public String getName() {
     return "Kronos HDBTI Module";

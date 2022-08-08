@@ -33,9 +33,9 @@ import com.codbex.kronos.ndb.datamodeltype.TypedObject;
 /**
  * Base object for named model classes that allow end user texts (non ecore ID based)
  *
- * <p>Java class for NamedObjectWithEndUserTexts complex type.
+ * Java class for NamedObjectWithEndUserTexts complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="NamedObjectWithEndUserTexts"&gt;
@@ -60,6 +60,7 @@ import com.codbex.kronos.ndb.datamodeltype.TypedObject;
 })
 public abstract class NamedObjectWithEndUserTexts {
 
+  /** The end user texts. */
   protected EndUserTexts endUserTexts;
 
   /**

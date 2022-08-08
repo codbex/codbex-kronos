@@ -21,15 +21,33 @@ import org.eclipse.dirigible.core.workspace.api.IFolder;
 import org.eclipse.dirigible.core.workspace.api.IProject;
 import org.eclipse.dirigible.core.workspace.api.IWorkspace;
 
+/**
+ * The Class ProjectMigrationInterceptor.
+ */
 public class ProjectMigrationInterceptor {
 
+  /** The project files modificator. */
   private final ProjectFilesModificator projectFilesModificator = new ProjectFilesModificator();
 
+  /**
+   * Modify.
+   *
+   * @param fileContent the file content
+   * @return the byte[]
+   * @throws TransformerException the transformer exception
+   */
   @ToolingHook
   public byte[] modify(byte[] fileContent) throws TransformerException {
     return new CalculationViewTransformation().removeTypeArtifact(fileContent);
   }
 
+  /**
+   * Intercept project.
+   *
+   * @param workspaceName the workspace name
+   * @param projectName the project name
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   @ToolingHook
   public void interceptProject(String workspaceName, String projectName) throws IOException {
     IWorkspace workspace = WorkspaceFacade.getWorkspace(workspaceName);
@@ -40,6 +58,12 @@ public class ProjectMigrationInterceptor {
     projectFilesModificator.modifyProjectFiles(allProjectFiles);
   }
 
+  /**
+   * Collect all project files.
+   *
+   * @param project the project
+   * @return the list
+   */
   private static List<IFile> collectAllProjectFiles(IProject project) {
     List<IFile> allProjectFiles = new ArrayList<>();
 
@@ -58,6 +82,12 @@ public class ProjectMigrationInterceptor {
   }
 
 
+  /**
+   * Traverse files.
+   *
+   * @param folder the folder
+   * @param allProjectFiles the all project files
+   */
   private static void traverseFiles(IFolder folder, List<IFile> allProjectFiles) {
     allProjectFiles.addAll(folder.getFiles());
 
@@ -69,6 +99,13 @@ public class ProjectMigrationInterceptor {
     }
   }
 
+  /**
+   * Checks if is not empty or null.
+   *
+   * @param <T> the generic type
+   * @param list the list
+   * @return true, if is not empty or null
+   */
   private static <T> boolean isNotEmptyOrNull(List<T> list) {
     return list != null && !list.isEmpty();
   }

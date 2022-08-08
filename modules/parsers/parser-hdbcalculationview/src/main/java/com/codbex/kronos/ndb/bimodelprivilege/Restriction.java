@@ -32,9 +32,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * are filtered they must be put into the same Restriction.
  *
  *
- * <p>Java class for Restriction complex type.
+ * Java class for Restriction complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Restriction"&gt;
@@ -61,12 +61,17 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class Restriction
     extends RestrictionNode {
 
+  /** The dimension uri. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String dimensionUri;
+  
+  /** The attribute name. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String attributeName;
+  
+  /** The origin information model uri. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String originInformationModelUri;

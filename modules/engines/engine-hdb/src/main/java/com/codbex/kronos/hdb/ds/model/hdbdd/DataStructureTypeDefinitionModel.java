@@ -11,18 +11,26 @@
  */
 package com.codbex.kronos.hdb.ds.model.hdbdd;
 
+/**
+ * The Class DataStructureTypeDefinitionModel.
+ */
 public class DataStructureTypeDefinitionModel {
 
+  /** The name. */
   private String name;
 
+  /** The type. */
   private String type;
 
+  /** The length. */
   private int length;
 
   /**
-   * @param name
-   * @param type
-   * @param length
+   * Instantiates a new data structure type definition model.
+   *
+   * @param name the name
+   * @param type the type
+   * @param length the length
    */
   public DataStructureTypeDefinitionModel(String name, String type, int length) {
     super();
@@ -32,6 +40,8 @@ public class DataStructureTypeDefinitionModel {
   }
 
   /**
+   * Gets the name.
+   *
    * @return the name
    */
   public String getName() {
@@ -39,6 +49,8 @@ public class DataStructureTypeDefinitionModel {
   }
 
   /**
+   * Sets the name.
+   *
    * @param name the name to set
    */
   public void setName(String name) {
@@ -46,6 +58,8 @@ public class DataStructureTypeDefinitionModel {
   }
 
   /**
+   * Gets the type.
+   *
    * @return the type
    */
   public String getType() {
@@ -53,6 +67,8 @@ public class DataStructureTypeDefinitionModel {
   }
 
   /**
+   * Sets the type.
+   *
    * @param type the type to set
    */
   public void setType(String type) {
@@ -60,6 +76,8 @@ public class DataStructureTypeDefinitionModel {
   }
 
   /**
+   * Gets the length.
+   *
    * @return the length
    */
   public int getLength() {
@@ -67,6 +85,8 @@ public class DataStructureTypeDefinitionModel {
   }
 
   /**
+   * Sets the length.
+   *
    * @param length the length to set
    */
   public void setLength(int length) {

@@ -40,9 +40,13 @@ import org.slf4j.LoggerFactory;
  */
 public class TableDropProcessor extends AbstractHDBProcessor<DataStructureHDBTableModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(TableDropProcessor.class);
+  
+  /** The Constant TABLE_ARTEFACT. */
   private static final HDBTableSynchronizationArtefactType TABLE_ARTEFACT = new HDBTableSynchronizationArtefactType();
 
+  /** The manager services. */
   private Map<String, IDataStructureManager> managerServices = HDBModule.getManagerServices();
 
   /**
@@ -50,6 +54,7 @@ public class TableDropProcessor extends AbstractHDBProcessor<DataStructureHDBTab
    *
    * @param connection the connection
    * @param tableModel the table model
+   * @return true, if successful
    * @throws SQLException the SQL exception
    */
   public boolean execute(Connection connection, DataStructureHDBTableModel tableModel)
@@ -132,6 +137,15 @@ public class TableDropProcessor extends AbstractHDBProcessor<DataStructureHDBTab
     return true;
   }
 
+  /**
+   * Execute update.
+   *
+   * @param connection the connection
+   * @param sql the sql
+   * @param tableModel the table model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   private boolean executeUpdate(Connection connection, String sql, DataStructureHDBTableModel tableModel)
       throws SQLException {
     PreparedStatement statement = null;

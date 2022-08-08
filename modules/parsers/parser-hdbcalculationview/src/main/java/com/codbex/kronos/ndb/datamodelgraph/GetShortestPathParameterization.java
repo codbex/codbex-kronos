@@ -40,9 +40,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * -WEIGHT (fixed name corresponds to input weight column)
  *
  *
- * <p>Java class for GetShortestPathParameterization complex type.
+ * Java class for GetShortestPathParameterization complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="GetShortestPathParameterization"&gt;
@@ -67,7 +67,10 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class GetShortestPathParameterization
     extends GetShortestPathsParameterization {
 
+  /** The target vertex. */
   protected String targetVertex;
+  
+  /** The target vertex parameter. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String targetVertexParameter;

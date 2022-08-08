@@ -30,9 +30,9 @@ import com.codbex.kronos.ndb.bimodelconversion.Parameterization;
 
 
 /**
- * <p>Java class for AttributeParentPair complex type.
+ * Java class for AttributeParentPair complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="AttributeParentPair"&gt;
@@ -55,13 +55,20 @@ import com.codbex.kronos.ndb.bimodelconversion.Parameterization;
 })
 public class AttributeParentPair {
 
+  /** The root node. */
   protected Parameterization rootNode;
+  
+  /** The attribute. */
   @XmlAttribute(name = "attribute", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String attribute;
+  
+  /** The parent attribute. */
   @XmlAttribute(name = "parentAttribute", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String parentAttribute;
+  
+  /** The step parent node ID. */
   @XmlAttribute(name = "stepParentNodeID")
   protected String stepParentNodeID;
 

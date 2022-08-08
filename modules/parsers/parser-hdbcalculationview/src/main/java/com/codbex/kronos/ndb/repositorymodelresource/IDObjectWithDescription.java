@@ -36,9 +36,9 @@ import com.codbex.kronos.ndb.bimodelvariable.ValueListEntry;
 /**
  * Base object for ID based model classes that allow multiple language descriptions
  *
- * <p>Java class for IDObjectWithDescription complex type.
+ * Java class for IDObjectWithDescription complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="IDObjectWithDescription"&gt;
@@ -67,6 +67,7 @@ import com.codbex.kronos.ndb.bimodelvariable.ValueListEntry;
 public abstract class IDObjectWithDescription
     extends IDObject {
 
+  /** The descriptions. */
   protected Descriptions descriptions;
 
   /**

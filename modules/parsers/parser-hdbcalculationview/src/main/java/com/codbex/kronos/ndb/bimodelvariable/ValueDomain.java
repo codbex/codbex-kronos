@@ -36,9 +36,9 @@ import com.codbex.kronos.ndb.repositorymodelresource.QualifiedNameReference;
  * Describes how the allowed values for the variable can be retrieved
  *
  *
- * <p>Java class for ValueDomain complex type.
+ * Java class for ValueDomain complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ValueDomain"&gt;
@@ -73,16 +73,29 @@ import com.codbex.kronos.ndb.repositorymodelresource.QualifiedNameReference;
 })
 public class ValueDomain {
 
+  /** The attribute. */
   protected QualifiedNameReference attribute;
+  
+  /** The list entry. */
   protected List<ValueListEntry> listEntry;
+  
+  /** The external like structure name. */
   protected String externalLikeStructureName;
+  
+  /** The external like element name. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String externalLikeElementName;
+  
+  /** The variable mapping. */
   protected List<AbstractVariableMapping> variableMapping;
+  
+  /** The hierarchy name. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String hierarchyName;
+  
+  /** The type. */
   @XmlAttribute(name = "type", required = true)
   protected ValueType type;
 
@@ -108,23 +121,25 @@ public class ValueDomain {
 
   /**
    * Gets the value of the listEntry property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the listEntry property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getListEntry().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link ValueListEntry }
+   *
+   * @return the list entry
    */
   public List<ValueListEntry> getListEntry() {
     if (listEntry == null) {
@@ -175,23 +190,25 @@ public class ValueDomain {
 
   /**
    * Gets the value of the variableMapping property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the variableMapping property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getVariableMapping().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link AbstractVariableMapping }
+   *
+   * @return the variable mapping
    */
   public List<AbstractVariableMapping> getVariableMapping() {
     if (variableMapping == null) {

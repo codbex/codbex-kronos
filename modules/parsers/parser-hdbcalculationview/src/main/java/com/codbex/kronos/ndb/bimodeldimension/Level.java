@@ -31,9 +31,9 @@ import com.codbex.kronos.ndb.basemodelbase.SortDirection;
 
 
 /**
- * <p>Java class for Level complex type.
+ * Java class for Level complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Level"&gt;
@@ -52,14 +52,21 @@ import com.codbex.kronos.ndb.basemodelbase.SortDirection;
 @XmlType(name = "Level")
 public class Level {
 
+  /** The level attribute. */
   @XmlAttribute(name = "levelAttribute", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String levelAttribute;
+  
+  /** The level type. */
   @XmlAttribute(name = "levelType")
   protected LevelType levelType;
+  
+  /** The order attribute. */
   @XmlAttribute(name = "orderAttribute")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String orderAttribute;
+  
+  /** The sort direction. */
   @XmlAttribute(name = "sortDirection")
   protected SortDirection sortDirection;
 

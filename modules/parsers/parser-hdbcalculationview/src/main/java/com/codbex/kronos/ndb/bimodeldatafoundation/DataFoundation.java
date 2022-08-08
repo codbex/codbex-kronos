@@ -37,9 +37,9 @@ import javax.xml.bind.annotation.XmlType;
  * 5. join type = 'textTable' if and only if text column is filled	(should)
  *
  *
- * <p>Java class for DataFoundation complex type.
+ * Java class for DataFoundation complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="DataFoundation"&gt;
@@ -64,9 +64,14 @@ import javax.xml.bind.annotation.XmlType;
 public class DataFoundation
     extends BIResource {
 
+  /** The table proxies. */
   @XmlElement(required = true)
   protected TableProxies tableProxies;
+  
+  /** The joins. */
   protected Joins joins;
+  
+  /** The layout. */
   protected Layout layout;
 
   /**

@@ -19,10 +19,31 @@ import com.codbex.kronos.parser.models.BaseParserErrorsModel;
 
 import java.util.ArrayList;
 
+/**
+ * The listener interface for receiving HDBDDError events.
+ * The class that is interested in processing a HDBDDError
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addHDBDDErrorListener</code> method. When
+ * the HDBDDError event occurs, that object's appropriate
+ * method is invoked.
+ *
+ */
 public class HDBDDErrorListener extends BaseErrorListener {
 
+  /** The errors. */
   private final ArrayList<BaseParserErrorsModel> errors = new ArrayList<>();
 
+  /**
+   * Syntax error.
+   *
+   * @param recognizer the recognizer
+   * @param offendingSymbol the offending symbol
+   * @param line the line
+   * @param charPositionInLine the char position in line
+   * @param msg the msg
+   * @param e the e
+   */
   @Override
   public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg,
                           RecognitionException e) {
@@ -30,6 +51,11 @@ public class HDBDDErrorListener extends BaseErrorListener {
     this.errors.add(new BaseParserErrorsModel(line, charPositionInLine, offendingSymbol == null? "" : offendingSymbol.toString(), msg));
   }
 
+  /**
+   * Gets the errors.
+   *
+   * @return the errors
+   */
   public ArrayList<BaseParserErrorsModel> getErrors() {
     return errors;
   }

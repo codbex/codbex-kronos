@@ -23,12 +23,23 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
+/**
+ * The Class JobHandler.
+ */
 public class JobHandler implements Job {
 
+  /** The Constant XSJOB_HANDLER. */
   private static final String XSJOB_HANDLER = "xsjob/wrappers/handler.xsjs";
 
+  /** The javascript engine executor. */
   private JavascriptEngineExecutor javascriptEngineExecutor = new JavascriptEngineExecutor();
 
+  /**
+   * Execute.
+   *
+   * @param context the context
+   * @throws JobExecutionException the job execution exception
+   */
   @Override
   public void execute(JobExecutionContext context) throws JobExecutionException {
     String module = (String) context.getJobDetail().getJobDataMap().get(IJobCoreService.KRONOS_JOB_MODULE);

@@ -30,27 +30,53 @@ import javax.naming.OperationNotSupportedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class HDBSequenceManagerService.
+ */
 public class HDBSequenceManagerService extends AbstractDataStructureManagerService<DataStructureHDBSequenceModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDBSequenceManagerService.class);
 
+  /** The data structure sequence models. */
   private final Map<String, DataStructureHDBSequenceModel> dataStructureSequenceModels;
+  
+  /** The sequences synchronized. */
   private final List<String> sequencesSynchronized;
 
+  /** The hdb sequence drop processor. */
   private IHDBProcessor hdbSequenceDropProcessor = new HDBSequenceDropProcessor();
+  
+  /** The hdb sequence create processor. */
   private IHDBProcessor hdbSequenceCreateProcessor = new HDBSequenceCreateProcessor();
+  
+  /** The hdb sequence update processor. */
   private IHDBProcessor hdbSequenceUpdateProcessor = new HDBSequenceUpdateProcessor();
 
+  /**
+   * Instantiates a new HDB sequence manager service.
+   */
   public HDBSequenceManagerService() {
     dataStructureSequenceModels = new LinkedHashMap<>();
     sequencesSynchronized = Collections.synchronizedList(new ArrayList<>());
   }
 
+  /**
+   * Gets the data structure models.
+   *
+   * @return the data structure models
+   */
   @Override
   public Map<String, DataStructureHDBSequenceModel> getDataStructureModels() {
     return Collections.unmodifiableMap(this.dataStructureSequenceModels);
   }
 
+  /**
+   * Synchronize runtime metadata.
+   *
+   * @param hdbSequenceModel the hdb sequence model
+   * @throws DataStructuresException the data structures exception
+   */
   @Override
   public void synchronizeRuntimeMetadata(DataStructureHDBSequenceModel hdbSequenceModel) throws DataStructuresException {
     if (!getDataStructuresCoreService().existsDataStructure(hdbSequenceModel.getLocation(), hdbSequenceModel.getType())) {
@@ -76,34 +102,72 @@ public class HDBSequenceManagerService extends AbstractDataStructureManagerServi
     }
   }
 
+  /**
+   * Creates the data structure.
+   *
+   * @param connection the connection
+   * @param hdbSequenceModel the hdb sequence model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   @Override
   public boolean createDataStructure(Connection connection, DataStructureHDBSequenceModel hdbSequenceModel)
       throws SQLException {
     return this.hdbSequenceCreateProcessor.execute(connection, hdbSequenceModel);
   }
 
+  /**
+   * Drop data structure.
+   *
+   * @param connection the connection
+   * @param hdbSequenceModel the hdb sequence model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   @Override
   public boolean dropDataStructure(Connection connection, DataStructureHDBSequenceModel hdbSequenceModel)
       throws SQLException {
 	return this.hdbSequenceDropProcessor.execute(connection, hdbSequenceModel);
   }
 
+  /**
+   * Update data structure.
+   *
+   * @param connection the connection
+   * @param hdbSequenceModel the hdb sequence model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   * @throws OperationNotSupportedException the operation not supported exception
+   */
   @Override
   public boolean updateDataStructure(Connection connection, DataStructureHDBSequenceModel hdbSequenceModel)
       throws SQLException, OperationNotSupportedException {
 	return this.hdbSequenceUpdateProcessor.execute(connection, hdbSequenceModel);
   }
 
+  /**
+   * Gets the data structure synchronized.
+   *
+   * @return the data structure synchronized
+   */
   @Override
   public List<String> getDataStructureSynchronized() {
     return Collections.unmodifiableList(this.sequencesSynchronized);
   }
 
+  /**
+   * Gets the data structure type.
+   *
+   * @return the data structure type
+   */
   @Override
   public String getDataStructureType() {
     return IDataStructureModel.FILE_EXTENSION_HDBSEQUENCE;
   }
 
+  /**
+   * Clear cache.
+   */
   @Override
   public void clearCache() {
     dataStructureSequenceModels.clear();

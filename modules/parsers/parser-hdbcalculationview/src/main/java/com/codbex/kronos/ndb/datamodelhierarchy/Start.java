@@ -28,9 +28,9 @@ import com.codbex.kronos.ndb.bimodelcalculation.AbstractAttributeMapping;
 
 
 /**
- * <p>Java class for Start complex type.
+ * Java class for Start complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Start"&gt;
@@ -50,6 +50,7 @@ import com.codbex.kronos.ndb.bimodelcalculation.AbstractAttributeMapping;
 })
 public class Start {
 
+  /** The mapping. */
   @XmlElement(required = true)
   protected AbstractAttributeMapping mapping;
 

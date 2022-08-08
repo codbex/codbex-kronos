@@ -14,8 +14,20 @@ package com.codbex.kronos.hdb.ds.processors.hdi;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * The Class GrantPrivilegesContainerAPIProcessor.
+ */
 public class GrantPrivilegesContainerAPIProcessor extends HDIAbstractProcessor {
 
+  /**
+   * Execute.
+   *
+   * @param connection the connection
+   * @param group the group
+   * @param container the container
+   * @param users the users
+   * @throws SQLException the SQL exception
+   */
   public final void execute(Connection connection, String group, String container, String[] users) throws SQLException {
     executeUpdate(connection, "CREATE LOCAL TEMPORARY COLUMN TABLE #PRIVILEGES LIKE _SYS_DI.TT_API_PRIVILEGES;");
     for (String user : users) {
