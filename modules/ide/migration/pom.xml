@@ -5,13 +5,13 @@
     <parent>
         <groupId>com.codbex.kronos</groupId>
         <artifactId>kronos-modules-ide-parent</artifactId>
-        <version>0.1.0</version>
+        <version>0.2.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <name>Kronos - Modules - IDE - Migration</name>
     <artifactId>kronos-modules-ide-migration</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -45,7 +45,7 @@
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>kronos-modules-engines-hdb</artifactId>
-            <version>0.1.0</version>
+            <version>0.2.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
