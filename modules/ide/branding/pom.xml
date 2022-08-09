@@ -5,13 +5,13 @@
     <parent>
         <groupId>com.codbex.kronos</groupId>
         <artifactId>kronos-modules-ide-parent</artifactId>
-        <version>0.2.0-SNAPSHOT</version>
+        <version>0.1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <name>Kronos - Modules - IDE - Branding</name>
     <artifactId>kronos-modules-ide-branding</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <packaging>jar</packaging>
 
     <properties>

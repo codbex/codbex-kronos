@@ -5,25 +5,25 @@
     <parent>
         <groupId>com.codbex.kronos</groupId>
         <artifactId>kronos-modules-engines-parent</artifactId>
-        <version>0.2.0-SNAPSHOT</version>
+        <version>0.1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <name>Kronos - Modules - Engines - XS JS</name>
     <artifactId>kronos-modules-engines-xsjs</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>kronos-modules-parsers-all</artifactId>
-            <version>0.2.0-SNAPSHOT</version>
+            <version>0.1.0</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>kronos-modules-api-all</artifactId>
-            <version>0.2.0-SNAPSHOT</version>
+            <version>0.1.0</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -134,17 +134,17 @@
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>kronos-modules-parsers-hdbti</artifactId>
-            <version>0.2.0-SNAPSHOT</version>
+            <version>0.1.0</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>kronos-modules-parsers-hdbsequence</artifactId>
-            <version>0.2.0-SNAPSHOT</version>
+            <version>0.1.0</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>kronos-modules-parsers-hdbtable</artifactId>
-            <version>0.2.0-SNAPSHOT</version>
+            <version>0.1.0</version>
         </dependency>
         <dependency>
             <groupId>com.sap.cloud.sdk.testutil</groupId>
