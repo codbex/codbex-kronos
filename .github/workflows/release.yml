@@ -41,7 +41,7 @@ jobs:
       - name: Maven Build
         run: mvn clean install -Dmaven.javadoc.skip=false
       - name: Docker Login
-        run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASSWORD}}
+        run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASSWORD}} ${{secrets.DOCKER_REGISTRY}}
       - name: Push Kronos
         run: |
           cd releng/server
@@ -694,65 +694,65 @@ jobs:
       #----------------Publish GitHub Release------------------#
 
       #----------------Publish Helm Release------------------#
-      - id: install-secret-key
-        name: Install gpg secret key
-        run: |
-          cat <(echo -e "${{ secrets.GPG_KEY_HELM }}") | gpg --batch --import  --no-tty --batch --yes
-      - name: Helm tool installer
-        uses: Azure/setup-helm@v1
-      - name: Helm Charts Release - Checkout gh-pages
-        run: |
-          mkdir charts-temp
-          cp -r releng/helm-charts/ charts-temp/
-          #### Git Checkout Workaround
-          git add .github/
-          git add .reuse/
-          git add LICENSES/
-          git add modules/
-          git add releng/
-          git add samples/
-          git reset --hard
-          ####
-          git fetch
-          git checkout gh-pages
+      # - id: install-secret-key
+      #   name: Install gpg secret key
+      #   run: |
+      #     cat <(echo -e "${{ secrets.GPG_KEY_HELM }}") | gpg --batch --import  --no-tty --batch --yes
+      # - name: Helm tool installer
+      #   uses: Azure/setup-helm@v1
+      # - name: Helm Charts Release - Checkout gh-pages
+      #   run: |
+      #     mkdir charts-temp
+      #     cp -r releng/helm-charts/ charts-temp/
+      #     #### Git Checkout Workaround
+      #     git add .github/
+      #     git add .reuse/
+      #     git add LICENSES/
+      #     git add modules/
+      #     git add releng/
+      #     git add samples/
+      #     git reset --hard
+      #     ####
+      #     git fetch
+      #     git checkout gh-pages
 
-          cp charts/* .
-      - name: Helm Charts Release - Set Chart Version - Kronos
-        run: |
-          cd charts-temp/helm-charts/
-          find kronos/*.yaml -type f -exec sed -i ''s/#{KronosVersion}#/${{ env.KRONOS_VERSION }}/g'' {} \;
-          find kronos-kpack/*.yaml -type f -exec sed -i ''s/#{KronosVersion}#/${{ env.KRONOS_VERSION }}/g'' {} \;
-          find kronos-kpack/templates/*.yaml -type f -exec sed -i ''s/#{KronosVersion}#/${{ env.KRONOS_VERSION }}/g'' {} \;
-          find kronos-landscape/*.yaml -type f -exec sed -i ''s/#{KronosVersion}#/${{ env.KRONOS_VERSION }}/g'' {} \;
-      - name: Helm Charts Release
-        run: |
-          cp charts/* charts-temp/helm-charts/
-          cd charts-temp/helm-charts/
+      #     cp charts/* .
+      # - name: Helm Charts Release - Set Chart Version - Kronos
+      #   run: |
+      #     cd charts-temp/helm-charts/
+      #     find kronos/*.yaml -type f -exec sed -i ''s/#{KronosVersion}#/${{ env.KRONOS_VERSION }}/g'' {} \;
+      #     find kronos-kpack/*.yaml -type f -exec sed -i ''s/#{KronosVersion}#/${{ env.KRONOS_VERSION }}/g'' {} \;
+      #     find kronos-kpack/templates/*.yaml -type f -exec sed -i ''s/#{KronosVersion}#/${{ env.KRONOS_VERSION }}/g'' {} \;
+      #     find kronos-landscape/*.yaml -type f -exec sed -i ''s/#{KronosVersion}#/${{ env.KRONOS_VERSION }}/g'' {} \;
+      # - name: Helm Charts Release
+      #   run: |
+      #     cp charts/* charts-temp/helm-charts/
+      #     cd charts-temp/helm-charts/
           
-          gpg --no-tty --batch --export-secret-keys > ~/.gnupg/secring.gpg
-          helm package --sign --key "Kronos-gpg" --keyring /home/runner/.gnupg/secring.gpg kronos
-          helm package --sign --key "Kronos-gpg" --keyring /home/runner/.gnupg/secring.gpg kronos-kpack
-          helm package --sign --key "Kronos-gpg" --keyring /home/runner/.gnupg/secring.gpg kronos-landscape
-          cd ..
-          helm repo index helm-charts/ --url https://codbex.github.io/codbex-kronos/charts
+      #     gpg --no-tty --batch --export-secret-keys > ~/.gnupg/secring.gpg
+      #     helm package --sign --key "Kronos-gpg" --keyring /home/runner/.gnupg/secring.gpg kronos
+      #     helm package --sign --key "Kronos-gpg" --keyring /home/runner/.gnupg/secring.gpg kronos-kpack
+      #     helm package --sign --key "Kronos-gpg" --keyring /home/runner/.gnupg/secring.gpg kronos-landscape
+      #     cd ..
+      #     helm repo index helm-charts/ --url https://codbex.github.io/codbex-kronos/charts
 
-          cp helm-charts/index.yaml ../.
-          cp helm-charts/kronos-${{ env.KRONOS_VERSION }}.tgz ../charts/
-          cp helm-charts/kronos-${{ env.KRONOS_VERSION }}.tgz.prov ../charts/
-          cp helm-charts/kronos-kpack-${{ env.KRONOS_VERSION }}.tgz ../charts/
-          cp helm-charts/kronos-kpack-${{ env.KRONOS_VERSION }}.tgz.prov ../charts/
-          cp helm-charts/kronos-landscape-${{ env.KRONOS_VERSION }}.tgz ../charts/
-          cp helm-charts/kronos-landscape-${{ env.KRONOS_VERSION }}.tgz.prov ../charts/
-          cd ..
-          git config user.name "$GITHUB_ACTOR"
-          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          git add index.yaml
-          git add charts/
-          git commit -m "Updates Helm Charts - Release ${{ env.KRONOS_VERSION }} - ci skip"
-          git push origin gh-pages
-          git add .
-          git reset --hard
-          git checkout main
+      #     cp helm-charts/index.yaml ../.
+      #     cp helm-charts/kronos-${{ env.KRONOS_VERSION }}.tgz ../charts/
+      #     cp helm-charts/kronos-${{ env.KRONOS_VERSION }}.tgz.prov ../charts/
+      #     cp helm-charts/kronos-kpack-${{ env.KRONOS_VERSION }}.tgz ../charts/
+      #     cp helm-charts/kronos-kpack-${{ env.KRONOS_VERSION }}.tgz.prov ../charts/
+      #     cp helm-charts/kronos-landscape-${{ env.KRONOS_VERSION }}.tgz ../charts/
+      #     cp helm-charts/kronos-landscape-${{ env.KRONOS_VERSION }}.tgz.prov ../charts/
+      #     cd ..
+      #     git config user.name "$GITHUB_ACTOR"
+      #     git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      #     git add index.yaml
+      #     git add charts/
+      #     git commit -m "Updates Helm Charts - Release ${{ env.KRONOS_VERSION }} - ci skip"
+      #     git push origin gh-pages
+      #     git add .
+      #     git reset --hard
+      #     git checkout main
       #----------------Publish Helm Release------------------#
 
       #-----------------Create GitHub Branch-------------------#
@@ -763,19 +763,6 @@ jobs:
           git push origin ${{ env.KRONOS_VERSION }}
 
       #-----------------Create GitHub Branch-------------------#
-
-      #------------------Update Kronos Instance-------------------#
-
-      - name: Kubectl tool installer
-        uses: Azure/setup-kubectl@v1
-      - name: Setup Kube Config File
-        run: |
-          mkdir $HOME/.kube
-          echo "${{ secrets.KUBE_CONFIG }}" >> $HOME/.kube/config
-      - name: Update Kronos Instance
-        run: kubectl set image deployment/kronos-trial kronos=ghcr.io/codbex/kronos-kyma:${{ env.KRONOS_VERSION }} -n kronos-trial
-
-      #------------------Update Kronos Instance-------------------#
 
       - name: Slack Notification
         if: ${{ failure() }}
