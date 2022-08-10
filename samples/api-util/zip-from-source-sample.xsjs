@@ -1,5 +1,5 @@
 // Zip byte array source
-var source = [123, 34, 120, 115, 107, 46, 116, 120, 116, 34, 58, 34, 84, 104, 105, 115, 32, 105, 115, 32, 88, 83, 75, 34, 125];
+var source = [123, 34, 107, 114, 111, 110, 111, 115, 46, 116, 120, 116, 34, 58, 34, 84, 104, 105, 115, 32, 105, 115, 32, 75, 114, 111, 110, 111, 115, 34, 125];
 
 var zip = new $.util.Zip({
   source: source
@@ -7,8 +7,8 @@ var zip = new $.util.Zip({
 
 for (var entry in zip) {
   // Loop through zip entries and modify if needed
-  if (entry === 'xsk.txt') {
-    zip[entry] = 'XSK is great'
+  if (entry === 'kronos.txt') {
+    zip[entry] = 'Kronos is great'
   }
 }
 

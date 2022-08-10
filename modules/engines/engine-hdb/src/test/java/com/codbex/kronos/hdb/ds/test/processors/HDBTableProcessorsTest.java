@@ -16,10 +16,6 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import com.codbex.kronos.hdb.ds.model.hdbtable.XSKDataStructureHDBTableModel;
-import com.codbex.kronos.hdb.ds.processors.table.XSKTableAlterHandler;
-import com.codbex.kronos.hdb.ds.processors.table.XSKTableAlterProcessor;
-
 import java.sql.Connection;
 import org.eclipse.dirigible.core.test.AbstractDirigibleTest;
 import org.junit.Before;
@@ -31,6 +27,10 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableModel;
+import com.codbex.kronos.hdb.ds.processors.table.TableAlterHandler;
+import com.codbex.kronos.hdb.ds.processors.table.TableAlterProcessor;
+
 @RunWith(MockitoJUnitRunner.class)
 public class HDBTableProcessorsTest extends AbstractDirigibleTest {
 
@@ -38,12 +38,12 @@ public class HDBTableProcessorsTest extends AbstractDirigibleTest {
   private Connection mockConnection;
 
   @Mock
-  private XSKDataStructureHDBTableModel mockModel;
+  private DataStructureHDBTableModel mockModel;
 
   @Mock
-  private XSKTableAlterHandler mockHandler;
+  private TableAlterHandler mockHandler;
 
-  private XSKTableAlterProcessor xskTableAlterProcessor = spy(new XSKTableAlterProcessor());
+  private TableAlterProcessor tableAlterProcessor = spy(new TableAlterProcessor());
 
   @Before
   public void openMocks() {
@@ -52,7 +52,7 @@ public class HDBTableProcessorsTest extends AbstractDirigibleTest {
 
   @Test
   public void executeAlterSuccessfully() throws Exception {
-    Mockito.doReturn(mockHandler).when(xskTableAlterProcessor).createTableAlterHandler(mockConnection, mockModel);
+    Mockito.doReturn(mockHandler).when(tableAlterProcessor).createTableAlterHandler(mockConnection, mockModel);
 
     doNothing().when(mockHandler).addColumns(mockConnection);
     doNothing().when(mockHandler).removeColumns(mockConnection);
@@ -60,7 +60,7 @@ public class HDBTableProcessorsTest extends AbstractDirigibleTest {
     doNothing().when(mockHandler).rebuildIndeces(mockConnection);
     doNothing().when(mockHandler).ensurePrimaryKeyIsUnchanged(mockConnection);
 
-    xskTableAlterProcessor.execute(mockConnection, mockModel);
+    tableAlterProcessor.execute(mockConnection, mockModel);
 
     verify(mockHandler, times(1)).addColumns(mockConnection);
     verify(mockHandler, times(1)).removeColumns(mockConnection);

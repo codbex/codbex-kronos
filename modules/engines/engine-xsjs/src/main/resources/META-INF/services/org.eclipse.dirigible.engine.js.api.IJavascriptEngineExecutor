@@ -1,1 +1,1 @@
-com.codbex.kronos.engine.XSKJavascriptEngineExecutor	# HANA XS Classic Javascript Engine Executor
+com.codbex.kronos.engine.JavascriptEngineExecutor	# HANA XS Classic Javascript Engine Executor

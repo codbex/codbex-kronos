@@ -74,7 +74,7 @@ function getNeoSdkResourcesPath() {
         catalinaHome = userDir.endsWith("/bin") ? userDir.substring(0, userDir.lastIndexOf("/")) : userDir;
     }
     let libPath = catalinaHome + "/webapps/ROOT/WEB-INF/lib/";
-    let neoSdkResourcesPath = files.list(libPath).filter(e => e.contains("xsk-resources-neo-sdk") && !e.contains("xsk-resources-neo-sdk-synchronizer"))[0];
+    let neoSdkResourcesPath = files.list(libPath).filter(e => e.contains("kronos-resources-neo-sdk") && !e.contains("kronos-resources-neo-sdk-synchronizer"))[0];
     return neoSdkResourcesPath;
 }
 
@@ -84,5 +84,5 @@ function getNeoSdkFilePath(zipEntry) {
 
 function isNeoSdkFile(zipEntry) {
     let filePath = getNeoSdkFilePath(zipEntry);
-    return !zipEntry.isDirectory() && filePath != "" && filePath != "F" && filePath != "MANIFEST.MF" && !filePath.startsWith("maven/") && !filePath.startsWith("kronos/");
+    return !zipEntry.isDirectory() && filePath != "" && filePath != "F" && filePath != "MANIFEST.MF" && !filePath.startsWith("maven/");
 }

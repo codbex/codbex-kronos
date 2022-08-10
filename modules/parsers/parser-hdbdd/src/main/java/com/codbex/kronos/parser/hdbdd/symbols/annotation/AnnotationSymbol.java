@@ -11,38 +11,76 @@
  */
 package com.codbex.kronos.parser.hdbdd.symbols.annotation;
 
-import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
-import com.codbex.kronos.parser.hdbdd.symbols.context.Scope;
-
 import java.util.HashMap;
 import java.util.Map;
 
+import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
+import com.codbex.kronos.parser.hdbdd.symbols.context.Scope;
+
+/**
+ * The Class AnnotationSymbol.
+ */
 public class AnnotationSymbol extends Symbol implements Scope {
+    
+    /** The elements. */
     private Map<String, Symbol> elements = new HashMap<>();
 
+    /**
+     * Instantiates a new annotation symbol.
+     *
+     * @param name the name
+     */
     public AnnotationSymbol(String name) {
         super(name);
     }
 
+    /**
+     * Instantiates a new annotation symbol.
+     *
+     * @param name the name
+     * @param scope the scope
+     */
     public AnnotationSymbol(String name, Scope scope) {
         super(name, scope);
     }
 
+    /**
+     * Gets the enclosing scope.
+     *
+     * @return the enclosing scope
+     */
     @Override
     public Scope getEnclosingScope() {
         return null;
     }
 
+    /**
+     * Define.
+     *
+     * @param sym the sym
+     */
     @Override
     public void define(Symbol sym) {
         elements.put(sym.getName(), sym);
     }
 
+    /**
+     * Resolve.
+     *
+     * @param name the name
+     * @return the symbol
+     */
     @Override
     public Symbol resolve(String name) {
         return elements.get(name);
     }
 
+    /**
+     * Checks if is duplicate name.
+     *
+     * @param id the id
+     * @return true, if is duplicate name
+     */
     @Override
     public boolean isDuplicateName(String id) {
         return false;

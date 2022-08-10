@@ -1,5 +1,5 @@
-namespace acme.db;
-using acme.db.myapp::UserDefinedDataType.MyType as MyUserDefinedType;
+namespace sap.db;
+using sap.db.myapp::UserDefinedDataType.MyType as MyUserDefinedType;
 
 @Schema: 'TEST_SCHEMA'
 

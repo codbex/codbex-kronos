@@ -13,12 +13,36 @@ package com.codbex.kronos.parser.hdbdd.symbols.type.field;
 
 import com.codbex.kronos.parser.hdbdd.symbols.type.Type;
 
+/**
+ * The Interface Typeable.
+ */
 public interface Typeable {
+    
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     Type getType();
 
+    /**
+     * Sets the type.
+     *
+     * @param type the new type
+     */
     void setType(Type type);
 
+    /**
+     * Gets the reference.
+     *
+     * @return the reference
+     */
     String getReference();
 
+    /**
+     * Sets the reference.
+     *
+     * @param token the new reference
+     */
     void setReference(String token);
 }

@@ -18,30 +18,53 @@ import org.eclipse.dirigible.core.scheduler.api.ISchedulerCoreService;
 import org.eclipse.dirigible.core.scheduler.api.ISynchronizer;
 import org.eclipse.dirigible.core.scheduler.service.definition.JobDefinition;
 
+/**
+ * The Class XSJSLibSynchronizerJob.
+ */
 public class XSJSLibSynchronizerJob extends AbstractSynchronizerJob implements IJobDefinitionProvider {
 
-  private static final String XSK_XSJSLIB_SYNCHRONIZER_JOB = "XSK XSJSLib Synchronizer Job";
-  private static final String DIRIGIBLE_JOB_EXPRESSION_XSK_XSJSLIB = "DIRIGIBLE_JOB_EXPRESSION_XSK_XSJSLIB";
-  private static final String DIRIGIBLE_INTERNAL_XSK_XSJSLIB_SYNCHRONIZER_JOB = "dirigible-internal-xsk-xsjslib-synchronizer-job";
+  /** The Constant XSJSLIB_SYNCHRONIZER_JOB. */
+  private static final String XSJSLIB_SYNCHRONIZER_JOB = "Kronos XSJSLib Synchronizer Job";
+  
+  /** The Constant KRONOS_JOB_EXPRESSION_XSJSLIB. */
+  private static final String KRONOS_JOB_EXPRESSION_XSJSLIB = "KRONOS_JOB_EXPRESSION_XSJSLIB";
+  
+  /** The Constant KRONOS_XSJSLIB_SYNCHRONIZER_JOB. */
+  private static final String KRONOS_XSJSLIB_SYNCHRONIZER_JOB = "kronos-xsjslib-synchronizer-job";
 
+  /**
+   * Gets the name.
+   *
+   * @return the name
+   */
   @Override
   public String getName() {
-    return XSK_XSJSLIB_SYNCHRONIZER_JOB;
+    return XSJSLIB_SYNCHRONIZER_JOB;
   }
 
+  /**
+   * Gets the synchronizer.
+   *
+   * @return the synchronizer
+   */
   @Override
   public ISynchronizer getSynchronizer() {
     return new XSJSLibSynchronizer();
   }
 
+  /**
+   * Gets the job definition.
+   *
+   * @return the job definition
+   */
   @Override
   public JobDefinition getJobDefinition() {
     JobDefinition jobDefinition = new JobDefinition();
-    jobDefinition.setName(DIRIGIBLE_INTERNAL_XSK_XSJSLIB_SYNCHRONIZER_JOB);
+    jobDefinition.setName(KRONOS_XSJSLIB_SYNCHRONIZER_JOB);
     jobDefinition.setGroup(ISchedulerCoreService.JOB_GROUP_INTERNAL);
     jobDefinition.setClazz(XSJSLibSynchronizerJob.class.getCanonicalName());
-    jobDefinition.setDescription(XSK_XSJSLIB_SYNCHRONIZER_JOB);
-    jobDefinition.setExpression(Configuration.get(DIRIGIBLE_JOB_EXPRESSION_XSK_XSJSLIB, "0/55 * * * * ?"));
+    jobDefinition.setDescription(XSJSLIB_SYNCHRONIZER_JOB);
+    jobDefinition.setExpression(Configuration.get(KRONOS_JOB_EXPRESSION_XSJSLIB, "0/55 * * * * ?"));
     jobDefinition.setSingleton(true);
     return jobDefinition;
   }

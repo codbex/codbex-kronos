@@ -25,120 +25,120 @@ public class HdbtiBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements 
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitImportArr(HdbtiParser.ImportArrContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitObjConfig(HdbtiParser.ObjConfigContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitAssignExpression(HdbtiParser.AssignExpressionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitAssignTable(HdbtiParser.AssignTableContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitAssignSchema(HdbtiParser.AssignSchemaContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitAssignFile(HdbtiParser.AssignFileContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitAssignHeader(HdbtiParser.AssignHeaderContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitAssignUseHeaderNames(HdbtiParser.AssignUseHeaderNamesContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitAssignDelimField(HdbtiParser.AssignDelimFieldContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitAssignDelimEnclosing(HdbtiParser.AssignDelimEnclosingContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitAssignDistinguishEmptyFromNull(HdbtiParser.AssignDistinguishEmptyFromNullContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitAssignKeys(HdbtiParser.AssignKeysContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitKeyArr(HdbtiParser.KeyArrContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitPair(HdbtiParser.PairContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitPairKey(HdbtiParser.PairKeyContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitPairValue(HdbtiParser.PairValueContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitTableName(HdbtiParser.TableNameContext ctx) { return visitChildren(ctx); }
 }

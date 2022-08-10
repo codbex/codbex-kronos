@@ -11,27 +11,53 @@
  */
 package com.codbex.kronos.parser.hdbdd.symbols.annotation;
 
-import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
-import com.codbex.kronos.parser.hdbdd.symbols.context.Scope;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
+import com.codbex.kronos.parser.hdbdd.symbols.context.Scope;
+
+/**
+ * The Class EnumSymbol.
+ */
 public class EnumSymbol extends Symbol {
+    
+    /** The members. */
     private List<String> members = new ArrayList<>();
 
+    /**
+     * Instantiates a new enum symbol.
+     *
+     * @param name the name
+     */
     public EnumSymbol(String name) {
         super(name);
     }
 
+    /**
+     * Instantiates a new enum symbol.
+     *
+     * @param name the name
+     * @param scope the scope
+     */
     public EnumSymbol(String name, Scope scope) {
         super(name, scope);
     }
 
+    /**
+     * Adds the member.
+     *
+     * @param member the member
+     */
     public void addMember(String member) {
         this.members.add(member);
     }
 
+    /**
+     * Gets the members.
+     *
+     * @return the members
+     */
     public List<String> getMembers() {
         return members;
     }

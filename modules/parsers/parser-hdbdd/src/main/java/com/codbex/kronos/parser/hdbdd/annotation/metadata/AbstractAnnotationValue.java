@@ -11,22 +11,49 @@
  */
 package com.codbex.kronos.parser.hdbdd.annotation.metadata;
 
+/**
+ * The Class AbstractAnnotationValue.
+ */
 public abstract class AbstractAnnotationValue {
+    
+    /** The value type. */
     private int valueType;
+    
+    /** The value. */
     private String value;
 
+    /**
+     * Instantiates a new abstract annotation value.
+     *
+     * @param valueType the value type
+     */
     public AbstractAnnotationValue(int valueType) {
         this.valueType = valueType;
     }
 
+    /**
+     * Gets the value type.
+     *
+     * @return the value type
+     */
     public int getValueType() {
         return valueType;
     }
 
+    /**
+     * Gets the value.
+     *
+     * @return the value
+     */
     public String getValue() {
         return value;
     }
 
+    /**
+     * Sets the value.
+     *
+     * @param value the new value
+     */
     public void setValue(String value) {
         this.value = value;
     }

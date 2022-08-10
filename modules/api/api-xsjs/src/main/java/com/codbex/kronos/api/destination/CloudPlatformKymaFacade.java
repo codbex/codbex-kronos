@@ -15,10 +15,19 @@ import com.sap.cloud.sdk.cloudplatform.CloudPlatformFacade;
 import io.vavr.control.Try;
 import javax.annotation.Nonnull;
 
+/**
+ * The Class CloudPlatformKymaFacade.
+ */
 public class CloudPlatformKymaFacade implements CloudPlatformFacade {
 
+  /** The cloud platform. */
   private Try<com.sap.cloud.sdk.cloudplatform.CloudPlatform> cloudPlatform;
 
+  /**
+   * Try get cloud platform.
+   *
+   * @return the try
+   */
   @Nonnull
   public Try<com.sap.cloud.sdk.cloudplatform.CloudPlatform> tryGetCloudPlatform() {
     if (this.cloudPlatform == null) {

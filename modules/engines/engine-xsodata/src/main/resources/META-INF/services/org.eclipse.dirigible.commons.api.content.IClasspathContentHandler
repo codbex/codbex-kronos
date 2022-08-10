@@ -1,1 +1,1 @@
-com.codbex.kronos.xsodata.ds.synchronizer.XSKODataClasspathContentHandler	# XSK OData Classpath Content Handler
+com.codbex.kronos.xsodata.ds.synchronizer.ODataClasspathContentHandler	# OData Classpath Content Handler

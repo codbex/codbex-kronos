@@ -1,0 +1,3 @@
+schema="public";
+query="SELECT T1.\"Column2\" FROM \"public\".\"acme.com.test.tables::MY_TABLE10\" AS T1 LEFT JOIN \"public\".\"acme.com.test.tables::MY_TABLE20\" AS T2 ON T1.\"Column1\" = T2.\"Column1\"";
+depends_on_table= ["acme.com.test.tables::MY_TABLE10","acme.com.test.tables::MY_TABLE20"];

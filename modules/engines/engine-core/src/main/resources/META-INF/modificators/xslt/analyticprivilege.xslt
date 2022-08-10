@@ -1,4 +1,4 @@
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:analyticPrivilegeTransformer="com.codbex.kronos.modificators.XSKProjectFilesModificator">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:analyticPrivilegeTransformer="com.codbex.kronos.modificators.ProjectFilesModificator">
   <xsl:output method="xml" version="1.0" encoding="UTF-8" omit-xml-declaration="yes"/>
 
   <xsl:template match="node()|@*">

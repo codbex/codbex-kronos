@@ -15,9 +15,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import com.sap.ndb.CalculationScenario;
-import com.sap.ndb.DataSources;
-import com.sap.ndb.DataSources.DataSource;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -30,6 +27,10 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.codbex.kronos.ndb.CalculationScenario;
+import com.codbex.kronos.ndb.DataSources;
+import com.codbex.kronos.ndb.DataSources.DataSource;
+
 public class CalculationViewTest {
 
   private static final Logger logger = LoggerFactory.getLogger(CalculationViewTest.class);
@@ -37,11 +38,11 @@ public class CalculationViewTest {
   @Test
   public void serialize() throws JAXBException {
     CalculationScenario calculationScenario = new CalculationScenario();
-    calculationScenario.setId("com.acme.samples::XSK_SIMPLE_CALC_VIEW");
+    calculationScenario.setId("com.codbex.kronos.samples::KRONOS_SIMPLE_CALC_VIEW");
     calculationScenario.setOutputViewType("Projection");
     DataSource dataSource = new DataSource();
-    dataSource.setId("XSK_SIMPLE_TABLE");
-    dataSource.setResourceUri("XSK_SIMPLE_TABLE");
+    dataSource.setId("KRONOS_SIMPLE_TABLE");
+    dataSource.setResourceUri("KRONOS_SIMPLE_TABLE");
     DataSources dataSources = new DataSources();
     dataSources.getDataSource().add(dataSource);
     calculationScenario.setDataSources(dataSources);

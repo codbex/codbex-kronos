@@ -1,7 +1,7 @@
 // Create a new zip object
 var zip = new $.util.Zip();
 // Set content to the zip object
-zip['xsk.txt'] = 'This is XSK';
+zip['kronos.txt'] = 'This is Kronos';
 
 // Download the zip file
 $.response.status = $.net.http.OK;

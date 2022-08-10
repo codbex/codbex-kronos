@@ -11,35 +11,73 @@
  */
 package com.codbex.kronos.parser.hdbdd.symbols.annotation;
 
+import java.util.List;
+
 import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
 import com.codbex.kronos.parser.hdbdd.symbols.context.Scope;
 
-import java.util.List;
-
+/**
+ * The Class ArraySymbol.
+ */
 public class ArraySymbol extends Symbol {
+    
+    /** The values. */
     private List<String> values;
+    
+    /** The value type. */
     private int valueType;
 
+    /**
+     * Instantiates a new array symbol.
+     *
+     * @param name the name
+     */
     public ArraySymbol(String name) {
         super(name);
     }
 
+    /**
+     * Instantiates a new array symbol.
+     *
+     * @param name the name
+     * @param scope the scope
+     */
     public ArraySymbol(String name, Scope scope) {
         super(name, scope);
     }
 
+    /**
+     * Gets the values.
+     *
+     * @return the values
+     */
     public List<String> getValues() {
         return values;
     }
 
+    /**
+     * Adds the value.
+     *
+     * @param value the value
+     */
     public void addValue(String value) {
         this.values.add(value);
     }
 
+    /**
+     * Gets the value type.
+     *
+     * @return the value type
+     */
     public int getValueType() {
         return valueType;
     }
 
+    /**
+     * Sets the value type.
+     *
+     * @param valueType the new value type
+     */
     public void setValueType(int valueType) {
         this.valueType = valueType;
     }

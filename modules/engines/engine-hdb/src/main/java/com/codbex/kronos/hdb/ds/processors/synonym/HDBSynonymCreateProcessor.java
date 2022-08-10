@@ -24,35 +24,45 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.codbex.kronos.hdb.ds.artefacts.HDBSynonymSynchronizationArtefactType;
-import com.codbex.kronos.hdb.ds.model.hdbsynonym.XSKDataStructureHDBSynonymModel;
-import com.codbex.kronos.hdb.ds.model.hdbsynonym.XSKHDBSYNONYMDefinitionModel;
-import com.codbex.kronos.hdb.ds.processors.AbstractXSKProcessor;
-import com.codbex.kronos.utils.XSKCommonsConstants;
-import com.codbex.kronos.utils.XSKCommonsUtils;
-import com.codbex.kronos.utils.XSKHDBUtils;
+import com.codbex.kronos.hdb.ds.model.hdbsynonym.DataStructureHDBSynonymModel;
+import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDefinitionModel;
+import com.codbex.kronos.hdb.ds.processors.AbstractHDBProcessor;
+import com.codbex.kronos.utils.CommonsConstants;
+import com.codbex.kronos.utils.CommonsUtils;
+import com.codbex.kronos.utils.HDBUtils;
 
 
-public class HDBSynonymCreateProcessor extends AbstractXSKProcessor<XSKDataStructureHDBSynonymModel> {
+/**
+ * The Class HDBSynonymCreateProcessor.
+ */
+public class HDBSynonymCreateProcessor extends AbstractHDBProcessor<DataStructureHDBSynonymModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDBSynonymCreateProcessor.class);
+  
+  /** The Constant SYNONYM_ARTEFACT. */
   private static final HDBSynonymSynchronizationArtefactType SYNONYM_ARTEFACT = new HDBSynonymSynchronizationArtefactType();
 
   /**
    * Execute :
-   * CREATE [PUBLIC] SYNONYM <synonym_name> FOR <synonym_source_object_name>
-   * <synonym_name> ::= [<schema_name>.]<identifier>
-   * <synonym_source_object_name>:==[<object_schema_name>.]<object_name>
+   * <code>CREATE [PUBLIC] SYNONYM {synonym_name} FOR {synonym_source_object_name}
+   * {synonym_name} ::= [{schema_name}.]{identifier}
+   * {synonym_source_object_name}:==[{object_schema_name}.]{object_name}</code>
    *
+   * @param connection the connection
+   * @param synonymModel the synonym model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
    * @see <a href="https://help.sap.com/viewer/4fe29514fd584807ac9f2a04f6754767/1.0.12/en-US/20d5412b75191014bc7ec7e133ce5bf5.html">CREATE SYNONYM Statement (Data Definition)</a>
    */
   @Override
-  public boolean execute(Connection connection, XSKDataStructureHDBSynonymModel synonymModel) throws SQLException {
-	  for (Map.Entry<String, XSKHDBSYNONYMDefinitionModel> entry : synonymModel.getSynonymDefinitions().entrySet()) {
+  public boolean execute(Connection connection, DataStructureHDBSynonymModel synonymModel) throws SQLException {
+	  for (Map.Entry<String, HDBSynonymDefinitionModel> entry : synonymModel.getSynonymDefinitions().entrySet()) {
 	      logger.info("Processing Create Synonym: " + entry.getKey());
 	
-	      String synonymName = (entry.getValue().getSynonymSchema() != null) ? (XSKHDBUtils.escapeArtifactName(entry.getKey(), entry.getValue().getSynonymSchema()))
-	          : (XSKHDBUtils.escapeArtifactName(entry.getKey()));
-	      String targetObjectName = XSKHDBUtils
+	      String synonymName = (entry.getValue().getSynonymSchema() != null) ? (HDBUtils.escapeArtifactName(entry.getKey(), entry.getValue().getSynonymSchema()))
+	          : (HDBUtils.escapeArtifactName(entry.getKey()));
+	      String targetObjectName = HDBUtils
 	          .escapeArtifactName(entry.getValue().getTarget().getObject(),
 	        		  entry.getValue().getTarget().getSchema());
 	      try {
@@ -61,8 +71,8 @@ public class HDBSynonymCreateProcessor extends AbstractXSKProcessor<XSKDataStruc
 	          ISqlDialect dialect = SqlFactory.deriveDialect(connection);
 	          if (!(dialect.getClass().equals(HanaSqlDialect.class))) {
 	            String errorMessage = String.format("Synonyms are not supported for %s !", dialect.getDatabaseName(connection));
-	            XSKCommonsUtils.logProcessorErrors(errorMessage, XSKCommonsConstants.PROCESSOR_ERROR, synonymModel.getLocation(),
-	                XSKCommonsConstants.HDB_SYNONYM_PARSER);
+	            CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, synonymModel.getLocation(),
+	                CommonsConstants.HDB_SYNONYM_PARSER);
 	            applyArtefactState(synonymName, synonymModel.getLocation(), SYNONYM_ARTEFACT, ArtefactState.FAILED_CREATE, errorMessage);
 	            throw new IllegalStateException(errorMessage);
 	          } else {
@@ -73,8 +83,8 @@ public class HDBSynonymCreateProcessor extends AbstractXSKProcessor<XSKDataStruc
 	              applyArtefactState(synonymName, synonymModel.getLocation(), SYNONYM_ARTEFACT, ArtefactState.SUCCESSFUL_CREATE, message);
 	            } catch (SQLException ex) {
 	              String errorMessage = String.format("Create synonym [%s] skipped due to an error: %s", synonymName, ex.getMessage());
-	              XSKCommonsUtils.logProcessorErrors(ex.getMessage(), XSKCommonsConstants.PROCESSOR_ERROR, synonymModel.getLocation(),
-	                  XSKCommonsConstants.HDB_SYNONYM_PARSER);
+	              CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, synonymModel.getLocation(),
+	                  CommonsConstants.HDB_SYNONYM_PARSER);
 	              applyArtefactState(synonymName, synonymModel.getLocation(), SYNONYM_ARTEFACT, ArtefactState.FAILED_CREATE, errorMessage);
 	              return false;
 	            }

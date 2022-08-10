@@ -1,4 +1,4 @@
-table.schemaName = "EVENTS";
+table.schemaName = "SPORTS";
 table.tableType = COLUMNSTORE;
 table.tableType = COLUMNSTORE;
 table.columns = [

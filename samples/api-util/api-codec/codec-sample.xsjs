@@ -1,8 +1,8 @@
 const codec = $.util.codec;
 const util = $.util;
 
-const text1 = "Project XSK as Hex";
-const text2 = "Project XSK as Base64";
+const text1 = "Project Kronos as Hex";
+const text2 = "Project Kronos as Base64";
 
 //Hex
 let result = "";

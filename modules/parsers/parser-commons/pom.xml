@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>com.codbex.kronos</groupId>
-    <artifactId>codbex-kronos-modules-parsers-parent</artifactId>
-    <version>0.17.0-SNAPSHOT</version>
-    <relativePath>../pom.xml</relativePath>
-  </parent>
+    <parent>
+        <groupId>com.codbex.kronos</groupId>
+        <artifactId>kronos-modules-parsers-parent</artifactId>
+        <version>0.2.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
 
-  <name>Kronos - Modules - Parsers - Commons</name>
-  <artifactId>codbex-kronos-modules-parsers-commons</artifactId>
-  <version>0.17.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+    <name>Kronos - Modules - Parsers - Commons</name>
+    <artifactId>kronos-modules-parsers-commons</artifactId>
+    <version>0.2.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
-  <properties>
-    <license.header.location>../../../licensing-header.txt</license.header.location>
-  </properties>
+    <properties>
+        <license.header.location>../../../licensing-header.txt</license.header.location>
+    </properties>
 
 </project>

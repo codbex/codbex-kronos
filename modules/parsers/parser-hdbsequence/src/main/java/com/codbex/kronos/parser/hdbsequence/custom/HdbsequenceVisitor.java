@@ -9,39 +9,17 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-/*
- * Copyright (c) 2019-2021 SAP SE or an SAP affiliate company and XSK contributors
- *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Apache License, v2.0
- * which accompanies this distribution, and is available at
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * SPDX-FileCopyrightText: 2019-2021 SAP SE or an SAP affiliate company and XSK contributors
- * SPDX-License-Identifier: Apache-2.0
- */
-/*
- * Copyright (c) 2019-2021 SAP SE or an SAP affiliate company and XSK contributors
- *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Apache License, v2.0
- * which accompanies this distribution, and is available at
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * SPDX-FileCopyrightText: 2019-2021 SAP SE or an SAP affiliate company and XSK contributors
- * SPDX-License-Identifier: Apache-2.0
- */
 package com.codbex.kronos.parser.hdbsequence.custom;
 
-import com.codbex.kronos.parser.hdbsequence.exceptions.XSKHDBSequenceDuplicatePropertyException;
-import com.codbex.kronos.parser.hdbsequence.utils.HDBSequenceConstants;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import com.codbex.kronos.parser.hdbsequence.core.HdbsequenceBaseVisitor;
 import com.codbex.kronos.parser.hdbsequence.core.HdbsequenceParser;
 import com.codbex.kronos.parser.hdbsequence.core.HdbsequenceParser.DependsOnTableContext;
 import com.codbex.kronos.parser.hdbsequence.core.HdbsequenceParser.DependsOnViewContext;
+import com.codbex.kronos.parser.hdbsequence.exceptions.HDBSequenceDuplicatePropertyException;
+import com.codbex.kronos.parser.hdbsequence.utils.HDBSequenceConstants;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -50,19 +28,35 @@ import java.util.HashSet;
 import java.util.List;
 
 
+/**
+ * The Class HdbsequenceVisitor.
+ */
 public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
 
+  /** The visited properties. */
   private HashSet<String> visitedProperties = new HashSet<>();
 
-  private void checkForPropertyRepetition(String property) throws XSKHDBSequenceDuplicatePropertyException {
+  /**
+   * Check for property repetition.
+   *
+   * @param property the property
+   * @throws HDBSequenceDuplicatePropertyException the HDB sequence duplicate property exception
+   */
+  private void checkForPropertyRepetition(String property) throws HDBSequenceDuplicatePropertyException {
     if (!visitedProperties.contains(property)) {
       visitedProperties.add(property);
     } else {
 
-      throw new XSKHDBSequenceDuplicatePropertyException(String.format("Property %s is already declared!", property));
+      throw new HDBSequenceDuplicatePropertyException(String.format("Property %s is already declared!", property));
     }
   }
 
+  /**
+   * Visit hdbsequence.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   */
   @Override
   public JsonElement visitHdbsequence(@NotNull HdbsequenceParser.HdbsequenceContext ctx) {
     JsonObject parsedObj = new JsonObject();
@@ -98,6 +92,12 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
     return parsedObj;
   }
 
+  /**
+   * Visit schema.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   */
   @Override
   public JsonElement visitSchema(@NotNull HdbsequenceParser.SchemaContext ctx) {
     checkForPropertyRepetition(HDBSequenceConstants.SCHEMA_PROPERTY);
@@ -107,6 +107,12 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
 
   }
 
+  /**
+   * Visit publicc.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   */
   @Override
   public JsonElement visitPublicc(@NotNull HdbsequenceParser.PubliccContext ctx) {
     checkForPropertyRepetition(HDBSequenceConstants.PUBLIC_PROPERTY);
@@ -115,6 +121,12 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
         : new JsonPrimitive(HDBSequenceConstants.PUBLIC_DEFAULT_VALUE);
   }
 
+  /**
+   * Visit maxvalue.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   */
   @Override
   public JsonElement visitMaxvalue(HdbsequenceParser.MaxvalueContext ctx) {
     checkForPropertyRepetition(HDBSequenceConstants.MAXVALUE_PROPERTY);
@@ -123,6 +135,12 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
         : null;
   }
 
+  /**
+   * Visit nomaxvalue.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   */
   @Override
   public JsonElement visitNomaxvalue(HdbsequenceParser.NomaxvalueContext ctx) {
     checkForPropertyRepetition(HDBSequenceConstants.NOMAXVALUE_PROPERTY);
@@ -131,54 +149,102 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
         : new JsonPrimitive(HDBSequenceConstants.NOMAXVALUE_DEFAULT_VALUE);
   }
   
+  /**
+   * Visit nominvalue.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   * @throws HDBSequenceDuplicatePropertyException the HDB sequence duplicate property exception
+   */
   @Override
-  public JsonElement visitNominvalue(HdbsequenceParser.NominvalueContext ctx) throws XSKHDBSequenceDuplicatePropertyException {
+  public JsonElement visitNominvalue(HdbsequenceParser.NominvalueContext ctx) throws HDBSequenceDuplicatePropertyException {
     checkForPropertyRepetition(HDBSequenceConstants.NOMINVALUE_PROPERTY);
     return (ctx != null && ctx.BOOLEAN() != null)
         ? new JsonPrimitive(Boolean.parseBoolean(ctx.BOOLEAN().getText()))
         : new JsonPrimitive(HDBSequenceConstants.NOMINVALUE_DEFAULT_VALUE);
   }
 
+  /**
+   * Visit cycles.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   * @throws HDBSequenceDuplicatePropertyException the HDB sequence duplicate property exception
+   */
   @Override
-  public JsonElement visitCycles(HdbsequenceParser.CyclesContext ctx) throws XSKHDBSequenceDuplicatePropertyException {
+  public JsonElement visitCycles(HdbsequenceParser.CyclesContext ctx) throws HDBSequenceDuplicatePropertyException {
     checkForPropertyRepetition(HDBSequenceConstants.CYCLES_PROPERTY);
     return (ctx != null && ctx.BOOLEAN() != null)
         ? new JsonPrimitive(Boolean.parseBoolean(ctx.BOOLEAN().getText()))
         : null;
   }
 
+  /**
+   * Visit minvalue.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   * @throws HDBSequenceDuplicatePropertyException the HDB sequence duplicate property exception
+   */
   @Override
-  public JsonElement visitMinvalue(HdbsequenceParser.MinvalueContext ctx) throws XSKHDBSequenceDuplicatePropertyException {
+  public JsonElement visitMinvalue(HdbsequenceParser.MinvalueContext ctx) throws HDBSequenceDuplicatePropertyException {
     checkForPropertyRepetition(HDBSequenceConstants.MINVALUE_PROPERTY);
     return (ctx != null && ctx.INT() != null)
         ? new JsonPrimitive(Integer.parseInt(ctx.INT().getText()))
         : null;
   }
 
+  /**
+   * Visit reset by.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   * @throws HDBSequenceDuplicatePropertyException the HDB sequence duplicate property exception
+   */
   @Override
-  public JsonElement visitReset_by(HdbsequenceParser.Reset_byContext ctx) throws XSKHDBSequenceDuplicatePropertyException {
+  public JsonElement visitReset_by(HdbsequenceParser.Reset_byContext ctx) throws HDBSequenceDuplicatePropertyException {
     checkForPropertyRepetition(HDBSequenceConstants.RESET_BY_PROPERTY);
     return (ctx != null && ctx.STRING() != null)
         ? new JsonPrimitive(ctx.STRING().getText())
         : null;
   }
 
+  /**
+   * Visit increment by.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   * @throws HDBSequenceDuplicatePropertyException the HDB sequence duplicate property exception
+   */
   @Override
-  public JsonElement visitIncrement_by(HdbsequenceParser.Increment_byContext ctx) throws XSKHDBSequenceDuplicatePropertyException {
+  public JsonElement visitIncrement_by(HdbsequenceParser.Increment_byContext ctx) throws HDBSequenceDuplicatePropertyException {
     checkForPropertyRepetition(HDBSequenceConstants.INCREMENT_BY_PROPERTY);
     return (ctx != null && ctx.INT() != null)
         ? new JsonPrimitive(Integer.parseInt(ctx.INT().getText()))
         : new JsonPrimitive(HDBSequenceConstants.INCREMENT_BY_DEFAULT_VALUE);
   }
 
+  /**
+   * Visit start with.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   * @throws HDBSequenceDuplicatePropertyException the HDB sequence duplicate property exception
+   */
   @Override
-  public JsonElement visitStart_with(HdbsequenceParser.Start_withContext ctx) throws XSKHDBSequenceDuplicatePropertyException {
+  public JsonElement visitStart_with(HdbsequenceParser.Start_withContext ctx) throws HDBSequenceDuplicatePropertyException {
     checkForPropertyRepetition(HDBSequenceConstants.START_WITH_PROPERTY);
     return (ctx != null && ctx.INT() != null)
         ? new JsonPrimitive(Integer.parseInt(ctx.INT().getText()))
         : new JsonPrimitive(HDBSequenceConstants.START_WITH_DEFAULT_VALUE);
   }
 
+  /**
+   * Visit depends on table.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   */
   @Override
   public JsonElement visitDependsOnTable(DependsOnTableContext ctx) {
     checkForPropertyRepetition(HDBSequenceConstants.DEPENDS_ON_TABLE_PROPERTY);
@@ -187,6 +253,12 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
             : null;
   }
 
+  /**
+   * Visit depends on view.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   */
   @Override
   public JsonElement visitDependsOnView(DependsOnViewContext ctx) {
     checkForPropertyRepetition(HDBSequenceConstants.DEPENDS_ON_VIEW_PROPERTY);

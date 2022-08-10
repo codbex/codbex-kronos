@@ -1,1 +1,1 @@
-com.codbex.kronos.resources.neo.sdk.synchronizer.XSKResourcesNeoSdkSynchronizerJobDefinitionProvider # XSK Resources Neo Sdk Synchronizer Job Definition Provider
+com.codbex.kronos.resources.neo.sdk.synchronizer.ResourcesNeoSdkSynchronizerJobDefinitionProvider # Resources Neo Sdk Synchronizer Job Definition Provider

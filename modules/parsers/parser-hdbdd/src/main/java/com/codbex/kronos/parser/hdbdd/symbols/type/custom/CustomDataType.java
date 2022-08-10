@@ -11,5 +11,8 @@
  */
 package com.codbex.kronos.parser.hdbdd.symbols.type.custom;
 
+/**
+ * The Interface CustomDataType.
+ */
 public interface CustomDataType {
 }

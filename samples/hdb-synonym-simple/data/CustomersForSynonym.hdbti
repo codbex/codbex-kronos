@@ -6,6 +6,6 @@ import = [
 		useHeaderNames = false;
 		delimField = ",";
 		distinguishEmptyFromNull = true;
-		schema = "XSK_SAMPLES_HDB_SYNONYM_SIMPLE";
+		schema = "SAMPLES_HDB_SYNONYM_SIMPLE";
 	}
 ];

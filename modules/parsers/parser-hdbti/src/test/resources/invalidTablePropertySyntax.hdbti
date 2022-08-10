@@ -1,8 +1,8 @@
 import = [
    {
-     cdstable = "acme.ti2.demo:target_table";
+     cdstable = "sap.ti2.demo:target_table";
      schema = "mySchema";
-     file = "acme.ti2.demo:myData.csv";
+     file = "sap.ti2.demo:myData.csv";
      header = false;
      useHeaderNames = false;
      delimField = ";";

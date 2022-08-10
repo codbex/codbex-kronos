@@ -16,13 +16,31 @@ package com.codbex.kronos.hdb.ds.transformer.hdbdd;
  * See also {@link com.codbex.kronos.parser.hdbdd.symbols.SymbolTable}.
  */
 public enum CdsHanaTypeEnum {
+  
+  /** The nvarchar. */
   NVARCHAR,
+  
+  /** The alphanumeric. */
   ALPHANUMERIC,
+  
+  /** The smallint. */
   SMALLINT,
+  
+  /** The tinyint. */
   TINYINT,
+  
+  /** The smalldecimal. */
   SMALLDECIMAL,
+  
+  /** The clob. */
   CLOB,
+  
+  /** The binary. */
   BINARY,
+  
+  /** The st point. */
   ST_POINT,
+  
+  /** The st geometry. */
   ST_GEOMETRY
 }

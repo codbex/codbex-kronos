@@ -11,7 +11,12 @@
  */
 package com.codbex.kronos.parser.hdbdd.factory;
 
+import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.misc.Interval;
+
 import com.codbex.kronos.parser.hdbdd.core.CdsParser.AssociationContext;
+import com.codbex.kronos.parser.hdbdd.core.CdsParser.CalculatedAssociationContext;
 import com.codbex.kronos.parser.hdbdd.core.CdsParser.ContextRuleContext;
 import com.codbex.kronos.parser.hdbdd.core.CdsParser.DataTypeRuleContext;
 import com.codbex.kronos.parser.hdbdd.core.CdsParser.ElementDeclRuleContext;
@@ -35,26 +40,68 @@ import com.codbex.kronos.parser.hdbdd.symbols.type.field.FieldSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.view.ViewSymbol;
 import com.codbex.kronos.parser.hdbdd.util.HdbddUtils;
 
-import org.antlr.v4.runtime.Token;
-
+/**
+ * A factory for creating Symbol objects.
+ */
 public class SymbolFactory {
 
+  /**
+   * Gets the symbol.
+   *
+   * @param contextRuleContext the context rule context
+   * @param currentScope the current scope
+   * @param schema the schema
+   * @return the symbol
+   */
   public Symbol getSymbol(ContextRuleContext contextRuleContext, Scope currentScope, String schema) {
     return getSymbol(currentScope, schema, contextRuleContext.artifactName, contextRuleContext.artifactType);
   }
 
+  /**
+   * Gets the symbol.
+   *
+   * @param structuredTypeRuleContext the structured type rule context
+   * @param currentScope the current scope
+   * @param schema the schema
+   * @return the symbol
+   */
   public Symbol getSymbol(StructuredTypeRuleContext structuredTypeRuleContext, Scope currentScope, String schema) {
     return getSymbol(currentScope, schema, structuredTypeRuleContext.artifactName, structuredTypeRuleContext.artifactType);
   }
 
+  /**
+   * Gets the symbol.
+   *
+   * @param entityRuleContext the entity rule context
+   * @param currentScope the current scope
+   * @param schema the schema
+   * @return the symbol
+   */
   public Symbol getSymbol(EntityRuleContext entityRuleContext, Scope currentScope, String schema) {
     return getSymbol(currentScope, schema, entityRuleContext.artifactName, entityRuleContext.artifactType);
   }
 
+  /**
+   * Gets the symbol.
+   *
+   * @param viewRuleContext the view rule context
+   * @param currentScope the current scope
+   * @param schema the schema
+   * @return the symbol
+   */
   public Symbol getSymbol(ViewRuleContext viewRuleContext, Scope currentScope, String schema) {
     return getSymbol(currentScope, schema, viewRuleContext.artifactName, viewRuleContext.artifactType);
   }
 
+  /**
+   * Gets the symbol.
+   *
+   * @param currentScope the current scope
+   * @param schema the schema
+   * @param artifactName the artifact name
+   * @param artifactType the artifact type
+   * @return the symbol
+   */
   private Symbol getSymbol(Scope currentScope, String schema, IdentifierContext artifactName, Token artifactType) {
     String symbolId = HdbddUtils.processEscapedSymbolName(artifactName.getText());
     checkForDuplicateName(symbolId, currentScope, artifactName.start.getLine());
@@ -83,6 +130,14 @@ public class SymbolFactory {
     }
   }
 
+  /**
+   * Gets the data type symbol.
+   *
+   * @param ctx the ctx
+   * @param currentScope the current scope
+   * @param schema the schema
+   * @return the data type symbol
+   */
   public DataTypeSymbol getDataTypeSymbol(DataTypeRuleContext ctx, Scope currentScope, String schema) {
     String typeId = HdbddUtils.processEscapedSymbolName(ctx.artifactName.getText());
     checkForDuplicateName(typeId, currentScope, ctx.artifactName.start.getLine());
@@ -97,6 +152,13 @@ public class SymbolFactory {
             ctx.artifactType.getText()));
   }
 
+  /**
+   * Gets the entity element symbol.
+   *
+   * @param ctx the ctx
+   * @param currentScope the current scope
+   * @return the entity element symbol
+   */
   public EntityElementSymbol getEntityElementSymbol(ElementDeclRuleContext ctx, Scope currentScope) {
     String elementId = HdbddUtils.processEscapedSymbolName(ctx.name.getText());
     checkForDuplicateName(elementId, currentScope, ctx.name.start.getLine());
@@ -113,6 +175,32 @@ public class SymbolFactory {
     return elementSymbol;
   }
 
+  /**
+   * Gets the calculated column symbol.
+   *
+   * @param ctx the ctx
+   * @param currentScope the current scope
+   * @return the calculated column symbol
+   */
+  public EntityElementSymbol getCalculatedColumnSymbol(CalculatedAssociationContext ctx, Scope currentScope) {
+    String elementId = HdbddUtils.processEscapedSymbolName(ctx.ascId.getText());
+    checkForDuplicateName(elementId, currentScope, ctx.ascId.start.getLine());
+
+    EntityElementSymbol elementSymbol = new EntityElementSymbol(elementId, currentScope);
+    elementSymbol.setIdToken(ctx.ascId);
+    elementSymbol.setCalculatedColumn(true);
+    elementSymbol.setStatement(getStringWithSpaces(ctx.statement()));
+
+    return elementSymbol;
+  }
+
+  /**
+   * Gets the field symbol.
+   *
+   * @param ctx the ctx
+   * @param currentScope the current scope
+   * @return the field symbol
+   */
   public FieldSymbol getFieldSymbol(FieldDeclRuleContext ctx, Scope currentScope) {
     String filedId = HdbddUtils.processEscapedSymbolName(ctx.identifier().getText());
     checkForDuplicateName(filedId, currentScope, ctx.identifier().start.getLine());
@@ -122,6 +210,13 @@ public class SymbolFactory {
     return fieldSymbol;
   }
 
+  /**
+   * Gets the association symbol.
+   *
+   * @param ctx the ctx
+   * @param currentScope the current scope
+   * @return the association symbol
+   */
   public AssociationSymbol getAssociationSymbol(AssociationContext ctx, Scope currentScope) {
     String associationId = HdbddUtils.processEscapedSymbolName(ctx.ascId.getText());
     checkForDuplicateName(associationId, currentScope, ctx.ascId.start.getLine());
@@ -137,6 +232,15 @@ public class SymbolFactory {
     return associationSymbol;
   }
 
+  /**
+   * Creates a new Symbol object.
+   *
+   * @param symbolId the symbol id
+   * @param currentScope the current scope
+   * @param schema the schema
+   * @param idToken the id token
+   * @return the symbol
+   */
   private Symbol createSymbol(String symbolId, Scope currentScope, String schema, IdentifierContext idToken) {
     Symbol symbol = new Symbol(symbolId, currentScope);
     symbol.setIdToken(idToken);
@@ -145,12 +249,25 @@ public class SymbolFactory {
     return symbol;
   }
 
+  /**
+   * Check for duplicate name.
+   *
+   * @param contextId the context id
+   * @param currentScope the current scope
+   * @param line the line
+   */
   private void checkForDuplicateName(String contextId, Scope currentScope, int line) {
     if (currentScope.isDuplicateName(contextId)) {
       throw new CDSRuntimeException(String.format("Error at line: %s  - Duplicate name for: %s", line, contextId));
     }
   }
 
+  /**
+   * Parses the to symbol type enum.
+   *
+   * @param artifactType the artifact type
+   * @return the symbol type enum
+   */
   private SymbolTypeEnum parseToSymbolTypeEnum(Token artifactType) {
     try {
       return SymbolTypeEnum.valueOf(artifactType.getText().toUpperCase());
@@ -158,5 +275,18 @@ public class SymbolFactory {
       throw new CDSRuntimeException(
           String.format("Error at line: %s  - '%s' is not a valid artifact type.", artifactType.getLine(), artifactType.getText()));
     }
+  }
+
+  /**
+   * Gets the string with spaces.
+   *
+   * @param ctx the ctx
+   * @return the string with spaces
+   */
+  private String getStringWithSpaces(ParserRuleContext ctx) {
+    int startIndex = ctx.start.getStartIndex();
+    int stopIndex = ctx.stop.getStopIndex();
+    Interval selectedColumnsRuleSqlInterval = new Interval(startIndex, stopIndex);
+    return ctx.start.getInputStream().getText(selectedColumnsRuleSqlInterval);
   }
 }

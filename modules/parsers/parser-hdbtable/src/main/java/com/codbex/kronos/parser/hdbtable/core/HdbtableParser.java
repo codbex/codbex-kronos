@@ -20,13 +20,21 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
+/**
+ * The Class HdbtableParser.
+ */
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class HdbtableParser extends Parser {
 	static { RuntimeMetaData.checkVersion("4.10.1", RuntimeMetaData.VERSION); }
 
+	/** The Constant _decisionToDFA. */
 	protected static final DFA[] _decisionToDFA;
+	
+	/** The Constant _sharedContextCache. */
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
+	
+	/** The Constant COMMENT. */
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
@@ -35,6 +43,8 @@ public class HdbtableParser extends Parser {
 		SEMICOLON=33, SQLTYPES=34, BOOLEAN=35, ORDER=36, INDEXTYPE=37, INT=38, 
 		TABLETYPE=39, TABLELOGGINGTYPE=40, DATETIMEDEFAULTVALUES=41, LINE_COMMENT=42, 
 		COMMENT=43;
+	
+	/** The Constant RULE_indexColumnsArray. */
 	public static final int
 		RULE_hdbtableDefinition = 0, RULE_hdbtableProperties = 1, RULE_schemaNameProp = 2, 
 		RULE_temporaryProp = 3, RULE_tableTypeProp = 4, RULE_publicProp = 5, RULE_loggingTypeProp = 6, 
@@ -47,6 +57,12 @@ public class HdbtableParser extends Parser {
 		RULE_columnAssignPrecision = 24, RULE_columnAssignScale = 25, RULE_indexAssignName = 26, 
 		RULE_indexAssignUnique = 27, RULE_indexAssignOrder = 28, RULE_indexAssignIndexColumns = 29, 
 		RULE_indexAssignIndexType = 30, RULE_indexColumnsArray = 31;
+	
+	/**
+	 * Make rule names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"hdbtableDefinition", "hdbtableProperties", "schemaNameProp", "temporaryProp", 
@@ -60,8 +76,15 @@ public class HdbtableParser extends Parser {
 			"indexAssignIndexType", "indexColumnsArray"
 		};
 	}
+	
+	/** The Constant ruleNames. */
 	public static final String[] ruleNames = makeRuleNames();
 
+	/**
+	 * Make literal names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'schemaName'", "'temporary'", "'tableType'", "'public'", "'loggingType'", 
@@ -72,7 +95,15 @@ public class HdbtableParser extends Parser {
 			"'.'", "'='", "';'"
 		};
 	}
+	
+	/** The Constant _LITERAL_NAMES. */
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
+	
+	/**
+	 * Make symbolic names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
@@ -82,10 +113,16 @@ public class HdbtableParser extends Parser {
 			"DATETIMEDEFAULTVALUES", "LINE_COMMENT", "COMMENT"
 		};
 	}
+	
+	/** The Constant _SYMBOLIC_NAMES. */
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
+	
+	/** The Constant VOCABULARY. */
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
 	/**
+	 * The Constant tokenNames.
+	 *
 	 * @deprecated Use {@link #VOCABULARY} instead.
 	 */
 	@Deprecated
@@ -104,54 +141,138 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Gets the token names.
+	 *
+	 * @return the token names
+	 */
 	@Override
 	@Deprecated
 	public String[] getTokenNames() {
 		return tokenNames;
 	}
 
+	/**
+	 * Gets the vocabulary.
+	 *
+	 * @return the vocabulary
+	 */
 	@Override
 
 	public Vocabulary getVocabulary() {
 		return VOCABULARY;
 	}
 
+	/**
+	 * Gets the grammar file name.
+	 *
+	 * @return the grammar file name
+	 */
 	@Override
 	public String getGrammarFileName() { return "Hdbtable.g4"; }
 
+	/**
+	 * Gets the rule names.
+	 *
+	 * @return the rule names
+	 */
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
 
+	/**
+	 * Gets the serialized ATN.
+	 *
+	 * @return the serialized ATN
+	 */
 	@Override
 	public String getSerializedATN() { return _serializedATN; }
 
+	/**
+	 * Gets the atn.
+	 *
+	 * @return the atn
+	 */
 	@Override
 	public ATN getATN() { return _ATN; }
 
+	/**
+	 * Instantiates a new hdbtable parser.
+	 *
+	 * @param input the input
+	 */
 	public HdbtableParser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
+	/**
+	 * The Class HdbtableDefinitionContext.
+	 */
 	public static class HdbtableDefinitionContext extends ParserRuleContext {
+		
+		/**
+		 * Hdbtable properties.
+		 *
+		 * @return the list
+		 */
 		public List<HdbtablePropertiesContext> hdbtableProperties() {
 			return getRuleContexts(HdbtablePropertiesContext.class);
 		}
+		
+		/**
+		 * Hdbtable properties.
+		 *
+		 * @param i the i
+		 * @return the hdbtable properties context
+		 */
 		public HdbtablePropertiesContext hdbtableProperties(int i) {
 			return getRuleContext(HdbtablePropertiesContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new hdbtable definition context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public HdbtableDefinitionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_hdbtableDefinition; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterHdbtableDefinition(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitHdbtableDefinition(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitHdbtableDefinition(this);
@@ -159,6 +280,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Hdbtable definition.
+	 *
+	 * @return the hdbtable definition context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final HdbtableDefinitionContext hdbtableDefinition() throws RecognitionException {
 		HdbtableDefinitionContext _localctx = new HdbtableDefinitionContext(_ctx, getState());
 		enterRule(_localctx, 0, RULE_hdbtableDefinition);
@@ -193,49 +320,145 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class HdbtablePropertiesContext.
+	 */
 	public static class HdbtablePropertiesContext extends ParserRuleContext {
+		
+		/**
+		 * Schema name prop.
+		 *
+		 * @return the schema name prop context
+		 */
 		public SchemaNamePropContext schemaNameProp() {
 			return getRuleContext(SchemaNamePropContext.class,0);
 		}
+		
+		/**
+		 * Temporary prop.
+		 *
+		 * @return the temporary prop context
+		 */
 		public TemporaryPropContext temporaryProp() {
 			return getRuleContext(TemporaryPropContext.class,0);
 		}
+		
+		/**
+		 * Table type prop.
+		 *
+		 * @return the table type prop context
+		 */
 		public TableTypePropContext tableTypeProp() {
 			return getRuleContext(TableTypePropContext.class,0);
 		}
+		
+		/**
+		 * Public prop.
+		 *
+		 * @return the public prop context
+		 */
 		public PublicPropContext publicProp() {
 			return getRuleContext(PublicPropContext.class,0);
 		}
+		
+		/**
+		 * Logging type prop.
+		 *
+		 * @return the logging type prop context
+		 */
 		public LoggingTypePropContext loggingTypeProp() {
 			return getRuleContext(LoggingTypePropContext.class,0);
 		}
+		
+		/**
+		 * Table columns prop.
+		 *
+		 * @return the table columns prop context
+		 */
 		public TableColumnsPropContext tableColumnsProp() {
 			return getRuleContext(TableColumnsPropContext.class,0);
 		}
+		
+		/**
+		 * Table indexes prop.
+		 *
+		 * @return the table indexes prop context
+		 */
 		public TableIndexesPropContext tableIndexesProp() {
 			return getRuleContext(TableIndexesPropContext.class,0);
 		}
+		
+		/**
+		 * Table primary key prop.
+		 *
+		 * @return the table primary key prop context
+		 */
 		public TablePrimaryKeyPropContext tablePrimaryKeyProp() {
 			return getRuleContext(TablePrimaryKeyPropContext.class,0);
 		}
+		
+		/**
+		 * Table primary key index type prop.
+		 *
+		 * @return the table primary key index type prop context
+		 */
 		public TablePrimaryKeyIndexTypePropContext tablePrimaryKeyIndexTypeProp() {
 			return getRuleContext(TablePrimaryKeyIndexTypePropContext.class,0);
 		}
+		
+		/**
+		 * Description prop.
+		 *
+		 * @return the description prop context
+		 */
 		public DescriptionPropContext descriptionProp() {
 			return getRuleContext(DescriptionPropContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new hdbtable properties context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public HdbtablePropertiesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_hdbtableProperties; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterHdbtableProperties(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitHdbtableProperties(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitHdbtableProperties(this);
@@ -243,6 +466,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Hdbtable properties.
+	 *
+	 * @return the hdbtable properties context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final HdbtablePropertiesContext hdbtableProperties() throws RecognitionException {
 		HdbtablePropertiesContext _localctx = new HdbtablePropertiesContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_hdbtableProperties);
@@ -333,24 +562,90 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class SchemaNamePropContext.
+	 */
 	public static class SchemaNamePropContext extends ParserRuleContext {
+		
+		/**
+		 * Table.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode TABLE() { return getToken(HdbtableParser.TABLE, 0); }
+		
+		/**
+		 * Dot.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode DOT() { return getToken(HdbtableParser.DOT, 0); }
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtableParser.EQ, 0); }
+		
+		/**
+		 * String.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING() { return getToken(HdbtableParser.STRING, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbtableParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new schema name prop context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public SchemaNamePropContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_schemaNameProp; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterSchemaNameProp(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitSchemaNameProp(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitSchemaNameProp(this);
@@ -358,6 +653,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Schema name prop.
+	 *
+	 * @return the schema name prop context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final SchemaNamePropContext schemaNameProp() throws RecognitionException {
 		SchemaNamePropContext _localctx = new SchemaNamePropContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_schemaNameProp);
@@ -389,24 +690,90 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class TemporaryPropContext.
+	 */
 	public static class TemporaryPropContext extends ParserRuleContext {
+		
+		/**
+		 * Table.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode TABLE() { return getToken(HdbtableParser.TABLE, 0); }
+		
+		/**
+		 * Dot.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode DOT() { return getToken(HdbtableParser.DOT, 0); }
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtableParser.EQ, 0); }
+		
+		/**
+		 * Boolean.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode BOOLEAN() { return getToken(HdbtableParser.BOOLEAN, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbtableParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new temporary prop context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public TemporaryPropContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_temporaryProp; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterTemporaryProp(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitTemporaryProp(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitTemporaryProp(this);
@@ -414,6 +781,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Temporary prop.
+	 *
+	 * @return the temporary prop context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final TemporaryPropContext temporaryProp() throws RecognitionException {
 		TemporaryPropContext _localctx = new TemporaryPropContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_temporaryProp);
@@ -445,24 +818,90 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class TableTypePropContext.
+	 */
 	public static class TableTypePropContext extends ParserRuleContext {
+		
+		/**
+		 * Table.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode TABLE() { return getToken(HdbtableParser.TABLE, 0); }
+		
+		/**
+		 * Dot.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode DOT() { return getToken(HdbtableParser.DOT, 0); }
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtableParser.EQ, 0); }
+		
+		/**
+		 * Tabletype.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode TABLETYPE() { return getToken(HdbtableParser.TABLETYPE, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbtableParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new table type prop context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public TableTypePropContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_tableTypeProp; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterTableTypeProp(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitTableTypeProp(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitTableTypeProp(this);
@@ -470,6 +909,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Table type prop.
+	 *
+	 * @return the table type prop context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final TableTypePropContext tableTypeProp() throws RecognitionException {
 		TableTypePropContext _localctx = new TableTypePropContext(_ctx, getState());
 		enterRule(_localctx, 8, RULE_tableTypeProp);
@@ -501,24 +946,90 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class PublicPropContext.
+	 */
 	public static class PublicPropContext extends ParserRuleContext {
+		
+		/**
+		 * Table.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode TABLE() { return getToken(HdbtableParser.TABLE, 0); }
+		
+		/**
+		 * Dot.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode DOT() { return getToken(HdbtableParser.DOT, 0); }
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtableParser.EQ, 0); }
+		
+		/**
+		 * Boolean.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode BOOLEAN() { return getToken(HdbtableParser.BOOLEAN, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbtableParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new public prop context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public PublicPropContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_publicProp; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterPublicProp(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitPublicProp(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitPublicProp(this);
@@ -526,6 +1037,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Public prop.
+	 *
+	 * @return the public prop context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final PublicPropContext publicProp() throws RecognitionException {
 		PublicPropContext _localctx = new PublicPropContext(_ctx, getState());
 		enterRule(_localctx, 10, RULE_publicProp);
@@ -557,24 +1074,90 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class LoggingTypePropContext.
+	 */
 	public static class LoggingTypePropContext extends ParserRuleContext {
+		
+		/**
+		 * Table.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode TABLE() { return getToken(HdbtableParser.TABLE, 0); }
+		
+		/**
+		 * Dot.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode DOT() { return getToken(HdbtableParser.DOT, 0); }
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtableParser.EQ, 0); }
+		
+		/**
+		 * Tableloggingtype.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode TABLELOGGINGTYPE() { return getToken(HdbtableParser.TABLELOGGINGTYPE, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbtableParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new logging type prop context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public LoggingTypePropContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_loggingTypeProp; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterLoggingTypeProp(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitLoggingTypeProp(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitLoggingTypeProp(this);
@@ -582,6 +1165,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Logging type prop.
+	 *
+	 * @return the logging type prop context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final LoggingTypePropContext loggingTypeProp() throws RecognitionException {
 		LoggingTypePropContext _localctx = new LoggingTypePropContext(_ctx, getState());
 		enterRule(_localctx, 12, RULE_loggingTypeProp);
@@ -613,29 +1202,102 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class TableColumnsPropContext.
+	 */
 	public static class TableColumnsPropContext extends ParserRuleContext {
+		
+		/**
+		 * Table.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode TABLE() { return getToken(HdbtableParser.TABLE, 0); }
+		
+		/**
+		 * Dot.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode DOT() { return getToken(HdbtableParser.DOT, 0); }
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtableParser.EQ, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbtableParser.SEMICOLON, 0); }
+		
+		/**
+		 * Columns object.
+		 *
+		 * @return the list
+		 */
 		public List<ColumnsObjectContext> columnsObject() {
 			return getRuleContexts(ColumnsObjectContext.class);
 		}
+		
+		/**
+		 * Columns object.
+		 *
+		 * @param i the i
+		 * @return the columns object context
+		 */
 		public ColumnsObjectContext columnsObject(int i) {
 			return getRuleContext(ColumnsObjectContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new table columns prop context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public TableColumnsPropContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_tableColumnsProp; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterTableColumnsProp(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitTableColumnsProp(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitTableColumnsProp(this);
@@ -643,6 +1305,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Table columns prop.
+	 *
+	 * @return the table columns prop context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final TableColumnsPropContext tableColumnsProp() throws RecognitionException {
 		TableColumnsPropContext _localctx = new TableColumnsPropContext(_ctx, getState());
 		enterRule(_localctx, 14, RULE_tableColumnsProp);
@@ -703,29 +1371,102 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class TableIndexesPropContext.
+	 */
 	public static class TableIndexesPropContext extends ParserRuleContext {
+		
+		/**
+		 * Table.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode TABLE() { return getToken(HdbtableParser.TABLE, 0); }
+		
+		/**
+		 * Dot.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode DOT() { return getToken(HdbtableParser.DOT, 0); }
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtableParser.EQ, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbtableParser.SEMICOLON, 0); }
+		
+		/**
+		 * Indexes object.
+		 *
+		 * @return the list
+		 */
 		public List<IndexesObjectContext> indexesObject() {
 			return getRuleContexts(IndexesObjectContext.class);
 		}
+		
+		/**
+		 * Indexes object.
+		 *
+		 * @param i the i
+		 * @return the indexes object context
+		 */
 		public IndexesObjectContext indexesObject(int i) {
 			return getRuleContext(IndexesObjectContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new table indexes prop context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public TableIndexesPropContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_tableIndexesProp; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterTableIndexesProp(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitTableIndexesProp(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitTableIndexesProp(this);
@@ -733,6 +1474,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Table indexes prop.
+	 *
+	 * @return the table indexes prop context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final TableIndexesPropContext tableIndexesProp() throws RecognitionException {
 		TableIndexesPropContext _localctx = new TableIndexesPropContext(_ctx, getState());
 		enterRule(_localctx, 16, RULE_tableIndexesProp);
@@ -793,29 +1540,102 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class TablePrimaryKeyPropContext.
+	 */
 	public static class TablePrimaryKeyPropContext extends ParserRuleContext {
+		
+		/**
+		 * Table.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode TABLE() { return getToken(HdbtableParser.TABLE, 0); }
+		
+		/**
+		 * Dot.
+		 *
+		 * @return the list
+		 */
 		public List<TerminalNode> DOT() { return getTokens(HdbtableParser.DOT); }
+		
+		/**
+		 * Dot.
+		 *
+		 * @param i the i
+		 * @return the terminal node
+		 */
 		public TerminalNode DOT(int i) {
 			return getToken(HdbtableParser.DOT, i);
 		}
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtableParser.EQ, 0); }
+		
+		/**
+		 * Table primary key columns prop.
+		 *
+		 * @return the table primary key columns prop context
+		 */
 		public TablePrimaryKeyColumnsPropContext tablePrimaryKeyColumnsProp() {
 			return getRuleContext(TablePrimaryKeyColumnsPropContext.class,0);
 		}
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbtableParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new table primary key prop context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public TablePrimaryKeyPropContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_tablePrimaryKeyProp; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterTablePrimaryKeyProp(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitTablePrimaryKeyProp(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitTablePrimaryKeyProp(this);
@@ -823,6 +1643,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Table primary key prop.
+	 *
+	 * @return the table primary key prop context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final TablePrimaryKeyPropContext tablePrimaryKeyProp() throws RecognitionException {
 		TablePrimaryKeyPropContext _localctx = new TablePrimaryKeyPropContext(_ctx, getState());
 		enterRule(_localctx, 18, RULE_tablePrimaryKeyProp);
@@ -858,23 +1684,72 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class TablePrimaryKeyColumnsPropContext.
+	 */
 	public static class TablePrimaryKeyColumnsPropContext extends ParserRuleContext {
+		
+		/**
+		 * String.
+		 *
+		 * @return the list
+		 */
 		public List<TerminalNode> STRING() { return getTokens(HdbtableParser.STRING); }
+		
+		/**
+		 * String.
+		 *
+		 * @param i the i
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING(int i) {
 			return getToken(HdbtableParser.STRING, i);
 		}
+		
+		/**
+		 * Instantiates a new table primary key columns prop context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public TablePrimaryKeyColumnsPropContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_tablePrimaryKeyColumnsProp; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterTablePrimaryKeyColumnsProp(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitTablePrimaryKeyColumnsProp(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitTablePrimaryKeyColumnsProp(this);
@@ -882,6 +1757,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Table primary key columns prop.
+	 *
+	 * @return the table primary key columns prop context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final TablePrimaryKeyColumnsPropContext tablePrimaryKeyColumnsProp() throws RecognitionException {
 		TablePrimaryKeyColumnsPropContext _localctx = new TablePrimaryKeyColumnsPropContext(_ctx, getState());
 		enterRule(_localctx, 20, RULE_tablePrimaryKeyColumnsProp);
@@ -924,27 +1805,100 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class TablePrimaryKeyIndexTypePropContext.
+	 */
 	public static class TablePrimaryKeyIndexTypePropContext extends ParserRuleContext {
+		
+		/**
+		 * Table.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode TABLE() { return getToken(HdbtableParser.TABLE, 0); }
+		
+		/**
+		 * Dot.
+		 *
+		 * @return the list
+		 */
 		public List<TerminalNode> DOT() { return getTokens(HdbtableParser.DOT); }
+		
+		/**
+		 * Dot.
+		 *
+		 * @param i the i
+		 * @return the terminal node
+		 */
 		public TerminalNode DOT(int i) {
 			return getToken(HdbtableParser.DOT, i);
 		}
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtableParser.EQ, 0); }
+		
+		/**
+		 * Indextype.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode INDEXTYPE() { return getToken(HdbtableParser.INDEXTYPE, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbtableParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new table primary key index type prop context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public TablePrimaryKeyIndexTypePropContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_tablePrimaryKeyIndexTypeProp; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterTablePrimaryKeyIndexTypeProp(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitTablePrimaryKeyIndexTypeProp(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitTablePrimaryKeyIndexTypeProp(this);
@@ -952,6 +1906,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Table primary key index type prop.
+	 *
+	 * @return the table primary key index type prop context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final TablePrimaryKeyIndexTypePropContext tablePrimaryKeyIndexTypeProp() throws RecognitionException {
 		TablePrimaryKeyIndexTypePropContext _localctx = new TablePrimaryKeyIndexTypePropContext(_ctx, getState());
 		enterRule(_localctx, 22, RULE_tablePrimaryKeyIndexTypeProp);
@@ -987,24 +1947,90 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class DescriptionPropContext.
+	 */
 	public static class DescriptionPropContext extends ParserRuleContext {
+		
+		/**
+		 * Table.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode TABLE() { return getToken(HdbtableParser.TABLE, 0); }
+		
+		/**
+		 * Dot.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode DOT() { return getToken(HdbtableParser.DOT, 0); }
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtableParser.EQ, 0); }
+		
+		/**
+		 * String.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING() { return getToken(HdbtableParser.STRING, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbtableParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new description prop context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public DescriptionPropContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_descriptionProp; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterDescriptionProp(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitDescriptionProp(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitDescriptionProp(this);
@@ -1012,6 +2038,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Description prop.
+	 *
+	 * @return the description prop context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final DescriptionPropContext descriptionProp() throws RecognitionException {
 		DescriptionPropContext _localctx = new DescriptionPropContext(_ctx, getState());
 		enterRule(_localctx, 24, RULE_descriptionProp);
@@ -1043,25 +2075,74 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ColumnsObjectContext.
+	 */
 	public static class ColumnsObjectContext extends ParserRuleContext {
+		
+		/**
+		 * Columns properties.
+		 *
+		 * @return the list
+		 */
 		public List<ColumnsPropertiesContext> columnsProperties() {
 			return getRuleContexts(ColumnsPropertiesContext.class);
 		}
+		
+		/**
+		 * Columns properties.
+		 *
+		 * @param i the i
+		 * @return the columns properties context
+		 */
 		public ColumnsPropertiesContext columnsProperties(int i) {
 			return getRuleContext(ColumnsPropertiesContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new columns object context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ColumnsObjectContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_columnsObject; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterColumnsObject(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitColumnsObject(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitColumnsObject(this);
@@ -1069,6 +2150,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Columns object.
+	 *
+	 * @return the columns object context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ColumnsObjectContext columnsObject() throws RecognitionException {
 		ColumnsObjectContext _localctx = new ColumnsObjectContext(_ctx, getState());
 		enterRule(_localctx, 26, RULE_columnsObject);
@@ -1107,46 +2194,136 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ColumnsPropertiesContext.
+	 */
 	public static class ColumnsPropertiesContext extends ParserRuleContext {
+		
+		/**
+		 * Column assign name.
+		 *
+		 * @return the column assign name context
+		 */
 		public ColumnAssignNameContext columnAssignName() {
 			return getRuleContext(ColumnAssignNameContext.class,0);
 		}
+		
+		/**
+		 * Column assign SQL type.
+		 *
+		 * @return the column assign SQL type context
+		 */
 		public ColumnAssignSQLTypeContext columnAssignSQLType() {
 			return getRuleContext(ColumnAssignSQLTypeContext.class,0);
 		}
+		
+		/**
+		 * Column assign unique.
+		 *
+		 * @return the column assign unique context
+		 */
 		public ColumnAssignUniqueContext columnAssignUnique() {
 			return getRuleContext(ColumnAssignUniqueContext.class,0);
 		}
+		
+		/**
+		 * Column assign length.
+		 *
+		 * @return the column assign length context
+		 */
 		public ColumnAssignLengthContext columnAssignLength() {
 			return getRuleContext(ColumnAssignLengthContext.class,0);
 		}
+		
+		/**
+		 * Column assign nullable.
+		 *
+		 * @return the column assign nullable context
+		 */
 		public ColumnAssignNullableContext columnAssignNullable() {
 			return getRuleContext(ColumnAssignNullableContext.class,0);
 		}
+		
+		/**
+		 * Column assign comment.
+		 *
+		 * @return the column assign comment context
+		 */
 		public ColumnAssignCommentContext columnAssignComment() {
 			return getRuleContext(ColumnAssignCommentContext.class,0);
 		}
+		
+		/**
+		 * Column assign default value.
+		 *
+		 * @return the column assign default value context
+		 */
 		public ColumnAssignDefaultValueContext columnAssignDefaultValue() {
 			return getRuleContext(ColumnAssignDefaultValueContext.class,0);
 		}
+		
+		/**
+		 * Column assign precision.
+		 *
+		 * @return the column assign precision context
+		 */
 		public ColumnAssignPrecisionContext columnAssignPrecision() {
 			return getRuleContext(ColumnAssignPrecisionContext.class,0);
 		}
+		
+		/**
+		 * Column assign scale.
+		 *
+		 * @return the column assign scale context
+		 */
 		public ColumnAssignScaleContext columnAssignScale() {
 			return getRuleContext(ColumnAssignScaleContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new columns properties context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ColumnsPropertiesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_columnsProperties; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterColumnsProperties(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitColumnsProperties(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitColumnsProperties(this);
@@ -1154,6 +2331,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Columns properties.
+	 *
+	 * @return the columns properties context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ColumnsPropertiesContext columnsProperties() throws RecognitionException {
 		ColumnsPropertiesContext _localctx = new ColumnsPropertiesContext(_ctx, getState());
 		enterRule(_localctx, 28, RULE_columnsProperties);
@@ -1239,25 +2422,74 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class IndexesObjectContext.
+	 */
 	public static class IndexesObjectContext extends ParserRuleContext {
+		
+		/**
+		 * Index properties.
+		 *
+		 * @return the list
+		 */
 		public List<IndexPropertiesContext> indexProperties() {
 			return getRuleContexts(IndexPropertiesContext.class);
 		}
+		
+		/**
+		 * Index properties.
+		 *
+		 * @param i the i
+		 * @return the index properties context
+		 */
 		public IndexPropertiesContext indexProperties(int i) {
 			return getRuleContext(IndexPropertiesContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new indexes object context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public IndexesObjectContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_indexesObject; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterIndexesObject(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitIndexesObject(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitIndexesObject(this);
@@ -1265,6 +2497,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Indexes object.
+	 *
+	 * @return the indexes object context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final IndexesObjectContext indexesObject() throws RecognitionException {
 		IndexesObjectContext _localctx = new IndexesObjectContext(_ctx, getState());
 		enterRule(_localctx, 30, RULE_indexesObject);
@@ -1303,34 +2541,100 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class IndexPropertiesContext.
+	 */
 	public static class IndexPropertiesContext extends ParserRuleContext {
+		
+		/**
+		 * Index assign name.
+		 *
+		 * @return the index assign name context
+		 */
 		public IndexAssignNameContext indexAssignName() {
 			return getRuleContext(IndexAssignNameContext.class,0);
 		}
+		
+		/**
+		 * Index assign unique.
+		 *
+		 * @return the index assign unique context
+		 */
 		public IndexAssignUniqueContext indexAssignUnique() {
 			return getRuleContext(IndexAssignUniqueContext.class,0);
 		}
+		
+		/**
+		 * Index assign order.
+		 *
+		 * @return the index assign order context
+		 */
 		public IndexAssignOrderContext indexAssignOrder() {
 			return getRuleContext(IndexAssignOrderContext.class,0);
 		}
+		
+		/**
+		 * Index assign index columns.
+		 *
+		 * @return the index assign index columns context
+		 */
 		public IndexAssignIndexColumnsContext indexAssignIndexColumns() {
 			return getRuleContext(IndexAssignIndexColumnsContext.class,0);
 		}
+		
+		/**
+		 * Index assign index type.
+		 *
+		 * @return the index assign index type context
+		 */
 		public IndexAssignIndexTypeContext indexAssignIndexType() {
 			return getRuleContext(IndexAssignIndexTypeContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new index properties context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public IndexPropertiesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_indexProperties; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterIndexProperties(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitIndexProperties(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitIndexProperties(this);
@@ -1338,6 +2642,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Index properties.
+	 *
+	 * @return the index properties context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final IndexPropertiesContext indexProperties() throws RecognitionException {
 		IndexPropertiesContext _localctx = new IndexPropertiesContext(_ctx, getState());
 		enterRule(_localctx, 32, RULE_indexProperties);
@@ -1395,22 +2705,76 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ColumnAssignNameContext.
+	 */
 	public static class ColumnAssignNameContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtableParser.EQ, 0); }
+		
+		/**
+		 * String.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING() { return getToken(HdbtableParser.STRING, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbtableParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new column assign name context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ColumnAssignNameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_columnAssignName; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterColumnAssignName(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitColumnAssignName(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitColumnAssignName(this);
@@ -1418,6 +2782,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Column assign name.
+	 *
+	 * @return the column assign name context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ColumnAssignNameContext columnAssignName() throws RecognitionException {
 		ColumnAssignNameContext _localctx = new ColumnAssignNameContext(_ctx, getState());
 		enterRule(_localctx, 34, RULE_columnAssignName);
@@ -1445,22 +2815,76 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ColumnAssignSQLTypeContext.
+	 */
 	public static class ColumnAssignSQLTypeContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtableParser.EQ, 0); }
+		
+		/**
+		 * Sqltypes.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SQLTYPES() { return getToken(HdbtableParser.SQLTYPES, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbtableParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new column assign SQL type context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ColumnAssignSQLTypeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_columnAssignSQLType; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterColumnAssignSQLType(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitColumnAssignSQLType(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitColumnAssignSQLType(this);
@@ -1468,6 +2892,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Column assign SQL type.
+	 *
+	 * @return the column assign SQL type context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ColumnAssignSQLTypeContext columnAssignSQLType() throws RecognitionException {
 		ColumnAssignSQLTypeContext _localctx = new ColumnAssignSQLTypeContext(_ctx, getState());
 		enterRule(_localctx, 36, RULE_columnAssignSQLType);
@@ -1495,22 +2925,76 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ColumnAssignNullableContext.
+	 */
 	public static class ColumnAssignNullableContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtableParser.EQ, 0); }
+		
+		/**
+		 * Boolean.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode BOOLEAN() { return getToken(HdbtableParser.BOOLEAN, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbtableParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new column assign nullable context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ColumnAssignNullableContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_columnAssignNullable; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterColumnAssignNullable(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitColumnAssignNullable(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitColumnAssignNullable(this);
@@ -1518,6 +3002,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Column assign nullable.
+	 *
+	 * @return the column assign nullable context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ColumnAssignNullableContext columnAssignNullable() throws RecognitionException {
 		ColumnAssignNullableContext _localctx = new ColumnAssignNullableContext(_ctx, getState());
 		enterRule(_localctx, 38, RULE_columnAssignNullable);
@@ -1545,22 +3035,76 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ColumnAssignUniqueContext.
+	 */
 	public static class ColumnAssignUniqueContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtableParser.EQ, 0); }
+		
+		/**
+		 * Boolean.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode BOOLEAN() { return getToken(HdbtableParser.BOOLEAN, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbtableParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new column assign unique context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ColumnAssignUniqueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_columnAssignUnique; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterColumnAssignUnique(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitColumnAssignUnique(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitColumnAssignUnique(this);
@@ -1568,6 +3112,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Column assign unique.
+	 *
+	 * @return the column assign unique context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ColumnAssignUniqueContext columnAssignUnique() throws RecognitionException {
 		ColumnAssignUniqueContext _localctx = new ColumnAssignUniqueContext(_ctx, getState());
 		enterRule(_localctx, 40, RULE_columnAssignUnique);
@@ -1595,22 +3145,76 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ColumnAssignLengthContext.
+	 */
 	public static class ColumnAssignLengthContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtableParser.EQ, 0); }
+		
+		/**
+		 * Int.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode INT() { return getToken(HdbtableParser.INT, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbtableParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new column assign length context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ColumnAssignLengthContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_columnAssignLength; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterColumnAssignLength(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitColumnAssignLength(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitColumnAssignLength(this);
@@ -1618,6 +3222,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Column assign length.
+	 *
+	 * @return the column assign length context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ColumnAssignLengthContext columnAssignLength() throws RecognitionException {
 		ColumnAssignLengthContext _localctx = new ColumnAssignLengthContext(_ctx, getState());
 		enterRule(_localctx, 42, RULE_columnAssignLength);
@@ -1645,22 +3255,76 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ColumnAssignCommentContext.
+	 */
 	public static class ColumnAssignCommentContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtableParser.EQ, 0); }
+		
+		/**
+		 * String.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING() { return getToken(HdbtableParser.STRING, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbtableParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new column assign comment context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ColumnAssignCommentContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_columnAssignComment; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterColumnAssignComment(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitColumnAssignComment(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitColumnAssignComment(this);
@@ -1668,6 +3332,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Column assign comment.
+	 *
+	 * @return the column assign comment context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ColumnAssignCommentContext columnAssignComment() throws RecognitionException {
 		ColumnAssignCommentContext _localctx = new ColumnAssignCommentContext(_ctx, getState());
 		enterRule(_localctx, 44, RULE_columnAssignComment);
@@ -1695,24 +3365,90 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ColumnAssignDefaultValueContext.
+	 */
 	public static class ColumnAssignDefaultValueContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtableParser.EQ, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbtableParser.SEMICOLON, 0); }
+		
+		/**
+		 * String.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING() { return getToken(HdbtableParser.STRING, 0); }
+		
+		/**
+		 * Int.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode INT() { return getToken(HdbtableParser.INT, 0); }
+		
+		/**
+		 * Datetimedefaultvalues.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode DATETIMEDEFAULTVALUES() { return getToken(HdbtableParser.DATETIMEDEFAULTVALUES, 0); }
+		
+		/**
+		 * Instantiates a new column assign default value context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ColumnAssignDefaultValueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_columnAssignDefaultValue; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterColumnAssignDefaultValue(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitColumnAssignDefaultValue(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitColumnAssignDefaultValue(this);
@@ -1720,6 +3456,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Column assign default value.
+	 *
+	 * @return the column assign default value context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ColumnAssignDefaultValueContext columnAssignDefaultValue() throws RecognitionException {
 		ColumnAssignDefaultValueContext _localctx = new ColumnAssignDefaultValueContext(_ctx, getState());
 		enterRule(_localctx, 46, RULE_columnAssignDefaultValue);
@@ -1756,22 +3498,76 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ColumnAssignPrecisionContext.
+	 */
 	public static class ColumnAssignPrecisionContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtableParser.EQ, 0); }
+		
+		/**
+		 * Int.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode INT() { return getToken(HdbtableParser.INT, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbtableParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new column assign precision context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ColumnAssignPrecisionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_columnAssignPrecision; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterColumnAssignPrecision(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitColumnAssignPrecision(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitColumnAssignPrecision(this);
@@ -1779,6 +3575,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Column assign precision.
+	 *
+	 * @return the column assign precision context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ColumnAssignPrecisionContext columnAssignPrecision() throws RecognitionException {
 		ColumnAssignPrecisionContext _localctx = new ColumnAssignPrecisionContext(_ctx, getState());
 		enterRule(_localctx, 48, RULE_columnAssignPrecision);
@@ -1806,22 +3608,76 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ColumnAssignScaleContext.
+	 */
 	public static class ColumnAssignScaleContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtableParser.EQ, 0); }
+		
+		/**
+		 * Int.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode INT() { return getToken(HdbtableParser.INT, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbtableParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new column assign scale context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ColumnAssignScaleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_columnAssignScale; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterColumnAssignScale(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitColumnAssignScale(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitColumnAssignScale(this);
@@ -1829,6 +3685,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Column assign scale.
+	 *
+	 * @return the column assign scale context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ColumnAssignScaleContext columnAssignScale() throws RecognitionException {
 		ColumnAssignScaleContext _localctx = new ColumnAssignScaleContext(_ctx, getState());
 		enterRule(_localctx, 50, RULE_columnAssignScale);
@@ -1856,22 +3718,76 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class IndexAssignNameContext.
+	 */
 	public static class IndexAssignNameContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtableParser.EQ, 0); }
+		
+		/**
+		 * String.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING() { return getToken(HdbtableParser.STRING, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbtableParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new index assign name context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public IndexAssignNameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_indexAssignName; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterIndexAssignName(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitIndexAssignName(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitIndexAssignName(this);
@@ -1879,6 +3795,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Index assign name.
+	 *
+	 * @return the index assign name context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final IndexAssignNameContext indexAssignName() throws RecognitionException {
 		IndexAssignNameContext _localctx = new IndexAssignNameContext(_ctx, getState());
 		enterRule(_localctx, 52, RULE_indexAssignName);
@@ -1906,22 +3828,76 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class IndexAssignUniqueContext.
+	 */
 	public static class IndexAssignUniqueContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtableParser.EQ, 0); }
+		
+		/**
+		 * Boolean.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode BOOLEAN() { return getToken(HdbtableParser.BOOLEAN, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbtableParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new index assign unique context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public IndexAssignUniqueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_indexAssignUnique; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterIndexAssignUnique(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitIndexAssignUnique(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitIndexAssignUnique(this);
@@ -1929,6 +3905,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Index assign unique.
+	 *
+	 * @return the index assign unique context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final IndexAssignUniqueContext indexAssignUnique() throws RecognitionException {
 		IndexAssignUniqueContext _localctx = new IndexAssignUniqueContext(_ctx, getState());
 		enterRule(_localctx, 54, RULE_indexAssignUnique);
@@ -1956,22 +3938,76 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class IndexAssignOrderContext.
+	 */
 	public static class IndexAssignOrderContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtableParser.EQ, 0); }
+		
+		/**
+		 * Order.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode ORDER() { return getToken(HdbtableParser.ORDER, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbtableParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new index assign order context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public IndexAssignOrderContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_indexAssignOrder; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterIndexAssignOrder(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitIndexAssignOrder(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitIndexAssignOrder(this);
@@ -1979,6 +4015,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Index assign order.
+	 *
+	 * @return the index assign order context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final IndexAssignOrderContext indexAssignOrder() throws RecognitionException {
 		IndexAssignOrderContext _localctx = new IndexAssignOrderContext(_ctx, getState());
 		enterRule(_localctx, 56, RULE_indexAssignOrder);
@@ -2006,23 +4048,71 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class IndexAssignIndexColumnsContext.
+	 */
 	public static class IndexAssignIndexColumnsContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtableParser.EQ, 0); }
+		
+		/**
+		 * Index columns array.
+		 *
+		 * @return the index columns array context
+		 */
 		public IndexColumnsArrayContext indexColumnsArray() {
 			return getRuleContext(IndexColumnsArrayContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new index assign index columns context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public IndexAssignIndexColumnsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_indexAssignIndexColumns; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterIndexAssignIndexColumns(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitIndexAssignIndexColumns(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitIndexAssignIndexColumns(this);
@@ -2030,6 +4120,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Index assign index columns.
+	 *
+	 * @return the index assign index columns context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final IndexAssignIndexColumnsContext indexAssignIndexColumns() throws RecognitionException {
 		IndexAssignIndexColumnsContext _localctx = new IndexAssignIndexColumnsContext(_ctx, getState());
 		enterRule(_localctx, 58, RULE_indexAssignIndexColumns);
@@ -2055,22 +4151,76 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class IndexAssignIndexTypeContext.
+	 */
 	public static class IndexAssignIndexTypeContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtableParser.EQ, 0); }
+		
+		/**
+		 * Indextype.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode INDEXTYPE() { return getToken(HdbtableParser.INDEXTYPE, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbtableParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new index assign index type context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public IndexAssignIndexTypeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_indexAssignIndexType; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterIndexAssignIndexType(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitIndexAssignIndexType(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitIndexAssignIndexType(this);
@@ -2078,6 +4228,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Index assign index type.
+	 *
+	 * @return the index assign index type context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final IndexAssignIndexTypeContext indexAssignIndexType() throws RecognitionException {
 		IndexAssignIndexTypeContext _localctx = new IndexAssignIndexTypeContext(_ctx, getState());
 		enterRule(_localctx, 60, RULE_indexAssignIndexType);
@@ -2105,24 +4261,79 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class IndexColumnsArrayContext.
+	 */
 	public static class IndexColumnsArrayContext extends ParserRuleContext {
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbtableParser.SEMICOLON, 0); }
+		
+		/**
+		 * String.
+		 *
+		 * @return the list
+		 */
 		public List<TerminalNode> STRING() { return getTokens(HdbtableParser.STRING); }
+		
+		/**
+		 * String.
+		 *
+		 * @param i the i
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING(int i) {
 			return getToken(HdbtableParser.STRING, i);
 		}
+		
+		/**
+		 * Instantiates a new index columns array context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public IndexColumnsArrayContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_indexColumnsArray; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).enterIndexColumnsArray(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtableListener ) ((HdbtableListener)listener).exitIndexColumnsArray(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtableVisitor ) return ((HdbtableVisitor<? extends T>)visitor).visitIndexColumnsArray(this);
@@ -2130,6 +4341,12 @@ public class HdbtableParser extends Parser {
 		}
 	}
 
+	/**
+	 * Index columns array.
+	 *
+	 * @return the index columns array context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final IndexColumnsArrayContext indexColumnsArray() throws RecognitionException {
 		IndexColumnsArrayContext _localctx = new IndexColumnsArrayContext(_ctx, getState());
 		enterRule(_localctx, 62, RULE_indexColumnsArray);
@@ -2182,6 +4399,7 @@ public class HdbtableParser extends Parser {
 		return _localctx;
 	}
 
+	/** The Constant _serializedATN. */
 	public static final String _serializedATN =
 		"\u0004\u0001+\u0132\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
@@ -2367,6 +4585,8 @@ public class HdbtableParser extends Parser {
 		"\u0000\u0000\u0000\u012d\u012e\u0001\u0000\u0000\u0000\u012e\u012f\u0005"+
 		"\t\u0000\u0000\u012f\u0130\u0005!\u0000\u0000\u0130?\u0001\u0000\u0000"+
 		"\u0000\rCO~\u0081\u0090\u0093\u00a7\u00c0\u00cd\u00d3\u00dc\u0129\u012c";
+	
+	/** The Constant _ATN. */
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

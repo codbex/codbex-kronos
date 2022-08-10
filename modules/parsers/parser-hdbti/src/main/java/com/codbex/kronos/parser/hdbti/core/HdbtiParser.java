@@ -20,24 +20,40 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
+/**
+ * The Class HdbtiParser.
+ */
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class HdbtiParser extends Parser {
 	static { RuntimeMetaData.checkVersion("4.10.1", RuntimeMetaData.VERSION); }
 
+	/** The Constant _decisionToDFA. */
 	protected static final DFA[] _decisionToDFA;
+	
+	/** The Constant _sharedContextCache. */
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
+	
+	/** The Constant COMMENT. */
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
 		STRING=18, BOOLEAN=19, TRUE=20, FALSE=21, WS=22, RB=23, LB=24, EQ=25, 
 		LINE_COMMENT=26, COMMENT=27;
+	
+	/** The Constant RULE_tableName. */
 	public static final int
 		RULE_importArr = 0, RULE_objConfig = 1, RULE_assignExpression = 2, RULE_assignTable = 3, 
 		RULE_assignSchema = 4, RULE_assignFile = 5, RULE_assignHeader = 6, RULE_assignUseHeaderNames = 7, 
 		RULE_assignDelimField = 8, RULE_assignDelimEnclosing = 9, RULE_assignDistinguishEmptyFromNull = 10, 
 		RULE_assignKeys = 11, RULE_keyArr = 12, RULE_pair = 13, RULE_pairKey = 14, 
 		RULE_pairValue = 15, RULE_tableName = 16;
+	
+	/**
+	 * Make rule names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"importArr", "objConfig", "assignExpression", "assignTable", "assignSchema", 
@@ -46,8 +62,15 @@ public class HdbtiParser extends Parser {
 			"keyArr", "pair", "pairKey", "pairValue", "tableName"
 		};
 	}
+	
+	/** The Constant ruleNames. */
 	public static final String[] ruleNames = makeRuleNames();
 
+	/**
+	 * Make literal names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'import'", "','", "';'", "'{'", "'}'", "'schema'", "'file'", "'header'", 
@@ -56,7 +79,15 @@ public class HdbtiParser extends Parser {
 			"'false'", null, "'['", "']'", "'='"
 		};
 	}
+	
+	/** The Constant _LITERAL_NAMES. */
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
+	
+	/**
+	 * Make symbolic names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
@@ -64,10 +95,16 @@ public class HdbtiParser extends Parser {
 			"WS", "RB", "LB", "EQ", "LINE_COMMENT", "COMMENT"
 		};
 	}
+	
+	/** The Constant _SYMBOLIC_NAMES. */
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
+	
+	/** The Constant VOCABULARY. */
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
 	/**
+	 * The Constant tokenNames.
+	 *
 	 * @deprecated Use {@link #VOCABULARY} instead.
 	 */
 	@Deprecated
@@ -86,57 +123,159 @@ public class HdbtiParser extends Parser {
 		}
 	}
 
+	/**
+	 * Gets the token names.
+	 *
+	 * @return the token names
+	 */
 	@Override
 	@Deprecated
 	public String[] getTokenNames() {
 		return tokenNames;
 	}
 
+	/**
+	 * Gets the vocabulary.
+	 *
+	 * @return the vocabulary
+	 */
 	@Override
 
 	public Vocabulary getVocabulary() {
 		return VOCABULARY;
 	}
 
+	/**
+	 * Gets the grammar file name.
+	 *
+	 * @return the grammar file name
+	 */
 	@Override
 	public String getGrammarFileName() { return "Hdbti.g4"; }
 
+	/**
+	 * Gets the rule names.
+	 *
+	 * @return the rule names
+	 */
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
 
+	/**
+	 * Gets the serialized ATN.
+	 *
+	 * @return the serialized ATN
+	 */
 	@Override
 	public String getSerializedATN() { return _serializedATN; }
 
+	/**
+	 * Gets the atn.
+	 *
+	 * @return the atn
+	 */
 	@Override
 	public ATN getATN() { return _ATN; }
 
+	/**
+	 * Instantiates a new hdbti parser.
+	 *
+	 * @param input the input
+	 */
 	public HdbtiParser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
+	/**
+	 * The Class ImportArrContext.
+	 */
 	public static class ImportArrContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtiParser.EQ, 0); }
+		
+		/**
+		 * Rb.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode RB() { return getToken(HdbtiParser.RB, 0); }
+		
+		/**
+		 * Lb.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode LB() { return getToken(HdbtiParser.LB, 0); }
+		
+		/**
+		 * Obj config.
+		 *
+		 * @return the list
+		 */
 		public List<ObjConfigContext> objConfig() {
 			return getRuleContexts(ObjConfigContext.class);
 		}
+		
+		/**
+		 * Obj config.
+		 *
+		 * @param i the i
+		 * @return the obj config context
+		 */
 		public ObjConfigContext objConfig(int i) {
 			return getRuleContext(ObjConfigContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new import arr context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ImportArrContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_importArr; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).enterImportArr(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).exitImportArr(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtiVisitor ) return ((HdbtiVisitor<? extends T>)visitor).visitImportArr(this);
@@ -144,6 +283,12 @@ public class HdbtiParser extends Parser {
 		}
 	}
 
+	/**
+	 * Import arr.
+	 *
+	 * @return the import arr context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ImportArrContext importArr() throws RecognitionException {
 		ImportArrContext _localctx = new ImportArrContext(_ctx, getState());
 		enterRule(_localctx, 0, RULE_importArr);
@@ -200,25 +345,74 @@ public class HdbtiParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ObjConfigContext.
+	 */
 	public static class ObjConfigContext extends ParserRuleContext {
+		
+		/**
+		 * Assign expression.
+		 *
+		 * @return the list
+		 */
 		public List<AssignExpressionContext> assignExpression() {
 			return getRuleContexts(AssignExpressionContext.class);
 		}
+		
+		/**
+		 * Assign expression.
+		 *
+		 * @param i the i
+		 * @return the assign expression context
+		 */
 		public AssignExpressionContext assignExpression(int i) {
 			return getRuleContext(AssignExpressionContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new obj config context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ObjConfigContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_objConfig; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).enterObjConfig(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).exitObjConfig(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtiVisitor ) return ((HdbtiVisitor<? extends T>)visitor).visitObjConfig(this);
@@ -226,6 +420,12 @@ public class HdbtiParser extends Parser {
 		}
 	}
 
+	/**
+	 * Obj config.
+	 *
+	 * @return the obj config context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ObjConfigContext objConfig() throws RecognitionException {
 		ObjConfigContext _localctx = new ObjConfigContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_objConfig);
@@ -264,46 +464,136 @@ public class HdbtiParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AssignExpressionContext.
+	 */
 	public static class AssignExpressionContext extends ParserRuleContext {
+		
+		/**
+		 * Assign table.
+		 *
+		 * @return the assign table context
+		 */
 		public AssignTableContext assignTable() {
 			return getRuleContext(AssignTableContext.class,0);
 		}
+		
+		/**
+		 * Assign schema.
+		 *
+		 * @return the assign schema context
+		 */
 		public AssignSchemaContext assignSchema() {
 			return getRuleContext(AssignSchemaContext.class,0);
 		}
+		
+		/**
+		 * Assign file.
+		 *
+		 * @return the assign file context
+		 */
 		public AssignFileContext assignFile() {
 			return getRuleContext(AssignFileContext.class,0);
 		}
+		
+		/**
+		 * Assign header.
+		 *
+		 * @return the assign header context
+		 */
 		public AssignHeaderContext assignHeader() {
 			return getRuleContext(AssignHeaderContext.class,0);
 		}
+		
+		/**
+		 * Assign use header names.
+		 *
+		 * @return the assign use header names context
+		 */
 		public AssignUseHeaderNamesContext assignUseHeaderNames() {
 			return getRuleContext(AssignUseHeaderNamesContext.class,0);
 		}
+		
+		/**
+		 * Assign delim field.
+		 *
+		 * @return the assign delim field context
+		 */
 		public AssignDelimFieldContext assignDelimField() {
 			return getRuleContext(AssignDelimFieldContext.class,0);
 		}
+		
+		/**
+		 * Assign delim enclosing.
+		 *
+		 * @return the assign delim enclosing context
+		 */
 		public AssignDelimEnclosingContext assignDelimEnclosing() {
 			return getRuleContext(AssignDelimEnclosingContext.class,0);
 		}
+		
+		/**
+		 * Assign distinguish empty from null.
+		 *
+		 * @return the assign distinguish empty from null context
+		 */
 		public AssignDistinguishEmptyFromNullContext assignDistinguishEmptyFromNull() {
 			return getRuleContext(AssignDistinguishEmptyFromNullContext.class,0);
 		}
+		
+		/**
+		 * Assign keys.
+		 *
+		 * @return the assign keys context
+		 */
 		public AssignKeysContext assignKeys() {
 			return getRuleContext(AssignKeysContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new assign expression context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AssignExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_assignExpression; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).enterAssignExpression(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).exitAssignExpression(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtiVisitor ) return ((HdbtiVisitor<? extends T>)visitor).visitAssignExpression(this);
@@ -311,6 +601,12 @@ public class HdbtiParser extends Parser {
 		}
 	}
 
+	/**
+	 * Assign expression.
+	 *
+	 * @return the assign expression context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AssignExpressionContext assignExpression() throws RecognitionException {
 		AssignExpressionContext _localctx = new AssignExpressionContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_assignExpression);
@@ -398,24 +694,78 @@ public class HdbtiParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AssignTableContext.
+	 */
 	public static class AssignTableContext extends ParserRuleContext {
+		
+		/**
+		 * Table name.
+		 *
+		 * @return the table name context
+		 */
 		public TableNameContext tableName() {
 			return getRuleContext(TableNameContext.class,0);
 		}
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtiParser.EQ, 0); }
+		
+		/**
+		 * String.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING() { return getToken(HdbtiParser.STRING, 0); }
+		
+		/**
+		 * Instantiates a new assign table context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AssignTableContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_assignTable; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).enterAssignTable(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).exitAssignTable(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtiVisitor ) return ((HdbtiVisitor<? extends T>)visitor).visitAssignTable(this);
@@ -423,6 +773,12 @@ public class HdbtiParser extends Parser {
 		}
 	}
 
+	/**
+	 * Assign table.
+	 *
+	 * @return the assign table context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AssignTableContext assignTable() throws RecognitionException {
 		AssignTableContext _localctx = new AssignTableContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_assignTable);
@@ -450,21 +806,69 @@ public class HdbtiParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AssignSchemaContext.
+	 */
 	public static class AssignSchemaContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtiParser.EQ, 0); }
+		
+		/**
+		 * String.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING() { return getToken(HdbtiParser.STRING, 0); }
+		
+		/**
+		 * Instantiates a new assign schema context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AssignSchemaContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_assignSchema; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).enterAssignSchema(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).exitAssignSchema(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtiVisitor ) return ((HdbtiVisitor<? extends T>)visitor).visitAssignSchema(this);
@@ -472,6 +876,12 @@ public class HdbtiParser extends Parser {
 		}
 	}
 
+	/**
+	 * Assign schema.
+	 *
+	 * @return the assign schema context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AssignSchemaContext assignSchema() throws RecognitionException {
 		AssignSchemaContext _localctx = new AssignSchemaContext(_ctx, getState());
 		enterRule(_localctx, 8, RULE_assignSchema);
@@ -499,21 +909,69 @@ public class HdbtiParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AssignFileContext.
+	 */
 	public static class AssignFileContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtiParser.EQ, 0); }
+		
+		/**
+		 * String.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING() { return getToken(HdbtiParser.STRING, 0); }
+		
+		/**
+		 * Instantiates a new assign file context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AssignFileContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_assignFile; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).enterAssignFile(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).exitAssignFile(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtiVisitor ) return ((HdbtiVisitor<? extends T>)visitor).visitAssignFile(this);
@@ -521,6 +979,12 @@ public class HdbtiParser extends Parser {
 		}
 	}
 
+	/**
+	 * Assign file.
+	 *
+	 * @return the assign file context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AssignFileContext assignFile() throws RecognitionException {
 		AssignFileContext _localctx = new AssignFileContext(_ctx, getState());
 		enterRule(_localctx, 10, RULE_assignFile);
@@ -548,21 +1012,69 @@ public class HdbtiParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AssignHeaderContext.
+	 */
 	public static class AssignHeaderContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtiParser.EQ, 0); }
+		
+		/**
+		 * Boolean.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode BOOLEAN() { return getToken(HdbtiParser.BOOLEAN, 0); }
+		
+		/**
+		 * Instantiates a new assign header context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AssignHeaderContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_assignHeader; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).enterAssignHeader(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).exitAssignHeader(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtiVisitor ) return ((HdbtiVisitor<? extends T>)visitor).visitAssignHeader(this);
@@ -570,6 +1082,12 @@ public class HdbtiParser extends Parser {
 		}
 	}
 
+	/**
+	 * Assign header.
+	 *
+	 * @return the assign header context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AssignHeaderContext assignHeader() throws RecognitionException {
 		AssignHeaderContext _localctx = new AssignHeaderContext(_ctx, getState());
 		enterRule(_localctx, 12, RULE_assignHeader);
@@ -597,21 +1115,69 @@ public class HdbtiParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AssignUseHeaderNamesContext.
+	 */
 	public static class AssignUseHeaderNamesContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtiParser.EQ, 0); }
+		
+		/**
+		 * Boolean.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode BOOLEAN() { return getToken(HdbtiParser.BOOLEAN, 0); }
+		
+		/**
+		 * Instantiates a new assign use header names context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AssignUseHeaderNamesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_assignUseHeaderNames; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).enterAssignUseHeaderNames(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).exitAssignUseHeaderNames(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtiVisitor ) return ((HdbtiVisitor<? extends T>)visitor).visitAssignUseHeaderNames(this);
@@ -619,6 +1185,12 @@ public class HdbtiParser extends Parser {
 		}
 	}
 
+	/**
+	 * Assign use header names.
+	 *
+	 * @return the assign use header names context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AssignUseHeaderNamesContext assignUseHeaderNames() throws RecognitionException {
 		AssignUseHeaderNamesContext _localctx = new AssignUseHeaderNamesContext(_ctx, getState());
 		enterRule(_localctx, 14, RULE_assignUseHeaderNames);
@@ -646,21 +1218,69 @@ public class HdbtiParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AssignDelimFieldContext.
+	 */
 	public static class AssignDelimFieldContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtiParser.EQ, 0); }
+		
+		/**
+		 * String.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING() { return getToken(HdbtiParser.STRING, 0); }
+		
+		/**
+		 * Instantiates a new assign delim field context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AssignDelimFieldContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_assignDelimField; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).enterAssignDelimField(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).exitAssignDelimField(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtiVisitor ) return ((HdbtiVisitor<? extends T>)visitor).visitAssignDelimField(this);
@@ -668,6 +1288,12 @@ public class HdbtiParser extends Parser {
 		}
 	}
 
+	/**
+	 * Assign delim field.
+	 *
+	 * @return the assign delim field context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AssignDelimFieldContext assignDelimField() throws RecognitionException {
 		AssignDelimFieldContext _localctx = new AssignDelimFieldContext(_ctx, getState());
 		enterRule(_localctx, 16, RULE_assignDelimField);
@@ -695,21 +1321,69 @@ public class HdbtiParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AssignDelimEnclosingContext.
+	 */
 	public static class AssignDelimEnclosingContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtiParser.EQ, 0); }
+		
+		/**
+		 * String.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING() { return getToken(HdbtiParser.STRING, 0); }
+		
+		/**
+		 * Instantiates a new assign delim enclosing context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AssignDelimEnclosingContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_assignDelimEnclosing; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).enterAssignDelimEnclosing(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).exitAssignDelimEnclosing(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtiVisitor ) return ((HdbtiVisitor<? extends T>)visitor).visitAssignDelimEnclosing(this);
@@ -717,6 +1391,12 @@ public class HdbtiParser extends Parser {
 		}
 	}
 
+	/**
+	 * Assign delim enclosing.
+	 *
+	 * @return the assign delim enclosing context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AssignDelimEnclosingContext assignDelimEnclosing() throws RecognitionException {
 		AssignDelimEnclosingContext _localctx = new AssignDelimEnclosingContext(_ctx, getState());
 		enterRule(_localctx, 18, RULE_assignDelimEnclosing);
@@ -744,21 +1424,69 @@ public class HdbtiParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AssignDistinguishEmptyFromNullContext.
+	 */
 	public static class AssignDistinguishEmptyFromNullContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtiParser.EQ, 0); }
+		
+		/**
+		 * Boolean.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode BOOLEAN() { return getToken(HdbtiParser.BOOLEAN, 0); }
+		
+		/**
+		 * Instantiates a new assign distinguish empty from null context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AssignDistinguishEmptyFromNullContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_assignDistinguishEmptyFromNull; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).enterAssignDistinguishEmptyFromNull(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).exitAssignDistinguishEmptyFromNull(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtiVisitor ) return ((HdbtiVisitor<? extends T>)visitor).visitAssignDistinguishEmptyFromNull(this);
@@ -766,6 +1494,12 @@ public class HdbtiParser extends Parser {
 		}
 	}
 
+	/**
+	 * Assign distinguish empty from null.
+	 *
+	 * @return the assign distinguish empty from null context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AssignDistinguishEmptyFromNullContext assignDistinguishEmptyFromNull() throws RecognitionException {
 		AssignDistinguishEmptyFromNullContext _localctx = new AssignDistinguishEmptyFromNullContext(_ctx, getState());
 		enterRule(_localctx, 20, RULE_assignDistinguishEmptyFromNull);
@@ -793,23 +1527,71 @@ public class HdbtiParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AssignKeysContext.
+	 */
 	public static class AssignKeysContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbtiParser.EQ, 0); }
+		
+		/**
+		 * Key arr.
+		 *
+		 * @return the key arr context
+		 */
 		public KeyArrContext keyArr() {
 			return getRuleContext(KeyArrContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new assign keys context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AssignKeysContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_assignKeys; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).enterAssignKeys(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).exitAssignKeys(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtiVisitor ) return ((HdbtiVisitor<? extends T>)visitor).visitAssignKeys(this);
@@ -817,6 +1599,12 @@ public class HdbtiParser extends Parser {
 		}
 	}
 
+	/**
+	 * Assign keys.
+	 *
+	 * @return the assign keys context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AssignKeysContext assignKeys() throws RecognitionException {
 		AssignKeysContext _localctx = new AssignKeysContext(_ctx, getState());
 		enterRule(_localctx, 22, RULE_assignKeys);
@@ -842,27 +1630,88 @@ public class HdbtiParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class KeyArrContext.
+	 */
 	public static class KeyArrContext extends ParserRuleContext {
+		
+		/**
+		 * Rb.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode RB() { return getToken(HdbtiParser.RB, 0); }
+		
+		/**
+		 * Lb.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode LB() { return getToken(HdbtiParser.LB, 0); }
+		
+		/**
+		 * Pair.
+		 *
+		 * @return the list
+		 */
 		public List<PairContext> pair() {
 			return getRuleContexts(PairContext.class);
 		}
+		
+		/**
+		 * Pair.
+		 *
+		 * @param i the i
+		 * @return the pair context
+		 */
 		public PairContext pair(int i) {
 			return getRuleContext(PairContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new key arr context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public KeyArrContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_keyArr; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).enterKeyArr(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).exitKeyArr(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtiVisitor ) return ((HdbtiVisitor<? extends T>)visitor).visitKeyArr(this);
@@ -870,6 +1719,12 @@ public class HdbtiParser extends Parser {
 		}
 	}
 
+	/**
+	 * Key arr.
+	 *
+	 * @return the key arr context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final KeyArrContext keyArr() throws RecognitionException {
 		KeyArrContext _localctx = new KeyArrContext(_ctx, getState());
 		enterRule(_localctx, 24, RULE_keyArr);
@@ -922,25 +1777,73 @@ public class HdbtiParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class PairContext.
+	 */
 	public static class PairContext extends ParserRuleContext {
+		
+		/**
+		 * Pair key.
+		 *
+		 * @return the pair key context
+		 */
 		public PairKeyContext pairKey() {
 			return getRuleContext(PairKeyContext.class,0);
 		}
+		
+		/**
+		 * Pair value.
+		 *
+		 * @return the pair value context
+		 */
 		public PairValueContext pairValue() {
 			return getRuleContext(PairValueContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new pair context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public PairContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_pair; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).enterPair(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).exitPair(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtiVisitor ) return ((HdbtiVisitor<? extends T>)visitor).visitPair(this);
@@ -948,6 +1851,12 @@ public class HdbtiParser extends Parser {
 		}
 	}
 
+	/**
+	 * Pair.
+	 *
+	 * @return the pair context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final PairContext pair() throws RecognitionException {
 		PairContext _localctx = new PairContext(_ctx, getState());
 		enterRule(_localctx, 26, RULE_pair);
@@ -973,20 +1882,62 @@ public class HdbtiParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class PairKeyContext.
+	 */
 	public static class PairKeyContext extends ParserRuleContext {
+		
+		/**
+		 * String.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING() { return getToken(HdbtiParser.STRING, 0); }
+		
+		/**
+		 * Instantiates a new pair key context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public PairKeyContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_pairKey; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).enterPairKey(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).exitPairKey(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtiVisitor ) return ((HdbtiVisitor<? extends T>)visitor).visitPairKey(this);
@@ -994,6 +1945,12 @@ public class HdbtiParser extends Parser {
 		}
 	}
 
+	/**
+	 * Pair key.
+	 *
+	 * @return the pair key context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final PairKeyContext pairKey() throws RecognitionException {
 		PairKeyContext _localctx = new PairKeyContext(_ctx, getState());
 		enterRule(_localctx, 28, RULE_pairKey);
@@ -1015,20 +1972,62 @@ public class HdbtiParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class PairValueContext.
+	 */
 	public static class PairValueContext extends ParserRuleContext {
+		
+		/**
+		 * String.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode STRING() { return getToken(HdbtiParser.STRING, 0); }
+		
+		/**
+		 * Instantiates a new pair value context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public PairValueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_pairValue; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).enterPairValue(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).exitPairValue(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtiVisitor ) return ((HdbtiVisitor<? extends T>)visitor).visitPairValue(this);
@@ -1036,6 +2035,12 @@ public class HdbtiParser extends Parser {
 		}
 	}
 
+	/**
+	 * Pair value.
+	 *
+	 * @return the pair value context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final PairValueContext pairValue() throws RecognitionException {
 		PairValueContext _localctx = new PairValueContext(_ctx, getState());
 		enterRule(_localctx, 30, RULE_pairValue);
@@ -1057,19 +2062,55 @@ public class HdbtiParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class TableNameContext.
+	 */
 	public static class TableNameContext extends ParserRuleContext {
+		
+		/**
+		 * Instantiates a new table name context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public TableNameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_tableName; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).enterTableName(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbtiListener ) ((HdbtiListener)listener).exitTableName(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbtiVisitor ) return ((HdbtiVisitor<? extends T>)visitor).visitTableName(this);
@@ -1077,6 +2118,12 @@ public class HdbtiParser extends Parser {
 		}
 	}
 
+	/**
+	 * Table name.
+	 *
+	 * @return the table name context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final TableNameContext tableName() throws RecognitionException {
 		TableNameContext _localctx = new TableNameContext(_ctx, getState());
 		enterRule(_localctx, 32, RULE_tableName);
@@ -1107,6 +2154,7 @@ public class HdbtiParser extends Parser {
 		return _localctx;
 	}
 
+	/** The Constant _serializedATN. */
 	public static final String _serializedATN =
 		"\u0004\u0001\u001b\u008b\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001"+
 		"\u0002\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004"+
@@ -1182,6 +2230,8 @@ public class HdbtiParser extends Parser {
 		"\u0005\u0012\u0000\u0000\u0085\u001d\u0001\u0000\u0000\u0000\u0086\u0087"+
 		"\u0005\u0012\u0000\u0000\u0087\u001f\u0001\u0000\u0000\u0000\u0088\u0089"+
 		"\u0007\u0000\u0000\u0000\u0089!\u0001\u0000\u0000\u0000\u0006*-6Dx{";
+	
+	/** The Constant _ATN. */
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

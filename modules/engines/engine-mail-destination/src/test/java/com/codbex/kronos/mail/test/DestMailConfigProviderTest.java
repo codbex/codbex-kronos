@@ -46,7 +46,7 @@ public class DestMailConfigProviderTest {
 
   public void mock() {
     Properties props = new Properties();
-    props.setProperty("mail.user", "user@xsk.io");
+    props.setProperty("mail.user", "user@codbex.com");
 
     configurationMock = Mockito.mockStatic(Configuration.class);
     configurationMock.when(() -> Configuration.get(MAIL_SERVER_DESTINATION_NAME))

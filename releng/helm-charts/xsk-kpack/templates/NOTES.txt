@@ -1,0 +1,35 @@
+{{- if .Values.install.allInOne }}
+
+Check your image status with command: `kubectl -n {{ .Values.create.namespace }} get image kronos-image`
+
+You can tail the logs for your image that is currently building using the Kpack CLI command.
+`kp build logs kronos-image -n {{ .Values.create.namespace }}`
+
+{{- end }}
+
+{{- if .Values.install.clusterBuilder }}
+
+Kpack kronos ClusterStore and ClusterStack installed. To create image Builder execute the following command:
+
+    helm install kronos-image-builder kronos/kronos \
+    --set install.imageBuilder=true \
+    --set imageBuilder.repository=<your-image-builder-docker-repository>
+
+{{- end }}
+
+{{- if .Values.install.imageBuilder }}
+
+Kpack Kronos Builder installed. 
+To trigger Docker image build, execute the following command:
+https://github.com/codbe/codbex-kronos/tree/main/releng/buildpacks/kronos or you can run this commands:
+helm install kronos-image kronos/kronos-kpack \
+--set create.image=true \
+--set image.repository=<your-repository-for-your-OCI-image> \
+--set image.source=<your-application-source>
+{{- end }}
+
+{{- if .Values.create.image }}
+
+Docker image will be published in the following repository: https://hub.docker.com/r/{{ .Values.image.repository }}
+
+{{- end }}

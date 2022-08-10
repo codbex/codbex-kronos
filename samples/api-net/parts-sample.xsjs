@@ -1,14 +1,14 @@
 var files = require("io/v4/files");
 
 // Getting the byte array of the attachment.
-var xskLogo = files.readBytes('path-to-file/xsk-logo.png');
+var kronosLogo = files.readBytes('path-to-file/kronos-logo.png');
 
 // Create an attachment $.net.Mail.Part from JSObject.
 var attachmentPart = new $.net.Mail.Part({
   type: $.net.Mail.Part.TYPE_ATTACHMENT,
-  data: xskLogo,
+  data: kronosLogo,
   contentType: "image/png",
-  fileName: "xsk-logo.png",
+  fileName: "kronos-logo.png",
   fileNameEncoding: "UTF-8"
 });
 
@@ -28,7 +28,7 @@ var inlinePart = new $.net.Mail.Part({
 // Create a text $.net.Mail.Part object.
 var textPart = new $.net.Mail.Part({
   type: $.net.Mail.Part.TYPE_TEXT,
-  text: "<html><head></head><body><h1>This is XSK</h1><br><img src=\"cid:IMAGE1_ID\"><br></body></html>",
+  text: "<html><head></head><body><h1>This is Kronos</h1><br><img src=\"cid:IMAGE1_ID\"><br></body></html>",
   contentType: "text/html",
   encoding: "UTF-8"
 });

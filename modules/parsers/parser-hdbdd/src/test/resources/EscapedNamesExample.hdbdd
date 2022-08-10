@@ -1,4 +1,4 @@
-namespace com.acme;
+namespace com.sap;
 
 @Schema: 'ADMIN'
 context EscapedNamesExample {

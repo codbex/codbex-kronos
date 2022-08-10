@@ -23,32 +23,46 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.codbex.kronos.hdb.ds.artefacts.HDBProcedureSynchronizationArtefactType;
-import com.codbex.kronos.hdb.ds.model.hdbprocedure.XSKDataStructureHDBProcedureModel;
-import com.codbex.kronos.hdb.ds.processors.AbstractXSKProcessor;
-import com.codbex.kronos.utils.XSKCommonsConstants;
-import com.codbex.kronos.utils.XSKCommonsUtils;
-import com.codbex.kronos.utils.XSKConstants;
+import com.codbex.kronos.hdb.ds.model.hdbprocedure.DataStructureHDBProcedureModel;
+import com.codbex.kronos.hdb.ds.processors.AbstractHDBProcessor;
+import com.codbex.kronos.utils.CommonsConstants;
+import com.codbex.kronos.utils.CommonsUtils;
+import com.codbex.kronos.utils.Constants;
 
-public class HDBProcedureDropProcessor extends AbstractXSKProcessor<XSKDataStructureHDBProcedureModel> {
+/**
+ * The Class HDBProcedureDropProcessor.
+ */
+public class HDBProcedureDropProcessor extends AbstractHDBProcessor<DataStructureHDBProcedureModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDBProcedureDropProcessor.class);
+  
+  /** The Constant PROCEDURE_ARTEFACT. */
   private static final HDBProcedureSynchronizationArtefactType PROCEDURE_ARTEFACT = new HDBProcedureSynchronizationArtefactType();
 
-  public boolean execute(Connection connection, XSKDataStructureHDBProcedureModel hdbProcedure)
+  /**
+   * Execute.
+   *
+   * @param connection the connection
+   * @param hdbProcedure the hdb procedure
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
+  public boolean execute(Connection connection, DataStructureHDBProcedureModel hdbProcedure)
       throws SQLException {
     logger.info("Processing Drop Procedure: " + hdbProcedure.getName());
-    String procedureNameWithoutSchema = XSKCommonsUtils.extractArtifactNameWhenSchemaIsProvided(hdbProcedure.getName())[1];
-    hdbProcedure.setSchema(XSKCommonsUtils.extractArtifactNameWhenSchemaIsProvided(hdbProcedure.getName())[0]);
+    String procedureNameWithoutSchema = CommonsUtils.extractArtifactNameWhenSchemaIsProvided(hdbProcedure.getName())[1];
+    hdbProcedure.setSchema(CommonsUtils.extractArtifactNameWhenSchemaIsProvided(hdbProcedure.getName())[0]);
 
     if (SqlFactory.getNative(connection).exists(connection, procedureNameWithoutSchema, DatabaseArtifactTypes.PROCEDURE)) {
       ISqlDialect dialect = SqlFactory.deriveDialect(connection);
       if (!(dialect.getClass().equals(HanaSqlDialect.class))) {
         String errorMessage = String.format("Procedures are not supported for %s", dialect.getDatabaseName(connection));
-        XSKCommonsUtils.logProcessorErrors(errorMessage, XSKCommonsConstants.PROCESSOR_ERROR, hdbProcedure.getLocation(), XSKCommonsConstants.HDB_PROCEDURE_PARSER);
+        CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, hdbProcedure.getLocation(), CommonsConstants.HDB_PROCEDURE_PARSER);
         applyArtefactState(hdbProcedure.getName(), hdbProcedure.getLocation(), PROCEDURE_ARTEFACT, ArtefactState.FAILED_DELETE, errorMessage);
         throw new IllegalStateException(errorMessage);
       } else {
-        String sql = XSKConstants.XSK_HDBPROCEDURE_DROP + hdbProcedure.getName();
+        String sql = Constants.HDBPROCEDURE_DROP + hdbProcedure.getName();
         try {
           executeSql(sql, connection);
           String message = String.format("Drop procedure %s successfully", hdbProcedure.getName());
@@ -56,7 +70,7 @@ public class HDBProcedureDropProcessor extends AbstractXSKProcessor<XSKDataStruc
           return true;
         } catch (SQLException ex) {
           String message = String.format("Drop procedure[%s] skipped due to an error: %s", hdbProcedure, ex.getMessage());
-          XSKCommonsUtils.logProcessorErrors(ex.getMessage(), XSKCommonsConstants.PROCESSOR_ERROR, hdbProcedure.getLocation(), XSKCommonsConstants.HDB_PROCEDURE_PARSER);
+          CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, hdbProcedure.getLocation(), CommonsConstants.HDB_PROCEDURE_PARSER);
           applyArtefactState(hdbProcedure.getName(), hdbProcedure.getLocation(), PROCEDURE_ARTEFACT, ArtefactState.FAILED_DELETE, message);
           return false;
         }

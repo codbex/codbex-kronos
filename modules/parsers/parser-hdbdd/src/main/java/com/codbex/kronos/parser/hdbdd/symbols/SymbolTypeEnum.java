@@ -11,6 +11,17 @@
  */
 package com.codbex.kronos.parser.hdbdd.symbols;
 
+/**
+ * The Enum SymbolTypeEnum.
+ */
 public enum SymbolTypeEnum {
-  ENTITY, TYPE, CONTEXT, VIEW;
+  
+  /** The entity. */
+  ENTITY, 
+ /** The type. */
+ TYPE, 
+ /** The context. */
+ CONTEXT, 
+ /** The view. */
+ VIEW;
 }

@@ -4,11 +4,11 @@ query = "
 select distinct code from
 (
     select current_status_code as code, status_model_code
-    from \"acme.db.status::t_status_model_transition\"
+    from \"sap.db.status::t_status_model_transition\"
     union all
     select next_status_code as code, status_model_code
-    from \"acme.db.status::t_status_model_transition\"
+    from \"sap.db.status::t_status_model_transition\"
 )
-where status_model_code = \'acme.config.EVALUATION\'
+where status_model_code = \'sap.config.EVALUATION\'
 ";
-depends_on_table = ["acme.db.status::t_status_model_transition"];
+depends_on_table = ["sap.db.status::t_status_model_transition"];

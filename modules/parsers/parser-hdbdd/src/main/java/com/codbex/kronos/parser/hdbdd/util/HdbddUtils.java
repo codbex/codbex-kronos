@@ -11,8 +11,17 @@
  */
 package com.codbex.kronos.parser.hdbdd.util;
 
+/**
+ * The Class HdbddUtils.
+ */
 public class HdbddUtils {
 
+  /**
+   * Process escaped symbol name.
+   *
+   * @param symbolName the symbol name
+   * @return the string
+   */
   public static String processEscapedSymbolName(String symbolName) {
       if (symbolName.charAt(0) == '"') {
         return symbolName.substring(1, symbolName.length() - 1);

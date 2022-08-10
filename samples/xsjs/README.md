@@ -4,15 +4,15 @@ This sample contains a single `xsjs` service using the [$.db](https://help.sap.c
 
 - [XSJS](#xsjs)
   - [Kpack Configurations](#kpack-configurations)
-  - [Building XSK Docker Image from Source](#building-xsk-docker-image-from-source)
-  - [Deploying XSK Docker Image on Kyma](#deploying-xsk-docker-image-on-kyma)
+  - [Building Docker Image from Source](#building-docker-image-from-source)
+  - [Deploying Docker Image on Kyma](#deploying-docker-image-on-kyma)
 
 ### Kpack Configurations
 
 - Install [Kpack](https://github.com/pivotal/kpack) on your Kubernetes/Kyma cluster.
 - Install Kpack `ClusterStore` & `ClusterStack` resources:
     ```
-    helm install xsk-cluster-builder xsk/xsk \
+    helm install kronos-cluster-builder kronos/kronos \
     --set install.clusterBuilder=true \
     --set create.secret=true \
     --set docker.server=<docker-server> \
@@ -33,28 +33,28 @@ This sample contains a single `xsjs` service using the [$.db](https://help.sap.c
 
 - Install Kpack `Builder` resource:
     ```
-    helm install xsk-image-builder xsk/xsk \
+    helm install kronos-image-builder kronos/kronos \
     --set install.imageBuilder=true \
     --set imageBuilder.repository=<image-builder-repository>
     ```
 
     > _**Note:** Before running the command, replace the `<image-builder-repository>` placeholder with a docker repository, where the Kpack builder will be stored (e.g. `myDockerOrg/myKpackImageBuilderRepository`)._
 
-### Building XSK Docker Image from Source
+### Building Docker Image from Source
 
 ```
-helm install xsk-image-application xsk/xsk \
+helm install kronos-image-application kronos/kronos \
 --set create.image=true \
---set image.repository=dirigiblelabs/xsk-image-application \
+--set image.repository=dirigiblelabs/kronos-image-application \
 --set image.source=<zipped-application-content-url>
 ```
 
-> _**Note:** Before running the command, replace the `<zipped-application-content-url>` placeholder with URL to your XSK application content (e.g. https://github.com/SAP/xsk/releases/download/v0.6.2/xsjs.zip)_
+> _**Note:** Before running the command, replace the `<zipped-application-content-url>` placeholder with URL to your Kronos application content (e.g. https://github.com/codbex/codbex-kronos/releases/download/v0.6.2/xsjs.zip)_
 
 - To monitor the build log execute the following command:
 
     ```
-    logs -image xsk-image-application -namespace default
+    logs -image kronos-image-application -namespace default
     ```
 
     > _**Note:** Install the `logs` command from the Kpack documentation._
@@ -65,13 +65,13 @@ helm install xsk-image-application xsk/xsk \
     kubectl get clusterstore,clusterstack,builders,pods,images
     ```
 
-### Deploying XSK Docker Image on Kyma
+### Deploying Docker Image on Kyma
 
 ```
-helm install my-application xsk/xsk \
+helm install my-application kronos/kronos \
 --set create.application=true \
 --set application.image=<docker-application-image> \
---set application.homeUrl=/services/v4/xsk/xsjs/demo.xsjs \
+--set application.homeUrl=/services/v4/kronos/xsjs/demo.xsjs \
 --set application.fastBootstrap=true \
 --set create.secret=true \
 --set hana.url=<hana-url> \
@@ -82,9 +82,9 @@ helm install my-application xsk/xsk \
 
 > _**Note:** Before running the command, replace the placelohers, where:_
 
-- > _`<docker-application-image>` is the target XSK application docker image that was built in the previous step._
+- > _`<docker-application-image>` is the target Kronos application docker image that was built in the previous step._
 
-- > _`<xsk-application-home-url>` is the default home url, once the application is accessed (e.g. `/services/v4/xsk/my-application/my-service.xsjs`)._
+- > _`<kronos-application-home-url>` is the default home url, once the application is accessed (e.g. `/services/v4/kronos/my-application/my-service.xsjs`)._
 
 - > _`<hana-url>` is the URL of the target HANA instance (e.g. `199f1737-...hanacloud.ondemand.com:443`)._
 
@@ -92,4 +92,4 @@ helm install my-application xsk/xsk \
 
 - > _`<hana-password>` is the password that will be used to connect to the target HANA instance._
 
-- > _`<kyma-host>` is the Kyma instance host, where the XSK application will be deployed (e.g. `c-1632...ondemand.com`)._
+- > _`<kyma-host>` is the Kyma instance host, where the Kronos application will be deployed (e.g. `c-1632...ondemand.com`)._

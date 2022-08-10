@@ -1,7 +1,7 @@
 {
     "users": ["DBADMIN"],
-    "group": "XSK_HDI_EXT_GROUP",
-    "container": "XSK_HDI_EXT",
+    "group": "KRONOS_HDI_EXT_GROUP",
+    "container": "KRONOS_HDI_EXT",
     "deploy": [
     	"/hdi-ext/Customers.hdbsynonym",
     	"/hdi-ext/CustomersCalcView.hdbcalculationview"

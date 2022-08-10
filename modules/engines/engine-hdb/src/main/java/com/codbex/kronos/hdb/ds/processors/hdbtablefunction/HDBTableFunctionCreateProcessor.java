@@ -23,33 +23,47 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.codbex.kronos.hdb.ds.artefacts.HDBTableFunctionSynchronizationArtefactType;
-import com.codbex.kronos.hdb.ds.model.hdbtablefunction.XSKDataStructureHDBTableFunctionModel;
-import com.codbex.kronos.hdb.ds.processors.AbstractXSKProcessor;
-import com.codbex.kronos.utils.XSKCommonsConstants;
-import com.codbex.kronos.utils.XSKCommonsUtils;
-import com.codbex.kronos.utils.XSKConstants;
+import com.codbex.kronos.hdb.ds.model.hdbtablefunction.DataStructureHDBTableFunctionModel;
+import com.codbex.kronos.hdb.ds.processors.AbstractHDBProcessor;
+import com.codbex.kronos.utils.CommonsConstants;
+import com.codbex.kronos.utils.CommonsUtils;
+import com.codbex.kronos.utils.Constants;
 
-public class HDBTableFunctionCreateProcessor extends AbstractXSKProcessor<XSKDataStructureHDBTableFunctionModel> {
+/**
+ * The Class HDBTableFunctionCreateProcessor.
+ */
+public class HDBTableFunctionCreateProcessor extends AbstractHDBProcessor<DataStructureHDBTableFunctionModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDBTableFunctionCreateProcessor.class);
+  
+  /** The Constant TABLE_FUNCTION_ARTEFACT. */
   private static final HDBTableFunctionSynchronizationArtefactType TABLE_FUNCTION_ARTEFACT = new HDBTableFunctionSynchronizationArtefactType();
 
-  public boolean execute(Connection connection, XSKDataStructureHDBTableFunctionModel hdbTableFunction)
+  /**
+   * Execute.
+   *
+   * @param connection the connection
+   * @param hdbTableFunction the hdb table function
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
+  public boolean execute(Connection connection, DataStructureHDBTableFunctionModel hdbTableFunction)
       throws SQLException {
     logger.info("Processing Create TableFunction: " + hdbTableFunction.getName());
 
-    String funcNameWithoutSchema = XSKCommonsUtils.extractArtifactNameWhenSchemaIsProvided(hdbTableFunction.getName())[1];
-    hdbTableFunction.setSchema(XSKCommonsUtils.extractArtifactNameWhenSchemaIsProvided(hdbTableFunction.getName())[0]);
+    String funcNameWithoutSchema = CommonsUtils.extractArtifactNameWhenSchemaIsProvided(hdbTableFunction.getName())[1];
+    hdbTableFunction.setSchema(CommonsUtils.extractArtifactNameWhenSchemaIsProvided(hdbTableFunction.getName())[0]);
     if (!SqlFactory.getNative(connection)
         .exists(connection, hdbTableFunction.getSchema(), funcNameWithoutSchema, DatabaseArtifactTypes.FUNCTION)) {
       ISqlDialect dialect = SqlFactory.deriveDialect(connection);
       if (!(dialect.getClass().equals(HanaSqlDialect.class))) {
         String errorMessage = String.format("TableFunctions are not supported for %s", dialect.getDatabaseName(connection));
-        XSKCommonsUtils.logProcessorErrors(errorMessage, XSKCommonsConstants.PROCESSOR_ERROR, hdbTableFunction.getLocation(), XSKCommonsConstants.HDB_TABLE_FUNCTION_PARSER);
+        CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, hdbTableFunction.getLocation(), CommonsConstants.HDB_TABLE_FUNCTION_PARSER);
         applyArtefactState(hdbTableFunction.getName(),hdbTableFunction.getLocation(),TABLE_FUNCTION_ARTEFACT, ArtefactState.FAILED_CREATE, errorMessage);
         throw new IllegalStateException(errorMessage);
       } else {
-        String sql = XSKConstants.XSK_HDBTABLEFUNCTION_CREATE + hdbTableFunction.getContent();
+        String sql = Constants.HDBTABLEFUNCTION_CREATE + hdbTableFunction.getRawContent();
         try {
           executeSql(sql, connection);
           String message = String.format("Create table function %s successfully", hdbTableFunction.getName());
@@ -57,7 +71,7 @@ public class HDBTableFunctionCreateProcessor extends AbstractXSKProcessor<XSKDat
           return true;
         } catch (SQLException ex) {
           String errorMessage = String.format("Create table function [%s] skipped due to an error: %s", hdbTableFunction.getName(), ex.getMessage());
-          XSKCommonsUtils.logProcessorErrors(ex.getMessage(), XSKCommonsConstants.PROCESSOR_ERROR, hdbTableFunction.getLocation(), XSKCommonsConstants.HDB_TABLE_FUNCTION_PARSER);
+          CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, hdbTableFunction.getLocation(), CommonsConstants.HDB_TABLE_FUNCTION_PARSER);
           applyArtefactState(hdbTableFunction.getName(), hdbTableFunction.getLocation(), TABLE_FUNCTION_ARTEFACT, ArtefactState.FAILED_CREATE, errorMessage);
           return false;
         }

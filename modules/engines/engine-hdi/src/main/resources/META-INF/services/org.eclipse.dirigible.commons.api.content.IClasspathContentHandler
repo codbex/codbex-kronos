@@ -1,1 +1,1 @@
-com.codbex.kronos.hdb.ds.hdi.synchronizer.XSKDataStructuresHDIClasspathContentHandler	# XSK Data Structures HDI Classpath Content Handler
+com.codbex.kronos.hdi.ds.synchronizer.DataStructuresHDIClasspathContentHandler	# Data Structures HDI Classpath Content Handler

@@ -1,0 +1,3 @@
+schema="SAMPLES_HDI_CUSTOMER";
+query="SELECT * FROM \"hdi-cube::SalesOrdersTable\"";
+depends_on= ["hdi-cube::SalesOrdersTable"];

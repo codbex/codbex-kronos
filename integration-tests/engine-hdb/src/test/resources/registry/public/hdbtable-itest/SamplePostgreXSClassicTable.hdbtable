@@ -1,0 +1,11 @@
+table.schemaName = "TEST_SCHEMA";
+table.temporary = true;
+table.tableType = COLUMNSTORE;
+table.loggingType = NOLOGGING;
+table.columns = [
+ {name = "ID"; sqlType = INTEGER; unique= false; length = 40; nullable = false; comment = "hello"; defaultValue = 20; precision = 2; scale = 15;},
+ {name = "NAME"; sqlType = VARCHAR; length = 20; nullable = false; },
+ {name = "JOB"; sqlType = VARCHAR; length = 20; nullable = false;},
+ {name = "NUMBER"; sqlType = INTEGER; length = 20; nullable = false; defaultValue = 444;}];
+table.primaryKey.pkcolumns = ["ID"];
+table.description = "test table test";

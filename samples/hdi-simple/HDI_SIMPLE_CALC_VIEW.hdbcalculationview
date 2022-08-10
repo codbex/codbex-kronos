@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario id="com.codbex.kronos.samples::KRONOS_HDI_SIMPLE_CALC_VIEW" outputViewType="Projection">
+    <dataSources>
+        <DataSource id="KRONOS_HDI_SIMPLE_TABLE" type="DATA_BASE_TABLE">
+            <resourceUri>KRONOS_HDI_SIMPLE_TABLE</resourceUri>
+        </DataSource>
+    </dataSources>
+    <calculationViews>
+        <calculationView xsi:type="Calculation:ProjectionView" id="KRONOS_HDI_SIMPLE_CALC_VIEW">
+            <viewAttributes>
+                <viewAttribute id="COLUMN1"/>
+            </viewAttributes>
+            <input node="#KRONOS_HDI_SIMPLE_TABLE">
+                <mapping xsi:type="Calculation:AttributeMapping" target="COLUMN1" source="COLUMN1"/>
+            </input>
+        </calculationView>
+    </calculationViews>
+    <logicalModel id="KRONOS_HDI_SIMPLE_CALC_VIEW">
+        <attributes>
+            <attribute id="COLUMN1">
+                <keyMapping columnObjectName="KRONOS_HDI_SIMPLE_CALC_VIEW" columnName="COLUMN1"/>
+            </attribute>
+        </attributes>
+    </logicalModel>
+</Calculation:scenario>

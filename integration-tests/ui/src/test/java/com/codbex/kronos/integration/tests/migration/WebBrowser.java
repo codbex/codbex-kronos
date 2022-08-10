@@ -1,0 +1,251 @@
+/*
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v2.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v20.html
+ *
+ * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
+ * SPDX-License-Identifier: EPL-2.0
+ */
+package com.codbex.kronos.integration.tests.migration;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptException;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.io.IOException;
+import java.time.Duration;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertEquals;
+
+class WebBrowser {
+
+  private WebDriver browser;
+  private WebDriverWait browserWait;
+  private Actions browserActions;
+  private JavascriptExecutor jsExecutor;
+  private SeleniumLogger logger;
+  private final String baseUrl;
+  private final boolean isHeadless;
+
+  WebBrowser(String param, String baseUrl, boolean isHeadless) {
+    this.baseUrl = baseUrl;
+    this.isHeadless = isHeadless;
+    setupBrowser(param);
+  }
+
+  private void setupBrowser(String param) {
+    if (param.contains("Chrome")) {
+      setupChrome();
+    } else {
+      setupFirefox();
+    }
+
+    logger = new SeleniumLogger(browser, param);
+  }
+
+  private void setupChrome() {
+    WebDriverManager.chromedriver().setup();
+    ChromeOptions options = new ChromeOptions();
+    options.setHeadless(isHeadless);
+    options.addArguments("--no-sandbox");
+    options.addArguments("--disable-dev-shm-usage");
+    options.addArguments("--window-size=1920,1080");
+    options.addArguments("--incognito");
+
+    setupBrowserCommon(new ChromeDriver(options));
+  }
+
+  private void setupFirefox() {
+    WebDriverManager.firefoxdriver().setup();
+    FirefoxOptions options = new FirefoxOptions();
+    options.setHeadless(isHeadless);
+    options.addArguments("--height=1080", "--width=1920", "-private");
+    setupBrowserCommon(new FirefoxDriver(options));
+  }
+
+  private void setupBrowserCommon(WebDriver webDriver) {
+    browser = webDriver;
+    browser.navigate().to(baseUrl);
+    browser.manage().window().maximize();
+    browser.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    browser.manage().window().setSize(new Dimension(1920,1080));
+
+    jsExecutor = (JavascriptExecutor) (browser);
+    browserWait = new WebDriverWait(browser, Duration.ofSeconds(120));
+    browserActions = new Actions(browser);
+  }
+
+  void clickItem(By by) {
+    WebElement target = browser.findElement(by);
+    browserWait.until(ExpectedConditions.visibilityOf(target));
+    browserWait.until(ExpectedConditions.elementToBeClickable(target));
+    scrollIntoView(target);
+    moveTo(by);
+    target.click();
+  }
+
+  void doubleClickItem(WebElement element) {
+    browserActions.doubleClick(element).perform();
+  }
+
+  void submitForm(By by) {
+    var found = findElementsBy(by);
+    if (found.size() == 1) {
+      found.get(0).submit();
+    } else {
+      throw new RuntimeException("Selenium test submitForm() error:"
+          + " Form not found or multiple forms with same locator.");
+    }
+  }
+
+  void switchToIframe(By by) {
+    browserWait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(by));
+  }
+
+  void switchToIframe(WebElement iframe) {
+    browserWait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(iframe));
+  }
+
+  void scrollIntoView(WebElement element) {
+    browserWait.until(ExpectedConditions.visibilityOf(element));
+    jsExecutor.executeScript("arguments[0].scrollIntoView();", element);
+  }
+
+  void moveTo(By by) {
+    browserWait.until(ExpectedConditions.visibilityOfElementLocated(by));
+    WebElement target = browser.findElement(by);
+    browserActions.moveToElement(target).perform();
+  }
+
+  void enterAndAssertField(By by, String value) {
+    var field = browser.findElement(by);
+    browserWait.until(ExpectedConditions.elementToBeClickable(field));
+    browserActions.doubleClick(field).build().perform();
+    field.sendKeys(value);
+    assertEquals("Input field value doesn't match sent keys.",
+        value, field.getAttribute("value"));
+  }
+
+  void selectAndAssertDropdown(String listName, Predicate<String> dropDownItemMatcher) {
+    var dropdownList = browserWait.until(
+        ExpectedConditions.presenceOfAllElementsLocatedBy(
+            By.xpath("//*[@ng-repeat=\"option in " + listName + "\"]")
+        )
+    );
+    WebElement dropdownButton = dropdownList.get(0).findElement(By.xpath("./../../button"));
+    browserWait.until(ExpectedConditions.elementToBeClickable(dropdownButton)).click();
+
+    var selection = dropdownList
+        .stream()
+        .filter((WebElement it) -> {
+          var innerHtml = it.getAttribute("innerHTML").trim();
+          return dropDownItemMatcher.test(innerHtml);
+        })
+        .collect(Collectors.toList());
+    browserWait.until(ExpectedConditions.elementToBeClickable(selection.get(0)));
+    assertEquals("Only one dropdown item should be selected.", 1, selection.size());
+    selection.get(0).click();
+  }
+
+  void waitForPageWithTitle(String pageTitle) {
+    browserWait.until(ExpectedConditions.titleIs(pageTitle));
+  }
+
+  void switchToDefaultContent() {
+    browser.switchTo().defaultContent();
+  }
+
+  void waitForVisibilityOfElement(By by) {
+    browserWait.until(ExpectedConditions.visibilityOfElementLocated(by));
+  }
+
+  String executeJavascript(String javascript) {
+    return (String) jsExecutor.executeScript(javascript);
+  }
+
+  List<WebElement> findAllVisibleWebElements(By by) {
+    return browserWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
+  }
+
+  void contextClick(WebElement element) {
+    browserActions.contextClick(element).perform();
+  }
+
+  List<WebElement> findElementsBy(By by) {
+    return browser.findElements(by);
+  }
+
+  String retryJavascriptWithTimeout(String javascript, int timeoutMs, int retries) {
+    int intervalMs = timeoutMs / retries, initialRetries = retries;
+    do {
+      try {
+        System.out.println(
+            "[Selenium - Retry Javascript With Timeout] Running Attempt "
+            + (initialRetries - retries + 1) + " for call '" + javascript +"'"
+        );
+
+        String result = this.executeJavascript(javascript);
+
+        System.out.println(
+            "[Selenium - Retry Javascript With Timeout] Success at attempt "
+            + (initialRetries - retries + 1) + " for call '" + javascript + "'"
+        );
+
+        return result;
+      } catch(JavascriptException exception) {
+        System.out.println(
+            "[Selenium - Retry Javascript With Timeout] Attempt Failed "
+            + (initialRetries - retries + 1) + " for call '" + javascript
+            + "' sleeping for " + intervalMs + " ms."
+        );
+
+        retries--;
+        this.sleep(intervalMs);
+      }
+    } while(retries > 0);
+
+    throw new RuntimeException(
+        "Retry WebBrowser::JavascriptWithTimeout(String, int, int) failed after timeout was reached. "
+        + "Arguments were: \n javascript:" + javascript + "\n timeout: " + timeoutMs + "\n retries: " + initialRetries
+    );
+  }
+
+  void sleep(long millis) throws RuntimeException {
+    try {
+      Thread.sleep(millis);
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  void log() {
+    try {
+      logger.save();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  void quit() {
+    if (browser != null) {
+      browser.quit();
+    }
+  }
+}

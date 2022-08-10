@@ -25,99 +25,99 @@ public class HdbsequenceBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitHdbsequence(HdbsequenceParser.HdbsequenceContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitProperty(HdbsequenceParser.PropertyContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitSchema(HdbsequenceParser.SchemaContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitIncrement_by(HdbsequenceParser.Increment_byContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitStart_with(HdbsequenceParser.Start_withContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitMaxvalue(HdbsequenceParser.MaxvalueContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitNomaxvalue(HdbsequenceParser.NomaxvalueContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitMinvalue(HdbsequenceParser.MinvalueContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitNominvalue(HdbsequenceParser.NominvalueContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitCycles(HdbsequenceParser.CyclesContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitReset_by(HdbsequenceParser.Reset_byContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitPublicc(HdbsequenceParser.PubliccContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitDependsOnTable(HdbsequenceParser.DependsOnTableContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitDependsOnView(HdbsequenceParser.DependsOnViewContext ctx) { return visitChildren(ctx); }
 }

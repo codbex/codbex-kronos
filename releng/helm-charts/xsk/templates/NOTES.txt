@@ -1,0 +1,18 @@
+1.
+Assign the required roles to your user.
+
+{{- if .Values.kyma.enabled }}
+
+2.
+Application will be deployed and accessible via the following URL: https://{{ .Release.Name }}.{{ .Values.kyma.host }}
+NOTE: It may take a few minutes for the APIRule to be accessible.
+
+{{- end }}
+
+{{- if ne "true" (.Values.kyma.enabled  | toString) }}
+2. 
+export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=kronos,app.kubernetes.io/instance=kronos" -o jsonpath="{.items[0].metadata.name}")
+echo "Visit http://127.0.0.1:8080 to use your application"
+kubectl --namespace default port-forward $POD_NAME 8080:8080
+
+{{- end }}
