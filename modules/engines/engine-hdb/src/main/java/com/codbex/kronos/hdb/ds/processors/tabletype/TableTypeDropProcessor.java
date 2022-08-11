@@ -66,24 +66,6 @@ public class TableTypeDropProcessor extends AbstractHDBProcessor<DataStructureHD
       return true;
     }
 
-    String tableTypeName = escapeTableTypeName(connection, tableTypeModel);
-    try {
-      String sql = getDropTableTypeSQL(connection, tableTypeName);
-      executeSql(sql, connection);
-      return true;
-    } catch (SQLException | IllegalStateException ex) {
-      processException(tableTypeModel, ex);
-      return false;
-    }
-  }
-
-  /**
-   * Process exception.
-   *
-   * @param tableTypeModel the table type model
-   * @param ex             the ex
-   */
-  void processException(DataStructureHDBTableTypeModel tableTypeModel, Exception ex) {
     String tableTypeParser = null;
 
     switch (tableTypeModel.getType()) {
@@ -95,6 +77,24 @@ public class TableTypeDropProcessor extends AbstractHDBProcessor<DataStructureHD
         break;
     }
 
+    String tableTypeName = escapeTableTypeName(connection, tableTypeModel);
+    try {
+      String sql = getDropTableTypeSQL(connection, tableTypeName);
+      executeSql(sql, connection);
+      return true;
+    } catch (SQLException | IllegalStateException ex) {
+      processException(tableTypeModel, tableTypeParser, ex);
+      return false;
+    }
+  }
+
+  /**
+   * Process exception.
+   *
+   * @param tableTypeModel the table type model
+   * @param ex             the ex
+   */
+  void processException(DataStructureHDBTableTypeModel tableTypeModel, String tableTypeParser, Exception ex) {
     logger.error("Failed to drop table type [{}] in schema [{}]", tableTypeModel.getName(), tableTypeModel.getSchema(), ex);
     CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, tableTypeModel.getLocation(),
         tableTypeParser);

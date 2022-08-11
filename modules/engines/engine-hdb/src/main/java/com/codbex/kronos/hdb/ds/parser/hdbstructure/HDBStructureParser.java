@@ -110,6 +110,7 @@ public class HDBStructureParser implements DataStructureParser<DataStructureHDBS
     hdbStructureModel.setSchema(hdbTableDefinitionModel.getSchemaName());
     hdbStructureModel.setPublicProp(hdbTableDefinitionModel.isPublic());
     hdbStructureModel.setRawContent(parametersModel.getContent());
+    hdbStructureModel.setType(getType());
     hdbStructureModel.setColumns(columnModelTransformer.transform(hdbTableDefinitionModel, parametersModel.getLocation()));
 
     DataStructureHDBStructurePrimaryKeyModel primaryKey = new DataStructureHDBStructurePrimaryKeyModel();

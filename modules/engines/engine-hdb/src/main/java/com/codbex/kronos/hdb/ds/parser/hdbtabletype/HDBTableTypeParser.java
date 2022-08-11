@@ -81,6 +81,7 @@ public class HDBTableTypeParser implements DataStructureParser<DataStructureHDBT
 
     dataStructureHDBTableTypeModel.setSchema(schemaAndNamePair.getLeft());
     dataStructureHDBTableTypeModel.setName(schemaAndNamePair.getRight());
+    dataStructureHDBTableTypeModel.setType(getType());
     dataStructureHDBTableTypeModel.setRawContent(parametersModel.getContent());
 
     return dataStructureHDBTableTypeModel;

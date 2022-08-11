@@ -22,6 +22,9 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import com.codbex.kronos.hdb.ds.model.hdbtabletype.DataStructureHDBTableTypeModel;
 
+import static com.codbex.kronos.hdb.ds.api.IDataStructureModel.TYPE_HDB_TABLE_TYPE;
+import static com.codbex.kronos.utils.CommonsConstants.HDB_TABLE_TYPE_PARSER;
+
 @RunWith(MockitoJUnitRunner.class)
 public class TableTypeDropProcessorTest {
 
@@ -46,6 +49,7 @@ public class TableTypeDropProcessorTest {
     model = new DataStructureHDBTableTypeModel();
     model.setName(TABLE_TYPE_NAME);
     model.setSchema(SCHEMA_NAME);
+    model.setType(TYPE_HDB_TABLE_TYPE);
   }
 
   @Test
@@ -83,7 +87,7 @@ public class TableTypeDropProcessorTest {
     Mockito.doReturn(SQL_TO_DROP_TABLE_TYPE).when(dropProcessorSpy).getDropTableTypeSQL(connectionMock, ESCAPED_TABLE_TYPE_NAME);
     SQLException sqlException = new SQLException();
     Mockito.doThrow(sqlException).when(dropProcessorSpy).executeSql(SQL_TO_DROP_TABLE_TYPE, connectionMock);
-    Mockito.doNothing().when(dropProcessorSpy).processException(model, sqlException);
+    Mockito.doNothing().when(dropProcessorSpy).processException(model, HDB_TABLE_TYPE_PARSER, sqlException);
 
     dropProcessorSpy.execute(connectionMock, model);
 
@@ -91,7 +95,7 @@ public class TableTypeDropProcessorTest {
     Mockito.verify(dropProcessorSpy).escapeTableTypeName(connectionMock, model);
     Mockito.verify(dropProcessorSpy).executeSql(SQL_TO_DROP_TABLE_TYPE, connectionMock);
     Mockito.verify(dropProcessorSpy).getDropTableTypeSQL(connectionMock, ESCAPED_TABLE_TYPE_NAME);
-    Mockito.verify(dropProcessorSpy).processException(model, sqlException);
+    Mockito.verify(dropProcessorSpy).processException(model, HDB_TABLE_TYPE_PARSER, sqlException);
     Mockito.verify(synonymRemoverMock).removePublicSynonym(connectionMock, model.getSchema(), model.getName());
     Mockito.verifyNoMoreInteractions(connectionMock);
   }
@@ -103,7 +107,7 @@ public class TableTypeDropProcessorTest {
 
     IllegalStateException exception = new IllegalStateException();
     Mockito.doThrow(exception).when(dropProcessorSpy).getDropTableTypeSQL(connectionMock, ESCAPED_TABLE_TYPE_NAME);
-    Mockito.doNothing().when(dropProcessorSpy).processException(model, exception);
+    Mockito.doNothing().when(dropProcessorSpy).processException(model, HDB_TABLE_TYPE_PARSER, exception);
 
     dropProcessorSpy.execute(connectionMock, model);
 
@@ -111,7 +115,7 @@ public class TableTypeDropProcessorTest {
     Mockito.verify(dropProcessorSpy).escapeTableTypeName(connectionMock, model);
     Mockito.verify(dropProcessorSpy, Mockito.times(0)).executeSql(Mockito.any(String.class), Mockito.any(Connection.class));
     Mockito.verify(dropProcessorSpy).getDropTableTypeSQL(connectionMock, ESCAPED_TABLE_TYPE_NAME);
-    Mockito.verify(dropProcessorSpy).processException(model, exception);
+    Mockito.verify(dropProcessorSpy).processException(model, HDB_TABLE_TYPE_PARSER, exception);
     Mockito.verify(synonymRemoverMock).removePublicSynonym(connectionMock, model.getSchema(), model.getName());
     Mockito.verifyNoMoreInteractions(connectionMock);
   }

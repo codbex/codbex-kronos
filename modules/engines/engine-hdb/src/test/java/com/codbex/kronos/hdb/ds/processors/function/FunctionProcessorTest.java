@@ -84,13 +84,16 @@ public class FunctionProcessorTest extends AbstractDirigibleTest {
       configuration.when(() -> Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
 
       FunctionCreateProcessor processorSpy = spy(FunctionCreateProcessor.class);
-      String hdbTableFunctionSample = IOUtils.toString(FunctionProcessorTest.class.getResourceAsStream("/OrderTableFunction.hdbtablefunction"),
+      String hdbTableFunctionSample = IOUtils.toString(
+          FunctionProcessorTest.class.getResourceAsStream("/OrderTableFunction.hdbtablefunction"),
           StandardCharsets.UTF_8);
 
       DataStructureModelBuilder builder = new DataStructureModelBuilder()
           .rawContent(hdbTableFunctionSample)
+          .withType("HDBTABLEFUNCTION")
           .withName("\"MYSCHEMA\".\"hdb_view::FUNCTION_NAME\"")
           .withSchema("MYSCHEMA");
+
       DataStructureHDBTableFunctionModel model = new DataStructureHDBTableFunctionModel(builder);
       String sql = Constants.HDBTABLEFUNCTION_CREATE + model.getRawContent();
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection)
@@ -109,7 +112,8 @@ public class FunctionProcessorTest extends AbstractDirigibleTest {
     FunctionCreateProcessor processorSpy = spy(FunctionCreateProcessor.class);
 
     DataStructureModelBuilder builder = new DataStructureModelBuilder()
-        .withName("\"MYSCHEMA\".\"hdb_view::FUNCTION_NAME\"");
+        .withName("\"MYSCHEMA\".\"hdb_view::FUNCTION_NAME\"")
+        .withType("HDBTABLEFUNCTION");
     DataStructureHDBTableFunctionModel model = new DataStructureHDBTableFunctionModel(builder);
 
     try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
@@ -144,7 +148,8 @@ public class FunctionProcessorTest extends AbstractDirigibleTest {
       FunctionDropProcessor processorSpy = spy(FunctionDropProcessor.class);
 
       DataStructureModelBuilder builder = new DataStructureModelBuilder()
-          .withName("\"MYSCHEMA\".\"hdb_view::FUNCTION_NAME\"");
+          .withName("\"MYSCHEMA\".\"hdb_view::FUNCTION_NAME\"")
+          .withType("HDBTABLEFUNCTION");
       DataStructureHDBTableFunctionModel model = new DataStructureHDBTableFunctionModel(builder);
       String sql = Constants.HDBTABLEFUNCTION_DROP + model.getName();
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection)
@@ -163,7 +168,8 @@ public class FunctionProcessorTest extends AbstractDirigibleTest {
     FunctionDropProcessor processorSpy = spy(FunctionDropProcessor.class);
 
     DataStructureModelBuilder builder = new DataStructureModelBuilder()
-        .withName("\"MYSCHEMA\".\"hdb_view::FUNCTION_NAME\"");
+        .withName("\"MYSCHEMA\".\"hdb_view::FUNCTION_NAME\"")
+        .withType("HDBTABLEFUNCTION");
     DataStructureHDBTableFunctionModel model = new DataStructureHDBTableFunctionModel(builder);
 
     try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);

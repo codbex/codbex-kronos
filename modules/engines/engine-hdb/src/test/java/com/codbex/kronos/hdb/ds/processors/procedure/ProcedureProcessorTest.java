@@ -88,11 +88,11 @@ public class ProcedureProcessorTest extends AbstractDirigibleTest {
       configuration.when(() -> Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
 
       ProcedureCreateProcessor processorSpy = spy(ProcedureCreateProcessor.class);
-      String hdbprocedureSample = IOUtils.toString(ProcedureProcessorTest.class.getResourceAsStream("/OrderProcedure.hdbprocedure"),
+      String hdbProcedureSample = IOUtils.toString(ProcedureProcessorTest.class.getResourceAsStream("/OrderProcedure.hdbprocedure"),
           StandardCharsets.UTF_8);
 
       DataStructureModelBuilder builder = new DataStructureModelBuilder()
-          .rawContent(hdbprocedureSample)
+          .rawContent(hdbProcedureSample)
           .withName("\"MYSCHEMA\".\"hdb_view::OrderProcedure\"");
 
       DataStructureHDBProcedureModel model = new DataStructureHDBProcedureModel(builder);
@@ -116,11 +116,11 @@ public class ProcedureProcessorTest extends AbstractDirigibleTest {
       sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new PostgresSqlDialect());
 
       ProcedureCreateProcessor processorSpy = spy(ProcedureCreateProcessor.class);
-      String hdbprocedureSample = IOUtils.toString(ProcedureProcessorTest.class.getResourceAsStream("/OrderProcedure.hdbprocedure"),
+      String hdbProcedureSample = IOUtils.toString(ProcedureProcessorTest.class.getResourceAsStream("/OrderProcedure.hdbprocedure"),
           StandardCharsets.UTF_8);
 
       DataStructureModelBuilder builder = new DataStructureModelBuilder()
-          .rawContent(hdbprocedureSample)
+          .rawContent(hdbProcedureSample)
           .withName("\"MYSCHEMA\".\"hdb_view::OrderProcedure\"");
       DataStructureHDBProcedureModel model = new DataStructureHDBProcedureModel(builder);
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection)
