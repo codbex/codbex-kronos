@@ -93,7 +93,7 @@ public class HDBTableParser implements DataStructureParser<DataStructureHDBTable
   }
 
   /**
-   * Parses the.
+   * Parses the hdbtable file.
    *
    * @param parametersModel the parameters model
    * @return the data structure HDB table model

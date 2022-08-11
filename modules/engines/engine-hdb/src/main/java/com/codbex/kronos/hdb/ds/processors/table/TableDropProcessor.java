@@ -153,7 +153,7 @@ public class TableDropProcessor extends AbstractHDBProcessor<DataStructureHDBTab
       statement = connection.prepareStatement(sql);
       logger.info(sql);
       statement.executeUpdate();
-      String message = String.format("Drop table %s successfully", tableModel.getName());
+      String message = String.format("Drop table [%s] successfully", tableModel.getName());
       applyArtefactState(tableModel.getName(), tableModel.getLocation(), TABLE_ARTEFACT, ArtefactState.SUCCESSFUL_DELETE, message);
       return true;
     } catch (SQLException e) {

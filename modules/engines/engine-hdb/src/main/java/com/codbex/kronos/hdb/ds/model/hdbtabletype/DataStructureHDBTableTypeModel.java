@@ -15,74 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.codbex.kronos.hdb.ds.model.DataStructureModel;
+import com.codbex.kronos.hdb.ds.model.DataStructureModelBuilder;
+import com.codbex.kronos.hdb.ds.model.hdbstructure.DataStructureHDBStructureModel;
 import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableColumnModel;
 
 /**
  * The Class DataStructureHDBTableTypeModel.
  */
-public class DataStructureHDBTableTypeModel extends DataStructureModel {
+public class DataStructureHDBTableTypeModel extends DataStructureHDBStructureModel {
 
-
-  /** The columns. */
-  private List<DataStructureHDBTableColumnModel> columns = new ArrayList<>();
-  
-  /** The primary key. */
-  private DataStructureHDBTableTypePrimaryKeyModel primaryKey = new DataStructureHDBTableTypePrimaryKeyModel();
-  
-  /** The public prop. */
-  private Boolean publicProp;
-
-  /**
-   * Gets the columns.
-   *
-   * @return the columns
-   */
-  public List<DataStructureHDBTableColumnModel> getColumns() {
-    return columns;
-  }
-
-  /**
-   * Sets the columns.
-   *
-   * @param columns the new columns
-   */
-  public void setColumns(List<DataStructureHDBTableColumnModel> columns) {
-    this.columns = columns;
-  }
-
-  /**
-   * Gets the primary key.
-   *
-   * @return the primary key
-   */
-  public DataStructureHDBTableTypePrimaryKeyModel getPrimaryKey() {
-    return primaryKey;
-  }
-
-  /**
-   * Sets the primary key.
-   *
-   * @param primaryKey the new primary key
-   */
-  public void setPrimaryKey(DataStructureHDBTableTypePrimaryKeyModel primaryKey) {
-    this.primaryKey = primaryKey;
-  }
-
-  /**
-   * Checks if is public prop.
-   *
-   * @return the boolean
-   */
-  public Boolean isPublicProp() {
-    return publicProp;
-  }
-
-  /**
-   * Sets the public prop.
-   *
-   * @param publicProp the new public prop
-   */
-  public void setPublicProp(Boolean publicProp) {
-    this.publicProp = publicProp;
-  }
 }

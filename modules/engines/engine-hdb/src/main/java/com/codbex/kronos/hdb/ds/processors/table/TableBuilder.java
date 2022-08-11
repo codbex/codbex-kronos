@@ -44,17 +44,17 @@ public class TableBuilder {
   /**
    * Builds the.
    *
-   * @param model the model
+   * @param tableModel the model
    * @return the table
    */
-  public Table build(DataStructureHDBTableModel model) {
-    String tableName = HDBUtils.escapeArtifactName(model.getName(), model.getSchema());
+  public Table build(DataStructureHDBTableModel tableModel) {
+    String tableName = HDBUtils.escapeArtifactName(tableModel.getName(), tableModel.getSchema());
 
-    HanaCreateTableBuilder sqlTableBuilder = createTableBuilder(tableName, model.getTableType());
+    HanaCreateTableBuilder sqlTableBuilder = createTableBuilder(tableName, tableModel.getTableType());
 
-    addTableColumnToBuilder(sqlTableBuilder, model);
-    addTableConstraintsToBuilder(sqlTableBuilder, model);
-    addTableIndicesToBuilder(sqlTableBuilder, model);
+    addTableColumnToBuilder(sqlTableBuilder, tableModel);
+    addTableConstraintsToBuilder(sqlTableBuilder, tableModel);
+    addTableIndicesToBuilder(sqlTableBuilder, tableModel);
 
     return sqlTableBuilder.buildTable();
   }
@@ -84,10 +84,10 @@ public class TableBuilder {
    * Adds the table indices to builder.
    *
    * @param sqlTableBuilder the sql table builder
-   * @param tableModel the table model
+   * @param hdbTableMode the table model
    */
-  private void addTableIndicesToBuilder(HanaCreateTableBuilder sqlTableBuilder, DataStructureHDBTableModel tableModel) {
-    List<DataStructureHDBTableIndexModel> indexes = tableModel.getIndexes();
+  private void addTableIndicesToBuilder(HanaCreateTableBuilder sqlTableBuilder, DataStructureHDBTableModel hdbTableMode) {
+    List<DataStructureHDBTableIndexModel> indexes = hdbTableMode.getIndexes();
     for (DataStructureHDBTableIndexModel indexModel : indexes) {
       String name = caseSensitive
           ? HDBUtils.escapeArtifactName(indexModel.getIndexName())
@@ -102,10 +102,10 @@ public class TableBuilder {
    * Adds the table column to builder.
    *
    * @param sqlTableBuilder the sql table builder
-   * @param tableModel the table model
+   * @param hdbTableMode the table model
    */
-  private void addTableColumnToBuilder(HanaCreateTableBuilder sqlTableBuilder, DataStructureHDBTableModel tableModel) {
-    List<DataStructureHDBTableColumnModel> columns = tableModel.getColumns();
+  private void addTableColumnToBuilder(HanaCreateTableBuilder sqlTableBuilder, DataStructureHDBTableModel hdbTableMode) {
+    List<DataStructureHDBTableColumnModel> columns = hdbTableMode.getColumns();
     for (DataStructureHDBTableColumnModel columnModel : columns) {
       String name = caseSensitive
           ? HDBUtils.escapeArtifactName(columnModel.getName())
@@ -125,18 +125,18 @@ public class TableBuilder {
    * Adds the table constraints to builder.
    *
    * @param sqlTableBuilder the sql table builder
-   * @param tableModel the table model
+   * @param hdbTableMode the table model
    */
-  private void addTableConstraintsToBuilder(HanaCreateTableBuilder sqlTableBuilder, DataStructureHDBTableModel tableModel) {
-    DataStructureHDBTableConstraintsModel constraintsModel = tableModel.getConstraints();
+  private void addTableConstraintsToBuilder(HanaCreateTableBuilder sqlTableBuilder, DataStructureHDBTableModel hdbTableMode) {
+    DataStructureHDBTableConstraintsModel constraintsModel = hdbTableMode.getConstraints();
     if (Objects.nonNull(constraintsModel)) {
       if (Objects.nonNull(constraintsModel.getPrimaryKey())) {
         sqlTableBuilder
             .primaryKey(getEscapedColumns(constraintsModel.getPrimaryKey().getColumns()));
       }
 
-      addTableForeignKeysToBuilder(sqlTableBuilder, tableModel);
-      addUniqueIndicesToBuilder(sqlTableBuilder, tableModel);
+      addTableForeignKeysToBuilder(sqlTableBuilder, hdbTableMode);
+      addUniqueIndicesToBuilder(sqlTableBuilder, hdbTableMode);
 
       List<DataStructureHDBTableConstraintCheckModel> checks = constraintsModel.getChecks();
       if (Objects.nonNull(checks)) {
@@ -216,10 +216,10 @@ public class TableBuilder {
    * Adds the table foreign keys to builder.
    *
    * @param sqlTableBuilder the sql table builder
-   * @param tableModel the table model
+   * @param hdbTableMode the table model
    */
-  private void addTableForeignKeysToBuilder(HanaCreateTableBuilder sqlTableBuilder, DataStructureHDBTableModel tableModel) {
-    List<DataStructureHDBTableConstraintForeignKeyModel> foreignKeys = tableModel.getConstraints().getForeignKeys();
+  private void addTableForeignKeysToBuilder(HanaCreateTableBuilder sqlTableBuilder, DataStructureHDBTableModel hdbTableMode) {
+    List<DataStructureHDBTableConstraintForeignKeyModel> foreignKeys = hdbTableMode.getConstraints().getForeignKeys();
     if (Objects.nonNull(foreignKeys)) {
       for (DataStructureHDBTableConstraintForeignKeyModel foreignKey : foreignKeys) {
         String foreignKeyName = foreignKey.getName();
@@ -243,10 +243,10 @@ public class TableBuilder {
    * Adds the unique indices to builder.
    *
    * @param builder the builder
-   * @param tableModel the table model
+   * @param hdbTableMode the table model
    */
-  protected void addUniqueIndicesToBuilder(AbstractTableBuilder builder, DataStructureHDBTableModel tableModel) {
-    List<DataStructureHDBTableConstraintUniqueModel> uniqueIndices = tableModel.getConstraints().getUniqueIndices();
+  protected void addUniqueIndicesToBuilder(AbstractTableBuilder builder, DataStructureHDBTableModel hdbTableMode) {
+    List<DataStructureHDBTableConstraintUniqueModel> uniqueIndices = hdbTableMode.getConstraints().getUniqueIndices();
     if (Objects.nonNull(uniqueIndices)) {
       for (DataStructureHDBTableConstraintUniqueModel uniqueIndex : uniqueIndices) {
         String uniqueIndexName = uniqueIndex.getIndexName();

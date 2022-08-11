@@ -36,7 +36,7 @@ public class HDBViewSynchronizationArtefactType extends AbstractSynchronizationA
       case SUCCESSFUL_CREATE:
         return "Processing for create hdbview was successful";
       case SUCCESSFUL_CREATE_UPDATE:
-        return "Processing Create or update hdbview was successful";
+        return "Processing for create or update hdbview was successful";
       case SUCCESSFUL_UPDATE:
         return "Processing for update hdbview was successful";
       default:

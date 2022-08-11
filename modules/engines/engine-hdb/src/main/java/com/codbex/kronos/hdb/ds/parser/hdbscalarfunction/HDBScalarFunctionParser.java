@@ -30,7 +30,7 @@ import com.codbex.kronos.utils.HDBUtils;
 public class HDBScalarFunctionParser implements DataStructureParser<DataStructureHDBScalarFunctionModel> {
 
   /**
-   * Parses the.
+   * Parses the hdbscalarfunction file.
    *
    * @param parametersModel the parameters model
    * @return the data structure HDB scalar function model
@@ -38,16 +38,16 @@ public class HDBScalarFunctionParser implements DataStructureParser<DataStructur
    */
   @Override
   public DataStructureHDBScalarFunctionModel parse(DataStructureParametersModel parametersModel) throws DataStructuresException {
-	  DataStructureHDBScalarFunctionModel hdbScalarFunction = new DataStructureHDBScalarFunctionModel();
-    hdbScalarFunction.setName(HDBUtils.extractTableFunctionNameFromContent(parametersModel.getContent(), parametersModel.getLocation(),
+	  DataStructureHDBScalarFunctionModel hdbScalarFunctionModel = new DataStructureHDBScalarFunctionModel();
+    hdbScalarFunctionModel.setName(HDBUtils.extractTableFunctionNameFromContent(parametersModel.getContent(), parametersModel.getLocation(),
         CommonsConstants.HDB_SCALAR_FUNCTION_PARSER));
-    hdbScalarFunction.setLocation(parametersModel.getLocation());
-    hdbScalarFunction.setType(getType());
-    hdbScalarFunction.setHash(DigestUtils.md5Hex(parametersModel.getContent()));
-    hdbScalarFunction.setCreatedBy(UserFacade.getName());
-    hdbScalarFunction.setCreatedAt(new Timestamp(new java.util.Date().getTime()));
-    hdbScalarFunction.setRawContent(parametersModel.getContent());
-    return hdbScalarFunction;
+    hdbScalarFunctionModel.setLocation(parametersModel.getLocation());
+    hdbScalarFunctionModel.setType(getType());
+    hdbScalarFunctionModel.setHash(DigestUtils.md5Hex(parametersModel.getContent()));
+    hdbScalarFunctionModel.setCreatedBy(UserFacade.getName());
+    hdbScalarFunctionModel.setCreatedAt(new Timestamp(new java.util.Date().getTime()));
+    hdbScalarFunctionModel.setRawContent(parametersModel.getContent());
+    return hdbScalarFunctionModel;
   }
 
   /**

@@ -59,7 +59,7 @@ public class HDBViewParser implements DataStructureParser<DataStructureHDBViewMo
   private static final DataStructuresSynchronizer dataStructuresSynchronizer = new DataStructuresSynchronizer();
 
   /**
-   * Parses the.
+   * Parses the hdbview file.
    *
    * @param parametersModel the parameters model
    * @return the data structure HDB view model

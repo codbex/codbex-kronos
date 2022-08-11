@@ -54,7 +54,7 @@ public class HDBSequenceParser implements DataStructureParser {
   private static final Logger logger = LoggerFactory.getLogger(HDBSequenceParser.class);
 
   /**
-   * Parses the.
+   * Parses the hdbsequence file.
    *
    * @param parametersModel the parameters model
    * @return the data structure model

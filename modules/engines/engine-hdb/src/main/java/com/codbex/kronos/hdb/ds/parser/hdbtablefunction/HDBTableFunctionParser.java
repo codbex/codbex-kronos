@@ -65,7 +65,7 @@ public class HDBTableFunctionParser implements DataStructureParser<DataStructure
   }
 
   /**
-   * Parses the.
+   * Parses the hdbtablefunction file.
    *
    * @param parametersModel the parameters model
    * @return the data structure HDB table function model

@@ -15,16 +15,16 @@ import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.module.HDBModule;
 import com.codbex.kronos.hdb.ds.processors.hdbstructure.HDBSynonymRemover;
 import com.codbex.kronos.hdb.ds.service.manager.IDataStructureManager;
-import com.codbex.kronos.hdb.ds.service.manager.EntityManagerService;
+import com.codbex.kronos.hdb.ds.service.manager.HDBDDManagerService;
 import com.codbex.kronos.hdb.ds.service.manager.HDBSequenceManagerService;
-import com.codbex.kronos.hdb.ds.service.manager.ProceduresManagerService;
-import com.codbex.kronos.hdb.ds.service.manager.ScalarFunctionManagerService;
-import com.codbex.kronos.hdb.ds.service.manager.SchemaManagerService;
-import com.codbex.kronos.hdb.ds.service.manager.SynonymManagerService;
-import com.codbex.kronos.hdb.ds.service.manager.TableFunctionManagerService;
-import com.codbex.kronos.hdb.ds.service.manager.TableManagerService;
-import com.codbex.kronos.hdb.ds.service.manager.TableTypeManagerService;
-import com.codbex.kronos.hdb.ds.service.manager.ViewManagerService;
+import com.codbex.kronos.hdb.ds.service.manager.HDBProceduresManagerService;
+import com.codbex.kronos.hdb.ds.service.manager.HDBScalarFunctionManagerService;
+import com.codbex.kronos.hdb.ds.service.manager.HDBSchemaManagerService;
+import com.codbex.kronos.hdb.ds.service.manager.HDBSynonymManagerService;
+import com.codbex.kronos.hdb.ds.service.manager.HDBTableFunctionManagerService;
+import com.codbex.kronos.hdb.ds.service.manager.HDBTableManagerService;
+import com.codbex.kronos.hdb.ds.service.manager.HDBTableTypeManagerService;
+import com.codbex.kronos.hdb.ds.service.manager.HDBViewManagerService;
 import com.codbex.kronos.integration.tests.core.hdb.model.JDBCModel;
 import com.codbex.kronos.integration.tests.core.hdb.repository.TestRepository;
 
@@ -111,16 +111,16 @@ public class HDBTestModule extends AbstractDirigibleModule {
         // see:HDBModule.bindManagerServicesToFileExtensions()
         Map<String, IDataStructureManager> managerServices = HDBModule.getManagerServices();
         managerServices.clear();
-        managerServices.put(IDataStructureModel.TYPE_HDBDD, new EntityManagerService());
-        managerServices.put(IDataStructureModel.TYPE_HDB_TABLE, new TableManagerService());
-        managerServices.put(IDataStructureModel.TYPE_HDB_VIEW, new ViewManagerService());
-        SynonymManagerService synonymManagerService = new SynonymManagerService();
+        managerServices.put(IDataStructureModel.TYPE_HDBDD, new HDBDDManagerService());
+        managerServices.put(IDataStructureModel.TYPE_HDB_TABLE, new HDBTableManagerService());
+        managerServices.put(IDataStructureModel.TYPE_HDB_VIEW, new HDBViewManagerService());
+        HDBSynonymManagerService synonymManagerService = new HDBSynonymManagerService();
         managerServices.put(IDataStructureModel.TYPE_HDB_SYNONYM, synonymManagerService);
-        managerServices.put(IDataStructureModel.TYPE_HDB_TABLE_FUNCTION, new TableFunctionManagerService());
-        managerServices.put(IDataStructureModel.TYPE_HDB_SCHEMA, new SchemaManagerService());
-        managerServices.put(IDataStructureModel.TYPE_HDB_PROCEDURE, new ProceduresManagerService());
+        managerServices.put(IDataStructureModel.TYPE_HDB_TABLE_FUNCTION, new HDBTableFunctionManagerService());
+        managerServices.put(IDataStructureModel.TYPE_HDB_SCHEMA, new HDBSchemaManagerService());
+        managerServices.put(IDataStructureModel.TYPE_HDB_PROCEDURE, new HDBProceduresManagerService());
         managerServices.put(IDataStructureModel.TYPE_HDB_SEQUENCE, new HDBSequenceManagerService());
-        managerServices.put(IDataStructureModel.TYPE_HDB_SCALAR_FUNCTION, new ScalarFunctionManagerService());
-        managerServices.put(IDataStructureModel.TYPE_HDB_TABLE_TYPE, new TableTypeManagerService(new HDBSynonymRemover(synonymManagerService)));
+        managerServices.put(IDataStructureModel.TYPE_HDB_SCALAR_FUNCTION, new HDBScalarFunctionManagerService());
+        managerServices.put(IDataStructureModel.TYPE_HDB_TABLE_TYPE, new HDBTableTypeManagerService(new HDBSynonymRemover(synonymManagerService)));
     }
 }

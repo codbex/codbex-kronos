@@ -57,18 +57,18 @@ public class ViewDropProcessor extends AbstractHDBProcessor<DataStructureHDBView
     logger.info("Processing Drop View: " + viewModel.getName());
     String viewNameWithSchema = HDBUtils.escapeArtifactName(viewModel.getName(), viewModel.getSchema());
 
-    //Drop public synonym
+    // Drop public synonym
     if (managerServices != null) {
       HDBUtils.dropPublicSynonymForArtifact(managerServices
           .get(IDataStructureModel.TYPE_HDB_SYNONYM), viewModel.getName(), viewModel.getSchema(), connection);
     }
 
-    //Drop view
+    // Drop view
     if (SqlFactory.getNative(connection).exists(connection, viewNameWithSchema, DatabaseArtifactTypes.VIEW)) {
       String sql = SqlFactory.getNative(connection).drop().view(viewNameWithSchema).build();
       try {
         executeSql(sql, connection);
-        String message = String.format("Drop view %s successfully", viewModel.getName());
+        String message = String.format("Drop view [%s] successfully", viewModel.getName());
         applyArtefactState(viewModel.getName(), viewModel.getLocation(), VIEW_ARTEFACT, ArtefactState.SUCCESSFUL_DELETE, message);
         return true;
       } catch (SQLException ex) {
@@ -79,7 +79,7 @@ public class ViewDropProcessor extends AbstractHDBProcessor<DataStructureHDBView
         return false;
       }
     } else {
-      String warningMessage = String.format("View [%s] does not exists during the drop process", viewModel.getName());
+      String warningMessage = String.format("View [%s] does not exist during the drop process", viewModel.getName());
       logger.warn(warningMessage);
       applyArtefactState(viewModel.getName(), viewModel.getLocation(), VIEW_ARTEFACT, ArtefactState.FAILED_DELETE, warningMessage);
       return true;

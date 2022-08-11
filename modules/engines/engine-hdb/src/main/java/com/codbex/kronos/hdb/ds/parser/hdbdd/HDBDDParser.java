@@ -14,11 +14,11 @@ package com.codbex.kronos.hdb.ds.parser.hdbdd;
 import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
-import com.codbex.kronos.hdb.ds.artefacts.HDBDDEntitySynchronizationArtefactType;
+import com.codbex.kronos.hdb.ds.artefacts.HDBDDSynchronizationArtefactType;
 import com.codbex.kronos.hdb.ds.model.DBContentType;
 import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
-import com.codbex.kronos.hdb.ds.model.hdbdd.DataStructureCdsModel;
+import com.codbex.kronos.hdb.ds.model.hdbdd.DataStructureHDBDDModel;
 import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableModel;
 import com.codbex.kronos.hdb.ds.model.hdbtabletype.DataStructureHDBTableTypeModel;
 import com.codbex.kronos.hdb.ds.model.hdbview.DataStructureHDBViewModel;
@@ -67,37 +67,53 @@ import org.slf4j.LoggerFactory;
  */
 public class HDBDDParser implements DataStructureParser {
 
-  /** The Constant logger. */
+  /**
+   * The Constant logger.
+   */
   private static final Logger logger = LoggerFactory.getLogger(HDBDDParser.class);
 
-  /** The hdbdd transformer. */
+  /**
+   * The hdbdd transformer.
+   */
   private HdbddTransformer hdbddTransformer = new HdbddTransformer();
-  
-  /** The repository. */
+
+  /**
+   * The repository.
+   */
   private IRepository repository = (IRepository) StaticObjects.get(StaticObjects.REPOSITORY);
-  
-  /** The symbol table. */
+
+  /**
+   * The symbol table.
+   */
   private SymbolTable symbolTable = new SymbolTable();
-  
-  /** The dependency structure. */
+
+  /**
+   * The dependency structure.
+   */
   private Map<String, Set<String>> dependencyStructure = new HashMap<>();
-  
-  /** The parsed nodes. */
+
+  /**
+   * The parsed nodes.
+   */
   private Set<String> parsedNodes = new HashSet<>();
-  
-  /** The entity artefact. */
-  private HDBDDEntitySynchronizationArtefactType ENTITY_ARTEFACT = new HDBDDEntitySynchronizationArtefactType();
-  
-  /** The data structures synchronizer. */
+
+  /**
+   * The entity artefact.
+   */
+  private HDBDDSynchronizationArtefactType HDBDD_ARTEFACT = new HDBDDSynchronizationArtefactType();
+
+  /**
+   * The data structures synchronizer.
+   */
   private DataStructuresSynchronizer dataStructuresSynchronizer = new DataStructuresSynchronizer();
 
   /**
-   * Parses the.
+   * Parses the hdbdd file.
    *
    * @param parametersModel the parameters model
    * @return the data structure model
    * @throws DataStructuresException the data structures exception
-   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws IOException             Signals that an I/O exception has occurred.
    */
   @Override
   public DataStructureModel parse(DataStructureParametersModel parametersModel) throws DataStructuresException, IOException {
@@ -114,7 +130,7 @@ public class HDBDDParser implements DataStructureParser {
       }
     }
 
-    DataStructureCdsModel cdsModel;
+    DataStructureHDBDDModel cdsModel;
     try {
       cdsModel = populateDataStructureCdsModel(parametersModel.getLocation(), parametersModel.getContent());
     } catch (CDSRuntimeException e) {
@@ -134,8 +150,8 @@ public class HDBDDParser implements DataStructureParser {
    * Parses the hdbdd.
    *
    * @param location the location
-   * @param content the content
-   * @throws IOException Signals that an I/O exception has occurred.
+   * @param content  the content
+   * @throws IOException             Signals that an I/O exception has occurred.
    * @throws ArtifactParserException the artifact parser exception
    */
   private void parseHdbdd(String location, String content) throws IOException, ArtifactParserException {
@@ -145,7 +161,7 @@ public class HDBDDParser implements DataStructureParser {
     CommonTokenStream tokenStream = new CommonTokenStream(hdbddLexer);
 
     HDBDDErrorListener lexerErrorListener = new HDBDDErrorListener();
-    hdbddLexer.removeErrorListeners();//remove the ConsoleErrorListener
+    hdbddLexer.removeErrorListeners(); // Remove the ConsoleErrorListener
     hdbddLexer.addErrorListener(lexerErrorListener);
 
     CdsParser hdbddParser = new CdsParser(tokenStream);
@@ -173,7 +189,7 @@ public class HDBDDParser implements DataStructureParser {
       CommonsUtils.logCustomErrors(location, CommonsConstants.PARSER_ERROR, "", "", e.getMessage(),
           "", CommonsConstants.HDBDD_PARSER, CommonsConstants.MODULE_PARSERS,
           CommonsConstants.SOURCE_PUBLISH_REQUEST, CommonsConstants.PROGRAM_KRONOS);
-      dataStructuresSynchronizer.applyArtefactState(CommonsUtils.getRepositoryBaseObjectName(location), location, ENTITY_ARTEFACT,
+      dataStructuresSynchronizer.applyArtefactState(CommonsUtils.getRepositoryBaseObjectName(location), location, HDBDD_ARTEFACT,
           ArtefactState.FAILED_CREATE, e.getMessage());
       throw new CDSRuntimeException(String.format("Failed to parse file: %s. %s", location, e.getMessage()));
     }
@@ -195,7 +211,7 @@ public class HDBDDParser implements DataStructureParser {
         CommonsUtils.logCustomErrors(location, CommonsConstants.PARSER_ERROR, "", "", e.getMessage(),
             "", CommonsConstants.HDBDD_PARSER, CommonsConstants.MODULE_PARSERS,
             CommonsConstants.SOURCE_PUBLISH_REQUEST, CommonsConstants.PROGRAM_KRONOS);
-        dataStructuresSynchronizer.applyArtefactState(CommonsUtils.getRepositoryBaseObjectName(location), location, ENTITY_ARTEFACT,
+        dataStructuresSynchronizer.applyArtefactState(CommonsUtils.getRepositoryBaseObjectName(location), location, HDBDD_ARTEFACT,
             ArtefactState.FAILED_CREATE, e.getMessage());
       }
     });
@@ -213,7 +229,7 @@ public class HDBDDParser implements DataStructureParser {
       CommonsUtils.logCustomErrors(location, CommonsConstants.PARSER_ERROR, "", "", e.getMessage(),
           "", CommonsConstants.HDBDD_PARSER, CommonsConstants.MODULE_PARSERS,
           CommonsConstants.SOURCE_PUBLISH_REQUEST, CommonsConstants.PROGRAM_KRONOS);
-      dataStructuresSynchronizer.applyArtefactState(CommonsUtils.getRepositoryBaseObjectName(location), location, ENTITY_ARTEFACT,
+      dataStructuresSynchronizer.applyArtefactState(CommonsUtils.getRepositoryBaseObjectName(location), location, HDBDD_ARTEFACT,
           ArtefactState.FAILED_CREATE, e.getMessage());
       throw new CDSRuntimeException(String.format("Failed to parse file: %s. %s", location, e.getMessage()));
     }
@@ -252,7 +268,7 @@ public class HDBDDParser implements DataStructureParser {
    */
   @Override
   public Class getDataStructureClass() {
-    return DataStructureCdsModel.class;
+    return DataStructureHDBDDModel.class;
   }
 
   /**
@@ -272,7 +288,7 @@ public class HDBDDParser implements DataStructureParser {
    * Gets the root files.
    *
    * @param usedFileName the used file name
-   * @param rootFiles the root files
+   * @param rootFiles    the root files
    * @return the root files
    */
   private void getRootFiles(String usedFileName, List<String> rootFiles) {
@@ -291,11 +307,11 @@ public class HDBDDParser implements DataStructureParser {
    * Populate data structure cds model.
    *
    * @param location the location
-   * @param content the content
+   * @param content  the content
    * @return the data structure cds model
    */
-  private DataStructureCdsModel populateDataStructureCdsModel(String location, String content) {
-    DataStructureCdsModel cdsModel = getCdsModelBaseData(location, content);
+  private DataStructureHDBDDModel populateDataStructureCdsModel(String location, String content) {
+    DataStructureHDBDDModel cdsModel = getCdsModelBaseData(location, content);
     getCdsModelWithParsedData(cdsModel);
 
     return cdsModel;
@@ -305,11 +321,11 @@ public class HDBDDParser implements DataStructureParser {
    * Gets the cds model base data.
    *
    * @param location the location
-   * @param content the content
+   * @param content  the content
    * @return the cds model base data
    */
-  private DataStructureCdsModel getCdsModelBaseData(String location, String content) {
-    DataStructureCdsModel cdsModel = new DataStructureCdsModel();
+  private DataStructureHDBDDModel getCdsModelBaseData(String location, String content) {
+    DataStructureHDBDDModel cdsModel = new DataStructureHDBDDModel();
     cdsModel.setName(location);
     cdsModel.setLocation(location);
     cdsModel.setType(getType());
@@ -327,34 +343,35 @@ public class HDBDDParser implements DataStructureParser {
    * @param cdsModel the cds model
    * @return the cds model with parsed data
    */
-  private void getCdsModelWithParsedData(DataStructureCdsModel cdsModel) {
+  private void getCdsModelWithParsedData(DataStructureHDBDDModel cdsModel) {
     List<EntitySymbol> parsedEntities = this.symbolTable.getSortedEntities();
     List<ViewSymbol> parsedViews = this.symbolTable.getSortedViews();
+    List<StructuredDataTypeSymbol> parsedStructuredDataTypes = this.symbolTable.getTableTypes();
 
     List<DataStructureHDBTableModel> tableModels = new ArrayList<>();
+    List<DataStructureHDBTableTypeModel> tableTypeModels = new ArrayList<>();
+    List<DataStructureHDBViewModel> viewModels = new ArrayList<>();
+
     parsedEntities.forEach(e -> {
       tableModels.add(this.hdbddTransformer.transformEntitySymbolToTableModel(e, cdsModel.getLocation()));
 
-      //One HDBDD file have only one schema, with apply to all entities inside the hdbdd file
+      // One HDBDD file has only one schema, which applies to all entities inside the hdbdd file
       cdsModel.setSchema(e.getSchema());
     });
 
-    List<StructuredDataTypeSymbol> structuredDataTypes = this.symbolTable.getTableTypes();
-    List<DataStructureHDBTableTypeModel> hdbTableTypeModels = new ArrayList<>();
-    structuredDataTypes.forEach(sdt -> {
+    parsedStructuredDataTypes.forEach(sdt -> {
       if (!(sdt.getAnnotations().containsKey("GenerateTableType")) || (sdt.getAnnotation("GenerateTableType").getKeyValuePairs()
           .get("booleanValue").getValue()).equals("true")) {
-        hdbTableTypeModels.add(this.hdbddTransformer.transformStructuredDataTypeToHdbTableType(sdt));
+        tableTypeModels.add(this.hdbddTransformer.transformStructuredDataTypeToHdbTableType(sdt));
       }
     });
 
-    List<DataStructureHDBViewModel> viewModels = new ArrayList<>();
     parsedViews.forEach(v ->
         viewModels.add(this.hdbddTransformer.transformViewSymbolToHdbViewModel(v, cdsModel.getLocation()))
     );
 
     cdsModel.setTableModels(tableModels);
-    cdsModel.setTableTypeModels(hdbTableTypeModels);
+    cdsModel.setTableTypeModels(tableTypeModels);
     cdsModel.setViewModels(viewModels);
   }
 
@@ -379,11 +396,11 @@ public class HDBDDParser implements DataStructureParser {
    * Synchronize node metadata from root.
    *
    * @param location the location
-   * @param content the content
+   * @param content  the content
    * @throws DataStructuresException the data structures exception
    */
   private void synchronizeNodeMetadataFromRoot(String location, String content) throws DataStructuresException {
-    DataStructureCdsModel nodeCdsModel = getCdsModelBaseData(location, content);
+    DataStructureHDBDDModel nodeCdsModel = getCdsModelBaseData(location, content);
     HDBModule.getManagerServices().get(getType()).synchronizeParsedByRootMetadata(nodeCdsModel);
   }
 }
