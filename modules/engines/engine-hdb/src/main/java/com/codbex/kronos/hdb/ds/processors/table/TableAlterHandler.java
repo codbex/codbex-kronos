@@ -252,8 +252,8 @@ public class TableAlterHandler {
       }
     }
 
-    TableBuilder tableBuilder = new TableBuilder();
-    tableBuilder.addUniqueIndicesToBuilder(alterTableBuilder, tableModel);
+    TableBuilder hdbTableBuilder = new TableBuilder();
+    hdbTableBuilder.addUniqueIndicesToBuilder(alterTableBuilder, tableModel);
     executeAlterBuilder(connection, alterTableBuilder);
   }
 
@@ -338,7 +338,7 @@ public class TableAlterHandler {
       PreparedStatement statement = connection.prepareStatement(sql);
       try {
         statement.executeUpdate();
-        String messageSuccess = String.format("Update table %s successfully", this.tableModel.getName());
+        String messageSuccess = String.format("Update table [%s] successfully", this.tableModel.getName());
         dataStructuresSynchronizer.applyArtefactState(this.tableModel.getName(), this.tableModel.getLocation(), TABLE_ARTEFACT,
             ArtefactState.SUCCESSFUL_UPDATE, messageSuccess);
       } catch (SQLException e) {

@@ -44,17 +44,17 @@ public class TableBuilder {
   /**
    * Builds the.
    *
-   * @param model the model
+   * @param tableModel the model
    * @return the table
    */
-  public Table build(DataStructureHDBTableModel model) {
-    String tableName = HDBUtils.escapeArtifactName(model.getName(), model.getSchema());
+  public Table build(DataStructureHDBTableModel tableModel) {
+    String tableName = HDBUtils.escapeArtifactName(tableModel.getName(), tableModel.getSchema());
 
-    HanaCreateTableBuilder sqlTableBuilder = createTableBuilder(tableName, model.getTableType());
+    HanaCreateTableBuilder sqlTableBuilder = createTableBuilder(tableName, tableModel.getTableType());
 
-    addTableColumnToBuilder(sqlTableBuilder, model);
-    addTableConstraintsToBuilder(sqlTableBuilder, model);
-    addTableIndicesToBuilder(sqlTableBuilder, model);
+    addTableColumnToBuilder(sqlTableBuilder, tableModel);
+    addTableConstraintsToBuilder(sqlTableBuilder, tableModel);
+    addTableIndicesToBuilder(sqlTableBuilder, tableModel);
 
     return sqlTableBuilder.buildTable();
   }

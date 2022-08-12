@@ -49,7 +49,7 @@ public abstract class AbstractHDBProcessor<T extends DataStructureModel> impleme
    * @param message the message
    */
   public void applyArtefactState(String artefactName, String artefactLocation, AbstractSynchronizationArtefactType type, ISynchronizerArtefactType.ArtefactState state, String message) {
-	  DATA_STRUCTURES_SYNCHRONIZER.applyArtefactState(artefactName, artefactLocation, type, state, message);
+      DATA_STRUCTURES_SYNCHRONIZER.applyArtefactState(artefactName, artefactLocation, type, state, message);
   }
 
   /**

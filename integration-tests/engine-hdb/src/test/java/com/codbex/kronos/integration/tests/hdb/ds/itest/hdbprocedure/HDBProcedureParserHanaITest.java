@@ -40,7 +40,7 @@ public class HDBProcedureParserHanaITest extends AbstractHDBITest {
     }
 
     @Test
-    public void testHDBTableFunctionCreate() throws Exception {
+    public void testHDBProcedureCreate() throws Exception {
         try (Connection connection = datasource.getConnection(); Statement stmt = connection.createStatement()) {
 
             try {
@@ -67,7 +67,7 @@ public class HDBProcedureParserHanaITest extends AbstractHDBITest {
     }
 
     @Test
-    public void testHDBTableFunctionCreateIfAlreadyExist() throws Exception {
+    public void testHDBProcedureCreateIfAlreadyExist() throws Exception {
         try (Connection connection = datasource.getConnection(); Statement stmt = connection.createStatement()) {
 
             try {

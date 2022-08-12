@@ -36,7 +36,7 @@ public class HDBProcedureSynchronizationArtefactType extends AbstractSynchroniza
       case SUCCESSFUL_CREATE:
         return "Processing for create hdbprocedure was successful";
       case SUCCESSFUL_CREATE_UPDATE:
-        return "Processing Create or update hdbprocedure was successful";
+        return "Processing for create or update hdbprocedure was successful";
       case SUCCESSFUL_UPDATE:
         return "Processing for update hdbprocedure was successful";
       default:

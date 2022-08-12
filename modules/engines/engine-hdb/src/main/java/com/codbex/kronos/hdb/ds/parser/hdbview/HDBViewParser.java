@@ -59,7 +59,7 @@ public class HDBViewParser implements DataStructureParser<DataStructureHDBViewMo
   private static final DataStructuresSynchronizer dataStructuresSynchronizer = new DataStructuresSynchronizer();
 
   /**
-   * Parses the.
+   * Parses the hdbview file.
    *
    * @param parametersModel the parameters model
    * @return the data structure HDB view model
@@ -86,7 +86,7 @@ public class HDBViewParser implements DataStructureParser<DataStructureHDBViewMo
    * @return the data structure HDB view model
    */
   private DataStructureHDBViewModel parseHanaXSAdvancedContent(String location, String content) {
-    logger.debug("Parsing hdbview as Hana XS Advanced format");
+    logger.debug("Parsing HDB View as Hana XS Advanced format");
     DataStructureHDBViewModel hdbViewModel = new DataStructureHDBViewModel();
     HDBUtils
         .populateDataStructureModel(location, content, hdbViewModel, IDataStructureModel.TYPE_HDB_VIEW, DBContentType.OTHERS);
@@ -106,7 +106,7 @@ public class HDBViewParser implements DataStructureParser<DataStructureHDBViewMo
    */
   private DataStructureHDBViewModel parseHanaXSClassicContent(String location, String content)
       throws DataStructuresException, IOException, ArtifactParserException {
-    logger.debug("Parsing hdbview as Hana XS Classic format");
+    logger.debug("Parsing HDB View as Hana XS Classic format");
     DataStructureHDBViewModel hdbViewModel = new DataStructureHDBViewModel();
     HDBUtils
         .populateDataStructureModel(location, content, hdbViewModel, IDataStructureModel.TYPE_HDB_VIEW, DBContentType.XS_CLASSIC);
@@ -116,7 +116,7 @@ public class HDBViewParser implements DataStructureParser<DataStructureHDBViewMo
 
     HdbviewLexer lexer = new HdbviewLexer(inputStream);
     HDBViewErrorListener lexerErrorListener = new HDBViewErrorListener();
-    lexer.removeErrorListeners();//remove the ConsoleErrorListener
+    lexer.removeErrorListeners(); // Remove the ConsoleErrorListener
     lexer.addErrorListener(lexerErrorListener);
     CommonTokenStream tokenStream = new CommonTokenStream(lexer);
 
@@ -151,7 +151,7 @@ public class HDBViewParser implements DataStructureParser<DataStructureHDBViewMo
     hdbViewModel.setDependsOnTable(antlr4Model.getDependsOnTable());
     hdbViewModel.setDependsOnView(antlr4Model.getDependsOnView());
 
-    //here we do not know if the artifact is table or view, will be set as none
+    // Here we do not know if the artifact is table or view, will be set as none
     if (antlr4Model.getDependsOn() != null) {
       antlr4Model.getDependsOn().forEach(el -> {
         DataStructureDependencyModel dependencyModel = new DataStructureDependencyModel(el, "none");

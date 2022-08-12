@@ -36,7 +36,7 @@ public class HDBSynonymSynchronizationArtefactType extends AbstractSynchronizati
       case SUCCESSFUL_CREATE:
         return "Processing for create hdbsynonym was successful";
       case SUCCESSFUL_CREATE_UPDATE:
-        return "Processing Create or update hdbsynonym was successful";
+        return "Processing for create or update hdbsynonym was successful";
       case SUCCESSFUL_UPDATE:
         return "Processing for update hdbsynonym was successful";
       default:

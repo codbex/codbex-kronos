@@ -124,7 +124,7 @@ public class TableCreateProcessor extends AbstractHDBProcessor<DataStructureHDBT
         executeBatch(indicesStatements, connection);
       }
 
-      String message = String.format("Create table %s successfully", tableModel.getName());
+      String message = String.format("Create table [%s] successfully", tableModel.getName());
       applyArtefactState(tableModel.getName(), tableModel.getLocation(), TABLE_ARTEFACT, ArtefactState.SUCCESSFUL_CREATE, message);
       return true;
     } catch (SQLException ex) {

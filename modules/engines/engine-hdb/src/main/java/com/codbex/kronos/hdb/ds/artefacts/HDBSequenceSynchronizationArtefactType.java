@@ -36,7 +36,7 @@ public class HDBSequenceSynchronizationArtefactType extends AbstractSynchronizat
       case SUCCESSFUL_CREATE:
         return "Processing for create hdbsequence was successful";
       case SUCCESSFUL_CREATE_UPDATE:
-        return "Processing Create or update hdbsequence was successful";
+        return "Processing for create or update hdbsequence was successful";
       case SUCCESSFUL_UPDATE:
         return "Processing for update hdbsequence was successful";
       default:

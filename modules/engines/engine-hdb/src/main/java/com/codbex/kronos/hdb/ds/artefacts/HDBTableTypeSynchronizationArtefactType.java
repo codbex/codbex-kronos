@@ -36,7 +36,7 @@ public class HDBTableTypeSynchronizationArtefactType extends AbstractSynchroniza
       case SUCCESSFUL_CREATE:
         return "Processing for create hdbstructure was successful";
       case SUCCESSFUL_CREATE_UPDATE:
-        return "Processing Create or update hdbstructure was successful";
+        return "Processing for create or update hdbstructure was successful";
       case SUCCESSFUL_UPDATE:
         return "Processing for update hdbstructure was successful";
       default:

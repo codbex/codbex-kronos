@@ -36,7 +36,7 @@ public class HDBTableFunctionSynchronizationArtefactType extends AbstractSynchro
       case SUCCESSFUL_CREATE:
         return "Processing for create hdbtablefunction was successful";
       case SUCCESSFUL_CREATE_UPDATE:
-        return "Processing Create or update hdbtablefunction was successful";
+        return "Processing for create or update hdbtablefunction was successful";
       case SUCCESSFUL_UPDATE:
         return "Processing for update hdbtablefunction was successful";
       default:

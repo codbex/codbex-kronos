@@ -17,100 +17,102 @@ package com.codbex.kronos.hdb.ds.api;
 public interface IDataStructureModel {
 
   /**
+   * File extension for *.hdbdd files
+   */
+  public static final String FILE_EXTENSION_HDBDD = ".hdbdd";
+
+  /**
    * File extension for *.hdbtable files
    */
-  public static final String FILE_EXTENSION_TABLE = ".hdbtable";
+  public static final String FILE_EXTENSION_HDB_TABLE = ".hdbtable";
+
   /**
    * File extension for *.hdbview files
    */
-  public static final String FILE_EXTENSION_VIEW = ".hdbview";
-  /**
-   * File extension for *.hdbdd files
-   */
-  public static final String FILE_EXTENSION_ENTITIES = ".hdbdd";
+  public static final String FILE_EXTENSION_HDB_VIEW = ".hdbview";
+
+
   /**
    * File extension for *.calculationview files
    */
   public static final String FILE_EXTENSION_CALCULATION_VIEW = ".calculationview";
+
   /**
    * File extension for *.hdbcalculationview files
    */
-  public static final String FILE_EXTENSION_HDBCALCULATION_VIEW = ".hdbcalculationview";
+  public static final String FILE_EXTENSION_HDB_CALCULATION_VIEW = ".hdbcalculationview";
+
   /**
    * File extension for *.hdbprocedure files
    */
-  public static final String FILE_EXTENSION_HDBPROCEDURE = ".hdbprocedure";
+  public static final String FILE_EXTENSION_HDB_PROCEDURE = ".hdbprocedure";
+
   /**
    * File extension for *.hdbtablefunction files
    */
-  public static final String FILE_EXTENSION_HDBTABLEFUNCTION = ".hdbtablefunction";
+  public static final String FILE_EXTENSION_HDB_TABLE_FUNCTION = ".hdbtablefunction";
+
   /**
    * File extension for *.hdbschema files
    */
-  public static final String FILE_EXTENSION_HDBSCHEMA = ".hdbschema";
-  /**
-   * File extension for *.hdi files
-   */
-  public static final String FILE_EXTENSION_HDI = ".hdi";
+  public static final String FILE_EXTENSION_HDB_SCHEMA = ".hdbschema";
 
   /**
    * File extension for *.hdbsequence files
    */
-  public static final String FILE_EXTENSION_HDBSEQUENCE = ".hdbsequence";
+  public static final String FILE_EXTENSION_HDB_SEQUENCE = ".hdbsequence";
 
   /**
    * File extension for *.hdbscalarfunction files
    */
-  public static final String FILE_EXTENSION_HDBSCALARFUNCTION = ".hdbscalarfunction";
-
+  public static final String FILE_EXTENSION_HDB_SCALAR_FUNCTION = ".hdbscalarfunction";
 
   /**
-   * File extension for *.hdi files
+   * File extension for *.hdbsynonym files
    */
-  public static final String FILE_EXTENSION_SYNONYM = ".hdbsynonym";
+  public static final String FILE_EXTENSION_HDB_SYNONYM = ".hdbsynonym";
 
   /**
    * File extension for *.hdbstructure files
    */
-  public static final String FILE_EXTENSION_STRUCTURE = ".hdbstructure";
+  public static final String FILE_EXTENSION_HDB_STRUCTURE = ".hdbstructure";
 
   /**
    * File extension for *.hdbtabletype files
    */
   public static final String FILE_EXTENSION_HDB_TABLE_TYPE = ".hdbtabletype";
 
+  /**
+   * File extension for *.hdi files
+   */
+  public static final String FILE_EXTENSION_HDI = ".hdi";
+
   /** Type hdbdd. */
   public static final String TYPE_HDBDD = "HDBDD";
 
-  /** Type synonym. */
+  /** Type hdbsynonym. */
   public static final String TYPE_HDB_SYNONYM = "HDBSYNONYM";
 
-  /** Type table. */
+  /** Type hdbtable. */
   public static final String TYPE_HDB_TABLE = "HDBTABLE";
   
-  /** Type view. */
+  /** Type hdbview. */
   public static final String TYPE_HDB_VIEW = "HDBVIEW";
   
-  /** Type entities. */
-  public static final String TYPE_HDB_ENTITIES = "HDBENTITIES";
-  
   /** Type calculation view. */
-  public static final String TYPE_CALCVIEW = "CALCVIEW";
+  public static final String TYPE_CALCULATION_VIEW = "CALCULATIONVIEW";
   
-  /** Type hdb calculation view. */
-  public static final String TYPE_HDB_CALCVIEW = "HDBCALCVIEW";
+  /** Type hdbcalculation view. */
+  public static final String TYPE_HDB_CALCULATION_VIEW = "HDBCALCULATIONVIEW";
   
   /** Type hdbprocedure. */
-  public static final String TYPE_HDB_PROCEDURE = "HDBPROC";
+  public static final String TYPE_HDB_PROCEDURE = "HDBPROCEDURE";
   
   /** Type hdbdschema. */
   public static final String TYPE_HDB_SCHEMA = "HDBSCHEMA";
 
   /** Type hdbtablefunction. */
-  public static final String TYPE_HDB_TABLE_FUNCTION = "HDBTABLEFUNC";
-
-  /** Type hdi. */
-  public static final String TYPE_HDI = "HDI";
+  public static final String TYPE_HDB_TABLE_FUNCTION = "HDBTABLEFUNCTION";
 
   /** Type hdbsequence. */
   public static final String TYPE_HDB_SEQUENCE = "HDBSEQUENCE";
@@ -120,4 +122,10 @@ public interface IDataStructureModel {
 
   /** Type hdbtabletype. */
   public static final String TYPE_HDB_TABLE_TYPE = "HDBTABLETYPE";
+
+  /** Type hdbstructure. */
+  public static final String TYPE_HDB_STRUCTURE = "HDBSTRUCTURE";
+
+  /** Type hdi. */
+  public static final String TYPE_HDI = "HDI";
 }

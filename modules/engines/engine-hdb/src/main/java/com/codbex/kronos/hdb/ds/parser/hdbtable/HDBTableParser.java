@@ -93,7 +93,7 @@ public class HDBTableParser implements DataStructureParser<DataStructureHDBTable
   }
 
   /**
-   * Parses the.
+   * Parses the hdbtable file.
    *
    * @param parametersModel the parameters model
    * @return the data structure HDB table model
@@ -161,24 +161,24 @@ public class HDBTableParser implements DataStructureParser<DataStructureHDBTable
           String.format("Wrong format of table definition: [%s]. [%s]", location, e.getMessage()));
     }
 
-    DataStructureHDBTableModel dataStructureHDBTableModel = new DataStructureHDBTableModel();
+    DataStructureHDBTableModel hdbTableModel = new DataStructureHDBTableModel();
 
-    HDBUtils.populateDataStructureModel(location, content, dataStructureHDBTableModel, IDataStructureModel.TYPE_HDB_TABLE,
+    HDBUtils.populateDataStructureModel(location, content, hdbTableModel, IDataStructureModel.TYPE_HDB_TABLE,
         DBContentType.XS_CLASSIC);
-    dataStructureHDBTableModel.setSchema(hdbtableDefinitionModel.getSchemaName());
-    dataStructureHDBTableModel.setDescription(hdbtableDefinitionModel.getDescription());
-    dataStructureHDBTableModel.setLoggingType(hdbtableDefinitionModel.getLoggingType());
-    dataStructureHDBTableModel.setPublicProp(hdbtableDefinitionModel.isPublic());
-    dataStructureHDBTableModel.setTemporary(hdbtableDefinitionModel.getTemporary());
-    dataStructureHDBTableModel.setTableType(hdbtableDefinitionModel.getTableType());
-    dataStructureHDBTableModel.setRawContent(content);
-    dataStructureHDBTableModel.setColumns(columnModelTransformer.transform(hdbtableDefinitionModel, location));
-    dataStructureHDBTableModel.setConstraints(new DataStructureHDBTableConstraintsModel());
+    hdbTableModel.setSchema(hdbtableDefinitionModel.getSchemaName());
+    hdbTableModel.setDescription(hdbtableDefinitionModel.getDescription());
+    hdbTableModel.setLoggingType(hdbtableDefinitionModel.getLoggingType());
+    hdbTableModel.setPublicProp(hdbtableDefinitionModel.isPublic());
+    hdbTableModel.setTemporary(hdbtableDefinitionModel.getTemporary());
+    hdbTableModel.setTableType(hdbtableDefinitionModel.getTableType());
+    hdbTableModel.setRawContent(content);
+    hdbTableModel.setColumns(columnModelTransformer.transform(hdbtableDefinitionModel, location));
+    hdbTableModel.setConstraints(new DataStructureHDBTableConstraintsModel());
 
     DataStructureHDBTableConstraintPrimaryKeyModel primaryKey = new DataStructureHDBTableConstraintPrimaryKeyModel();
     primaryKey.setColumns(hdbtableDefinitionModel.getPkColumns().toArray(String[]::new));
-    primaryKey.setName("PK_" + dataStructureHDBTableModel.getName());
-    dataStructureHDBTableModel.getConstraints().setPrimaryKey(primaryKey);
+    primaryKey.setName("PK_" + hdbTableModel.getName());
+    hdbTableModel.getConstraints().setPrimaryKey(primaryKey);
 
     hdbtableDefinitionModel.getPkColumns().forEach(key -> {
       List<HDBTableColumnsModel> foundMatchKey = hdbtableDefinitionModel.getColumns().stream().filter(x -> x.getName().equals(key))
@@ -200,42 +200,42 @@ public class HDBTableParser implements DataStructureParser<DataStructureHDBTable
       for (HDBTableIndexesModel index : hdbtableDefinitionModel.getIndexes()) {
         validateIndex(hdbtableDefinitionModel, location, index);
         if (index.isUnique()) {
-          DataStructureHDBTableConstraintUniqueModel uniqueIndexModel = new DataStructureHDBTableConstraintUniqueModel();
+          DataStructureHDBTableConstraintUniqueModel hdbTableConstraintUniqueModel = new DataStructureHDBTableConstraintUniqueModel();
           if(index.getIndexName() != null){
-            uniqueIndexModel.setIndexName(index.getIndexName());
+            hdbTableConstraintUniqueModel.setIndexName(index.getIndexName());
           }
           if (index.getIndexType() != null) {
-            uniqueIndexModel.setIndexType(this.convertIfHanaClassicSyntax(index));
+            hdbTableConstraintUniqueModel.setIndexType(this.convertIfHanaClassicSyntax(index));
           }
           if (index.getOrder() != null) {
-            uniqueIndexModel
+            hdbTableConstraintUniqueModel
                 .setOrder(index.getOrder().equals(Constants.HDBTABLE_INDEX_ORDER_HANA_V1_DSC) ? Constants.HDBTABLE_INDEX_ORDER_HANA_DESC : index.getOrder());
           }
-          uniqueIndexModel.setColumns(index.getIndexColumns().toArray(String[]::new));
+          hdbTableConstraintUniqueModel.setColumns(index.getIndexColumns().toArray(String[]::new));
 
-          uniqueIndices.add(uniqueIndexModel);
+          uniqueIndices.add(hdbTableConstraintUniqueModel);
         }else{
-          DataStructureHDBTableIndexModel tableIndexModel = new DataStructureHDBTableIndexModel();
+          DataStructureHDBTableIndexModel hdbTableIndexModel = new DataStructureHDBTableIndexModel();
           if(index.getIndexName() != null){
-            tableIndexModel.setIndexName(index.getIndexName());
+            hdbTableIndexModel.setIndexName(index.getIndexName());
           }
           if (index.getIndexType() != null) {
-            tableIndexModel.setIndexType(convertIfHanaClassicSyntax(index));
+            hdbTableIndexModel.setIndexType(convertIfHanaClassicSyntax(index));
           }
-          tableIndexModel.setUnique(index.isUnique());
+          hdbTableIndexModel.setUnique(index.isUnique());
           if (index.getOrder() != null) {
-            tableIndexModel
+            hdbTableIndexModel
                 .setOrder(index.getOrder().equals(Constants.HDBTABLE_INDEX_ORDER_HANA_V1_DSC) ? Constants.HDBTABLE_INDEX_ORDER_HANA_DESC : index.getOrder());
           }
-          tableIndexModel.setIndexColumns(index.getIndexColumns());
-          indexes.add(tableIndexModel);
+          hdbTableIndexModel.setIndexColumns(index.getIndexColumns());
+          indexes.add(hdbTableIndexModel);
         }
       }
-      dataStructureHDBTableModel.getConstraints().setUniqueIndices(uniqueIndices);
-      dataStructureHDBTableModel.setIndexes(indexes);
+      hdbTableModel.getConstraints().setUniqueIndices(uniqueIndices);
+      hdbTableModel.setIndexes(indexes);
     }
 
-    return dataStructureHDBTableModel;
+    return hdbTableModel;
   }
 
   /**

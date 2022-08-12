@@ -76,7 +76,7 @@ public class ViewCreateProcessor extends AbstractHDBProcessor<DataStructureHDBVi
             sql = Constants.HDBVIEW_CREATE + viewModel.getRawContent();
             break;
           } else {
-            String errorMessage = String.format("Views are not supported for %s !", dialect.getDatabaseName(connection));
+            String errorMessage = String.format("Views are not supported for %s", dialect.getDatabaseName(connection));
             CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, viewModel.getLocation(),
                 CommonsConstants.HDB_VIEW_PARSER);
             applyArtefactState(viewModel.getName(), viewModel.getLocation(), VIEW_ARTEFACT, ArtefactState.FAILED_CREATE, errorMessage);
@@ -86,7 +86,7 @@ public class ViewCreateProcessor extends AbstractHDBProcessor<DataStructureHDBVi
       }
       try {
         executeSql(sql, connection);
-        String message = String.format("Create view %s successfully", viewModel.getName());
+        String message = String.format("Create view [%s] successfully", viewModel.getName());
         applyArtefactState(viewModel.getName(), viewModel.getLocation(), VIEW_ARTEFACT, ArtefactState.SUCCESSFUL_CREATE, message);
         success = true;
       } catch (SQLException ex) {
@@ -101,7 +101,7 @@ public class ViewCreateProcessor extends AbstractHDBProcessor<DataStructureHDBVi
       applyArtefactState(viewModel.getName(), viewModel.getLocation(), VIEW_ARTEFACT, ArtefactState.FAILED_CREATE, warningMessage);
     }
 
-    //Create public synonym
+    // Create public synonym
     if (managerServices != null) {
       if (SqlFactory.getNative(connection).exists(connection, viewNameWithSchema, DatabaseArtifactTypes.VIEW)) {
         HDBUtils.createPublicSynonymForArtifact(managerServices

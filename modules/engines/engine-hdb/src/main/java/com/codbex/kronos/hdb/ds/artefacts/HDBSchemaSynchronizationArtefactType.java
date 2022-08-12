@@ -37,7 +37,7 @@ public class HDBSchemaSynchronizationArtefactType extends AbstractSynchronizatio
       case SUCCESSFUL_CREATE:
         return "Processing for create hdbschema was successful";
       case SUCCESSFUL_CREATE_UPDATE:
-        return "Processing Create or update hdbschema was successful";
+        return "Processing for create or update hdbschema was successful";
       case SUCCESSFUL_UPDATE:
         return "Processing for update hdbschema was successful";
       default:
