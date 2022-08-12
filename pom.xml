@@ -342,5 +342,9 @@
         <license.header.location>licensing-header.txt</license.header.location>
         <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
         <exec-maven-plugin.version>3.1.0</exec-maven-plugin.version>
+      
+        <sonar.organization>codbex</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+      
     </properties>
 </project>
