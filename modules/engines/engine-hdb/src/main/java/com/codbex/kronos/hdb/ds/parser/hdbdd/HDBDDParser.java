@@ -130,9 +130,9 @@ public class HDBDDParser implements DataStructureParser {
       }
     }
 
-    DataStructureHDBDDModel cdsModel;
+    DataStructureHDBDDModel hdbddModel;
     try {
-      cdsModel = populateDataStructureCdsModel(parametersModel.getLocation(), parametersModel.getContent());
+      hdbddModel = populateDataStructureCdsModel(parametersModel.getLocation(), parametersModel.getContent());
     } catch (CDSRuntimeException e) {
       throw new DataStructuresException("Failed to populate HDBDD model of file: " + parametersModel.getLocation(), e);
     } finally {
@@ -142,7 +142,7 @@ public class HDBDDParser implements DataStructureParser {
       parsedNodes.clear();
     }
 
-    return cdsModel;
+    return hdbddModel;
   }
 
 

@@ -107,7 +107,7 @@ public class HDBProcedureParser implements DataStructureParser<DataStructureHDBP
 
     DataStructureModelBuilder builder = new DataStructureModelBuilder()
         .withName(antlrModel.getName())
-        .withHash(DigestUtils.md5Hex(params.getContent()))//NOSONAR
+        .withHash(DigestUtils.md5Hex(params.getContent())) // NOSONAR
         .createdAt(HDBUtils.getTimestamp())
         .createdBy(UserFacade.getName())
         .withLocation(params.getLocation())

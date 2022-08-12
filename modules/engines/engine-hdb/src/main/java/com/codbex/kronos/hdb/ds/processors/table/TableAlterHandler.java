@@ -61,7 +61,7 @@ public class TableAlterHandler {
   private static final DataStructuresSynchronizer dataStructuresSynchronizer = new DataStructuresSynchronizer();
 
   /** The table model. */
-  DataStructureHDBTableModel tableModell;
+  DataStructureHDBTableModel tableModel;
   
   /** The db column types. */
   private Map<String, String> dbColumnTypes;
@@ -73,22 +73,22 @@ public class TableAlterHandler {
    * Instantiates a new table alter handler.
    *
    * @param connection the connection
-   * @param tableModell the table model
+   * @param tableModel the table model
    * @throws SQLException the SQL exception
    */
-  public TableAlterHandler(Connection connection, DataStructureHDBTableModel tableModell) throws SQLException {
+  public TableAlterHandler(Connection connection, DataStructureHDBTableModel tableModel) throws SQLException {
     this.dbColumnTypes = new HashMap<>();
 
     DatabaseMetaData dmd = connection.getMetaData();
     ResultSet rsColumns = dmd
-        .getColumns(null, null, DatabaseMetadataHelper.normalizeTableName(HDBUtils.escapeArtifactName(tableModell.getName())),
+        .getColumns(null, null, DatabaseMetadataHelper.normalizeTableName(HDBUtils.escapeArtifactName(tableModel.getName())),
             null);
     while (rsColumns.next()) {
       this.dbColumnTypes.put(rsColumns.getString("COLUMN_NAME"), rsColumns.getString("TYPE_NAME"));
     }
 
-    this.modelColumnNames = tableModell.getColumns().stream().map(column -> column.getName()).collect(Collectors.toList());
-    this.tableModell = tableModell;
+    this.modelColumnNames = tableModel.getColumns().stream().map(column -> column.getName()).collect(Collectors.toList());
+    this.tableModel = tableModel;
   }
 
   /**
@@ -98,9 +98,9 @@ public class TableAlterHandler {
    * @throws SQLException the SQL exception
    */
   public void addColumns(Connection connection) throws SQLException {
-    String tableName = HDBUtils.escapeArtifactName(this.tableModell.getName(), this.tableModell.getSchema());
+    String tableName = HDBUtils.escapeArtifactName(this.tableModel.getName(), this.tableModel.getSchema());
 
-    for (DataStructureHDBTableColumnModel columnModel : tableModell.getColumns()) {
+    for (DataStructureHDBTableColumnModel columnModel : tableModel.getColumns()) {
       String name = columnModel.getName();
       DataType type = DataType.valueOf(columnModel.getType());
       String length = columnModel.getLength();
@@ -136,13 +136,13 @@ public class TableAlterHandler {
 
         if (!isNullable) {
           String errorMessage = String.format(INCOMPATIBLE_CHANGE_OF_TABLE, tableName, name, "NOT NULL");
-          CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableModell.getLocation(),
+          CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableModel.getLocation(),
               CommonsConstants.HDB_TABLE_PARSER);
           throw new SQLException(errorMessage);
         }
         if (isPrimaryKey) {
           String errorMessage = String.format(INCOMPATIBLE_CHANGE_OF_TABLE, tableName, name, "PRIMARY KEY");
-          CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableModell.getLocation(),
+          CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableModel.getLocation(),
               CommonsConstants.HDB_TABLE_PARSER);
           throw new SQLException(errorMessage);
         }
@@ -152,9 +152,9 @@ public class TableAlterHandler {
       } else if (!dbColumnTypes.get(name).equals(type.toString())) {
         String errorMessage = String
             .format(INCOMPATIBLE_CHANGE_OF_TABLE, tableName, name, "of type " + dbColumnTypes.get(name) + " to be changed to " + type);
-        CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableModell.getLocation(),
+        CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableModel.getLocation(),
             CommonsConstants.HDB_TABLE_PARSER);
-        dataStructuresSynchronizer.applyArtefactState(tableModell.getName(), tableModell.getLocation(), TABLE_ARTEFACT,
+        dataStructuresSynchronizer.applyArtefactState(tableModel.getName(), tableModel.getLocation(), TABLE_ARTEFACT,
             ArtefactState.FAILED_UPDATE, errorMessage);
         throw new SQLException(errorMessage);
       }
@@ -172,7 +172,7 @@ public class TableAlterHandler {
     for (String columnName : this.dbColumnTypes.keySet()) {
       if (!modelColumnNames.contains(columnName)) {
         AlterTableBuilder alterTableBuilder = SqlFactory.getNative(connection).alter()
-            .table(HDBUtils.escapeArtifactName(tableModell.getName(), tableModell.getSchema()));
+            .table(HDBUtils.escapeArtifactName(tableModel.getName(), tableModel.getSchema()));
         if (caseSensitive) {
           columnName = "\"" + columnName + "\"";
         }
@@ -189,7 +189,7 @@ public class TableAlterHandler {
    * @throws SQLException the SQL exception
    */
   public void updateColumns(Connection connection) throws SQLException {
-    String tableName = HDBUtils.escapeArtifactName(this.tableModell.getName(), this.tableModell.getSchema());
+    String tableName = HDBUtils.escapeArtifactName(this.tableModel.getName(), this.tableModel.getSchema());
     List<DataStructureHDBTableColumnModel> columns = this.getColumnsToUpdate();
     for (DataStructureHDBTableColumnModel columnModel : columns) {
       String name = columnModel.getName();
@@ -222,7 +222,7 @@ public class TableAlterHandler {
       if (!dbColumnTypes.get(name).equals(type.toString())) {
         String errorMessage = String
             .format(INCOMPATIBLE_CHANGE_OF_TABLE, tableName, name, "of type " + dbColumnTypes.get(name) + " to be changed to" + type);
-        CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableModell.getLocation(),
+        CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableModel.getLocation(),
             CommonsConstants.HDB_TABLE_PARSER);
         throw new SQLException(errorMessage);
       }
@@ -239,11 +239,11 @@ public class TableAlterHandler {
    * @throws SQLException the SQL exception
    */
   public void rebuildIndeces(Connection connection) throws SQLException {
-    String tableName = HDBUtils.escapeArtifactName(this.tableModell.getName(), this.tableModell.getSchema());
+    String tableName = HDBUtils.escapeArtifactName(this.tableModel.getName(), this.tableModel.getSchema());
     AlterTableBuilder alterTableBuilder = SqlFactory.getNative(connection).alter().table(tableName);
 
     DatabaseMetaData dmd = connection.getMetaData();
-    ResultSet rsIndeces = dmd.getIndexInfo(null, null, this.tableModell.getName(), false, false);
+    ResultSet rsIndeces = dmd.getIndexInfo(null, null, this.tableModel.getName(), false, false);
 
     try (Statement stmt = connection.createStatement()) {
       Set<String> droppedIndices = new HashSet<>();
@@ -253,7 +253,7 @@ public class TableAlterHandler {
     }
 
     TableBuilder hdbTableBuilder = new TableBuilder();
-    hdbTableBuilder.addUniqueIndicesToBuilder(alterTableBuilder, tableModell);
+    hdbTableBuilder.addUniqueIndicesToBuilder(alterTableBuilder, tableModel);
     executeAlterBuilder(connection, alterTableBuilder);
   }
 
@@ -265,11 +265,11 @@ public class TableAlterHandler {
    */
   public void ensurePrimaryKeyIsUnchanged(Connection connection) throws SQLException {
     DatabaseMetaData dmd = connection.getMetaData();
-    ResultSet rsPrimaryKeys = dmd.getPrimaryKeys(null, null, this.tableModell.getName());
+    ResultSet rsPrimaryKeys = dmd.getPrimaryKeys(null, null, this.tableModel.getName());
     Set<String> dbPrimaryKeys = new HashSet<>();
     Set<String> modelPrimaryKeys = new HashSet<>();
-    if (this.tableModell.getConstraints().getPrimaryKey() != null) {
-      modelPrimaryKeys = new HashSet<>(Arrays.asList(this.tableModell.getConstraints().getPrimaryKey().getColumns()));
+    if (this.tableModel.getConstraints().getPrimaryKey() != null) {
+      modelPrimaryKeys = new HashSet<>(Arrays.asList(this.tableModel.getConstraints().getPrimaryKey().getColumns()));
     }
     while (rsPrimaryKeys.next()) {
       dbPrimaryKeys.add(rsPrimaryKeys.getString("COLUMN_NAME"));
@@ -278,8 +278,8 @@ public class TableAlterHandler {
         dbPrimaryKeys.size() == modelPrimaryKeys.size() && dbPrimaryKeys.removeAll(modelPrimaryKeys) && dbPrimaryKeys.isEmpty();
     if (!isPKListUnchanged) {
       String errorMessage = String
-          .format("Incompatible change of table [%s] by trying to change its primary key list", this.tableModell.getName());
-      CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableModell.getLocation(),
+          .format("Incompatible change of table [%s] by trying to change its primary key list", this.tableModel.getName());
+      CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableModel.getLocation(),
           CommonsConstants.HDB_TABLE_PARSER);
       throw new SQLException(errorMessage);
     }
@@ -294,7 +294,7 @@ public class TableAlterHandler {
     Set<String> dbColumnNames = this.dbColumnTypes.keySet();
     Set<String> columnsToUpdate = new HashSet<String>(dbColumnNames);
     columnsToUpdate.retainAll(modelColumnNames);
-    return this.tableModell.getColumns().stream()
+    return this.tableModel.getColumns().stream()
         .filter(column -> columnsToUpdate.contains(column.getName()))
         .collect(Collectors.toList());
   }
@@ -313,7 +313,7 @@ public class TableAlterHandler {
     if (!droppedIndices.contains(rsIndeces.getString("INDEX_NAME"))) {
 
       String sql = String.format("DROP INDEX %s.%s",
-          HDBUtils.escapeArtifactName(this.tableModell.getSchema()),
+          HDBUtils.escapeArtifactName(this.tableModel.getSchema()),
           HDBUtils.escapeArtifactName(rsIndeces.getString("INDEX_NAME")));
       logger.info(sql);
       stmt.executeUpdate(sql);
@@ -338,16 +338,16 @@ public class TableAlterHandler {
       PreparedStatement statement = connection.prepareStatement(sql);
       try {
         statement.executeUpdate();
-        String messageSuccess = String.format("Update table [%s] successfully", this.tableModell.getName());
-        dataStructuresSynchronizer.applyArtefactState(this.tableModell.getName(), this.tableModell.getLocation(), TABLE_ARTEFACT,
+        String messageSuccess = String.format("Update table [%s] successfully", this.tableModel.getName());
+        dataStructuresSynchronizer.applyArtefactState(this.tableModel.getName(), this.tableModel.getLocation(), TABLE_ARTEFACT,
             ArtefactState.SUCCESSFUL_UPDATE, messageSuccess);
       } catch (SQLException e) {
         logger.error(sql);
         logger.error(e.getMessage(), e);
-        CommonsUtils.logProcessorErrors(e.getMessage(), CommonsConstants.PROCESSOR_ERROR, this.tableModell.getLocation(),
+        CommonsUtils.logProcessorErrors(e.getMessage(), CommonsConstants.PROCESSOR_ERROR, this.tableModel.getLocation(),
             CommonsConstants.HDB_TABLE_PARSER);
-        String messageFail = String.format("Update table [%s] skipped due to an error: {%s}", this.tableModell, e.getMessage());
-        dataStructuresSynchronizer.applyArtefactState(this.tableModell.getName(), this.tableModell.getLocation(), TABLE_ARTEFACT,
+        String messageFail = String.format("Update table [%s] skipped due to an error: {%s}", this.tableModel, e.getMessage());
+        dataStructuresSynchronizer.applyArtefactState(this.tableModel.getName(), this.tableModel.getLocation(), TABLE_ARTEFACT,
             ArtefactState.FAILED_UPDATE, messageFail);
         throw new SQLException(e.getMessage(), e);
       } finally {

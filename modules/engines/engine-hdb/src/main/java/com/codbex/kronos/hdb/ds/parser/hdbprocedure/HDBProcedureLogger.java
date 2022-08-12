@@ -29,8 +29,8 @@ public class HDBProcedureLogger {
   public void logError(String parsedFileLocation, String problemsFacadeMessage, String exceptionMessage) {
     CommonsUtils.logCustomErrors(parsedFileLocation,
         CommonsConstants.PARSER_ERROR,
-        "",//line
-        "",//column
+        "", // line
+        "", // column
         exceptionMessage,
         problemsFacadeMessage,
         CommonsConstants.HDB_PROCEDURE_PARSER,

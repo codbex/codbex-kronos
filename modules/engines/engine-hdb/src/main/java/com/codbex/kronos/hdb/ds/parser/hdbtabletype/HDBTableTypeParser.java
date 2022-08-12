@@ -72,19 +72,19 @@ public class HDBTableTypeParser implements DataStructureParser<DataStructureHDBT
   @Override
   public DataStructureHDBTableTypeModel parse(DataStructureParametersModel parametersModel)
       throws DataStructuresException, IOException, ArtifactParserException {
-    logger.debug("Parsing hdbstructure as Hana XS Advanced format");
-    DataStructureHDBTableTypeModel dataStructureHDBTableTypeModel = new DataStructureHDBTableTypeModel();
+    logger.debug("Parsing HDB Table Type as Hana XS Advanced format");
+    DataStructureHDBTableTypeModel hdbTableTypeModel = new DataStructureHDBTableTypeModel();
 
-    HDBUtils.populateDataStructureModel(parametersModel.getLocation(), parametersModel.getContent(), dataStructureHDBTableTypeModel, IDataStructureModel.TYPE_HDB_TABLE_TYPE,
+    HDBUtils.populateDataStructureModel(parametersModel.getLocation(), parametersModel.getContent(), hdbTableTypeModel, IDataStructureModel.TYPE_HDB_TABLE_TYPE,
         DBContentType.OTHERS);
     Pair<String, String> schemaAndNamePair = extractTableTypeSchemaAndName(parametersModel.getContent());
 
-    dataStructureHDBTableTypeModel.setSchema(schemaAndNamePair.getLeft());
-    dataStructureHDBTableTypeModel.setName(schemaAndNamePair.getRight());
-    dataStructureHDBTableTypeModel.setType(getType());
-    dataStructureHDBTableTypeModel.setRawContent(parametersModel.getContent());
+    hdbTableTypeModel.setSchema(schemaAndNamePair.getLeft());
+    hdbTableTypeModel.setName(schemaAndNamePair.getRight());
+    hdbTableTypeModel.setType(getType());
+    hdbTableTypeModel.setRawContent(parametersModel.getContent());
 
-    return dataStructureHDBTableTypeModel;
+    return hdbTableTypeModel;
   }
 
   /**
