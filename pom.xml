@@ -319,7 +319,7 @@
         <license-maven-plugin.version>4.2.rc3</license-maven-plugin.version>
         <antlr4-runtime.version>4.10.1</antlr4-runtime.version>
         <antlr4-maven-plugin.version>4.10.1</antlr4-maven-plugin.version>
-        <selenium.version>4.3.0</selenium.version>
+        <selenium.version>4.4.0</selenium.version>
         <selenium.webdriver.manager.version>5.2.3</selenium.webdriver.manager.version>
         <neo-java-web-sdk.version>4.8.9</neo-java-web-sdk.version>
         <neo-java-web-sdk.javax.activation.version>1.2.0</neo-java-web-sdk.javax.activation.version>
@@ -342,6 +342,9 @@
         <license.header.location>licensing-header.txt</license.header.location>
         <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
         <exec-maven-plugin.version>3.1.0</exec-maven-plugin.version>
-
+      
+        <sonar.organization>codbex</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+      
     </properties>
 </project>

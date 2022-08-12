@@ -11,11 +11,11 @@
  */
 package com.codbex.kronos.hdb.ds.model.hdbscalarfunction;
 
-import com.codbex.kronos.hdb.ds.model.DataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtablefunction.DataStructureHDBTableFunctionModel;
 
 /**
  * The Class DataStructureHDBScalarFunctionModel.
  */
-public class DataStructureHDBScalarFunctionModel extends DataStructureModel {
+public class DataStructureHDBScalarFunctionModel extends DataStructureHDBTableFunctionModel {
 
 }
