@@ -25,7 +25,7 @@ import com.codbex.kronos.hdb.ds.model.hdbview.DataStructureHDBViewModel;
 import com.codbex.kronos.hdb.ds.module.HDBModule;
 import com.codbex.kronos.hdb.ds.parser.DataStructureParser;
 import com.codbex.kronos.hdb.ds.synchronizer.DataStructuresSynchronizer;
-import com.codbex.kronos.hdb.ds.transformer.hdbdd.HdbddTransformer;
+import com.codbex.kronos.hdb.ds.transformer.hdbdd.HDBDDTransformer;
 import com.codbex.kronos.parser.hdbdd.core.CdsLexer;
 import com.codbex.kronos.parser.hdbdd.core.CdsParser;
 import com.codbex.kronos.parser.hdbdd.custom.ArtifactDefinitionListener;
@@ -75,7 +75,7 @@ public class HDBDDParser implements DataStructureParser {
   /**
    * The hdbdd transformer.
    */
-  private HdbddTransformer hdbddTransformer = new HdbddTransformer();
+  private HDBDDTransformer hdbddTransformer = new HDBDDTransformer();
 
   /**
    * The repository.

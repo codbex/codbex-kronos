@@ -23,6 +23,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableModel;
+import com.codbex.kronos.hdb.ds.model.hdbtabletype.DataStructureHDBTableTypeModel;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -37,7 +39,6 @@ import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.hdb.ds.model.DBContentType;
 import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
-import com.codbex.kronos.hdb.ds.model.hdbdd.DataStructureEntityModel;
 import com.codbex.kronos.hdb.ds.model.hdbsynonym.DataStructureHDBSynonymModel;
 import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDefinitionModel;
 import com.codbex.kronos.hdb.ds.service.manager.IDataStructureManager;
@@ -59,29 +60,6 @@ public class HDBUtils {
    * Instantiates a new HDB utils.
    */
   private HDBUtils() {
-  }
-
-  /**
-   * Gets the table name.
-   *
-   * @param model the model
-   * @return the table name
-   */
-  public static String getTableName(DataStructureEntityModel model) {
-    return getTableName(model, model.getName());
-  }
-
-  /**
-   * Gets the table name.
-   *
-   * @param model the model
-   * @param tableName the table name
-   * @return the table name
-   */
-  public static String getTableName(DataStructureEntityModel model, String tableName) {
-    return new StringBuilder()
-        .append(model.getNamespace()).append("::").append(model.getContext()).append(".").append(tableName)
-        .toString();
   }
 
   /**

@@ -51,7 +51,7 @@ import static org.eclipse.dirigible.database.sql.ISqlKeywords.SPACE;
 /**
  * The Class HdbddTransformer.
  */
-public class HdbddTransformer {
+public class HDBDDTransformer {
 
   /** The Constant UNMANAGED_ASSOCIATION_MARKER. */
   private static final String UNMANAGED_ASSOCIATION_MARKER = "@";
