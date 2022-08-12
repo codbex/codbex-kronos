@@ -121,7 +121,7 @@ public class HDBDDParser implements DataStructureParser {
       IResource loadedResource = this.repository.getResource(parametersModel.getWorkspacePath() + fileLocation);
       String fileContent = new String(loadedResource.getContent());
       try {
-        parseHdbdd(fileLocation, fileContent);
+        parseHDBDD(fileLocation, fileContent);
       } catch (CDSRuntimeException | ArtifactParserException e) {
         this.symbolTable.clearSymbolsByFullName();
         this.symbolTable.clearEntityGraph();
@@ -134,7 +134,7 @@ public class HDBDDParser implements DataStructureParser {
     try {
       cdsModel = populateDataStructureCdsModel(parametersModel.getLocation(), parametersModel.getContent());
     } catch (CDSRuntimeException e) {
-      throw new DataStructuresException("Failed to populate CDS model of file: " + parametersModel.getLocation(), e);
+      throw new DataStructuresException("Failed to populate HDBDD model of file: " + parametersModel.getLocation(), e);
     } finally {
       this.symbolTable.clearSymbolsByFullName();
       this.symbolTable.clearEntityGraph();
@@ -154,7 +154,7 @@ public class HDBDDParser implements DataStructureParser {
    * @throws IOException             Signals that an I/O exception has occurred.
    * @throws ArtifactParserException the artifact parser exception
    */
-  private void parseHdbdd(String location, String content) throws IOException, ArtifactParserException {
+  private void parseHDBDD(String location, String content) throws IOException, ArtifactParserException {
     ByteArrayInputStream is = new ByteArrayInputStream(content.getBytes());
     ANTLRInputStream inputStream = new ANTLRInputStream(is);
     CdsLexer hdbddLexer = new CdsLexer(inputStream);
@@ -204,7 +204,7 @@ public class HDBDDParser implements DataStructureParser {
       try {
         IResource loadedResource = this.repository.getResource("/registry/public/" + fileLocation);
         String loadedResourceContent = new String(loadedResource.getContent());
-        parseHdbdd(fileLocation, loadedResourceContent);
+        parseHDBDD(fileLocation, loadedResourceContent);
         parsedNodes.add(fileLocation);
         synchronizeNodeMetadataFromRoot(fileLocation, loadedResourceContent);
       } catch (IOException | ArtifactParserException | DataStructuresException e) {

@@ -14,6 +14,7 @@ package com.codbex.kronos.hdb.ds.processors.tabletype;
 import static java.text.MessageFormat.format;
 
 import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbstructure.DataStructureHDBStructureModel;
 import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableColumnModel;
 import com.codbex.kronos.hdb.ds.model.hdbtabletype.DataStructureHDBTableTypeModel;
 import com.codbex.kronos.hdb.ds.module.HDBModule;
@@ -40,7 +41,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The Class TableTypeCreateProcessor.
  */
-public class TableTypeCreateProcessor extends AbstractHDBProcessor<DataStructureHDBTableTypeModel> {
+public class TableTypeCreateProcessor extends AbstractHDBProcessor<DataStructureHDBStructureModel> {
 
   /**
    * The Constant logger.
@@ -62,7 +63,7 @@ public class TableTypeCreateProcessor extends AbstractHDBProcessor<DataStructure
    * @throws SQLException the SQL exception
    */
   @Override
-  public boolean execute(Connection connection, DataStructureHDBTableTypeModel tableTypeModel)
+  public boolean execute(Connection connection, DataStructureHDBStructureModel tableTypeModel)
       throws SQLException {
     logger.info("Processing Create Table Type: " + tableTypeModel.getName());
 

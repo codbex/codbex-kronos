@@ -42,7 +42,7 @@ public class HDBSynonymManagerService extends AbstractDataStructureManagerServic
   /**
    * The data structure synonym models.
    */
-  private final Map<String, DataStructureHDBSynonymModel> dataStructureSynonymModels = new LinkedHashMap<>();
+  private final Map<String, DataStructureHDBSynonymModel> dataStructureHDBSynonymModels = new LinkedHashMap<>();
 
   /**
    * The synonyms synchronized.
@@ -70,16 +70,16 @@ public class HDBSynonymManagerService extends AbstractDataStructureManagerServic
     if (!getDataStructuresCoreService().existsDataStructure(synonymModel.getLocation(), synonymModel.getType())) {
       getDataStructuresCoreService()
           .createDataStructure(synonymModel.getLocation(), synonymModel.getName(), synonymModel.getHash(), synonymModel.getType());
-      dataStructureSynonymModels.put(synonymModel.getName(), synonymModel);
-      logger.info("Synchronized a new Synonym file [{}] from location: {}", synonymModel.getName(), synonymModel.getLocation());
+      dataStructureHDBSynonymModels.put(synonymModel.getName(), synonymModel);
+      logger.info("Synchronized a new HDB Synonym file [{}] from location: {}", synonymModel.getName(), synonymModel.getLocation());
     } else {
       DataStructureHDBSynonymModel existing = getDataStructuresCoreService()
           .getDataStructure(synonymModel.getLocation(), synonymModel.getType());
       if (!synonymModel.equals(existing)) {
         getDataStructuresCoreService()
             .updateDataStructure(synonymModel.getLocation(), synonymModel.getName(), synonymModel.getHash(), synonymModel.getType());
-        dataStructureSynonymModels.put(synonymModel.getName(), synonymModel);
-        logger.info("Synchronized a modified Synonym file [{}] from location: {}", synonymModel.getName(), synonymModel.getLocation());
+        dataStructureHDBSynonymModels.put(synonymModel.getName(), synonymModel);
+        logger.info("Synchronized a modified HDB Synonym file [{}] from location: {}", synonymModel.getName(), synonymModel.getLocation());
       }
     }
     if (!synonymsSynchronized.contains(synonymModel.getLocation())) {
@@ -137,7 +137,7 @@ public class HDBSynonymManagerService extends AbstractDataStructureManagerServic
    */
   @Override
   public Map<String, DataStructureHDBSynonymModel> getDataStructureModels() {
-    return Collections.unmodifiableMap(this.dataStructureSynonymModels);
+    return Collections.unmodifiableMap(this.dataStructureHDBSynonymModels);
   }
 
   /**
@@ -165,6 +165,6 @@ public class HDBSynonymManagerService extends AbstractDataStructureManagerServic
    */
   @Override
   public void clearCache() {
-    dataStructureSynonymModels.clear();
+    dataStructureHDBSynonymModels.clear();
   }
 }

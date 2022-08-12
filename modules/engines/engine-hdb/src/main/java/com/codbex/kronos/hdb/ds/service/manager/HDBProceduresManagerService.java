@@ -43,7 +43,7 @@ public class HDBProceduresManagerService extends AbstractDataStructureManagerSer
   /**
    * The data structure procedures models.
    */
-  private final Map<String, DataStructureHDBProcedureModel> dataStructureProceduresModels;
+  private final Map<String, DataStructureHDBProcedureModel> procedureModels;
 
   /**
    * The procedures synchronized.
@@ -64,43 +64,46 @@ public class HDBProceduresManagerService extends AbstractDataStructureManagerSer
    * Instantiates a new procedures manager service.
    */
   public HDBProceduresManagerService() {
-    dataStructureProceduresModels = new LinkedHashMap<>();
+    procedureModels = new LinkedHashMap<>();
     proceduresSynchronized = Collections.synchronizedList(new ArrayList<>());
   }
 
   /**
    * Synchronize runtime metadata.
    *
-   * @param hdbProcedureModel the hdb procedure model
+   * @param procedureModel the hdb procedure model
    * @throws DataStructuresException the data structures exception
    */
   @Override
-  public void synchronizeRuntimeMetadata(DataStructureHDBProcedureModel hdbProcedureModel) throws DataStructuresException {
+  public void synchronizeRuntimeMetadata(DataStructureHDBProcedureModel procedureModel) throws DataStructuresException {
     // TODO: Ommit double calling of finding the hdbProcedure by extracting it in
 
-    // String schemaNameConcatProcedureName = hdbProcedure.getSchemaName() + "." + hdbProcedure.getName();
+    // String schemaNameConcatProcedureName = procedureModel.getSchemaName() + "." + procedureModel.getName();
 
-    if (!getDataStructuresCoreService().existsDataStructure(hdbProcedureModel.getLocation(), hdbProcedureModel.getType())) {
+    if (!getDataStructuresCoreService().existsDataStructure(procedureModel.getLocation(),
+        procedureModel.getType())) {
       getDataStructuresCoreService()
-          .createDataStructure(hdbProcedureModel.getLocation(), hdbProcedureModel.getName(), hdbProcedureModel.getHash(),
-              hdbProcedureModel.getType());
-      dataStructureProceduresModels.put(hdbProcedureModel.getName(), hdbProcedureModel);
-      logger.info("Synchronized a new HDB Procedure file [{}] from location: {}", hdbProcedureModel.getName(),
-          hdbProcedureModel.getLocation());
+          .createDataStructure(procedureModel.getLocation(), procedureModel.getName(),
+              procedureModel.getHash(),
+              procedureModel.getType());
+      procedureModels.put(procedureModel.getName(), procedureModel);
+      logger.info("Synchronized a new HDB Procedure file [{}] from location: {}", procedureModel.getName(),
+          procedureModel.getLocation());
     } else {
       DataStructureHDBProcedureModel existing = getDataStructuresCoreService()
-          .getDataStructure(hdbProcedureModel.getLocation(), hdbProcedureModel.getType());
-      if (!hdbProcedureModel.equals(existing)) {
+          .getDataStructure(procedureModel.getLocation(), procedureModel.getType());
+      if (!procedureModel.equals(existing)) {
         getDataStructuresCoreService()
-            .updateDataStructure(hdbProcedureModel.getLocation(), hdbProcedureModel.getName(), hdbProcedureModel.getHash(),
-                hdbProcedureModel.getType());
-        dataStructureProceduresModels.put(hdbProcedureModel.getName(), hdbProcedureModel);
-        logger.info("Synchronized a modified HDB Procedure file [{}] from location: {}", hdbProcedureModel.getName(),
-            hdbProcedureModel.getLocation());
+            .updateDataStructure(procedureModel.getLocation(), procedureModel.getName(),
+                procedureModel.getHash(),
+                procedureModel.getType());
+        procedureModels.put(procedureModel.getName(), procedureModel);
+        logger.info("Synchronized a modified HDB Procedure file [{}] from location: {}", procedureModel.getName(),
+            procedureModel.getLocation());
       }
     }
-    if (!proceduresSynchronized.contains(hdbProcedureModel.getLocation())) {
-      proceduresSynchronized.add(hdbProcedureModel.getLocation());
+    if (!proceduresSynchronized.contains(procedureModel.getLocation())) {
+      proceduresSynchronized.add(procedureModel.getLocation());
     }
   }
 
@@ -171,7 +174,7 @@ public class HDBProceduresManagerService extends AbstractDataStructureManagerSer
    */
   @Override
   public void clearCache() {
-    dataStructureProceduresModels.clear();
+    procedureModels.clear();
   }
 
   /**
@@ -181,6 +184,6 @@ public class HDBProceduresManagerService extends AbstractDataStructureManagerSer
    */
   @Override
   public Map<String, DataStructureHDBProcedureModel> getDataStructureModels() {
-    return Collections.unmodifiableMap(this.dataStructureProceduresModels);
+    return Collections.unmodifiableMap(this.procedureModels);
   }
 }

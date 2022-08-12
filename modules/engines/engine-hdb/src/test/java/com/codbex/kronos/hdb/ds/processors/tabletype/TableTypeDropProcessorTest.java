@@ -13,6 +13,8 @@ package com.codbex.kronos.hdb.ds.processors.tabletype;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+
+import com.codbex.kronos.utils.HDBSynonymRemover;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -28,7 +28,7 @@ import com.codbex.kronos.hdb.ds.parser.hdbtablefunction.HDBTableFunctionLogger;
 import com.codbex.kronos.hdb.ds.parser.hdbtablefunction.HDBTableFunctionParser;
 import com.codbex.kronos.hdb.ds.parser.hdbtabletype.HDBTableTypeParser;
 import com.codbex.kronos.hdb.ds.parser.hdbview.HDBViewParser;
-import com.codbex.kronos.hdb.ds.processors.tabletype.HDBSynonymRemover;
+import com.codbex.kronos.utils.HDBSynonymRemover;
 import com.codbex.kronos.hdb.ds.service.manager.HDBStructureManagerService;
 import com.codbex.kronos.hdb.ds.service.manager.IDataStructureManager;
 import com.codbex.kronos.hdb.ds.service.manager.HDBDDManagerService;

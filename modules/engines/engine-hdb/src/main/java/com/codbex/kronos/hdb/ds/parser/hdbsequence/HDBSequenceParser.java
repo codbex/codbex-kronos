@@ -50,7 +50,9 @@ import org.slf4j.LoggerFactory;
 public class HDBSequenceParser implements DataStructureParser {
 
 
-  /** The Constant logger. */
+  /**
+   * The Constant logger.
+   */
   private static final Logger logger = LoggerFactory.getLogger(HDBSequenceParser.class);
 
   /**
@@ -59,7 +61,7 @@ public class HDBSequenceParser implements DataStructureParser {
    * @param parametersModel the parameters model
    * @return the data structure model
    * @throws DataStructuresException the data structures exception
-   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws IOException             Signals that an I/O exception has occurred.
    * @throws ArtifactParserException the artifact parser exception
    */
   @Override
@@ -73,7 +75,6 @@ public class HDBSequenceParser implements DataStructureParser {
         : parseHanaXSClassicContent(parametersModel.getLocation(), parametersModel.getContent());
   }
 
-
   /**
    * Gets the type.
    *
@@ -83,7 +84,6 @@ public class HDBSequenceParser implements DataStructureParser {
   public String getType() {
     return IDataStructureModel.TYPE_HDB_SEQUENCE;
   }
-
 
   /**
    * Gets the data structure class.
@@ -99,14 +99,14 @@ public class HDBSequenceParser implements DataStructureParser {
    * Parses the hana XS classic content.
    *
    * @param location the location
-   * @param content the content
+   * @param content  the content
    * @return the data structure model
-   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws IOException             Signals that an I/O exception has occurred.
    * @throws ArtifactParserException the artifact parser exception
    */
   private DataStructureModel parseHanaXSClassicContent(String location, String content)
       throws IOException, ArtifactParserException {
-    logger.debug("Parsing hdbsequence as Hana XS Classic format");
+    logger.debug("Parsing HDB Sequence as Hana XS Classic format");
     ByteArrayInputStream is = new ByteArrayInputStream(content.getBytes());
     ANTLRInputStream inputStream = new ANTLRInputStream(is);
 
@@ -124,8 +124,10 @@ public class HDBSequenceParser implements DataStructureParser {
     parser.addErrorListener(parserErrorListener);
 
     ParseTree parseTree = parser.hdbsequence();
-    CommonsUtils.logParserErrors(parserErrorListener.getErrors(), CommonsConstants.PARSER_ERROR, location, CommonsConstants.HDB_SEQUENCE_PARSER);
-    CommonsUtils.logParserErrors(lexerErrorListener.getErrors(), CommonsConstants.LEXER_ERROR, location, CommonsConstants.HDB_SEQUENCE_PARSER);
+    CommonsUtils.logParserErrors(parserErrorListener.getErrors(), CommonsConstants.PARSER_ERROR, location,
+        CommonsConstants.HDB_SEQUENCE_PARSER);
+    CommonsUtils.logParserErrors(lexerErrorListener.getErrors(), CommonsConstants.LEXER_ERROR, location,
+        CommonsConstants.HDB_SEQUENCE_PARSER);
 
     HdbsequenceBaseVisitor<JsonElement> visitor = new HdbsequenceVisitor();
     JsonElement parsedResult = visitor.visit(parseTree);
@@ -146,11 +148,11 @@ public class HDBSequenceParser implements DataStructureParser {
    * Parses the hana XS advanced content.
    *
    * @param location the location
-   * @param content the content
+   * @param content  the content
    * @return the data structure model
    */
   private DataStructureModel parseHanaXSAdvancedContent(String location, String content) {
-    logger.debug("Parsing hdbsequence as Hana XS Advanced format");
+    logger.debug("Parsing HDB Sequence as Hana XS Advanced format");
     DataStructureHDBSequenceModel hdbSequenceModel = new DataStructureHDBSequenceModel();
     HDBUtils.populateDataStructureModel(location, content, hdbSequenceModel, IDataStructureModel.TYPE_HDB_SEQUENCE,
         DBContentType.OTHERS);

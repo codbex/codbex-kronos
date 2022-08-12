@@ -45,7 +45,7 @@ public class HDBDDManagerService extends AbstractDataStructureManagerService<Dat
   /**
    * The data structure entities model.
    */
-  private final Map<String, DataStructureHDBDDModel> dataStructureEntitiesModel;
+  private final Map<String, DataStructureHDBDDModel> hdbddModels;
 
   /**
    * The hdbdd synchronized.
@@ -71,31 +71,35 @@ public class HDBDDManagerService extends AbstractDataStructureManagerService<Dat
    * Instantiates a new entity manager service.
    */
   public HDBDDManagerService() {
-    dataStructureEntitiesModel = Collections.synchronizedMap(new LinkedHashMap<>());
+    hdbddModels = Collections.synchronizedMap(new LinkedHashMap<>());
     hdbddSynchronized = Collections.synchronizedList(new ArrayList<>());
   }
 
   /**
    * Synchronize runtime metadata.
    *
-   * @param entitiesModel the entities model
+   * @param hdbddModel the hdbdd model
    * @throws DataStructuresException the data structures exception
    */
   @Override
-  public void synchronizeRuntimeMetadata(DataStructureHDBDDModel entitiesModel) throws DataStructuresException {
-    if (!getDataStructuresCoreService().existsDataStructure(entitiesModel.getLocation(), entitiesModel.getType())) {
+  public void synchronizeRuntimeMetadata(DataStructureHDBDDModel hdbddModel) throws DataStructuresException {
+    if (!getDataStructuresCoreService().existsDataStructure(hdbddModel.getLocation(), hdbddModel.getType())) {
       getDataStructuresCoreService()
-          .createDataStructure(entitiesModel.getLocation(), entitiesModel.getName(), entitiesModel.getHash(), entitiesModel.getType());
-      dataStructureEntitiesModel.put(entitiesModel.getName(), entitiesModel);
-      logger.info("Synchronized a new Entities file [{}] from location: {}", entitiesModel.getName(), entitiesModel.getLocation());
+          .createDataStructure(hdbddModel.getLocation(), hdbddModel.getName(), hdbddModel.getHash(),
+              hdbddModel.getType());
+      hdbddModels.put(hdbddModel.getName(), hdbddModel);
+      logger.info("Synchronized a new HDBDD file [{}] from location: {}", hdbddModel.getName(),
+          hdbddModel.getLocation());
     } else {
       getDataStructuresCoreService()
-          .updateDataStructure(entitiesModel.getLocation(), entitiesModel.getName(), entitiesModel.getHash(), entitiesModel.getType());
-      dataStructureEntitiesModel.put(entitiesModel.getName(), entitiesModel);
-      logger.info("Synchronized a modified Entities file [{}] from location: {}", entitiesModel.getName(), entitiesModel.getLocation());
+          .updateDataStructure(hdbddModel.getLocation(), hdbddModel.getName(), hdbddModel.getHash(),
+              hdbddModel.getType());
+      hdbddModels.put(hdbddModel.getName(), hdbddModel);
+      logger.info("Synchronized a modified HDBDD file [{}] from location: {}", hdbddModel.getName(),
+          hdbddModel.getLocation());
     }
-    if (!hdbddSynchronized.contains(entitiesModel.getLocation())) {
-      hdbddSynchronized.add(entitiesModel.getLocation());
+    if (!hdbddSynchronized.contains(hdbddModel.getLocation())) {
+      hdbddSynchronized.add(hdbddModel.getLocation());
     }
   }
 
@@ -162,7 +166,7 @@ public class HDBDDManagerService extends AbstractDataStructureManagerService<Dat
    */
   @Override
   public Map<String, DataStructureHDBDDModel> getDataStructureModels() {
-    return Collections.unmodifiableMap(this.dataStructureEntitiesModel);
+    return Collections.unmodifiableMap(this.hdbddModels);
   }
 
   /**
@@ -190,6 +194,6 @@ public class HDBDDManagerService extends AbstractDataStructureManagerService<Dat
    */
   @Override
   public void clearCache() {
-    dataStructureEntitiesModel.clear();
+    hdbddModels.clear();
   }
 }

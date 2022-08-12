@@ -1,4 +1,4 @@
-com.codbex.kronos.hdb.ds.artefacts.HDBDDSynchronizationArtefactType             #HDBDD Entity
+com.codbex.kronos.hdb.ds.artefacts.HDBDDSynchronizationArtefactType             #HDBDD
 com.codbex.kronos.hdb.ds.artefacts.HDBProcedureSynchronizationArtefactType      #HDBProcedure
 com.codbex.kronos.hdb.ds.artefacts.HDBSequenceSynchronizationArtefactType       #HDBSequence
 com.codbex.kronos.hdb.ds.artefacts.HDBTableSynchronizationArtefactType          #HDBTable

@@ -27,9 +27,8 @@ import org.junit.Test;
 import com.codbex.kronos.integration.tests.hdb.ds.AbstractHDBITest;
 import com.codbex.kronos.integration.tests.core.hdb.module.HDBTestModule;
 import com.codbex.kronos.integration.tests.core.hdb.utils.HanaITestUtils;
-import com.codbex.kronos.utils.Constants;
 
-public class HDBTableTypeParserHanaITest extends AbstractHDBITest {
+public class HDBStructureParserHanaITest extends AbstractHDBITest {
 
   @Before
   public void setUpBeforeTest() throws SQLException {
@@ -42,7 +41,7 @@ public class HDBTableTypeParserHanaITest extends AbstractHDBITest {
   }
 
   @Test
-  public void testHDBTableTypeCreateOnSameSchema() throws Exception {
+  public void testHDBStructureCreateOnSameSchema() throws Exception {
     try (Connection connection = datasource.getConnection(); Statement stmt = connection.createStatement()) {
 
       String userSchema = Configuration.get("hana.username");
@@ -72,44 +71,10 @@ public class HDBTableTypeParserHanaITest extends AbstractHDBITest {
   }
 
   @Test
-  public void testHDBViewCreateOnDiffSchemas() throws Exception {
+  public void testHDBStructureCreateOnDiffSchemas() throws Exception {
     try (Connection connection = datasource.getConnection(); Statement stmt = connection.createStatement()) {
 
       HanaITestUtils.createSchema(stmt, TEST_SCHEMA);
-
-      LocalResource resource = HDBTestModule.getResources( //
-          "/usr/local/target/dirigible/repository/root", //
-          "/registry/public/hdbstructure-itest/str2.hdbstructure", //
-          "/registry/public/hdbstructure-itest/str2.hdbstructure" //
-      );
-
-      try {
-        facade.handleResourceSynchronization(resource);
-        facade.updateEntities();
-        assertTrue(HanaITestUtils.checkExistOfTableType(stmt, "hdbstructure-itest::str2", TEST_SCHEMA));
-        assertTrue(HanaITestUtils.checkExistOfPublicSynonym(connection, "hdbstructure-itest::str2"));
-      } finally {
-        HanaITestUtils.dropTableType(connection, stmt, "hdbstructure-itest::str2", TEST_SCHEMA);
-        HanaITestUtils.dropSchema(stmt, TEST_SCHEMA);
-      }
-    }
-  }
-
-  @Test
-  public void testHDBViewCreateOnDiffSchemasWithExistingSynonym() throws Exception {
-    try (Connection connection = datasource.getConnection(); Statement stmt = connection.createStatement()) {
-
-      HanaITestUtils.createSchema(stmt, TEST_SCHEMA);
-
-      stmt.executeUpdate(String.format(
-          "CREATE TYPE \"%s\".\"hdbstructure-itest::str2\" AS TABLE ( \"ID\" INTEGER NOT NULL , \"BIZ_EVENT\" VARCHAR (60) NOT NULL );\n",
-          TEST_SCHEMA));
-
-      stmt.executeUpdate(String.format(
-          "create SYNONYM \"%s\".\"hdbstructure-itest::str2\" FOR \"%s\".\"hdbstructure-itest::str2\"",
-          Constants.SYNONYM_PUBLIC_SCHEMA, TEST_SCHEMA));
-
-      stmt.executeUpdate(String.format("drop TYPE    \"%s\".\"hdbstructure-itest::str2\"", TEST_SCHEMA));
 
       LocalResource resource = HDBTestModule.getResources( //
           "/usr/local/target/dirigible/repository/root", //

@@ -42,7 +42,7 @@ public class HDBViewManagerService extends AbstractDataStructureManagerService<D
   /**
    * The data structure views models.
    */
-  private final Map<String, DataStructureHDBViewModel> dataStructureViewsModels = new LinkedHashMap<>();
+  private final Map<String, DataStructureHDBViewModel> dataStructureHDBViewsModels = new LinkedHashMap<>();
 
   /**
    * The views synchronized.
@@ -70,14 +70,14 @@ public class HDBViewManagerService extends AbstractDataStructureManagerService<D
     if (!getDataStructuresCoreService().existsDataStructure(viewModel.getLocation(), viewModel.getType())) {
       getDataStructuresCoreService()
           .createDataStructure(viewModel.getLocation(), viewModel.getName(), viewModel.getHash(), viewModel.getType());
-      dataStructureViewsModels.put(viewModel.getName(), viewModel);
+      dataStructureHDBViewsModels.put(viewModel.getName(), viewModel);
       logger.info("Synchronized a new HDB View file [{}] from location: {}", viewModel.getName(), viewModel.getLocation());
     } else {
       DataStructureHDBViewModel existing = getDataStructuresCoreService().getDataStructure(viewModel.getLocation(), viewModel.getType());
       if (!viewModel.equals(existing)) {
         getDataStructuresCoreService()
             .updateDataStructure(viewModel.getLocation(), viewModel.getName(), viewModel.getHash(), viewModel.getType());
-        dataStructureViewsModels.put(viewModel.getName(), viewModel);
+        dataStructureHDBViewsModels.put(viewModel.getName(), viewModel);
         logger.info("Synchronized a modified HDB View file [{}] from location: {}", viewModel.getName(), viewModel.getLocation());
       }
     }
@@ -135,7 +135,7 @@ public class HDBViewManagerService extends AbstractDataStructureManagerService<D
    */
   @Override
   public Map<String, DataStructureHDBViewModel> getDataStructureModels() {
-    return Collections.unmodifiableMap(this.dataStructureViewsModels);
+    return Collections.unmodifiableMap(this.dataStructureHDBViewsModels);
   }
 
   /**
@@ -163,6 +163,6 @@ public class HDBViewManagerService extends AbstractDataStructureManagerService<D
    */
   @Override
   public void clearCache() {
-    dataStructureViewsModels.clear();
+    dataStructureHDBViewsModels.clear();
   }
 }

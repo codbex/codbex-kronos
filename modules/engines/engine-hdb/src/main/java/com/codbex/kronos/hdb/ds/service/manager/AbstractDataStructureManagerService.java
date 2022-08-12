@@ -74,25 +74,25 @@ public abstract class AbstractDataStructureManagerService<T extends DataStructur
   /**
    * Synchronize parsed by root metadata.
    *
-   * @param tableModel the table model
+   * @param dsModel the data structure model
    * @throws DataStructuresException the data structures exception
    */
-  public void synchronizeParsedByRootMetadata(T tableModel) throws DataStructuresException {
-    if (!getDataStructuresCoreService().existsDataStructure(tableModel.getLocation(), tableModel.getType())) {
+  public void synchronizeParsedByRootMetadata(T dsModel) throws DataStructuresException {
+    if (!getDataStructuresCoreService().existsDataStructure(dsModel.getLocation(), dsModel.getType())) {
       dataStructuresCoreService
-          .createDataStructure(tableModel.getLocation(), tableModel.getName(), tableModel.getHash(), tableModel.getType());
-      logger.info("Root artifact synchronized a new Entities file [{}] from location: {}", tableModel.getName(), tableModel.getLocation());
+          .createDataStructure(dsModel.getLocation(), dsModel.getName(), dsModel.getHash(), dsModel.getType());
+      logger.info("Root artifact synchronized a new data structure file [{}] from location: {}", dsModel.getName(), dsModel.getLocation());
     }
   }
 
   /**
    * Exists artifact metadata.
    *
-   * @param tableModel the table model
+   * @param dsModel the data structure model
    * @return true, if successful
    * @throws DataStructuresException the data structures exception
    */
-  public boolean existsArtifactMetadata(T tableModel) throws DataStructuresException {
-    return dataStructuresCoreService.existsDataStructureByLocationAndHash(tableModel.getLocation(), tableModel.getHash(), tableModel.getType());
+  public boolean existsArtifactMetadata(T dsModel) throws DataStructuresException {
+    return dataStructuresCoreService.existsDataStructureByLocationAndHash(dsModel.getLocation(), dsModel.getHash(), dsModel.getType());
   }
 }

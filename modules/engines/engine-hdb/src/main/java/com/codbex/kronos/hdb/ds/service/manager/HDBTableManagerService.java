@@ -42,7 +42,7 @@ public class HDBTableManagerService extends AbstractDataStructureManagerService<
   /**
    * The data structure table models.
    */
-  private final Map<String, DataStructureHDBTableModel> dataStructureTableModels;
+  private final Map<String, DataStructureHDBTableModel> dataStructureHDBTableModels;
 
   /**
    * The tables synchronized.
@@ -69,7 +69,7 @@ public class HDBTableManagerService extends AbstractDataStructureManagerService<
    * Instantiates a new table manager service.
    */
   public HDBTableManagerService() {
-    dataStructureTableModels = new LinkedHashMap<>();
+    dataStructureHDBTableModels = new LinkedHashMap<>();
     hdbTablesSynchronized = Collections.synchronizedList(new ArrayList<>());
   }
 
@@ -84,16 +84,16 @@ public class HDBTableManagerService extends AbstractDataStructureManagerService<
     if (!getDataStructuresCoreService().existsDataStructure(tableModel.getLocation(), tableModel.getType())) {
       getDataStructuresCoreService()
           .createDataStructure(tableModel.getLocation(), tableModel.getName(), tableModel.getHash(), tableModel.getType());
-      dataStructureTableModels.put(tableModel.getName(), tableModel);
-      logger.info("Synchronized a new Table file [{}] from location: {}", tableModel.getName(), tableModel.getLocation());
+      dataStructureHDBTableModels.put(tableModel.getName(), tableModel);
+      logger.info("Synchronized a new HDB Table file [{}] from location: {}", tableModel.getName(), tableModel.getLocation());
     } else {
       DataStructureHDBTableModel existing = getDataStructuresCoreService()
           .getDataStructure(tableModel.getLocation(), tableModel.getType());
       if (!tableModel.equals(existing)) {
         getDataStructuresCoreService().updateDataStructure(tableModel.getLocation(), tableModel.getName(), tableModel.getHash(),
             tableModel.getType());
-        dataStructureTableModels.put(tableModel.getName(), tableModel);
-        logger.info("Synchronized a modified Table file [{}] from location: {}", tableModel.getName(),
+        dataStructureHDBTableModels.put(tableModel.getName(), tableModel);
+        logger.info("Synchronized a modified HDB Table file [{}] from location: {}", tableModel.getName(),
             tableModel.getLocation());
       }
     }
@@ -139,6 +139,7 @@ public class HDBTableManagerService extends AbstractDataStructureManagerService<
   public boolean updateDataStructure(Connection connection, DataStructureHDBTableModel tableModel)
       throws SQLException {
     //TODO: Create logic for updating hdb table
+
     logger.error("Altering of a non-empty table is not implemented yet.");
     // TableAlterProcessor.execute(connection, tableModel);
     return hdbTableAlterProcessor.execute(connection, tableModel);
@@ -150,7 +151,7 @@ public class HDBTableManagerService extends AbstractDataStructureManagerService<
    * @return the data structure models
    */
   public Map<String, DataStructureHDBTableModel> getDataStructureModels() {
-    return this.dataStructureTableModels;
+    return this.dataStructureHDBTableModels;
   }
 
   /**
@@ -177,6 +178,6 @@ public class HDBTableManagerService extends AbstractDataStructureManagerService<
    */
   @Override
   public void clearCache() {
-    dataStructureTableModels.clear();
+    dataStructureHDBTableModels.clear();
   }
 }

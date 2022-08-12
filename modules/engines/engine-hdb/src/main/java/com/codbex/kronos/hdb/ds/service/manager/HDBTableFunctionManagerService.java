@@ -14,6 +14,7 @@ package com.codbex.kronos.hdb.ds.service.manager;
 import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.api.IHDBProcessor;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
+import com.codbex.kronos.hdb.ds.model.hdbstructure.DataStructureHDBStructureModel;
 import com.codbex.kronos.hdb.ds.model.hdbtablefunction.DataStructureHDBTableFunctionModel;
 import com.codbex.kronos.hdb.ds.processors.function.FunctionCreateProcessor;
 import com.codbex.kronos.hdb.ds.processors.function.FunctionDropProcessor;
@@ -26,6 +27,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.naming.OperationNotSupportedException;
+import com.codbex.kronos.hdb.ds.processors.tabletype.TableTypeCreateProcessor;
+import com.codbex.kronos.hdb.ds.processors.tabletype.TableTypeDropProcessor;
+import com.codbex.kronos.utils.HDBSynonymRemover;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,7 +46,7 @@ public class HDBTableFunctionManagerService extends AbstractDataStructureManager
   /**
    * The data structure table functions models.
    */
-  private final Map<String, DataStructureHDBTableFunctionModel> dataStructureTableFunctionsModels;
+  private final Map<String, DataStructureHDBTableFunctionModel> dataStructureHDBTableFunctionsModels;
 
   /**
    * The table functions synchronized.
@@ -63,43 +67,51 @@ public class HDBTableFunctionManagerService extends AbstractDataStructureManager
    * Instantiates a new table function manager service.
    */
   public HDBTableFunctionManagerService() {
-    dataStructureTableFunctionsModels = new LinkedHashMap<>();
+    dataStructureHDBTableFunctionsModels = new LinkedHashMap<>();
     tableFunctionsSynchronized = Collections.synchronizedList(new ArrayList<>());
+  }
+
+  /**
+   * Instantiates a new hdb structure manager service.
+   */
+  public HDBTableFunctionManagerService(Map<String, DataStructureHDBTableFunctionModel> dataStructureScalarFunctionModels, List<String> scalarFunctionsSynchronized) {
+    this.dataStructureHDBTableFunctionsModels = dataStructureScalarFunctionModels;
+    this.tableFunctionsSynchronized = scalarFunctionsSynchronized;
   }
 
   /**
    * Synchronize runtime metadata.
    *
-   * @param hdbTableFunctionModel the hdb table function model
+   * @param tableFunctionModel the hdb table function model
    * @throws DataStructuresException the data structures exception
    */
   @Override
-  public void synchronizeRuntimeMetadata(DataStructureHDBTableFunctionModel hdbTableFunctionModel) throws DataStructuresException {
+  public void synchronizeRuntimeMetadata(DataStructureHDBTableFunctionModel tableFunctionModel) throws DataStructuresException {
     // TODO: Ommit double calling of finding the hdbTableFunction by extracting it in
 
     // String schemaNameConcatTableFunctionName = hdbTableName.getSchemaName() + "." + hdbProcedure.getName();
 
-    if (!getDataStructuresCoreService().existsDataStructure(hdbTableFunctionModel.getLocation(), hdbTableFunctionModel.getType())) {
+    if (!getDataStructuresCoreService().existsDataStructure(tableFunctionModel.getLocation(), tableFunctionModel.getType())) {
       getDataStructuresCoreService()
-          .createDataStructure(hdbTableFunctionModel.getLocation(), hdbTableFunctionModel.getName(), hdbTableFunctionModel.getHash(),
-              hdbTableFunctionModel.getType());
-      dataStructureTableFunctionsModels.put(hdbTableFunctionModel.getName(), hdbTableFunctionModel);
-      logger.info("Synchronized a new HDB Table Function file [{}] from location: {}", hdbTableFunctionModel.getName(),
-          hdbTableFunctionModel.getLocation());
+          .createDataStructure(tableFunctionModel.getLocation(), tableFunctionModel.getName(), tableFunctionModel.getHash(),
+              tableFunctionModel.getType());
+      dataStructureHDBTableFunctionsModels.put(tableFunctionModel.getName(), tableFunctionModel);
+      logger.info("Synchronized a new HDB Table Function file [{}] from location: {}", tableFunctionModel.getName(),
+          tableFunctionModel.getLocation());
     } else {
       DataStructureHDBTableFunctionModel existing = getDataStructuresCoreService()
-          .getDataStructure(hdbTableFunctionModel.getLocation(), hdbTableFunctionModel.getType());
-      if (!hdbTableFunctionModel.equals(existing)) {
+          .getDataStructure(tableFunctionModel.getLocation(), tableFunctionModel.getType());
+      if (!tableFunctionModel.equals(existing)) {
         getDataStructuresCoreService()
-            .updateDataStructure(hdbTableFunctionModel.getLocation(), hdbTableFunctionModel.getName(), hdbTableFunctionModel.getHash(),
-                hdbTableFunctionModel.getType());
-        dataStructureTableFunctionsModels.put(hdbTableFunctionModel.getName(), hdbTableFunctionModel);
-        logger.info("Synchronized a modified HDB Table Function file [{}] from location: {}", hdbTableFunctionModel.getName(),
-            hdbTableFunctionModel.getLocation());
+            .updateDataStructure(tableFunctionModel.getLocation(), tableFunctionModel.getName(), tableFunctionModel.getHash(),
+                tableFunctionModel.getType());
+        dataStructureHDBTableFunctionsModels.put(tableFunctionModel.getName(), tableFunctionModel);
+        logger.info("Synchronized a modified HDB Table Function file [{}] from location: {}", tableFunctionModel.getName(),
+            tableFunctionModel.getLocation());
       }
     }
-    if (!tableFunctionsSynchronized.contains(hdbTableFunctionModel.getLocation())) {
-      tableFunctionsSynchronized.add(hdbTableFunctionModel.getLocation());
+    if (!tableFunctionsSynchronized.contains(tableFunctionModel.getLocation())) {
+      tableFunctionsSynchronized.add(tableFunctionModel.getLocation());
     }
   }
 
@@ -107,41 +119,41 @@ public class HDBTableFunctionManagerService extends AbstractDataStructureManager
    * Creates the data structure.
    *
    * @param connection            the connection
-   * @param hdbTableFunctionModel the hdb table function model
+   * @param tableFunctionModel the hdb table function model
    * @return true, if successful
    * @throws SQLException the SQL exception
    */
   @Override
-  public boolean createDataStructure(Connection connection, DataStructureHDBTableFunctionModel hdbTableFunctionModel)
+  public boolean createDataStructure(Connection connection, DataStructureHDBTableFunctionModel tableFunctionModel)
       throws SQLException {
-    return this.tableFunctionCreateProcessor.execute(connection, hdbTableFunctionModel);
+    return this.tableFunctionCreateProcessor.execute(connection, tableFunctionModel);
   }
 
   /**
    * Drop data structure.
    *
    * @param connection            the connection
-   * @param hdbTableFunctionModel the hdb table function model
+   * @param tableFunctionModel the hdb table function model
    * @return true, if successful
    * @throws SQLException the SQL exception
    */
   @Override
-  public boolean dropDataStructure(Connection connection, DataStructureHDBTableFunctionModel hdbTableFunctionModel)
+  public boolean dropDataStructure(Connection connection, DataStructureHDBTableFunctionModel tableFunctionModel)
       throws SQLException {
-    return this.tableFunctionDropProcessor.execute(connection, hdbTableFunctionModel);
+    return this.tableFunctionDropProcessor.execute(connection, tableFunctionModel);
   }
 
   /**
    * Update data structure.
    *
    * @param connection            the connection
-   * @param hdbTableFunctionModel the hdb table function model
+   * @param tableFunctionModel the hdb table function model
    * @return true, if successful
    * @throws SQLException                   the SQL exception
    * @throws OperationNotSupportedException the operation not supported exception
    */
   @Override
-  public boolean updateDataStructure(Connection connection, DataStructureHDBTableFunctionModel hdbTableFunctionModel)
+  public boolean updateDataStructure(Connection connection, DataStructureHDBTableFunctionModel tableFunctionModel)
       throws SQLException, OperationNotSupportedException {
     throw new OperationNotSupportedException();
   }
@@ -171,7 +183,7 @@ public class HDBTableFunctionManagerService extends AbstractDataStructureManager
    */
   @Override
   public void clearCache() {
-    dataStructureTableFunctionsModels.clear();
+    dataStructureHDBTableFunctionsModels.clear();
   }
 
   /**
@@ -181,6 +193,6 @@ public class HDBTableFunctionManagerService extends AbstractDataStructureManager
    */
   @Override
   public Map<String, DataStructureHDBTableFunctionModel> getDataStructureModels() {
-    return Collections.unmodifiableMap(this.dataStructureTableFunctionsModels);
+    return Collections.unmodifiableMap(this.dataStructureHDBTableFunctionsModels);
   }
 }

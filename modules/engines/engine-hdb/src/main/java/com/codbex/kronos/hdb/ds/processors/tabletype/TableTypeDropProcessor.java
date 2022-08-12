@@ -15,6 +15,7 @@ import com.codbex.kronos.hdb.ds.model.hdbtabletype.DataStructureHDBTableTypeMode
 import com.codbex.kronos.hdb.ds.processors.AbstractHDBProcessor;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
+import com.codbex.kronos.utils.HDBSynonymRemover;
 import com.codbex.kronos.utils.HDBUtils;
 
 import java.sql.Connection;

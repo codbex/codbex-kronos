@@ -125,7 +125,7 @@ public class DataStructuresCoreService implements IDataStructuresCoreService {
         return null;
       }
       if (dataStructures.size() > 1) {
-        throw new DataStructuresException(format("There are more that one Table with the same name [{0}] at locations: [{1}] and [{2}].",
+        throw new DataStructuresException(format("There are more than one data structures with the same name [{0}] at locations: [{1}] and [{2}].",
             name, dataStructures.get(0).getLocation(), dataStructures.get(1).getLocation()));
       }
       return (T) dataStructures.get(0);

@@ -38,7 +38,7 @@ public class HDBScalarFunctionParser implements DataStructureParser<DataStructur
    */
   @Override
   public DataStructureHDBScalarFunctionModel parse(DataStructureParametersModel parametersModel) throws DataStructuresException {
-	  DataStructureHDBScalarFunctionModel hdbScalarFunctionModel = new DataStructureHDBScalarFunctionModel();
+    DataStructureHDBScalarFunctionModel hdbScalarFunctionModel = new DataStructureHDBScalarFunctionModel();
     hdbScalarFunctionModel.setName(HDBUtils.extractTableFunctionNameFromContent(parametersModel.getContent(), parametersModel.getLocation(),
         CommonsConstants.HDB_SCALAR_FUNCTION_PARSER));
     hdbScalarFunctionModel.setLocation(parametersModel.getLocation());

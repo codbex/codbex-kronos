@@ -43,7 +43,7 @@ public class HDBSequenceManagerService extends AbstractDataStructureManagerServi
   /**
    * The data structure sequence models.
    */
-  private final Map<String, DataStructureHDBSequenceModel> dataStructureSequenceModels;
+  private final Map<String, DataStructureHDBSequenceModel> sequenceModels;
 
   /**
    * The sequences synchronized.
@@ -69,7 +69,7 @@ public class HDBSequenceManagerService extends AbstractDataStructureManagerServi
    * Instantiates a new HDB sequence manager service.
    */
   public HDBSequenceManagerService() {
-    dataStructureSequenceModels = new LinkedHashMap<>();
+    sequenceModels = new LinkedHashMap<>();
     sequencesSynchronized = Collections.synchronizedList(new ArrayList<>());
   }
 
@@ -80,37 +80,41 @@ public class HDBSequenceManagerService extends AbstractDataStructureManagerServi
    */
   @Override
   public Map<String, DataStructureHDBSequenceModel> getDataStructureModels() {
-    return Collections.unmodifiableMap(this.dataStructureSequenceModels);
+    return Collections.unmodifiableMap(this.sequenceModels);
   }
 
   /**
    * Synchronize runtime metadata.
    *
-   * @param hdbSequenceModel the hdb sequence model
+   * @param sequenceModel the hdb sequence model
    * @throws DataStructuresException the data structures exception
    */
   @Override
-  public void synchronizeRuntimeMetadata(DataStructureHDBSequenceModel hdbSequenceModel) throws DataStructuresException {
-    if (!getDataStructuresCoreService().existsDataStructure(hdbSequenceModel.getLocation(), hdbSequenceModel.getType())) {
+  public void synchronizeRuntimeMetadata(DataStructureHDBSequenceModel sequenceModel) throws DataStructuresException {
+    if (!getDataStructuresCoreService().existsDataStructure(sequenceModel.getLocation(),
+        sequenceModel.getType())) {
       getDataStructuresCoreService()
-          .createDataStructure(hdbSequenceModel.getLocation(), hdbSequenceModel.getName(), hdbSequenceModel.getHash(),
-              hdbSequenceModel.getType());
-      dataStructureSequenceModels.put(hdbSequenceModel.getName(), hdbSequenceModel);
-      logger.info("Synchronized a new Hdbsequence file [{}] from location: {}", hdbSequenceModel.getName(), hdbSequenceModel.getLocation());
+          .createDataStructure(sequenceModel.getLocation(), sequenceModel.getName(),
+              sequenceModel.getHash(),
+              sequenceModel.getType());
+      sequenceModels.put(sequenceModel.getName(), sequenceModel);
+      logger.info("Synchronized a new HDB Sequence file [{}] from location: {}", sequenceModel.getName(),
+          sequenceModel.getLocation());
     } else {
       DataStructureHDBSequenceModel existing = getDataStructuresCoreService()
-          .getDataStructure(hdbSequenceModel.getLocation(), hdbSequenceModel.getType());
-      if (!hdbSequenceModel.equals(existing)) {
+          .getDataStructure(sequenceModel.getLocation(), sequenceModel.getType());
+      if (!sequenceModel.equals(existing)) {
         getDataStructuresCoreService()
-            .updateDataStructure(hdbSequenceModel.getLocation(), hdbSequenceModel.getName(), hdbSequenceModel.getHash(),
-                hdbSequenceModel.getType());
-        dataStructureSequenceModels.put(hdbSequenceModel.getName(), hdbSequenceModel);
-        logger.info("Synchronized a modified Hdbsequence file [{}] from location: {}", hdbSequenceModel.getName(),
-            hdbSequenceModel.getLocation());
+            .updateDataStructure(sequenceModel.getLocation(), sequenceModel.getName(),
+                sequenceModel.getHash(),
+                sequenceModel.getType());
+        sequenceModels.put(sequenceModel.getName(), sequenceModel);
+        logger.info("Synchronized a modified HDB Sequence file [{}] from location: {}", sequenceModel.getName(),
+            sequenceModel.getLocation());
       }
     }
-    if (!sequencesSynchronized.contains(hdbSequenceModel.getLocation())) {
-      sequencesSynchronized.add(hdbSequenceModel.getLocation());
+    if (!sequencesSynchronized.contains(sequenceModel.getLocation())) {
+      sequencesSynchronized.add(sequenceModel.getLocation());
     }
   }
 
@@ -182,6 +186,6 @@ public class HDBSequenceManagerService extends AbstractDataStructureManagerServi
    */
   @Override
   public void clearCache() {
-    dataStructureSequenceModels.clear();
+    sequenceModels.clear();
   }
 }

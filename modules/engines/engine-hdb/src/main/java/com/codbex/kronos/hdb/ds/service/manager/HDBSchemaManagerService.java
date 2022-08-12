@@ -42,7 +42,7 @@ public class HDBSchemaManagerService extends AbstractDataStructureManagerService
   /**
    * The data structure schemas models.
    */
-  private final Map<String, DataStructureHDBSchemaModel> dataStructureSchemasModels;
+  private final Map<String, DataStructureHDBSchemaModel> schemaModels;
 
   /**
    * The schemas synchronized.
@@ -63,7 +63,7 @@ public class HDBSchemaManagerService extends AbstractDataStructureManagerService
    * Instantiates a new schema manager service.
    */
   public HDBSchemaManagerService() {
-    dataStructureSchemasModels = new LinkedHashMap<>();
+    schemaModels = new LinkedHashMap<>();
     schemasSynchronized = Collections.synchronizedList(new ArrayList<>());
   }
 
@@ -75,23 +75,28 @@ public class HDBSchemaManagerService extends AbstractDataStructureManagerService
    */
   @Override
   public void synchronizeRuntimeMetadata(DataStructureHDBSchemaModel schemaModel) throws DataStructuresException {
-    // TODO: Ommit double calling of finding the hdbProcedure by extracting it in
+    // TODO: Ommit double calling of finding the hdbSchema by extracting it in
 
-    // String schemaNameConcatProcedureName = hdbProcedure.getSchemaName() + "." + hdbProcedure.getName();
+    // String schemaNameConcatProcedureName = schemaModel.getSchemaName() + "." + schemaModel.getName();
 
-    if (!getDataStructuresCoreService().existsDataStructure(schemaModel.getLocation(), schemaModel.getType())) {
+    if (!getDataStructuresCoreService().existsDataStructure(schemaModel.getLocation(),
+        schemaModel.getType())) {
       getDataStructuresCoreService()
-          .createDataStructure(schemaModel.getLocation(), schemaModel.getName(), schemaModel.getHash(), schemaModel.getType());
-      dataStructureSchemasModels.put(schemaModel.getName(), schemaModel);
-      logger.info("Synchronized a new HDB Schema file [{}] from location: {}", schemaModel.getName(), schemaModel.getLocation());
+          .createDataStructure(schemaModel.getLocation(), schemaModel.getName(),
+              schemaModel.getHash(), schemaModel.getType());
+      schemaModels.put(schemaModel.getName(), schemaModel);
+      logger.info("Synchronized a new HDB Schema file [{}] from location: {}", schemaModel.getName(),
+          schemaModel.getLocation());
     } else {
       DataStructureHDBSchemaModel existing = getDataStructuresCoreService()
           .getDataStructure(schemaModel.getLocation(), schemaModel.getType());
       if (!schemaModel.equals(existing)) {
         getDataStructuresCoreService()
-            .updateDataStructure(schemaModel.getLocation(), schemaModel.getName(), schemaModel.getHash(), schemaModel.getType());
-        dataStructureSchemasModels.put(schemaModel.getName(), schemaModel);
-        logger.info("Synchronized a modified HDB Schema file [{}] from location: {}", schemaModel.getName(), schemaModel.getLocation());
+            .updateDataStructure(schemaModel.getLocation(), schemaModel.getName(),
+                schemaModel.getHash(), schemaModel.getType());
+        schemaModels.put(schemaModel.getName(), schemaModel);
+        logger.info("Synchronized a modified HDB Schema file [{}] from location: {}", schemaModel.getName(),
+            schemaModel.getLocation());
       }
     }
     if (!schemasSynchronized.contains(schemaModel.getLocation())) {
@@ -166,7 +171,7 @@ public class HDBSchemaManagerService extends AbstractDataStructureManagerService
    */
   @Override
   public void clearCache() {
-    dataStructureSchemasModels.clear();
+    schemaModels.clear();
   }
 
   /**
@@ -176,6 +181,6 @@ public class HDBSchemaManagerService extends AbstractDataStructureManagerService
    */
   @Override
   public Map<String, DataStructureHDBSchemaModel> getDataStructureModels() {
-    return Collections.unmodifiableMap(this.dataStructureSchemasModels);
+    return Collections.unmodifiableMap(this.schemaModels);
   }
 }
