@@ -28,10 +28,20 @@ jobs:
           jdkFile: ${{ runner.temp }}/sapmachine-jdk-17.tar.gz
           java-version: '17.0.2'
           architecture: x64
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v1
+        if: ${{ env.SONAR_TOKEN != '' }}
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
       - name: Maven Build and Analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-        run: mvn clean install
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          [ "$SONAR_TOKEN" ] && SONAR_ARG="-B sonar:sonar -Dsonar.projectKey=codbex_codbex-kronos"
+          mvn clean install $SONAR_ARG
       - name: Docker Build Kronos
         run: |
           cd releng/server
