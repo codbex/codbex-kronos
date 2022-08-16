@@ -1,7 +1,7 @@
 grammar Cds;
 import CdsTokens;
 
-cdsFile: namespaceRule
+cdsDefinition: namespaceRule
          usingRule*
          topLevelSymbol;
 

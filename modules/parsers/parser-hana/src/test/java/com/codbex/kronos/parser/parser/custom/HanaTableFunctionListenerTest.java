@@ -11,8 +11,8 @@
  */
 package com.codbex.kronos.parser.parser.custom;
 
-import com.codbex.kronos.parser.hana.core.custom.HanaTableFunctionListener;
-import com.codbex.kronos.parser.hana.core.models.TableFunctionDefinitionModel;
+import com.codbex.kronos.parser.hana.custom.HanaTableFunctionListener;
+import com.codbex.kronos.parser.hana.models.TableFunctionDefinitionModel;
 import com.codbex.kronos.parser.hana.core.HanaLexer;
 import com.codbex.kronos.parser.hana.core.HanaParser;
 
@@ -31,24 +31,24 @@ import static org.junit.Assert.assertNotNull;
 public class HanaTableFunctionListenerTest {
 
   @Test
-  public void parseTableFunction() throws Exception {
+  public void testParseTableFunction() throws Exception {
     String tableFunctionSample = getSample("/sample.hdbtablefunction");
-    TableFunctionDefinitionModel model = parseModel(tableFunctionSample);
-    assertModel(model, "_SYS_BIC", "customer_sample::SAMPLE_FUNCTION");
+    TableFunctionDefinitionModel tableFunctionDefinitionModel = parseTableFunctionModel(tableFunctionSample);
+    assertModel(tableFunctionDefinitionModel, "_SYS_BIC", "customer_sample::SAMPLE_FUNCTION");
   }
 
   @Test
-  public void parseLongTableFunction() throws Exception {
+  public void testParseLongTableFunction() throws Exception {
     String tableFunctionSample = getSample("/sample_long.hdbtablefunction");
-    TableFunctionDefinitionModel model = parseModel(tableFunctionSample);
-    assertModel(model, "_SYS_BIC", "Z.VIEWS::TFD");
+    TableFunctionDefinitionModel tableFunctionDefinitionModel = parseTableFunctionModel(tableFunctionSample);
+    assertModel(tableFunctionDefinitionModel, "_SYS_BIC", "Z.VIEWS::TFD");
   }
 
   @Test
-  public void parseTableFunctionWithComment() throws Exception {
+  public void testParseTableFunctionWithComment() throws Exception {
     String tableFunctionSample = getSample("/sample_with_comment.hdbtablefunction");
-    TableFunctionDefinitionModel model = parseModel(tableFunctionSample);
-    assertModel(model, null, "customer_sample::SAMPLE_FUNCTION");
+    TableFunctionDefinitionModel tableFunctionDefinitionModel = parseTableFunctionModel(tableFunctionSample);
+    assertModel(tableFunctionDefinitionModel, null, "customer_sample::SAMPLE_FUNCTION");
   }
 
   private String getSample(String sampleName) throws IOException {
@@ -56,14 +56,14 @@ public class HanaTableFunctionListenerTest {
         .toString(HanaTableFunctionListenerTest.class.getResourceAsStream(sampleName), StandardCharsets.UTF_8);
   }
 
-  private TableFunctionDefinitionModel parseModel(String sample) {
+  private TableFunctionDefinitionModel parseTableFunctionModel(String sample) {
     CharStream inputStream = CharStreams.fromString(sample);
     HanaLexer lexer = new HanaLexer(inputStream);
     CommonTokenStream tokenStream = new CommonTokenStream(lexer);
 
-    HanaParser parser = new HanaParser(tokenStream);
-    parser.setBuildParseTree(true);
-    ParseTree parseTree = parser.sql_script();
+    HanaParser hanaParser = new HanaParser(tokenStream);
+    hanaParser.setBuildParseTree(true);
+    ParseTree parseTree = hanaParser.sql_script();
 
     HanaTableFunctionListener listener = new HanaTableFunctionListener();
     ParseTreeWalker parseTreeWalker = new ParseTreeWalker();

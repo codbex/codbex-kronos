@@ -11,8 +11,8 @@
  */
 package com.codbex.kronos.parser.parser.custom;
 
-import com.codbex.kronos.parser.hana.core.custom.HanaProcedureUpdateStatementListener;
-import com.codbex.kronos.parser.hana.core.models.ProcedureDefinitionModel;
+import com.codbex.kronos.parser.hana.custom.HanaProcedureUpdateStatementListener;
+import com.codbex.kronos.parser.hana.models.ProcedureDefinitionModel;
 import com.codbex.kronos.parser.hana.core.HanaLexer;
 import com.codbex.kronos.parser.hana.core.HanaParser;
 
@@ -31,10 +31,10 @@ import static org.junit.Assert.assertNotNull;
 public class HanaProcedureUpdateStatementListenerTest {
 
   @Test
-  public void parseHDBProcedureUpdateStatements() throws Exception {
+  public void testParseProcedureUpdateStatements() throws Exception {
     String tableFunctionSample = getSample("/sample_with_update_statements.hdbprocedure");
-    ProcedureDefinitionModel model = parseHDBPProcedureModel(tableFunctionSample);
-    assertModel(model, "TEST", "testProcedure");
+    ProcedureDefinitionModel procedureDefinitionModel = parseProcedureModel(tableFunctionSample);
+    assertModel(procedureDefinitionModel, "TEST", "testProcedure");
   }
 
   private String getSample(String sampleName) throws IOException {
@@ -42,14 +42,14 @@ public class HanaProcedureUpdateStatementListenerTest {
         .toString(HanaTableFunctionListenerTest.class.getResourceAsStream(sampleName), StandardCharsets.UTF_8);
   }
 
-  private ProcedureDefinitionModel parseHDBPProcedureModel(String sample) {
+  private ProcedureDefinitionModel parseProcedureModel(String sample) {
     CharStream inputStream = CharStreams.fromString(sample);
     HanaLexer lexer = new HanaLexer(inputStream);
     CommonTokenStream tokenStream = new CommonTokenStream(lexer);
 
-    HanaParser parser = new HanaParser(tokenStream);
-    parser.setBuildParseTree(true);
-    ParseTree parseTree = parser.sql_script();
+    HanaParser hanaParser = new HanaParser(tokenStream);
+    hanaParser.setBuildParseTree(true);
+    ParseTree parseTree = hanaParser.sql_script();
 
     HanaProcedureUpdateStatementListener listener = new HanaProcedureUpdateStatementListener();
     ParseTreeWalker parseTreeWalker = new ParseTreeWalker();

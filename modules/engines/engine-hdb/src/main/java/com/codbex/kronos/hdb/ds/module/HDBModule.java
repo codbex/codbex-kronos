@@ -15,19 +15,19 @@ import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.artefacts.HDBProcedureSynchronizationArtefactType;
 import com.codbex.kronos.hdb.ds.artefacts.HDBTableFunctionSynchronizationArtefactType;
 import com.codbex.kronos.hdb.ds.parser.DataStructureParser;
-import com.codbex.kronos.hdb.ds.parser.hdbdd.HDBDDParser;
+import com.codbex.kronos.hdb.ds.parser.hdbdd.HDBDDDataStructureParser;
 import com.codbex.kronos.hdb.ds.parser.hdbprocedure.HDBProcedureLogger;
-import com.codbex.kronos.hdb.ds.parser.hdbprocedure.HDBProcedureParser;
-import com.codbex.kronos.hdb.ds.parser.hdbscalarfunction.HDBScalarFunctionParser;
-import com.codbex.kronos.hdb.ds.parser.hdbschema.HDBSchemaParser;
-import com.codbex.kronos.hdb.ds.parser.hdbsequence.HDBSequenceParser;
-import com.codbex.kronos.hdb.ds.parser.hdbstructure.HDBStructureParser;
-import com.codbex.kronos.hdb.ds.parser.hdbsynonym.HDBSynonymParser;
-import com.codbex.kronos.hdb.ds.parser.hdbtable.HDBTableParser;
+import com.codbex.kronos.hdb.ds.parser.hdbprocedure.HDBProcedureDataStructureParser;
+import com.codbex.kronos.hdb.ds.parser.hdbscalarfunction.HDBScalarFunctionDataStructureParser;
+import com.codbex.kronos.hdb.ds.parser.hdbschema.HDBSchemaDataStructureParser;
+import com.codbex.kronos.hdb.ds.parser.hdbsequence.HDBSequenceDataStructureParser;
+import com.codbex.kronos.hdb.ds.parser.hdbstructure.HDBStructureDataStructureParser;
+import com.codbex.kronos.hdb.ds.parser.hdbsynonym.HDBSynonymDataStructureParser;
+import com.codbex.kronos.hdb.ds.parser.hdbtable.HDBTableDataStructureParser;
 import com.codbex.kronos.hdb.ds.parser.hdbtablefunction.HDBTableFunctionLogger;
-import com.codbex.kronos.hdb.ds.parser.hdbtablefunction.HDBTableFunctionParser;
-import com.codbex.kronos.hdb.ds.parser.hdbtabletype.HDBTableTypeParser;
-import com.codbex.kronos.hdb.ds.parser.hdbview.HDBViewParser;
+import com.codbex.kronos.hdb.ds.parser.hdbtablefunction.HDBTableFunctionDataStructureParser;
+import com.codbex.kronos.hdb.ds.parser.hdbtabletype.HDBTableTypeDataStructureParser;
+import com.codbex.kronos.hdb.ds.parser.hdbview.HDBViewDataStructureParser;
 import com.codbex.kronos.utils.HDBSynonymRemover;
 import com.codbex.kronos.hdb.ds.service.manager.HDBStructureManagerService;
 import com.codbex.kronos.hdb.ds.service.manager.IDataStructureManager;
@@ -139,41 +139,41 @@ public class HDBModule extends AbstractDirigibleModule {
   private static void bindParsersToFileExtension(Map<String, DataStructureParser> parserServices) {
     DataStructuresSynchronizer dataStructuresSynchronizer = new DataStructuresSynchronizer();
 
-    HDBTableFunctionParser hdbTableFunctionParser = new HDBTableFunctionParser(
+    HDBTableFunctionDataStructureParser hdbTableFunctionParser = new HDBTableFunctionDataStructureParser(
         dataStructuresSynchronizer,
         new HDBTableFunctionSynchronizationArtefactType(),
         new HDBTableFunctionLogger()
     );
 
-    HDBProcedureParser hdbProcedureParser = new HDBProcedureParser(
+    HDBProcedureDataStructureParser hdbProcedureParser = new HDBProcedureDataStructureParser(
             dataStructuresSynchronizer,
             new HDBProcedureSynchronizationArtefactType(),
             new HDBProcedureLogger()
     );
 
-    parserServices.put(IDataStructureModel.FILE_EXTENSION_HDBDD, new HDBDDParser());
-    parserServices.put(IDataStructureModel.FILE_EXTENSION_HDB_TABLE, new HDBTableParser());
-    parserServices.put(IDataStructureModel.FILE_EXTENSION_HDB_VIEW, new HDBViewParser());
-    parserServices.put(IDataStructureModel.FILE_EXTENSION_HDB_SYNONYM, new HDBSynonymParser());
+    parserServices.put(IDataStructureModel.FILE_EXTENSION_HDBDD, new HDBDDDataStructureParser());
+    parserServices.put(IDataStructureModel.FILE_EXTENSION_HDB_TABLE, new HDBTableDataStructureParser());
+    parserServices.put(IDataStructureModel.FILE_EXTENSION_HDB_VIEW, new HDBViewDataStructureParser());
+    parserServices.put(IDataStructureModel.FILE_EXTENSION_HDB_SYNONYM, new HDBSynonymDataStructureParser());
     parserServices.put(IDataStructureModel.FILE_EXTENSION_HDB_TABLE_FUNCTION, hdbTableFunctionParser);
-    parserServices.put(IDataStructureModel.FILE_EXTENSION_HDB_SCHEMA, new HDBSchemaParser());
+    parserServices.put(IDataStructureModel.FILE_EXTENSION_HDB_SCHEMA, new HDBSchemaDataStructureParser());
     parserServices.put(IDataStructureModel.FILE_EXTENSION_HDB_PROCEDURE, hdbProcedureParser);
-    parserServices.put(IDataStructureModel.FILE_EXTENSION_HDB_SEQUENCE, new HDBSequenceParser());
-    parserServices.put(IDataStructureModel.FILE_EXTENSION_HDB_SCALAR_FUNCTION, new HDBScalarFunctionParser());
-    parserServices.put(IDataStructureModel.FILE_EXTENSION_HDB_STRUCTURE, new HDBStructureParser());
-    parserServices.put(IDataStructureModel.FILE_EXTENSION_HDB_TABLE_TYPE, new HDBTableTypeParser());
+    parserServices.put(IDataStructureModel.FILE_EXTENSION_HDB_SEQUENCE, new HDBSequenceDataStructureParser());
+    parserServices.put(IDataStructureModel.FILE_EXTENSION_HDB_SCALAR_FUNCTION, new HDBScalarFunctionDataStructureParser());
+    parserServices.put(IDataStructureModel.FILE_EXTENSION_HDB_STRUCTURE, new HDBStructureDataStructureParser());
+    parserServices.put(IDataStructureModel.FILE_EXTENSION_HDB_TABLE_TYPE, new HDBTableTypeDataStructureParser());
 
-    parserServices.put(IDataStructureModel.TYPE_HDBDD, new HDBDDParser());
-    parserServices.put(IDataStructureModel.TYPE_HDB_TABLE, new HDBTableParser());
-    parserServices.put(IDataStructureModel.TYPE_HDB_VIEW, new HDBViewParser());
-    parserServices.put(IDataStructureModel.TYPE_HDB_SYNONYM, new HDBSynonymParser());
+    parserServices.put(IDataStructureModel.TYPE_HDBDD, new HDBDDDataStructureParser());
+    parserServices.put(IDataStructureModel.TYPE_HDB_TABLE, new HDBTableDataStructureParser());
+    parserServices.put(IDataStructureModel.TYPE_HDB_VIEW, new HDBViewDataStructureParser());
+    parserServices.put(IDataStructureModel.TYPE_HDB_SYNONYM, new HDBSynonymDataStructureParser());
     parserServices.put(IDataStructureModel.TYPE_HDB_TABLE_FUNCTION, hdbTableFunctionParser);
-    parserServices.put(IDataStructureModel.TYPE_HDB_SCALAR_FUNCTION, new HDBScalarFunctionParser());
-    parserServices.put(IDataStructureModel.TYPE_HDB_SCHEMA, new HDBSchemaParser());
+    parserServices.put(IDataStructureModel.TYPE_HDB_SCALAR_FUNCTION, new HDBScalarFunctionDataStructureParser());
+    parserServices.put(IDataStructureModel.TYPE_HDB_SCHEMA, new HDBSchemaDataStructureParser());
     parserServices.put(IDataStructureModel.TYPE_HDB_PROCEDURE, hdbProcedureParser);
-    parserServices.put(IDataStructureModel.TYPE_HDB_SEQUENCE, new HDBSequenceParser());
-    parserServices.put(IDataStructureModel.TYPE_HDB_TABLE_TYPE, new HDBTableTypeParser());
-    parserServices.put(IDataStructureModel.TYPE_HDB_STRUCTURE, new HDBStructureParser());
+    parserServices.put(IDataStructureModel.TYPE_HDB_SEQUENCE, new HDBSequenceDataStructureParser());
+    parserServices.put(IDataStructureModel.TYPE_HDB_TABLE_TYPE, new HDBTableTypeDataStructureParser());
+    parserServices.put(IDataStructureModel.TYPE_HDB_STRUCTURE, new HDBStructureDataStructureParser());
 
   }
 

@@ -19,7 +19,7 @@ import com.codbex.kronos.hdbti.model.TableImportConfigurationDefinition;
 import com.codbex.kronos.hdbti.model.TableImportToCsvRelation;
 import com.codbex.kronos.hdbti.service.HDBTICoreService;
 import com.codbex.kronos.parser.hdbti.custom.IHDBTIParser;
-import com.codbex.kronos.parser.hdbti.custom.HDBTIParser;
+import com.codbex.kronos.hdbti.parser.HDBTIDataStructureParser;
 import com.codbex.kronos.parser.hdbti.exception.HDBTISyntaxErrorException;
 import com.codbex.kronos.parser.hdbti.models.HDBTIImportConfigModel;
 import com.codbex.kronos.parser.hdbti.models.HDBTIImportModel;
@@ -58,7 +58,7 @@ public class TableImportArtifactFactory implements ITableImportArtifactFactory {
   private final IHDBTICoreService hdbtiCoreService = new HDBTICoreService();
 
   /** The hdbti parser. */
-  private final IHDBTIParser hdbtiParser = new HDBTIParser();
+  private final IHDBTIParser hdbtiParser = new HDBTIDataStructureParser();
 
   /**
    * Parses the table import.

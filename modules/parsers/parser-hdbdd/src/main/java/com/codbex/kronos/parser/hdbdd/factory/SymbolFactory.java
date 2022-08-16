@@ -11,20 +11,11 @@
  */
 package com.codbex.kronos.parser.hdbdd.factory;
 
+import com.codbex.kronos.parser.hdbdd.core.CdsParser.*;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.Interval;
 
-import com.codbex.kronos.parser.hdbdd.core.CdsParser.AssociationContext;
-import com.codbex.kronos.parser.hdbdd.core.CdsParser.CalculatedAssociationContext;
-import com.codbex.kronos.parser.hdbdd.core.CdsParser.ContextRuleContext;
-import com.codbex.kronos.parser.hdbdd.core.CdsParser.DataTypeRuleContext;
-import com.codbex.kronos.parser.hdbdd.core.CdsParser.ElementDeclRuleContext;
-import com.codbex.kronos.parser.hdbdd.core.CdsParser.EntityRuleContext;
-import com.codbex.kronos.parser.hdbdd.core.CdsParser.FieldDeclRuleContext;
-import com.codbex.kronos.parser.hdbdd.core.CdsParser.IdentifierContext;
-import com.codbex.kronos.parser.hdbdd.core.CdsParser.StructuredTypeRuleContext;
-import com.codbex.kronos.parser.hdbdd.core.CdsParser.ViewRuleContext;
 import com.codbex.kronos.parser.hdbdd.exception.CDSRuntimeException;
 import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
 import com.codbex.kronos.parser.hdbdd.symbols.SymbolTypeEnum;
@@ -38,7 +29,7 @@ import com.codbex.kronos.parser.hdbdd.symbols.type.custom.DataTypeSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.type.custom.StructuredDataTypeSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.type.field.FieldSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.view.ViewSymbol;
-import com.codbex.kronos.parser.hdbdd.util.HdbddUtils;
+import com.codbex.kronos.parser.hdbdd.util.HDBDDUtils;
 
 /**
  * A factory for creating Symbol objects.
@@ -103,7 +94,7 @@ public class SymbolFactory {
    * @return the symbol
    */
   private Symbol getSymbol(Scope currentScope, String schema, IdentifierContext artifactName, Token artifactType) {
-    String symbolId = HdbddUtils.processEscapedSymbolName(artifactName.getText());
+    String symbolId = HDBDDUtils.processEscapedSymbolName(artifactName.getText());
     checkForDuplicateName(symbolId, currentScope, artifactName.start.getLine());
     SymbolTypeEnum symbolTypeEnum = parseToSymbolTypeEnum(artifactType);
 
@@ -139,7 +130,7 @@ public class SymbolFactory {
    * @return the data type symbol
    */
   public DataTypeSymbol getDataTypeSymbol(DataTypeRuleContext ctx, Scope currentScope, String schema) {
-    String typeId = HdbddUtils.processEscapedSymbolName(ctx.artifactName.getText());
+    String typeId = HDBDDUtils.processEscapedSymbolName(ctx.artifactName.getText());
     checkForDuplicateName(typeId, currentScope, ctx.artifactName.start.getLine());
     SymbolTypeEnum symbolTypeEnum = parseToSymbolTypeEnum(ctx.artifactType);
     Symbol newSymbol = createSymbol(typeId, currentScope, schema, ctx.artifactName);
@@ -160,7 +151,7 @@ public class SymbolFactory {
    * @return the entity element symbol
    */
   public EntityElementSymbol getEntityElementSymbol(ElementDeclRuleContext ctx, Scope currentScope) {
-    String elementId = HdbddUtils.processEscapedSymbolName(ctx.name.getText());
+    String elementId = HDBDDUtils.processEscapedSymbolName(ctx.name.getText());
     checkForDuplicateName(elementId, currentScope, ctx.name.start.getLine());
 
     EntityElementSymbol elementSymbol = new EntityElementSymbol(elementId, currentScope);
@@ -183,7 +174,7 @@ public class SymbolFactory {
    * @return the calculated column symbol
    */
   public EntityElementSymbol getCalculatedColumnSymbol(CalculatedAssociationContext ctx, Scope currentScope) {
-    String elementId = HdbddUtils.processEscapedSymbolName(ctx.ascId.getText());
+    String elementId = HDBDDUtils.processEscapedSymbolName(ctx.ascId.getText());
     checkForDuplicateName(elementId, currentScope, ctx.ascId.start.getLine());
 
     EntityElementSymbol elementSymbol = new EntityElementSymbol(elementId, currentScope);
@@ -202,7 +193,7 @@ public class SymbolFactory {
    * @return the field symbol
    */
   public FieldSymbol getFieldSymbol(FieldDeclRuleContext ctx, Scope currentScope) {
-    String filedId = HdbddUtils.processEscapedSymbolName(ctx.identifier().getText());
+    String filedId = HDBDDUtils.processEscapedSymbolName(ctx.identifier().getText());
     checkForDuplicateName(filedId, currentScope, ctx.identifier().start.getLine());
     FieldSymbol fieldSymbol = new FieldSymbol(filedId, currentScope);
     fieldSymbol.setIdToken(ctx.identifier());
@@ -218,7 +209,7 @@ public class SymbolFactory {
    * @return the association symbol
    */
   public AssociationSymbol getAssociationSymbol(AssociationContext ctx, Scope currentScope) {
-    String associationId = HdbddUtils.processEscapedSymbolName(ctx.ascId.getText());
+    String associationId = HDBDDUtils.processEscapedSymbolName(ctx.ascId.getText());
     checkForDuplicateName(associationId, currentScope, ctx.ascId.start.getLine());
 
     AssociationSymbol associationSymbol = new AssociationSymbol(associationId, currentScope);

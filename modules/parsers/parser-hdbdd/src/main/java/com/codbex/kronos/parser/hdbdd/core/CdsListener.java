@@ -9,26 +9,25 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-// Generated from com/codbex/kronos/parser/hdbdd/core/Cds.g4 by ANTLR 4.10.1
+// Generated from com\codbex\kronos\parser\hdbdd\core\Cds.g4 by ANTLR 4.10.1
 package com.codbex.kronos.parser.hdbdd.core;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
  * This interface defines a complete listener for a parse tree produced by
  * {@link CdsParser}.
- *
  */
 public interface CdsListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link CdsParser#cdsFile}.
+	 * Enter a parse tree produced by {@link CdsParser#cdsDefinition}.
 	 * @param ctx the parse tree
 	 */
-	void enterCdsFile(CdsParser.CdsFileContext ctx);
+	void enterCdsDefinition(CdsParser.CdsDefinitionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CdsParser#cdsFile}.
+	 * Exit a parse tree produced by {@link CdsParser#cdsDefinition}.
 	 * @param ctx the parse tree
 	 */
-	void exitCdsFile(CdsParser.CdsFileContext ctx);
+	void exitCdsDefinition(CdsParser.CdsDefinitionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CdsParser#namespaceRule}.
 	 * @param ctx the parse tree

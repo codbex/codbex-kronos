@@ -10,8 +10,7 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 package com.codbex.kronos.xsodata.ds.model;
-import com.codbex.kronos.parser.xsodata.model.HDBXSODataService;
-import com.codbex.kronos.xsodata.ds.model.ODataModel;
+import com.codbex.kronos.parser.xsodata.model.XSODataService;
 
 import org.junit.Test;
 
@@ -26,14 +25,14 @@ public class ODataModelTest {
         model1.setLocation("np/model.xsodata");
         model1.setHash("111");
         model1.setCreatedBy("user1");
-        model1.setService(new HDBXSODataService());
+        model1.setService(new XSODataService());
 
         ODataModel model2 = new ODataModel();
         model2.setName("model");
         model2.setLocation("np/model.xsodata");
         model2.setHash("111");
         model2.setCreatedBy("user2");
-        model2.setService(new HDBXSODataService());
+        model2.setService(new XSODataService());
 
         assertEquals(model1, model2);
     }

@@ -11,7 +11,7 @@
  */
 package com.codbex.kronos.parser.hdbtable.model;
 
-import com.codbex.kronos.parser.hdbtable.constants.HdbtablePropertiesConstants;
+import com.codbex.kronos.parser.hdbtable.constants.HDBTablePropertiesConstants;
 import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableMissingPropertyException;
 import com.google.gson.annotations.SerializedName;
 
@@ -25,7 +25,7 @@ import java.util.Set;
 public class HDBTableIndexesModel {
 
   /** The index name. */
-  @SerializedName(value = HdbtablePropertiesConstants.INDEX_PROPERTY_NAME)
+  @SerializedName(value = HDBTablePropertiesConstants.INDEX_PROPERTY_NAME)
   private String indexName;
 
   /** The unique. */
