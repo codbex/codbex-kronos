@@ -27,7 +27,7 @@ import org.eclipse.dirigible.database.ds.model.IDataStructureModel;
 import org.eclipse.dirigible.database.sql.DataType;
 import org.eclipse.dirigible.database.sql.ISqlKeywords;
 import org.eclipse.dirigible.database.sql.SqlFactory;
-import org.eclipse.dirigible.database.sql.Table;
+import org.eclipse.dirigible.database.sql.TableStatements;
 import org.eclipse.dirigible.database.sql.builders.table.AbstractTableBuilder;
 import org.eclipse.dirigible.database.sql.dialects.hana.HanaCreateTableBuilder;
 import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
@@ -47,7 +47,7 @@ public class TableBuilder {
    * @param tableModel the model
    * @return the table
    */
-  public Table build(DataStructureHDBTableModel tableModel) {
+  public TableStatements build(DataStructureHDBTableModel tableModel) {
     String tableName = HDBUtils.escapeArtifactName(tableModel.getName(), tableModel.getSchema());
 
     HanaCreateTableBuilder sqlTableBuilder = createTableBuilder(tableName, tableModel.getTableType());
