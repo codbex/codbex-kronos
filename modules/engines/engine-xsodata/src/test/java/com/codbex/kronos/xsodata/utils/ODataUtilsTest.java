@@ -115,7 +115,7 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
     PersistenceTableColumnModel column9 = new PersistenceTableColumnModel("ORDER_ID", "Edm.Int32", false, true, 0, 0);
     column9.setNullable(true);
     PersistenceTableModel model = new PersistenceTableModel("kneo.test.helloodata.CompositeKey::employee",
-        Arrays.asList(column1, column2, column9), new ArrayList<>());
+        Arrays.asList(column1, column2, column9), new ArrayList<>(), new ArrayList<>());
     model.setTableType(ISqlKeywords.METADATA_TABLE);
     when(metadataProvider.getPersistenceTableModel("kneo.test.helloodata.CompositeKey::employee")).thenReturn(model);
 
@@ -130,7 +130,7 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
     PersistenceTableRelationModel rel3 = new PersistenceTableRelationModel("kneo.test.helloodata.CompositeKey::phones",
         "kneo.test.helloodata.CompositeKey::address", "FK_ADDRESS_ID", "ID", "CONSTRAINT_8C9F", "CONSTRAINT_INDEX_E6");
     model = new PersistenceTableModel("kneo.test.helloodata.CompositeKey::phones", Arrays.asList(column3, column4, column5, column6),
-        Arrays.asList(rel, rel2, rel3));
+        Arrays.asList(rel, rel2, rel3), new ArrayList<>());
     model.setTableType(ISqlKeywords.METADATA_TABLE);
     when(metadataProvider.getPersistenceTableModel("kneo.test.helloodata.CompositeKey::phones")).thenReturn(model);
 
@@ -197,7 +197,7 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
     PersistenceTableColumnModel column10 = new PersistenceTableColumnModel("ORDER_ID_2", "Edm.Int32", true, false, 0, 0);
     column10.setNullable(true);
     PersistenceTableModel model = new PersistenceTableModel("kneo.test.helloodata.CompositeKey::employee",
-        Arrays.asList(column1, column2, column9, column10), new ArrayList<>());
+        Arrays.asList(column1, column2, column9, column10), new ArrayList<>(), new ArrayList<>());
     model.setTableType(ISqlKeywords.METADATA_TABLE);
     when(metadataProvider.getPersistenceTableModel("kneo.test.helloodata.CompositeKey::employee")).thenReturn(model);
 
@@ -212,7 +212,7 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
     PersistenceTableRelationModel rel3 = new PersistenceTableRelationModel("kneo.test.helloodata.CompositeKey::phones",
         "kneo.test.helloodata.CompositeKey::address", "FK_ADDRESS_ID", "ID", "CONSTRAINT_8C9F", "CONSTRAINT_INDEX_E6");
     model = new PersistenceTableModel("kneo.test.helloodata.CompositeKey::phones", Arrays.asList(column3, column4, column5, column6),
-        Arrays.asList(rel, rel2, rel3));
+        Arrays.asList(rel, rel2, rel3), new ArrayList<>());
     model.setTableType(ISqlKeywords.METADATA_TABLE);
     when(metadataProvider.getPersistenceTableModel("kneo.test.helloodata.CompositeKey::phones")).thenReturn(model);
 
@@ -347,7 +347,7 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
   }
 
   private void mockTableMetadataInvocations(String tableName) throws SQLException {
-    PersistenceTableModel model = new PersistenceTableModel(tableName, null, null);
+    PersistenceTableModel model = new PersistenceTableModel(tableName, null, null, null);
     when(metadataProvider.getPersistenceTableModel(tableName)).thenReturn(model);
   }
 
@@ -384,7 +384,7 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
     PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("COLUMN2", "Edm.Int32", true, false, 0, 0);
     PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("COLUMN3", "Edm.Int32", true, false, 0, 0);
     PersistenceTableModel model = new PersistenceTableModel("kneo.test.calcviews::calc", Arrays.asList(column1, column2, column3),
-        new ArrayList<>());
+        new ArrayList<>(), new ArrayList<>());
     model.setTableType("CALC VIEW");
 
     when(metadataProvider.getPersistenceTableModel("kneo.test.calcviews::calc")).thenReturn(model);
@@ -401,9 +401,11 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
 
   @Test
   public void testCalcViewWithInputParameters() throws Exception {
-    String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_calc_view_with_input_parameters.xsodata"), StandardCharsets.UTF_8);
+    String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_calc_view_with_input_parameters.xsodata"),
+        StandardCharsets.UTF_8);
 
-    DBArtifactModel dbArtifactModelCalcView = new DBArtifactModel(ISqlKeywords.METADATA_CALC_VIEW, ISqlKeywords.METADATA_CALC_VIEW, ISqlKeywords.METADATA_CALC_VIEW);
+    DBArtifactModel dbArtifactModelCalcView = new DBArtifactModel(ISqlKeywords.METADATA_CALC_VIEW, ISqlKeywords.METADATA_CALC_VIEW,
+        ISqlKeywords.METADATA_CALC_VIEW);
 
     when(mockDataSource.getConnection()).thenReturn(mockConnection);
     when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
@@ -417,7 +419,7 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
     PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("COLUMN2", "Edm.Int32", true, false, 0, 0);
     PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("COLUMN3", "Edm.Int32", true, false, 0, 0);
     PersistenceTableModel model = new PersistenceTableModel("kneo.test.calcviews::calc", Arrays.asList(column1, column2, column3),
-        new ArrayList<>());
+        new ArrayList<>(), new ArrayList<>());
     model.setTableType("CALC VIEW");
 
     when(metadataProvider.getPersistenceTableModel("kneo.test.calcviews::calc")).thenReturn(model);
@@ -460,7 +462,7 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
       PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("COLUMN3", "Edm.Int32", true, false, 0, 0);
 
       PersistenceTableModel calcViewModel = new PersistenceTableModel("kneo.test.calcviews::calc", Arrays.asList(column1, column2, column3),
-          new ArrayList<>());
+          new ArrayList<>(), new ArrayList<>());
       calcViewModel.setTableType(ISqlKeywords.METADATA_CALC_VIEW);
 
       when(metadataProvider.getPersistenceTableModel("TestCalcView")).thenReturn(calcViewModel);
@@ -496,14 +498,15 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
   @Test
   public void testAggregationsConstruction() throws Exception {
     ODataParser parser = new ODataParser();
-    String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_aggregations_for_conversion.xsodata"), StandardCharsets.UTF_8);
+    String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_aggregations_for_conversion.xsodata"),
+        StandardCharsets.UTF_8);
     ODataModel oDataModel = parser.parseODataArtifact("np/entity_with_aggregations_for_conversion.xsodata", content);
 
     PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("USER_ID", "Edm.Int32", false, true, 0, 0);
     PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("USER_PAYMENT", "Edm.Int32", true, false, 0, 0);
     PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("ROLE_NUMBER", "Edm.Int32", true, false, 0, 0);
     PersistenceTableModel model = new PersistenceTableModel("TEST_VIEW", Arrays.asList(column1, column2, column3),
-        new ArrayList<>());
+        new ArrayList<>(), new ArrayList<>());
     model.setTableType("CALC VIEW");
     when(metadataProvider.getPersistenceTableModel("TEST_VIEW")).thenReturn(model);
 

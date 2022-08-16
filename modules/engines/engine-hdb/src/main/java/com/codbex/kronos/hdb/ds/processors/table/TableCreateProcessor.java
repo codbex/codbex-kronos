@@ -31,7 +31,7 @@ import java.util.Map;
 import org.eclipse.dirigible.core.scheduler.api.ISynchronizerArtefactType.ArtefactState;
 import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
 import org.eclipse.dirigible.database.sql.SqlFactory;
-import org.eclipse.dirigible.database.sql.Table;
+import org.eclipse.dirigible.database.sql.TableStatements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,9 +69,9 @@ public class TableCreateProcessor extends AbstractHDBProcessor<DataStructureHDBT
 
     switch (tableModel.getDBContentType()) {
       case XS_CLASSIC: {
-        Table table = new TableBuilder().build(tableModel);
-        tableCreateStatement = table.getCreateTableStatement();
-        indicesStatements.addAll(table.getCreateIndicesStatements());
+        TableStatements tableStatements = new TableBuilder().build(tableModel);
+        tableCreateStatement = tableStatements.getCreateTableStatement();
+        indicesStatements.addAll(tableStatements.getCreateIndicesStatements());
         break;
       }
       case OTHERS: {
