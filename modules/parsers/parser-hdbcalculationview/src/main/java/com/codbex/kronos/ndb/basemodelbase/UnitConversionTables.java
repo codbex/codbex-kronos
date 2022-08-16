@@ -31,9 +31,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * Root class for specifying tables for conversion (currency conversion and unit conversion)
  *
  *
- * <p>Java class for UnitConversionTables complex type.
+ * Java class for UnitConversionTables complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="UnitConversionTables"&gt;
@@ -50,9 +50,12 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "UnitConversionTables")
 public class UnitConversionTables {
 
+  /** The rates. */
   @XmlAttribute(name = "rates", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String rates;
+  
+  /** The dimension. */
   @XmlAttribute(name = "dimension", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String dimension;

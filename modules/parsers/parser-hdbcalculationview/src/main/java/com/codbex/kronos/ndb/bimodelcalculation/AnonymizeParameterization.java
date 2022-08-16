@@ -32,9 +32,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**
- * <p>Java class for AnonymizeParameterization complex type.
+ * Java class for AnonymizeParameterization complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="AnonymizeParameterization"&gt;
@@ -72,19 +72,34 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class AnonymizeParameterization {
 
+  /** The seq column. */
   @XmlElement(required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String seqColumn;
+  
+  /** The k. */
   @XmlElement(required = true)
   protected BigInteger k;
+  
+  /** The loss. */
   protected double loss;
+  
+  /** The qid column. */
   @XmlElement(required = true)
   protected List<QidColumn> qidColumn;
+  
+  /** The qid column hierarchy. */
   @XmlElement(required = true)
   protected List<QidColumnHierarchy> qidColumnHierarchy;
+  
+  /** The epsilon. */
   protected float epsilon;
+  
+  /** The sensitivity. */
   protected float sensitivity;
+  
+  /** The noised column. */
   @XmlElement(required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
@@ -132,6 +147,8 @@ public class AnonymizeParameterization {
 
   /**
    * Gets the value of the loss property.
+   *
+   * @return the loss
    */
   public double getLoss() {
     return loss;
@@ -139,6 +156,8 @@ public class AnonymizeParameterization {
 
   /**
    * Sets the value of the loss property.
+   *
+   * @param value the new loss
    */
   public void setLoss(double value) {
     this.loss = value;
@@ -146,23 +165,25 @@ public class AnonymizeParameterization {
 
   /**
    * Gets the value of the qidColumn property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the qidColumn property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getQidColumn().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link QidColumn }
+   *
+   * @return the qid column
    */
   public List<QidColumn> getQidColumn() {
     if (qidColumn == null) {
@@ -173,23 +194,25 @@ public class AnonymizeParameterization {
 
   /**
    * Gets the value of the qidColumnHierarchy property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the qidColumnHierarchy property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getQidColumnHierarchy().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link QidColumnHierarchy }
+   *
+   * @return the qid column hierarchy
    */
   public List<QidColumnHierarchy> getQidColumnHierarchy() {
     if (qidColumnHierarchy == null) {
@@ -200,6 +223,8 @@ public class AnonymizeParameterization {
 
   /**
    * Gets the value of the epsilon property.
+   *
+   * @return the epsilon
    */
   public float getEpsilon() {
     return epsilon;
@@ -207,6 +232,8 @@ public class AnonymizeParameterization {
 
   /**
    * Sets the value of the epsilon property.
+   *
+   * @param value the new epsilon
    */
   public void setEpsilon(float value) {
     this.epsilon = value;
@@ -214,6 +241,8 @@ public class AnonymizeParameterization {
 
   /**
    * Gets the value of the sensitivity property.
+   *
+   * @return the sensitivity
    */
   public float getSensitivity() {
     return sensitivity;
@@ -221,6 +250,8 @@ public class AnonymizeParameterization {
 
   /**
    * Sets the value of the sensitivity property.
+   *
+   * @param value the new sensitivity
    */
   public void setSensitivity(float value) {
     this.sensitivity = value;

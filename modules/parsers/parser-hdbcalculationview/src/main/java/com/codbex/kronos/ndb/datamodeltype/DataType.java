@@ -19,20 +19,21 @@
 
 package com.codbex.kronos.ndb.datamodeltype;
 
-import com.codbex.kronos.ndb.repositorymodelresource.RepositoryObject;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
+
+import com.codbex.kronos.ndb.repositorymodelresource.RepositoryObject;
 
 
 /**
  * Base object for data types.
  *
  *
- * <p>Java class for DataType complex type.
+ * Java class for DataType complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="DataType"&gt;

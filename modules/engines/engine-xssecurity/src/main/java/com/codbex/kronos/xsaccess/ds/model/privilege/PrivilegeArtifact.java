@@ -18,30 +18,64 @@ import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.dirigible.commons.api.helpers.GsonHelper;
 
+/**
+ * The Class PrivilegeArtifact.
+ */
 public class PrivilegeArtifact {
 
+  /** The privileges. */
   private List<Privilege> privileges;
 
+  /**
+   * Instantiates a new privilege artifact.
+   */
   public PrivilegeArtifact() {
   }
 
+  /**
+   * Parses the.
+   *
+   * @param json the json
+   * @return the privilege artifact
+   */
   public static PrivilegeArtifact parse(byte[] json) {
     return GsonHelper.GSON
         .fromJson(new InputStreamReader(new ByteArrayInputStream(json), StandardCharsets.UTF_8), PrivilegeArtifact.class);
   }
 
+  /**
+   * Parses the.
+   *
+   * @param json the json
+   * @return the privilege artifact
+   */
   public static PrivilegeArtifact parse(String json) {
     return GsonHelper.GSON.fromJson(json, PrivilegeArtifact.class);
   }
 
+  /**
+   * Gets the privileges.
+   *
+   * @return the privileges
+   */
   public List<Privilege> getPrivileges() {
     return privileges;
   }
 
+  /**
+   * Sets the privileges.
+   *
+   * @param privileges the new privileges
+   */
   public void setPrivileges(List<Privilege> privileges) {
     this.privileges = privileges;
   }
 
+  /**
+   * Divide.
+   *
+   * @return the list
+   */
   public List<PrivilegeDefinition> divide() {
     List<PrivilegeDefinition> privilegeDefinitions = new ArrayList<>();
     for (Privilege privilege : privileges) {

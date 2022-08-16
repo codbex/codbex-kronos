@@ -15,6 +15,7 @@ import com.codbex.kronos.engine.JavascriptEngineExecutor;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.xsjob.ds.api.IJobCoreService;
+
 import java.util.HashMap;
 import java.util.Map;
 import org.eclipse.dirigible.commons.api.scripting.ScriptingException;
@@ -22,12 +23,23 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
+/**
+ * The Class JobHandler.
+ */
 public class JobHandler implements Job {
 
+  /** The Constant XSJOB_HANDLER. */
   private static final String XSJOB_HANDLER = "xsjob/wrappers/handler.xsjs";
 
+  /** The javascript engine executor. */
   private JavascriptEngineExecutor javascriptEngineExecutor = new JavascriptEngineExecutor();
 
+  /**
+   * Execute.
+   *
+   * @param context the context
+   * @throws JobExecutionException the job execution exception
+   */
   @Override
   public void execute(JobExecutionContext context) throws JobExecutionException {
     String module = (String) context.getJobDetail().getJobDataMap().get(IJobCoreService.KRONOS_JOB_MODULE);
@@ -44,7 +56,7 @@ public class JobHandler implements Job {
     try {
       javascriptEngineExecutor.executeService(XSJOB_HANDLER, executionContext, true, true);
     } catch (ScriptingException e) {
-      CommonsUtils.logProcessorErrors(e.getMessage(), CommonsConstants.PROCESSOR_ERROR, context.getJobDetail().getDescription(), CommonsConstants.KRONOS_JOB_PARSER);
+      CommonsUtils.logProcessorErrors(e.getMessage(), CommonsConstants.PROCESSOR_ERROR, context.getJobDetail().getDescription(), CommonsConstants.JOB_PARSER);
       throw new JobExecutionException(e);
     }
   }

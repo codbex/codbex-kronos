@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for AggregationType.
+ * Java class for AggregationType.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="AggregationType"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -47,38 +47,52 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum AggregationType {
 
+  /** The sum. */
   @XmlEnumValue("sum")
   SUM("sum"),
+  
+  /** The min. */
   @XmlEnumValue("min")
   MIN("min"),
+  
+  /** The max. */
   @XmlEnumValue("max")
   MAX("max"),
+  
+  /** The count. */
   @XmlEnumValue("count")
   COUNT("count"),
 
-  /**
-   * Average defined as SUM( column ) / COUNT( column )
-   */
+  /** Average defined as SUM( column ) / COUNT( column ). */
   @XmlEnumValue("avg")
   AVG("avg"),
 
-  /**
-   * Standard deviation: Sum over the squares of the differences to the average divided by (COUNT-1)
-   */
+  /** Standard deviation: Sum over the squares of the differences to the average divided by (COUNT-1). */
   @XmlEnumValue("var")
   VAR("var"),
 
-  /**
-   * Standard deviation: Square root of the variance
-   */
+  /** Standard deviation: Square root of the variance. */
   @XmlEnumValue("stddev")
   STDDEV("stddev");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new aggregation type.
+   *
+   * @param v the v
+   */
   AggregationType(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the aggregation type
+   */
   public static AggregationType fromValue(String v) {
     for (AggregationType c : AggregationType.values()) {
       if (c.value.equals(v)) {
@@ -88,6 +102,11 @@ public enum AggregationType {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

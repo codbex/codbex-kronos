@@ -11,15 +11,32 @@
  */
 package com.codbex.kronos.parser.hdbview.custom;
 
+import java.util.stream.Collectors;
+
 import com.codbex.kronos.parser.hdbview.core.HdbviewBaseListener;
 import com.codbex.kronos.parser.hdbview.core.HdbviewParser;
 import com.codbex.kronos.parser.hdbview.models.HDBViewDefinitionModel;
-import java.util.stream.Collectors;
 
+/**
+ * The listener interface for receiving HDBViewCore events.
+ * The class that is interested in processing a HDBViewCore
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addHDBViewCoreListener</code> method. When
+ * the HDBViewCore event occurs, that object's appropriate
+ * method is invoked.
+ *
+ */
 public class HDBViewCoreListener extends HdbviewBaseListener {
 
+  /** The model. */
   private final HDBViewDefinitionModel model = new HDBViewDefinitionModel();
 
+  /**
+   * Exit hdbview definition.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void exitHdbviewDefinition(HdbviewParser.HdbviewDefinitionContext ctx) {
     ctx.property().forEach(node -> {
@@ -49,6 +66,12 @@ public class HDBViewCoreListener extends HdbviewBaseListener {
     });
   }
 
+  /**
+   * Handle string literal.
+   *
+   * @param value the value
+   * @return the string
+   */
   private String handleStringLiteral(String value) {
     if (value != null && value.length() > 1) {
       String subStr = value.substring(1, value.length() - 1);
@@ -59,6 +82,11 @@ public class HDBViewCoreListener extends HdbviewBaseListener {
     return null;
   }
 
+  /**
+   * Gets the model.
+   *
+   * @return the model
+   */
   public HDBViewDefinitionModel getModel() {
     return model;
   }

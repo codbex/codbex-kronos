@@ -19,7 +19,6 @@
 
 package com.codbex.kronos.ndb.bimodelcalculation;
 
-import com.codbex.kronos.ndb.bimodeldatafoundation.SpatialJoinProperties;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -27,11 +26,13 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.codbex.kronos.ndb.bimodeldatafoundation.SpatialJoinProperties;
+
 
 /**
- * <p>Java class for JoinAttribute complex type.
+ * Java class for JoinAttribute complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="JoinAttribute"&gt;
@@ -52,7 +53,10 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class JoinAttribute {
 
+  /** The spatial join properties. */
   protected SpatialJoinProperties spatialJoinProperties;
+  
+  /** The name. */
   @XmlAttribute(name = "name", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String name;

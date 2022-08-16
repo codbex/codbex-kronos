@@ -19,13 +19,14 @@
 
 package com.codbex.kronos.ndb.datamodelhierarchy;
 
-import com.codbex.kronos.ndb.datamodeltype.UDFParameter;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.codbex.kronos.ndb.datamodeltype.UDFParameter;
 
 
 /**
@@ -34,9 +35,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * references in the attributes because it might point to a column coming in via a selectAll input
  *
  *
- * <p>Java class for ParentDefinition complex type.
+ * Java class for ParentDefinition complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ParentDefinition"&gt;
@@ -59,13 +60,20 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class ParentDefinition {
 
+  /** The root node. */
   protected UDFParameter rootNode;
+  
+  /** The element. */
   @XmlAttribute(name = "element", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String element;
+  
+  /** The parent. */
   @XmlAttribute(name = "parent", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String parent;
+  
+  /** The step parent node ID. */
   @XmlAttribute(name = "stepParentNodeID")
   protected String stepParentNodeID;
 

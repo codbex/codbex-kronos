@@ -29,9 +29,9 @@ import javax.xml.bind.annotation.XmlType;
  * Simple string type to store an expression
  *
  *
- * <p>Java class for Expression complex type.
+ * Java class for Expression complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Expression"&gt;
@@ -52,7 +52,10 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class Expression {
 
+  /** The formula. */
   protected String formula;
+  
+  /** The language. */
   @XmlAttribute(name = "language")
   protected ExpressionLanguage language;
 

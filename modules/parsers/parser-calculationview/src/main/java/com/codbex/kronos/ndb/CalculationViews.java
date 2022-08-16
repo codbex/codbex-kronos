@@ -31,9 +31,9 @@ import javax.xml.bind.annotation.XmlValue;
 
 
 /**
- * <p>Java class for anonymous complex type.
+ * Java class for anonymous complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -119,27 +119,30 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlRootElement(name = "calculationViews")
 public class CalculationViews {
 
+  /** The calculation view. */
   protected List<CalculationViews.CalculationView> calculationView;
 
   /**
    * Gets the value of the calculationView property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the calculationView property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getCalculationView().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link CalculationViews.CalculationView }
+   *
+   * @return the calculation view
    */
   public List<CalculationViews.CalculationView> getCalculationView() {
     if (calculationView == null) {
@@ -150,9 +153,9 @@ public class CalculationViews {
 
 
   /**
-   * <p>Java class for anonymous complex type.
+   * Java class for anonymous complex type.
    *
-   * <p>The following schema fragment specifies the expected content contained within this class.
+   * The following schema fragment specifies the expected content contained within this class.
    *
    * <pre>
    * &lt;complexType&gt;
@@ -232,21 +235,40 @@ public class CalculationViews {
   })
   public static class CalculationView {
 
+    /** The descriptions. */
     @XmlElement(required = true)
     protected String descriptions;
+    
+    /** The view attributes. */
     @XmlElement(required = true)
     protected CalculationViews.CalculationView.ViewAttributes viewAttributes;
+    
+    /** The calculated view attributes. */
     @XmlElement(required = true)
     protected String calculatedViewAttributes;
+    
+    /** The input. */
     protected List<CalculationViews.CalculationView.Input> input;
+    
+    /** The filter. */
     protected String filter;
+    
+    /** The join attribute. */
     protected CalculationViews.CalculationView.JoinAttribute joinAttribute;
+    
+    /** The id. */
     @XmlAttribute(name = "id")
     protected String id;
+    
+    /** The filter expression language. */
     @XmlAttribute(name = "filterExpressionLanguage")
     protected String filterExpressionLanguage;
+    
+    /** The join type. */
     @XmlAttribute(name = "joinType")
     protected String joinType;
+    
+    /** The language column. */
     @XmlAttribute(name = "languageColumn")
     protected String languageColumn;
 
@@ -312,23 +334,25 @@ public class CalculationViews {
 
     /**
      * Gets the value of the input property.
-     *
-     * <p>
+     * 
+     * 
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the input property.
-     *
-     * <p>
+     * 
+     * 
      * For example, to add a new item, do as follows:
      * <pre>
      *    getInput().add(newItem);
      * </pre>
-     *
-     *
-     * <p>
+     * 
+     * 
+     * 
      * Objects of the following type(s) are allowed in the list
      * {@link CalculationViews.CalculationView.Input }
+     *
+     * @return the input
      */
     public List<CalculationViews.CalculationView.Input> getInput() {
       if (input == null) {
@@ -459,9 +483,9 @@ public class CalculationViews {
 
 
     /**
-     * <p>Java class for anonymous complex type.
+     * Java class for anonymous complex type.
      *
-     * <p>The following schema fragment specifies the expected content contained within this class.
+     * The following schema fragment specifies the expected content contained within this class.
      *
      * <pre>
      * &lt;complexType&gt;
@@ -491,29 +515,34 @@ public class CalculationViews {
     })
     public static class Input {
 
+      /** The mapping. */
       protected List<CalculationViews.CalculationView.Input.Mapping> mapping;
+      
+      /** The node. */
       @XmlAttribute(name = "node")
       protected String node;
 
       /**
        * Gets the value of the mapping property.
-       *
-       * <p>
+       * 
+       * 
        * This accessor method returns a reference to the live list,
        * not a snapshot. Therefore any modification you make to the
        * returned list will be present inside the JAXB object.
        * This is why there is not a <CODE>set</CODE> method for the mapping property.
-       *
-       * <p>
+       * 
+       * 
        * For example, to add a new item, do as follows:
        * <pre>
        *    getMapping().add(newItem);
        * </pre>
-       *
-       *
-       * <p>
+       * 
+       * 
+       * 
        * Objects of the following type(s) are allowed in the list
        * {@link CalculationViews.CalculationView.Input.Mapping }
+       *
+       * @return the mapping
        */
       public List<CalculationViews.CalculationView.Input.Mapping> getMapping() {
         if (mapping == null) {
@@ -544,9 +573,9 @@ public class CalculationViews {
 
 
       /**
-       * <p>Java class for anonymous complex type.
+       * Java class for anonymous complex type.
        *
-       * <p>The following schema fragment specifies the expected content contained within this class.
+       * The following schema fragment specifies the expected content contained within this class.
        *
        * <pre>
        * &lt;complexType&gt;
@@ -565,10 +594,15 @@ public class CalculationViews {
       })
       public static class Mapping {
 
+        /** The value. */
         @XmlValue
         protected String value;
+        
+        /** The target. */
         @XmlAttribute(name = "target")
         protected String target;
+        
+        /** The source. */
         @XmlAttribute(name = "source")
         protected String source;
 
@@ -638,9 +672,9 @@ public class CalculationViews {
 
 
     /**
-     * <p>Java class for anonymous complex type.
+     * Java class for anonymous complex type.
      *
-     * <p>The following schema fragment specifies the expected content contained within this class.
+     * The following schema fragment specifies the expected content contained within this class.
      *
      * <pre>
      * &lt;complexType&gt;
@@ -658,8 +692,11 @@ public class CalculationViews {
     })
     public static class JoinAttribute {
 
+      /** The value. */
       @XmlValue
       protected String value;
+      
+      /** The name. */
       @XmlAttribute(name = "name")
       protected String name;
 
@@ -707,9 +744,9 @@ public class CalculationViews {
 
 
     /**
-     * <p>Java class for anonymous complex type.
+     * Java class for anonymous complex type.
      *
-     * <p>The following schema fragment specifies the expected content contained within this class.
+     * The following schema fragment specifies the expected content contained within this class.
      *
      * <pre>
      * &lt;complexType&gt;
@@ -737,27 +774,30 @@ public class CalculationViews {
     })
     public static class ViewAttributes {
 
+      /** The view attribute. */
       protected List<CalculationViews.CalculationView.ViewAttributes.ViewAttribute> viewAttribute;
 
       /**
        * Gets the value of the viewAttribute property.
-       *
-       * <p>
+       * 
+       * 
        * This accessor method returns a reference to the live list,
        * not a snapshot. Therefore any modification you make to the
        * returned list will be present inside the JAXB object.
        * This is why there is not a <CODE>set</CODE> method for the viewAttribute property.
-       *
-       * <p>
+       * 
+       * 
        * For example, to add a new item, do as follows:
        * <pre>
        *    getViewAttribute().add(newItem);
        * </pre>
-       *
-       *
-       * <p>
+       * 
+       * 
+       * 
        * Objects of the following type(s) are allowed in the list
        * {@link CalculationViews.CalculationView.ViewAttributes.ViewAttribute }
+       *
+       * @return the view attribute
        */
       public List<CalculationViews.CalculationView.ViewAttributes.ViewAttribute> getViewAttribute() {
         if (viewAttribute == null) {
@@ -768,9 +808,9 @@ public class CalculationViews {
 
 
       /**
-       * <p>Java class for anonymous complex type.
+       * Java class for anonymous complex type.
        *
-       * <p>The following schema fragment specifies the expected content contained within this class.
+       * The following schema fragment specifies the expected content contained within this class.
        *
        * <pre>
        * &lt;complexType&gt;
@@ -788,8 +828,11 @@ public class CalculationViews {
       })
       public static class ViewAttribute {
 
+        /** The value. */
         @XmlValue
         protected String value;
+        
+        /** The id. */
         @XmlAttribute(name = "id")
         protected String id;
 

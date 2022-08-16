@@ -11,15 +11,16 @@
  */
 package com.codbex.kronos.parser.hdbsequence.custom;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import com.codbex.kronos.parser.hdbsequence.core.HdbsequenceBaseVisitor;
 import com.codbex.kronos.parser.hdbsequence.core.HdbsequenceParser;
 import com.codbex.kronos.parser.hdbsequence.core.HdbsequenceParser.DependsOnTableContext;
 import com.codbex.kronos.parser.hdbsequence.core.HdbsequenceParser.DependsOnViewContext;
 import com.codbex.kronos.parser.hdbsequence.exceptions.HDBSequenceDuplicatePropertyException;
 import com.codbex.kronos.parser.hdbsequence.utils.HDBSequenceConstants;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTree;
 
@@ -27,10 +28,20 @@ import java.util.HashSet;
 import java.util.List;
 
 
+/**
+ * The Class HdbsequenceVisitor.
+ */
 public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
 
+  /** The visited properties. */
   private HashSet<String> visitedProperties = new HashSet<>();
 
+  /**
+   * Check for property repetition.
+   *
+   * @param property the property
+   * @throws HDBSequenceDuplicatePropertyException the HDB sequence duplicate property exception
+   */
   private void checkForPropertyRepetition(String property) throws HDBSequenceDuplicatePropertyException {
     if (!visitedProperties.contains(property)) {
       visitedProperties.add(property);
@@ -40,6 +51,12 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
     }
   }
 
+  /**
+   * Visit hdbsequence.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   */
   @Override
   public JsonElement visitHdbsequence(@NotNull HdbsequenceParser.HdbsequenceContext ctx) {
     JsonObject parsedObj = new JsonObject();
@@ -75,6 +92,12 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
     return parsedObj;
   }
 
+  /**
+   * Visit schema.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   */
   @Override
   public JsonElement visitSchema(@NotNull HdbsequenceParser.SchemaContext ctx) {
     checkForPropertyRepetition(HDBSequenceConstants.SCHEMA_PROPERTY);
@@ -84,6 +107,12 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
 
   }
 
+  /**
+   * Visit publicc.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   */
   @Override
   public JsonElement visitPublicc(@NotNull HdbsequenceParser.PubliccContext ctx) {
     checkForPropertyRepetition(HDBSequenceConstants.PUBLIC_PROPERTY);
@@ -92,6 +121,12 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
         : new JsonPrimitive(HDBSequenceConstants.PUBLIC_DEFAULT_VALUE);
   }
 
+  /**
+   * Visit maxvalue.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   */
   @Override
   public JsonElement visitMaxvalue(HdbsequenceParser.MaxvalueContext ctx) {
     checkForPropertyRepetition(HDBSequenceConstants.MAXVALUE_PROPERTY);
@@ -100,6 +135,12 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
         : null;
   }
 
+  /**
+   * Visit nomaxvalue.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   */
   @Override
   public JsonElement visitNomaxvalue(HdbsequenceParser.NomaxvalueContext ctx) {
     checkForPropertyRepetition(HDBSequenceConstants.NOMAXVALUE_PROPERTY);
@@ -108,6 +149,13 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
         : new JsonPrimitive(HDBSequenceConstants.NOMAXVALUE_DEFAULT_VALUE);
   }
   
+  /**
+   * Visit nominvalue.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   * @throws HDBSequenceDuplicatePropertyException the HDB sequence duplicate property exception
+   */
   @Override
   public JsonElement visitNominvalue(HdbsequenceParser.NominvalueContext ctx) throws HDBSequenceDuplicatePropertyException {
     checkForPropertyRepetition(HDBSequenceConstants.NOMINVALUE_PROPERTY);
@@ -116,6 +164,13 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
         : new JsonPrimitive(HDBSequenceConstants.NOMINVALUE_DEFAULT_VALUE);
   }
 
+  /**
+   * Visit cycles.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   * @throws HDBSequenceDuplicatePropertyException the HDB sequence duplicate property exception
+   */
   @Override
   public JsonElement visitCycles(HdbsequenceParser.CyclesContext ctx) throws HDBSequenceDuplicatePropertyException {
     checkForPropertyRepetition(HDBSequenceConstants.CYCLES_PROPERTY);
@@ -124,6 +179,13 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
         : null;
   }
 
+  /**
+   * Visit minvalue.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   * @throws HDBSequenceDuplicatePropertyException the HDB sequence duplicate property exception
+   */
   @Override
   public JsonElement visitMinvalue(HdbsequenceParser.MinvalueContext ctx) throws HDBSequenceDuplicatePropertyException {
     checkForPropertyRepetition(HDBSequenceConstants.MINVALUE_PROPERTY);
@@ -132,6 +194,13 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
         : null;
   }
 
+  /**
+   * Visit reset by.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   * @throws HDBSequenceDuplicatePropertyException the HDB sequence duplicate property exception
+   */
   @Override
   public JsonElement visitReset_by(HdbsequenceParser.Reset_byContext ctx) throws HDBSequenceDuplicatePropertyException {
     checkForPropertyRepetition(HDBSequenceConstants.RESET_BY_PROPERTY);
@@ -140,6 +209,13 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
         : null;
   }
 
+  /**
+   * Visit increment by.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   * @throws HDBSequenceDuplicatePropertyException the HDB sequence duplicate property exception
+   */
   @Override
   public JsonElement visitIncrement_by(HdbsequenceParser.Increment_byContext ctx) throws HDBSequenceDuplicatePropertyException {
     checkForPropertyRepetition(HDBSequenceConstants.INCREMENT_BY_PROPERTY);
@@ -148,6 +224,13 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
         : new JsonPrimitive(HDBSequenceConstants.INCREMENT_BY_DEFAULT_VALUE);
   }
 
+  /**
+   * Visit start with.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   * @throws HDBSequenceDuplicatePropertyException the HDB sequence duplicate property exception
+   */
   @Override
   public JsonElement visitStart_with(HdbsequenceParser.Start_withContext ctx) throws HDBSequenceDuplicatePropertyException {
     checkForPropertyRepetition(HDBSequenceConstants.START_WITH_PROPERTY);
@@ -156,6 +239,12 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
         : new JsonPrimitive(HDBSequenceConstants.START_WITH_DEFAULT_VALUE);
   }
 
+  /**
+   * Visit depends on table.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   */
   @Override
   public JsonElement visitDependsOnTable(DependsOnTableContext ctx) {
     checkForPropertyRepetition(HDBSequenceConstants.DEPENDS_ON_TABLE_PROPERTY);
@@ -164,6 +253,12 @@ public class HdbsequenceVisitor extends HdbsequenceBaseVisitor<JsonElement> {
             : null;
   }
 
+  /**
+   * Visit depends on view.
+   *
+   * @param ctx the ctx
+   * @return the json element
+   */
   @Override
   public JsonElement visitDependsOnView(DependsOnViewContext ctx) {
     checkForPropertyRepetition(HDBSequenceConstants.DEPENDS_ON_VIEW_PROPERTY);

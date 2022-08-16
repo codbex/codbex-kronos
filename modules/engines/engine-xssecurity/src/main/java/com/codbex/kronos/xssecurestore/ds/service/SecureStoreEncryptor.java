@@ -11,16 +11,32 @@
  */
 package com.codbex.kronos.xssecurestore.ds.service;
 
-import com.codbex.kronos.xssecurestore.ds.api.ISecureStoreEncryptor;
 import org.eclipse.dirigible.api.v3.utils.Base64Facade;
 
+import com.codbex.kronos.xssecurestore.ds.api.ISecureStoreEncryptor;
+
+/**
+ * The Class SecureStoreEncryptor.
+ */
 public class SecureStoreEncryptor implements ISecureStoreEncryptor {
 
+  /**
+   * Encode.
+   *
+   * @param input the input
+   * @return the byte[]
+   */
   @Override
   public byte[] encode(byte[] input) {
     return Base64Facade.encodeNative(input);
   }
 
+  /**
+   * Decode.
+   *
+   * @param input the input
+   * @return the byte[]
+   */
   @Override
   public byte[] decode(byte[] input) {
     return Base64Facade.decodeNative(input);

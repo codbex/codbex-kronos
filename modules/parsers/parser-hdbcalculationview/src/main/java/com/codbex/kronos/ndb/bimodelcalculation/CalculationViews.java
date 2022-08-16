@@ -31,9 +31,9 @@ import javax.xml.bind.annotation.XmlType;
  * Collection element for the CalculationViews
  *
  *
- * <p>Java class for CalculationViews complex type.
+ * Java class for CalculationViews complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="CalculationViews"&gt;
@@ -53,28 +53,31 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class CalculationViews {
 
+  /** The calculation view. */
   @XmlElement(required = true)
   protected List<CalculationView> calculationView;
 
   /**
    * Gets the value of the calculationView property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the calculationView property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getCalculationView().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link CalculationView }
+   *
+   * @return the calculation view
    */
   public List<CalculationView> getCalculationView() {
     if (calculationView == null) {

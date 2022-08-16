@@ -44,21 +44,45 @@ exports.Store = function (filePath) {
     this.removeForUser = function(removeObject) {
         com.codbex.kronos.xssecurestore.ds.facade.SecureStoreFacade.removeForUser(filePath, removeObject.name);
     }
-
-}
-exports.crypto = function (){
-    return new XSCrypto()
-
-}
-class XSCrypto{
-    md5 = function (data,key){
-        return com.codbex.kronos.xssecurestore.ds.facade.SecureCryptoFacade.md5(data,key);
-    }
-    sha1 = function (data,key){
-        return com.codbex.kronos.xssecurestore.ds.facade.SecureCryptoFacade.sha1(data,key);
-    }
-    sha256 = function (data,key){
-        return com.codbex.kronos.xssecurestore.ds.facade.SecureCryptoFacade.sha256(data,key);
-    }
 }
 
+class XSCrypto {
+
+	md5(data, key) {
+		if (data instanceof ArrayBuffer) {
+			data = fromBufferToArray(data);
+		}
+		const javaBytes = Java.type("com.codbex.kronos.xssecurestore.ds.facade.SecureCryptoFacade").md5(data, key);
+		return fromArrayToBuffer(javaBytes);
+	}
+
+	sha1(data, key) {
+		if (data instanceof ArrayBuffer) {
+			data = fromBufferToArray(data);
+		}
+		const javaBytes = Java.type("com.codbex.kronos.xssecurestore.ds.facade.SecureCryptoFacade").sha1(data, key);
+		return fromArrayToBuffer(javaBytes);
+	}
+
+	sha256(data, key) {
+		if (data instanceof ArrayBuffer) {
+			data = fromBufferToArray(data);
+		}
+		const javaBytes = Java.type("com.codbex.kronos.xssecurestore.ds.facade.SecureCryptoFacade").sha256(data, key);
+		return fromArrayToBuffer(javaBytes);
+	}
+}
+
+exports.crypto = new XSCrypto();
+
+// From ArrayBuffer to byte[]
+function fromBufferToArray(buffer) {
+	return Array.from(new Uint8Array(buffer))
+}
+
+// from Java byte[]  to JS ArrayBuffer
+function fromArrayToBuffer(javaBytes) {
+	var uint8Array = new Uint8Array(javaBytes.length);
+	uint8Array.set(Java.from(javaBytes));
+	return uint8Array.buffer
+}

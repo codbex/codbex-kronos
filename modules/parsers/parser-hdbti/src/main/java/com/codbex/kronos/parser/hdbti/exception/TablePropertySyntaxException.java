@@ -11,7 +11,16 @@
  */
 package com.codbex.kronos.parser.hdbti.exception;
 
+/**
+ * The Class TablePropertySyntaxException.
+ */
 public class TablePropertySyntaxException extends RuntimeException {
+  
+  /**
+   * Instantiates a new table property syntax exception.
+   *
+   * @param message the message
+   */
   public TablePropertySyntaxException(String message) {
     super(message);
   }

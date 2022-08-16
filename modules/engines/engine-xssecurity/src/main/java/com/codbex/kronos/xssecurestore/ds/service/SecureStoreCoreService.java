@@ -23,39 +23,54 @@ import org.eclipse.dirigible.commons.api.helpers.GsonHelper;
 import org.eclipse.dirigible.commons.config.StaticObjects;
 import org.eclipse.dirigible.database.persistence.PersistenceManager;
 
-import com.google.gson.JsonSyntaxException;
 import com.codbex.kronos.xssecurestore.ds.api.ISecureStoreCoreService;
 import com.codbex.kronos.xssecurestore.ds.api.ISecureStoreModel;
 import com.codbex.kronos.xssecurestore.ds.api.SecureStoreException;
 import com.codbex.kronos.xssecurestore.ds.model.SecureStore;
 import com.codbex.kronos.xssecurestore.ds.model.SecureStoreContent;
+import com.google.gson.JsonSyntaxException;
 
+/**
+ * The Class SecureStoreCoreService.
+ */
 public class SecureStoreCoreService implements ISecureStoreCoreService {
 
+  /** The data source. */
   private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
 
+  /** The secure store persistence manager. */
   private PersistenceManager<SecureStore> secureStorePersistenceManager = new PersistenceManager<SecureStore>();
 
+  /** The secure store content persistence manager. */
   private PersistenceManager<SecureStoreContent> secureStoreContentPersistenceManager = new PersistenceManager<SecureStoreContent>();
 
+  /** The secure store encryptor. */
   private SecureStoreEncryptor secureStoreEncryptor = new SecureStoreEncryptor();
 
+  /**
+   * Creates the secure store.
+   *
+   * @param location the location
+   * @param content the content
+   * @return the secure store
+   * @throws SecureStoreException the secure store exception
+   */
   @Override
   public SecureStore createSecureStore(String location, String content) throws SecureStoreException {
     if (!isJSONValid(content) || content.isEmpty()) {
       throw new SecureStoreException("Invalid json at " + location);
     }
 
-    SecureStore secureStore1 = new SecureStore();
-    secureStore1.setLocation(location);
-    secureStore1.setActive(true);
+    SecureStore secureStore = new SecureStore();
+    secureStore.setLocation(location);
+    secureStore.setActive(true);
 
     try {
       Connection connection = null;
       try {
         connection = dataSource.getConnection();
-        secureStorePersistenceManager.insert(connection, secureStore1);
-        return secureStore1;
+        secureStorePersistenceManager.insert(connection, secureStore);
+        return secureStore;
       } finally {
         if (connection != null) {
           connection.close();
@@ -66,6 +81,12 @@ public class SecureStoreCoreService implements ISecureStoreCoreService {
     }
   }
 
+  /**
+   * Gets the secure stores.
+   *
+   * @return the secure stores
+   * @throws SecureStoreException the secure store exception
+   */
   @Override
   public List<SecureStore> getSecureStores() throws SecureStoreException {
     try {
@@ -83,6 +104,12 @@ public class SecureStoreCoreService implements ISecureStoreCoreService {
     }
   }
 
+  /**
+   * Removes the secure store.
+   *
+   * @param location the location
+   * @throws SecureStoreException the secure store exception
+   */
   @Override
   public void removeSecureStore(String location) throws SecureStoreException {
     try {
@@ -100,11 +127,25 @@ public class SecureStoreCoreService implements ISecureStoreCoreService {
     }
   }
 
+  /**
+   * Exists secure store.
+   *
+   * @param location the location
+   * @return true, if successful
+   * @throws SecureStoreException the secure store exception
+   */
   @Override
   public boolean existsSecureStore(String location) throws SecureStoreException {
     return getSecureStore(location) != null;
   }
 
+  /**
+   * Gets the secure store.
+   *
+   * @param location the location
+   * @return the secure store
+   * @throws SecureStoreException the secure store exception
+   */
   @Override
   public SecureStore getSecureStore(String location) throws SecureStoreException {
     try {
@@ -122,6 +163,15 @@ public class SecureStoreCoreService implements ISecureStoreCoreService {
     }
   }
 
+  /**
+   * Creates the secure store value.
+   *
+   * @param storeId the store id
+   * @param userId the user id
+   * @param dataId the data id
+   * @param value the value
+   * @throws SecureStoreException the secure store exception
+   */
   @Override
   public void createSecureStoreValue(String storeId, String userId, String dataId, String value) throws SecureStoreException {
     if (!existsSecureStore(storeId)) {
@@ -159,6 +209,12 @@ public class SecureStoreCoreService implements ISecureStoreCoreService {
     }
   }
 
+  /**
+   * Update secure store value.
+   *
+   * @param secureStoreContent the secure store content
+   * @throws SecureStoreException the secure store exception
+   */
   @Override
   public void updateSecureStoreValue(SecureStoreContent secureStoreContent) throws SecureStoreException {
     try {
@@ -176,6 +232,15 @@ public class SecureStoreCoreService implements ISecureStoreCoreService {
     }
   }
 
+  /**
+   * Find secure store content.
+   *
+   * @param storeId the store id
+   * @param userId the user id
+   * @param dataId the data id
+   * @return the secure store content
+   * @throws SecureStoreException the secure store exception
+   */
   @Override
   public SecureStoreContent findSecureStoreContent(String storeId, String userId, String dataId) throws SecureStoreException {
     List<Object> queryArguments = Arrays.asList(storeId, userId, dataId);
@@ -209,6 +274,14 @@ public class SecureStoreCoreService implements ISecureStoreCoreService {
     }
   }
 
+  /**
+   * Delete secure store value.
+   *
+   * @param storeId the store id
+   * @param userId the user id
+   * @param dataId the data id
+   * @throws SecureStoreException the secure store exception
+   */
   @Override
   public void deleteSecureStoreValue(String storeId, String userId, String dataId) throws SecureStoreException {
     if (!existsSecureStoreContent(storeId, userId, dataId)) {
@@ -233,6 +306,12 @@ public class SecureStoreCoreService implements ISecureStoreCoreService {
     }
   }
 
+  /**
+   * Delete secure store values by store id.
+   *
+   * @param userId the user id
+   * @throws SecureStoreException the secure store exception
+   */
   @Override
   public void deleteSecureStoreValuesByStoreId(String userId) throws SecureStoreException {
 
@@ -253,11 +332,26 @@ public class SecureStoreCoreService implements ISecureStoreCoreService {
     }
   }
 
+  /**
+   * Exists secure store content.
+   *
+   * @param storeId the store id
+   * @param userId the user id
+   * @param dataId the data id
+   * @return true, if successful
+   * @throws SecureStoreException the secure store exception
+   */
   @Override
   public boolean existsSecureStoreContent(String storeId, String userId, String dataId) throws SecureStoreException {
     return findSecureStoreContent(storeId, userId, dataId) != null;
   }
 
+  /**
+   * Checks if is JSON valid.
+   *
+   * @param content the content
+   * @return true, if is JSON valid
+   */
   private boolean isJSONValid(String content) {
     try {
       GsonHelper.PARSER.parse(content);

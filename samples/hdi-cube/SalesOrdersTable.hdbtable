@@ -1,4 +1,4 @@
-table.schemaName = "KRONOS_SAMPLES_HDI_CUBE";
+table.schemaName = "SAMPLES_HDI_CUBE";
 table.tableType = COLUMNSTORE;
 table.columns = [
 	{name = "SalesOrderId"; sqlType = INTEGER; nullable = false;},

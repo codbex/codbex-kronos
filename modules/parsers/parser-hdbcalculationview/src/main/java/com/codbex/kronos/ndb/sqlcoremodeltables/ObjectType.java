@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for ObjectType.
+ * Java class for ObjectType.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="ObjectType"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -73,48 +73,126 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum ObjectType {
 
+  /** The unknown. */
   UNKNOWN("UNKNOWN"),
+  
+  /** The table. */
   TABLE("TABLE"),
+  
+  /** The view. */
   VIEW("VIEW"),
+  
+  /** The procedure. */
   PROCEDURE("PROCEDURE"),
+  
+  /** The function. */
   FUNCTION("FUNCTION"),
+  
+  /** The schema. */
   SCHEMA("SCHEMA"),
+  
+  /** The sequence. */
   SEQUENCE("SEQUENCE"),
+  
+  /** The table synonym. */
   TABLE_SYNONYM("TABLE_SYNONYM"),
+  
+  /** The view synonym. */
   VIEW_SYNONYM("VIEW_SYNONYM"),
+  
+  /** The index synonym. */
   INDEX_SYNONYM("INDEX_SYNONYM"),
+  
+  /** The sequence synonym. */
   SEQUENCE_SYNONYM("SEQUENCE_SYNONYM"),
+  
+  /** The procedure synonym. */
   PROCEDURE_SYNONYM("PROCEDURE_SYNONYM"),
+  
+  /** The join view. */
   JOIN_VIEW("JOIN_VIEW"),
+  
+  /** The olap view. */
   OLAP_VIEW("OLAP_VIEW"),
+  
+  /** The hierarchy view. */
   HIERARCHY_VIEW("HIERARCHY_VIEW"),
+  
+  /** The calculated view. */
   CALCULATED_VIEW("CALCULATED_VIEW"),
+  
+  /** The activated table. */
   ACTIVATED_TABLE("ACTIVATED_TABLE"),
+  
+  /** The trigger. */
   TRIGGER("TRIGGER"),
+  
+  /** The synonym. */
   SYNONYM("SYNONYM"),
+  
+  /** The monitorview. */
   MONITORVIEW("MONITORVIEW"),
+  
+  /** The structuredprivilege. */
   STRUCTUREDPRIVILEGE("STRUCTUREDPRIVILEGE"),
+  
+  /** The audit policy. */
   AUDIT_POLICY("AUDIT_POLICY"),
+  
+  /** The column table. */
   COLUMN_TABLE("COLUMN_TABLE"),
+  
+  /** The row table. */
   ROW_TABLE("ROW_TABLE"),
+  
+  /** The remote source. */
   REMOTE_SOURCE("REMOTE_SOURCE"),
+  
+  /** The virtual table. */
   @XmlEnumValue("VIRTUAL TABLE")
   VIRTUAL_TABLE("VIRTUAL TABLE"),
+  
+  /** The extended table. */
   @XmlEnumValue("EXTENDED TABLE")
   EXTENDED_TABLE("EXTENDED TABLE"),
+  
+  /** The epmmodel. */
   EPMMODEL("EPMMODEL"),
+  
+  /** The epmquerysource. */
   EPMQUERYSOURCE("EPMQUERYSOURCE"),
+  
+  /** The remote subscription. */
   @XmlEnumValue("REMOTE SUBSCRIPTION")
   REMOTE_SUBSCRIPTION("REMOTE SUBSCRIPTION"),
+  
+  /** The pse. */
   PSE("PSE"),
+  
+  /** The table type. */
   TABLE_TYPE("TABLE_TYPE"),
+  
+  /** The agent. */
   AGENT("AGENT");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new object type.
+   *
+   * @param v the v
+   */
   ObjectType(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the object type
+   */
   public static ObjectType fromValue(String v) {
     for (ObjectType c : ObjectType.values()) {
       if (c.value.equals(v)) {
@@ -124,6 +202,11 @@ public enum ObjectType {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

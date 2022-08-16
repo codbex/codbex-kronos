@@ -19,20 +19,21 @@
 
 package com.codbex.kronos.ndb.datamodeltype;
 
-import com.codbex.kronos.ndb.basemodelbase.EndUserTexts;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+
+import com.codbex.kronos.ndb.basemodelbase.EndUserTexts;
 
 
 /**
  * Models one value of a CDS enumeration
  *
  *
- * <p>Java class for ValueRange complex type.
+ * Java class for ValueRange complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ValueRange"&gt;
@@ -56,9 +57,14 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class ValueRange {
 
+  /** The value. */
   @XmlElement(required = true)
   protected String value;
+  
+  /** The high value. */
   protected String highValue;
+  
+  /** The end user texts. */
   protected EndUserTexts endUserTexts;
 
   /**

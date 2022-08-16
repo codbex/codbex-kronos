@@ -19,6 +19,11 @@
 
 package com.codbex.kronos.ndb.repositorymodelresource;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlType;
+
 import com.codbex.kronos.ndb.basemodelbase.Descriptions;
 import com.codbex.kronos.ndb.bimodelcalculation.Node;
 import com.codbex.kronos.ndb.bimodeldatafoundation.LogicalColumn;
@@ -26,18 +31,14 @@ import com.codbex.kronos.ndb.bimodeldimension.Hierarchy;
 import com.codbex.kronos.ndb.bimodeldimension.LocalDimension;
 import com.codbex.kronos.ndb.bimodelvariable.LocalVariable;
 import com.codbex.kronos.ndb.bimodelvariable.ValueListEntry;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
 
 
 /**
  * Base object for ID based model classes that allow multiple language descriptions
  *
- * <p>Java class for IDObjectWithDescription complex type.
+ * Java class for IDObjectWithDescription complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="IDObjectWithDescription"&gt;
@@ -66,6 +67,7 @@ import javax.xml.bind.annotation.XmlType;
 public abstract class IDObjectWithDescription
     extends IDObject {
 
+  /** The descriptions. */
   protected Descriptions descriptions;
 
   /**

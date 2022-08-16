@@ -41,9 +41,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * -key of the edges table
  *
  *
- * <p>Java class for GetShortestPathsParameterization complex type.
+ * Java class for GetShortestPathsParameterization complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="GetShortestPathsParameterization"&gt;
@@ -83,18 +83,29 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class GetShortestPathsParameterization
     extends GraphActionParameterization {
 
+  /** The start vertex. */
   protected String startVertex;
+  
+  /** The start vertex parameter. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String startVertexParameter;
+  
+  /** The input weight column. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String inputWeightColumn;
+  
+  /** The input weight column parameter. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String inputWeightColumnParameter;
+  
+  /** The direction. */
   @XmlSchemaType(name = "NMTOKEN")
   protected Direction direction;
+  
+  /** The direction parameter. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String directionParameter;

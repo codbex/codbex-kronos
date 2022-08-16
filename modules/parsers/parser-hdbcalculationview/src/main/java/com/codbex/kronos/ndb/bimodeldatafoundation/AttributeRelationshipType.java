@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for AttributeRelationshipType.
+ * Java class for AttributeRelationshipType.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="AttributeRelationshipType"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -42,16 +42,32 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum AttributeRelationshipType {
 
+  /** The system. */
   @XmlEnumValue("system")
   SYSTEM("system"),
+  
+  /** The manual. */
   @XmlEnumValue("manual")
   MANUAL("manual");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new attribute relationship type.
+   *
+   * @param v the v
+   */
   AttributeRelationshipType(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the attribute relationship type
+   */
   public static AttributeRelationshipType fromValue(String v) {
     for (AttributeRelationshipType c : AttributeRelationshipType.values()) {
       if (c.value.equals(v)) {
@@ -61,6 +77,11 @@ public enum AttributeRelationshipType {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

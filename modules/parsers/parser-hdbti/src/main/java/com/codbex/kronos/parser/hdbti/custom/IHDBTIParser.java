@@ -14,9 +14,23 @@ package com.codbex.kronos.parser.hdbti.custom;
 import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.parser.hdbti.exception.HDBTISyntaxErrorException;
 import com.codbex.kronos.parser.hdbti.models.HDBTIImportModel;
+
 import java.io.IOException;
 
+/**
+ * The Interface IHDBTIParser.
+ */
 public interface IHDBTIParser {
 
+  /**
+   * Parses the.
+   *
+   * @param location the location
+   * @param content the content
+   * @return the HDBTI import model
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws HDBTISyntaxErrorException the HDBTI syntax error exception
+   * @throws ArtifactParserException the artifact parser exception
+   */
   HDBTIImportModel parse(String location, String content) throws IOException, HDBTISyntaxErrorException, ArtifactParserException;
 }

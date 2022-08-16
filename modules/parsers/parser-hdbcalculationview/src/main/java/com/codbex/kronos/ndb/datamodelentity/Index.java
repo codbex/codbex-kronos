@@ -19,7 +19,6 @@
 
 package com.codbex.kronos.ndb.datamodelentity;
 
-import com.codbex.kronos.ndb.basemodelbase.SortDirection;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -31,14 +30,16 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.codbex.kronos.ndb.basemodelbase.SortDirection;
+
 
 /**
  * Data base index for entities
  *
  *
- * <p>Java class for Index complex type.
+ * Java class for Index complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Index"&gt;
@@ -62,39 +63,50 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class Index {
 
+  /** The element. */
   @XmlElement(required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected List<String> element;
+  
+  /** The name. */
   @XmlAttribute(name = "name", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String name;
+  
+  /** The type. */
   @XmlAttribute(name = "type")
   protected IndexType type;
+  
+  /** The unique. */
   @XmlAttribute(name = "unique")
   protected Boolean unique;
+  
+  /** The order. */
   @XmlAttribute(name = "order")
   protected SortDirection order;
 
   /**
    * Gets the value of the element property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the element property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getElement().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link String }
+   *
+   * @return the element
    */
   public List<String> getElement() {
     if (element == null) {

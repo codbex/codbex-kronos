@@ -32,9 +32,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * Abstract father object for EMF repository objects containing generic implementations
  *
  *
- * <p>Java class for AbstractRepositoryObject complex type.
+ * Java class for AbstractRepositoryObject complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="AbstractRepositoryObject"&gt;
@@ -59,7 +59,10 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public abstract class AbstractRepositoryObject {
 
+  /** The origin. */
   protected Origin origin;
+  
+  /** The schema version. */
   @XmlAttribute(name = "schemaVersion")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String schemaVersion;

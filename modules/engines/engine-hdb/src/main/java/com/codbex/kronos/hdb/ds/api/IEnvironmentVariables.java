@@ -11,10 +11,15 @@
  */
 package com.codbex.kronos.hdb.ds.api;
 
+/**
+ * The Interface IEnvironmentVariables.
+ */
 public interface IEnvironmentVariables {
 
+  /** The kronos hdi supported. */
   final String KRONOS_HDI_SUPPORTED = "KRONOS_HDI_SUPPORTED"; // default true
 
+  /** The kronos hdi only. */
   final String KRONOS_HDI_ONLY = "KRONOS_HDI_ONLY"; // default false
 
 }

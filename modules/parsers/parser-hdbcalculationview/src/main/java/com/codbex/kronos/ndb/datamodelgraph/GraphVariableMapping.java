@@ -31,9 +31,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * Mapping of a variable element to a view attribute
  *
  *
- * <p>Java class for GraphVariableMapping complex type.
+ * Java class for GraphVariableMapping complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="GraphVariableMapping"&gt;
@@ -50,6 +50,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class GraphVariableMapping
     extends VariableElement {
 
+  /** The target. */
   @XmlAttribute(name = "target", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String target;

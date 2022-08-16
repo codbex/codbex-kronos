@@ -15,142 +15,311 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * The Class HDBXSODataEntity.
+ */
 public class HDBXSODataEntity {
 
+  /** The repository object. */
   private HDBXSODataRepositoryObject repositoryObject;
+  
+  /** The alias. */
   private String alias;
 
+  /** The with property projections. */
   private List<String> withPropertyProjections = new ArrayList<>();
+  
+  /** The without property projections. */
   private List<String> withoutPropertyProjections = new ArrayList<>();
 
+  /** The key list. */
   private List<String> keyList = new ArrayList<>();
+  
+  /** The key generated. */
   private String keyGenerated;
 
+  /** The navigates. */
   private List<HDBXSODataNavigation> navigates = new ArrayList<>();
 
+  /** The aggregations. */
   private List<HDBXSODataAggregation> aggregations = new ArrayList<>();
+  
+  /** The aggregation type. */
   private HDBXSODataAggregationType aggregationType;
 
+  /** The parameter type. */
   private HDBXSODataParameterType parameterType;
+  
+  /** The parameter entity set. */
   private HDBXSODataParameter parameterEntitySet;
 
+  /** The modifications. */
   private List<HDBXSODataModification> modifications = new ArrayList<>();
 
+  /** The concurrency token. */
   private boolean concurrencyToken;
+  
+  /** The e tags. */
   private List<String> eTags = new ArrayList<>();
 
+  /**
+   * Gets the repository object.
+   *
+   * @return the repository object
+   */
   public HDBXSODataRepositoryObject getRepositoryObject() {
     return repositoryObject;
   }
 
+  /**
+   * Sets the repository object.
+   *
+   * @param repositoryObject the new repository object
+   */
   public void setRepositoryObject(HDBXSODataRepositoryObject repositoryObject) {
     this.repositoryObject = repositoryObject;
   }
 
+  /**
+   * Gets the alias.
+   *
+   * @return the alias
+   */
   public String getAlias() {
     return alias;
   }
 
+  /**
+   * Sets the alias.
+   *
+   * @param alias the new alias
+   */
   public void setAlias(String alias) {
     this.alias = alias;
   }
 
+  /**
+   * Gets the with property projections.
+   *
+   * @return the with property projections
+   */
   public List<String> getWithPropertyProjections() {
     return withPropertyProjections;
   }
 
+  /**
+   * Sets the with property projections.
+   *
+   * @param withPropertyProjections the new with property projections
+   */
   public void setWithPropertyProjections(List<String> withPropertyProjections) {
     this.withPropertyProjections = withPropertyProjections;
   }
 
+  /**
+   * Gets the without property projections.
+   *
+   * @return the without property projections
+   */
   public List<String> getWithoutPropertyProjections() {
     return withoutPropertyProjections;
   }
 
+  /**
+   * Sets the without property projections.
+   *
+   * @param withoutPropertyProjections the new without property projections
+   */
   public void setWithoutPropertyProjections(List<String> withoutPropertyProjections) {
     this.withoutPropertyProjections = withoutPropertyProjections;
   }
 
+  /**
+   * Gets the key list.
+   *
+   * @return the key list
+   */
   public List<String> getKeyList() {
     return keyList;
   }
 
+  /**
+   * Sets the key list.
+   *
+   * @param keyList the new key list
+   */
   public void setKeyList(List<String> keyList) {
     this.keyList = keyList;
   }
 
+  /**
+   * Gets the key generated.
+   *
+   * @return the key generated
+   */
   public String getKeyGenerated() {
     return keyGenerated;
   }
 
+  /**
+   * Sets the key generated.
+   *
+   * @param keyGenerated the new key generated
+   */
   public void setKeyGenerated(String keyGenerated) {
     this.keyGenerated = keyGenerated;
   }
 
+  /**
+   * Gets the navigates.
+   *
+   * @return the navigates
+   */
   public List<HDBXSODataNavigation> getNavigates() {
     return navigates;
   }
 
+  /**
+   * Sets the navigates.
+   *
+   * @param navigates the new navigates
+   */
   public void setNavigates(List<HDBXSODataNavigation> navigates) {
     this.navigates = navigates;
   }
 
+  /**
+   * Gets the aggregations.
+   *
+   * @return the aggregations
+   */
   public List<HDBXSODataAggregation> getAggregations() {
     return aggregations;
   }
 
+  /**
+   * Sets the aggregations.
+   *
+   * @param aggregations the new aggregations
+   */
   public void setAggregations(List<HDBXSODataAggregation> aggregations) {
     this.aggregations = aggregations;
   }
 
+  /**
+   * Gets the aggregation type.
+   *
+   * @return the aggregation type
+   */
   public HDBXSODataAggregationType getAggregationType() {
     return aggregationType;
   }
 
+  /**
+   * Sets the aggregation type.
+   *
+   * @param aggregationType the new aggregation type
+   */
   public void setAggregationType(HDBXSODataAggregationType aggregationType) {
     this.aggregationType = aggregationType;
   }
 
+  /**
+   * Gets the parameter type.
+   *
+   * @return the parameter type
+   */
   public HDBXSODataParameterType getParameterType() {
     return parameterType;
   }
 
+  /**
+   * Sets the parameter type.
+   *
+   * @param parameterType the new parameter type
+   */
   public void setParameterType(HDBXSODataParameterType parameterType) {
     this.parameterType = parameterType;
   }
 
+  /**
+   * Gets the parameter entity set.
+   *
+   * @return the parameter entity set
+   */
   public HDBXSODataParameter getParameterEntitySet() {
     return parameterEntitySet;
   }
 
+  /**
+   * Sets the parameter entity set.
+   *
+   * @param parameterEntitySet the new parameter entity set
+   */
   public void setParameterEntitySet(HDBXSODataParameter parameterEntitySet) {
     this.parameterEntitySet = parameterEntitySet;
   }
 
+  /**
+   * Gets the modifications.
+   *
+   * @return the modifications
+   */
   public List<HDBXSODataModification> getModifications() {
     return modifications;
   }
 
+  /**
+   * Sets the modifications.
+   *
+   * @param modifications the new modifications
+   */
   public void setModifications(List<HDBXSODataModification> modifications) {
     this.modifications = modifications;
   }
 
+  /**
+   * Checks if is concurrency token.
+   *
+   * @return true, if is concurrency token
+   */
   public boolean isConcurrencyToken() {
     return concurrencyToken;
   }
 
+  /**
+   * Sets the concurrency token.
+   *
+   * @param concurrencyToken the new concurrency token
+   */
   public void setConcurrencyToken(boolean concurrencyToken) {
     this.concurrencyToken = concurrencyToken;
   }
 
+  /**
+   * Gets the e tags.
+   *
+   * @return the e tags
+   */
   public List<String> getETags() {
     return eTags;
   }
 
+  /**
+   * Sets the e tags.
+   *
+   * @param eTags the new e tags
+   */
   public void setETags(List<String> eTags) {
     this.eTags = eTags;
   }
 
+  /**
+   * Equals.
+   *
+   * @param o the o
+   * @return true, if successful
+   */
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -168,6 +337,11 @@ public class HDBXSODataEntity {
         that.parameterEntitySet) && Objects.equals(modifications, that.modifications) && Objects.equals(eTags, that.eTags);
   }
 
+  /**
+   * Hash code.
+   *
+   * @return the int
+   */
   @Override
   public int hashCode() {
     return Objects.hash(repositoryObject, alias, withPropertyProjections, withoutPropertyProjections, keyList, keyGenerated, navigates,

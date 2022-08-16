@@ -3,6 +3,8 @@ name: Build
 on:
   push:
     branches: [ main ]
+  pull_request:
+    types: [opened, synchronize, reopened]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,10 +35,23 @@ jobs:
           install: true
       - name: Set Multi-Builder Docker Buildx
         run: docker buildx create --use --name multi-builder --platform linux/arm64,linux/amd64
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache Maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
       - name: Maven Build and Analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-        run: mvn clean install
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn clean install -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=codbex_codbex-kronos
       - name: Docker Login
         run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASSWORD}} ${{secrets.DOCKER_REGISTRY}}
       - name: Push Kronos
@@ -70,71 +85,71 @@ jobs:
           docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-kyma-runtime-distro -f Dockerfile-distro .
           docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-kyma-runtime-distro
           cd ../../
-      - uses: buildpacks/github-actions/setup-pack@v4.1.0
-      - name: Kronos Buildpack
-        run: |
-          cd releng/buildpacks/kronos/
-          docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-base . --target base
-          docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-base
-          docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-run . --target run
-          docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-run
-          docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-build . --target build
-          docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-build
-          cd buildpack/
-          find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/latest/g'' {} \;
-          pack buildpack package ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks --config ./package.toml
-          docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks
-          pack builder create ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-builder --config ./builder.toml
-          docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-builder
-          cd ../../../../
-      - name: Kronos Kyma Buildpack
-        run: |
-          cd releng/buildpacks/kronos-kyma/
-          docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-base-kyma . --target base
-          docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-base-kyma
-          docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-run-kyma . --target run
-          docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-run-kyma
-          docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-build-kyma . --target build
-          docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-build-kyma
-          cd buildpack/
-          find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/latest/g'' {} \;
-          pack buildpack package ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-kyma --config ./package.toml
-          docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-kyma
-          pack builder create ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-builder-kyma --config ./builder.toml
-          docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-builder-kyma
-          cd ../../../../
-      - name: Kronos Kyma Runtime Buildpack
-        run: |
-          cd releng/buildpacks/kronos-kyma-runtime/
-          docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-base-kyma-runtime . --target base
-          docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-base-kyma-runtime
-          docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-run-kyma-runtime . --target run
-          docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-run-kyma-runtime
-          docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-build-kyma-runtime . --target build
-          docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-build-kyma-runtime
-          cd buildpack/
-          find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/latest/g'' {} \;
-          pack buildpack package ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-kyma-runtime --config ./package.toml
-          docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-kyma-runtime
-          pack builder create ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-builder-kyma-runtime --config ./builder.toml
-          docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-builder-kyma-runtime
-          cd ../../../../
-      - name: Kronos Cloud Foundry Buildpack
-        run: |
-          cd releng/buildpacks/kronos-cf/
-          docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-base-cf . --target base
-          docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-base-cf
-          docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-run-cf . --target run
-          docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-run-cf
-          docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-build-cf . --target build
-          docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-build-cf
-          cd buildpack/
-          find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/latest/g'' {} \;
-          pack buildpack package ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-cf --config ./package.toml
-          docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-cf
-          pack builder create ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-builder-cf --config ./builder.toml
-          docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-builder-cf
-          cd ../../../../
+      # - uses: buildpacks/github-actions/setup-pack@v4.1.0
+      # - name: Kronos Buildpack
+      #   run: |
+      #     cd releng/buildpacks/kronos/
+      #     docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-base . --target base
+      #     docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-base
+      #     docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-run . --target run
+      #     docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-run
+      #     docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-build . --target build
+      #     docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-build
+      #     cd buildpack/
+      #     find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/latest/g'' {} \;
+      #     pack buildpack package ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks --config ./package.toml
+      #     docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks
+      #     pack builder create ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-builder --config ./builder.toml
+      #     docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-builder
+      #     cd ../../../../
+      # - name: Kronos Kyma Buildpack
+      #   run: |
+      #     cd releng/buildpacks/kronos-kyma/
+      #     docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-base-kyma . --target base
+      #     docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-base-kyma
+      #     docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-run-kyma . --target run
+      #     docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-run-kyma
+      #     docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-build-kyma . --target build
+      #     docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-build-kyma
+      #     cd buildpack/
+      #     find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/latest/g'' {} \;
+      #     pack buildpack package ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-kyma --config ./package.toml
+      #     docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-kyma
+      #     pack builder create ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-builder-kyma --config ./builder.toml
+      #     docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-builder-kyma
+      #     cd ../../../../
+      # - name: Kronos Kyma Runtime Buildpack
+      #   run: |
+      #     cd releng/buildpacks/kronos-kyma-runtime/
+      #     docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-base-kyma-runtime . --target base
+      #     docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-base-kyma-runtime
+      #     docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-run-kyma-runtime . --target run
+      #     docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-run-kyma-runtime
+      #     docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-build-kyma-runtime . --target build
+      #     docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-build-kyma-runtime
+      #     cd buildpack/
+      #     find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/latest/g'' {} \;
+      #     pack buildpack package ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-kyma-runtime --config ./package.toml
+      #     docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-kyma-runtime
+      #     pack builder create ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-builder-kyma-runtime --config ./builder.toml
+      #     docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-builder-kyma-runtime
+      #     cd ../../../../
+      # - name: Kronos Cloud Foundry Buildpack
+      #   run: |
+      #     cd releng/buildpacks/kronos-cf/
+      #     docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-base-cf . --target base
+      #     docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-base-cf
+      #     docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-run-cf . --target run
+      #     docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-run-cf
+      #     docker build --load -t ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-build-cf . --target build
+      #     docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-stack-build-cf
+      #     cd buildpack/
+      #     find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/latest/g'' {} \;
+      #     pack buildpack package ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-cf --config ./package.toml
+      #     docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-cf
+      #     pack builder create ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-builder-cf --config ./builder.toml
+      #     docker push ${DOCKER_IMAGE_PREFIX:-ghcr.io/codbex/}kronos-buildpacks-builder-cf
+      #     cd ../../../../
       - name: Slack Notification
         if: ${{ failure() && env.SLACK_WEBHOOK_URL != '' }}
         uses: slackapi/slack-github-action@v1.14.0

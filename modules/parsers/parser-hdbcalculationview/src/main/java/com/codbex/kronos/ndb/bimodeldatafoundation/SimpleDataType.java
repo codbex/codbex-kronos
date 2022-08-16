@@ -19,20 +19,21 @@
 
 package com.codbex.kronos.ndb.bimodeldatafoundation;
 
-import com.codbex.kronos.ndb.sqlcoremodeldatatypes.PrimitiveTypeSQL;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
+
+import com.codbex.kronos.ndb.sqlcoremodeldatatypes.PrimitiveTypeSQL;
 
 
 /**
  * This class just comprises the attributes used for simple data type
  *
  *
- * <p>Java class for SimpleDataType complex type.
+ * Java class for SimpleDataType complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="SimpleDataType"&gt;
@@ -50,10 +51,15 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "SimpleDataType")
 public class SimpleDataType {
 
+  /** The datatype. */
   @XmlAttribute(name = "datatype")
   protected PrimitiveTypeSQL datatype;
+  
+  /** The length. */
   @XmlAttribute(name = "length")
   protected Short length;
+  
+  /** The scale. */
   @XmlAttribute(name = "scale")
   protected Short scale;
 

@@ -11,7 +11,14 @@
  */
 package com.codbex.kronos.parser.hdbdd.symbols.entity;
 
+/**
+ * The Enum CardinalityEnum.
+ */
 public enum CardinalityEnum {
+    
+    /** The one to many. */
     ONE_TO_MANY,
+    
+    /** The one to one. */
     ONE_TO_ONE
 }

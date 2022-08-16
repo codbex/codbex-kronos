@@ -11,29 +11,55 @@
  */
 package com.codbex.kronos.hdbti.synchronizer;
 
-import com.codbex.kronos.hdbti.model.ImportedCSVRecordModel;
-import com.codbex.kronos.hdbti.model.TableImportToCsvRelation;
 import org.eclipse.dirigible.core.publisher.api.handlers.MetadataPublisherHandler;
 import org.eclipse.dirigible.core.scheduler.api.SchedulerException;
 import org.eclipse.dirigible.database.persistence.PersistenceManager;
 
+import com.codbex.kronos.hdbti.model.ImportedCSVRecordModel;
+import com.codbex.kronos.hdbti.model.TableImportToCsvRelation;
+
+/**
+ * The Class TableImportSynchronizerPublisherHandler.
+ */
 public class TableImportSynchronizerPublisherHandler extends MetadataPublisherHandler {
 
+  /**
+   * Before publish.
+   *
+   * @param location the location
+   */
   @Override
   public void beforePublish(String location) {
 
   }
 
+  /**
+   * After publish.
+   *
+   * @param workspaceLocation the workspace location
+   * @param registryLocation the registry location
+   */
   @Override
   public void afterPublish(String workspaceLocation, String registryLocation) {
 
   }
 
+  /**
+   * Before unpublish.
+   *
+   * @param location the location
+   */
   @Override
   public void beforeUnpublish(String location) {
 
   }
 
+  /**
+   * After unpublish.
+   *
+   * @param location the location
+   * @throws SchedulerException the scheduler exception
+   */
   @Override
   public void afterUnpublish(String location) throws SchedulerException {
     removeMetadata(new PersistenceManager<ImportedCSVRecordModel>(), "KRONOS_IMPORTED_CSV_RECORDS", "HDBTI_LOCATION", location, true);

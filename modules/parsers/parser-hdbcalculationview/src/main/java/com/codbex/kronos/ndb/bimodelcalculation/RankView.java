@@ -29,9 +29,9 @@ import javax.xml.bind.annotation.XmlType;
  * A view/node allows to rank rows and filter according to the rank
  *
  *
- * <p>Java class for RankView complex type.
+ * Java class for RankView complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="RankView"&gt;
@@ -55,8 +55,13 @@ import javax.xml.bind.annotation.XmlType;
 public class RankView
     extends CalculationView {
 
+  /** The window function. */
   protected WindowFunction windowFunction;
+  
+  /** The ranking filter. */
   protected RankingFilter rankingFilter;
+  
+  /** The allow filter pushdown. */
   @XmlAttribute(name = "allowFilterPushdown")
   protected Boolean allowFilterPushdown;
 

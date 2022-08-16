@@ -32,9 +32,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * Information about the table group/subgroup-type as well as the group name
  *
  *
- * <p>Java class for TableGroup complex type.
+ * Java class for TableGroup complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="TableGroup"&gt;
@@ -52,14 +52,19 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "TableGroup")
 public class TableGroup {
 
+  /** The type. */
   @XmlAttribute(name = "type", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String type;
+  
+  /** The subtype. */
   @XmlAttribute(name = "subtype")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String subtype;
+  
+  /** The name. */
   @XmlAttribute(name = "name", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")

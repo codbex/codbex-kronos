@@ -19,9 +19,6 @@
 
 package com.codbex.kronos.ndb.bimodelconversion;
 
-import com.codbex.kronos.ndb.basemodelbase.ConversionMethod;
-import com.codbex.kronos.ndb.basemodelbase.CurrencyConversionLookup;
-import com.codbex.kronos.ndb.bimodeldatafoundation.QualifiedAttributeReference;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -30,6 +27,10 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.codbex.kronos.ndb.basemodelbase.ConversionMethod;
+import com.codbex.kronos.ndb.basemodelbase.CurrencyConversionLookup;
+import com.codbex.kronos.ndb.bimodeldatafoundation.QualifiedAttributeReference;
 
 
 /**
@@ -41,9 +42,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * (erpDecimalShift="false")
  *
  *
- * <p>Java class for CurrencyConversion complex type.
+ * Java class for CurrencyConversion complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="CurrencyConversion"&gt;
@@ -98,31 +99,66 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class CurrencyConversion
     extends Conversion {
 
+  /** The source currency. */
   @XmlElement(required = true)
   protected Parameterization sourceCurrency;
+  
+  /** The erp decimal shift. */
   protected Boolean erpDecimalShift;
+  
+  /** The round. */
   protected Boolean round;
+  
+  /** The erp decimal shift back. */
   @XmlElement(defaultValue = "true")
   protected boolean erpDecimalShiftBack;
+  
+  /** The target currency. */
   protected Parameterization targetCurrency;
+  
+  /** The reference date. */
   protected Parameterization referenceDate;
+  
+  /** The market data area. */
   protected Parameterization marketDataArea;
+  
+  /** The bid ask type. */
   protected Parameterization bidAskType;
+  
+  /** The steps. */
   protected QualifiedAttributeReference steps;
+  
+  /** The system time. */
   protected Parameterization systemTime;
+  
+  /** The exchange rate type. */
   @XmlElement(defaultValue = "M")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "NMTOKEN")
   protected String exchangeRateType;
+  
+  /** The exchange rate type attribute. */
   protected QualifiedAttributeReference exchangeRateTypeAttribute;
+  
+  /** The exchange rate attribute. */
   protected QualifiedAttributeReference exchangeRateAttribute;
+  
+  /** The exchange rate calc attribute. */
   protected QualifiedAttributeReference exchangeRateCalcAttribute;
+  
+  /** The convert. */
   @XmlAttribute(name = "convert")
   protected Boolean convert;
+  
+  /** The lookup. */
   @XmlAttribute(name = "lookup")
   protected CurrencyConversionLookup lookup;
+  
+  /** The accuracy. */
   @XmlAttribute(name = "accuracy")
   protected CurrencyConversionAccuracy accuracy;
+  
+  /** The method. */
   @XmlAttribute(name = "method")
   protected ConversionMethod method;
 
@@ -188,6 +224,8 @@ public class CurrencyConversion
 
   /**
    * Gets the value of the erpDecimalShiftBack property.
+   *
+   * @return true, if is erp decimal shift back
    */
   public boolean isErpDecimalShiftBack() {
     return erpDecimalShiftBack;
@@ -195,6 +233,8 @@ public class CurrencyConversion
 
   /**
    * Sets the value of the erpDecimalShiftBack property.
+   *
+   * @param value the new erp decimal shift back
    */
   public void setErpDecimalShiftBack(boolean value) {
     this.erpDecimalShiftBack = value;

@@ -11,8 +11,12 @@
  */
 package com.codbex.kronos.xsjob.ds.api;
 
+/**
+ * The Interface IJobModel.
+ */
 public interface IJobModel {
 
+  /** The kronos job file extension. */
   String KRONOS_JOB_FILE_EXTENSION = ".xsjob";
 
 }

@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for AnonymizeMethod.
+ * Java class for AnonymizeMethod.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="AnonymizeMethod"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -42,16 +42,32 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum AnonymizeMethod {
 
+  /** The k anonymity. */
   @XmlEnumValue("kAnonymity")
   K_ANONYMITY("kAnonymity"),
+  
+  /** The differential privacy. */
   @XmlEnumValue("differentialPrivacy")
   DIFFERENTIAL_PRIVACY("differentialPrivacy");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new anonymize method.
+   *
+   * @param v the v
+   */
   AnonymizeMethod(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the anonymize method
+   */
   public static AnonymizeMethod fromValue(String v) {
     for (AnonymizeMethod c : AnonymizeMethod.values()) {
       if (c.value.equals(v)) {
@@ -61,6 +77,11 @@ public enum AnonymizeMethod {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

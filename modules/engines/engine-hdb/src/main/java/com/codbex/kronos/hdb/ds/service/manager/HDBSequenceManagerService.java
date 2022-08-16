@@ -11,13 +11,14 @@
  */
 package com.codbex.kronos.hdb.ds.service.manager;
 
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.api.IHDBProcessor;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
-import com.codbex.kronos.hdb.ds.model.hdbsequence.HDBSequenceDataStructureModel;
-import com.codbex.kronos.hdb.ds.processors.hdbsequence.HDBSequenceCreateProcessor;
-import com.codbex.kronos.hdb.ds.processors.hdbsequence.HDBSequenceDropProcessor;
-import com.codbex.kronos.hdb.ds.processors.hdbsequence.HDBSequenceUpdateProcessor;
+import com.codbex.kronos.hdb.ds.model.hdbsequence.DataStructureHDBSequenceModel;
+import com.codbex.kronos.hdb.ds.processors.sequence.SequenceCreateProcessor;
+import com.codbex.kronos.hdb.ds.processors.sequence.SequenceDropProcessor;
+import com.codbex.kronos.hdb.ds.processors.sequence.SequenceUpdateProcessor;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,82 +30,162 @@ import javax.naming.OperationNotSupportedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HDBSequenceManagerService extends AbstractDataStructureManagerService<HDBSequenceDataStructureModel> {
+/**
+ * The Class HDBSequenceManagerService.
+ */
+public class HDBSequenceManagerService extends AbstractDataStructureManagerService<DataStructureHDBSequenceModel> {
 
+  /**
+   * The Constant logger.
+   */
   private static final Logger logger = LoggerFactory.getLogger(HDBSequenceManagerService.class);
 
-  private final Map<String, HDBSequenceDataStructureModel> dataStructureSequenceModels;
+  /**
+   * The data structure sequence models.
+   */
+  private final Map<String, DataStructureHDBSequenceModel> sequenceModels;
+
+  /**
+   * The sequences synchronized.
+   */
   private final List<String> sequencesSynchronized;
 
-  private IHDBProcessor hdbSequenceDropProcessor = new HDBSequenceDropProcessor();
-  private IHDBProcessor hdbSequenceCreateProcessor = new HDBSequenceCreateProcessor();
-  private IHDBProcessor hdbSequenceUpdateProcessor = new HDBSequenceUpdateProcessor();
+  /**
+   * The hdb sequence drop processor.
+   */
+  private IHDBProcessor sequenceDropProcessor = new SequenceDropProcessor();
 
+  /**
+   * The hdb sequence create processor.
+   */
+  private IHDBProcessor sequenceCreateProcessor = new SequenceCreateProcessor();
+
+  /**
+   * The hdb sequence update processor.
+   */
+  private IHDBProcessor sequenceUpdateProcessor = new SequenceUpdateProcessor();
+
+  /**
+   * Instantiates a new HDB sequence manager service.
+   */
   public HDBSequenceManagerService() {
-    dataStructureSequenceModels = new LinkedHashMap<>();
+    sequenceModels = new LinkedHashMap<>();
     sequencesSynchronized = Collections.synchronizedList(new ArrayList<>());
   }
 
+  /**
+   * Gets the data structure models.
+   *
+   * @return the data structure models
+   */
   @Override
-  public Map<String, HDBSequenceDataStructureModel> getDataStructureModels() {
-    return Collections.unmodifiableMap(this.dataStructureSequenceModels);
+  public Map<String, DataStructureHDBSequenceModel> getDataStructureModels() {
+    return Collections.unmodifiableMap(this.sequenceModels);
   }
 
+  /**
+   * Synchronize runtime metadata.
+   *
+   * @param sequenceModel the hdb sequence model
+   * @throws DataStructuresException the data structures exception
+   */
   @Override
-  public void synchronizeRuntimeMetadata(HDBSequenceDataStructureModel hdbSequenceModel) throws DataStructuresException {
-    if (!getDataStructuresCoreService().existsDataStructure(hdbSequenceModel.getLocation(), hdbSequenceModel.getType())) {
+  public void synchronizeRuntimeMetadata(DataStructureHDBSequenceModel sequenceModel) throws DataStructuresException {
+    if (!getDataStructuresCoreService().existsDataStructure(sequenceModel.getLocation(),
+        sequenceModel.getType())) {
       getDataStructuresCoreService()
-          .createDataStructure(hdbSequenceModel.getLocation(), hdbSequenceModel.getName(), hdbSequenceModel.getHash(),
-              hdbSequenceModel.getType());
-      dataStructureSequenceModels.put(hdbSequenceModel.getName(), hdbSequenceModel);
-      logger.info("Synchronized a new Hdbsequence file [{}] from location: {}", hdbSequenceModel.getName(), hdbSequenceModel.getLocation());
+          .createDataStructure(sequenceModel.getLocation(), sequenceModel.getName(),
+              sequenceModel.getHash(),
+              sequenceModel.getType());
+      sequenceModels.put(sequenceModel.getName(), sequenceModel);
+      logger.info("Synchronized a new HDB Sequence file [{}] from location: {}", sequenceModel.getName(),
+          sequenceModel.getLocation());
     } else {
-      HDBSequenceDataStructureModel existing = getDataStructuresCoreService()
-          .getDataStructure(hdbSequenceModel.getLocation(), hdbSequenceModel.getType());
-      if (!hdbSequenceModel.equals(existing)) {
+      DataStructureHDBSequenceModel existing = getDataStructuresCoreService()
+          .getDataStructure(sequenceModel.getLocation(), sequenceModel.getType());
+      if (!sequenceModel.equals(existing)) {
         getDataStructuresCoreService()
-            .updateDataStructure(hdbSequenceModel.getLocation(), hdbSequenceModel.getName(), hdbSequenceModel.getHash(),
-                hdbSequenceModel.getType());
-        dataStructureSequenceModels.put(hdbSequenceModel.getName(), hdbSequenceModel);
-        logger.info("Synchronized a modified Hdbsequence file [{}] from location: {}", hdbSequenceModel.getName(),
-            hdbSequenceModel.getLocation());
+            .updateDataStructure(sequenceModel.getLocation(), sequenceModel.getName(),
+                sequenceModel.getHash(),
+                sequenceModel.getType());
+        sequenceModels.put(sequenceModel.getName(), sequenceModel);
+        logger.info("Synchronized a modified HDB Sequence file [{}] from location: {}", sequenceModel.getName(),
+            sequenceModel.getLocation());
       }
     }
-    if (!sequencesSynchronized.contains(hdbSequenceModel.getLocation())) {
-      sequencesSynchronized.add(hdbSequenceModel.getLocation());
+    if (!sequencesSynchronized.contains(sequenceModel.getLocation())) {
+      sequencesSynchronized.add(sequenceModel.getLocation());
     }
   }
 
+  /**
+   * Creates the data structure.
+   *
+   * @param connection       the connection
+   * @param hdbSequenceModel the hdb sequence model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   @Override
-  public boolean createDataStructure(Connection connection, HDBSequenceDataStructureModel hdbSequenceModel)
+  public boolean createDataStructure(Connection connection, DataStructureHDBSequenceModel hdbSequenceModel)
       throws SQLException {
-    return this.hdbSequenceCreateProcessor.execute(connection, hdbSequenceModel);
+    return this.sequenceCreateProcessor.execute(connection, hdbSequenceModel);
   }
 
+  /**
+   * Drop data structure.
+   *
+   * @param connection       the connection
+   * @param hdbSequenceModel the hdb sequence model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   @Override
-  public boolean dropDataStructure(Connection connection, HDBSequenceDataStructureModel hdbSequenceModel)
+  public boolean dropDataStructure(Connection connection, DataStructureHDBSequenceModel hdbSequenceModel)
       throws SQLException {
-	return this.hdbSequenceDropProcessor.execute(connection, hdbSequenceModel);
+    return this.sequenceDropProcessor.execute(connection, hdbSequenceModel);
   }
 
+  /**
+   * Update data structure.
+   *
+   * @param connection       the connection
+   * @param hdbSequenceModel the hdb sequence model
+   * @return true, if successful
+   * @throws SQLException                   the SQL exception
+   * @throws OperationNotSupportedException the operation not supported exception
+   */
   @Override
-  public boolean updateDataStructure(Connection connection, HDBSequenceDataStructureModel hdbSequenceModel)
+  public boolean updateDataStructure(Connection connection, DataStructureHDBSequenceModel hdbSequenceModel)
       throws SQLException, OperationNotSupportedException {
-	return this.hdbSequenceUpdateProcessor.execute(connection, hdbSequenceModel);
+    return this.sequenceUpdateProcessor.execute(connection, hdbSequenceModel);
   }
 
+  /**
+   * Gets the data structure synchronized.
+   *
+   * @return the data structure synchronized
+   */
   @Override
   public List<String> getDataStructureSynchronized() {
     return Collections.unmodifiableList(this.sequencesSynchronized);
   }
 
+  /**
+   * Gets the data structure type.
+   *
+   * @return the data structure type
+   */
   @Override
   public String getDataStructureType() {
-    return HDBDataStructureModel.FILE_EXTENSION_HDBSEQUENCE;
+    return IDataStructureModel.FILE_EXTENSION_HDB_SEQUENCE;
   }
 
+  /**
+   * Clear cache.
+   */
   @Override
   public void clearCache() {
-    dataStructureSequenceModels.clear();
+    sequenceModels.clear();
   }
 }

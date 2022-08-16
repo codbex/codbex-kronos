@@ -11,14 +11,15 @@
  */
 package com.codbex.kronos.integration.tests.core.client;
 
-import com.codbex.kronos.integration.tests.core.client.http.HttpClient;
-import com.codbex.kronos.integration.tests.core.client.http.HttpClientException;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
+
+import com.codbex.kronos.integration.tests.core.client.http.HttpClient;
+import com.codbex.kronos.integration.tests.core.client.http.HttpClientException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -67,7 +68,7 @@ public class WorkspaceClient {
         try {
             var uri = workspaceServiceUri.resolve(workspaceName);
             HttpUriRequest request = RequestBuilder.post(uri).build();
-            return httpClient.executeRequestAsync(request);
+            return httpClient.executeRequestAsyncWithCallbackFuture(request);
         } catch (HttpClientException e) {
             String errorMessage = "Error when creating workspace " + workspaceName;
             throw new ClientException(errorMessage, e);
@@ -87,7 +88,7 @@ public class WorkspaceClient {
             HttpUriRequest multipartRequest = RequestBuilder.post(uri)
                     .setEntity(multiPartHttpEntity)
                     .build();
-            return httpClient.executeRequestAsync(multipartRequest);
+            return httpClient.executeRequestAsyncWithCallbackFuture(multipartRequest);
         } catch (HttpClientException e) {
             String errorMessage = "Cannot import project " + projectName + " to workspace " + workspaceName;
             throw new ClientException(errorMessage, e);
@@ -99,7 +100,7 @@ public class WorkspaceClient {
         try {
             var uri = workspaceServiceUri.resolve(workspace);
             HttpUriRequest request = RequestBuilder.delete(uri).build();
-            return httpClient.executeRequestAsync(request);
+            return httpClient.executeRequestAsyncWithCallbackFuture(request);
         } catch (HttpClientException e) {
             String errorMessage = "Error deleting workspace " + workspace;
             throw new ClientException(errorMessage, e);

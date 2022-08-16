@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for SpatialPredicate.
+ * Java class for SpatialPredicate.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="SpatialPredicate"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -116,10 +116,21 @@ public enum SpatialPredicate {
    */
   WITHIN_DISTANCE;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the spatial predicate
+   */
   public static SpatialPredicate fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

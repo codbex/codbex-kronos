@@ -20,48 +20,85 @@ import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
+/**
+ * The Class HdbschemaLexer.
+ */
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class HdbschemaLexer extends Lexer {
 	static { RuntimeMetaData.checkVersion("4.10.1", RuntimeMetaData.VERSION); }
 
+	/** The Constant _decisionToDFA. */
 	protected static final DFA[] _decisionToDFA;
+	
+	/** The Constant _sharedContextCache. */
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
+	
+	/** The Constant COMMENT. */
 	public static final int
 		T__0=1, STRING=2, EQ=3, SEMICOLON=4, COMMA=5, WS=6, ESC=7, LINE_COMMENT=8, 
 		COMMENT=9;
+	
+	/** The channel names. */
 	public static String[] channelNames = {
 		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
 	};
 
+	/** The mode names. */
 	public static String[] modeNames = {
 		"DEFAULT_MODE"
 	};
 
+	/**
+	 * Make rule names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"T__0", "STRING", "EQ", "SEMICOLON", "COMMA", "WS", "ESC", "LINE_COMMENT", 
 			"COMMENT"
 		};
 	}
+	
+	/** The Constant ruleNames. */
 	public static final String[] ruleNames = makeRuleNames();
 
+	/**
+	 * Make literal names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'schema_name'", null, "'='", "';'", "','"
 		};
 	}
+	
+	/** The Constant _LITERAL_NAMES. */
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
+	
+	/**
+	 * Make symbolic names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, null, "STRING", "EQ", "SEMICOLON", "COMMA", "WS", "ESC", "LINE_COMMENT", 
 			"COMMENT"
 		};
 	}
+	
+	/** The Constant _SYMBOLIC_NAMES. */
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
+	
+	/** The Constant VOCABULARY. */
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
 	/**
+	 * The Constant tokenNames.
+	 *
 	 * @deprecated Use {@link #VOCABULARY} instead.
 	 */
 	@Deprecated
@@ -80,12 +117,22 @@ public class HdbschemaLexer extends Lexer {
 		}
 	}
 
+	/**
+	 * Gets the token names.
+	 *
+	 * @return the token names
+	 */
 	@Override
 	@Deprecated
 	public String[] getTokenNames() {
 		return tokenNames;
 	}
 
+	/**
+	 * Gets the vocabulary.
+	 *
+	 * @return the vocabulary
+	 */
 	@Override
 
 	public Vocabulary getVocabulary() {
@@ -93,29 +140,65 @@ public class HdbschemaLexer extends Lexer {
 	}
 
 
+	/**
+	 * Instantiates a new hdbschema lexer.
+	 *
+	 * @param input the input
+	 */
 	public HdbschemaLexer(CharStream input) {
 		super(input);
 		_interp = new LexerATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
+	/**
+	 * Gets the grammar file name.
+	 *
+	 * @return the grammar file name
+	 */
 	@Override
 	public String getGrammarFileName() { return "Hdbschema.g4"; }
 
+	/**
+	 * Gets the rule names.
+	 *
+	 * @return the rule names
+	 */
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
 
+	/**
+	 * Gets the serialized ATN.
+	 *
+	 * @return the serialized ATN
+	 */
 	@Override
 	public String getSerializedATN() { return _serializedATN; }
 
+	/**
+	 * Gets the channel names.
+	 *
+	 * @return the channel names
+	 */
 	@Override
 	public String[] getChannelNames() { return channelNames; }
 
+	/**
+	 * Gets the mode names.
+	 *
+	 * @return the mode names
+	 */
 	@Override
 	public String[] getModeNames() { return modeNames; }
 
+	/**
+	 * Gets the atn.
+	 *
+	 * @return the atn
+	 */
 	@Override
 	public ATN getATN() { return _ATN; }
 
+	/** The Constant _serializedATN. */
 	public static final String _serializedATN =
 		"\u0004\u0000\tZ\u0006\uffff\uffff\u0002\u0000\u0007\u0000\u0002\u0001"+
 		"\u0007\u0001\u0002\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004"+
@@ -170,6 +253,8 @@ public class HdbschemaLexer extends Lexer {
 		"SU\u0001\u0000\u0000\u0000TR\u0001\u0000\u0000\u0000UV\u0005*\u0000\u0000"+
 		"VW\u0005/\u0000\u0000WX\u0001\u0000\u0000\u0000XY\u0006\b\u0000\u0000"+
 		"Y\u0012\u0001\u0000\u0000\u0000\b\u0000\"$2:BFR\u0001\u0006\u0000\u0000";
+	
+	/** The Constant _ATN. */
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

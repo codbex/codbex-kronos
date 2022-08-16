@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for RankType.
+ * Java class for RankType.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="RankType"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -48,28 +48,56 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum RankType {
 
+  /** The row number. */
   @XmlEnumValue("row_number")
   ROW_NUMBER("row_number"),
+  
+  /** The row number percent. */
   @XmlEnumValue("row_number_percent")
   ROW_NUMBER_PERCENT("row_number_percent"),
+  
+  /** The rank. */
   @XmlEnumValue("rank")
   RANK("rank"),
+  
+  /** The rank percent. */
   @XmlEnumValue("rank_percent")
   RANK_PERCENT("rank_percent"),
+  
+  /** The dense rank. */
   @XmlEnumValue("dense_rank")
   DENSE_RANK("dense_rank"),
+  
+  /** The dense rank percent. */
   @XmlEnumValue("dense_rank_percent")
   DENSE_RANK_PERCENT("dense_rank_percent"),
+  
+  /** The sum. */
   @XmlEnumValue("sum")
   SUM("sum"),
+  
+  /** The sum percent. */
   @XmlEnumValue("sum_percent")
   SUM_PERCENT("sum_percent");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new rank type.
+   *
+   * @param v the v
+   */
   RankType(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the rank type
+   */
   public static RankType fromValue(String v) {
     for (RankType c : RankType.values()) {
       if (c.value.equals(v)) {
@@ -79,6 +107,11 @@ public enum RankType {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

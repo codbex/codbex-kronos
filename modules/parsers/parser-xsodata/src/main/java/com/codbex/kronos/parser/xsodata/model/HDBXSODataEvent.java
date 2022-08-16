@@ -13,35 +13,76 @@ package com.codbex.kronos.parser.xsodata.model;
 
 import java.util.Objects;
 
+/**
+ * The Class HDBXSODataEvent.
+ */
 public class HDBXSODataEvent {
 
+  /** The type. */
   private HDBXSODataEventType type;
+  
+  /** The action. */
   private String action;
 
+  /**
+   * Instantiates a new HDBXSO data event.
+   */
   public HDBXSODataEvent() {
   }
 
+  /**
+   * Instantiates a new HDBXSO data event.
+   *
+   * @param type the type
+   * @param action the action
+   */
   public HDBXSODataEvent(HDBXSODataEventType type, String action) {
     this.type = type;
     this.action = action;
   }
 
+  /**
+   * Gets the type.
+   *
+   * @return the type
+   */
   public HDBXSODataEventType getType() {
     return type;
   }
 
+  /**
+   * Sets the type.
+   *
+   * @param type the new type
+   */
   public void setType(HDBXSODataEventType type) {
     this.type = type;
   }
 
+  /**
+   * Gets the action.
+   *
+   * @return the action
+   */
   public String getAction() {
     return action;
   }
 
+  /**
+   * Sets the action.
+   *
+   * @param action the new action
+   */
   public void setAction(String action) {
     this.action = action;
   }
 
+  /**
+   * Equals.
+   *
+   * @param o the o
+   * @return true, if successful
+   */
   @Override
   public boolean equals(Object o) {
     if (this == o)
@@ -52,6 +93,11 @@ public class HDBXSODataEvent {
     return type == that.type && Objects.equals(action, that.action);
   }
 
+  /**
+   * Hash code.
+   *
+   * @return the int
+   */
   @Override
   public int hashCode() {
     return Objects.hash(type, action);

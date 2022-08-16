@@ -19,11 +19,12 @@
 
 package com.codbex.kronos.ndb.bimodeldatafoundation;
 
-import com.codbex.kronos.ndb.repositorymodelresource.IDObject;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
+
+import com.codbex.kronos.ndb.repositorymodelresource.IDObject;
 
 
 /**
@@ -33,9 +34,9 @@ import javax.xml.bind.annotation.XmlType;
  * If not there the modeler UI will do an auto arrange of the various shapes.
  *
  *
- * <p>Java class for Layout complex type.
+ * Java class for Layout complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Layout"&gt;
@@ -61,9 +62,16 @@ import javax.xml.bind.annotation.XmlType;
 public class Layout
     extends IDObject {
 
+  /** The size. */
   protected RectangleSize size;
+  
+  /** The view pane upper left coordinates. */
   protected Coordinates viewPaneUpperLeftCoordinates;
+  
+  /** The shapes. */
   protected Shapes shapes;
+  
+  /** The zoom factor. */
   @XmlAttribute(name = "zoomFactor")
   protected Integer zoomFactor;
 

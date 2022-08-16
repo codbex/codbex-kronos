@@ -29,9 +29,9 @@ import javax.xml.bind.annotation.XmlType;
  * Attribute defined via a formula in the expression language
  *
  *
- * <p>Java class for CalculatedAttribute complex type.
+ * Java class for CalculatedAttribute complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="CalculatedAttribute"&gt;
@@ -52,6 +52,7 @@ import javax.xml.bind.annotation.XmlType;
 public class CalculatedAttribute
     extends AbstractAttribute {
 
+  /** The key calculation. */
   @XmlElement(required = true)
   protected Calculation keyCalculation;
 

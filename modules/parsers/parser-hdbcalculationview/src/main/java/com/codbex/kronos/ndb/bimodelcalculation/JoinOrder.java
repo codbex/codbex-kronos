@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for JoinOrder.
+ * Java class for JoinOrder.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="JoinOrder"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -41,13 +41,27 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum JoinOrder {
 
+  /** The outside in. */
   OUTSIDE_IN,
+  
+  /** The inside out. */
   INSIDE_OUT;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the join order
+   */
   public static JoinOrder fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

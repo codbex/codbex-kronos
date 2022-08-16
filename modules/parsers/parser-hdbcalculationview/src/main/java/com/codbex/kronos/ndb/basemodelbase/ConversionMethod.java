@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for ConversionMethod.
+ * Java class for ConversionMethod.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="ConversionMethod"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -49,14 +49,29 @@ public enum ConversionMethod {
    * join can be completely ignored if no fields are requested from the joined table.
    */
   ERP("ERP"),
+  
+  /** The banking. */
   @XmlEnumValue("Banking")
   BANKING("Banking");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new conversion method.
+   *
+   * @param v the v
+   */
   ConversionMethod(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the conversion method
+   */
   public static ConversionMethod fromValue(String v) {
     for (ConversionMethod c : ConversionMethod.values()) {
       if (c.value.equals(v)) {
@@ -66,6 +81,11 @@ public enum ConversionMethod {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

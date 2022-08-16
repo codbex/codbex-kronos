@@ -15,39 +15,86 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * The Class HDBXSODataModificationSpec.
+ */
 public class HDBXSODataModificationSpec {
 
+  /** The events. */
   private List<HDBXSODataEvent> events = new ArrayList<>();
+  
+  /** The modification action. */
   private String modificationAction;
+  
+  /** The forbidden. */
   private boolean forbidden = false;
 
+  /**
+   * Gets the events.
+   *
+   * @return the events
+   */
   public List<HDBXSODataEvent> getEvents() {
     return events;
   }
 
+  /**
+   * Sets the events.
+   *
+   * @param events the events
+   * @return the HDBXSO data modification spec
+   */
   public HDBXSODataModificationSpec setEvents(List<HDBXSODataEvent> events) {
     this.events = events;
     return this;
   }
 
+  /**
+   * Gets the modification action.
+   *
+   * @return the modification action
+   */
   public String getModificationAction() {
     return modificationAction;
   }
 
+  /**
+   * Sets the modification action.
+   *
+   * @param modificationAction the modification action
+   * @return the HDBXSO data modification spec
+   */
   public HDBXSODataModificationSpec setModificationAction(String modificationAction) {
     this.modificationAction = modificationAction;
     return this;
   }
 
+  /**
+   * Checks if is forbidden.
+   *
+   * @return true, if is forbidden
+   */
   public boolean isForbidden() {
     return forbidden;
   }
 
+  /**
+   * Sets the forbidden.
+   *
+   * @param forbidden the forbidden
+   * @return the HDBXSO data modification spec
+   */
   public HDBXSODataModificationSpec setForbidden(boolean forbidden) {
     this.forbidden = forbidden;
     return this;
   }
 
+  /**
+   * Equals.
+   *
+   * @param o the o
+   * @return true, if successful
+   */
   @Override
   public boolean equals(Object o) {
     if (this == o)
@@ -59,6 +106,11 @@ public class HDBXSODataModificationSpec {
         that.modificationAction);
   }
 
+  /**
+   * Hash code.
+   *
+   * @return the int
+   */
   @Override
   public int hashCode() {
     return Objects.hash(events, modificationAction, forbidden);

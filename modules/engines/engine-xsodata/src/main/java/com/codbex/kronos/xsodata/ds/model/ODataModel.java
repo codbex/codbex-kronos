@@ -11,8 +11,9 @@
  */
 package com.codbex.kronos.xsodata.ds.model;
 
-import com.codbex.kronos.parser.xsodata.model.HDBXSODataService;
 import org.eclipse.dirigible.commons.api.helpers.GsonHelper;
+
+import com.codbex.kronos.parser.xsodata.model.HDBXSODataService;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -21,34 +22,50 @@ import javax.persistence.Transient;
 import java.sql.Timestamp;
 
 /**
- * The XS OData Model
+ * The XS OData Model.
  */
 @Table(name = "KRONOS_ODATA")
 public class ODataModel {
 
+  /** The location. */
   @Id
   @Column(name = "OD_LOCATION", columnDefinition = "VARCHAR", nullable = false, length = 255)
   private String location;
 
+  /** The name. */
   @Column(name = "OD_NAME", columnDefinition = "VARCHAR", nullable = false, length = 255)
   private String name;
 
+  /** The hash. */
   @Column(name = "OD_HASH", columnDefinition = "VARCHAR", nullable = false, length = 32)
   private String hash;
 
+  /** The created by. */
   @Column(name = "OD_CREATED_BY", columnDefinition = "VARCHAR", nullable = false, length = 32)
   private String createdBy;
 
+  /** The created at. */
   @Column(name = "OD_CREATED_AT", columnDefinition = "TIMESTAMP", nullable = false)
   private Timestamp createdAt;
 
+  /** The service. */
   @Transient
   private HDBXSODataService service;
 
+  /**
+   * Gets the service.
+   *
+   * @return the service
+   */
   public HDBXSODataService getService() {
     return service;
   }
 
+  /**
+   * Sets the service.
+   *
+   * @param service the new service
+   */
   public void setService(HDBXSODataService service) {
     this.service = service;
   }
@@ -159,6 +176,11 @@ public class ODataModel {
     return GsonHelper.GSON.toJson(this);
   }
 
+  /**
+   * To string.
+   *
+   * @return the string
+   */
   /*
    * (non-Javadoc)
    *
@@ -169,6 +191,11 @@ public class ODataModel {
     return toJson();
   }
 
+  /**
+   * Hash code.
+   *
+   * @return the int
+   */
   /* (non-Javadoc)
    * @see java.lang.Object#hashCode()
    */
@@ -182,6 +209,12 @@ public class ODataModel {
     return result;
   }
 
+  /**
+   * Equals.
+   *
+   * @param obj the obj
+   * @return true, if successful
+   */
   /* (non-Javadoc)
    * @see java.lang.Object#equals(java.lang.Object)
    */

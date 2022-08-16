@@ -19,7 +19,6 @@
 
 package com.codbex.kronos.ndb.bimodelcalculation;
 
-import com.codbex.kronos.ndb.bimodelconversion.Parameterization;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -28,14 +27,16 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import com.codbex.kronos.ndb.bimodelconversion.Parameterization;
+
 
 /**
  * Models the part of rankingFilter supported by the calc engine
  *
  *
- * <p>Java class for RankingFilter complex type.
+ * Java class for RankingFilter complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="RankingFilter"&gt;
@@ -66,43 +67,62 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class RankingFilter {
 
+  /** The partition view attribute name. */
   @XmlElement(required = true)
   protected List<String> partitionViewAttributeName;
+  
+  /** The order. */
   @XmlElement(required = true)
   protected List<Order> order;
+  
+  /** The rank threshold. */
   @XmlElement(required = true)
   protected Parameterization rankThreshold;
+  
+  /** The rank view attribute name. */
   protected String rankViewAttributeName;
+  
+  /** The type. */
   @XmlAttribute(name = "type")
   protected RankType type;
+  
+  /** The dynamic partition attributes. */
   @XmlAttribute(name = "dynamicPartitionAttributes")
   protected Boolean dynamicPartitionAttributes;
+  
+  /** The offset. */
   @XmlAttribute(name = "offset")
   protected String offset;
+  
+  /** The offset parameter. */
   @XmlAttribute(name = "offsetParameter")
   protected String offsetParameter;
+  
+  /** The offset reference. */
   @XmlAttribute(name = "offsetReference")
   protected OffsetReferenceDirection offsetReference;
 
   /**
    * Gets the value of the partitionViewAttributeName property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the partitionViewAttributeName property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getPartitionViewAttributeName().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link String }
+   *
+   * @return the partition view attribute name
    */
   public List<String> getPartitionViewAttributeName() {
     if (partitionViewAttributeName == null) {
@@ -113,23 +133,25 @@ public class RankingFilter {
 
   /**
    * Gets the value of the order property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the order property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getOrder().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link Order }
+   *
+   * @return the order
    */
   public List<Order> getOrder() {
     if (order == null) {

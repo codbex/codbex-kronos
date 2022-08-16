@@ -13,14 +13,25 @@ package com.codbex.kronos.xsodata.ds.module;
 
 import org.eclipse.dirigible.commons.api.module.AbstractDirigibleModule;
 
+/**
+ * The Class ODataModule.
+ */
 public class ODataModule extends AbstractDirigibleModule {
 
+    /**
+     * Configure.
+     */
     @Override
     public void configure() {
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     @Override
     public String getName() {
-        return "Kronos XSOData Module";
+        return "Kronos XSODATA Module";
     }
 }

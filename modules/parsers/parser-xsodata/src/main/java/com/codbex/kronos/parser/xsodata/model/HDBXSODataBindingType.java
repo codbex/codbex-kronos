@@ -14,26 +14,55 @@ package com.codbex.kronos.parser.xsodata.model;
 import java.util.Arrays;
 import java.util.Optional;
 
+/**
+ * The Enum HDBXSODataBindingType.
+ */
 public enum HDBXSODataBindingType {
+    
+    /** The principal. */
     PRINCIPAL("principal"),
+    
+    /** The dependent. */
     DEPENDENT("dependent");
 
+    /** The text. */
     private final String text;
 
+    /**
+     * Instantiates a new HDBXSO data binding type.
+     *
+     * @param text the text
+     */
     HDBXSODataBindingType(String text) {
         this.text = text;
     }
 
+    /**
+     * Gets the text.
+     *
+     * @return the text
+     */
     public String getText() {
         return this.text;
     }
 
+    /**
+     * From value.
+     *
+     * @param text the text
+     * @return the optional
+     */
     public static Optional<HDBXSODataBindingType> fromValue(String text) {
         return Arrays.stream(values())
                 .filter(bl -> bl.text.equalsIgnoreCase(text))
                 .findFirst();
     }
 
+    /**
+     * Value.
+     *
+     * @return the string
+     */
     public String value() {
         return name();
     }

@@ -11,9 +11,6 @@
  */
 package com.codbex.kronos.xsaccess.ds.service;
 
-import com.codbex.kronos.xsaccess.ds.api.IPrivilegeCoreService;
-import com.codbex.kronos.xsaccess.ds.api.PrivilegeException;
-import com.codbex.kronos.xsaccess.ds.model.privilege.PrivilegeDefinition;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -23,12 +20,29 @@ import org.eclipse.dirigible.api.v3.security.UserFacade;
 import org.eclipse.dirigible.commons.config.StaticObjects;
 import org.eclipse.dirigible.database.persistence.PersistenceManager;
 
+import com.codbex.kronos.xsaccess.ds.api.IPrivilegeCoreService;
+import com.codbex.kronos.xsaccess.ds.api.PrivilegeException;
+import com.codbex.kronos.xsaccess.ds.model.privilege.PrivilegeDefinition;
+
+/**
+ * The Class PrivilegeCoreService.
+ */
 public class PrivilegeCoreService implements IPrivilegeCoreService {
 
+  /** The data source. */
   private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
 
+  /** The persistence manager. */
   private PersistenceManager<PrivilegeDefinition> persistenceManager = new PersistenceManager<PrivilegeDefinition>();
 
+  /**
+   * Creates the privilege.
+   *
+   * @param name the name
+   * @param description the description
+   * @return the privilege definition
+   * @throws PrivilegeException the privilege exception
+   */
   @Override
   public PrivilegeDefinition createPrivilege(String name, String description) throws PrivilegeException {
     try {
@@ -54,10 +68,18 @@ public class PrivilegeCoreService implements IPrivilegeCoreService {
     }
   }
 
+  /**
+   * Update privileges.
+   *
+   * @param name the name
+   * @param description the description
+   * @return the privilege definition
+   * @throws PrivilegeException the privilege exception
+   */
   @Override
   public PrivilegeDefinition updatePrivileges(String name, String description) throws PrivilegeException {
-    PrivilegeDefinition foundPrivilegeDefinition = getPrivilegeByName(name);
-    if (foundPrivilegeDefinition == null) {
+    PrivilegeDefinition foundXscPrivilegeDefinition = getPrivilegeByName(name);
+    if (foundXscPrivilegeDefinition == null) {
       throw new PrivilegeException("Kronos Privilege not found");
     }
 
@@ -65,11 +87,11 @@ public class PrivilegeCoreService implements IPrivilegeCoreService {
       Connection connection = null;
       try {
         connection = dataSource.getConnection();
-        foundPrivilegeDefinition.setName(name);
-        foundPrivilegeDefinition.setDescription(description);
-        persistenceManager.update(connection, foundPrivilegeDefinition);
+        foundXscPrivilegeDefinition.setName(name);
+        foundXscPrivilegeDefinition.setDescription(description);
+        persistenceManager.update(connection, foundXscPrivilegeDefinition);
 
-        return foundPrivilegeDefinition;
+        return foundXscPrivilegeDefinition;
       } finally {
         if (connection != null) {
           connection.close();
@@ -81,6 +103,12 @@ public class PrivilegeCoreService implements IPrivilegeCoreService {
   }
 
 
+  /**
+   * Gets the privileges.
+   *
+   * @return the privileges
+   * @throws PrivilegeException the privilege exception
+   */
   @Override
   public List<PrivilegeDefinition> getPrivileges() throws PrivilegeException {
     try {
@@ -98,6 +126,12 @@ public class PrivilegeCoreService implements IPrivilegeCoreService {
     }
   }
 
+  /**
+   * Removes the privilege by name.
+   *
+   * @param name the name
+   * @throws PrivilegeException the privilege exception
+   */
   @Override
   public void removePrivilegeByName(String name) throws PrivilegeException {
     try {
@@ -116,6 +150,13 @@ public class PrivilegeCoreService implements IPrivilegeCoreService {
     }
   }
 
+  /**
+   * Gets the privilege by name.
+   *
+   * @param name the name
+   * @return the privilege by name
+   * @throws PrivilegeException the privilege exception
+   */
   @Override
   public PrivilegeDefinition getPrivilegeByName(String name) throws PrivilegeException {
     try {
@@ -123,7 +164,8 @@ public class PrivilegeCoreService implements IPrivilegeCoreService {
       try {
         connection = dataSource.getConnection();
 
-        PrivilegeDefinition privilegeDefinition = persistenceManager.find(connection, PrivilegeDefinition.class, name);
+        PrivilegeDefinition privilegeDefinition = persistenceManager
+            .find(connection, PrivilegeDefinition.class, name);
 
         return privilegeDefinition;
       } finally {
@@ -136,6 +178,13 @@ public class PrivilegeCoreService implements IPrivilegeCoreService {
     }
   }
 
+  /**
+   * Privilege exists.
+   *
+   * @param name the name
+   * @return true, if successful
+   * @throws PrivilegeException the privilege exception
+   */
   @Override
   public boolean privilegeExists(String name) throws PrivilegeException {
     return getPrivilegeByName(name) != null;

@@ -26,9 +26,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Descriptions complex type.
+ * Java class for Descriptions complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Descriptions"&gt;
@@ -51,11 +51,18 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class Descriptions {
 
+  /** The comment. */
   protected CommentProperties comment;
+  
+  /** The default description. */
   @XmlAttribute(name = "defaultDescription")
   protected String defaultDescription;
+  
+  /** The text type. */
   @XmlAttribute(name = "textType")
   protected TextType textType;
+  
+  /** The max length. */
   @XmlAttribute(name = "maxLength")
   protected Integer maxLength;
 

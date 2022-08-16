@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for ModelObjectType.
+ * Java class for ModelObjectType.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="ModelObjectType"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -42,16 +42,32 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum ModelObjectType {
 
+  /** The catalog. */
   @XmlEnumValue("catalog")
   CATALOG("catalog"),
+  
+  /** The repository. */
   @XmlEnumValue("repository")
   REPOSITORY("repository");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new model object type.
+   *
+   * @param v the v
+   */
   ModelObjectType(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the model object type
+   */
   public static ModelObjectType fromValue(String v) {
     for (ModelObjectType c : ModelObjectType.values()) {
       if (c.value.equals(v)) {
@@ -61,6 +77,11 @@ public enum ModelObjectType {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

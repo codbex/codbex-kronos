@@ -12,15 +12,24 @@
 package com.codbex.kronos.parser.hdbsequence.custom;
 
 
-import com.google.gson.*;
 import com.codbex.kronos.parser.hdbsequence.exceptions.HDBSequenceMissingPropertyException;
 import com.codbex.kronos.parser.hdbsequence.models.HDBSequenceModel;
+import com.google.gson.*;
 
 import java.lang.reflect.Type;
 import java.util.Objects;
 
+/**
+ * The Class HDBSequenceModelAdapter.
+ */
 public class HDBSequenceModelAdapter implements JsonDeserializer<HDBSequenceModel> {
 
+    /**
+     * Handle string literal.
+     *
+     * @param value the value
+     * @return the string
+     */
     protected static String handleStringLiteral(String value) {
         if (value != null && value.length() > 1) {
             String subStr = value.substring(1, value.length() - 1);
@@ -31,6 +40,15 @@ public class HDBSequenceModelAdapter implements JsonDeserializer<HDBSequenceMode
         return value;
     }
 
+    /**
+     * Deserialize.
+     *
+     * @param jsonElement the json element
+     * @param type the type
+     * @param context the context
+     * @return the HDB sequence model
+     * @throws JsonParseException the json parse exception
+     */
     @Override
     public HDBSequenceModel deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context)
             throws JsonParseException {

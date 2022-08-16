@@ -11,20 +11,33 @@
  */
 package com.codbex.kronos.xsjob.ds.facade;
 
-import com.codbex.kronos.xsjob.ds.model.JobArtifact;
-import com.codbex.kronos.xsjob.ds.model.JobDefinition;
-import com.codbex.kronos.xsjob.ds.scheduler.KronosSchedulerManager;
-import com.codbex.kronos.xsjob.ds.service.JobCoreService;
-import com.codbex.kronos.xsjob.ds.transformer.JobToKronosJobDefinitionTransformer;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
 import org.eclipse.dirigible.core.scheduler.api.SchedulerException;
 
+import com.codbex.kronos.xsjob.ds.model.JobArtifact;
+import com.codbex.kronos.xsjob.ds.model.JobDefinition;
+import com.codbex.kronos.xsjob.ds.scheduler.SchedulerManager;
+import com.codbex.kronos.xsjob.ds.service.JobCoreService;
+import com.codbex.kronos.xsjob.ds.transformer.JobToKronosJobDefinitionTransformer;
+
+/**
+ * The Class JobFacade.
+ */
 public class JobFacade {
 
+  /** The job service. */
   private static JobCoreService jobService = new JobCoreService();
 
+  /**
+   * New job.
+   *
+   * @param job the job
+   * @return the array list
+   * @throws ParseException the parse exception
+   * @throws SchedulerException the scheduler exception
+   */
   public static final ArrayList<String> newJob(String job) throws ParseException, SchedulerException {
     JobArtifact jobArtifact = jobService.parseJob(job);
     JobToKronosJobDefinitionTransformer jobToKronosJobDefinitionTransformer = new JobToKronosJobDefinitionTransformer();
@@ -41,22 +54,43 @@ public class JobFacade {
     return scheduleNames;
   }
 
+  /**
+   * Activate.
+   *
+   * @param names the names
+   * @throws SchedulerException the scheduler exception
+   */
   public static final void activate(ArrayList<String> names) throws SchedulerException {
     for (String name : names) {
       JobDefinition jobDefinition = jobService.getJob(name);
 
-      KronosSchedulerManager.scheduleJob(jobDefinition);
+      SchedulerManager.scheduleJob(jobDefinition);
     }
   }
 
+  /**
+   * Deactivate.
+   *
+   * @param names the names
+   * @throws SchedulerException the scheduler exception
+   */
   public static final void deactivate(ArrayList<String> names) throws SchedulerException {
     for (String name : names) {
       JobDefinition jobDefinition = jobService.getJob(name);
 
-      KronosSchedulerManager.unscheduleJob(name, jobDefinition.getGroup());
+      SchedulerManager.unscheduleJob(name, jobDefinition.getGroup());
     }
   }
 
+  /**
+   * Configure.
+   *
+   * @param names the names
+   * @param status the status
+   * @param startAt the start at
+   * @param endAt the end at
+   * @throws SchedulerException the scheduler exception
+   */
   public static final void configure(ArrayList<String> names, boolean status, Timestamp startAt, Timestamp endAt)
       throws SchedulerException {
     deactivate(names);
@@ -75,12 +109,26 @@ public class JobFacade {
     }
   }
 
+  /**
+   * Gets the configuration.
+   *
+   * @param name the name
+   * @return the configuration
+   * @throws SchedulerException the scheduler exception
+   */
   public static final JobDefinition getConfiguration(String name) throws SchedulerException {
     return jobService.getJob(name);
   }
 
+  /**
+   * Checks if is active.
+   *
+   * @param name the name
+   * @return true, if is active
+   * @throws SchedulerException the scheduler exception
+   */
   public static final boolean isActive(String name) throws SchedulerException {
-    return KronosSchedulerManager.existsJob(name);
+    return SchedulerManager.existsJob(name);
   }
 
 }

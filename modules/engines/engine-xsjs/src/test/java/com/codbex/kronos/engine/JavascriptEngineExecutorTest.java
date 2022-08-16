@@ -11,19 +11,18 @@
  */
 package com.codbex.kronos.engine;
 
-import com.codbex.kronos.XSJSTest;
-import org.apache.commons.io.IOUtils;
-import org.eclipse.dirigible.commons.config.Configuration;
-import org.eclipse.dirigible.commons.config.StaticObjects;
-import org.eclipse.dirigible.core.test.AbstractDirigibleTest;
-import org.eclipse.dirigible.repository.api.IRepository;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Objects;
+
+import org.apache.commons.io.IOUtils;
+import org.eclipse.dirigible.commons.config.StaticObjects;
+import org.eclipse.dirigible.repository.api.IRepository;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.codbex.kronos.XSJSTest;
 
 public class JavascriptEngineExecutorTest extends XSJSTest {
 

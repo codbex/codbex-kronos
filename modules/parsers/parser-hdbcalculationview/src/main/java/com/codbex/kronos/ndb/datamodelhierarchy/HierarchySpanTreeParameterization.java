@@ -33,9 +33,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * Creates a partial hierarchy based on parent-child source data and an (optional) maximum recursion depth input parameter.
  *
  *
- * <p>Java class for HierarchySpanTreeParameterization complex type.
+ * Java class for HierarchySpanTreeParameterization complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="HierarchySpanTreeParameterization"&gt;
@@ -63,11 +63,18 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class HierarchySpanTreeParameterization {
 
+  /** The start where. */
   protected String startWhere;
+  
+  /** The depth. */
   protected BigInteger depth;
+  
+  /** The depth parameter. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String depthParameter;
+  
+  /** The cache. */
   @XmlElement(required = true)
   @XmlSchemaType(name = "NMTOKEN")
   protected Cache cache;

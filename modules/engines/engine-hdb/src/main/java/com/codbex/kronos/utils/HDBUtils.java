@@ -23,6 +23,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableModel;
+import com.codbex.kronos.hdb.ds.model.hdbtabletype.DataStructureHDBTableTypeModel;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -32,38 +34,36 @@ import org.eclipse.dirigible.api.v3.security.UserFacade;
 import org.eclipse.dirigible.commons.config.Configuration;
 
 import com.codbex.kronos.exceptions.ArtifactParserException;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
 import com.codbex.kronos.hdb.ds.model.DBContentType;
 import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
-import com.codbex.kronos.hdb.ds.model.hdbdd.DataStructureEntityModel;
-import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbsynonym.DataStructureHDBSynonymModel;
 import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDefinitionModel;
 import com.codbex.kronos.hdb.ds.service.manager.IDataStructureManager;
 import com.codbex.kronos.parser.hana.core.HanaLexer;
 import com.codbex.kronos.parser.hana.core.HanaParser;
 
+/**
+ * The Class HDBUtils.
+ */
 public class HDBUtils {
 
+  /** The Constant commentRegex. */
   private static final String commentRegex = "(/\\*[^*]*\\*+(?:[^/*][^*]*\\*+)*/)|(--.*)";
+  
+  /** The Constant ESCAPE_SYMBOL. */
   private static final String ESCAPE_SYMBOL = "\"";
 
+  /**
+   * Instantiates a new HDB utils.
+   */
   private HDBUtils() {
   }
 
-  public static String getTableName(DataStructureEntityModel model) {
-    return getTableName(model, model.getName());
-  }
-
-  public static String getTableName(DataStructureEntityModel model, String tableName) {
-    return new StringBuilder()
-        .append(model.getNamespace()).append("::").append(model.getContext()).append(".").append(tableName)
-        .toString();
-  }
-
   /**
-   * Escape artifact name if DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE is activated
+   * Escape artifact name if DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE is activated.
    *
    * @param artifactName name of the artifact
    * @param schemaName   name of the schema that will be assembled to the artifact name
@@ -94,36 +94,73 @@ public class HDBUtils {
 
   /**
    * See also {@link #escapeArtifactName(String, String)}.
+   *
+   * @param artifactName the artifact name
+   * @return the string
    */
   public static String escapeArtifactName(String artifactName) {
     return escapeArtifactName(artifactName, null);
   }
 
+  /**
+   * Populate data structure model.
+   *
+   * @param location the location
+   * @param content the content
+   * @param model the model
+   * @param artifactType the artifact type
+   * @param DbContentType the db content type
+   */
   public static void populateDataStructureModel(String location, String content, DataStructureModel model, String artifactType,
-      DBContentType dbContentType) {
+      DBContentType DbContentType) {
     model.setName(CommonsUtils.getRepositoryBaseObjectName(location));
     model.setLocation(location);
     model.setType(artifactType);
     model.setHash(DigestUtils.md5Hex(content));
     model.setCreatedBy(UserFacade.getName());
     model.setCreatedAt(new Timestamp(new java.util.Date().getTime()));
-    model.setDbContentType(dbContentType);
+    model.setDbContentType(DbContentType);
   }
 
+  /**
+   * Creates the public synonym for artifact.
+   *
+   * @param synonymManagerService the synonym manager service
+   * @param artifactName the artifact name
+   * @param artifactSchema the artifact schema
+   * @param connection the connection
+   * @throws SQLException the SQL exception
+   */
   public static void createPublicSynonymForArtifact(IDataStructureManager<DataStructureModel> synonymManagerService,
       String artifactName, String artifactSchema, Connection connection)
       throws SQLException {
     synonymManagerService.createDataStructure(connection, assemblePublicSynonym(artifactName, artifactSchema));
   }
 
+  /**
+   * Drop public synonym for artifact.
+   *
+   * @param synonymManagerService the synonym manager service
+   * @param artifactName the artifact name
+   * @param artifactSchema the artifact schema
+   * @param connection the connection
+   * @throws SQLException the SQL exception
+   */
   public static void dropPublicSynonymForArtifact(IDataStructureManager<DataStructureModel> synonymManagerService,
       String artifactName, String artifactSchema, Connection connection)
       throws SQLException {
     synonymManagerService.dropDataStructure(connection, assemblePublicSynonym(artifactName, artifactSchema));
   }
 
-  public static HDBSynonymDataStructureModel assemblePublicSynonym(String artifactName, String artifactSchema) {
-    HDBSynonymDataStructureModel model = new HDBSynonymDataStructureModel();
+  /**
+   * Assemble public synonym.
+   *
+   * @param artifactName the artifact name
+   * @param artifactSchema the artifact schema
+   * @return the data structure HDB synonym model
+   */
+  public static DataStructureHDBSynonymModel assemblePublicSynonym(String artifactName, String artifactSchema) {
+    DataStructureHDBSynonymModel model = new DataStructureHDBSynonymModel();
 
     HDBSynonymDefinitionModel defModel = new HDBSynonymDefinitionModel();
     defModel.setSynonymSchema(Constants.SYNONYM_PUBLIC_SCHEMA);
@@ -133,12 +170,20 @@ public class HDBUtils {
     defModel.setTarget(target);
 
     model.getSynonymDefinitions().put(artifactName, defModel);
-    model.setType(HDBDataStructureModel.TYPE_HDB_SYNONYM);
+    model.setType(IDataStructureModel.TYPE_HDB_SYNONYM);
     model.setCreatedBy(UserFacade.getName());
     model.setCreatedAt(new Timestamp(new java.util.Date().getTime()));
     return model;
   }
 
+  /**
+   * Extract procedure name from content.
+   *
+   * @param content the content
+   * @param location the location
+   * @return the string
+   * @throws DataStructuresException the data structures exception
+   */
   public static String extractProcedureNameFromContent(String content, String location) throws DataStructuresException {
     content = removeSqlCommentsFromContent(content);
     int indexOfEndOfProcKeyword = content.toLowerCase().indexOf("procedure") + "procedure".length();
@@ -153,6 +198,15 @@ public class HDBUtils {
     return procedureName.replace("\\s", "").trim();
   }
 
+  /**
+   * Extract table function name from content.
+   *
+   * @param content the content
+   * @param location the location
+   * @param parser the parser
+   * @return the string
+   * @throws DataStructuresException the data structures exception
+   */
   public static String extractTableFunctionNameFromContent(String content, String location, String parser)
       throws DataStructuresException {
     content = removeSqlCommentsFromContent(content);
@@ -169,10 +223,23 @@ public class HDBUtils {
     throw new DataStructuresException(errMsg);
   }
 
+  /**
+   * Removes the sql comments from content.
+   *
+   * @param content the content
+   * @return the string
+   */
   public static String removeSqlCommentsFromContent(String content) {
     return content.replaceAll(commentRegex, "").trim();
   }
-
+  
+  /**
+   * Gets the parsed three.
+   *
+   * @param parametersModel the parameters model
+   * @return the parsed three
+   * @throws ArtifactParserException the artifact parser exception
+   */
   public static ParseTree getParsedThree (DataStructureParametersModel parametersModel) throws ArtifactParserException {
 
     CharStream inputStream;
@@ -194,6 +261,11 @@ public class HDBUtils {
 
   }
 
+  /**
+   * Gets the timestamp.
+   *
+   * @return the timestamp
+   */
   public static Timestamp getTimestamp(){
     return new Timestamp(new java.util.Date().getTime());
   }

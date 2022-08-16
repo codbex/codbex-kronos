@@ -32,9 +32,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * Specification of time dependent columns and parameters.
  *
  *
- * <p>Java class for HierarchyTimeProperties complex type.
+ * Java class for HierarchyTimeProperties complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="HierarchyTimeProperties"&gt;
@@ -66,20 +66,29 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class HierarchyTimeProperties {
 
+  /** The valid from element. */
   @XmlElement(required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String validFromElement;
+  
+  /** The valid to element. */
   @XmlElement(required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String validToElement;
+  
+  /** The from parameter. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String fromParameter;
+  
+  /** The to parameter. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String toParameter;
+  
+  /** The point in time parameter. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String pointInTimeParameter;

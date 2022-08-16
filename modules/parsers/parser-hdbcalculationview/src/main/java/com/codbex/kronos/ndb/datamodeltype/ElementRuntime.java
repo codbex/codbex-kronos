@@ -29,9 +29,9 @@ import javax.xml.bind.annotation.XmlType;
  * Runtime information stored on element level
  *
  *
- * <p>Java class for ElementRuntime complex type.
+ * Java class for ElementRuntime complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ElementRuntime"&gt;
@@ -47,6 +47,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "ElementRuntime")
 public class ElementRuntime {
 
+  /** The pruned. */
   @XmlAttribute(name = "pruned")
   protected Boolean pruned;
 

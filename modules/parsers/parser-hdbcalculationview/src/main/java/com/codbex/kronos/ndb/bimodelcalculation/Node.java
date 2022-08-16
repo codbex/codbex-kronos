@@ -19,17 +19,18 @@
 
 package com.codbex.kronos.ndb.bimodelcalculation;
 
-import com.codbex.kronos.ndb.repositorymodelresource.IDObjectWithDescription;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
+import com.codbex.kronos.ndb.repositorymodelresource.IDObjectWithDescription;
+
 
 /**
- * <p>Java class for Node complex type.
+ * Java class for Node complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Node"&gt;
@@ -57,7 +58,10 @@ import javax.xml.bind.annotation.XmlType;
 public abstract class Node
     extends IDObjectWithDescription {
 
+  /** The view attributes. */
   protected ViewAttributes viewAttributes;
+  
+  /** The calculated view attributes. */
   protected CalculatedViewAttributes calculatedViewAttributes;
 
   /**

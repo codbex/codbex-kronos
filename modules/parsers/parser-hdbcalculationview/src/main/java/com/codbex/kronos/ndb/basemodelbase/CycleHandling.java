@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for CycleHandling.
+ * Java class for CycleHandling.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="CycleHandling"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -56,15 +56,24 @@ public enum CycleHandling {
    */
   TRAVERSE_COMPLETELY,
 
-  /**
-   * Error in case the hierarchy navigation traverses a cycle
-   */
+  /** Error in case the hierarchy navigation traverses a cycle. */
   ERROR;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the cycle handling
+   */
   public static CycleHandling fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

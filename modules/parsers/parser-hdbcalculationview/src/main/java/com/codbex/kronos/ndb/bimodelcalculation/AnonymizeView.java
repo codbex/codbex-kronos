@@ -30,9 +30,9 @@ import javax.xml.bind.annotation.XmlType;
  * A View node for Anonymization
  *
  *
- * <p>Java class for AnonymizeView complex type.
+ * Java class for AnonymizeView complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="AnonymizeView"&gt;
@@ -54,8 +54,11 @@ import javax.xml.bind.annotation.XmlType;
 public class AnonymizeView
     extends CalculationView {
 
+  /** The anonymize parameterization. */
   @XmlElement(required = true)
   protected AnonymizeParameterization anonymizeParameterization;
+  
+  /** The method. */
   @XmlAttribute(name = "method")
   protected AnonymizeMethod method;
 

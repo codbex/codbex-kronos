@@ -11,7 +11,16 @@
  */
 package com.codbex.kronos.parser.hdbdd.annotation.metadata;
 
+/**
+ * The Class AnnotationSimpleValue.
+ */
 public class AnnotationSimpleValue extends AbstractAnnotationValue {
+    
+    /**
+     * Instantiates a new annotation simple value.
+     *
+     * @param valueType the value type
+     */
     public AnnotationSimpleValue(int valueType) {
         super(valueType);
     }

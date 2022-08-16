@@ -13,6 +13,9 @@ package com.codbex.kronos.parser.xsodata.model;
 
 import java.util.Objects;
 
+/**
+ * The Class HDBXSODataRepositoryObject.
+ */
 public class HDBXSODataRepositoryObject {
 
   /**
@@ -32,26 +35,56 @@ public class HDBXSODataRepositoryObject {
    * }</pre>
    */
   private String catalogObjectName;
+  
+  /** The catalog object schema. */
   private String catalogObjectSchema;
 
+  /**
+   * Gets the catalog object name.
+   *
+   * @return the catalog object name
+   */
   public String getCatalogObjectName() {
     return catalogObjectName;
   }
 
+  /**
+   * Sets the catalog object name.
+   *
+   * @param catalogObjectName the catalog object name
+   * @return the HDBXSO data repository object
+   */
   public HDBXSODataRepositoryObject setCatalogObjectName(String catalogObjectName) {
     this.catalogObjectName = catalogObjectName;
     return this;
   }
 
+  /**
+   * Gets the catalog object schema.
+   *
+   * @return the catalog object schema
+   */
   public String getCatalogObjectSchema() {
     return catalogObjectSchema;
   }
 
+  /**
+   * Sets the catalog object schema.
+   *
+   * @param catalogObjectSchema the catalog object schema
+   * @return the HDBXSO data repository object
+   */
   public HDBXSODataRepositoryObject setCatalogObjectSchema(String catalogObjectSchema) {
     this.catalogObjectSchema = catalogObjectSchema;
     return this;
   }
 
+  /**
+   * Equals.
+   *
+   * @param o the o
+   * @return true, if successful
+   */
   @Override
   public boolean equals(Object o) {
     if (this == o)
@@ -62,6 +95,11 @@ public class HDBXSODataRepositoryObject {
     return Objects.equals(catalogObjectName, that.catalogObjectName) && Objects.equals(catalogObjectSchema, that.catalogObjectSchema);
   }
 
+  /**
+   * Hash code.
+   *
+   * @return the int
+   */
   @Override
   public int hashCode() {
     return Objects.hash(catalogObjectName, catalogObjectSchema);

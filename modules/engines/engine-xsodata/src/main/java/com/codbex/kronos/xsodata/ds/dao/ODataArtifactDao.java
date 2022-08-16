@@ -11,12 +11,13 @@
  */
 package com.codbex.kronos.xsodata.ds.dao;
 
-import com.codbex.kronos.xsodata.ds.api.IODataArtifactDao;
-import com.codbex.kronos.xsodata.ds.api.KronosODataException;
-import com.codbex.kronos.xsodata.ds.model.ODataModel;
 import org.eclipse.dirigible.commons.config.StaticObjects;
 import org.eclipse.dirigible.database.persistence.PersistenceManager;
 import org.eclipse.dirigible.database.sql.SqlFactory;
+
+import com.codbex.kronos.xsodata.ds.api.IODataArtifactDao;
+import com.codbex.kronos.xsodata.ds.api.ODataException;
+import com.codbex.kronos.xsodata.ds.model.ODataModel;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -26,33 +27,59 @@ import java.util.List;
 
 import static java.text.MessageFormat.format;
 
+/**
+ * The Class ODataArtifactDao.
+ */
 public class ODataArtifactDao implements IODataArtifactDao {
 
+    /** The data source. */
     private final DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
 
+    /** The persistence manager. */
     private final PersistenceManager<ODataModel> persistenceManager = new PersistenceManager<>();
 
+    /**
+     * Creates the O data artifact.
+     *
+     * @param tableModel the table model
+     * @return the o data model
+     * @throws ODataException the o data exception
+     */
     @Override
-    public ODataModel createODataArtifact(ODataModel tableModel) throws KronosODataException {
+    public ODataModel createODataArtifact(ODataModel tableModel) throws ODataException {
         try (Connection connection = dataSource.getConnection()) {
             persistenceManager.insert(connection, tableModel);
             return tableModel;
         } catch (SQLException e) {
-            throw new KronosODataException(e);
+            throw new ODataException(e);
         }
     }
 
+    /**
+     * Gets the o data artifact.
+     *
+     * @param location the location
+     * @return the o data artifact
+     * @throws ODataException the o data exception
+     */
     @Override
-    public ODataModel getODataArtifact(String location) throws KronosODataException {
+    public ODataModel getODataArtifact(String location) throws ODataException {
         try (Connection connection = dataSource.getConnection()) {
             return persistenceManager.find(connection, ODataModel.class, location);
         } catch (SQLException e) {
-            throw new KronosODataException(e);
+            throw new ODataException(e);
         }
     }
 
+    /**
+     * Gets the o data artifact by name.
+     *
+     * @param name the name
+     * @return the o data artifact by name
+     * @throws ODataException the o data exception
+     */
     @Override
-    public ODataModel getODataArtifactByName(String name) throws KronosODataException {
+    public ODataModel getODataArtifactByName(String name) throws ODataException {
         try (Connection connection = dataSource.getConnection()) {
             String sql = SqlFactory.getNative(connection).select().column("*").from("KRONOS_ODATA")
                     .where("OD_NAME = ?").toString();
@@ -62,43 +89,63 @@ public class ODataArtifactDao implements IODataArtifactDao {
                 return null;
             }
             if (tableModels.size() > 1) {
-                throw new KronosODataException(format("There are more that one OData with the same name [{0}] at locations: [{1}] and [{2}].",
+                throw new ODataException(format("There are more that one OData with the same name [{0}] at locations: [{1}] and [{2}].",
                         name, tableModels.get(0).getLocation(), tableModels.get(1).getLocation()));
             }
             return tableModels.get(0);
         } catch (SQLException e) {
-            throw new KronosODataException(e);
+            throw new ODataException(e);
         }
     }
 
+    /**
+     * Removes the O data artifact.
+     *
+     * @param location the location
+     * @throws ODataException the o data exception
+     */
     @Override
-    public void removeODataArtifact(String location) throws KronosODataException {
+    public void removeODataArtifact(String location) throws ODataException {
         try (Connection connection = dataSource.getConnection()) {
             persistenceManager.delete(connection, ODataModel.class, location);
         } catch (SQLException e) {
-            throw new KronosODataException(e);
+            throw new ODataException(e);
         }
     }
 
+    /**
+     * Update O data artifact.
+     *
+     * @param location the location
+     * @param name the name
+     * @param hash the hash
+     * @throws ODataException the o data exception
+     */
     @Override
-    public void updateODataArtifact(String location, String name, String hash) throws KronosODataException {
+    public void updateODataArtifact(String location, String name, String hash) throws ODataException {
         try (Connection connection = dataSource.getConnection()) {
             ODataModel tableModel = getODataArtifact(location);
             tableModel.setName(name);
             tableModel.setHash(hash);
             persistenceManager.update(connection, tableModel);
         } catch (SQLException e) {
-            throw new KronosODataException(e);
+            throw new ODataException(e);
         }
     }
 
+    /**
+     * Gets the all O data artifacts.
+     *
+     * @return the all O data artifacts
+     * @throws ODataException the o data exception
+     */
     @Override
-    public List<ODataModel> getAllODataArtifacts() throws KronosODataException {
+    public List<ODataModel> getAllODataArtifacts() throws ODataException {
         try (Connection connection = dataSource.getConnection()) {
             String sql = SqlFactory.getNative(connection).select().column("*").from("KRONOS_ODATA").toString();
             return persistenceManager.query(connection, ODataModel.class, sql);
         } catch (SQLException e) {
-            throw new KronosODataException(e);
+            throw new ODataException(e);
         }
     }
 

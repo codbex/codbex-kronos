@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for JoinType.
+ * Java class for JoinType.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="JoinType"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -54,12 +54,20 @@ public enum JoinType {
    */
   @XmlEnumValue("referential")
   REFERENTIAL("referential"),
+  
+  /** The inner. */
   @XmlEnumValue("inner")
   INNER("inner"),
+  
+  /** The left outer. */
   @XmlEnumValue("leftOuter")
   LEFT_OUTER("leftOuter"),
+  
+  /** The right outer. */
   @XmlEnumValue("rightOuter")
   RIGHT_OUTER("rightOuter"),
+  
+  /** The full outer. */
   @XmlEnumValue("fullOuter")
   FULL_OUTER("fullOuter"),
 
@@ -69,12 +77,25 @@ public enum JoinType {
    */
   @XmlEnumValue("textTable")
   TEXT_TABLE("textTable");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new join type.
+   *
+   * @param v the v
+   */
   JoinType(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the join type
+   */
   public static JoinType fromValue(String v) {
     for (JoinType c : JoinType.values()) {
       if (c.value.equals(v)) {
@@ -84,6 +105,11 @@ public enum JoinType {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

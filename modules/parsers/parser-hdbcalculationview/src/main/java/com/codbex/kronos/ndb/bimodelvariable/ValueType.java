@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for ValueType.
+ * Java class for ValueType.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="ValueType"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -47,26 +47,52 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum ValueType {
 
+  /** The empty. */
   @XmlEnumValue("empty")
   EMPTY("empty"),
+  
+  /** The currency. */
   @XmlEnumValue("Currency")
   CURRENCY("Currency"),
+  
+  /** The unit of measure. */
   @XmlEnumValue("UnitOfMeasure")
   UNIT_OF_MEASURE("UnitOfMeasure"),
+  
+  /** The date. */
   @XmlEnumValue("Date")
   DATE("Date"),
+  
+  /** The attribute value. */
   @XmlEnumValue("AttributeValue")
   ATTRIBUTE_VALUE("AttributeValue"),
+  
+  /** The static list. */
   @XmlEnumValue("StaticList")
   STATIC_LIST("StaticList"),
+  
+  /** The fuzzy text search. */
   @XmlEnumValue("FuzzyTextSearch")
   FUZZY_TEXT_SEARCH("FuzzyTextSearch");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new value type.
+   *
+   * @param v the v
+   */
   ValueType(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the value type
+   */
   public static ValueType fromValue(String v) {
     for (ValueType c : ValueType.values()) {
       if (c.value.equals(v)) {
@@ -76,6 +102,11 @@ public enum ValueType {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

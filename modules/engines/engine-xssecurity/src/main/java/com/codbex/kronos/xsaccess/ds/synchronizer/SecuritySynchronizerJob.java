@@ -14,13 +14,21 @@ package com.codbex.kronos.xsaccess.ds.synchronizer;
 import org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizerJob;
 import org.eclipse.dirigible.core.scheduler.api.ISynchronizer;
 
+/**
+ * The Class SecuritySynchronizerJob.
+ */
 public class SecuritySynchronizerJob extends AbstractSynchronizerJob {
 
   /**
    * The extensions synchronizer.
    */
-  private KronosSecuritySynchronizer extensionsSynchronizer = new KronosSecuritySynchronizer();
+  private SecuritySynchronizer extensionsSynchronizer = new SecuritySynchronizer();
 
+  /**
+   * Gets the synchronizer.
+   *
+   * @return the synchronizer
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizerJob#getSynchronizer()
@@ -30,12 +38,17 @@ public class SecuritySynchronizerJob extends AbstractSynchronizerJob {
     return extensionsSynchronizer;
   }
 
+  /**
+   * Gets the name.
+   *
+   * @return the name
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizerJob#getName()
    */
   @Override
   public String getName() {
-    return SecuritySynchronizerJobDefinitionProvider.KRONOS_PRIVILEGES_AND_ACCESS_SYNCHRONIZER_JOB_NAME;
+    return SecuritySynchronizerJobDefinitionProvider.PRIVILEGES_AND_ACCESS_SYNCHRONIZER_JOB;
   }
 }

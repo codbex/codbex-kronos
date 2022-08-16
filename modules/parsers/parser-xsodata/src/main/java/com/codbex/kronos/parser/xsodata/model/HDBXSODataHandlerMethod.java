@@ -15,27 +15,56 @@ package com.codbex.kronos.parser.xsodata.model;
  * The text should reflect the values from org.eclipse.dirigible.engine.odata2.definition.ODataHandlerMethods
  */
 public enum HDBXSODataHandlerMethod {
+    
+    /** The create. */
     CREATE("create", "sap:creatable"),
+    
+    /** The update. */
     UPDATE("update", "sap:updatable"),
+    
+    /** The delete. */
     DELETE("delete", "sap:deletable");
 
+    /** The odata handler type. */
     private final String odataHandlerType;
 
+    /** The odata SAP annotation. */
     private final String odataSAPAnnotation;
 
+    /**
+     * Instantiates a new HDBXSO data handler method.
+     *
+     * @param odataHandlerType the odata handler type
+     * @param odataSAPAnnotation the odata SAP annotation
+     */
     HDBXSODataHandlerMethod(String odataHandlerType, String odataSAPAnnotation) {
         this.odataHandlerType = odataHandlerType;
         this.odataSAPAnnotation = odataSAPAnnotation;
     }
 
+    /**
+     * Gets the odata handler type.
+     *
+     * @return the odata handler type
+     */
     public String getOdataHandlerType() {
         return odataHandlerType;
     }
 
+    /**
+     * Gets the odata SAP annotation.
+     *
+     * @return the odata SAP annotation
+     */
     public String getOdataSAPAnnotation() {
         return odataSAPAnnotation;
     }
 
+    /**
+     * Value.
+     *
+     * @return the string
+     */
     public String value() {
         return name();
     }

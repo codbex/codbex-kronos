@@ -11,7 +11,6 @@
  */
 package com.codbex.kronos.hdbti.service;
 
-import com.codbex.kronos.hdbti.model.TableImportConfigurationDefinition;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -25,10 +24,23 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.codbex.kronos.hdbti.model.TableImportConfigurationDefinition;
+
+/**
+ * The Class CSVDefinitionsTopologicalSorter.
+ */
 public class CSVDefinitionsTopologicalSorter {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(CSVDefinitionsTopologicalSorter.class);
 
+  /**
+   * Sort.
+   *
+   * @param configurationDefinitions the configuration definitions
+   * @param sortedConfigurationDefinitions the sorted configuration definitions
+   * @param connection the connection
+   */
   public static void sort(List<TableImportConfigurationDefinition> configurationDefinitions,
       List<TableImportConfigurationDefinition> sortedConfigurationDefinitions, Connection connection) {
     Map<String, TableImportConfigurationDefinition> mappedConfigurationDefinititions = new HashMap<>();
@@ -55,6 +67,17 @@ public class CSVDefinitionsTopologicalSorter {
     }
   }
 
+  /**
+   * Visit configuration definition.
+   *
+   * @param configurationDefinition the configuration definition
+   * @param visitedConfigurationDefinitions the visited configuration definitions
+   * @param sortedConfigurationDefinitions the sorted configuration definitions
+   * @param metaData the meta data
+   * @param mappedConfigurationDefinititions the mapped configuration definititions
+   * @param cyclingDependencySet the cycling dependency set
+   * @throws SQLException the SQL exception
+   */
   private static void visitConfigurationDefinition(TableImportConfigurationDefinition configurationDefinition,
       Set<TableImportConfigurationDefinition> visitedConfigurationDefinitions,
       List<TableImportConfigurationDefinition> sortedConfigurationDefinitions, DatabaseMetaData metaData,

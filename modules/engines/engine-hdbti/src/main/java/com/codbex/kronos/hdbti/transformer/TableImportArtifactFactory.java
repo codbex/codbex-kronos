@@ -25,6 +25,7 @@ import com.codbex.kronos.parser.hdbti.models.HDBTIImportConfigModel;
 import com.codbex.kronos.parser.hdbti.models.HDBTIImportModel;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -42,18 +43,36 @@ import org.eclipse.dirigible.repository.api.IResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * A factory for creating TableImportArtifact objects.
+ */
 public class TableImportArtifactFactory implements ITableImportArtifactFactory {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(TableImportArtifactFactory.class);
 
+  /** The repository. */
   private final IRepository repository = (IRepository) StaticObjects.get(StaticObjects.REPOSITORY);
 
+  /** The hdbti core service. */
   private final IHDBTICoreService hdbtiCoreService = new HDBTICoreService();
 
+  /** The hdbti parser. */
   private final IHDBTIParser hdbtiParser = new HDBTIParser();
 
+  /**
+   * Parses the table import.
+   *
+   * @param content the content
+   * @param location the location
+   * @return the table import artifact
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws HDBTISyntaxErrorException the HDBTI syntax error exception
+   * @throws ArtifactParserException the artifact parser exception
+   */
   @Override
-  public TableImportArtifact parseTableImport(String content, String location) throws IOException, HDBTISyntaxErrorException, ArtifactParserException {
+  public TableImportArtifact parseTableImport(String content, String location)
+      throws IOException, HDBTISyntaxErrorException, ArtifactParserException {
     TableImportArtifact tableImportArtifact = new TableImportArtifact();
     List<TableImportConfigurationDefinition> importConfigurationDefinitions = new ArrayList<>();
     List<TableImportToCsvRelation> tableImportToCsvRelations = new ArrayList<>();
@@ -71,21 +90,42 @@ public class TableImportArtifactFactory implements ITableImportArtifactFactory {
     return tableImportArtifact;
   }
 
+  /**
+   * Gets the repository.
+   *
+   * @return the repository
+   */
   @Override
   public IRepository getRepository() {
     return repository;
   }
 
+  /**
+   * Gets the HDBTI core service.
+   *
+   * @return the HDBTI core service
+   */
   @Override
   public IHDBTICoreService getHDBTICoreService() {
     return hdbtiCoreService;
   }
 
+  /**
+   * Gets the HDBTI parser.
+   *
+   * @return the HDBTI parser
+   */
   @Override
   public IHDBTIParser getHDBTIParser() {
     return hdbtiParser;
   }
 
+  /**
+   * Adds the table import configuration.
+   *
+   * @param tableImportArtifact the table import artifact
+   * @param configuration the configuration
+   */
   private void addTableImportConfiguration(TableImportArtifact tableImportArtifact, HDBTIImportConfigModel configuration) {
     TableImportConfigurationDefinition tableImportConfigurationDefinition = new TableImportConfigurationDefinition();
     tableImportConfigurationDefinition.setTable(configuration.getTableName());
@@ -100,6 +140,13 @@ public class TableImportArtifactFactory implements ITableImportArtifactFactory {
     tableImportArtifact.getImportConfigurationDefinition().add(tableImportConfigurationDefinition);
   }
 
+  /**
+   * Adds the hdbti to csv relation.
+   *
+   * @param tableImportArtifact the table import artifact
+   * @param configuration the configuration
+   * @param hdbtiLocation the hdbti location
+   */
   private void addHdbtiToCsvRelation(TableImportArtifact tableImportArtifact, HDBTIImportConfigModel configuration,
       String hdbtiLocation) {
     String csvParsedFilePath = hdbtiCoreService.convertToActualFileName(configuration.getFileName());
@@ -112,6 +159,12 @@ public class TableImportArtifactFactory implements ITableImportArtifactFactory {
 
   }
 
+  /**
+   * Handle key value pairs.
+   *
+   * @param pairs the pairs
+   * @return the map
+   */
   private Map<String, ArrayList<String>> handleKeyValuePairs(List<HDBTIImportConfigModel.Pair> pairs) {
     if (pairs == null) {
       return new HashMap<>();
@@ -120,6 +173,12 @@ public class TableImportArtifactFactory implements ITableImportArtifactFactory {
     return pairs.stream().collect(Collectors.toMap(HDBTIImportConfigModel.Pair::getColumn, HDBTIImportConfigModel.Pair::getValues));
   }
 
+  /**
+   * Gets the content from resource.
+   *
+   * @param resource the resource
+   * @return the content from resource
+   */
   private String getContentFromResource(IResource resource) {
     byte[] content = resource.getContent();
     String contentAsString = null;

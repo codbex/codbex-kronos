@@ -19,6 +19,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import com.codbex.kronos.xsodata.listener.ODataNamesValidationPatternPatcher;
+import com.codbex.kronos.xsodata.listener.XSODataInitializer;
+
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.doThrow;

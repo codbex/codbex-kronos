@@ -28,9 +28,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for EndUserTexts complex type.
+ * Java class for EndUserTexts complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="EndUserTexts"&gt;
@@ -57,38 +57,53 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class EndUserTexts {
 
+  /** The localized label. */
   protected List<LocalizedText> localizedLabel;
+  
+  /** The comment. */
   protected CommentProperties comment;
+  
+  /** The label. */
   @XmlAttribute(name = "label")
   protected String label;
+  
+  /** The label max length. */
   @XmlAttribute(name = "labelMaxLength")
   protected Integer labelMaxLength;
+  
+  /** The quick info. */
   @XmlAttribute(name = "quickInfo")
   protected String quickInfo;
+  
+  /** The quick info max length. */
   @XmlAttribute(name = "quickInfoMaxLength")
   protected Integer quickInfoMaxLength;
+  
+  /** The documentation. */
   @XmlAttribute(name = "documentation")
   protected Boolean documentation;
 
   /**
    * Gets the value of the localizedLabel property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the localizedLabel property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getLocalizedLabel().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link LocalizedText }
+   *
+   * @return the localized label
    */
   public List<LocalizedText> getLocalizedLabel() {
     if (localizedLabel == null) {

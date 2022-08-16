@@ -19,13 +19,6 @@
 
 package com.codbex.kronos.ndb.bimodelcalculation;
 
-import com.codbex.kronos.ndb.basemodelbase.NameValuePair;
-import com.codbex.kronos.ndb.bimodelcube.MeasureGroup;
-import com.codbex.kronos.ndb.bimodeldatafoundation.InformationModel;
-import com.codbex.kronos.ndb.bimodeldatafoundation.Layout;
-import com.codbex.kronos.ndb.bimodeldimension.Hierarchy;
-import com.codbex.kronos.ndb.datamodelentity.DataCategory;
-import com.codbex.kronos.ndb.datamodelentity.DimensionType;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -35,6 +28,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.codbex.kronos.ndb.basemodelbase.NameValuePair;
+import com.codbex.kronos.ndb.bimodelcube.MeasureGroup;
+import com.codbex.kronos.ndb.bimodeldatafoundation.InformationModel;
+import com.codbex.kronos.ndb.bimodeldatafoundation.Layout;
+import com.codbex.kronos.ndb.bimodeldimension.Hierarchy;
+import com.codbex.kronos.ndb.datamodelentity.DataCategory;
+import com.codbex.kronos.ndb.datamodelentity.DimensionType;
 
 
 /**
@@ -46,9 +47,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * input 4. A ProjectionView must have at exactly	one input
  *
  *
- * <p>Java class for CalculationScenario complex type.
+ * Java class for CalculationScenario complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="CalculationScenario"&gt;
@@ -93,59 +94,98 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class CalculationScenario
     extends InformationModel {
 
+  /** The execution hints. */
   protected List<NameValuePair> executionHints;
+  
+  /** The data sources. */
   protected DataSources dataSources;
+  
+  /** The calculation views. */
   protected CalculationViews calculationViews;
+  
+  /** The inline hierarchy. */
   protected List<Hierarchy> inlineHierarchy;
+  
+  /** The logical model. */
   protected MeasureGroup logicalModel;
+  
+  /** The layout. */
   protected Layout layout;
+  
+  /** The run with invoker privileges. */
   @XmlAttribute(name = "runWithInvokerPrivileges")
   protected Boolean runWithInvokerPrivileges;
+  
+  /** The row counter name. */
   @XmlAttribute(name = "rowCounterName")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String rowCounterName;
+  
+  /** The enforce sql execution. */
   @XmlAttribute(name = "enforceSqlExecution")
   protected Boolean enforceSqlExecution;
+  
+  /** The always aggregate result. */
   @XmlAttribute(name = "alwaysAggregateResult")
   protected Boolean alwaysAggregateResult;
+  
+  /** The output view type. */
   @XmlAttribute(name = "outputViewType")
   protected CalculationViewType outputViewType;
+  
+  /** The data category. */
   @XmlAttribute(name = "dataCategory")
   protected DataCategory dataCategory;
+  
+  /** The dimension type. */
   @XmlAttribute(name = "dimensionType")
   protected DimensionType dimensionType;
+  
+  /** The default member. */
   @XmlAttribute(name = "defaultMember")
   protected String defaultMember;
+  
+  /** The pruning table. */
   @XmlAttribute(name = "pruningTable")
   protected String pruningTable;
+  
+  /** The analytic view compatibility mode. */
   @XmlAttribute(name = "analyticViewCompatibilityMode")
   protected Boolean analyticViewCompatibilityMode;
+  
+  /** The propagate instantiation. */
   @XmlAttribute(name = "propagateInstantiation")
   protected Boolean propagateInstantiation;
+  
+  /** The determine text fuzzy search enablement. */
   @XmlAttribute(name = "determineTextFuzzySearchEnablement")
   protected Boolean determineTextFuzzySearchEnablement;
+  
+  /** The xsc compatibility mode. */
   @XmlAttribute(name = "xscCompatibilityMode")
   protected Boolean xscCompatibilityMode;
 
   /**
    * Gets the value of the executionHints property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the executionHints property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getExecutionHints().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link NameValuePair }
+   *
+   * @return the execution hints
    */
   public List<NameValuePair> getExecutionHints() {
     if (executionHints == null) {
@@ -196,23 +236,25 @@ public class CalculationScenario
 
   /**
    * Gets the value of the inlineHierarchy property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the inlineHierarchy property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getInlineHierarchy().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link Hierarchy }
+   *
+   * @return the inline hierarchy
    */
   public List<Hierarchy> getInlineHierarchy() {
     if (inlineHierarchy == null) {

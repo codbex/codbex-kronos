@@ -19,10 +19,6 @@
 
 package com.codbex.kronos.ndb.bimodelcalculation;
 
-import com.codbex.kronos.ndb.basemodelbase.Cardinality;
-import com.codbex.kronos.ndb.basemodelbase.JoinType;
-import com.codbex.kronos.ndb.basemodelbase.ReferentialDirection;
-import com.codbex.kronos.ndb.basemodelbase.TemporalJoinProperties;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -32,15 +28,20 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.codbex.kronos.ndb.basemodelbase.Cardinality;
+import com.codbex.kronos.ndb.basemodelbase.JoinType;
+import com.codbex.kronos.ndb.basemodelbase.ReferentialDirection;
+import com.codbex.kronos.ndb.basemodelbase.TemporalJoinProperties;
+
 
 /**
  * A view/node that combines exactly two inputs by a join The first input is treated as left table and the second	input is treated
  * as right table. In case of a text join the second node is the text table
  *
  *
- * <p>Java class for JoinView complex type.
+ * Java class for JoinView complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="JoinView"&gt;
@@ -72,47 +73,70 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class JoinView
     extends CalculationView {
 
+  /** The join attribute. */
   protected List<JoinAttribute> joinAttribute;
+  
+  /** The temporal join properties. */
   protected TemporalJoinProperties temporalJoinProperties;
+  
+  /** The join type. */
   @XmlAttribute(name = "joinType", required = true)
   protected JoinType joinType;
+  
+  /** The cardinality. */
   @XmlAttribute(name = "cardinality")
   protected Cardinality cardinality;
+  
+  /** The referential direction. */
   @XmlAttribute(name = "referentialDirection")
   protected ReferentialDirection referentialDirection;
+  
+  /** The language column. */
   @XmlAttribute(name = "languageColumn")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String languageColumn;
+  
+  /** The dynamic. */
   @XmlAttribute(name = "dynamic")
   protected Boolean dynamic;
+  
+  /** The optimize join columns. */
   @XmlAttribute(name = "optimizeJoinColumns")
   protected Boolean optimizeJoinColumns;
+  
+  /** The multi join node. */
   @XmlAttribute(name = "multiJoinNode")
   protected String multiJoinNode;
+  
+  /** The central table. */
   @XmlAttribute(name = "centralTable")
   protected String centralTable;
+  
+  /** The join order. */
   @XmlAttribute(name = "joinOrder")
   protected JoinOrder joinOrder;
 
   /**
    * Gets the value of the joinAttribute property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the joinAttribute property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getJoinAttribute().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link JoinAttribute }
+   *
+   * @return the join attribute
    */
   public List<JoinAttribute> getJoinAttribute() {
     if (joinAttribute == null) {

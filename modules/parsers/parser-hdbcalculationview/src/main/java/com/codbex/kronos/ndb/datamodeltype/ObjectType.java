@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for ObjectType.
+ * Java class for ObjectType.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="ObjectType"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -54,40 +54,80 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum ObjectType {
 
+  /** The attributeview. */
   @XmlEnumValue("attributeview")
   ATTRIBUTEVIEW("attributeview"),
+  
+  /** The analyticview. */
   @XmlEnumValue("analyticview")
   ANALYTICVIEW("analyticview"),
+  
+  /** The calculationview. */
   @XmlEnumValue("calculationview")
   CALCULATIONVIEW("calculationview"),
+  
+  /** The hdbprocedure. */
   @XmlEnumValue("hdbprocedure")
   HDBPROCEDURE("hdbprocedure"),
+  
+  /** The hdbtablefunction. */
   @XmlEnumValue("hdbtablefunction")
   HDBTABLEFUNCTION("hdbtablefunction"),
+  
+  /** The hdbscalarfunction. */
   @XmlEnumValue("hdbscalarfunction")
   HDBSCALARFUNCTION("hdbscalarfunction"),
+  
+  /** The hdbruldec. */
   @XmlEnumValue("hdbruldec")
   HDBRULDEC("hdbruldec"),
+  
+  /** The hdbdd. */
   @XmlEnumValue("hdbdd")
   HDBDD("hdbdd"),
+  
+  /** The procedure. */
   @XmlEnumValue("procedure")
   PROCEDURE("procedure"),
+  
+  /** The table. */
   @XmlEnumValue("table")
   TABLE("table"),
+  
+  /** The view. */
   @XmlEnumValue("view")
   VIEW("view"),
+  
+  /** The columnview. */
   @XmlEnumValue("columnview")
   COLUMNVIEW("columnview"),
+  
+  /** The table function. */
   @XmlEnumValue("tableFunction")
   TABLE_FUNCTION("tableFunction"),
+  
+  /** The scalar function. */
   @XmlEnumValue("scalarFunction")
   SCALAR_FUNCTION("scalarFunction");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new object type.
+   *
+   * @param v the v
+   */
   ObjectType(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the object type
+   */
   public static ObjectType fromValue(String v) {
     for (ObjectType c : ObjectType.values()) {
       if (c.value.equals(v)) {
@@ -97,6 +137,11 @@ public enum ObjectType {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

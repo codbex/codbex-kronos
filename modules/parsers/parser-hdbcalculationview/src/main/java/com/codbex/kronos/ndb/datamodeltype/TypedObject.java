@@ -19,7 +19,6 @@
 
 package com.codbex.kronos.ndb.datamodeltype;
 
-import com.codbex.kronos.ndb.repositorymodelresource.NamedObjectWithEndUserTexts;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -29,14 +28,16 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.codbex.kronos.ndb.repositorymodelresource.NamedObjectWithEndUserTexts;
+
 
 /**
  * Common father class for typed objects e.g. Element, Parameter,...
  *
  *
- * <p>Java class for TypedObject complex type.
+ * Java class for TypedObject complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="TypedObject"&gt;
@@ -83,20 +84,37 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public abstract class TypedObject
     extends NamedObjectWithEndUserTexts {
 
+  /** The type. */
   protected String type;
+  
+  /** The inline structure type. */
   protected StructureType inlineStructureType;
+  
+  /** The inline type. */
   protected SimpleType inlineType;
+  
+  /** The type of element. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String typeOfElement;
+  
+  /** The external type of entity. */
   protected String externalTypeOfEntity;
+  
+  /** The external type of element. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String externalTypeOfElement;
+  
+  /** The hierarchy. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String hierarchy;
+  
+  /** The internal external conversion. */
   protected InternalExternalConversion internalExternalConversion;
+  
+  /** The deprecated. */
   @XmlAttribute(name = "deprecated")
   protected Boolean deprecated;
 

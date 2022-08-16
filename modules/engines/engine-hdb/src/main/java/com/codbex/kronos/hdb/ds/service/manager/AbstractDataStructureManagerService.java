@@ -22,12 +22,24 @@ import com.codbex.kronos.hdb.ds.api.IDataStructuresCoreService;
 import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 import com.codbex.kronos.hdb.ds.service.DataStructuresCoreService;
 
+/**
+ * The Class AbstractDataStructureManagerService.
+ *
+ * @param <T> the generic type
+ */
 public abstract class AbstractDataStructureManagerService<T extends DataStructureModel> implements IDataStructureManager<T> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(AbstractDataStructureManagerService.class);
 
+  /** The data structures core service. */
   private IDataStructuresCoreService dataStructuresCoreService = new DataStructuresCoreService();
 
+  /**
+   * Cleanup.
+   *
+   * @throws DataStructuresException the data structures exception
+   */
   @Override
   public void cleanup() throws DataStructuresException {
     List<String> dtLocations = dataStructuresCoreService.getDataStructuresByType(getDataStructureType()).stream()
@@ -41,23 +53,46 @@ public abstract class AbstractDataStructureManagerService<T extends DataStructur
     }
   }
 
+  /**
+   * Gets the data structures core service.
+   *
+   * @return the data structures core service
+   */
   public IDataStructuresCoreService getDataStructuresCoreService() {
     return dataStructuresCoreService;
   }
 
+  /**
+   * Sets the data structures core service.
+   *
+   * @param dataStructuresCoreService the new data structures core service
+   */
   public void setDataStructuresCoreService(IDataStructuresCoreService dataStructuresCoreService) {
     this.dataStructuresCoreService = dataStructuresCoreService;
   }
 
-  public void synchronizeParsedByRootMetadata(T tableModel) throws DataStructuresException {
-    if (!getDataStructuresCoreService().existsDataStructure(tableModel.getLocation(), tableModel.getType())) {
+  /**
+   * Synchronize parsed by root metadata.
+   *
+   * @param dsModel the data structure model
+   * @throws DataStructuresException the data structures exception
+   */
+  public void synchronizeParsedByRootMetadata(T dsModel) throws DataStructuresException {
+    if (!getDataStructuresCoreService().existsDataStructure(dsModel.getLocation(), dsModel.getType())) {
       dataStructuresCoreService
-          .createDataStructure(tableModel.getLocation(), tableModel.getName(), tableModel.getHash(), tableModel.getType());
-      logger.info("Root artifact synchronized a new Entities file [{}] from location: {}", tableModel.getName(), tableModel.getLocation());
+          .createDataStructure(dsModel.getLocation(), dsModel.getName(), dsModel.getHash(), dsModel.getType());
+      logger.info("Root artifact synchronized a new data structure file [{}] from location: {}", dsModel.getName(), dsModel.getLocation());
     }
   }
 
-  public boolean existsArtifactMetadata(T tableModel) throws DataStructuresException {
-    return dataStructuresCoreService.existsDataStructureByLocationAndHash(tableModel.getLocation(), tableModel.getHash(), tableModel.getType());
+  /**
+   * Exists artifact metadata.
+   *
+   * @param dsModel the data structure model
+   * @return true, if successful
+   * @throws DataStructuresException the data structures exception
+   */
+  public boolean existsArtifactMetadata(T dsModel) throws DataStructuresException {
+    return dataStructuresCoreService.existsDataStructureByLocationAndHash(dsModel.getLocation(), dsModel.getHash(), dsModel.getType());
   }
 }

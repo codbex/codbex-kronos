@@ -27,9 +27,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Shapes complex type.
+ * Java class for Shapes complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Shapes"&gt;
@@ -49,27 +49,30 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class Shapes {
 
+  /** The shape. */
   protected List<Shape> shape;
 
   /**
    * Gets the value of the shape property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the shape property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getShape().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link Shape }
+   *
+   * @return the shape
    */
   public List<Shape> getShape() {
     if (shape == null) {

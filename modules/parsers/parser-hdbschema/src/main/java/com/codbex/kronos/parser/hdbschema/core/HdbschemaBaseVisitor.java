@@ -25,15 +25,15 @@ public class HdbschemaBaseVisitor<T> extends AbstractParseTreeVisitor<T> impleme
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitHdbschemaDefinition(HdbschemaParser.HdbschemaDefinitionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitSchemaNameProp(HdbschemaParser.SchemaNamePropContext ctx) { return visitChildren(ctx); }
 }

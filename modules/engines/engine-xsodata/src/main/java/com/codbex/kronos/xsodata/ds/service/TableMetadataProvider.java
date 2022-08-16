@@ -26,23 +26,46 @@ import org.eclipse.dirigible.engine.odata2.transformers.DBMetadataUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class TableMetadataProvider.
+ */
 public class TableMetadataProvider implements ITableMetadataProvider {
 
+  /** The data source. */
   private final DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(TableMetadataProvider.class);
 
+  /** The db metadata util. */
   private final DBMetadataUtil dbMetadataUtil = new DBMetadataUtil();
 
+  /** The Constant METADATA_ENTITY_TYPES. */
   private static final List<String> METADATA_ENTITY_TYPES = List.of(ISqlKeywords.METADATA_TABLE, ISqlKeywords.METADATA_CALC_VIEW,
       ISqlKeywords.METADATA_VIEW);
+  
+  /** The Constant PUBLIC_SCHEMA. */
   private static final String PUBLIC_SCHEMA = "PUBLIC";
 
+  /**
+   * Gets the persistence table model.
+   *
+   * @param oDataEntityDefinition the o data entity definition
+   * @return the persistence table model
+   * @throws SQLException the SQL exception
+   */
   @Override
   public PersistenceTableModel getPersistenceTableModel(ODataEntityDefinition oDataEntityDefinition) throws SQLException {
     return getPersistenceTableModel(oDataEntityDefinition.getTable());
   }
 
+  /**
+   * Gets the persistence table model.
+   *
+   * @param artifactName the artifact name
+   * @return the persistence table model
+   * @throws SQLException the SQL exception
+   */
   public PersistenceTableModel getPersistenceTableModel(String artifactName) throws SQLException {
     String currentUserSchema = Configuration.get("HANA_USERNAME");
     PersistenceTableModel tableMetadata = dbMetadataUtil.getTableMetadata(artifactName, currentUserSchema);

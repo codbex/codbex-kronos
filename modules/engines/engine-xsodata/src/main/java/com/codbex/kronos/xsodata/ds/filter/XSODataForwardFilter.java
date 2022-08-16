@@ -22,14 +22,32 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The Class XSODataForwardFilter.
+ */
 @WebFilter(urlPatterns = {"/*"}, filterName = "XSODataForwardFilter")
 public class XSODataForwardFilter implements Filter {
 
+    /**
+     * Inits the.
+     *
+     * @param filterConfig the filter config
+     * @throws ServletException the servlet exception
+     */
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         //
     }
 
+    /**
+     * Do filter.
+     *
+     * @param request the request
+     * @param response the response
+     * @param chain the chain
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ServletException the servlet exception
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
         throws IOException, ServletException {
@@ -50,6 +68,9 @@ public class XSODataForwardFilter implements Filter {
         chain.doFilter(request, response);
     }
 
+    /**
+     * Destroy.
+     */
     @Override
     public void destroy() {
         //

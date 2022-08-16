@@ -15,17 +15,46 @@ import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.hdbti.model.TableImportArtifact;
 import com.codbex.kronos.parser.hdbti.custom.IHDBTIParser;
 import com.codbex.kronos.parser.hdbti.exception.HDBTISyntaxErrorException;
+
 import java.io.IOException;
 import org.eclipse.dirigible.repository.api.IRepository;
 
+/**
+ * A factory for creating ITableImportArtifact objects.
+ */
 public interface ITableImportArtifactFactory {
 
+  /**
+   * Parses the table import.
+   *
+   * @param content the content
+   * @param location the location
+   * @return the table import artifact
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws HDBTISyntaxErrorException the HDBTI syntax error exception
+   * @throws ArtifactParserException the artifact parser exception
+   */
   TableImportArtifact parseTableImport(String content, String location)
       throws IOException, HDBTISyntaxErrorException, ArtifactParserException;
 
+  /**
+   * Gets the repository.
+   *
+   * @return the repository
+   */
   IRepository getRepository();
 
+  /**
+   * Gets the HDBTI core service.
+   *
+   * @return the HDBTI core service
+   */
   IHDBTICoreService getHDBTICoreService();
 
+  /**
+   * Gets the HDBTI parser.
+   *
+   * @return the HDBTI parser
+   */
   IHDBTIParser getHDBTIParser();
 }

@@ -11,7 +11,16 @@
  */
 package com.codbex.kronos.parser.hdbtable.exceptions;
 
+/**
+ * The Class HDBTableDuplicatePropertyException.
+ */
 public class HDBTableDuplicatePropertyException extends RuntimeException {
+    
+    /**
+     * Instantiates a new HDB table duplicate property exception.
+     *
+     * @param message the message
+     */
     public HDBTableDuplicatePropertyException(String message) {
         super(message);
     }

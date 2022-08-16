@@ -14,28 +14,61 @@ package com.codbex.kronos.parser.xsodata.model;
 import java.util.Arrays;
 import java.util.Optional;
 
+/**
+ * The Enum HDBXSODataMultiplicityType.
+ */
 public enum HDBXSODataMultiplicityType {
+    
+    /** The one. */
     ONE("1"),
+    
+    /** The zero to one. */
     ZERO_TO_ONE("0..1"),
+    
+    /** The one to many. */
     ONE_TO_MANY("1..*"),
+    
+    /** The many. */
     MANY("*");
 
+    /** The text. */
     private final String text;
 
+    /**
+     * Instantiates a new HDBXSO data multiplicity type.
+     *
+     * @param text the text
+     */
     HDBXSODataMultiplicityType(String text) {
         this.text = text;
     }
 
+    /**
+     * Gets the text.
+     *
+     * @return the text
+     */
     public String getText() {
         return this.text;
     }
 
+    /**
+     * From value.
+     *
+     * @param text the text
+     * @return the optional
+     */
     public static Optional<HDBXSODataMultiplicityType> fromValue(String text) {
         return Arrays.stream(values())
                 .filter(bl -> bl.text.equalsIgnoreCase(text))
                 .findFirst();
     }
 
+    /**
+     * Value.
+     *
+     * @return the string
+     */
     public String value() {
         return name();
     }

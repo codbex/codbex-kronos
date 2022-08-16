@@ -17,17 +17,19 @@ import java.util.Map;
 
 import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
-import com.codbex.kronos.hdb.ds.model.hdbschema.HDBSchemaDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbtabletype.HDBTableTypeDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.hdbview.HDBViewDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbschema.DataStructureHDBSchemaModel;
+import com.codbex.kronos.hdb.ds.model.hdbstructure.DataStructureHDBStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbsynonym.DataStructureHDBSynonymModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableModel;
+import com.codbex.kronos.hdb.ds.model.hdbtabletype.DataStructureHDBTableTypeModel;
+import com.codbex.kronos.hdb.ds.model.hdbview.DataStructureHDBViewModel;
 import com.codbex.kronos.hdb.ds.parser.hdbdd.HDBDDParser;
-import com.codbex.kronos.hdb.ds.parser.hdbschema.SchemaParser;
-import com.codbex.kronos.hdb.ds.parser.hdbsynonym.SynonymParser;
-import com.codbex.kronos.hdb.ds.parser.hdbtable.TableParser;
-import com.codbex.kronos.hdb.ds.parser.hdbtabletype.TableTypeParser;
-import com.codbex.kronos.hdb.ds.parser.hdbview.ViewParser;
+import com.codbex.kronos.hdb.ds.parser.hdbschema.HDBSchemaParser;
+import com.codbex.kronos.hdb.ds.parser.hdbstructure.HDBStructureParser;
+import com.codbex.kronos.hdb.ds.parser.hdbsynonym.HDBSynonymParser;
+import com.codbex.kronos.hdb.ds.parser.hdbtable.HDBTableParser;
+import com.codbex.kronos.hdb.ds.parser.hdbtabletype.HDBTableTypeParser;
+import com.codbex.kronos.hdb.ds.parser.hdbview.HDBViewParser;
 import com.codbex.kronos.utils.CommonsConstants;
 
 /**
@@ -35,6 +37,7 @@ import com.codbex.kronos.utils.CommonsConstants;
  */
 public class DataStructureModelFactory {
 
+  /** The types map. */
   static Map<String, String> TYPES_MAP = new HashMap<>();
 
   static {
@@ -45,12 +48,16 @@ public class DataStructureModelFactory {
   /**
    * Creates a table model from the raw content.
    *
+   * @param location the location
    * @param content the table definition
    * @return the table model instance
+   * @throws DataStructuresException the data structures exception
+   * @throws ArtifactParserException the artifact parser exception
+   * @throws IOException Signals that an I/O exception has occurred.
    */
-  public static HDBTableDataStructureModel parseTable(String location, String content)
+  public static DataStructureHDBTableModel parseTable(String location, String content)
       throws DataStructuresException, ArtifactParserException, IOException {
-    TableParser parser = new TableParser();
+    HDBTableParser parser = new HDBTableParser();
     DataStructureParametersModel parametersModel =
         new DataStructureParametersModel(null, location, content, null);
     return parser.parse(parametersModel);
@@ -59,10 +66,14 @@ public class DataStructureModelFactory {
   /**
    * Creates a table model from the raw content.
    *
+   * @param location the location
    * @param bytes the table definition
    * @return the table model instance
+   * @throws DataStructuresException the data structures exception
+   * @throws ArtifactParserException the artifact parser exception
+   * @throws IOException Signals that an I/O exception has occurred.
    */
-  public static HDBTableDataStructureModel parseTable(String location, byte[] bytes)
+  public static DataStructureHDBTableModel parseTable(String location, byte[] bytes)
       throws DataStructuresException, ArtifactParserException, IOException {
     return parseTable(location, new String(bytes));
   }
@@ -70,17 +81,45 @@ public class DataStructureModelFactory {
   /**
    * Creates a view model from the raw content.
    *
+   * @param location the location
    * @param content the view definition
    * @return the view model instance
+   * @throws DataStructuresException the data structures exception
+   * @throws ArtifactParserException the artifact parser exception
+   * @throws IOException Signals that an I/O exception has occurred.
    */
-  public static HDBViewDataStructureModel parseView(String location, String content)
+  public static DataStructureHDBViewModel parseView(String location, String content)
       throws DataStructuresException, ArtifactParserException, IOException {
-    ViewParser parser = new ViewParser();
+    HDBViewParser parser = new HDBViewParser();
     DataStructureParametersModel parametersModel =
         new DataStructureParametersModel(null, location, content, null);
     return parser.parse(parametersModel);
   }
 
+  /**
+   * Creates a view model from the raw content.
+   *
+   * @param location the location
+   * @param bytes the view definition
+   * @return the view model instance
+   * @throws DataStructuresException the data structures exception
+   * @throws ArtifactParserException the artifact parser exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
+  public static DataStructureHDBViewModel parseView(String location, byte[] bytes)
+      throws DataStructuresException, ArtifactParserException, IOException {
+    return parseView(location, new String(bytes));
+  }
+
+  /**
+   * Parses the hdbdd.
+   *
+   * @param location the location
+   * @param content the content
+   * @return the data structure model
+   * @throws DataStructuresException the data structures exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public static DataStructureModel parseHdbdd(String location, String content) throws DataStructuresException, IOException {
     HDBDDParser parser = new HDBDDParser();
     DataStructureParametersModel parametersModel =
@@ -89,25 +128,17 @@ public class DataStructureModelFactory {
   }
 
   /**
-   * Creates a view model from the raw content.
-   *
-   * @param bytes the view definition
-   * @return the view model instance
-   */
-  public static HDBViewDataStructureModel parseView(String location, byte[] bytes)
-      throws DataStructuresException, ArtifactParserException, IOException {
-    return parseView(location, new String(bytes));
-  }
-
-  /**
    * Creates a synonym model from the raw content.
    *
+   * @param location the location
    * @param content the synonym definition
    * @return the synonym model instance
+   * @throws DataStructuresException the data structures exception
+   * @throws IOException Signals that an I/O exception has occurred.
    */
-  public static HDBSynonymDataStructureModel parseSynonym(String location, String content)
+  public static DataStructureHDBSynonymModel parseSynonym(String location, String content)
       throws DataStructuresException, IOException {
-    SynonymParser parser = new SynonymParser();
+    HDBSynonymParser parser = new HDBSynonymParser();
     DataStructureParametersModel parametersModel =
         new DataStructureParametersModel(null, location, content, null);
     return parser.parse(parametersModel);
@@ -116,12 +147,16 @@ public class DataStructureModelFactory {
   /**
    * Creates a schema model from the raw content.
    *
+   * @param location the location
    * @param content the schema definition
    * @return the schema model instance
+   * @throws DataStructuresException the data structures exception
+   * @throws ArtifactParserException the artifact parser exception
+   * @throws IOException Signals that an I/O exception has occurred.
    */
-  public static HDBSchemaDataStructureModel parseSchema(String location, String content)
+  public static DataStructureHDBSchemaModel parseSchema(String location, String content)
       throws DataStructuresException, ArtifactParserException, IOException {
-    SchemaParser parser = new SchemaParser();
+    HDBSchemaParser parser = new HDBSchemaParser();
     DataStructureParametersModel parametersModel =
         new DataStructureParametersModel(null, location, content, null);
     return parser.parse(parametersModel);
@@ -130,10 +165,14 @@ public class DataStructureModelFactory {
   /**
    * Creates a schema model from the raw content.
    *
+   * @param location the location
    * @param bytes the schema definition
    * @return the schema model instance
+   * @throws DataStructuresException the data structures exception
+   * @throws ArtifactParserException the artifact parser exception
+   * @throws IOException Signals that an I/O exception has occurred.
    */
-  public static HDBSchemaDataStructureModel parseSchema(String location, byte[] bytes)
+  public static DataStructureHDBSchemaModel parseSchema(String location, byte[] bytes)
       throws DataStructuresException, ArtifactParserException, IOException {
     return parseSchema(location, new String(bytes));
   }
@@ -141,12 +180,16 @@ public class DataStructureModelFactory {
   /**
    * Creates a table type model from the raw content.
    *
+   * @param location the location
    * @param content the table type definition
    * @return the table type model instance
+   * @throws DataStructuresException the data structures exception
+   * @throws ArtifactParserException the artifact parser exception
+   * @throws IOException Signals that an I/O exception has occurred.
    */
-  public static HDBTableTypeDataStructureModel parseTableType(String location, String content)
+  public static DataStructureHDBTableTypeModel parseTableType(String location, String content)
       throws DataStructuresException, ArtifactParserException, IOException {
-    TableTypeParser parser = new TableTypeParser();
+    HDBTableTypeParser parser = new HDBTableTypeParser();
     DataStructureParametersModel parametersModel =
         new DataStructureParametersModel(null, location, content, null);
     return parser.parse(parametersModel);
@@ -155,11 +198,48 @@ public class DataStructureModelFactory {
   /**
    * Creates a table type model from the raw content.
    *
+   * @param location the location
    * @param bytes the table type definition
    * @return the table type model instance
+   * @throws DataStructuresException the data structures exception
+   * @throws ArtifactParserException the artifact parser exception
+   * @throws IOException Signals that an I/O exception has occurred.
    */
-  public static HDBTableTypeDataStructureModel parseTableType(String location, byte[] bytes)
+  public static DataStructureHDBTableTypeModel parseTableType(String location, byte[] bytes)
       throws DataStructuresException, ArtifactParserException, IOException {
     return parseTableType(location, new String(bytes));
+  }
+
+  /**
+   * Creates a table type model from the raw content.
+   *
+   * @param location the location
+   * @param content the table type definition
+   * @return the table type model instance
+   * @throws DataStructuresException the data structures exception
+   * @throws ArtifactParserException the artifact parser exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
+  public static DataStructureHDBStructureModel parseStructure(String location, String content)
+      throws DataStructuresException, ArtifactParserException, IOException {
+    HDBStructureParser parser = new HDBStructureParser();
+    DataStructureParametersModel parametersModel =
+        new DataStructureParametersModel(null, location, content, null);
+    return parser.parse(parametersModel);
+  }
+
+  /**
+   * Creates a table type model from the raw content.
+   *
+   * @param location the location
+   * @param bytes the table type definition
+   * @return the table type model instance
+   * @throws DataStructuresException the data structures exception
+   * @throws ArtifactParserException the artifact parser exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
+  public static DataStructureHDBStructureModel parseStructure(String location, byte[] bytes)
+      throws DataStructuresException, ArtifactParserException, IOException {
+    return parseStructure(location, new String(bytes));
   }
 }

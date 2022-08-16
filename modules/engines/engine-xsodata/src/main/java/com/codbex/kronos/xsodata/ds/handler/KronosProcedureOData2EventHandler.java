@@ -63,7 +63,7 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
         return createODataErrorResponse(procedureCallResultSet);
       }
     } catch (ODataException | SQLException e) {
-      throw new ProcedureOData2EventHandlerException(UNABLE_TO_HANDLE_ON_CREATE_ENTITY_EVENT_ERROR, e);
+      throw new KronosProcedureOData2EventHandlerException(UNABLE_TO_HANDLE_ON_CREATE_ENTITY_EVENT_ERROR, e);
     } finally {
       batchDropTemporaryTables(connection, newTableParam);
       closeConnection(connection);
@@ -96,7 +96,7 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
         return createODataErrorResponse(procedureCallResultSet);
       }
     } catch (ODataException | SQLException e) {
-      throw new ProcedureOData2EventHandlerException(UNABLE_TO_HANDLE_AFTER_CREATE_ENTITY_EVENT_ERROR, e);
+      throw new KronosProcedureOData2EventHandlerException(UNABLE_TO_HANDLE_AFTER_CREATE_ENTITY_EVENT_ERROR, e);
     } finally {
       batchDropTemporaryTables(connection, newTableParam);
       closeConnection(connection);
@@ -134,7 +134,7 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
             HttpStatusCodes.CREATED);
       }
     } catch (ODataException | SQLException e) {
-      throw new ProcedureOData2EventHandlerException(UNABLE_TO_HANDLE_ON_CREATE_ENTITY_EVENT_ERROR, e);
+      throw new KronosProcedureOData2EventHandlerException(UNABLE_TO_HANDLE_ON_CREATE_ENTITY_EVENT_ERROR, e);
     } finally {
       batchDropTemporaryTables(connection, newTableParam);
       closeConnection(connection);
@@ -178,7 +178,7 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
         return createODataErrorResponse(procedureCallResultSet);
       }
     } catch (ODataException | SQLException e) {
-      throw new ProcedureOData2EventHandlerException(UNABLE_TO_HANDLE_BEFORE_UPDATE_ENTITY_EVENT_ERROR, e);
+      throw new KronosProcedureOData2EventHandlerException(UNABLE_TO_HANDLE_BEFORE_UPDATE_ENTITY_EVENT_ERROR, e);
     } finally {
       batchDropTemporaryTables(connection, oldTableParam, newTableParam);
       closeConnection(connection);
@@ -221,7 +221,7 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
         return createODataErrorResponse(procedureCallResultSet);
       }
     } catch (ODataException | SQLException e) {
-      throw new ProcedureOData2EventHandlerException(UNABLE_TO_HANDLE_AFTER_UPDATE_ENTITY_EVENT_ERROR, e);
+      throw new KronosProcedureOData2EventHandlerException(UNABLE_TO_HANDLE_AFTER_UPDATE_ENTITY_EVENT_ERROR, e);
     } finally {
       batchDropTemporaryTables(connection, oldTableParam, newTableParam);
       closeConnection(connection);
@@ -261,7 +261,7 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
         return createODataErrorResponse(procedureCallResultSet);
       }
     } catch (ODataException | SQLException e) {
-      throw new ProcedureOData2EventHandlerException(UNABLE_TO_HANDLE_ON_UPDATE_ENTITY_EVENT_ERROR, e);
+      throw new KronosProcedureOData2EventHandlerException(UNABLE_TO_HANDLE_ON_UPDATE_ENTITY_EVENT_ERROR, e);
     } finally {
       batchDropTemporaryTables(connection, oldTableParam, newTableParam);
       closeConnection(connection);
@@ -297,7 +297,7 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
         return createODataErrorResponse(procedureCallResultSet);
       }
     } catch (ODataException | SQLException e) {
-      throw new ProcedureOData2EventHandlerException(UNABLE_TO_HANDLE_BEFORE_DELETE_ENTITY_EVENT_ERROR, e);
+      throw new KronosProcedureOData2EventHandlerException(UNABLE_TO_HANDLE_BEFORE_DELETE_ENTITY_EVENT_ERROR, e);
     } finally {
       batchDropTemporaryTables(connection, oldTableParam);
       closeConnection(connection);
@@ -332,7 +332,7 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
         return createODataErrorResponse(procedureCallResultSet);
       }
     } catch (SQLException | ODataException e) {
-      throw new ProcedureOData2EventHandlerException(UNABLE_TO_HANDLE_AFTER_DELETE_ENTITY_EVENT_ERROR, e);
+      throw new KronosProcedureOData2EventHandlerException(UNABLE_TO_HANDLE_AFTER_DELETE_ENTITY_EVENT_ERROR, e);
     } finally {
       batchDropTemporaryTables(connection, oldTableParam);
       closeConnection(connection);
@@ -365,7 +365,7 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
         return createODataErrorResponse(procedureCallResultSet);
       }
     } catch (ODataException | SQLException e) {
-      throw new ProcedureOData2EventHandlerException(UNABLE_TO_HANDLE_ON_DELETE_ENTITY_EVENT_ERROR, e);
+      throw new KronosProcedureOData2EventHandlerException(UNABLE_TO_HANDLE_ON_DELETE_ENTITY_EVENT_ERROR, e);
     } finally {
       batchDropTemporaryTables(connection, oldTableParam);
       closeConnection(connection);

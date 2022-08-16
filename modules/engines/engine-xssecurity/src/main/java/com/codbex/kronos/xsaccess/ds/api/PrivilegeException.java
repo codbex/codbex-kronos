@@ -11,16 +11,32 @@
  */
 package com.codbex.kronos.xsaccess.ds.api;
 
+/**
+ * The Class PrivilegeException.
+ */
 public class PrivilegeException extends Exception {
 
+  /**
+   * Instantiates a new privilege exception.
+   */
   public PrivilegeException() {
     super();
   }
 
+  /**
+   * Instantiates a new privilege exception.
+   *
+   * @param message the message
+   */
   public PrivilegeException(String message) {
     super(message);
   }
 
+  /**
+   * Instantiates a new privilege exception.
+   *
+   * @param cause the cause
+   */
   public PrivilegeException(Throwable cause) {
     super(cause);
   }

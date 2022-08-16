@@ -35,9 +35,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * We will use annotations of the concrete model element to specify what kind of parameterization should be allowed
  *
  *
- * <p>Java class for UDFParameter complex type.
+ * Java class for UDFParameter complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="UDFParameter"&gt;
@@ -61,10 +61,15 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class UDFParameter {
 
+  /** The constant value. */
   protected String constantValue;
+  
+  /** The element. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String element;
+  
+  /** The parameter. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String parameter;

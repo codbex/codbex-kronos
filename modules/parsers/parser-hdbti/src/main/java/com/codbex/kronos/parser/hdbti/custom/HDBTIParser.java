@@ -19,6 +19,7 @@ import com.codbex.kronos.parser.hdbti.exception.HDBTISyntaxErrorException;
 import com.codbex.kronos.parser.hdbti.models.HDBTIImportModel;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import org.antlr.v4.runtime.ANTLRInputStream;
@@ -28,10 +29,24 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class HDBTIParser.
+ */
 public class HDBTIParser implements IHDBTIParser {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDBTIParser.class);
 
+  /**
+   * Parses the.
+   *
+   * @param location the location
+   * @param content the content
+   * @return the HDBTI import model
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws HDBTISyntaxErrorException the HDBTI syntax error exception
+   * @throws ArtifactParserException the artifact parser exception
+   */
   public HDBTIImportModel parse(String location, String content)
       throws IOException, HDBTISyntaxErrorException, ArtifactParserException {
     ByteArrayInputStream is = new ByteArrayInputStream(content.getBytes());

@@ -19,13 +19,14 @@
 
 package com.codbex.kronos.ndb.bimodeldatafoundation;
 
-import com.codbex.kronos.ndb.basemodelbase.QualifiedColumnObjectName;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.codbex.kronos.ndb.basemodelbase.QualifiedColumnObjectName;
 
 
 /**
@@ -34,9 +35,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * if the name and the schema name are equal (the column name is ignored)
  *
  *
- * <p>Java class for ColumnMapping complex type.
+ * Java class for ColumnMapping complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ColumnMapping"&gt;
@@ -53,6 +54,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class ColumnMapping
     extends QualifiedColumnObjectName {
 
+  /** The column name. */
   @XmlAttribute(name = "columnName", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String columnName;

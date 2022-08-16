@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for MeasureType.
+ * Java class for MeasureType.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="MeasureType"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -43,18 +43,36 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum MeasureType {
 
+  /** The amount. */
   @XmlEnumValue("amount")
   AMOUNT("amount"),
+  
+  /** The quantity. */
   @XmlEnumValue("quantity")
   QUANTITY("quantity"),
+  
+  /** The simple. */
   @XmlEnumValue("simple")
   SIMPLE("simple");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new measure type.
+   *
+   * @param v the v
+   */
   MeasureType(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the measure type
+   */
   public static MeasureType fromValue(String v) {
     for (MeasureType c : MeasureType.values()) {
       if (c.value.equals(v)) {
@@ -64,6 +82,11 @@ public enum MeasureType {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

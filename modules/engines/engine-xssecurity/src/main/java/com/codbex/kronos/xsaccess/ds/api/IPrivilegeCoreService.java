@@ -11,24 +11,72 @@
  */
 package com.codbex.kronos.xsaccess.ds.api;
 
-import com.codbex.kronos.xsaccess.ds.model.privilege.PrivilegeDefinition;
 import java.util.List;
 
+import com.codbex.kronos.xsaccess.ds.model.privilege.PrivilegeDefinition;
+
+/**
+ * The Interface IPrivilegeCoreService.
+ */
 public interface IPrivilegeCoreService {
 
+  /** The file extension privilege. */
   String FILE_EXTENSION_PRIVILEGE = ".xsprivileges";
 
+  /** The privileges table name. */
   String PRIVILEGES_TABLE_NAME = "KRONOS_PRIVILEGES";
 
+  /**
+   * Creates the privilege.
+   *
+   * @param name the name
+   * @param description the description
+   * @return the privilege definition
+   * @throws PrivilegeException the privilege exception
+   */
   PrivilegeDefinition createPrivilege(String name, String description) throws PrivilegeException;
 
+  /**
+   * Update privileges.
+   *
+   * @param name the name
+   * @param description the description
+   * @return the privilege definition
+   * @throws PrivilegeException the privilege exception
+   */
   PrivilegeDefinition updatePrivileges(String name, String description) throws PrivilegeException;
 
+  /**
+   * Gets the privileges.
+   *
+   * @return the privileges
+   * @throws PrivilegeException the privilege exception
+   */
   List<PrivilegeDefinition> getPrivileges() throws PrivilegeException;
 
+  /**
+   * Removes the privilege by name.
+   *
+   * @param name the name
+   * @throws PrivilegeException the privilege exception
+   */
   void removePrivilegeByName(String name) throws PrivilegeException;
 
+  /**
+   * Gets the privilege by name.
+   *
+   * @param name the name
+   * @return the privilege by name
+   * @throws PrivilegeException the privilege exception
+   */
   PrivilegeDefinition getPrivilegeByName(String name) throws PrivilegeException;
 
+  /**
+   * Privilege exists.
+   *
+   * @param name the name
+   * @return true, if successful
+   * @throws PrivilegeException the privilege exception
+   */
   boolean privilegeExists(String name) throws PrivilegeException;
 }

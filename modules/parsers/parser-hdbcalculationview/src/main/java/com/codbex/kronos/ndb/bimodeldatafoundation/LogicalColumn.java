@@ -19,11 +19,6 @@
 
 package com.codbex.kronos.ndb.bimodeldatafoundation;
 
-import com.codbex.kronos.ndb.bimodelcube.Measure;
-import com.codbex.kronos.ndb.bimodelvariable.AbstractVariableMapping;
-import com.codbex.kronos.ndb.datamodeltype.InternalExternalConversion;
-import com.codbex.kronos.ndb.datamodeltype.SemanticType;
-import com.codbex.kronos.ndb.repositorymodelresource.IDObjectWithDescription;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -36,14 +31,20 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.codbex.kronos.ndb.bimodelcube.Measure;
+import com.codbex.kronos.ndb.bimodelvariable.AbstractVariableMapping;
+import com.codbex.kronos.ndb.datamodeltype.InternalExternalConversion;
+import com.codbex.kronos.ndb.datamodeltype.SemanticType;
+import com.codbex.kronos.ndb.repositorymodelresource.IDObjectWithDescription;
+
 
 /**
  * Generic father object for the representations of column in the logical model e.g. Attributes and Measures
  *
  *
- * <p>Java class for LogicalColumn complex type.
+ * Java class for LogicalColumn complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="LogicalColumn"&gt;
@@ -93,38 +94,71 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public abstract class LogicalColumn
     extends IDObjectWithDescription {
 
+  /** The unit currency attribute. */
   protected QualifiedAttributeReference unitCurrencyAttribute;
+  
+  /** The fixed currency. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "NMTOKEN")
   protected String fixedCurrency;
+  
+  /** The fixed unit. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "NMTOKEN")
   protected String fixedUnit;
+  
+  /** The external like structure name. */
   @XmlElement(required = true)
   protected String externalLikeStructureName;
+  
+  /** The external like element name. */
   @XmlElement(required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String externalLikeElementName;
+  
+  /** The variable mapping. */
   protected List<AbstractVariableMapping> variableMapping;
+  
+  /** The internal external conversion. */
   protected InternalExternalConversion internalExternalConversion;
+  
+  /** The masking expression. */
   protected String maskingExpression;
+  
+  /** The key. */
   @XmlAttribute(name = "key")
   protected Boolean key;
+  
+  /** The hidden. */
   @XmlAttribute(name = "hidden")
   protected Boolean hidden;
+  
+  /** The info object. */
   @XmlAttribute(name = "infoObject")
   protected String infoObject;
+  
+  /** The order. */
   @XmlAttribute(name = "order")
   protected Integer order;
+  
+  /** The semantic type. */
   @XmlAttribute(name = "semanticType")
   protected SemanticType semanticType;
+  
+  /** The deprecated. */
   @XmlAttribute(name = "deprecated")
   protected Boolean deprecated;
+  
+  /** The replace null. */
   @XmlAttribute(name = "replaceNull")
   protected Boolean replaceNull;
+  
+  /** The replace null by. */
   @XmlAttribute(name = "replaceNullBy")
   protected String replaceNullBy;
+  
+  /** The display folder. */
   @XmlAttribute(name = "displayFolder")
   protected String displayFolder;
 
@@ -230,23 +264,25 @@ public abstract class LogicalColumn
 
   /**
    * Gets the value of the variableMapping property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the variableMapping property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getVariableMapping().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link AbstractVariableMapping }
+   *
+   * @return the variable mapping
    */
   public List<AbstractVariableMapping> getVariableMapping() {
     if (variableMapping == null) {

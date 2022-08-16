@@ -27,9 +27,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for SortAttributes complex type.
+ * Java class for SortAttributes complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="SortAttributes"&gt;
@@ -49,27 +49,30 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class SortAttributes {
 
+  /** The sort attribute. */
   protected List<SortAttribute> sortAttribute;
 
   /**
    * Gets the value of the sortAttribute property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the sortAttribute property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getSortAttribute().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link SortAttribute }
+   *
+   * @return the sort attribute
    */
   public List<SortAttribute> getSortAttribute() {
     if (sortAttribute == null) {

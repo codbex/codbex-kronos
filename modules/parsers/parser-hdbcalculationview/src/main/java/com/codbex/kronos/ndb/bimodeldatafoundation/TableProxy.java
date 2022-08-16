@@ -19,7 +19,6 @@
 
 package com.codbex.kronos.ndb.bimodeldatafoundation;
 
-import com.codbex.kronos.ndb.basemodelbase.QualifiedColumnObjectName;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -30,14 +29,16 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.codbex.kronos.ndb.basemodelbase.QualifiedColumnObjectName;
+
 
 /**
  * Link to a catalog data base table
  *
  *
- * <p>Java class for TableProxy complex type.
+ * Java class for TableProxy complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="TableProxy"&gt;
@@ -61,12 +62,19 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class TableProxy {
 
+  /** The table. */
   @XmlElement(required = true)
   protected QualifiedColumnObjectName table;
+  
+  /** The column filter. */
   protected List<ColumnFilter> columnFilter;
+  
+  /** The client column. */
   @XmlAttribute(name = "clientColumn")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String clientColumn;
+  
+  /** The central table. */
   @XmlAttribute(name = "centralTable")
   protected Boolean centralTable;
 
@@ -92,23 +100,25 @@ public class TableProxy {
 
   /**
    * Gets the value of the columnFilter property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the columnFilter property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getColumnFilter().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link ColumnFilter }
+   *
+   * @return the column filter
    */
   public List<ColumnFilter> getColumnFilter() {
     if (columnFilter == null) {

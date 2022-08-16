@@ -31,9 +31,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * Defines the link to one column / element and its usage in the partition
  *
  *
- * <p>Java class for PartitionExpression complex type.
+ * Java class for PartitionExpression complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="PartitionExpression"&gt;
@@ -50,9 +50,12 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "PartitionExpression")
 public class PartitionExpression {
 
+  /** The element. */
   @XmlAttribute(name = "element", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String element;
+  
+  /** The function. */
   @XmlAttribute(name = "function")
   protected PartitionExpressionFunction function;
 

@@ -27,9 +27,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for ValueFilter complex type.
+ * Java class for ValueFilter complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ValueFilter"&gt;
@@ -51,8 +51,11 @@ import javax.xml.bind.annotation.XmlType;
 })
 public abstract class ValueFilter {
 
+  /** The operator. */
   @XmlAttribute(name = "operator", required = true)
   protected ValueFilterOperator operator;
+  
+  /** The including. */
   @XmlAttribute(name = "including")
   protected Boolean including;
 

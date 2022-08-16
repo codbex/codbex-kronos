@@ -19,8 +19,6 @@
 
 package com.codbex.kronos.ndb.bimodeldatafoundation;
 
-import com.codbex.kronos.ndb.basemodelbase.FeaturedHierarchyReference;
-import com.codbex.kronos.ndb.basemodelbase.TemporalJoinProperties;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -31,14 +29,17 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.codbex.kronos.ndb.basemodelbase.FeaturedHierarchyReference;
+import com.codbex.kronos.ndb.basemodelbase.TemporalJoinProperties;
+
 
 /**
  * Models the join betweeb two logical objects - e.g. the measure group of a cube and a shared dimension
  *
  *
- * <p>Java class for LogicalJoin complex type.
+ * Java class for LogicalJoin complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="LogicalJoin"&gt;
@@ -71,21 +72,38 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class LogicalJoin {
 
+  /** The attributes. */
   @XmlElement(required = true)
   protected AttributeRefs attributes;
+  
+  /** The associated attribute names. */
   @XmlElement(required = true)
   protected AttributeNames associatedAttributeNames;
+  
+  /** The properties. */
   @XmlElement(required = true)
   protected JoinProperties properties;
+  
+  /** The temporal join properties. */
   protected TemporalJoinProperties temporalJoinProperties;
+  
+  /** The associated attribute features. */
   protected FeaturedAttributeReferences associatedAttributeFeatures;
+  
+  /** The associated hierarchy feature. */
   protected List<FeaturedHierarchyReference> associatedHierarchyFeature;
+  
+  /** The associated object uri. */
   @XmlAttribute(name = "associatedObjectUri", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String associatedObjectUri;
+  
+  /** The language attribute name. */
   @XmlAttribute(name = "languageAttributeName")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String languageAttributeName;
+  
+  /** The use dimension view hierarchies. */
   @XmlAttribute(name = "useDimensionViewHierarchies")
   protected Boolean useDimensionViewHierarchies;
 
@@ -191,23 +209,25 @@ public class LogicalJoin {
 
   /**
    * Gets the value of the associatedHierarchyFeature property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the associatedHierarchyFeature property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getAssociatedHierarchyFeature().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link FeaturedHierarchyReference }
+   *
+   * @return the associated hierarchy feature
    */
   public List<FeaturedHierarchyReference> getAssociatedHierarchyFeature() {
     if (associatedHierarchyFeature == null) {

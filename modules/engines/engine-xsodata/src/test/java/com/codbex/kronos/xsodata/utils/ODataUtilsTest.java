@@ -29,6 +29,8 @@ import com.codbex.kronos.xsodata.ds.model.ODataModel;
 import com.codbex.kronos.xsodata.ds.service.OData2TransformerException;
 import com.codbex.kronos.xsodata.ds.service.ODataParser;
 import com.codbex.kronos.xsodata.ds.service.TableMetadataProvider;
+
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
@@ -95,9 +97,9 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
   public void testConvertMultiplicityOneToMany() throws Exception {
     String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_multiplicity_one_to_many.xsodata"),
         StandardCharsets.UTF_8);
-    ODataModel oDataModel = parser.parseXSODataArtifact("np/entity_multiplicity_one_to_many.xsodata", content);
+    ODataModel oDataModel = parser.parseODataArtifact("np/entity_multiplicity_one_to_many.xsodata", content);
 
-    ODataDefinition oDataDefinition = oDataUtil.convertKronosODataModelToODataDefinition(oDataModel);
+    ODataDefinition oDataDefinition = oDataUtil.convertODataModelToODataDefinition(oDataModel);
 
     assertEquals("1", oDataDefinition.getAssociations().get(0).getFrom().getMultiplicity());
     assertEquals("*", oDataDefinition.getAssociations().get(0).getTo().getMultiplicity());
@@ -106,33 +108,33 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
   @Test
   public void testConvertWithoutSetOfPropAndLimitedExposedNavigations() throws Exception {
     String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_without_set_of_prop.xsodata"), StandardCharsets.UTF_8);
-    ODataModel oDataModel = parser.parseXSODataArtifact("np/entity_without_set_of_prop.xsodata", content);
+    ODataModel oDataModel = parser.parseODataArtifact("np/entity_without_set_of_prop.xsodata", content);
 
-    PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("COMPANY_ID", "Edm.Int32", false, true, 32, 4);
-    PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("EMPLOYEE_NUMBER", "Edm.Int32", false, true, 32, 4);
-    PersistenceTableColumnModel column9 = new PersistenceTableColumnModel("ORDER_ID", "Edm.Int32", false, true, 32, 4);
+    PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("COMPANY_ID", "Edm.Int32", false, true, 0, 0);
+    PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("EMPLOYEE_NUMBER", "Edm.Int32", false, true, 0, 0);
+    PersistenceTableColumnModel column9 = new PersistenceTableColumnModel("ORDER_ID", "Edm.Int32", false, true, 0, 0);
     column9.setNullable(true);
-    PersistenceTableModel model = new PersistenceTableModel("kronos.test.helloodata.CompositeKey::employee",
+    PersistenceTableModel model = new PersistenceTableModel("kneo.test.helloodata.CompositeKey::employee",
         Arrays.asList(column1, column2, column9), new ArrayList<>());
     model.setTableType(ISqlKeywords.METADATA_TABLE);
-    when(metadataProvider.getPersistenceTableModel("kronos.test.helloodata.CompositeKey::employee")).thenReturn(model);
+    when(metadataProvider.getPersistenceTableModel("kneo.test.helloodata.CompositeKey::employee")).thenReturn(model);
 
-    PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("NUMBER", "Edm.Int32", false, true, 32, 4);
-    PersistenceTableColumnModel column4 = new PersistenceTableColumnModel("FK_COMPANY_ID", "Edm.Int32", true, false, 32, 4);
-    PersistenceTableColumnModel column5 = new PersistenceTableColumnModel("FK_EMPLOYEE_NUMBER", "Edm.Int32", true, false, 32, 4);
-    PersistenceTableColumnModel column6 = new PersistenceTableColumnModel("FK_ADDRESS_ID", "Edm.Int32", true, false, 32, 4);
-    PersistenceTableRelationModel rel = new PersistenceTableRelationModel("kronos.test.helloodata.CompositeKey::phones",
-        "kronos.test.helloodata.CompositeKey::employee", "FK_COMPANY_ID", "COMPANY_ID", "CONSTRAINT_8C", "CONSTRAINT_INDEX_4");
-    PersistenceTableRelationModel rel2 = new PersistenceTableRelationModel("kronos.test.helloodata.CompositeKey::phones",
-        "kronos.test.helloodata.CompositeKey::employee", "FK_EMPLOYEE_NUMBER", "EMPLOYEE_NUMBER", "CONSTRAINT_8C9", "CONSTRAINT_INDEX_43");
-    PersistenceTableRelationModel rel3 = new PersistenceTableRelationModel("kronos.test.helloodata.CompositeKey::phones",
-        "kronos.test.helloodata.CompositeKey::address", "FK_ADDRESS_ID", "ID", "CONSTRAINT_8C9F", "CONSTRAINT_INDEX_E6");
-    model = new PersistenceTableModel("kronos.test.helloodata.CompositeKey::phones", Arrays.asList(column3, column4, column5, column6),
+    PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("NUMBER", "Edm.Int32", false, true, 0, 0);
+    PersistenceTableColumnModel column4 = new PersistenceTableColumnModel("FK_COMPANY_ID", "Edm.Int32", true, false, 0, 0);
+    PersistenceTableColumnModel column5 = new PersistenceTableColumnModel("FK_EMPLOYEE_NUMBER", "Edm.Int32", true, false, 0, 0);
+    PersistenceTableColumnModel column6 = new PersistenceTableColumnModel("FK_ADDRESS_ID", "Edm.Int32", true, false, 0, 0);
+    PersistenceTableRelationModel rel = new PersistenceTableRelationModel("kneo.test.helloodata.CompositeKey::phones",
+        "kneo.test.helloodata.CompositeKey::employee", "FK_COMPANY_ID", "COMPANY_ID", "CONSTRAINT_8C", "CONSTRAINT_INDEX_4");
+    PersistenceTableRelationModel rel2 = new PersistenceTableRelationModel("kneo.test.helloodata.CompositeKey::phones",
+        "kneo.test.helloodata.CompositeKey::employee", "FK_EMPLOYEE_NUMBER", "EMPLOYEE_NUMBER", "CONSTRAINT_8C9", "CONSTRAINT_INDEX_43");
+    PersistenceTableRelationModel rel3 = new PersistenceTableRelationModel("kneo.test.helloodata.CompositeKey::phones",
+        "kneo.test.helloodata.CompositeKey::address", "FK_ADDRESS_ID", "ID", "CONSTRAINT_8C9F", "CONSTRAINT_INDEX_E6");
+    model = new PersistenceTableModel("kneo.test.helloodata.CompositeKey::phones", Arrays.asList(column3, column4, column5, column6),
         Arrays.asList(rel, rel2, rel3));
     model.setTableType(ISqlKeywords.METADATA_TABLE);
-    when(metadataProvider.getPersistenceTableModel("kronos.test.helloodata.CompositeKey::phones")).thenReturn(model);
+    when(metadataProvider.getPersistenceTableModel("kneo.test.helloodata.CompositeKey::phones")).thenReturn(model);
 
-    ODataDefinition oDataDefinition = oDataUtil.convertKronosODataModelToODataDefinition(oDataModel);
+    ODataDefinition oDataDefinition = oDataUtil.convertODataModelToODataDefinition(oDataModel);
 
     assertEquals(2, oDataDefinition.getEntities().size());
     assertEquals(1, oDataDefinition.getAssociations().size());
@@ -144,7 +146,7 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
     ODataEntityDefinition employeeEntity = oDataDefinition.getEntities().get(0);
     assertEquals("Employees", employeeEntity.getName());
     assertEquals("Employees", employeeEntity.getAlias());
-    assertEquals("kronos.test.helloodata.CompositeKey::employee", employeeEntity.getTable());
+    assertEquals("kneo.test.helloodata.CompositeKey::employee", employeeEntity.getTable());
     assertEquals(2, employeeEntity.getProperties().size());
     assertEquals("COMPANY_ID", employeeEntity.getProperties().get(0).getName());
     assertEquals("COMPANY_ID", employeeEntity.getProperties().get(0).getColumn());
@@ -162,7 +164,7 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
     ODataEntityDefinition phoneEntity = oDataDefinition.getEntities().get(1);
     assertEquals("Phones", phoneEntity.getName());
     assertEquals("Phones", phoneEntity.getAlias());
-    assertEquals("kronos.test.helloodata.CompositeKey::phones", phoneEntity.getTable());
+    assertEquals("kneo.test.helloodata.CompositeKey::phones", phoneEntity.getTable());
     assertEquals(0, phoneEntity.getProperties().size());
     assertEquals(0, phoneEntity.getHandlers().size());
     assertEquals(0, phoneEntity.getNavigations().size());
@@ -186,35 +188,35 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
   @Test
   public void testConvertWithSetOfPropAndLimitedExposedNavigations() throws Exception {
     String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_set_of_prop.xsodata"), StandardCharsets.UTF_8);
-    ODataModel oDataModel = parser.parseXSODataArtifact("np/entity_with_set_of_prop.xsodata", content);
+    ODataModel oDataModel = parser.parseODataArtifact("np/entity_with_set_of_prop.xsodata", content);
 
-    PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("COMPANY_ID", "Edm.Int32", false, true, 32, 4);
-    PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("EMPLOYEE_NUMBER", "Edm.Int32", false, true, 32, 4);
-    PersistenceTableColumnModel column9 = new PersistenceTableColumnModel("ORDER_ID", "Edm.Int32", true, false, 32, 4);
+    PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("COMPANY_ID", "Edm.Int32", false, true, 0, 0);
+    PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("EMPLOYEE_NUMBER", "Edm.Int32", false, true, 0, 0);
+    PersistenceTableColumnModel column9 = new PersistenceTableColumnModel("ORDER_ID", "Edm.Int32", true, false, 0, 0);
     column9.setNullable(true);
-    PersistenceTableColumnModel column10 = new PersistenceTableColumnModel("ORDER_ID_2", "Edm.Int32", true, false, 32, 4);
+    PersistenceTableColumnModel column10 = new PersistenceTableColumnModel("ORDER_ID_2", "Edm.Int32", true, false, 0, 0);
     column10.setNullable(true);
-    PersistenceTableModel model = new PersistenceTableModel("kronos.test.helloodata.CompositeKey::employee",
+    PersistenceTableModel model = new PersistenceTableModel("kneo.test.helloodata.CompositeKey::employee",
         Arrays.asList(column1, column2, column9, column10), new ArrayList<>());
     model.setTableType(ISqlKeywords.METADATA_TABLE);
-    when(metadataProvider.getPersistenceTableModel("kronos.test.helloodata.CompositeKey::employee")).thenReturn(model);
+    when(metadataProvider.getPersistenceTableModel("kneo.test.helloodata.CompositeKey::employee")).thenReturn(model);
 
-    PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("NUMBER", "Edm.Int32", false, true, 32, 4);
-    PersistenceTableColumnModel column4 = new PersistenceTableColumnModel("FK_COMPANY_ID", "Edm.Int32", true, false, 32, 4);
-    PersistenceTableColumnModel column5 = new PersistenceTableColumnModel("FK_EMPLOYEE_NUMBER", "Edm.Int32", true, false, 32, 4);
-    PersistenceTableColumnModel column6 = new PersistenceTableColumnModel("FK_ADDRESS_ID", "Edm.Int32", true, false, 32, 4);
-    PersistenceTableRelationModel rel = new PersistenceTableRelationModel("kronos.test.helloodata.CompositeKey::phones",
-        "kronos.test.helloodata.CompositeKey::employee", "FK_COMPANY_ID", "COMPANY_ID", "CONSTRAINT_8C", "CONSTRAINT_INDEX_4");
-    PersistenceTableRelationModel rel2 = new PersistenceTableRelationModel("kronos.test.helloodata.CompositeKey::phones",
-        "kronos.test.helloodata.CompositeKey::employee", "FK_EMPLOYEE_NUMBER", "EMPLOYEE_NUMBER", "CONSTRAINT_8C9", "CONSTRAINT_INDEX_43");
-    PersistenceTableRelationModel rel3 = new PersistenceTableRelationModel("kronos.test.helloodata.CompositeKey::phones",
-        "kronos.test.helloodata.CompositeKey::address", "FK_ADDRESS_ID", "ID", "CONSTRAINT_8C9F", "CONSTRAINT_INDEX_E6");
-    model = new PersistenceTableModel("kronos.test.helloodata.CompositeKey::phones", Arrays.asList(column3, column4, column5, column6),
+    PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("NUMBER", "Edm.Int32", false, true, 0, 0);
+    PersistenceTableColumnModel column4 = new PersistenceTableColumnModel("FK_COMPANY_ID", "Edm.Int32", true, false, 0, 0);
+    PersistenceTableColumnModel column5 = new PersistenceTableColumnModel("FK_EMPLOYEE_NUMBER", "Edm.Int32", true, false, 0, 0);
+    PersistenceTableColumnModel column6 = new PersistenceTableColumnModel("FK_ADDRESS_ID", "Edm.Int32", true, false, 0, 0);
+    PersistenceTableRelationModel rel = new PersistenceTableRelationModel("kneo.test.helloodata.CompositeKey::phones",
+        "kneo.test.helloodata.CompositeKey::employee", "FK_COMPANY_ID", "COMPANY_ID", "CONSTRAINT_8C", "CONSTRAINT_INDEX_4");
+    PersistenceTableRelationModel rel2 = new PersistenceTableRelationModel("kneo.test.helloodata.CompositeKey::phones",
+        "kneo.test.helloodata.CompositeKey::employee", "FK_EMPLOYEE_NUMBER", "EMPLOYEE_NUMBER", "CONSTRAINT_8C9", "CONSTRAINT_INDEX_43");
+    PersistenceTableRelationModel rel3 = new PersistenceTableRelationModel("kneo.test.helloodata.CompositeKey::phones",
+        "kneo.test.helloodata.CompositeKey::address", "FK_ADDRESS_ID", "ID", "CONSTRAINT_8C9F", "CONSTRAINT_INDEX_E6");
+    model = new PersistenceTableModel("kneo.test.helloodata.CompositeKey::phones", Arrays.asList(column3, column4, column5, column6),
         Arrays.asList(rel, rel2, rel3));
     model.setTableType(ISqlKeywords.METADATA_TABLE);
-    when(metadataProvider.getPersistenceTableModel("kronos.test.helloodata.CompositeKey::phones")).thenReturn(model);
+    when(metadataProvider.getPersistenceTableModel("kneo.test.helloodata.CompositeKey::phones")).thenReturn(model);
 
-    ODataDefinition oDataDefinition = oDataUtil.convertKronosODataModelToODataDefinition(oDataModel);
+    ODataDefinition oDataDefinition = oDataUtil.convertODataModelToODataDefinition(oDataModel);
     assertEquals(2, oDataDefinition.getEntities().size());
     assertEquals(1, oDataDefinition.getAssociations().size());
     assertEquals("np", oDataDefinition.getNamespace());
@@ -225,7 +227,7 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
     ODataEntityDefinition employeeEntity = oDataDefinition.getEntities().get(0);
     assertEquals("Employees", employeeEntity.getName());
     assertEquals("Employees", employeeEntity.getAlias());
-    assertEquals("kronos.test.helloodata.CompositeKey::employee", employeeEntity.getTable());
+    assertEquals("kneo.test.helloodata.CompositeKey::employee", employeeEntity.getTable());
 
     assertEquals(3, employeeEntity.getProperties().size());
     assertEquals("COMPANY_ID", employeeEntity.getProperties().get(0).getName());
@@ -249,7 +251,7 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
     ODataEntityDefinition phoneEntity = oDataDefinition.getEntities().get(1);
     assertEquals("Phones", phoneEntity.getName());
     assertEquals("Phones", phoneEntity.getAlias());
-    assertEquals("kronos.test.helloodata.CompositeKey::phones", phoneEntity.getTable());
+    assertEquals("kneo.test.helloodata.CompositeKey::phones", phoneEntity.getTable());
     assertEquals(0, phoneEntity.getProperties().size());
     assertEquals(0, phoneEntity.getHandlers().size());
     assertEquals(0, phoneEntity.getNavigations().size());
@@ -273,14 +275,14 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
   @Test
   public void testConvertOfEvents() throws Exception {
     String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_events.xsodata"), StandardCharsets.UTF_8);
-    ODataModel oDataModel = parser.parseXSODataArtifact("np/entity_with_events.xsodata", content);
+    ODataModel oDataModel = parser.parseODataArtifact("np/entity_with_events.xsodata", content);
 
     mockTableMetadataInvocations("sample.odata::table1");
     mockTableMetadataInvocations("sample.odata::table2");
     mockTableMetadataInvocations("sample.odata::table3");
     mockTableMetadataInvocations("sample.odata::table4");
 
-    ODataDefinition oDataDefinition = oDataUtil.convertKronosODataModelToODataDefinition(oDataModel);
+    ODataDefinition oDataDefinition = oDataUtil.convertODataModelToODataDefinition(oDataModel);
     assertEquals(4, oDataDefinition.getEntities().size());
 
     ODataEntityDefinition entity1 = oDataDefinition.getEntities().get(0);
@@ -376,21 +378,21 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
   @Test
   public void testCalcView() throws Exception {
     String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_calc_view.xsodata"), StandardCharsets.UTF_8);
-    ODataModel oDataModel = parser.parseXSODataArtifact("np/entity_calc_view.xsodata", content);
+    ODataModel oDataModel = parser.parseODataArtifact("np/entity_calc_view.xsodata", content);
 
-    PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("COLUMN1", "Edm.Int32", true, false, 32, 4);
-    PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("COLUMN2", "Edm.Int32", true, false, 32, 4);
-    PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("COLUMN3", "Edm.Int32", true, false, 32, 4);
-    PersistenceTableModel model = new PersistenceTableModel("kronos.test.calcviews::calc", Arrays.asList(column1, column2, column3),
+    PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("COLUMN1", "Edm.Int32", true, false, 0, 0);
+    PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("COLUMN2", "Edm.Int32", true, false, 0, 0);
+    PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("COLUMN3", "Edm.Int32", true, false, 0, 0);
+    PersistenceTableModel model = new PersistenceTableModel("kneo.test.calcviews::calc", Arrays.asList(column1, column2, column3),
         new ArrayList<>());
     model.setTableType("CALC VIEW");
 
-    when(metadataProvider.getPersistenceTableModel("kronos.test.calcviews::calc")).thenReturn(model);
+    when(metadataProvider.getPersistenceTableModel("kneo.test.calcviews::calc")).thenReturn(model);
     when(mockDataSource.getConnection()).thenReturn(mockConnection);
     when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
     when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
 
-    ODataDefinition oDataDefinition = oDataUtil.convertKronosODataModelToODataDefinition(oDataModel);
+    ODataDefinition oDataDefinition = oDataUtil.convertODataModelToODataDefinition(oDataModel);
 
     assertEquals(3, oDataDefinition.getEntities().get(0).getProperties().size());
     assertEquals(1, oDataDefinition.getEntities().get(1).getProperties().size());
@@ -409,16 +411,16 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
 
     doReturn(List.of(dbArtifactModelCalcView)).when(parser).getDBArtifactsByName(anyString());
 
-    ODataModel oDataModel = parser.parseXSODataArtifact("np/entity_calc_view_with_input_parameters.xsodata", content);
+    ODataModel oDataModel = parser.parseODataArtifact("np/entity_calc_view_with_input_parameters.xsodata", content);
 
-    PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("COLUMN1", "Edm.Int32", true, false, 32, 4);
-    PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("COLUMN2", "Edm.Int32", true, false, 32, 4);
-    PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("COLUMN3", "Edm.Int32", true, false, 32, 4);
-    PersistenceTableModel model = new PersistenceTableModel("kronos.test.calcviews::calc", Arrays.asList(column1, column2, column3),
+    PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("COLUMN1", "Edm.Int32", true, false, 0, 0);
+    PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("COLUMN2", "Edm.Int32", true, false, 0, 0);
+    PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("COLUMN3", "Edm.Int32", true, false, 0, 0);
+    PersistenceTableModel model = new PersistenceTableModel("kneo.test.calcviews::calc", Arrays.asList(column1, column2, column3),
         new ArrayList<>());
     model.setTableType("CALC VIEW");
 
-    when(metadataProvider.getPersistenceTableModel("kronos.test.calcviews::calc")).thenReturn(model);
+    when(metadataProvider.getPersistenceTableModel("kneo.test.calcviews::calc")).thenReturn(model);
     when(mockDataSource.getConnection()).thenReturn(mockConnection);
     when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
     when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
@@ -427,7 +429,7 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
     when(mockResultSet.getString("COLUMN_SQL_TYPE")).thenReturn("INTEGER");
     when(mockResultSet.getString("MANDATORY")).thenReturn("0");
 
-    ODataDefinition oDataDefinition = oDataUtil.convertKronosODataModelToODataDefinition(oDataModel);
+    ODataDefinition oDataDefinition = oDataUtil.convertODataModelToODataDefinition(oDataModel);
 
     assertEquals(3, oDataDefinition.getEntities().get(0).getProperties().size());
     assertEquals(1, oDataDefinition.getEntities().get(0).getParameters().size());
@@ -451,13 +453,13 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
     try (MockedStatic<CommonsDBUtils> commonsDBUtils = Mockito.mockStatic(CommonsDBUtils.class)) {
 
       String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_synonym.xsodata"), StandardCharsets.UTF_8);
-      ODataModel oDataModel = parser.parseXSODataArtifact("np/entity_synonym.xsodata", content);
+      ODataModel oDataModel = parser.parseODataArtifact("np/entity_synonym.xsodata", content);
 
-      PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("COLUMN1", "Edm.Int32", true, false, 32, 4);
-      PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("COLUMN2", "Edm.Int32", true, false, 32, 4);
-      PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("COLUMN3", "Edm.Int32", true, false, 32, 4);
+      PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("COLUMN1", "Edm.Int32", true, false, 0, 0);
+      PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("COLUMN2", "Edm.Int32", true, false, 0, 0);
+      PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("COLUMN3", "Edm.Int32", true, false, 0, 0);
 
-      PersistenceTableModel calcViewModel = new PersistenceTableModel("kronos.test.calcviews::calc", Arrays.asList(column1, column2, column3),
+      PersistenceTableModel calcViewModel = new PersistenceTableModel("kneo.test.calcviews::calc", Arrays.asList(column1, column2, column3),
           new ArrayList<>());
       calcViewModel.setTableType(ISqlKeywords.METADATA_CALC_VIEW);
 
@@ -466,7 +468,7 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
       when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
       when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
 
-      ODataDefinition oDataDefinition = oDataUtil.convertKronosODataModelToODataDefinition(oDataModel);
+      ODataDefinition oDataDefinition = oDataUtil.convertODataModelToODataDefinition(oDataModel);
 
       assertEquals(3, oDataDefinition.getEntities().get(0).getProperties().size());
       assertEquals(1, oDataDefinition.getEntities().get(1).getProperties().size());
@@ -478,7 +480,7 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
   @Test
   public void testProperNavigationConstruction() throws IOException, ArtifactParserException, SQLException {
     String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_3_navigations.xsodata"), StandardCharsets.UTF_8);
-    ODataModel oDataModel = parser.parseXSODataArtifact("np/entity_with_3_navigations.xsodata", content);
+    ODataModel oDataModel = parser.parseODataArtifact("np/entity_with_3_navigations.xsodata", content);
 
     ODataDefinition oDataDefinitionModel = new ODataDefinition();
     for (HDBXSODataEntity entity : oDataModel.getService().getEntities()) {
@@ -495,17 +497,17 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
   public void testAggregationsConstruction() throws Exception {
     ODataParser parser = new ODataParser();
     String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_aggregations_for_conversion.xsodata"), StandardCharsets.UTF_8);
-    ODataModel oDataModel = parser.parseXSODataArtifact("np/entity_with_aggregations_for_conversion.xsodata", content);
+    ODataModel oDataModel = parser.parseODataArtifact("np/entity_with_aggregations_for_conversion.xsodata", content);
 
-    PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("USER_ID", "Edm.Int32", false, true, 32, 4);
-    PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("USER_PAYMENT", "Edm.Int32", true, false, 32, 4);
-    PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("ROLE_NUMBER", "Edm.Int32", true, false, 32, 4);
+    PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("USER_ID", "Edm.Int32", false, true, 0, 0);
+    PersistenceTableColumnModel column2 = new PersistenceTableColumnModel("USER_PAYMENT", "Edm.Int32", true, false, 0, 0);
+    PersistenceTableColumnModel column3 = new PersistenceTableColumnModel("ROLE_NUMBER", "Edm.Int32", true, false, 0, 0);
     PersistenceTableModel model = new PersistenceTableModel("TEST_VIEW", Arrays.asList(column1, column2, column3),
         new ArrayList<>());
     model.setTableType("CALC VIEW");
     when(metadataProvider.getPersistenceTableModel("TEST_VIEW")).thenReturn(model);
 
-    ODataDefinition oDataDefinition = oDataUtil.convertKronosODataModelToODataDefinition(oDataModel);
+    ODataDefinition oDataDefinition = oDataUtil.convertODataModelToODataDefinition(oDataModel);
 
     assertTrue(oDataDefinition.getEntities().get(0).getAggregationsTypeAndColumn().containsKey("USER_PAYMENT"));
     assertTrue(oDataDefinition.getEntities().get(0).getAggregationsTypeAndColumn().containsValue("SUM"));

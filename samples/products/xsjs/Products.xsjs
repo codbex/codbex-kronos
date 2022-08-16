@@ -25,20 +25,22 @@ function positiveResult(oResponse) {
  * See above for the expected format of a request-entity
  */
 function doPost() {
-    
 	var request = JSON.parse($.request.body.asString());
-	var productsService = new ProductsService(connection, "KRONOS_SAMPLES_PRODUCTS");
+	var productsService = new ProductsService(connection, "SAMPLES_PRODUCTS");
 	var response = productsService.handlePostRequest(request);
 	connection.close();
 	positiveResult(response);
 }
 
 function doGet() {
-    
 	var response;
-	var productsService = new ProductsService(connection, "KRONOS_SAMPLES_PRODUCTS");
-	response = productsService.handleGetRequest();
-	connection.close();
+	var productsService = new ProductsService(connection, "SAMPLES_PRODUCTS");
+
+	try {
+		response = productsService.handleGetRequest();
+	} finally {
+		connection.close();
+	}
 	positiveResult(response);
 }
 

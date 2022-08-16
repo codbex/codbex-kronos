@@ -14,27 +14,58 @@ package com.codbex.kronos.parser.xsodata.model;
 import java.util.Arrays;
 import java.util.Optional;
 
+/**
+ * The Enum HDBXSODataStorageType.
+ */
 public enum HDBXSODataStorageType {
+    
+    /** The no storage. */
     NO_STORAGE("nostorage"),
+    
+    /** The storage on principal. */
     STORAGE_ON_PRINCIPAL("storageonprincipal"),
+    
+    /** The storage on dependent. */
     STORAGE_ON_DEPENDENT("storageondependent");
 
+    /** The text. */
     private final String text;
 
+    /**
+     * Instantiates a new HDBXSO data storage type.
+     *
+     * @param text the text
+     */
     HDBXSODataStorageType(String text) {
         this.text = text;
     }
 
+    /**
+     * Gets the text.
+     *
+     * @return the text
+     */
     public String getText() {
         return this.text;
     }
 
+    /**
+     * From value.
+     *
+     * @param text the text
+     * @return the optional
+     */
     public static Optional<HDBXSODataStorageType> fromValue(String text) {
         return Arrays.stream(values())
                 .filter(bl -> bl.text.equalsIgnoreCase(text))
                 .findFirst();
     }
 
+    /**
+     * Value.
+     *
+     * @return the string
+     */
     public String value() {
         return name();
     }

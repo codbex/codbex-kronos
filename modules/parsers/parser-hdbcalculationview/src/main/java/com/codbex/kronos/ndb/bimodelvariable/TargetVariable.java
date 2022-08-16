@@ -31,9 +31,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * Simplified new target variable type without resourceURI
  *
  *
- * <p>Java class for TargetVariable complex type.
+ * Java class for TargetVariable complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="TargetVariable"&gt;
@@ -49,6 +49,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "TargetVariable")
 public class TargetVariable {
 
+  /** The name. */
   @XmlAttribute(name = "name", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String name;

@@ -19,12 +19,13 @@
 
 package com.codbex.kronos.ndb.bimodelvariable;
 
-import com.codbex.kronos.ndb.repositorymodelresource.IDObjectWithDescription;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+
+import com.codbex.kronos.ndb.repositorymodelresource.IDObjectWithDescription;
 
 
 /**
@@ -34,9 +35,9 @@ import javax.xml.bind.annotation.XmlType;
  * the engine the placeholder names are case insensitive.
  *
  *
- * <p>Java class for LocalVariable complex type.
+ * Java class for LocalVariable complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="LocalVariable"&gt;
@@ -60,12 +61,19 @@ import javax.xml.bind.annotation.XmlType;
 public class LocalVariable
     extends IDObjectWithDescription {
 
+  /** The variable properties. */
   @XmlElement(required = true)
   protected VariableProperties variableProperties;
+  
+  /** The parameter. */
   @XmlAttribute(name = "parameter")
   protected Boolean parameter;
+  
+  /** The type. */
   @XmlAttribute(name = "type")
   protected String type;
+  
+  /** The deprecated. */
   @XmlAttribute(name = "deprecated")
   protected Boolean deprecated;
 

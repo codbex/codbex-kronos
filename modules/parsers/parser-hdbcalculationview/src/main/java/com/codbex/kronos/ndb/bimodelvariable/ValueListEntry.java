@@ -19,19 +19,20 @@
 
 package com.codbex.kronos.ndb.bimodelvariable;
 
-import com.codbex.kronos.ndb.repositorymodelresource.IDObjectWithDescription;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
+
+import com.codbex.kronos.ndb.repositorymodelresource.IDObjectWithDescription;
 
 
 /**
  * Type to define one entry in the static list of values
  *
  *
- * <p>Java class for ValueListEntry complex type.
+ * Java class for ValueListEntry complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ValueListEntry"&gt;

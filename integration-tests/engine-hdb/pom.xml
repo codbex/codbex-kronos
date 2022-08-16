@@ -5,44 +5,26 @@
     <parent>
         <groupId>com.codbex.kronos</groupId>
         <artifactId>kronos-integration-tests-parent</artifactId>
-        <version>0.1.0-SNAPSHOT</version>
+        <version>0.2.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <name>Kronos - Integration Tests - Engines - HDB</name>
     <artifactId>kronos-integration-tests-engines-hdb</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>kronos-modules-engines-hdb</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
+            <version>0.2.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.eclipse.dirigible</groupId>
-            <artifactId>dirigible-commons-test</artifactId>
-            <version>${dirigible.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.dirigible</groupId>
-            <artifactId>dirigible-database-custom</artifactId>
-            <version>${dirigible.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.dirigible</groupId>
-            <artifactId>dirigible-database-h2</artifactId>
-            <version>${dirigible.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.dirigible</groupId>
-            <artifactId>dirigible-repository-local</artifactId>
-            <version>${dirigible.version}</version>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>kronos-integration-tests-core</artifactId>
+            <version>0.2.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -86,27 +68,27 @@
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>kronos-modules-parsers-hdbti</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
+            <version>0.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>kronos-modules-parsers-hdbsequence</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
+            <version>0.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>kronos-modules-parsers-hdbschema</artifactId>
-            <version>0.18.0-SNAPSHOT</version>
+            <version>0.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>kronos-modules-parsers-hdbtable</artifactId>
-            <version>0.18.0-SNAPSHOT</version>
+            <version>0.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>kronos-modules-parsers-hdbdd</artifactId>
-            <version>0.18.0-SNAPSHOT</version>
+            <version>0.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>

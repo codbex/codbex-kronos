@@ -64,9 +64,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * the list of ExceptionAggregationSteps. With this the aggregation level on which has to be calculated can be defined precisely.
  *
  *
- * <p>Java class for ExceptionAggregationStep complex type.
+ * Java class for ExceptionAggregationStep complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ExceptionAggregationStep"&gt;
@@ -87,32 +87,37 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class ExceptionAggregationStep {
 
+  /** The reference element. */
   @XmlElement(required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected List<String> referenceElement;
+  
+  /** The exception aggregation behavior. */
   @XmlAttribute(name = "exceptionAggregationBehavior")
   protected ExceptionAggregationBehavior exceptionAggregationBehavior;
 
   /**
    * Gets the value of the referenceElement property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the referenceElement property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getReferenceElement().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link String }
+   *
+   * @return the reference element
    */
   public List<String> getReferenceElement() {
     if (referenceElement == null) {

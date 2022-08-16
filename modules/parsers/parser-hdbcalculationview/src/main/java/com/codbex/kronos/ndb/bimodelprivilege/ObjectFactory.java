@@ -25,8 +25,8 @@ import javax.xml.bind.annotation.XmlRegistry;
 /**
  * This object contains factory methods for each
  * Java content interface and Java element interface
- * generated in the com.codbex.kronos.ndb.bimodelprivilege package.
- * <p>An ObjectFactory allows you to programatically
+ * generated in the com.sap.ndb.bimodelprivilege package.
+ * An ObjectFactory allows you to programatically
  * construct new instances of the Java representation
  * for XML content. The Java representation of XML
  * content can consist of schema derived interfaces
@@ -40,55 +40,69 @@ public class ObjectFactory {
 
 
   /**
-   * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.codbex.kronos.ndb.bimodelprivilege
+   * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.sap.ndb.bimodelprivilege
    */
   public ObjectFactory() {
   }
 
   /**
-   * Create an instance of {@link AnalyticPrivilege }
+   * Create an instance of {@link AnalyticPrivilege }.
+   *
+   * @return the analytic privilege
    */
   public AnalyticPrivilege createAnalyticPrivilege() {
     return new AnalyticPrivilege();
   }
 
   /**
-   * Create an instance of {@link SecuredModels }
+   * Create an instance of {@link SecuredModels }.
+   *
+   * @return the secured models
    */
   public SecuredModels createSecuredModels() {
     return new SecuredModels();
   }
 
   /**
-   * Create an instance of {@link RestrictionNode }
+   * Create an instance of {@link RestrictionNode }.
+   *
+   * @return the restriction node
    */
   public RestrictionNode createRestrictionNode() {
     return new RestrictionNode();
   }
 
   /**
-   * Create an instance of {@link Restriction }
+   * Create an instance of {@link Restriction }.
+   *
+   * @return the restriction
    */
   public Restriction createRestriction() {
     return new Restriction();
   }
 
   /**
-   * Create an instance of {@link AttributeFilter }
+   * Create an instance of {@link AttributeFilter }.
+   *
+   * @return the attribute filter
    */
   public AttributeFilter createAttributeFilter() {
     return new AttributeFilter();
   }
 
   /**
-   * Create an instance of {@link HierarchyFilter }
+   * Create an instance of {@link HierarchyFilter }.
+   *
+   * @return the hierarchy filter
    */
   public HierarchyFilter createHierarchyFilter() {
     return new HierarchyFilter();
   }
 
   /**
-   * Create an instance of {@link ProcedureFilter }
+   * Create an instance of {@link ProcedureFilter }.
+   *
+   * @return the procedure filter
    */
   public ProcedureFilter createProcedureFilter() {
     return new ProcedureFilter();

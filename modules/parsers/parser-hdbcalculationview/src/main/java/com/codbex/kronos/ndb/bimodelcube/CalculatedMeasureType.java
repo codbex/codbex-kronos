@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for CalculatedMeasureType.
+ * Java class for CalculatedMeasureType.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="CalculatedMeasureType"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -42,16 +42,32 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum CalculatedMeasureType {
 
+  /** The regular. */
   @XmlEnumValue("regular")
   REGULAR("regular"),
+  
+  /** The counter. */
   @XmlEnumValue("counter")
   COUNTER("counter");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new calculated measure type.
+   *
+   * @param v the v
+   */
   CalculatedMeasureType(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the calculated measure type
+   */
   public static CalculatedMeasureType fromValue(String v) {
     for (CalculatedMeasureType c : CalculatedMeasureType.values()) {
       if (c.value.equals(v)) {
@@ -61,6 +77,11 @@ public enum CalculatedMeasureType {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

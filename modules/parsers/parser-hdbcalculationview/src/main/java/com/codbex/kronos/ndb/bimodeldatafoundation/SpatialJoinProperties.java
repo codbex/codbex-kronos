@@ -19,22 +19,23 @@
 
 package com.codbex.kronos.ndb.bimodeldatafoundation;
 
-import com.codbex.kronos.ndb.basemodelbase.SpatialPredicate;
-import com.codbex.kronos.ndb.bimodelconversion.Parameterization;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import com.codbex.kronos.ndb.basemodelbase.SpatialPredicate;
+import com.codbex.kronos.ndb.bimodelconversion.Parameterization;
+
 
 /**
  * Additional (join) properties neded to specify a spatial join
  *
  *
- * <p>Java class for SpatialJoinProperties complex type.
+ * Java class for SpatialJoinProperties complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="SpatialJoinProperties"&gt;
@@ -58,12 +59,19 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class SpatialJoinProperties {
 
+  /** The distance. */
   @XmlElement(required = true)
   protected Parameterization distance;
+  
+  /** The intersection matrix. */
   @XmlElement(required = true)
   protected Parameterization intersectionMatrix;
+  
+  /** The predicate. */
   @XmlAttribute(name = "predicate", required = true)
   protected SpatialPredicate predicate;
+  
+  /** The predicate evaluates to. */
   @XmlAttribute(name = "predicateEvaluatesTo")
   protected Boolean predicateEvaluatesTo;
 

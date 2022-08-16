@@ -15,6 +15,7 @@ import com.codbex.kronos.hdbti.api.ICSVToHDBTIRelationDao;
 import com.codbex.kronos.hdbti.model.TableImportArtifact;
 import com.codbex.kronos.hdbti.model.TableImportToCsvRelation;
 import com.codbex.kronos.utils.Utils;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -28,14 +29,25 @@ import org.eclipse.dirigible.database.persistence.PersistenceManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class CSVToHDBTIRelationDao.
+ */
 public class CSVToHDBTIRelationDao implements ICSVToHDBTIRelationDao {
 
+    /** The Constant logger. */
     private static final Logger logger = LoggerFactory.getLogger(CSVToHDBTIRelationDao.class);
 
+    /** The table import to csv relation persistence manager. */
     private PersistenceManager<TableImportToCsvRelation> tableImportToCsvRelationPersistenceManager = new PersistenceManager<TableImportToCsvRelation>();
 
+    /** The data source. */
     private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
 
+    /**
+     * Persist new csv and hdbti relations.
+     *
+     * @param tableImportArtifact the table import artifact
+     */
     @Override
     public void persistNewCsvAndHdbtiRelations(TableImportArtifact tableImportArtifact) {
         for(TableImportToCsvRelation relation : tableImportArtifact.getTableImportToCsvRelations()){
@@ -48,6 +60,11 @@ public class CSVToHDBTIRelationDao implements ICSVToHDBTIRelationDao {
         }
     }
 
+    /**
+     * Delete csv and hdbti relations.
+     *
+     * @param hdbtiFileName the hdbti file name
+     */
     @Override
     public void deleteCsvAndHdbtiRelations(String hdbtiFileName) {
         String sql = String.format("DELETE FROM \"KRONOS_TABLE_IMPORT_TO_CSV\" WHERE \"HDBTI_LOCATION\"='%s'", hdbtiFileName);
@@ -59,6 +76,11 @@ public class CSVToHDBTIRelationDao implements ICSVToHDBTIRelationDao {
         }
     }
 
+    /**
+     * Gets the all hdbti to csv relations.
+     *
+     * @return the all hdbti to csv relations
+     */
     @Override
     public List<TableImportToCsvRelation> getAllHdbtiToCsvRelations() {
         List<TableImportToCsvRelation> listOfcsvToHdbtiRelations = new ArrayList<>();
@@ -70,22 +92,45 @@ public class CSVToHDBTIRelationDao implements ICSVToHDBTIRelationDao {
         return listOfcsvToHdbtiRelations;
     }
 
+    /**
+     * Checks for csv changed.
+     *
+     * @param tableImportToCsvRelation the table import to csv relation
+     * @param csvContent the csv content
+     * @return true, if successful
+     */
     @Override
     public boolean hasCsvChanged(TableImportToCsvRelation tableImportToCsvRelation, String csvContent) {
         return !tableImportToCsvRelation.getCsvHash().equals(DigestUtils.md5Hex(csvContent));
     }
 
+    /**
+     * Gets the affected hdbti to csv relations.
+     *
+     * @param csvFilePath the csv file path
+     * @return the affected hdbti to csv relations
+     */
     @Override
     public List<TableImportToCsvRelation> getAffectedHdbtiToCsvRelations(String csvFilePath) {
         List<TableImportToCsvRelation> relations = getAllHdbtiToCsvRelations();
         return relations.stream().filter(relation -> relation.getCsv().equals(Utils.convertToFullPath(csvFilePath))).collect(Collectors.toList());
     }
 
+    /**
+     * Gets the table import to csv relation persistence manager.
+     *
+     * @return the table import to csv relation persistence manager
+     */
     @Override
     public PersistenceManager<TableImportToCsvRelation> getTableImportToCsvRelationPersistenceManager() {
         return tableImportToCsvRelationPersistenceManager;
     }
 
+    /**
+     * Gets the data source.
+     *
+     * @return the data source
+     */
     @Override
     public DataSource getDataSource() {
         return dataSource;

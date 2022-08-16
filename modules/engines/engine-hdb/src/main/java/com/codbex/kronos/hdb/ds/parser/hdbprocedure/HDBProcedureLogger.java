@@ -14,13 +14,23 @@ package com.codbex.kronos.hdb.ds.parser.hdbprocedure;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 
+/**
+ * The Class HDBProcedureLogger.
+ */
 public class HDBProcedureLogger {
 
+  /**
+   * Log error.
+   *
+   * @param parsedFileLocation the parsed file location
+   * @param problemsFacadeMessage the problems facade message
+   * @param exceptionMessage the exception message
+   */
   public void logError(String parsedFileLocation, String problemsFacadeMessage, String exceptionMessage) {
     CommonsUtils.logCustomErrors(parsedFileLocation,
         CommonsConstants.PARSER_ERROR,
-        "",//line
-        "",//column
+        "", // line
+        "", // column
         exceptionMessage,
         problemsFacadeMessage,
         CommonsConstants.HDB_PROCEDURE_PARSER,

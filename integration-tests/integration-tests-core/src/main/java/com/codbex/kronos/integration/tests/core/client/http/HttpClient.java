@@ -11,9 +11,11 @@
  */
 package com.codbex.kronos.integration.tests.core.client.http;
 
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
 import java.net.URI;
+import java.util.concurrent.Future;
 
 public abstract class HttpClient {
 
@@ -29,8 +31,12 @@ public abstract class HttpClient {
     return baseHost;
   }
 
-  public HttpClientFuture executeRequestAsync(HttpUriRequest request) {
-    HttpClientFuture future = new HttpClientFuture(request.getURI());
+  public Future<HttpResponse> executeRequestAsync(HttpUriRequest request) {
+    return httpClient.execute(request, null);
+  }
+
+  public HttpClientFuture executeRequestAsyncWithCallbackFuture(HttpUriRequest request) {
+    var future = new HttpClientFuture(request.getURI());
     httpClient.execute(request, future);
     return future;
   }

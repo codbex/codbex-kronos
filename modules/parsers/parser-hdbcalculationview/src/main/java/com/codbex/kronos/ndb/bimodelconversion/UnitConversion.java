@@ -30,9 +30,9 @@ import javax.xml.bind.annotation.XmlType;
  * conversion variant of the server conversion function
  *
  *
- * <p>Java class for UnitConversion complex type.
+ * Java class for UnitConversion complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="UnitConversion"&gt;
@@ -55,8 +55,11 @@ import javax.xml.bind.annotation.XmlType;
 public class UnitConversion
     extends Conversion {
 
+  /** The source unit. */
   @XmlElement(required = true)
   protected Parameterization sourceUnit;
+  
+  /** The target unit. */
   @XmlElement(required = true)
   protected Parameterization targetUnit;
 

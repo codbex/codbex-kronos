@@ -27,9 +27,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for RangeValueFilter complex type.
+ * Java class for RangeValueFilter complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="RangeValueFilter"&gt;
@@ -50,8 +50,11 @@ import javax.xml.bind.annotation.XmlType;
 public class RangeValueFilter
     extends ValueFilter {
 
+  /** The low value. */
   @XmlAttribute(name = "lowValue")
   protected String lowValue;
+  
+  /** The high value. */
   @XmlAttribute(name = "highValue")
   protected String highValue;
 

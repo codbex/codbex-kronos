@@ -11,17 +11,34 @@
  */
 package com.codbex.kronos.xsaccess.ds.model.access;
 
+/**
+ * The Class Authentication.
+ */
 public class Authentication {
 
+  /** The method. */
   private String method;
 
+  /**
+   * Instantiates a new authentication.
+   */
   public Authentication() {
   }
 
+  /**
+   * Gets the method.
+   *
+   * @return the method
+   */
   public String getMethod() {
     return method;
   }
 
+  /**
+   * Sets the method.
+   *
+   * @param method the new method
+   */
   public void setMethod(String method) {
     this.method = method;
   }

@@ -13,6 +13,9 @@ package com.codbex.kronos.xsjob.ds.api;
 
 import java.text.ParseException;
 
+/**
+ * The Class CronExpressionException.
+ */
 public class CronExpressionException extends ParseException {
 
   /**

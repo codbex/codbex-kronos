@@ -20,13 +20,21 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
+/**
+ * The Class HdbxsodataParser.
+ */
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class HdbxsodataParser extends Parser {
 	static { RuntimeMetaData.checkVersion("4.10.1", RuntimeMetaData.VERSION); }
 
+	/** The Constant _decisionToDFA. */
 	protected static final DFA[] _decisionToDFA;
+	
+	/** The Constant _sharedContextCache. */
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
+	
+	/** The Constant INT. */
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
@@ -39,6 +47,8 @@ public class HdbxsodataParser extends Parser {
 		T__59=60, T__60=61, T__61=62, T__62=63, T__63=64, T__64=65, T__65=66, 
 		T__66=67, SEMICOLON=68, EQ=69, QUATED_STRING=70, COMMA=71, COLON=72, ESC=73, 
 		WS=74, LINE_COMMENT=75, COMMENT=76, INT=77;
+	
+	/** The Constant RULE_maxexpandedrecords. */
 	public static final int
 		RULE_xsodataDefinition = 0, RULE_service = 1, RULE_namespace = 2, RULE_body = 3, 
 		RULE_content = 4, RULE_entry = 5, RULE_entity = 6, RULE_object = 7, RULE_catalogobjectschema = 8, 
@@ -65,6 +75,12 @@ public class HdbxsodataParser extends Parser {
 		RULE_metadatacashecontrol = 77, RULE_hints = 78, RULE_hintlist = 79, RULE_hintvalue = 80, 
 		RULE_nullvalue = 81, RULE_limits = 82, RULE_limitvalue = 83, RULE_maxrecords = 84, 
 		RULE_maxexpandedrecords = 85;
+	
+	/**
+	 * Make rule names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"xsodataDefinition", "service", "namespace", "body", "content", "entry", 
@@ -86,8 +102,15 @@ public class HdbxsodataParser extends Parser {
 			"maxrecords", "maxexpandedrecords"
 		};
 	}
+	
+	/** The Constant ruleNames. */
 	public static final String[] ruleNames = makeRuleNames();
 
+	/**
+	 * Make literal names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'service'", "'namespace'", "'{'", "'}'", "'entity'", "'.'", "'as'", 
@@ -104,7 +127,15 @@ public class HdbxsodataParser extends Parser {
 			"'max_expanded_records'", "';'", "'='", null, "','", "':'"
 		};
 	}
+	
+	/** The Constant _LITERAL_NAMES. */
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
+	
+	/**
+	 * Make symbolic names.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
@@ -116,10 +147,16 @@ public class HdbxsodataParser extends Parser {
 			"COMMA", "COLON", "ESC", "WS", "LINE_COMMENT", "COMMENT", "INT"
 		};
 	}
+	
+	/** The Constant _SYMBOLIC_NAMES. */
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
+	
+	/** The Constant VOCABULARY. */
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
 	/**
+	 * The Constant tokenNames.
+	 *
 	 * @deprecated Use {@link #VOCABULARY} instead.
 	 */
 	@Deprecated
@@ -138,57 +175,146 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Gets the token names.
+	 *
+	 * @return the token names
+	 */
 	@Override
 	@Deprecated
 	public String[] getTokenNames() {
 		return tokenNames;
 	}
 
+	/**
+	 * Gets the vocabulary.
+	 *
+	 * @return the vocabulary
+	 */
 	@Override
 
 	public Vocabulary getVocabulary() {
 		return VOCABULARY;
 	}
 
+	/**
+	 * Gets the grammar file name.
+	 *
+	 * @return the grammar file name
+	 */
 	@Override
 	public String getGrammarFileName() { return "Hdbxsodata.g4"; }
 
+	/**
+	 * Gets the rule names.
+	 *
+	 * @return the rule names
+	 */
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
 
+	/**
+	 * Gets the serialized ATN.
+	 *
+	 * @return the serialized ATN
+	 */
 	@Override
 	public String getSerializedATN() { return _serializedATN; }
 
+	/**
+	 * Gets the atn.
+	 *
+	 * @return the atn
+	 */
 	@Override
 	public ATN getATN() { return _ATN; }
 
+	/**
+	 * Instantiates a new hdbxsodata parser.
+	 *
+	 * @param input the input
+	 */
 	public HdbxsodataParser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
+	/**
+	 * The Class XsodataDefinitionContext.
+	 */
 	public static class XsodataDefinitionContext extends ParserRuleContext {
+		
+		/**
+		 * Service.
+		 *
+		 * @return the service context
+		 */
 		public ServiceContext service() {
 			return getRuleContext(ServiceContext.class,0);
 		}
+		
+		/**
+		 * Annotations.
+		 *
+		 * @return the annotations context
+		 */
 		public AnnotationsContext annotations() {
 			return getRuleContext(AnnotationsContext.class,0);
 		}
+		
+		/**
+		 * Settings.
+		 *
+		 * @return the settings context
+		 */
 		public SettingsContext settings() {
 			return getRuleContext(SettingsContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new xsodata definition context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public XsodataDefinitionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_xsodataDefinition; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterXsodataDefinition(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitXsodataDefinition(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitXsodataDefinition(this);
@@ -196,6 +322,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Xsodata definition.
+	 *
+	 * @return the xsodata definition context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final XsodataDefinitionContext xsodataDefinition() throws RecognitionException {
 		XsodataDefinitionContext _localctx = new XsodataDefinitionContext(_ctx, getState());
 		enterRule(_localctx, 0, RULE_xsodataDefinition);
@@ -238,25 +370,73 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ServiceContext.
+	 */
 	public static class ServiceContext extends ParserRuleContext {
+		
+		/**
+		 * Body.
+		 *
+		 * @return the body context
+		 */
 		public BodyContext body() {
 			return getRuleContext(BodyContext.class,0);
 		}
+		
+		/**
+		 * Namespace.
+		 *
+		 * @return the namespace context
+		 */
 		public NamespaceContext namespace() {
 			return getRuleContext(NamespaceContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new service context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ServiceContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_service; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterService(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitService(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitService(this);
@@ -264,6 +444,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Service.
+	 *
+	 * @return the service context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ServiceContext service() throws RecognitionException {
 		ServiceContext _localctx = new ServiceContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_service);
@@ -298,20 +484,62 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class NamespaceContext.
+	 */
 	public static class NamespaceContext extends ParserRuleContext {
+		
+		/**
+		 * Quated string.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode QUATED_STRING() { return getToken(HdbxsodataParser.QUATED_STRING, 0); }
+		
+		/**
+		 * Instantiates a new namespace context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public NamespaceContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_namespace; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterNamespace(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitNamespace(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitNamespace(this);
@@ -319,6 +547,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Namespace.
+	 *
+	 * @return the namespace context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final NamespaceContext namespace() throws RecognitionException {
 		NamespaceContext _localctx = new NamespaceContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_namespace);
@@ -342,22 +576,64 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class BodyContext.
+	 */
 	public static class BodyContext extends ParserRuleContext {
+		
+		/**
+		 * Content.
+		 *
+		 * @return the content context
+		 */
 		public ContentContext content() {
 			return getRuleContext(ContentContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new body context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public BodyContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_body; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterBody(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitBody(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitBody(this);
@@ -365,6 +641,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Body.
+	 *
+	 * @return the body context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final BodyContext body() throws RecognitionException {
 		BodyContext _localctx = new BodyContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_body);
@@ -399,25 +681,73 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ContentContext.
+	 */
 	public static class ContentContext extends ParserRuleContext {
+		
+		/**
+		 * Entry.
+		 *
+		 * @return the entry context
+		 */
 		public EntryContext entry() {
 			return getRuleContext(EntryContext.class,0);
 		}
+		
+		/**
+		 * Content.
+		 *
+		 * @return the content context
+		 */
 		public ContentContext content() {
 			return getRuleContext(ContentContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new content context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ContentContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_content; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterContent(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitContent(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitContent(this);
@@ -425,6 +755,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Content.
+	 *
+	 * @return the content context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ContentContext content() throws RecognitionException {
 		ContentContext _localctx = new ContentContext(_ctx, getState());
 		enterRule(_localctx, 8, RULE_content);
@@ -457,25 +793,73 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class EntryContext.
+	 */
 	public static class EntryContext extends ParserRuleContext {
+		
+		/**
+		 * Entity.
+		 *
+		 * @return the entity context
+		 */
 		public EntityContext entity() {
 			return getRuleContext(EntityContext.class,0);
 		}
+		
+		/**
+		 * Association.
+		 *
+		 * @return the association context
+		 */
 		public AssociationContext association() {
 			return getRuleContext(AssociationContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new entry context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public EntryContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_entry; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterEntry(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitEntry(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitEntry(this);
@@ -483,6 +867,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Entry.
+	 *
+	 * @return the entry context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final EntryContext entry() throws RecognitionException {
 		EntryContext _localctx = new EntryContext(_ctx, getState());
 		enterRule(_localctx, 10, RULE_entry);
@@ -521,47 +911,143 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class EntityContext.
+	 */
 	public static class EntityContext extends ParserRuleContext {
+		
+		/**
+		 * Object.
+		 *
+		 * @return the object context
+		 */
 		public ObjectContext object() {
 			return getRuleContext(ObjectContext.class,0);
 		}
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbxsodataParser.SEMICOLON, 0); }
+		
+		/**
+		 * Entityset.
+		 *
+		 * @return the entityset context
+		 */
 		public EntitysetContext entityset() {
 			return getRuleContext(EntitysetContext.class,0);
 		}
+		
+		/**
+		 * With.
+		 *
+		 * @return the with context
+		 */
 		public WithContext with() {
 			return getRuleContext(WithContext.class,0);
 		}
+		
+		/**
+		 * Keys.
+		 *
+		 * @return the keys context
+		 */
 		public KeysContext keys() {
 			return getRuleContext(KeysContext.class,0);
 		}
+		
+		/**
+		 * Concurrencytoken.
+		 *
+		 * @return the concurrencytoken context
+		 */
 		public ConcurrencytokenContext concurrencytoken() {
 			return getRuleContext(ConcurrencytokenContext.class,0);
 		}
+		
+		/**
+		 * Navigates.
+		 *
+		 * @return the navigates context
+		 */
 		public NavigatesContext navigates() {
 			return getRuleContext(NavigatesContext.class,0);
 		}
+		
+		/**
+		 * Aggregates.
+		 *
+		 * @return the aggregates context
+		 */
 		public AggregatesContext aggregates() {
 			return getRuleContext(AggregatesContext.class,0);
 		}
+		
+		/**
+		 * Parameters.
+		 *
+		 * @return the parameters context
+		 */
 		public ParametersContext parameters() {
 			return getRuleContext(ParametersContext.class,0);
 		}
+		
+		/**
+		 * Modification body.
+		 *
+		 * @return the modification body context
+		 */
 		public ModificationBodyContext modificationBody() {
 			return getRuleContext(ModificationBodyContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new entity context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public EntityContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_entity; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterEntity(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitEntity(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitEntity(this);
@@ -569,6 +1055,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Entity.
+	 *
+	 * @return the entity context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final EntityContext entity() throws RecognitionException {
 		EntityContext _localctx = new EntityContext(_ctx, getState());
 		enterRule(_localctx, 12, RULE_entity);
@@ -673,25 +1165,73 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ObjectContext.
+	 */
 	public static class ObjectContext extends ParserRuleContext {
+		
+		/**
+		 * Catalogobjectname.
+		 *
+		 * @return the catalogobjectname context
+		 */
 		public CatalogobjectnameContext catalogobjectname() {
 			return getRuleContext(CatalogobjectnameContext.class,0);
 		}
+		
+		/**
+		 * Catalogobjectschema.
+		 *
+		 * @return the catalogobjectschema context
+		 */
 		public CatalogobjectschemaContext catalogobjectschema() {
 			return getRuleContext(CatalogobjectschemaContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new object context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ObjectContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_object; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterObject(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitObject(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitObject(this);
@@ -699,6 +1239,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Object.
+	 *
+	 * @return the object context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ObjectContext object() throws RecognitionException {
 		ObjectContext _localctx = new ObjectContext(_ctx, getState());
 		enterRule(_localctx, 14, RULE_object);
@@ -743,20 +1289,62 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class CatalogobjectschemaContext.
+	 */
 	public static class CatalogobjectschemaContext extends ParserRuleContext {
+		
+		/**
+		 * Quated string.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode QUATED_STRING() { return getToken(HdbxsodataParser.QUATED_STRING, 0); }
+		
+		/**
+		 * Instantiates a new catalogobjectschema context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public CatalogobjectschemaContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_catalogobjectschema; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterCatalogobjectschema(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitCatalogobjectschema(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitCatalogobjectschema(this);
@@ -764,6 +1352,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Catalogobjectschema.
+	 *
+	 * @return the catalogobjectschema context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final CatalogobjectschemaContext catalogobjectschema() throws RecognitionException {
 		CatalogobjectschemaContext _localctx = new CatalogobjectschemaContext(_ctx, getState());
 		enterRule(_localctx, 16, RULE_catalogobjectschema);
@@ -785,20 +1379,62 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class CatalogobjectnameContext.
+	 */
 	public static class CatalogobjectnameContext extends ParserRuleContext {
+		
+		/**
+		 * Quated string.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode QUATED_STRING() { return getToken(HdbxsodataParser.QUATED_STRING, 0); }
+		
+		/**
+		 * Instantiates a new catalogobjectname context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public CatalogobjectnameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_catalogobjectname; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterCatalogobjectname(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitCatalogobjectname(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitCatalogobjectname(this);
@@ -806,6 +1442,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Catalogobjectname.
+	 *
+	 * @return the catalogobjectname context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final CatalogobjectnameContext catalogobjectname() throws RecognitionException {
 		CatalogobjectnameContext _localctx = new CatalogobjectnameContext(_ctx, getState());
 		enterRule(_localctx, 18, RULE_catalogobjectname);
@@ -827,22 +1469,64 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class EntitysetContext.
+	 */
 	public static class EntitysetContext extends ParserRuleContext {
+		
+		/**
+		 * Entitysetname.
+		 *
+		 * @return the entitysetname context
+		 */
 		public EntitysetnameContext entitysetname() {
 			return getRuleContext(EntitysetnameContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new entityset context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public EntitysetContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_entityset; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterEntityset(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitEntityset(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitEntityset(this);
@@ -850,6 +1534,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Entityset.
+	 *
+	 * @return the entityset context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final EntitysetContext entityset() throws RecognitionException {
 		EntitysetContext _localctx = new EntitysetContext(_ctx, getState());
 		enterRule(_localctx, 20, RULE_entityset);
@@ -873,20 +1563,62 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class EntitysetnameContext.
+	 */
 	public static class EntitysetnameContext extends ParserRuleContext {
+		
+		/**
+		 * Quated string.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode QUATED_STRING() { return getToken(HdbxsodataParser.QUATED_STRING, 0); }
+		
+		/**
+		 * Instantiates a new entitysetname context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public EntitysetnameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_entitysetname; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterEntitysetname(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitEntitysetname(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitEntitysetname(this);
@@ -894,6 +1626,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Entitysetname.
+	 *
+	 * @return the entitysetname context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final EntitysetnameContext entitysetname() throws RecognitionException {
 		EntitysetnameContext _localctx = new EntitysetnameContext(_ctx, getState());
 		enterRule(_localctx, 22, RULE_entitysetname);
@@ -915,28 +1653,82 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class WithContext.
+	 */
 	public static class WithContext extends ParserRuleContext {
+		
+		/**
+		 * Propertylist.
+		 *
+		 * @return the propertylist context
+		 */
 		public PropertylistContext propertylist() {
 			return getRuleContext(PropertylistContext.class,0);
 		}
+		
+		/**
+		 * With prop.
+		 *
+		 * @return the with prop context
+		 */
 		public WithPropContext withProp() {
 			return getRuleContext(WithPropContext.class,0);
 		}
+		
+		/**
+		 * Without prop.
+		 *
+		 * @return the without prop context
+		 */
 		public WithoutPropContext withoutProp() {
 			return getRuleContext(WithoutPropContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new with context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public WithContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_with; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterWith(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitWith(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitWith(this);
@@ -944,6 +1736,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * With.
+	 *
+	 * @return the with context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final WithContext with() throws RecognitionException {
 		WithContext _localctx = new WithContext(_ctx, getState());
 		enterRule(_localctx, 24, RULE_with);
@@ -983,19 +1781,55 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class WithPropContext.
+	 */
 	public static class WithPropContext extends ParserRuleContext {
+		
+		/**
+		 * Instantiates a new with prop context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public WithPropContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_withProp; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterWithProp(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitWithProp(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitWithProp(this);
@@ -1003,6 +1837,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * With prop.
+	 *
+	 * @return the with prop context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final WithPropContext withProp() throws RecognitionException {
 		WithPropContext _localctx = new WithPropContext(_ctx, getState());
 		enterRule(_localctx, 26, RULE_withProp);
@@ -1024,19 +1864,55 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class WithoutPropContext.
+	 */
 	public static class WithoutPropContext extends ParserRuleContext {
+		
+		/**
+		 * Instantiates a new without prop context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public WithoutPropContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_withoutProp; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterWithoutProp(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitWithoutProp(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitWithoutProp(this);
@@ -1044,6 +1920,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Without prop.
+	 *
+	 * @return the without prop context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final WithoutPropContext withoutProp() throws RecognitionException {
 		WithoutPropContext _localctx = new WithoutPropContext(_ctx, getState());
 		enterRule(_localctx, 28, RULE_withoutProp);
@@ -1065,29 +1947,91 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class PropertylistContext.
+	 */
 	public static class PropertylistContext extends ParserRuleContext {
+		
+		/**
+		 * Columnname.
+		 *
+		 * @return the list
+		 */
 		public List<ColumnnameContext> columnname() {
 			return getRuleContexts(ColumnnameContext.class);
 		}
+		
+		/**
+		 * Columnname.
+		 *
+		 * @param i the i
+		 * @return the columnname context
+		 */
 		public ColumnnameContext columnname(int i) {
 			return getRuleContext(ColumnnameContext.class,i);
 		}
+		
+		/**
+		 * Comma.
+		 *
+		 * @return the list
+		 */
 		public List<TerminalNode> COMMA() { return getTokens(HdbxsodataParser.COMMA); }
+		
+		/**
+		 * Comma.
+		 *
+		 * @param i the i
+		 * @return the terminal node
+		 */
 		public TerminalNode COMMA(int i) {
 			return getToken(HdbxsodataParser.COMMA, i);
 		}
+		
+		/**
+		 * Instantiates a new propertylist context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public PropertylistContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_propertylist; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterPropertylist(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitPropertylist(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitPropertylist(this);
@@ -1095,6 +2039,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Propertylist.
+	 *
+	 * @return the propertylist context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final PropertylistContext propertylist() throws RecognitionException {
 		PropertylistContext _localctx = new PropertylistContext(_ctx, getState());
 		enterRule(_localctx, 30, RULE_propertylist);
@@ -1139,20 +2089,62 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ColumnnameContext.
+	 */
 	public static class ColumnnameContext extends ParserRuleContext {
+		
+		/**
+		 * Quated string.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode QUATED_STRING() { return getToken(HdbxsodataParser.QUATED_STRING, 0); }
+		
+		/**
+		 * Instantiates a new columnname context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ColumnnameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_columnname; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterColumnname(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitColumnname(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitColumnname(this);
@@ -1160,6 +2152,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Columnname.
+	 *
+	 * @return the columnname context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ColumnnameContext columnname() throws RecognitionException {
 		ColumnnameContext _localctx = new ColumnnameContext(_ctx, getState());
 		enterRule(_localctx, 32, RULE_columnname);
@@ -1181,25 +2179,73 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class KeysContext.
+	 */
 	public static class KeysContext extends ParserRuleContext {
+		
+		/**
+		 * Keylist.
+		 *
+		 * @return the keylist context
+		 */
 		public KeylistContext keylist() {
 			return getRuleContext(KeylistContext.class,0);
 		}
+		
+		/**
+		 * Keygenerated.
+		 *
+		 * @return the keygenerated context
+		 */
 		public KeygeneratedContext keygenerated() {
 			return getRuleContext(KeygeneratedContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new keys context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public KeysContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_keys; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterKeys(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitKeys(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitKeys(this);
@@ -1207,6 +2253,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Keys.
+	 *
+	 * @return the keys context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final KeysContext keys() throws RecognitionException {
 		KeysContext _localctx = new KeysContext(_ctx, getState());
 		enterRule(_localctx, 34, RULE_keys);
@@ -1255,22 +2307,64 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class KeylistContext.
+	 */
 	public static class KeylistContext extends ParserRuleContext {
+		
+		/**
+		 * Propertylist.
+		 *
+		 * @return the propertylist context
+		 */
 		public PropertylistContext propertylist() {
 			return getRuleContext(PropertylistContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new keylist context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public KeylistContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_keylist; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterKeylist(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitKeylist(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitKeylist(this);
@@ -1278,6 +2372,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Keylist.
+	 *
+	 * @return the keylist context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final KeylistContext keylist() throws RecognitionException {
 		KeylistContext _localctx = new KeylistContext(_ctx, getState());
 		enterRule(_localctx, 36, RULE_keylist);
@@ -1299,22 +2399,64 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class KeygeneratedContext.
+	 */
 	public static class KeygeneratedContext extends ParserRuleContext {
+		
+		/**
+		 * Columnname.
+		 *
+		 * @return the columnname context
+		 */
 		public ColumnnameContext columnname() {
 			return getRuleContext(ColumnnameContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new keygenerated context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public KeygeneratedContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_keygenerated; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterKeygenerated(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitKeygenerated(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitKeygenerated(this);
@@ -1322,6 +2464,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Keygenerated.
+	 *
+	 * @return the keygenerated context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final KeygeneratedContext keygenerated() throws RecognitionException {
 		KeygeneratedContext _localctx = new KeygeneratedContext(_ctx, getState());
 		enterRule(_localctx, 38, RULE_keygenerated);
@@ -1347,22 +2495,64 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ConcurrencytokenContext.
+	 */
 	public static class ConcurrencytokenContext extends ParserRuleContext {
+		
+		/**
+		 * Keylist.
+		 *
+		 * @return the keylist context
+		 */
 		public KeylistContext keylist() {
 			return getRuleContext(KeylistContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new concurrencytoken context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ConcurrencytokenContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_concurrencytoken; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterConcurrencytoken(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitConcurrencytoken(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitConcurrencytoken(this);
@@ -1370,6 +2560,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Concurrencytoken.
+	 *
+	 * @return the concurrencytoken context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ConcurrencytokenContext concurrencytoken() throws RecognitionException {
 		ConcurrencytokenContext _localctx = new ConcurrencytokenContext(_ctx, getState());
 		enterRule(_localctx, 40, RULE_concurrencytoken);
@@ -1402,22 +2598,64 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class NavigatesContext.
+	 */
 	public static class NavigatesContext extends ParserRuleContext {
+		
+		/**
+		 * Navlist.
+		 *
+		 * @return the navlist context
+		 */
 		public NavlistContext navlist() {
 			return getRuleContext(NavlistContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new navigates context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public NavigatesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_navigates; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterNavigates(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitNavigates(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitNavigates(this);
@@ -1425,6 +2663,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Navigates.
+	 *
+	 * @return the navigates context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final NavigatesContext navigates() throws RecognitionException {
 		NavigatesContext _localctx = new NavigatesContext(_ctx, getState());
 		enterRule(_localctx, 42, RULE_navigates);
@@ -1452,32 +2696,100 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class NavlistContext.
+	 */
 	public static class NavlistContext extends ParserRuleContext {
+		
+		/**
+		 * Naventry.
+		 *
+		 * @return the naventry context
+		 */
 		public NaventryContext naventry() {
 			return getRuleContext(NaventryContext.class,0);
 		}
+		
+		/**
+		 * Comma.
+		 *
+		 * @return the list
+		 */
 		public List<TerminalNode> COMMA() { return getTokens(HdbxsodataParser.COMMA); }
+		
+		/**
+		 * Comma.
+		 *
+		 * @param i the i
+		 * @return the terminal node
+		 */
 		public TerminalNode COMMA(int i) {
 			return getToken(HdbxsodataParser.COMMA, i);
 		}
+		
+		/**
+		 * Navlist.
+		 *
+		 * @return the list
+		 */
 		public List<NavlistContext> navlist() {
 			return getRuleContexts(NavlistContext.class);
 		}
+		
+		/**
+		 * Navlist.
+		 *
+		 * @param i the i
+		 * @return the navlist context
+		 */
 		public NavlistContext navlist(int i) {
 			return getRuleContext(NavlistContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new navlist context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public NavlistContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_navlist; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterNavlist(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitNavlist(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitNavlist(this);
@@ -1485,6 +2797,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Navlist.
+	 *
+	 * @return the navlist context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final NavlistContext navlist() throws RecognitionException {
 		NavlistContext _localctx = new NavlistContext(_ctx, getState());
 		enterRule(_localctx, 44, RULE_navlist);
@@ -1527,28 +2845,82 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class NaventryContext.
+	 */
 	public static class NaventryContext extends ParserRuleContext {
+		
+		/**
+		 * Assocname.
+		 *
+		 * @return the assocname context
+		 */
 		public AssocnameContext assocname() {
 			return getRuleContext(AssocnameContext.class,0);
 		}
+		
+		/**
+		 * Navpropname.
+		 *
+		 * @return the navpropname context
+		 */
 		public NavpropnameContext navpropname() {
 			return getRuleContext(NavpropnameContext.class,0);
 		}
+		
+		/**
+		 * Fromend.
+		 *
+		 * @return the fromend context
+		 */
 		public FromendContext fromend() {
 			return getRuleContext(FromendContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new naventry context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public NaventryContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_naventry; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterNaventry(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitNaventry(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitNaventry(this);
@@ -1556,6 +2928,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Naventry.
+	 *
+	 * @return the naventry context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final NaventryContext naventry() throws RecognitionException {
 		NaventryContext _localctx = new NaventryContext(_ctx, getState());
 		enterRule(_localctx, 46, RULE_naventry);
@@ -1592,20 +2970,62 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AssocnameContext.
+	 */
 	public static class AssocnameContext extends ParserRuleContext {
+		
+		/**
+		 * Quated string.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode QUATED_STRING() { return getToken(HdbxsodataParser.QUATED_STRING, 0); }
+		
+		/**
+		 * Instantiates a new assocname context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AssocnameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_assocname; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterAssocname(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitAssocname(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitAssocname(this);
@@ -1613,6 +3033,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Assocname.
+	 *
+	 * @return the assocname context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AssocnameContext assocname() throws RecognitionException {
 		AssocnameContext _localctx = new AssocnameContext(_ctx, getState());
 		enterRule(_localctx, 48, RULE_assocname);
@@ -1634,20 +3060,62 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class NavpropnameContext.
+	 */
 	public static class NavpropnameContext extends ParserRuleContext {
+		
+		/**
+		 * Quated string.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode QUATED_STRING() { return getToken(HdbxsodataParser.QUATED_STRING, 0); }
+		
+		/**
+		 * Instantiates a new navpropname context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public NavpropnameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_navpropname; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterNavpropname(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitNavpropname(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitNavpropname(this);
@@ -1655,6 +3123,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Navpropname.
+	 *
+	 * @return the navpropname context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final NavpropnameContext navpropname() throws RecognitionException {
 		NavpropnameContext _localctx = new NavpropnameContext(_ctx, getState());
 		enterRule(_localctx, 50, RULE_navpropname);
@@ -1676,25 +3150,73 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class FromendContext.
+	 */
 	public static class FromendContext extends ParserRuleContext {
+		
+		/**
+		 * Principal.
+		 *
+		 * @return the principal context
+		 */
 		public PrincipalContext principal() {
 			return getRuleContext(PrincipalContext.class,0);
 		}
+		
+		/**
+		 * Dependent.
+		 *
+		 * @return the dependent context
+		 */
 		public DependentContext dependent() {
 			return getRuleContext(DependentContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new fromend context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public FromendContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_fromend; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterFromend(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitFromend(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitFromend(this);
@@ -1702,6 +3224,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Fromend.
+	 *
+	 * @return the fromend context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final FromendContext fromend() throws RecognitionException {
 		FromendContext _localctx = new FromendContext(_ctx, getState());
 		enterRule(_localctx, 52, RULE_fromend);
@@ -1741,19 +3269,55 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class PrincipalContext.
+	 */
 	public static class PrincipalContext extends ParserRuleContext {
+		
+		/**
+		 * Instantiates a new principal context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public PrincipalContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_principal; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterPrincipal(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitPrincipal(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitPrincipal(this);
@@ -1761,6 +3325,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Principal.
+	 *
+	 * @return the principal context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final PrincipalContext principal() throws RecognitionException {
 		PrincipalContext _localctx = new PrincipalContext(_ctx, getState());
 		enterRule(_localctx, 54, RULE_principal);
@@ -1782,19 +3352,55 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class DependentContext.
+	 */
 	public static class DependentContext extends ParserRuleContext {
+		
+		/**
+		 * Instantiates a new dependent context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public DependentContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_dependent; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterDependent(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitDependent(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitDependent(this);
@@ -1802,6 +3408,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Dependent.
+	 *
+	 * @return the dependent context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final DependentContext dependent() throws RecognitionException {
 		DependentContext _localctx = new DependentContext(_ctx, getState());
 		enterRule(_localctx, 56, RULE_dependent);
@@ -1823,22 +3435,64 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AggregatesContext.
+	 */
 	public static class AggregatesContext extends ParserRuleContext {
+		
+		/**
+		 * Aggregatestuple.
+		 *
+		 * @return the aggregatestuple context
+		 */
 		public AggregatestupleContext aggregatestuple() {
 			return getRuleContext(AggregatestupleContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new aggregates context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AggregatesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_aggregates; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterAggregates(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitAggregates(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitAggregates(this);
@@ -1846,6 +3500,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Aggregates.
+	 *
+	 * @return the aggregates context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AggregatesContext aggregates() throws RecognitionException {
 		AggregatesContext _localctx = new AggregatesContext(_ctx, getState());
 		enterRule(_localctx, 58, RULE_aggregates);
@@ -1880,29 +3540,91 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AggregatestupleContext.
+	 */
 	public static class AggregatestupleContext extends ParserRuleContext {
+		
+		/**
+		 * Aggregate.
+		 *
+		 * @return the list
+		 */
 		public List<AggregateContext> aggregate() {
 			return getRuleContexts(AggregateContext.class);
 		}
+		
+		/**
+		 * Aggregate.
+		 *
+		 * @param i the i
+		 * @return the aggregate context
+		 */
 		public AggregateContext aggregate(int i) {
 			return getRuleContext(AggregateContext.class,i);
 		}
+		
+		/**
+		 * Comma.
+		 *
+		 * @return the list
+		 */
 		public List<TerminalNode> COMMA() { return getTokens(HdbxsodataParser.COMMA); }
+		
+		/**
+		 * Comma.
+		 *
+		 * @param i the i
+		 * @return the terminal node
+		 */
 		public TerminalNode COMMA(int i) {
 			return getToken(HdbxsodataParser.COMMA, i);
 		}
+		
+		/**
+		 * Instantiates a new aggregatestuple context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AggregatestupleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_aggregatestuple; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterAggregatestuple(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitAggregatestuple(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitAggregatestuple(this);
@@ -1910,6 +3632,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Aggregatestuple.
+	 *
+	 * @return the aggregatestuple context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AggregatestupleContext aggregatestuple() throws RecognitionException {
 		AggregatestupleContext _localctx = new AggregatestupleContext(_ctx, getState());
 		enterRule(_localctx, 60, RULE_aggregatestuple);
@@ -1954,25 +3682,73 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AggregateContext.
+	 */
 	public static class AggregateContext extends ParserRuleContext {
+		
+		/**
+		 * Aggregatefunction.
+		 *
+		 * @return the aggregatefunction context
+		 */
 		public AggregatefunctionContext aggregatefunction() {
 			return getRuleContext(AggregatefunctionContext.class,0);
 		}
+		
+		/**
+		 * Columnname.
+		 *
+		 * @return the columnname context
+		 */
 		public ColumnnameContext columnname() {
 			return getRuleContext(ColumnnameContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new aggregate context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AggregateContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_aggregate; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterAggregate(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitAggregate(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitAggregate(this);
@@ -1980,6 +3756,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Aggregate.
+	 *
+	 * @return the aggregate context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AggregateContext aggregate() throws RecognitionException {
 		AggregateContext _localctx = new AggregateContext(_ctx, getState());
 		enterRule(_localctx, 62, RULE_aggregate);
@@ -2005,19 +3787,55 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AggregatefunctionContext.
+	 */
 	public static class AggregatefunctionContext extends ParserRuleContext {
+		
+		/**
+		 * Instantiates a new aggregatefunction context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AggregatefunctionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_aggregatefunction; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterAggregatefunction(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitAggregatefunction(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitAggregatefunction(this);
@@ -2025,6 +3843,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Aggregatefunction.
+	 *
+	 * @return the aggregatefunction context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AggregatefunctionContext aggregatefunction() throws RecognitionException {
 		AggregatefunctionContext _localctx = new AggregatefunctionContext(_ctx, getState());
 		enterRule(_localctx, 64, RULE_aggregatefunction);
@@ -2055,28 +3879,82 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ParametersContext.
+	 */
 	public static class ParametersContext extends ParserRuleContext {
+		
+		/**
+		 * Parameterskeyand.
+		 *
+		 * @return the parameterskeyand context
+		 */
 		public ParameterskeyandContext parameterskeyand() {
 			return getRuleContext(ParameterskeyandContext.class,0);
 		}
+		
+		/**
+		 * Parameterentitysetname.
+		 *
+		 * @return the parameterentitysetname context
+		 */
 		public ParameterentitysetnameContext parameterentitysetname() {
 			return getRuleContext(ParameterentitysetnameContext.class,0);
 		}
+		
+		/**
+		 * Parametersresultsprop.
+		 *
+		 * @return the parametersresultsprop context
+		 */
 		public ParametersresultspropContext parametersresultsprop() {
 			return getRuleContext(ParametersresultspropContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new parameters context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ParametersContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_parameters; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterParameters(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitParameters(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitParameters(this);
@@ -2084,6 +3962,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Parameters.
+	 *
+	 * @return the parameters context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ParametersContext parameters() throws RecognitionException {
 		ParametersContext _localctx = new ParametersContext(_ctx, getState());
 		enterRule(_localctx, 66, RULE_parameters);
@@ -2140,19 +4024,55 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ParameterskeyandContext.
+	 */
 	public static class ParameterskeyandContext extends ParserRuleContext {
+		
+		/**
+		 * Instantiates a new parameterskeyand context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ParameterskeyandContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_parameterskeyand; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterParameterskeyand(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitParameterskeyand(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitParameterskeyand(this);
@@ -2160,6 +4080,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Parameterskeyand.
+	 *
+	 * @return the parameterskeyand context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ParameterskeyandContext parameterskeyand() throws RecognitionException {
 		ParameterskeyandContext _localctx = new ParameterskeyandContext(_ctx, getState());
 		enterRule(_localctx, 68, RULE_parameterskeyand);
@@ -2183,20 +4109,62 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ParameterentitysetnameContext.
+	 */
 	public static class ParameterentitysetnameContext extends ParserRuleContext {
+		
+		/**
+		 * Quated string.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode QUATED_STRING() { return getToken(HdbxsodataParser.QUATED_STRING, 0); }
+		
+		/**
+		 * Instantiates a new parameterentitysetname context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ParameterentitysetnameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_parameterentitysetname; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterParameterentitysetname(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitParameterentitysetname(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitParameterentitysetname(this);
@@ -2204,6 +4172,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Parameterentitysetname.
+	 *
+	 * @return the parameterentitysetname context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ParameterentitysetnameContext parameterentitysetname() throws RecognitionException {
 		ParameterentitysetnameContext _localctx = new ParameterentitysetnameContext(_ctx, getState());
 		enterRule(_localctx, 70, RULE_parameterentitysetname);
@@ -2225,20 +4199,62 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ParametersresultspropContext.
+	 */
 	public static class ParametersresultspropContext extends ParserRuleContext {
+		
+		/**
+		 * Quated string.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode QUATED_STRING() { return getToken(HdbxsodataParser.QUATED_STRING, 0); }
+		
+		/**
+		 * Instantiates a new parametersresultsprop context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ParametersresultspropContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_parametersresultsprop; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterParametersresultsprop(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitParametersresultsprop(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitParametersresultsprop(this);
@@ -2246,6 +4262,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Parametersresultsprop.
+	 *
+	 * @return the parametersresultsprop context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ParametersresultspropContext parametersresultsprop() throws RecognitionException {
 		ParametersresultspropContext _localctx = new ParametersresultspropContext(_ctx, getState());
 		enterRule(_localctx, 72, RULE_parametersresultsprop);
@@ -2271,25 +4293,74 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ModificationBodyContext.
+	 */
 	public static class ModificationBodyContext extends ParserRuleContext {
+		
+		/**
+		 * Modification.
+		 *
+		 * @return the list
+		 */
 		public List<ModificationContext> modification() {
 			return getRuleContexts(ModificationContext.class);
 		}
+		
+		/**
+		 * Modification.
+		 *
+		 * @param i the i
+		 * @return the modification context
+		 */
 		public ModificationContext modification(int i) {
 			return getRuleContext(ModificationContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new modification body context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ModificationBodyContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_modificationBody; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterModificationBody(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitModificationBody(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitModificationBody(this);
@@ -2297,6 +4368,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Modification body.
+	 *
+	 * @return the modification body context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ModificationBodyContext modificationBody() throws RecognitionException {
 		ModificationBodyContext _localctx = new ModificationBodyContext(_ctx, getState());
 		enterRule(_localctx, 74, RULE_modificationBody);
@@ -2333,28 +4410,82 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ModificationContext.
+	 */
 	public static class ModificationContext extends ParserRuleContext {
+		
+		/**
+		 * Creates the.
+		 *
+		 * @return the creates the context
+		 */
 		public CreateContext create() {
 			return getRuleContext(CreateContext.class,0);
 		}
+		
+		/**
+		 * Update.
+		 *
+		 * @return the update context
+		 */
 		public UpdateContext update() {
 			return getRuleContext(UpdateContext.class,0);
 		}
+		
+		/**
+		 * Delete.
+		 *
+		 * @return the delete context
+		 */
 		public DeleteContext delete() {
 			return getRuleContext(DeleteContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new modification context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ModificationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_modification; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterModification(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitModification(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitModification(this);
@@ -2362,6 +4493,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Modification.
+	 *
+	 * @return the modification context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ModificationContext modification() throws RecognitionException {
 		ModificationContext _localctx = new ModificationContext(_ctx, getState());
 		enterRule(_localctx, 76, RULE_modification);
@@ -2405,22 +4542,64 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class CreateContext.
+	 */
 	public static class CreateContext extends ParserRuleContext {
+		
+		/**
+		 * Modificationspec.
+		 *
+		 * @return the modificationspec context
+		 */
 		public ModificationspecContext modificationspec() {
 			return getRuleContext(ModificationspecContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new creates the context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public CreateContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_create; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterCreate(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitCreate(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitCreate(this);
@@ -2428,6 +4607,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @return the creates the context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final CreateContext create() throws RecognitionException {
 		CreateContext _localctx = new CreateContext(_ctx, getState());
 		enterRule(_localctx, 78, RULE_create);
@@ -2451,22 +4636,64 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class UpdateContext.
+	 */
 	public static class UpdateContext extends ParserRuleContext {
+		
+		/**
+		 * Modificationspec.
+		 *
+		 * @return the modificationspec context
+		 */
 		public ModificationspecContext modificationspec() {
 			return getRuleContext(ModificationspecContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new update context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public UpdateContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_update; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterUpdate(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitUpdate(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitUpdate(this);
@@ -2474,6 +4701,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Update.
+	 *
+	 * @return the update context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final UpdateContext update() throws RecognitionException {
 		UpdateContext _localctx = new UpdateContext(_ctx, getState());
 		enterRule(_localctx, 80, RULE_update);
@@ -2497,22 +4730,64 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class DeleteContext.
+	 */
 	public static class DeleteContext extends ParserRuleContext {
+		
+		/**
+		 * Modificationspec.
+		 *
+		 * @return the modificationspec context
+		 */
 		public ModificationspecContext modificationspec() {
 			return getRuleContext(ModificationspecContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new delete context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public DeleteContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_delete; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterDelete(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitDelete(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitDelete(this);
@@ -2520,6 +4795,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Delete.
+	 *
+	 * @return the delete context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final DeleteContext delete() throws RecognitionException {
 		DeleteContext _localctx = new DeleteContext(_ctx, getState());
 		enterRule(_localctx, 82, RULE_delete);
@@ -2543,28 +4824,82 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ModificationspecContext.
+	 */
 	public static class ModificationspecContext extends ParserRuleContext {
+		
+		/**
+		 * Events.
+		 *
+		 * @return the events context
+		 */
 		public EventsContext events() {
 			return getRuleContext(EventsContext.class,0);
 		}
+		
+		/**
+		 * Forbidden.
+		 *
+		 * @return the forbidden context
+		 */
 		public ForbiddenContext forbidden() {
 			return getRuleContext(ForbiddenContext.class,0);
 		}
+		
+		/**
+		 * Modificationaction.
+		 *
+		 * @return the modificationaction context
+		 */
 		public ModificationactionContext modificationaction() {
 			return getRuleContext(ModificationactionContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new modificationspec context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ModificationspecContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_modificationspec; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterModificationspec(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitModificationspec(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitModificationspec(this);
@@ -2572,6 +4907,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Modificationspec.
+	 *
+	 * @return the modificationspec context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ModificationspecContext modificationspec() throws RecognitionException {
 		ModificationspecContext _localctx = new ModificationspecContext(_ctx, getState());
 		enterRule(_localctx, 84, RULE_modificationspec);
@@ -2628,22 +4969,64 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ModificationactionContext.
+	 */
 	public static class ModificationactionContext extends ParserRuleContext {
+		
+		/**
+		 * Action.
+		 *
+		 * @return the action context
+		 */
 		public ActionContext action() {
 			return getRuleContext(ActionContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new modificationaction context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ModificationactionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_modificationaction; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterModificationaction(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitModificationaction(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitModificationaction(this);
@@ -2651,6 +5034,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Modificationaction.
+	 *
+	 * @return the modificationaction context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ModificationactionContext modificationaction() throws RecognitionException {
 		ModificationactionContext _localctx = new ModificationactionContext(_ctx, getState());
 		enterRule(_localctx, 86, RULE_modificationaction);
@@ -2674,19 +5063,55 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ForbiddenContext.
+	 */
 	public static class ForbiddenContext extends ParserRuleContext {
+		
+		/**
+		 * Instantiates a new forbidden context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ForbiddenContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_forbidden; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterForbidden(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitForbidden(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitForbidden(this);
@@ -2694,6 +5119,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Forbidden.
+	 *
+	 * @return the forbidden context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ForbiddenContext forbidden() throws RecognitionException {
 		ForbiddenContext _localctx = new ForbiddenContext(_ctx, getState());
 		enterRule(_localctx, 88, RULE_forbidden);
@@ -2715,20 +5146,62 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ActionContext.
+	 */
 	public static class ActionContext extends ParserRuleContext {
+		
+		/**
+		 * Quated string.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode QUATED_STRING() { return getToken(HdbxsodataParser.QUATED_STRING, 0); }
+		
+		/**
+		 * Instantiates a new action context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ActionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_action; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterAction(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitAction(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitAction(this);
@@ -2736,6 +5209,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Action.
+	 *
+	 * @return the action context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ActionContext action() throws RecognitionException {
 		ActionContext _localctx = new ActionContext(_ctx, getState());
 		enterRule(_localctx, 90, RULE_action);
@@ -2757,22 +5236,64 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class EventsContext.
+	 */
 	public static class EventsContext extends ParserRuleContext {
+		
+		/**
+		 * Eventlist.
+		 *
+		 * @return the eventlist context
+		 */
 		public EventlistContext eventlist() {
 			return getRuleContext(EventlistContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new events context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public EventsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_events; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterEvents(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitEvents(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitEvents(this);
@@ -2780,6 +5301,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Events.
+	 *
+	 * @return the events context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final EventsContext events() throws RecognitionException {
 		EventsContext _localctx = new EventsContext(_ctx, getState());
 		enterRule(_localctx, 92, RULE_events);
@@ -2807,29 +5334,91 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class EventlistContext.
+	 */
 	public static class EventlistContext extends ParserRuleContext {
+		
+		/**
+		 * Eventlist element.
+		 *
+		 * @return the list
+		 */
 		public List<EventlistElementContext> eventlistElement() {
 			return getRuleContexts(EventlistElementContext.class);
 		}
+		
+		/**
+		 * Eventlist element.
+		 *
+		 * @param i the i
+		 * @return the eventlist element context
+		 */
 		public EventlistElementContext eventlistElement(int i) {
 			return getRuleContext(EventlistElementContext.class,i);
 		}
+		
+		/**
+		 * Comma.
+		 *
+		 * @return the list
+		 */
 		public List<TerminalNode> COMMA() { return getTokens(HdbxsodataParser.COMMA); }
+		
+		/**
+		 * Comma.
+		 *
+		 * @param i the i
+		 * @return the terminal node
+		 */
 		public TerminalNode COMMA(int i) {
 			return getToken(HdbxsodataParser.COMMA, i);
 		}
+		
+		/**
+		 * Instantiates a new eventlist context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public EventlistContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_eventlist; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterEventlist(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitEventlist(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitEventlist(this);
@@ -2837,6 +5426,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Eventlist.
+	 *
+	 * @return the eventlist context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final EventlistContext eventlist() throws RecognitionException {
 		EventlistContext _localctx = new EventlistContext(_ctx, getState());
 		enterRule(_localctx, 94, RULE_eventlist);
@@ -2877,25 +5472,73 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class EventlistElementContext.
+	 */
 	public static class EventlistElementContext extends ParserRuleContext {
+		
+		/**
+		 * Eventtype.
+		 *
+		 * @return the eventtype context
+		 */
 		public EventtypeContext eventtype() {
 			return getRuleContext(EventtypeContext.class,0);
 		}
+		
+		/**
+		 * Action.
+		 *
+		 * @return the action context
+		 */
 		public ActionContext action() {
 			return getRuleContext(ActionContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new eventlist element context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public EventlistElementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_eventlistElement; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterEventlistElement(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitEventlistElement(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitEventlistElement(this);
@@ -2903,6 +5546,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Eventlist element.
+	 *
+	 * @return the eventlist element context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final EventlistElementContext eventlistElement() throws RecognitionException {
 		EventlistElementContext _localctx = new EventlistElementContext(_ctx, getState());
 		enterRule(_localctx, 96, RULE_eventlistElement);
@@ -2926,19 +5575,55 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class EventtypeContext.
+	 */
 	public static class EventtypeContext extends ParserRuleContext {
+		
+		/**
+		 * Instantiates a new eventtype context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public EventtypeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_eventtype; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterEventtype(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitEventtype(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitEventtype(this);
@@ -2946,6 +5631,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Eventtype.
+	 *
+	 * @return the eventtype context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final EventtypeContext eventtype() throws RecognitionException {
 		EventtypeContext _localctx = new EventtypeContext(_ctx, getState());
 		enterRule(_localctx, 98, RULE_eventtype);
@@ -2976,41 +5667,125 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AssociationContext.
+	 */
 	public static class AssociationContext extends ParserRuleContext {
+		
+		/**
+		 * Associationdef.
+		 *
+		 * @return the associationdef context
+		 */
 		public AssociationdefContext associationdef() {
 			return getRuleContext(AssociationdefContext.class,0);
 		}
+		
+		/**
+		 * Principalend.
+		 *
+		 * @return the principalend context
+		 */
 		public PrincipalendContext principalend() {
 			return getRuleContext(PrincipalendContext.class,0);
 		}
+		
+		/**
+		 * Dependentend.
+		 *
+		 * @return the dependentend context
+		 */
 		public DependentendContext dependentend() {
 			return getRuleContext(DependentendContext.class,0);
 		}
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbxsodataParser.SEMICOLON, 0); }
+		
+		/**
+		 * Assocrefconstraint.
+		 *
+		 * @return the assocrefconstraint context
+		 */
 		public AssocrefconstraintContext assocrefconstraint() {
 			return getRuleContext(AssocrefconstraintContext.class,0);
 		}
+		
+		/**
+		 * Assoctable.
+		 *
+		 * @return the assoctable context
+		 */
 		public AssoctableContext assoctable() {
 			return getRuleContext(AssoctableContext.class,0);
 		}
+		
+		/**
+		 * Storage.
+		 *
+		 * @return the storage context
+		 */
 		public StorageContext storage() {
 			return getRuleContext(StorageContext.class,0);
 		}
+		
+		/**
+		 * Modification body.
+		 *
+		 * @return the modification body context
+		 */
 		public ModificationBodyContext modificationBody() {
 			return getRuleContext(ModificationBodyContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new association context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AssociationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_association; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterAssociation(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitAssociation(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitAssociation(this);
@@ -3018,6 +5793,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Association.
+	 *
+	 * @return the association context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AssociationContext association() throws RecognitionException {
 		AssociationContext _localctx = new AssociationContext(_ctx, getState());
 		enterRule(_localctx, 100, RULE_association);
@@ -3085,22 +5866,64 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AssociationdefContext.
+	 */
 	public static class AssociationdefContext extends ParserRuleContext {
+		
+		/**
+		 * Assocname.
+		 *
+		 * @return the assocname context
+		 */
 		public AssocnameContext assocname() {
 			return getRuleContext(AssocnameContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new associationdef context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AssociationdefContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_associationdef; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterAssociationdef(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitAssociationdef(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitAssociationdef(this);
@@ -3108,6 +5931,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Associationdef.
+	 *
+	 * @return the associationdef context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AssociationdefContext associationdef() throws RecognitionException {
 		AssociationdefContext _localctx = new AssociationdefContext(_ctx, getState());
 		enterRule(_localctx, 102, RULE_associationdef);
@@ -3131,19 +5960,55 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AssocrefconstraintContext.
+	 */
 	public static class AssocrefconstraintContext extends ParserRuleContext {
+		
+		/**
+		 * Instantiates a new assocrefconstraint context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AssocrefconstraintContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_assocrefconstraint; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterAssocrefconstraint(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitAssocrefconstraint(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitAssocrefconstraint(this);
@@ -3151,6 +6016,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Assocrefconstraint.
+	 *
+	 * @return the assocrefconstraint context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AssocrefconstraintContext assocrefconstraint() throws RecognitionException {
 		AssocrefconstraintContext _localctx = new AssocrefconstraintContext(_ctx, getState());
 		enterRule(_localctx, 104, RULE_assocrefconstraint);
@@ -3176,25 +6047,73 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class PrincipalendContext.
+	 */
 	public static class PrincipalendContext extends ParserRuleContext {
+		
+		/**
+		 * Principal.
+		 *
+		 * @return the principal context
+		 */
 		public PrincipalContext principal() {
 			return getRuleContext(PrincipalContext.class,0);
 		}
+		
+		/**
+		 * End.
+		 *
+		 * @return the end context
+		 */
 		public EndContext end() {
 			return getRuleContext(EndContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new principalend context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public PrincipalendContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_principalend; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterPrincipalend(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitPrincipalend(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitPrincipalend(this);
@@ -3202,6 +6121,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Principalend.
+	 *
+	 * @return the principalend context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final PrincipalendContext principalend() throws RecognitionException {
 		PrincipalendContext _localctx = new PrincipalendContext(_ctx, getState());
 		enterRule(_localctx, 106, RULE_principalend);
@@ -3225,25 +6150,73 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class DependentendContext.
+	 */
 	public static class DependentendContext extends ParserRuleContext {
+		
+		/**
+		 * Dependent.
+		 *
+		 * @return the dependent context
+		 */
 		public DependentContext dependent() {
 			return getRuleContext(DependentContext.class,0);
 		}
+		
+		/**
+		 * End.
+		 *
+		 * @return the end context
+		 */
 		public EndContext end() {
 			return getRuleContext(EndContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new dependentend context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public DependentendContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_dependentend; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterDependentend(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitDependentend(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitDependentend(this);
@@ -3251,6 +6224,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Dependentend.
+	 *
+	 * @return the dependentend context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final DependentendContext dependentend() throws RecognitionException {
 		DependentendContext _localctx = new DependentendContext(_ctx, getState());
 		enterRule(_localctx, 108, RULE_dependentend);
@@ -3274,25 +6253,73 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class EndContext.
+	 */
 	public static class EndContext extends ParserRuleContext {
+		
+		/**
+		 * Endref.
+		 *
+		 * @return the endref context
+		 */
 		public EndrefContext endref() {
 			return getRuleContext(EndrefContext.class,0);
 		}
+		
+		/**
+		 * Multiplicity.
+		 *
+		 * @return the multiplicity context
+		 */
 		public MultiplicityContext multiplicity() {
 			return getRuleContext(MultiplicityContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new end context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public EndContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_end; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterEnd(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitEnd(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitEnd(this);
@@ -3300,6 +6327,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * End.
+	 *
+	 * @return the end context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final EndContext end() throws RecognitionException {
 		EndContext _localctx = new EndContext(_ctx, getState());
 		enterRule(_localctx, 110, RULE_end);
@@ -3323,25 +6356,73 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class EndrefContext.
+	 */
 	public static class EndrefContext extends ParserRuleContext {
+		
+		/**
+		 * Endtype.
+		 *
+		 * @return the endtype context
+		 */
 		public EndtypeContext endtype() {
 			return getRuleContext(EndtypeContext.class,0);
 		}
+		
+		/**
+		 * Joinpropertieslist.
+		 *
+		 * @return the joinpropertieslist context
+		 */
 		public JoinpropertieslistContext joinpropertieslist() {
 			return getRuleContext(JoinpropertieslistContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new endref context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public EndrefContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_endref; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterEndref(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitEndref(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitEndref(this);
@@ -3349,6 +6430,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Endref.
+	 *
+	 * @return the endref context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final EndrefContext endref() throws RecognitionException {
 		EndrefContext _localctx = new EndrefContext(_ctx, getState());
 		enterRule(_localctx, 112, RULE_endref);
@@ -3381,22 +6468,64 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class EndtypeContext.
+	 */
 	public static class EndtypeContext extends ParserRuleContext {
+		
+		/**
+		 * Entitysetname.
+		 *
+		 * @return the entitysetname context
+		 */
 		public EntitysetnameContext entitysetname() {
 			return getRuleContext(EntitysetnameContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new endtype context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public EndtypeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_endtype; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterEndtype(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitEndtype(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitEndtype(this);
@@ -3404,6 +6533,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Endtype.
+	 *
+	 * @return the endtype context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final EndtypeContext endtype() throws RecognitionException {
 		EndtypeContext _localctx = new EndtypeContext(_ctx, getState());
 		enterRule(_localctx, 114, RULE_endtype);
@@ -3425,22 +6560,64 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class JoinpropertieslistContext.
+	 */
 	public static class JoinpropertieslistContext extends ParserRuleContext {
+		
+		/**
+		 * Propertylist.
+		 *
+		 * @return the propertylist context
+		 */
 		public PropertylistContext propertylist() {
 			return getRuleContext(PropertylistContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new joinpropertieslist context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public JoinpropertieslistContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_joinpropertieslist; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterJoinpropertieslist(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitJoinpropertieslist(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitJoinpropertieslist(this);
@@ -3448,6 +6625,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Joinpropertieslist.
+	 *
+	 * @return the joinpropertieslist context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final JoinpropertieslistContext joinpropertieslist() throws RecognitionException {
 		JoinpropertieslistContext _localctx = new JoinpropertieslistContext(_ctx, getState());
 		enterRule(_localctx, 116, RULE_joinpropertieslist);
@@ -3469,22 +6652,64 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class MultiplicityContext.
+	 */
 	public static class MultiplicityContext extends ParserRuleContext {
+		
+		/**
+		 * Multiplicityvalue.
+		 *
+		 * @return the multiplicityvalue context
+		 */
 		public MultiplicityvalueContext multiplicityvalue() {
 			return getRuleContext(MultiplicityvalueContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new multiplicity context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public MultiplicityContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_multiplicity; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterMultiplicity(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitMultiplicity(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitMultiplicity(this);
@@ -3492,6 +6717,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Multiplicity.
+	 *
+	 * @return the multiplicity context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final MultiplicityContext multiplicity() throws RecognitionException {
 		MultiplicityContext _localctx = new MultiplicityContext(_ctx, getState());
 		enterRule(_localctx, 118, RULE_multiplicity);
@@ -3515,19 +6746,55 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class MultiplicityvalueContext.
+	 */
 	public static class MultiplicityvalueContext extends ParserRuleContext {
+		
+		/**
+		 * Instantiates a new multiplicityvalue context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public MultiplicityvalueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_multiplicityvalue; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterMultiplicityvalue(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitMultiplicityvalue(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitMultiplicityvalue(this);
@@ -3535,6 +6802,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Multiplicityvalue.
+	 *
+	 * @return the multiplicityvalue context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final MultiplicityvalueContext multiplicityvalue() throws RecognitionException {
 		MultiplicityvalueContext _localctx = new MultiplicityvalueContext(_ctx, getState());
 		enterRule(_localctx, 120, RULE_multiplicityvalue);
@@ -3565,31 +6838,91 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AssoctableContext.
+	 */
 	public static class AssoctableContext extends ParserRuleContext {
+		
+		/**
+		 * Repoobject.
+		 *
+		 * @return the repoobject context
+		 */
 		public RepoobjectContext repoobject() {
 			return getRuleContext(RepoobjectContext.class,0);
 		}
+		
+		/**
+		 * Overprincipalend.
+		 *
+		 * @return the overprincipalend context
+		 */
 		public OverprincipalendContext overprincipalend() {
 			return getRuleContext(OverprincipalendContext.class,0);
 		}
+		
+		/**
+		 * Overdependentend.
+		 *
+		 * @return the overdependentend context
+		 */
 		public OverdependentendContext overdependentend() {
 			return getRuleContext(OverdependentendContext.class,0);
 		}
+		
+		/**
+		 * Modification body.
+		 *
+		 * @return the modification body context
+		 */
 		public ModificationBodyContext modificationBody() {
 			return getRuleContext(ModificationBodyContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new assoctable context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AssoctableContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_assoctable; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterAssoctable(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitAssoctable(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitAssoctable(this);
@@ -3597,6 +6930,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Assoctable.
+	 *
+	 * @return the assoctable context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AssoctableContext assoctable() throws RecognitionException {
 		AssoctableContext _localctx = new AssoctableContext(_ctx, getState());
 		enterRule(_localctx, 122, RULE_assoctable);
@@ -3635,20 +6974,62 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class RepoobjectContext.
+	 */
 	public static class RepoobjectContext extends ParserRuleContext {
+		
+		/**
+		 * Quated string.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode QUATED_STRING() { return getToken(HdbxsodataParser.QUATED_STRING, 0); }
+		
+		/**
+		 * Instantiates a new repoobject context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public RepoobjectContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_repoobject; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterRepoobject(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitRepoobject(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitRepoobject(this);
@@ -3656,6 +7037,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Repoobject.
+	 *
+	 * @return the repoobject context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final RepoobjectContext repoobject() throws RecognitionException {
 		RepoobjectContext _localctx = new RepoobjectContext(_ctx, getState());
 		enterRule(_localctx, 124, RULE_repoobject);
@@ -3677,25 +7064,73 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class OverprincipalendContext.
+	 */
 	public static class OverprincipalendContext extends ParserRuleContext {
+		
+		/**
+		 * Principal.
+		 *
+		 * @return the principal context
+		 */
 		public PrincipalContext principal() {
 			return getRuleContext(PrincipalContext.class,0);
 		}
+		
+		/**
+		 * Overend.
+		 *
+		 * @return the overend context
+		 */
 		public OverendContext overend() {
 			return getRuleContext(OverendContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new overprincipalend context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public OverprincipalendContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_overprincipalend; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterOverprincipalend(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitOverprincipalend(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitOverprincipalend(this);
@@ -3703,6 +7138,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Overprincipalend.
+	 *
+	 * @return the overprincipalend context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final OverprincipalendContext overprincipalend() throws RecognitionException {
 		OverprincipalendContext _localctx = new OverprincipalendContext(_ctx, getState());
 		enterRule(_localctx, 126, RULE_overprincipalend);
@@ -3726,25 +7167,73 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class OverdependentendContext.
+	 */
 	public static class OverdependentendContext extends ParserRuleContext {
+		
+		/**
+		 * Dependent.
+		 *
+		 * @return the dependent context
+		 */
 		public DependentContext dependent() {
 			return getRuleContext(DependentContext.class,0);
 		}
+		
+		/**
+		 * Overend.
+		 *
+		 * @return the overend context
+		 */
 		public OverendContext overend() {
 			return getRuleContext(OverendContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new overdependentend context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public OverdependentendContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_overdependentend; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterOverdependentend(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitOverdependentend(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitOverdependentend(this);
@@ -3752,6 +7241,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Overdependentend.
+	 *
+	 * @return the overdependentend context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final OverdependentendContext overdependentend() throws RecognitionException {
 		OverdependentendContext _localctx = new OverdependentendContext(_ctx, getState());
 		enterRule(_localctx, 128, RULE_overdependentend);
@@ -3775,22 +7270,64 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class OverendContext.
+	 */
 	public static class OverendContext extends ParserRuleContext {
+		
+		/**
+		 * Propertylist.
+		 *
+		 * @return the propertylist context
+		 */
 		public PropertylistContext propertylist() {
 			return getRuleContext(PropertylistContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new overend context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public OverendContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_overend; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterOverend(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitOverend(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitOverend(this);
@@ -3798,6 +7335,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Overend.
+	 *
+	 * @return the overend context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final OverendContext overend() throws RecognitionException {
 		OverendContext _localctx = new OverendContext(_ctx, getState());
 		enterRule(_localctx, 130, RULE_overend);
@@ -3819,28 +7362,82 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class StorageContext.
+	 */
 	public static class StorageContext extends ParserRuleContext {
+		
+		/**
+		 * Nostorage.
+		 *
+		 * @return the nostorage context
+		 */
 		public NostorageContext nostorage() {
 			return getRuleContext(NostorageContext.class,0);
 		}
+		
+		/**
+		 * Storageend.
+		 *
+		 * @return the storageend context
+		 */
 		public StorageendContext storageend() {
 			return getRuleContext(StorageendContext.class,0);
 		}
+		
+		/**
+		 * Modification body.
+		 *
+		 * @return the modification body context
+		 */
 		public ModificationBodyContext modificationBody() {
 			return getRuleContext(ModificationBodyContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new storage context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public StorageContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_storage; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterStorage(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitStorage(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitStorage(this);
@@ -3848,6 +7445,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Storage.
+	 *
+	 * @return the storage context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final StorageContext storage() throws RecognitionException {
 		StorageContext _localctx = new StorageContext(_ctx, getState());
 		enterRule(_localctx, 132, RULE_storage);
@@ -3896,19 +7499,55 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class NostorageContext.
+	 */
 	public static class NostorageContext extends ParserRuleContext {
+		
+		/**
+		 * Instantiates a new nostorage context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public NostorageContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_nostorage; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterNostorage(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitNostorage(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitNostorage(this);
@@ -3916,6 +7555,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Nostorage.
+	 *
+	 * @return the nostorage context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final NostorageContext nostorage() throws RecognitionException {
 		NostorageContext _localctx = new NostorageContext(_ctx, getState());
 		enterRule(_localctx, 134, RULE_nostorage);
@@ -3939,25 +7584,73 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class StorageendContext.
+	 */
 	public static class StorageendContext extends ParserRuleContext {
+		
+		/**
+		 * Principal.
+		 *
+		 * @return the principal context
+		 */
 		public PrincipalContext principal() {
 			return getRuleContext(PrincipalContext.class,0);
 		}
+		
+		/**
+		 * Dependent.
+		 *
+		 * @return the dependent context
+		 */
 		public DependentContext dependent() {
 			return getRuleContext(DependentContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new storageend context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public StorageendContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_storageend; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterStorageend(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitStorageend(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitStorageend(this);
@@ -3965,6 +7658,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Storageend.
+	 *
+	 * @return the storageend context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final StorageendContext storageend() throws RecognitionException {
 		StorageendContext _localctx = new StorageendContext(_ctx, getState());
 		enterRule(_localctx, 136, RULE_storageend);
@@ -4006,22 +7705,64 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AnnotationsContext.
+	 */
 	public static class AnnotationsContext extends ParserRuleContext {
+		
+		/**
+		 * Annotationsbody.
+		 *
+		 * @return the annotationsbody context
+		 */
 		public AnnotationsbodyContext annotationsbody() {
 			return getRuleContext(AnnotationsbodyContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new annotations context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AnnotationsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_annotations; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterAnnotations(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitAnnotations(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitAnnotations(this);
@@ -4029,6 +7770,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Annotations.
+	 *
+	 * @return the annotations context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AnnotationsContext annotations() throws RecognitionException {
 		AnnotationsContext _localctx = new AnnotationsContext(_ctx, getState());
 		enterRule(_localctx, 138, RULE_annotations);
@@ -4052,25 +7799,74 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AnnotationsbodyContext.
+	 */
 	public static class AnnotationsbodyContext extends ParserRuleContext {
+		
+		/**
+		 * Annotationconfig.
+		 *
+		 * @return the list
+		 */
 		public List<AnnotationconfigContext> annotationconfig() {
 			return getRuleContexts(AnnotationconfigContext.class);
 		}
+		
+		/**
+		 * Annotationconfig.
+		 *
+		 * @param i the i
+		 * @return the annotationconfig context
+		 */
 		public AnnotationconfigContext annotationconfig(int i) {
 			return getRuleContext(AnnotationconfigContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new annotationsbody context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AnnotationsbodyContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_annotationsbody; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterAnnotationsbody(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitAnnotationsbody(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitAnnotationsbody(this);
@@ -4078,6 +7874,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Annotationsbody.
+	 *
+	 * @return the annotationsbody context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AnnotationsbodyContext annotationsbody() throws RecognitionException {
 		AnnotationsbodyContext _localctx = new AnnotationsbodyContext(_ctx, getState());
 		enterRule(_localctx, 140, RULE_annotationsbody);
@@ -4114,20 +7916,62 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class AnnotationconfigContext.
+	 */
 	public static class AnnotationconfigContext extends ParserRuleContext {
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbxsodataParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new annotationconfig context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public AnnotationconfigContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_annotationconfig; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterAnnotationconfig(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitAnnotationconfig(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitAnnotationconfig(this);
@@ -4135,6 +7979,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Annotationconfig.
+	 *
+	 * @return the annotationconfig context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final AnnotationconfigContext annotationconfig() throws RecognitionException {
 		AnnotationconfigContext _localctx = new AnnotationconfigContext(_ctx, getState());
 		enterRule(_localctx, 142, RULE_annotationconfig);
@@ -4160,22 +8010,64 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class SettingsContext.
+	 */
 	public static class SettingsContext extends ParserRuleContext {
+		
+		/**
+		 * Settingsbody.
+		 *
+		 * @return the settingsbody context
+		 */
 		public SettingsbodyContext settingsbody() {
 			return getRuleContext(SettingsbodyContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new settings context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public SettingsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_settings; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterSettings(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitSettings(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitSettings(this);
@@ -4183,6 +8075,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Settings.
+	 *
+	 * @return the settings context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final SettingsContext settings() throws RecognitionException {
 		SettingsContext _localctx = new SettingsContext(_ctx, getState());
 		enterRule(_localctx, 144, RULE_settings);
@@ -4206,25 +8104,74 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class SettingsbodyContext.
+	 */
 	public static class SettingsbodyContext extends ParserRuleContext {
+		
+		/**
+		 * Settingselement.
+		 *
+		 * @return the list
+		 */
 		public List<SettingselementContext> settingselement() {
 			return getRuleContexts(SettingselementContext.class);
 		}
+		
+		/**
+		 * Settingselement.
+		 *
+		 * @param i the i
+		 * @return the settingselement context
+		 */
 		public SettingselementContext settingselement(int i) {
 			return getRuleContext(SettingselementContext.class,i);
 		}
+		
+		/**
+		 * Instantiates a new settingsbody context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public SettingsbodyContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_settingsbody; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterSettingsbody(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitSettingsbody(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitSettingsbody(this);
@@ -4232,6 +8179,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Settingsbody.
+	 *
+	 * @return the settingsbody context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final SettingsbodyContext settingsbody() throws RecognitionException {
 		SettingsbodyContext _localctx = new SettingsbodyContext(_ctx, getState());
 		enterRule(_localctx, 146, RULE_settingsbody);
@@ -4270,34 +8223,100 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class SettingselementContext.
+	 */
 	public static class SettingselementContext extends ParserRuleContext {
+		
+		/**
+		 * Supportnull.
+		 *
+		 * @return the supportnull context
+		 */
 		public SupportnullContext supportnull() {
 			return getRuleContext(SupportnullContext.class,0);
 		}
+		
+		/**
+		 * Contentcashecontrol.
+		 *
+		 * @return the contentcashecontrol context
+		 */
 		public ContentcashecontrolContext contentcashecontrol() {
 			return getRuleContext(ContentcashecontrolContext.class,0);
 		}
+		
+		/**
+		 * Metadatacashecontrol.
+		 *
+		 * @return the metadatacashecontrol context
+		 */
 		public MetadatacashecontrolContext metadatacashecontrol() {
 			return getRuleContext(MetadatacashecontrolContext.class,0);
 		}
+		
+		/**
+		 * Hints.
+		 *
+		 * @return the hints context
+		 */
 		public HintsContext hints() {
 			return getRuleContext(HintsContext.class,0);
 		}
+		
+		/**
+		 * Limits.
+		 *
+		 * @return the limits context
+		 */
 		public LimitsContext limits() {
 			return getRuleContext(LimitsContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new settingselement context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public SettingselementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_settingselement; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterSettingselement(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitSettingselement(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitSettingselement(this);
@@ -4305,6 +8324,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Settingselement.
+	 *
+	 * @return the settingselement context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final SettingselementContext settingselement() throws RecognitionException {
 		SettingselementContext _localctx = new SettingselementContext(_ctx, getState());
 		enterRule(_localctx, 148, RULE_settingselement);
@@ -4362,20 +8387,62 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class SupportnullContext.
+	 */
 	public static class SupportnullContext extends ParserRuleContext {
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbxsodataParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new supportnull context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public SupportnullContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_supportnull; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterSupportnull(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitSupportnull(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitSupportnull(this);
@@ -4383,6 +8450,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Supportnull.
+	 *
+	 * @return the supportnull context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final SupportnullContext supportnull() throws RecognitionException {
 		SupportnullContext _localctx = new SupportnullContext(_ctx, getState());
 		enterRule(_localctx, 150, RULE_supportnull);
@@ -4408,21 +8481,69 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class ContentcashecontrolContext.
+	 */
 	public static class ContentcashecontrolContext extends ParserRuleContext {
+		
+		/**
+		 * Quated string.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode QUATED_STRING() { return getToken(HdbxsodataParser.QUATED_STRING, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbxsodataParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new contentcashecontrol context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public ContentcashecontrolContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_contentcashecontrol; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterContentcashecontrol(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitContentcashecontrol(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitContentcashecontrol(this);
@@ -4430,6 +8551,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Contentcashecontrol.
+	 *
+	 * @return the contentcashecontrol context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final ContentcashecontrolContext contentcashecontrol() throws RecognitionException {
 		ContentcashecontrolContext _localctx = new ContentcashecontrolContext(_ctx, getState());
 		enterRule(_localctx, 152, RULE_contentcashecontrol);
@@ -4457,21 +8584,69 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class MetadatacashecontrolContext.
+	 */
 	public static class MetadatacashecontrolContext extends ParserRuleContext {
+		
+		/**
+		 * Quated string.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode QUATED_STRING() { return getToken(HdbxsodataParser.QUATED_STRING, 0); }
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbxsodataParser.SEMICOLON, 0); }
+		
+		/**
+		 * Instantiates a new metadatacashecontrol context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public MetadatacashecontrolContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_metadatacashecontrol; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterMetadatacashecontrol(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitMetadatacashecontrol(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitMetadatacashecontrol(this);
@@ -4479,6 +8654,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Metadatacashecontrol.
+	 *
+	 * @return the metadatacashecontrol context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final MetadatacashecontrolContext metadatacashecontrol() throws RecognitionException {
 		MetadatacashecontrolContext _localctx = new MetadatacashecontrolContext(_ctx, getState());
 		enterRule(_localctx, 154, RULE_metadatacashecontrol);
@@ -4506,26 +8687,80 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class HintsContext.
+	 */
 	public static class HintsContext extends ParserRuleContext {
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbxsodataParser.SEMICOLON, 0); }
+		
+		/**
+		 * Hintlist.
+		 *
+		 * @return the hintlist context
+		 */
 		public HintlistContext hintlist() {
 			return getRuleContext(HintlistContext.class,0);
 		}
+		
+		/**
+		 * Nullvalue.
+		 *
+		 * @return the nullvalue context
+		 */
 		public NullvalueContext nullvalue() {
 			return getRuleContext(NullvalueContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new hints context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public HintsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_hints; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterHints(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitHints(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitHints(this);
@@ -4533,6 +8768,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Hints.
+	 *
+	 * @return the hints context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final HintsContext hints() throws RecognitionException {
 		HintsContext _localctx = new HintsContext(_ctx, getState());
 		enterRule(_localctx, 156, RULE_hints);
@@ -4577,29 +8818,91 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class HintlistContext.
+	 */
 	public static class HintlistContext extends ParserRuleContext {
+		
+		/**
+		 * Hintvalue.
+		 *
+		 * @return the list
+		 */
 		public List<HintvalueContext> hintvalue() {
 			return getRuleContexts(HintvalueContext.class);
 		}
+		
+		/**
+		 * Hintvalue.
+		 *
+		 * @param i the i
+		 * @return the hintvalue context
+		 */
 		public HintvalueContext hintvalue(int i) {
 			return getRuleContext(HintvalueContext.class,i);
 		}
+		
+		/**
+		 * Comma.
+		 *
+		 * @return the list
+		 */
 		public List<TerminalNode> COMMA() { return getTokens(HdbxsodataParser.COMMA); }
+		
+		/**
+		 * Comma.
+		 *
+		 * @param i the i
+		 * @return the terminal node
+		 */
 		public TerminalNode COMMA(int i) {
 			return getToken(HdbxsodataParser.COMMA, i);
 		}
+		
+		/**
+		 * Instantiates a new hintlist context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public HintlistContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_hintlist; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterHintlist(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitHintlist(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitHintlist(this);
@@ -4607,6 +8910,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Hintlist.
+	 *
+	 * @return the hintlist context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final HintlistContext hintlist() throws RecognitionException {
 		HintlistContext _localctx = new HintlistContext(_ctx, getState());
 		enterRule(_localctx, 158, RULE_hintlist);
@@ -4647,20 +8956,62 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class HintvalueContext.
+	 */
 	public static class HintvalueContext extends ParserRuleContext {
+		
+		/**
+		 * Quated string.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode QUATED_STRING() { return getToken(HdbxsodataParser.QUATED_STRING, 0); }
+		
+		/**
+		 * Instantiates a new hintvalue context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public HintvalueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_hintvalue; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterHintvalue(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitHintvalue(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitHintvalue(this);
@@ -4668,6 +9019,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Hintvalue.
+	 *
+	 * @return the hintvalue context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final HintvalueContext hintvalue() throws RecognitionException {
 		HintvalueContext _localctx = new HintvalueContext(_ctx, getState());
 		enterRule(_localctx, 160, RULE_hintvalue);
@@ -4689,19 +9046,55 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class NullvalueContext.
+	 */
 	public static class NullvalueContext extends ParserRuleContext {
+		
+		/**
+		 * Instantiates a new nullvalue context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public NullvalueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_nullvalue; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterNullvalue(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitNullvalue(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitNullvalue(this);
@@ -4709,6 +9102,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Nullvalue.
+	 *
+	 * @return the nullvalue context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final NullvalueContext nullvalue() throws RecognitionException {
 		NullvalueContext _localctx = new NullvalueContext(_ctx, getState());
 		enterRule(_localctx, 162, RULE_nullvalue);
@@ -4730,30 +9129,98 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class LimitsContext.
+	 */
 	public static class LimitsContext extends ParserRuleContext {
+		
+		/**
+		 * Limitvalue.
+		 *
+		 * @return the list
+		 */
 		public List<LimitvalueContext> limitvalue() {
 			return getRuleContexts(LimitvalueContext.class);
 		}
+		
+		/**
+		 * Limitvalue.
+		 *
+		 * @param i the i
+		 * @return the limitvalue context
+		 */
 		public LimitvalueContext limitvalue(int i) {
 			return getRuleContext(LimitvalueContext.class,i);
 		}
+		
+		/**
+		 * Semicolon.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode SEMICOLON() { return getToken(HdbxsodataParser.SEMICOLON, 0); }
+		
+		/**
+		 * Comma.
+		 *
+		 * @return the list
+		 */
 		public List<TerminalNode> COMMA() { return getTokens(HdbxsodataParser.COMMA); }
+		
+		/**
+		 * Comma.
+		 *
+		 * @param i the i
+		 * @return the terminal node
+		 */
 		public TerminalNode COMMA(int i) {
 			return getToken(HdbxsodataParser.COMMA, i);
 		}
+		
+		/**
+		 * Instantiates a new limits context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public LimitsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_limits; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterLimits(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitLimits(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitLimits(this);
@@ -4761,6 +9228,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Limits.
+	 *
+	 * @return the limits context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final LimitsContext limits() throws RecognitionException {
 		LimitsContext _localctx = new LimitsContext(_ctx, getState());
 		enterRule(_localctx, 164, RULE_limits);
@@ -4803,27 +9276,87 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class LimitvalueContext.
+	 */
 	public static class LimitvalueContext extends ParserRuleContext {
+		
+		/**
+		 * Eq.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode EQ() { return getToken(HdbxsodataParser.EQ, 0); }
+		
+		/**
+		 * Int.
+		 *
+		 * @return the terminal node
+		 */
 		public TerminalNode INT() { return getToken(HdbxsodataParser.INT, 0); }
+		
+		/**
+		 * Maxrecords.
+		 *
+		 * @return the maxrecords context
+		 */
 		public MaxrecordsContext maxrecords() {
 			return getRuleContext(MaxrecordsContext.class,0);
 		}
+		
+		/**
+		 * Maxexpandedrecords.
+		 *
+		 * @return the maxexpandedrecords context
+		 */
 		public MaxexpandedrecordsContext maxexpandedrecords() {
 			return getRuleContext(MaxexpandedrecordsContext.class,0);
 		}
+		
+		/**
+		 * Instantiates a new limitvalue context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public LimitvalueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_limitvalue; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterLimitvalue(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitLimitvalue(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitLimitvalue(this);
@@ -4831,6 +9364,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Limitvalue.
+	 *
+	 * @return the limitvalue context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final LimitvalueContext limitvalue() throws RecognitionException {
 		LimitvalueContext _localctx = new LimitvalueContext(_ctx, getState());
 		enterRule(_localctx, 166, RULE_limitvalue);
@@ -4872,19 +9411,55 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class MaxrecordsContext.
+	 */
 	public static class MaxrecordsContext extends ParserRuleContext {
+		
+		/**
+		 * Instantiates a new maxrecords context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public MaxrecordsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_maxrecords; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterMaxrecords(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitMaxrecords(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitMaxrecords(this);
@@ -4892,6 +9467,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Maxrecords.
+	 *
+	 * @return the maxrecords context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final MaxrecordsContext maxrecords() throws RecognitionException {
 		MaxrecordsContext _localctx = new MaxrecordsContext(_ctx, getState());
 		enterRule(_localctx, 168, RULE_maxrecords);
@@ -4913,19 +9494,55 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/**
+	 * The Class MaxexpandedrecordsContext.
+	 */
 	public static class MaxexpandedrecordsContext extends ParserRuleContext {
+		
+		/**
+		 * Instantiates a new maxexpandedrecords context.
+		 *
+		 * @param parent the parent
+		 * @param invokingState the invoking state
+		 */
 		public MaxexpandedrecordsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
+		
+		/**
+		 * Gets the rule index.
+		 *
+		 * @return the rule index
+		 */
 		@Override public int getRuleIndex() { return RULE_maxexpandedrecords; }
+		
+		/**
+		 * Enter rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).enterMaxexpandedrecords(this);
 		}
+		
+		/**
+		 * Exit rule.
+		 *
+		 * @param listener the listener
+		 */
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HdbxsodataListener ) ((HdbxsodataListener)listener).exitMaxexpandedrecords(this);
 		}
+		
+		/**
+		 * Accept.
+		 *
+		 * @param <T> the generic type
+		 * @param visitor the visitor
+		 * @return the t
+		 */
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HdbxsodataVisitor ) return ((HdbxsodataVisitor<? extends T>)visitor).visitMaxexpandedrecords(this);
@@ -4933,6 +9550,12 @@ public class HdbxsodataParser extends Parser {
 		}
 	}
 
+	/**
+	 * Maxexpandedrecords.
+	 *
+	 * @return the maxexpandedrecords context
+	 * @throws RecognitionException the recognition exception
+	 */
 	public final MaxexpandedrecordsContext maxexpandedrecords() throws RecognitionException {
 		MaxexpandedrecordsContext _localctx = new MaxexpandedrecordsContext(_ctx, getState());
 		enterRule(_localctx, 170, RULE_maxexpandedrecords);
@@ -4954,6 +9577,7 @@ public class HdbxsodataParser extends Parser {
 		return _localctx;
 	}
 
+	/** The Constant _serializedATN. */
 	public static final String _serializedATN =
 		"\u0004\u0001M\u0245\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
@@ -5289,6 +9913,8 @@ public class HdbxsodataParser extends Parser {
 		"\u0108\u0112\u011c\u0128\u012f\u0138\u0141\u0149\u0157\u015b\u015e\u016d"+
 		"\u0173\u0180\u0184\u0197\u01a1\u01a8\u01be\u01ce\u01dd\u01df\u01e8\u01f0"+
 		"\u01ff\u0209\u021b\u021e\u0227\u0234\u023b";
+	
+	/** The Constant _ATN. */
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

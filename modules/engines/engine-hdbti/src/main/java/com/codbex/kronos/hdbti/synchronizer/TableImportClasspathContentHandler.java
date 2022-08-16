@@ -11,18 +11,30 @@
  */
 package com.codbex.kronos.hdbti.synchronizer;
 
-import com.codbex.kronos.hdbti.api.ITableImportModel;
 import java.io.IOException;
 import org.eclipse.dirigible.commons.api.content.AbstractClasspathContentHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.codbex.kronos.hdbti.api.ITableImportModel;
+
+/**
+ * The Class TableImportClasspathContentHandler.
+ */
 public class TableImportClasspathContentHandler extends AbstractClasspathContentHandler {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(com.codbex.kronos.hdbti.synchronizer.TableImportClasspathContentHandler.class);
 
+  /** The table import synchronizer. */
   private TableImportSynchronizer tableImportSynchronizer = new TableImportSynchronizer();
 
+  /**
+   * Checks if is valid.
+   *
+   * @param path the path
+   * @return true, if is valid
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.commons.api.content.AbstractClasspathContentHandler#isValid(java.lang.String)
@@ -42,6 +54,11 @@ public class TableImportClasspathContentHandler extends AbstractClasspathContent
     return false;
   }
 
+  /**
+   * Gets the logger.
+   *
+   * @return the logger
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.commons.api.content.AbstractClasspathContentHandler#getLogger()

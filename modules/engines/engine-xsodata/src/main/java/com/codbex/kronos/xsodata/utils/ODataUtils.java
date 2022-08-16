@@ -21,8 +21,9 @@ import com.codbex.kronos.parser.xsodata.model.HDBXSODataMultiplicityType;
 import com.codbex.kronos.parser.xsodata.model.HDBXSODataNavigation;
 import com.codbex.kronos.xsodata.ds.model.ODataModel;
 import com.codbex.kronos.xsodata.ds.service.OData2TransformerException;
-import com.codbex.kronos.xsodata.ds.service.KronosODataCoreService;
+import com.codbex.kronos.xsodata.ds.service.ODataCoreService;
 import com.codbex.kronos.xsodata.ds.service.TableMetadataProvider;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,23 +48,42 @@ import org.eclipse.dirigible.engine.odata2.definition.ODataNavigation;
 import org.eclipse.dirigible.engine.odata2.definition.ODataParameter;
 import org.eclipse.dirigible.engine.odata2.definition.ODataProperty;
 import org.eclipse.dirigible.engine.odata2.transformers.DBMetadataUtil;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class ODataUtils.
+ */
 public class ODataUtils {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(ODataUtils.class);
+  
+  /** The data source. */
   private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
 
+  /** The metadata provider. */
   private TableMetadataProvider metadataProvider;
+  
+  /** The db metadata util. */
   private DBMetadataUtil dbMetadataUtil = new DBMetadataUtil();
 
+  /**
+   * Instantiates a new o data utils.
+   *
+   * @param metadataProvider the metadata provider
+   */
   public ODataUtils(TableMetadataProvider metadataProvider) {
     this.metadataProvider = metadataProvider;
   }
 
-  public ODataDefinition convertKronosODataModelToODataDefinition(ODataModel oDataModel) {
+  /**
+   * Convert O data model to O data definition.
+   *
+   * @param oDataModel the o data model
+   * @return the o data definition
+   */
+  public ODataDefinition convertODataModelToODataDefinition(ODataModel oDataModel) {
     ODataDefinition oDataDefinitionModel = new ODataDefinition();
 
     oDataDefinitionModel.setLocation(oDataModel.getLocation());
@@ -168,7 +188,13 @@ public class ODataUtils {
     return oDataDefinitionModel;
   }
 
-  @NotNull
+  /**
+   * Process modification.
+   *
+   * @param oDataEntityDefinition the o data entity definition
+   * @param handlers the handlers
+   * @return the consumer
+   */
   private Consumer<HDBXSODataModification> processModification(ODataEntityDefinition oDataEntityDefinition,
       List<ODataHandler> handlers) {
     return modification -> {
@@ -198,7 +224,14 @@ public class ODataUtils {
     };
   }
 
-  @NotNull
+  /**
+   * Process navigation.
+   *
+   * @param oDataModel the o data model
+   * @param oDataDefinitionModel the o data definition model
+   * @param oDataEntityDefinition the o data entity definition
+   * @return the consumer
+   */
   Consumer<HDBXSODataNavigation> processNavigation(ODataModel oDataModel,
       ODataDefinition oDataDefinitionModel, ODataEntityDefinition oDataEntityDefinition) {
     return navigate -> {
@@ -210,40 +243,40 @@ public class ODataUtils {
       //set navigations
       ODataAssociationDefinition oDataAssociationDefinition = new ODataAssociationDefinition();
       oDataAssociationDefinition.setName(navigate.getAssociation());
-      HDBXSODataAssociation xsODataAssociation = KronosODataCoreService
+      HDBXSODataAssociation xsOdataAssoc = ODataCoreService
           .getAssociation(oDataModel, navigate.getAssociation(), navigate.getAliasNavigation());
 
       ODataAssociationEndDefinition fromDef = new ODataAssociationEndDefinition();
-      fromDef.setEntity(xsODataAssociation.getPrincipal().getEntitySetName());
+      fromDef.setEntity(xsOdataAssoc.getPrincipal().getEntitySetName());
 
       //The Multiplicity of the Principal role must be 1 or 0..1
-      validateEdmMultiplicity(xsODataAssociation.getPrincipal().getMultiplicityType().getText(), navigate.getAssociation());
-      fromDef.setMultiplicity(xsODataAssociation.getPrincipal().getMultiplicityType().getText());
-      fromDef.setProperties(xsODataAssociation.getPrincipal().getBindingRole().getKeys());
+      validateEdmMultiplicity(xsOdataAssoc.getPrincipal().getMultiplicityType().getText(), navigate.getAssociation());
+      fromDef.setMultiplicity(xsOdataAssoc.getPrincipal().getMultiplicityType().getText());
+      fromDef.setProperties(xsOdataAssoc.getPrincipal().getBindingRole().getKeys());
       ODataAssociationEndDefinition toDef = new ODataAssociationEndDefinition();
-      toDef.setEntity(xsODataAssociation.getDependent().getEntitySetName());
+      toDef.setEntity(xsOdataAssoc.getDependent().getEntitySetName());
 
       //The Multiplicity of the Principal role must be 1, 0..1, 1..*, *
       //convert 1..* to *, because odata do not support it
-      if (xsODataAssociation.getDependent().getMultiplicityType().getText().equals(HDBXSODataMultiplicityType.ONE_TO_MANY.getText())) {
+      if (xsOdataAssoc.getDependent().getMultiplicityType().getText().equals(HDBXSODataMultiplicityType.ONE_TO_MANY.getText())) {
         toDef.setMultiplicity(EdmMultiplicity.MANY.toString());
       } else {
-        validateEdmMultiplicity(xsODataAssociation.getDependent().getMultiplicityType().getText(), navigate.getAssociation());
-        toDef.setMultiplicity(xsODataAssociation.getDependent().getMultiplicityType().getText());
+        validateEdmMultiplicity(xsOdataAssoc.getDependent().getMultiplicityType().getText(), navigate.getAssociation());
+        toDef.setMultiplicity(xsOdataAssoc.getDependent().getMultiplicityType().getText());
       }
 
-      toDef.setProperties(xsODataAssociation.getDependent().getBindingRole().getKeys());
+      toDef.setProperties(xsOdataAssoc.getDependent().getBindingRole().getKeys());
       oDataAssociationDefinition.setFrom(fromDef);
       oDataAssociationDefinition.setTo(toDef);
 
-      if (xsODataAssociation.getDependent().getMultiplicityType().getText().equals(EdmMultiplicity.MANY.toString())
-          && xsODataAssociation.getPrincipal().getMultiplicityType().getText().equals(EdmMultiplicity.MANY.toString())) {
+      if (xsOdataAssoc.getDependent().getMultiplicityType().getText().equals(EdmMultiplicity.MANY.toString())
+          && xsOdataAssoc.getPrincipal().getMultiplicityType().getText().equals(EdmMultiplicity.MANY.toString())) {
 
-        fromDef.getMappingTableDefinition().setMappingTableName(xsODataAssociation.getAssociationTable().getRepositoryObject());
-        fromDef.getMappingTableDefinition().setMappingTableJoinColumn(xsODataAssociation.getAssociationTable().getPrincipal().getKeys().get(0));
+        fromDef.getMappingTableDefinition().setMappingTableName(xsOdataAssoc.getAssociationTable().getRepositoryObject());
+        fromDef.getMappingTableDefinition().setMappingTableJoinColumn(xsOdataAssoc.getAssociationTable().getPrincipal().getKeys().get(0));
 
-        toDef.getMappingTableDefinition().setMappingTableName(xsODataAssociation.getAssociationTable().getRepositoryObject());
-        toDef.getMappingTableDefinition().setMappingTableJoinColumn(xsODataAssociation.getAssociationTable().getDependent().getKeys().get(0));
+        toDef.getMappingTableDefinition().setMappingTableName(xsOdataAssoc.getAssociationTable().getRepositoryObject());
+        toDef.getMappingTableDefinition().setMappingTableJoinColumn(xsOdataAssoc.getAssociationTable().getDependent().getKeys().get(0));
       }
 
       oDataDefinitionModel.getAssociations().add(oDataAssociationDefinition);
@@ -252,6 +285,9 @@ public class ODataUtils {
 
   /**
    * Validate if provided multiplicity from xsodata can be mapped to olingo ones.
+   *
+   * @param actualValue the actual value
+   * @param assName the ass name
    */
   void validateEdmMultiplicity(String actualValue, String assName) {
     try {
@@ -263,6 +299,9 @@ public class ODataUtils {
 
   /**
    * Validate if provided handler type is one of the org.eclipse.dirigible.engine.odata2.definition.ODataHandlerTypes
+   *
+   * @param eventType the event type
+   * @return true, if successful
    */
   boolean validateHandlerType(HDBXSODataEventType eventType) {
     try {
@@ -276,6 +315,11 @@ public class ODataUtils {
 
   /**
    * Get input parameters if entity data source is a calculation view.
+   *
+   * @param allEntityParameters the all entity parameters
+   * @param tableName the table name
+   * @return the parameters for calc view
+   * @throws SQLException the SQL exception
    */
   private void getParametersForCalcView(List<PersistenceTableColumnModel> allEntityParameters, String tableName) throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
@@ -320,6 +364,12 @@ public class ODataUtils {
 
   /**
    * Create a second parameter entity.
+   *
+   * @param oDataDefinitionModel the o data definition model
+   * @param oDataEntityDefinition the o data entity definition
+   * @param entity the entity
+   * @param allEntityParameters the all entity parameters
+   * @param tableName the table name
    */
   private void processParameters(ODataDefinition oDataDefinitionModel, ODataEntityDefinition oDataEntityDefinition,
       HDBXSODataEntity entity, List<PersistenceTableColumnModel> allEntityParameters, String tableName) {

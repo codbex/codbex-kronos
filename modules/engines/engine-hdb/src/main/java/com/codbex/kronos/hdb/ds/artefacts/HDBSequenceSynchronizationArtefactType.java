@@ -13,8 +13,17 @@ package com.codbex.kronos.hdb.ds.artefacts;
 
 import org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizationArtefactType;
 
+/**
+ * The Class HDBSequenceSynchronizationArtefactType.
+ */
 public class HDBSequenceSynchronizationArtefactType extends AbstractSynchronizationArtefactType {
 
+  /**
+   * Gets the artefact state message.
+   *
+   * @param state the state
+   * @return the artefact state message
+   */
   @Override
   protected String getArtefactStateMessage(ArtefactState state) {
     switch (state) {
@@ -27,7 +36,7 @@ public class HDBSequenceSynchronizationArtefactType extends AbstractSynchronizat
       case SUCCESSFUL_CREATE:
         return "Processing for create hdbsequence was successful";
       case SUCCESSFUL_CREATE_UPDATE:
-        return "Processing Create or update hdbsequence was successful";
+        return "Processing for create or update hdbsequence was successful";
       case SUCCESSFUL_UPDATE:
         return "Processing for update hdbsequence was successful";
       default:
@@ -35,6 +44,11 @@ public class HDBSequenceSynchronizationArtefactType extends AbstractSynchronizat
     }
   }
 
+  /**
+   * Gets the id.
+   *
+   * @return the id
+   */
   @Override
   public String getId() {
     return "HDBSequence";

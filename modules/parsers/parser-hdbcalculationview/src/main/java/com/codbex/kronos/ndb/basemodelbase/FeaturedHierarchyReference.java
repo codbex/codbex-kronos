@@ -32,9 +32,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * like hierarchy join properties.	The hierarchyName is the pointer to the shared hierarchy.
  *
  *
- * <p>Java class for FeaturedHierarchyReference complex type.
+ * Java class for FeaturedHierarchyReference complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="FeaturedHierarchyReference"&gt;
@@ -55,7 +55,10 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class FeaturedHierarchyReference {
 
+  /** The join properties. */
   protected HierarchyJoinProperties joinProperties;
+  
+  /** The hierarchy name. */
   @XmlAttribute(name = "hierarchyName", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String hierarchyName;

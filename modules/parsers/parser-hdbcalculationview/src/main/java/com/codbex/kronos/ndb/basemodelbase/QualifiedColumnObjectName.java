@@ -19,7 +19,6 @@
 
 package com.codbex.kronos.ndb.basemodelbase;
 
-import com.codbex.kronos.ndb.bimodeldatafoundation.ColumnMapping;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -28,6 +27,8 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.codbex.kronos.ndb.bimodeldatafoundation.ColumnMapping;
+
 
 /**
  * Type for referencing a column based SQL object. This type is really meant for column based types, whereas
@@ -35,9 +36,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * In addition this type  contains the alias in case the same table is used several times in the same data foundation.
  *
  *
- * <p>Java class for QualifiedColumnObjectName complex type.
+ * Java class for QualifiedColumnObjectName complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="QualifiedColumnObjectName"&gt;
@@ -57,6 +58,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class QualifiedColumnObjectName
     extends QualifiedSQLObjectName {
 
+  /** The alias. */
   @XmlAttribute(name = "alias")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String alias;

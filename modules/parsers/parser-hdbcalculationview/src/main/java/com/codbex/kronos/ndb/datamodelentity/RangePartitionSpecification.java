@@ -19,7 +19,6 @@
 
 package com.codbex.kronos.ndb.datamodelentity;
 
-import com.codbex.kronos.ndb.datamodelfilter.ValueFilter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -28,14 +27,16 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import com.codbex.kronos.ndb.datamodelfilter.ValueFilter;
+
 
 /**
  * Hash partitioning specification
  *
  *
- * <p>Java class for RangePartitionSpecification complex type.
+ * Java class for RangePartitionSpecification complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="RangePartitionSpecification"&gt;
@@ -60,11 +61,18 @@ import javax.xml.bind.annotation.XmlType;
 public class RangePartitionSpecification
     extends PartitionSpecification {
 
+  /** The expression. */
   protected PartitionExpression expression;
+  
+  /** The range. */
   @XmlElement(required = true)
   protected List<ValueFilter> range;
+  
+  /** The aging. */
   @XmlAttribute(name = "aging")
   protected Boolean aging;
+  
+  /** The with others. */
   @XmlAttribute(name = "withOthers")
   protected Boolean withOthers;
 
@@ -90,23 +98,25 @@ public class RangePartitionSpecification
 
   /**
    * Gets the value of the range property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the range property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getRange().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link ValueFilter }
+   *
+   * @return the range
    */
   public List<ValueFilter> getRange() {
     if (range == null) {

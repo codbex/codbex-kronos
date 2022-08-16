@@ -11,28 +11,90 @@
  */
 package com.codbex.kronos.xsaccess.ds.api;
 
-import com.codbex.kronos.xsaccess.ds.model.access.AccessDefinition;
 import java.util.List;
 
+import com.codbex.kronos.xsaccess.ds.model.access.AccessDefinition;
+
+/**
+ * The Interface IAccessCoreService.
+ */
 public interface IAccessCoreService {
 
+  /** The file extension access. */
   String FILE_EXTENSION_ACCESS = ".xsaccess";
 
+  /**
+   * Creates the access definition.
+   *
+   * @param path the path
+   * @param authenticationMethodAsList the authentication method as list
+   * @param hash the hash
+   * @param exposed the exposed
+   * @param authorizationRolesAsList the authorization roles as list
+   * @return the access definition
+   * @throws AccessException the access exception
+   */
   AccessDefinition createAccessDefinition(String path, List<String> authenticationMethodAsList, String hash, boolean exposed,
       List<String> authorizationRolesAsList) throws AccessException;
 
+  /**
+   * Update access definition.
+   *
+   * @param path the path
+   * @param authenticationMethodAsList the authentication method as list
+   * @param hash the hash
+   * @param exposed the exposed
+   * @param authorizationRolesAsList the authorization roles as list
+   * @return the access definition
+   * @throws AccessException the access exception
+   */
   AccessDefinition updateAccessDefinition(String path, List<String> authenticationMethodAsList, String hash, boolean exposed,
       List<String> authorizationRolesAsList) throws AccessException;
 
+  /**
+   * Gets the access definition.
+   *
+   * @param id the id
+   * @return the access definition
+   * @throws AccessException the access exception
+   */
   AccessDefinition getAccessDefinition(String id) throws AccessException;
 
+  /**
+   * Gets the access definitions.
+   *
+   * @return the access definitions
+   * @throws AccessException the access exception
+   */
   List<AccessDefinition> getAccessDefinitions() throws AccessException;
 
+  /**
+   * Removes the access definition.
+   *
+   * @param path the path
+   * @throws AccessException the access exception
+   */
   void removeAccessDefinition(String path) throws AccessException;
 
+  /**
+   * Exists access definition.
+   *
+   * @param path the path
+   * @return true, if successful
+   * @throws AccessException the access exception
+   */
   boolean existsAccessDefinition(String path) throws AccessException;
 
+  /**
+   * Parses the access artifact.
+   *
+   * @param json the json
+   * @return the access definition
+   */
   AccessDefinition parseAccessArtifact(byte[] json);
 
+  /**
+   * Clear cache.
+   */
   void clearCache();
 }

@@ -31,9 +31,9 @@ import javax.xml.bind.annotation.XmlType;
  * Docs: https://help.sap.com/viewer/4fe29514fd584807ac9f2a04f6754767/2.0.02/en-US/9de4bc37efd0450baf15f95f9d3dccd1.html
  *
  *
- * <p>Java class for HierarchyLeveledParameterization complex type.
+ * Java class for HierarchyLeveledParameterization complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="HierarchyLeveledParameterization"&gt;
@@ -55,8 +55,11 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class HierarchyLeveledParameterization {
 
+  /** The levels. */
   @XmlElement(required = true)
   protected Levels levels;
+  
+  /** The cache. */
   @XmlElement(required = true)
   @XmlSchemaType(name = "NMTOKEN")
   protected Cache cache;

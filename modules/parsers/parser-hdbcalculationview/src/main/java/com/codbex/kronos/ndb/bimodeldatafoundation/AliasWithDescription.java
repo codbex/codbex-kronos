@@ -19,7 +19,6 @@
 
 package com.codbex.kronos.ndb.bimodeldatafoundation;
 
-import com.codbex.kronos.ndb.basemodelbase.Descriptions;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -28,15 +27,17 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.codbex.kronos.ndb.basemodelbase.Descriptions;
+
 
 /**
  * Defines an aliasing including a description. Usually when aliasing a technical name in a
  * BI model one also needs to adjust the descriptions. These	object comprises both features
  *
  *
- * <p>Java class for AliasWithDescription complex type.
+ * Java class for AliasWithDescription complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="AliasWithDescription"&gt;
@@ -60,7 +61,10 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class AliasWithDescription {
 
+  /** The descriptions. */
   protected Descriptions descriptions;
+  
+  /** The alias. */
   @XmlAttribute(name = "alias")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String alias;

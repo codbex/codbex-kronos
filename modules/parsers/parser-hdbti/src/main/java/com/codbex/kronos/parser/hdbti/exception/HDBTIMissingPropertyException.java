@@ -11,7 +11,16 @@
  */
 package com.codbex.kronos.parser.hdbti.exception;
 
+/**
+ * The Class HDBTIMissingPropertyException.
+ */
 public class HDBTIMissingPropertyException extends RuntimeException{
+  
+  /**
+   * Instantiates a new HDBTI missing property exception.
+   *
+   * @param message the message
+   */
   public HDBTIMissingPropertyException(String message) {
     super(message);
   }

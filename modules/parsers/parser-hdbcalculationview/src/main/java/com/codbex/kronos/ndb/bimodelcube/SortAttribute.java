@@ -19,18 +19,19 @@
 
 package com.codbex.kronos.ndb.bimodelcube;
 
-import com.codbex.kronos.ndb.basemodelbase.SortDirection;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
+import com.codbex.kronos.ndb.basemodelbase.SortDirection;
+
 
 /**
- * <p>Java class for SortAttribute complex type.
+ * Java class for SortAttribute complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="SortAttribute"&gt;
@@ -52,8 +53,11 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class SortAttribute {
 
+  /** The id. */
   @XmlElement(required = true)
   protected String id;
+  
+  /** The direction. */
   @XmlElement(required = true)
   @XmlSchemaType(name = "string")
   protected SortDirection direction;

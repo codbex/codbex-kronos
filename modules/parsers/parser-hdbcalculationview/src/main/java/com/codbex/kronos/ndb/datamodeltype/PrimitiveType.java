@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for PrimitiveType.
+ * Java class for PrimitiveType.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="PrimitiveType"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -70,54 +70,123 @@ public enum PrimitiveType {
 
 
   /**
+   * The char.
+   *
    * @deprecated - Deprecated SAP HANA type
    */
   CHAR,
+  
+  /** The varchar. */
   VARCHAR,
 
   /**
+   * The nchar.
+   *
    * @deprecated - Deprecated SAP HANA type
    */
   NCHAR,
+  
+  /** The nvarchar. */
   NVARCHAR,
+  
+  /** The tinyint. */
   TINYINT,
+  
+  /** The smallint. */
   SMALLINT,
+  
+  /** The integer. */
   INTEGER,
+  
+  /** The bigint. */
   BIGINT,
+  
+  /** The decimal. */
   DECIMAL,
 
   /**
+   * The numeric.
+   *
    * @deprecated - Deprecated SAP HANA type
    */
   NUMERIC,
+  
+  /** The real. */
   REAL,
+  
+  /** The float. */
   FLOAT,
+  
+  /** The double. */
   DOUBLE,
+  
+  /** The date. */
   DATE,
+  
+  /** The time. */
   TIME,
+  
+  /** The timestamp. */
   TIMESTAMP,
+  
+  /** The seconddate. */
   SECONDDATE,
+  
+  /** The blob. */
   BLOB,
+  
+  /** The clob. */
   CLOB,
+  
+  /** The nclob. */
   NCLOB,
 
   /**
+   * The binary.
+   *
    * @deprecated - Deprecated SAP HANA type
    */
   BINARY,
+  
+  /** The varbinary. */
   VARBINARY,
+  
+  /** The smalldecimal. */
   SMALLDECIMAL,
+  
+  /** The text. */
   TEXT,
+  
+  /** The shorttext. */
   SHORTTEXT,
+  
+  /** The st point. */
   ST_POINT,
+  
+  /** The st geometry. */
   ST_GEOMETRY,
+  
+  /** The alphanum. */
   ALPHANUM,
+  
+  /** The boolean. */
   BOOLEAN;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the primitive type
+   */
   public static PrimitiveType fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

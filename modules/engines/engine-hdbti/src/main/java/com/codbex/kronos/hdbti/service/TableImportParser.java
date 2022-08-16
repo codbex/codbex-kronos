@@ -11,8 +11,6 @@
  */
 package com.codbex.kronos.hdbti.service;
 
-import static com.codbex.kronos.hdbti.api.ITableImportModel.TYPE_HDBTI;
-
 import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.hdbti.api.ITableImportArtifactFactory;
 import com.codbex.kronos.hdbti.api.ITableImportParser;
@@ -21,6 +19,9 @@ import com.codbex.kronos.hdbti.model.TableImportConfigurationDefinition;
 import com.codbex.kronos.hdbti.transformer.TableImportArtifactFactory;
 import com.codbex.kronos.parser.hdbti.exception.HDBTISyntaxErrorException;
 import com.codbex.kronos.utils.CommonsDBUtils;
+
+import static com.codbex.kronos.hdbti.api.ITableImportModel.TYPE_HDBTI;
+
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -30,12 +31,28 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.eclipse.dirigible.api.v3.security.UserFacade;
 import org.eclipse.dirigible.commons.config.StaticObjects;
 
+/**
+ * The Class TableImportParser.
+ */
 public class TableImportParser implements ITableImportParser {
 
+  /** The table import artifact factory. */
   private ITableImportArtifactFactory tableImportArtifactFactory = new TableImportArtifactFactory();
 
+  /** The data source. */
   private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
 
+  /**
+   * Parses the table import artifact.
+   *
+   * @param location the location
+   * @param content the content
+   * @return the table import artifact
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws HDBTISyntaxErrorException the HDBTI syntax error exception
+   * @throws ArtifactParserException the artifact parser exception
+   * @throws SQLException the SQL exception
+   */
   @Override
   public TableImportArtifact parseTableImportArtifact(String location, String content)
       throws IOException, HDBTISyntaxErrorException, ArtifactParserException, SQLException {

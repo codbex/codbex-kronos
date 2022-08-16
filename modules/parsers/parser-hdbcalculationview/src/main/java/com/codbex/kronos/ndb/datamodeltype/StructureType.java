@@ -19,7 +19,6 @@
 
 package com.codbex.kronos.ndb.datamodeltype;
 
-import com.codbex.kronos.ndb.datamodelentity.Entity;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -32,6 +31,8 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.codbex.kronos.ndb.datamodelentity.Entity;
+
 
 /**
  * Structured data type containing several elements
@@ -39,9 +40,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * several rows!)
  *
  *
- * <p>Java class for StructureType complex type.
+ * Java class for StructureType complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="StructureType"&gt;
@@ -74,42 +75,59 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class StructureType
     extends DataType {
 
+  /** The element. */
   @XmlElement(required = true)
   protected List<Element> element;
+  
+  /** The key element. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected List<String> keyElement;
+  
+  /** The display folder. */
   protected List<DisplayFolder> displayFolder;
+  
+  /** The catalog only. */
   @XmlAttribute(name = "catalogOnly")
   protected Boolean catalogOnly;
+  
+  /** The physical schema name. */
   @XmlAttribute(name = "physicalSchemaName")
   protected String physicalSchemaName;
+  
+  /** The authoring schema name. */
   @XmlAttribute(name = "authoringSchemaName")
   protected String authoringSchemaName;
+  
+  /** The physical database name. */
   @XmlAttribute(name = "physicalDatabaseName")
   protected String physicalDatabaseName;
+  
+  /** The authoring database name. */
   @XmlAttribute(name = "authoringDatabaseName")
   protected String authoringDatabaseName;
 
   /**
    * Gets the value of the element property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the element property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getElement().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link Element }
+   *
+   * @return the element
    */
   public List<Element> getElement() {
     if (element == null) {
@@ -120,23 +138,25 @@ public class StructureType
 
   /**
    * Gets the value of the keyElement property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the keyElement property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getKeyElement().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link String }
+   *
+   * @return the key element
    */
   public List<String> getKeyElement() {
     if (keyElement == null) {
@@ -147,23 +167,25 @@ public class StructureType
 
   /**
    * Gets the value of the displayFolder property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the displayFolder property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getDisplayFolder().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link DisplayFolder }
+   *
+   * @return the display folder
    */
   public List<DisplayFolder> getDisplayFolder() {
     if (displayFolder == null) {

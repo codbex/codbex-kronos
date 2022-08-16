@@ -29,9 +29,9 @@ import javax.xml.bind.annotation.XmlType;
  * Father class for operations
  *
  *
- * <p>Java class for Operation complex type.
+ * Java class for Operation complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Operation"&gt;

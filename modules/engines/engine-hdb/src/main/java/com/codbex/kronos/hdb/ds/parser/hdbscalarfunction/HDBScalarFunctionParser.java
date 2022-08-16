@@ -16,38 +16,58 @@ import java.sql.Timestamp;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.eclipse.dirigible.api.v3.security.UserFacade;
 
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
-import com.codbex.kronos.hdb.ds.model.hdbscalarfunction.HDBScalarFunctionDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbscalarfunction.DataStructureHDBScalarFunctionModel;
 import com.codbex.kronos.hdb.ds.parser.DataStructureParser;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.HDBUtils;
 
-public class HDBScalarFunctionParser implements DataStructureParser<HDBScalarFunctionDataStructureModel> {
+/**
+ * The Class HDBScalarFunctionParser.
+ */
+public class HDBScalarFunctionParser implements DataStructureParser<DataStructureHDBScalarFunctionModel> {
 
+  /**
+   * Parses the hdbscalarfunction file.
+   *
+   * @param parametersModel the parameters model
+   * @return the data structure HDB scalar function model
+   * @throws DataStructuresException the data structures exception
+   */
   @Override
-  public HDBScalarFunctionDataStructureModel parse(DataStructureParametersModel parametersModel) throws DataStructuresException {
-	  HDBScalarFunctionDataStructureModel hdbScalarFunction = new HDBScalarFunctionDataStructureModel();
-    hdbScalarFunction.setName(HDBUtils.extractTableFunctionNameFromContent(parametersModel.getContent(), parametersModel.getLocation(),
+  public DataStructureHDBScalarFunctionModel parse(DataStructureParametersModel parametersModel) throws DataStructuresException {
+    DataStructureHDBScalarFunctionModel hdbScalarFunctionModel = new DataStructureHDBScalarFunctionModel();
+    hdbScalarFunctionModel.setName(HDBUtils.extractTableFunctionNameFromContent(parametersModel.getContent(), parametersModel.getLocation(),
         CommonsConstants.HDB_SCALAR_FUNCTION_PARSER));
-    hdbScalarFunction.setLocation(parametersModel.getLocation());
-    hdbScalarFunction.setType(getType());
-    hdbScalarFunction.setHash(DigestUtils.md5Hex(parametersModel.getContent()));
-    hdbScalarFunction.setCreatedBy(UserFacade.getName());
-    hdbScalarFunction.setCreatedAt(new Timestamp(new java.util.Date().getTime()));
-    hdbScalarFunction.setRawContent(parametersModel.getContent());
-    return hdbScalarFunction;
+    hdbScalarFunctionModel.setLocation(parametersModel.getLocation());
+    hdbScalarFunctionModel.setType(getType());
+    hdbScalarFunctionModel.setHash(DigestUtils.md5Hex(parametersModel.getContent()));
+    hdbScalarFunctionModel.setCreatedBy(UserFacade.getName());
+    hdbScalarFunctionModel.setCreatedAt(new Timestamp(new java.util.Date().getTime()));
+    hdbScalarFunctionModel.setRawContent(parametersModel.getContent());
+    return hdbScalarFunctionModel;
   }
 
+  /**
+   * Gets the type.
+   *
+   * @return the type
+   */
   @Override
   public String getType() {
-    return HDBDataStructureModel.TYPE_HDB_SCALAR_FUNCTION;
+    return IDataStructureModel.TYPE_HDB_SCALAR_FUNCTION;
   }
 
+  /**
+   * Gets the data structure class.
+   *
+   * @return the data structure class
+   */
   @Override
-  public Class<HDBScalarFunctionDataStructureModel> getDataStructureClass() {
-    return HDBScalarFunctionDataStructureModel.class;
+  public Class<DataStructureHDBScalarFunctionModel> getDataStructureClass() {
+    return DataStructureHDBScalarFunctionModel.class;
   }
 }
 

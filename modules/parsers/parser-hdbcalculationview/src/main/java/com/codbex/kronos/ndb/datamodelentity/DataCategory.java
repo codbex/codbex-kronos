@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for DataCategory.
+ * Java class for DataCategory.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="DataCategory"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -45,17 +45,39 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum DataCategory {
 
+  /** The default. */
   DEFAULT,
+  
+  /** The dimension. */
   DIMENSION,
+  
+  /** The cube. */
   CUBE,
+  
+  /** The fact. */
   FACT,
+  
+  /** The text. */
   TEXT,
+  
+  /** The hierarchy. */
   HIERARCHY;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the data category
+   */
   public static DataCategory fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

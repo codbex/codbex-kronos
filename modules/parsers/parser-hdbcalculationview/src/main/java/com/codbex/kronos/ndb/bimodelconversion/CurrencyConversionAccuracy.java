@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for CurrencyConversionAccuracy.
+ * Java class for CurrencyConversionAccuracy.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="CurrencyConversionAccuracy"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -42,20 +42,27 @@ import javax.xml.bind.annotation.XmlType;
 public enum CurrencyConversionAccuracy {
 
 
-  /**
-   * Intermediate rounding should be done to mimick ERP behaviour
-   */
+  /** Intermediate rounding should be done to mimick ERP behaviour. */
   COMPATIBILITY,
 
-  /**
-   * All possible digits should be kept
-   */
+  /** All possible digits should be kept. */
   HIGHEST;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the currency conversion accuracy
+   */
   public static CurrencyConversionAccuracy fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

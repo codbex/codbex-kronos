@@ -19,23 +19,24 @@
 
 package com.codbex.kronos.ndb.bimodeldimension;
 
-import com.codbex.kronos.ndb.basemodelbase.CycleHandling;
-import com.codbex.kronos.ndb.basemodelbase.HierarchyJoinProperties;
-import com.codbex.kronos.ndb.basemodelbase.OrphanedNodesHandling;
-import com.codbex.kronos.ndb.basemodelbase.RootNodeVisibility;
-import com.codbex.kronos.ndb.basemodelbase.UnassignedMemberProperties;
-import com.codbex.kronos.ndb.repositorymodelresource.IDObjectWithDescription;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
+import com.codbex.kronos.ndb.basemodelbase.CycleHandling;
+import com.codbex.kronos.ndb.basemodelbase.HierarchyJoinProperties;
+import com.codbex.kronos.ndb.basemodelbase.OrphanedNodesHandling;
+import com.codbex.kronos.ndb.basemodelbase.RootNodeVisibility;
+import com.codbex.kronos.ndb.basemodelbase.UnassignedMemberProperties;
+import com.codbex.kronos.ndb.repositorymodelresource.IDObjectWithDescription;
+
 
 /**
- * <p>Java class for Hierarchy complex type.
+ * Java class for Hierarchy complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Hierarchy"&gt;
@@ -72,24 +73,45 @@ import javax.xml.bind.annotation.XmlType;
 public abstract class Hierarchy
     extends IDObjectWithDescription {
 
+  /** The join properties. */
   protected HierarchyJoinProperties joinProperties;
+  
+  /** The unassigned member properties. */
   protected UnassignedMemberProperties unassignedMemberProperties;
+  
+  /** The with root node. */
   @XmlAttribute(name = "withRootNode")
   protected Boolean withRootNode;
+  
+  /** The root node visibility. */
   @XmlAttribute(name = "rootNodeVisibility")
   protected RootNodeVisibility rootNodeVisibility;
+  
+  /** The aggregate all nodes. */
   @XmlAttribute(name = "aggregateAllNodes")
   protected Boolean aggregateAllNodes;
+  
+  /** The default member. */
   @XmlAttribute(name = "defaultMember")
   protected String defaultMember;
+  
+  /** The multiple parents. */
   @XmlAttribute(name = "multipleParents")
   protected Boolean multipleParents;
+  
+  /** The orphaned nodes handling. */
   @XmlAttribute(name = "orphanedNodesHandling")
   protected OrphanedNodesHandling orphanedNodesHandling;
+  
+  /** The cycle handling. */
   @XmlAttribute(name = "cycleHandling")
   protected CycleHandling cycleHandling;
+  
+  /** The cache enabled. */
   @XmlAttribute(name = "cacheEnabled")
   protected Boolean cacheEnabled;
+  
+  /** The empty value is null. */
   @XmlAttribute(name = "emptyValueIsNull")
   protected Boolean emptyValueIsNull;
 

@@ -19,22 +19,23 @@
 
 package com.codbex.kronos.ndb.repositorymodelresource;
 
-import com.codbex.kronos.ndb.basemodelbase.EndUserTexts;
-import com.codbex.kronos.ndb.datamodelhierarchy.InlineHierarchy;
-import com.codbex.kronos.ndb.datamodeltype.DisplayFolder;
-import com.codbex.kronos.ndb.datamodeltype.TypedObject;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
+import com.codbex.kronos.ndb.basemodelbase.EndUserTexts;
+import com.codbex.kronos.ndb.datamodelhierarchy.InlineHierarchy;
+import com.codbex.kronos.ndb.datamodeltype.DisplayFolder;
+import com.codbex.kronos.ndb.datamodeltype.TypedObject;
+
 
 /**
  * Base object for named model classes that allow end user texts (non ecore ID based)
  *
- * <p>Java class for NamedObjectWithEndUserTexts complex type.
+ * Java class for NamedObjectWithEndUserTexts complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="NamedObjectWithEndUserTexts"&gt;
@@ -59,6 +60,7 @@ import javax.xml.bind.annotation.XmlType;
 })
 public abstract class NamedObjectWithEndUserTexts {
 
+  /** The end user texts. */
   protected EndUserTexts endUserTexts;
 
   /**

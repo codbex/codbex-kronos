@@ -11,21 +11,32 @@
  */
 package com.codbex.kronos.parser.hdbtable.custom;
 
+import com.codbex.kronos.parser.hdbtable.core.HdbtableBaseVisitor;
+import com.codbex.kronos.parser.hdbtable.core.HdbtableParser;
+import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableDuplicatePropertyException;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import com.codbex.kronos.parser.hdbtable.core.HdbtableBaseVisitor;
-import com.codbex.kronos.parser.hdbtable.core.HdbtableParser;
-import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableDuplicatePropertyException;
+
 import org.antlr.v4.runtime.tree.ParseTree;
-import java.util.HashSet;
-import java.util.List;
 
 import static com.codbex.kronos.parser.hdbtable.constants.HdbtablePropertiesConstants.*;
 
+import java.util.HashSet;
+import java.util.List;
+
+/**
+ * The Class HDBTableCoreVisitor.
+ */
 public class HDBTableCoreVisitor extends HdbtableBaseVisitor<JsonElement> {
 
+    /**
+     * Visit hdbtable definition.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitHdbtableDefinition(HdbtableParser.HdbtableDefinitionContext ctx) {
         JsonObject hdbtableObject = new JsonObject();
@@ -69,6 +80,12 @@ public class HDBTableCoreVisitor extends HdbtableBaseVisitor<JsonElement> {
         return hdbtableObject;
     }
 
+    /**
+     * Visit table columns prop.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitTableColumnsProp(HdbtableParser.TableColumnsPropContext ctx) {
        JsonArray tableColumns = new JsonArray();
@@ -80,6 +97,12 @@ public class HDBTableCoreVisitor extends HdbtableBaseVisitor<JsonElement> {
         return tableColumns;
     }
 
+    /**
+     * Visit indexes object.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitIndexesObject(HdbtableParser.IndexesObjectContext ctx) {
         JsonObject indexesObject = new JsonObject();
@@ -107,11 +130,23 @@ public class HDBTableCoreVisitor extends HdbtableBaseVisitor<JsonElement> {
         return indexesObject;
     }
 
+    /**
+     * Visit column assign unique.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitColumnAssignUnique(HdbtableParser.ColumnAssignUniqueContext ctx) {
         return (ctx != null && ctx.BOOLEAN() !=null) ? new JsonPrimitive(Boolean.parseBoolean(ctx.BOOLEAN().getText())) : null;
     }
 
+    /**
+     * Visit table indexes prop.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitTableIndexesProp(HdbtableParser.TableIndexesPropContext ctx) {
         JsonArray tableIndexes = new JsonArray();
@@ -123,6 +158,12 @@ public class HDBTableCoreVisitor extends HdbtableBaseVisitor<JsonElement> {
         return tableIndexes;
     }
 
+    /**
+     * Visit column assign default value.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitColumnAssignDefaultValue(HdbtableParser.ColumnAssignDefaultValueContext ctx) {
         if(ctx!=null && ctx.STRING()!=null) {
@@ -134,16 +175,34 @@ public class HDBTableCoreVisitor extends HdbtableBaseVisitor<JsonElement> {
         }
     }
 
+    /**
+     * Visit column assign name.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitColumnAssignName(HdbtableParser.ColumnAssignNameContext ctx) {
         return (ctx!=null && ctx.STRING()!=null)?new JsonPrimitive(handleStringLiteral(ctx.STRING().getText())):null;
     }
 
+    /**
+     * Visit index assign index columns.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitIndexAssignIndexColumns(HdbtableParser.IndexAssignIndexColumnsContext ctx) {
         return (ctx!=null && ctx.indexColumnsArray()!=null)? visitIndexColumnsArray(ctx.indexColumnsArray()): new JsonArray();
     }
 
+    /**
+     * Visit columns object.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitColumnsObject(HdbtableParser.ColumnsObjectContext ctx) {
         JsonObject columnsObject = new JsonObject();
@@ -182,16 +241,34 @@ public class HDBTableCoreVisitor extends HdbtableBaseVisitor<JsonElement> {
         return columnsObject;
     }
 
+    /**
+     * Visit table type prop.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitTableTypeProp(HdbtableParser.TableTypePropContext ctx) {
         return (ctx!=null && ctx.TABLETYPE()!=null)?new JsonPrimitive(ctx.TABLETYPE().getText()):null;
     }
 
+    /**
+     * Visit column assign length.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitColumnAssignLength(HdbtableParser.ColumnAssignLengthContext ctx) {
         return (ctx!=null && ctx.INT()!=null)?new JsonPrimitive(Integer.parseInt(ctx.INT().getText())):null;
     }
 
+    /**
+     * Visit index columns array.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitIndexColumnsArray(HdbtableParser.IndexColumnsArrayContext ctx) {
         JsonArray indexColumnsArray = new JsonArray();
@@ -203,71 +280,155 @@ public class HDBTableCoreVisitor extends HdbtableBaseVisitor<JsonElement> {
         return indexColumnsArray;
     }
 
+    /**
+     * Visit column assign scale.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitColumnAssignScale(HdbtableParser.ColumnAssignScaleContext ctx) {
         return (ctx!=null && ctx.INT()!=null)?new JsonPrimitive(Integer.parseInt(ctx.INT().getText())):null;
     }
 
+    /**
+     * Visit table primary key index type prop.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitTablePrimaryKeyIndexTypeProp(HdbtableParser.TablePrimaryKeyIndexTypePropContext ctx) {
         return (ctx!=null && ctx.INDEXTYPE()!=null)?new JsonPrimitive(ctx.INDEXTYPE().getText()):null;
     }
 
+    /**
+     * Visit column assign SQL type.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitColumnAssignSQLType(HdbtableParser.ColumnAssignSQLTypeContext ctx) {
         return (ctx!=null && ctx.SQLTYPES()!=null)?new JsonPrimitive(ctx.SQLTYPES().getText()):null;
     }
 
+    /**
+     * Visit index assign index type.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitIndexAssignIndexType(HdbtableParser.IndexAssignIndexTypeContext ctx) {
         return (ctx!=null && ctx.INDEXTYPE()!=null)? new JsonPrimitive(ctx.INDEXTYPE().getText()) : null;
     }
 
+    /**
+     * Visit index assign unique.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitIndexAssignUnique(HdbtableParser.IndexAssignUniqueContext ctx) {
         return (ctx != null && ctx.BOOLEAN() !=null) ? new JsonPrimitive(Boolean.parseBoolean(ctx.BOOLEAN().getText())) : null;
     }
 
+    /**
+     * Visit logging type prop.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitLoggingTypeProp(HdbtableParser.LoggingTypePropContext ctx) {
         return (ctx!=null && ctx.TABLELOGGINGTYPE()!=null)?new JsonPrimitive(ctx.TABLELOGGINGTYPE().getText()):null;
     }
 
+    /**
+     * Visit column assign nullable.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitColumnAssignNullable(HdbtableParser.ColumnAssignNullableContext ctx) {
         return (ctx != null && ctx.BOOLEAN() !=null) ? new JsonPrimitive(Boolean.parseBoolean(ctx.BOOLEAN().getText())) : null;
     }
 
+    /**
+     * Visit temporary prop.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitTemporaryProp(HdbtableParser.TemporaryPropContext ctx) {
         return (ctx != null && ctx.BOOLEAN() !=null) ? new JsonPrimitive(Boolean.parseBoolean(ctx.BOOLEAN().getText())) : null;
     }
 
+    /**
+     * Visit public prop.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitPublicProp(HdbtableParser.PublicPropContext ctx) {
         return (ctx != null && ctx.BOOLEAN() !=null) ? new JsonPrimitive(Boolean.parseBoolean(ctx.BOOLEAN().getText())) : null;
     }
 
+    /**
+     * Visit index assign order.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitIndexAssignOrder(HdbtableParser.IndexAssignOrderContext ctx) {
         return (ctx!=null && ctx.ORDER()!=null)?new JsonPrimitive(ctx.ORDER().getText()):null;
     }
 
+    /**
+     * Visit table primary key prop.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitTablePrimaryKeyProp(HdbtableParser.TablePrimaryKeyPropContext ctx) {
         return (ctx!=null && ctx.tablePrimaryKeyColumnsProp()!=null)? visitTablePrimaryKeyColumnsProp(ctx.tablePrimaryKeyColumnsProp()): new JsonArray();
     }
 
+    /**
+     * Visit column assign precision.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitColumnAssignPrecision(HdbtableParser.ColumnAssignPrecisionContext ctx) {
         return (ctx!=null && ctx.INT()!=null)?new JsonPrimitive(Integer.parseInt(ctx.INT().getText())):null;
     }
 
+    /**
+     * Visit schema name prop.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitSchemaNameProp(HdbtableParser.SchemaNamePropContext ctx) {
         return (ctx!=null && ctx.STRING()!=null)?new JsonPrimitive(handleStringLiteral(ctx.STRING().getText())):null;
     }
 
+    /**
+     * Visit table primary key columns prop.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitTablePrimaryKeyColumnsProp(HdbtableParser.TablePrimaryKeyColumnsPropContext ctx) {
         JsonArray primaryKeyArray = new JsonArray();
@@ -279,21 +440,45 @@ public class HDBTableCoreVisitor extends HdbtableBaseVisitor<JsonElement> {
         return primaryKeyArray;
     }
 
+    /**
+     * Visit column assign comment.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitColumnAssignComment(HdbtableParser.ColumnAssignCommentContext ctx) {
         return (ctx!=null && ctx.STRING()!=null)?new JsonPrimitive(handleStringLiteral(ctx.STRING().getText())):null;
     }
 
+    /**
+     * Visit description prop.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitDescriptionProp(HdbtableParser.DescriptionPropContext ctx) {
         return (ctx!=null && ctx.STRING()!=null)?new JsonPrimitive(handleStringLiteral(ctx.STRING().getText())):null;
     }
 
+    /**
+     * Visit index assign name.
+     *
+     * @param ctx the ctx
+     * @return the json element
+     */
     @Override
     public JsonElement visitIndexAssignName(HdbtableParser.IndexAssignNameContext ctx) {
         return (ctx!=null && ctx.STRING()!=null)?new JsonPrimitive(handleStringLiteral(ctx.STRING().getText())):null;
     }
 
+    /**
+     * Check property declaration uniqueness.
+     *
+     * @param property the property
+     * @param uniqueProperties the unique properties
+     */
     private void checkPropertyDeclarationUniqueness(String property, HashSet<String> uniqueProperties) {
         if (!uniqueProperties.contains(property)) {
             uniqueProperties.add(property);
@@ -302,6 +487,12 @@ public class HDBTableCoreVisitor extends HdbtableBaseVisitor<JsonElement> {
         }
     }
 
+    /**
+     * Handle string literal.
+     *
+     * @param value the value
+     * @return the string
+     */
     private String handleStringLiteral(String value) {
         if (value != null && value.length() > 1) {
             String subStr = value.substring(1, value.length() - 1);

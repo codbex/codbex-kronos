@@ -13,7 +13,7 @@ package com.codbex.kronos.integration.tests.applications.deployment;
 
 public class ProjectDeploymentException extends RuntimeException {
 
-    public ProjectDeploymentException(String message, Throwable cause) {
-        super(message, cause);
-    }
+  public ProjectDeploymentException(String message, Throwable cause) {
+    super(message, cause);
+  }
 }

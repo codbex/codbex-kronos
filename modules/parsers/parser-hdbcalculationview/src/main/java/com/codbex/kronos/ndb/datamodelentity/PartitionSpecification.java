@@ -30,9 +30,9 @@ import javax.xml.bind.annotation.XmlType;
  * Base class for partitioning specification
  *
  *
- * <p>Java class for PartitionSpecification complex type.
+ * Java class for PartitionSpecification complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="PartitionSpecification"&gt;
@@ -52,6 +52,7 @@ import javax.xml.bind.annotation.XmlType;
 })
 public abstract class PartitionSpecification {
 
+  /** The specification string. */
   @XmlAttribute(name = "specificationString")
   protected String specificationString;
 

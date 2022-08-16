@@ -19,11 +19,6 @@
 
 package com.codbex.kronos.ndb.bimodelcalculation;
 
-import com.codbex.kronos.ndb.bimodelconversion.CurrencyConversion;
-import com.codbex.kronos.ndb.bimodelconversion.UnitConversion;
-import com.codbex.kronos.ndb.bimodelcube.AggregationType;
-import com.codbex.kronos.ndb.sqlcoremodelaccesscontrol.ValueFilter;
-import com.codbex.kronos.ndb.sqlcoremodeldatatypes.PrimitiveTypeSQL;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -35,6 +30,12 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.codbex.kronos.ndb.bimodelconversion.CurrencyConversion;
+import com.codbex.kronos.ndb.bimodelconversion.UnitConversion;
+import com.codbex.kronos.ndb.bimodelcube.AggregationType;
+import com.codbex.kronos.ndb.sqlcoremodelaccesscontrol.ValueFilter;
+import com.codbex.kronos.ndb.sqlcoremodeldatatypes.PrimitiveTypeSQL;
+
 
 /**
  * Models an attribute on a view inside the scenario. It has less features as the attribute in the logical model.
@@ -42,9 +43,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * for viewAttributes in union, join and projection nodes
  *
  *
- * <p>Java class for ViewAttribute complex type.
+ * Java class for ViewAttribute complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ViewAttribute"&gt;
@@ -88,57 +89,90 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class ViewAttribute {
 
+  /** The filter. */
   protected List<ValueFilter> filter;
+  
+  /** The currency conversion. */
   protected CurrencyConversion currencyConversion;
+  
+  /** The unit conversion. */
   protected UnitConversion unitConversion;
+  
+  /** The conversion reference. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String conversionReference;
+  
+  /** The id. */
   @XmlAttribute(name = "id", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String id;
+  
+  /** The is measure. */
   @XmlAttribute(name = "isMeasure")
   protected Boolean isMeasure;
+  
+  /** The aggregation type. */
   @XmlAttribute(name = "aggregationType")
   protected AggregationType aggregationType;
+  
+  /** The order. */
   @XmlAttribute(name = "order")
   protected Integer order;
+  
+  /** The keep flag. */
   @XmlAttribute(name = "keepFlag")
   protected Boolean keepFlag;
+  
+  /** The transparent filter. */
   @XmlAttribute(name = "transparentFilter")
   protected Boolean transparentFilter;
+  
+  /** The hidden. */
   @XmlAttribute(name = "hidden")
   protected Boolean hidden;
+  
+  /** The datatype. */
   @XmlAttribute(name = "datatype")
   protected PrimitiveTypeSQL datatype;
+  
+  /** The length. */
   @XmlAttribute(name = "length")
   protected Short length;
+  
+  /** The scale. */
   @XmlAttribute(name = "scale")
   protected Short scale;
+  
+  /** The replace null. */
   @XmlAttribute(name = "replaceNull")
   protected Boolean replaceNull;
+  
+  /** The replace null by. */
   @XmlAttribute(name = "replaceNullBy")
   protected String replaceNullBy;
 
   /**
    * Gets the value of the filter property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the filter property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getFilter().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link ValueFilter }
+   *
+   * @return the filter
    */
   public List<ValueFilter> getFilter() {
     if (filter == null) {

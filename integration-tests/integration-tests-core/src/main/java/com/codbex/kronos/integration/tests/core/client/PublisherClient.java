@@ -11,11 +11,12 @@
  */
 package com.codbex.kronos.integration.tests.core.client;
 
-import com.codbex.kronos.integration.tests.core.client.http.HttpClient;
-import com.codbex.kronos.integration.tests.core.client.http.HttpClientException;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
+
+import com.codbex.kronos.integration.tests.core.client.http.HttpClient;
+import com.codbex.kronos.integration.tests.core.client.http.HttpClientException;
 
 import java.net.URI;
 import java.util.concurrent.CompletableFuture;
@@ -30,11 +31,12 @@ public class PublisherClient {
     this.publisherServiceUri = httpClient.getBaseHost().resolve("/services/v4/ide/publisher/request/");
   }
 
+
   public CompletableFuture<HttpResponse> publishProjectInWorkspace(String workspace, String projectName) {
     try {
       var uri = publisherServiceUri.resolve(workspace + "/").resolve(projectName);
       HttpUriRequest request = RequestBuilder.post(uri).build();
-      return httpClient.executeRequestAsync(request);
+      return httpClient.executeRequestAsyncWithCallbackFuture(request);
     } catch (HttpClientException e) {
       String errorMessage = "Publishing project " + projectName + " to workspace: " + workspace + " failed.";
       throw new ClientException(errorMessage, e);
@@ -46,7 +48,7 @@ public class PublisherClient {
     try {
       var uri = publisherServiceUri.resolve(workspace + "/").resolve(projectName);
       HttpUriRequest request = RequestBuilder.delete(uri).build();
-      return httpClient.executeRequestAsync(request);
+      return httpClient.executeRequestAsyncWithCallbackFuture(request);
     } catch (HttpClientException e) {
       String errorMessage = "Unpublishing project " + projectName + " from workspace: " + workspace + " failed.";
       throw new ClientException(errorMessage, e);

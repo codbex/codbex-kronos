@@ -11,16 +11,17 @@
  */
 package com.codbex.kronos.hdb.ds.processors.table;
 
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.artefacts.HDBTableSynchronizationArtefactType;
-import com.codbex.kronos.hdb.ds.model.hdbtable.HDBTableDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableModel;
 import com.codbex.kronos.hdb.ds.module.HDBModule;
-import com.codbex.kronos.hdb.ds.processors.AbstractProcessor;
+import com.codbex.kronos.hdb.ds.processors.AbstractHDBProcessor;
 import com.codbex.kronos.hdb.ds.service.manager.IDataStructureManager;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.utils.Constants;
 import com.codbex.kronos.utils.HDBUtils;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -37,11 +38,15 @@ import org.slf4j.LoggerFactory;
 /**
  * The Table Create Processor.
  */
-public class TableCreateProcessor extends AbstractProcessor<HDBTableDataStructureModel> {
+public class TableCreateProcessor extends AbstractHDBProcessor<DataStructureHDBTableModel> {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(TableCreateProcessor.class);
+  
+  /** The Constant TABLE_ARTEFACT. */
   private static final HDBTableSynchronizationArtefactType TABLE_ARTEFACT = new HDBTableSynchronizationArtefactType();
 
+  /** The manager services. */
   private final Map<String, IDataStructureManager> managerServices = HDBModule.getManagerServices();
 
   /**
@@ -50,9 +55,10 @@ public class TableCreateProcessor extends AbstractProcessor<HDBTableDataStructur
    *
    * @param connection the connection
    * @param tableModel the table model
+   * @return true, if successful
    * @throws SQLException the SQL exception
    */
-  public boolean execute(Connection connection, HDBTableDataStructureModel tableModel)
+  public boolean execute(Connection connection, DataStructureHDBTableModel tableModel)
       throws SQLException {
     logger.info("Processing Create Table: " + tableModel.getName());
 
@@ -81,17 +87,35 @@ public class TableCreateProcessor extends AbstractProcessor<HDBTableDataStructur
     return success;
   }
 
-  private void processSynonym(Connection connection, HDBTableDataStructureModel tableModel, String tableNameWithoutSchema,
+  /**
+   * Process synonym.
+   *
+   * @param connection the connection
+   * @param tableModel the table model
+   * @param tableNameWithoutSchema the table name without schema
+   * @param tableNameWithSchema the table name with schema
+   * @throws SQLException the SQL exception
+   */
+  private void processSynonym(Connection connection, DataStructureHDBTableModel tableModel, String tableNameWithoutSchema,
       String tableNameWithSchema) throws SQLException {
     boolean shouldCreatePublicSynonym = SqlFactory.getNative(connection)
         .exists(connection, tableNameWithSchema, DatabaseArtifactTypes.TABLE);
     if (shouldCreatePublicSynonym) {
       HDBUtils.createPublicSynonymForArtifact(managerServices
-          .get(HDBDataStructureModel.TYPE_HDB_SYNONYM), tableNameWithoutSchema, tableModel.getSchema(), connection);
+          .get(IDataStructureModel.TYPE_HDB_SYNONYM), tableNameWithoutSchema, tableModel.getSchema(), connection);
     }
   }
 
-  private boolean processStatements(Connection connection, HDBTableDataStructureModel tableModel, Collection<String> indicesStatements,
+  /**
+   * Process statements.
+   *
+   * @param connection the connection
+   * @param tableModel the table model
+   * @param indicesStatements the indices statements
+   * @param tableCreateStatement the table create statement
+   * @return true, if successful
+   */
+  private boolean processStatements(Connection connection, DataStructureHDBTableModel tableModel, Collection<String> indicesStatements,
       String tableCreateStatement) {
     try {
       executeSql(tableCreateStatement, connection);
@@ -100,7 +124,7 @@ public class TableCreateProcessor extends AbstractProcessor<HDBTableDataStructur
         executeBatch(indicesStatements, connection);
       }
 
-      String message = String.format("Create table %s successfully", tableModel.getName());
+      String message = String.format("Create table [%s] successfully", tableModel.getName());
       applyArtefactState(tableModel.getName(), tableModel.getLocation(), TABLE_ARTEFACT, ArtefactState.SUCCESSFUL_CREATE, message);
       return true;
     } catch (SQLException ex) {
@@ -114,6 +138,13 @@ public class TableCreateProcessor extends AbstractProcessor<HDBTableDataStructur
     }
   }
 
+  /**
+   * Execute batch.
+   *
+   * @param createStatements the create statements
+   * @param connection the connection
+   * @throws SQLException the SQL exception
+   */
   private void executeBatch(Collection<String> createStatements, Connection connection) throws SQLException {
     try (Statement statement = connection.createStatement()) {
       for (String createSQL : createStatements) {

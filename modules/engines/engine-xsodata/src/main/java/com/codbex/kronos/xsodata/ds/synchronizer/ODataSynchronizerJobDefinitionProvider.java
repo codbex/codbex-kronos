@@ -21,10 +21,20 @@ import org.eclipse.dirigible.core.scheduler.service.definition.JobDefinition;
  */
 public class ODataSynchronizerJobDefinitionProvider implements IJobDefinitionProvider {
 
-  static final String KRONOS_ODATA_SYNCHRONIZER_JOB_NAME = "Kronos OData Synchronizer Job";
+  /** The Constant ODATA_SYNCHRONIZER_JOB. */
+  static final String ODATA_SYNCHRONIZER_JOB = "Kronos OData Synchronizer Job";
+  
+  /** The Constant KRONOS_JOB_EXPRESSION_ODATA. */
   private static final String KRONOS_JOB_EXPRESSION_ODATA = "KRONOS_JOB_EXPRESSION_ODATA";
+  
+  /** The Constant KRONOS_ODATA_SYNCHRONIZER_JOB. */
   private static final String KRONOS_ODATA_SYNCHRONIZER_JOB = "kronos-odata-synchronizer-job";
 
+  /**
+   * Gets the job definition.
+   *
+   * @return the job definition
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.core.scheduler.api.IJobDefinitionProvider#getJobDefinition()
@@ -35,7 +45,7 @@ public class ODataSynchronizerJobDefinitionProvider implements IJobDefinitionPro
     jobDefinition.setName(KRONOS_ODATA_SYNCHRONIZER_JOB);
     jobDefinition.setGroup(ISchedulerCoreService.JOB_GROUP_INTERNAL);
     jobDefinition.setClazz(ODataSynchronizerJob.class.getCanonicalName());
-    jobDefinition.setDescription(KRONOS_ODATA_SYNCHRONIZER_JOB_NAME);
+    jobDefinition.setDescription(ODATA_SYNCHRONIZER_JOB);
     jobDefinition.setExpression(Configuration.get(KRONOS_JOB_EXPRESSION_ODATA, "0/55 * * * * ?"));
     jobDefinition.setSingleton(true);
     return jobDefinition;

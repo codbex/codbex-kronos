@@ -25,8 +25,8 @@ import javax.xml.bind.annotation.XmlRegistry;
 /**
  * This object contains factory methods for each
  * Java content interface and Java element interface
- * generated in the com.codbex.kronos.ndb.bimodelvariable package.
- * <p>An ObjectFactory allows you to programatically
+ * generated in the com.sap.ndb.bimodelvariable package.
+ * An ObjectFactory allows you to programatically
  * construct new instances of the Java representation
  * for XML content. The Java representation of XML
  * content can consist of schema derived interfaces
@@ -40,83 +40,105 @@ public class ObjectFactory {
 
 
   /**
-   * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.codbex.kronos.ndb.bimodelvariable
+   * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.sap.ndb.bimodelvariable
    */
   public ObjectFactory() {
   }
 
   /**
-   * Create an instance of {@link LocalVariable }
+   * Create an instance of {@link LocalVariable }.
+   *
+   * @return the local variable
    */
   public LocalVariable createLocalVariable() {
     return new LocalVariable();
   }
 
   /**
-   * Create an instance of {@link VariableProperties }
+   * Create an instance of {@link VariableProperties }.
+   *
+   * @return the variable properties
    */
   public VariableProperties createVariableProperties() {
     return new VariableProperties();
   }
 
   /**
-   * Create an instance of {@link ValueDomain }
+   * Create an instance of {@link ValueDomain }.
+   *
+   * @return the value domain
    */
   public ValueDomain createValueDomain() {
     return new ValueDomain();
   }
 
   /**
-   * Create an instance of {@link Selection }
+   * Create an instance of {@link Selection }.
+   *
+   * @return the selection
    */
   public Selection createSelection() {
     return new Selection();
   }
 
   /**
-   * Create an instance of {@link DerivationRule }
+   * Create an instance of {@link DerivationRule }.
+   *
+   * @return the derivation rule
    */
   public DerivationRule createDerivationRule() {
     return new DerivationRule();
   }
 
   /**
-   * Create an instance of {@link ValueListEntry }
+   * Create an instance of {@link ValueListEntry }.
+   *
+   * @return the value list entry
    */
   public ValueListEntry createValueListEntry() {
     return new ValueListEntry();
   }
 
   /**
-   * Create an instance of {@link LocalVariables }
+   * Create an instance of {@link LocalVariables }.
+   *
+   * @return the local variables
    */
   public LocalVariables createLocalVariables() {
     return new LocalVariables();
   }
 
   /**
-   * Create an instance of {@link TargetVariable }
+   * Create an instance of {@link TargetVariable }.
+   *
+   * @return the target variable
    */
   public TargetVariable createTargetVariable() {
     return new TargetVariable();
   }
 
   /**
-   * Create an instance of {@link VariableMapping }
+   * Create an instance of {@link VariableMapping }.
+   *
+   * @return the variable mapping
    */
   public VariableMapping createVariableMapping() {
     return new VariableMapping();
   }
 
   /**
-   * Create an instance of {@link ConstantVariableMapping }
+   * Create an instance of {@link ConstantVariableMapping }.
+   *
+   * @return the constant variable mapping
    */
   public ConstantVariableMapping createConstantVariableMapping() {
     return new ConstantVariableMapping();
   }
 
   /**
-   * Create an instance of {@link VariableMappings }
+   * Create an instance of {@link VariableMappings }.
+   *
+   * @return the variable mappings
    */
   public VariableMappings createVariableMappings() {
     return new VariableMappings();

@@ -11,6 +11,9 @@
  */
 package com.codbex.kronos.hdbti.api;
 
+/**
+ * The Interface ITableImportModel.
+ */
 public interface ITableImportModel {
 
   /**
@@ -18,10 +21,13 @@ public interface ITableImportModel {
    */
   public static final String FILE_EXTENSION_TABLE_IMPORT = ".hdbti";
 
+  /** The Constant FILE_EXTENSION_CSV. */
   public static final String FILE_EXTENSION_CSV = ".csv";
 
+  /** The Constant TYPE_CSV. */
   public static final String TYPE_CSV = "CSV";
 
-
+  /** The Constant TYPE_HDBTI. */
   public static final String TYPE_HDBTI = "HDBTI";
+
 }

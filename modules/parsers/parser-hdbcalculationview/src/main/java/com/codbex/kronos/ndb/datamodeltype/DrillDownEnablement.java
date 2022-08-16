@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for DrillDownEnablement.
+ * Java class for DrillDownEnablement.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="DrillDownEnablement"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -42,14 +42,30 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum DrillDownEnablement {
 
+  /** The none. */
   NONE,
+  
+  /** The drill down. */
   DRILL_DOWN,
+  
+  /** The drill down with hierarchy. */
   DRILL_DOWN_WITH_HIERARCHY;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the drill down enablement
+   */
   public static DrillDownEnablement fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

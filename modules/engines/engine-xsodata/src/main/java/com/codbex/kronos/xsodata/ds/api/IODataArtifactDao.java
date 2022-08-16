@@ -11,17 +11,66 @@
  */
 package com.codbex.kronos.xsodata.ds.api;
 
-import com.codbex.kronos.xsodata.ds.model.ODataModel;
-
 import java.util.List;
 
+import com.codbex.kronos.xsodata.ds.model.ODataModel;
+
+/**
+ * The Interface IODataArtifactDao.
+ */
 public interface IODataArtifactDao {
 
-    ODataModel createODataArtifact(ODataModel tableModel) throws KronosODataException;
-    ODataModel getODataArtifact(String location) throws KronosODataException;
-    ODataModel getODataArtifactByName(String name) throws KronosODataException;
-    void removeODataArtifact(String location) throws KronosODataException;
-    void updateODataArtifact(String location, String name, String hash) throws KronosODataException;
-    List<ODataModel> getAllODataArtifacts() throws KronosODataException;
+    /**
+     * Creates the O data artifact.
+     *
+     * @param tableModel the table model
+     * @return the o data model
+     * @throws ODataException the o data exception
+     */
+    ODataModel createODataArtifact(ODataModel tableModel) throws ODataException;
+    
+    /**
+     * Gets the o data artifact.
+     *
+     * @param location the location
+     * @return the o data artifact
+     * @throws ODataException the o data exception
+     */
+    ODataModel getODataArtifact(String location) throws ODataException;
+    
+    /**
+     * Gets the o data artifact by name.
+     *
+     * @param name the name
+     * @return the o data artifact by name
+     * @throws ODataException the o data exception
+     */
+    ODataModel getODataArtifactByName(String name) throws ODataException;
+    
+    /**
+     * Removes the O data artifact.
+     *
+     * @param location the location
+     * @throws ODataException the o data exception
+     */
+    void removeODataArtifact(String location) throws ODataException;
+    
+    /**
+     * Update O data artifact.
+     *
+     * @param location the location
+     * @param name the name
+     * @param hash the hash
+     * @throws ODataException the o data exception
+     */
+    void updateODataArtifact(String location, String name, String hash) throws ODataException;
+    
+    /**
+     * Gets the all O data artifacts.
+     *
+     * @return the all O data artifacts
+     * @throws ODataException the o data exception
+     */
+    List<ODataModel> getAllODataArtifacts() throws ODataException;
 
 }

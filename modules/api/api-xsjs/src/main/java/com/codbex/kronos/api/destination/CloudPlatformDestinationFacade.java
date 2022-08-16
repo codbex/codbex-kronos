@@ -31,8 +31,17 @@ import java.net.URI;
 import java.util.Arrays;
 import java.util.Properties;
 
+/**
+ * The Class CloudPlatformDestinationFacade.
+ */
 public class CloudPlatformDestinationFacade implements IScriptingFacade {
 
+  /**
+   * Gets the destination.
+   *
+   * @param destinationName the destination name
+   * @return the destination
+   */
   public static Destination getDestination(String destinationName) {
     setKymaCloudPlatformFacade();
 
@@ -55,6 +64,16 @@ public class CloudPlatformDestinationFacade implements IScriptingFacade {
     }
   }
 
+  /**
+   * Execute request.
+   *
+   * @param requestObject the request object
+   * @param destinationName the destination name
+   * @param options the options
+   * @return the string
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws MethodNotSupportedException the method not supported exception
+   */
   public static String executeRequest(String requestObject, String destinationName, String options)
       throws IOException, MethodNotSupportedException {
     setKymaCloudPlatformFacade();
@@ -79,6 +98,9 @@ public class CloudPlatformDestinationFacade implements IScriptingFacade {
     return GsonHelper.GSON.toJson(destinationResponse);
   }
 
+  /**
+   * Sets the kyma cloud platform facade.
+   */
   private static void setKymaCloudPlatformFacade() {
     if (CloudPlatformAccessor.getCloudPlatformFacade() instanceof CloudPlatformKymaFacade) {
       return;
@@ -87,6 +109,16 @@ public class CloudPlatformDestinationFacade implements IScriptingFacade {
     CloudPlatformAccessor.setCloudPlatformFacade(new CloudPlatformKymaFacade());
   }
 
+  /**
+   * Gets the request.
+   *
+   * @param uri the uri
+   * @param destinationRequest the destination request
+   * @param options the options
+   * @return the request
+   * @throws MethodNotSupportedException the method not supported exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   private static HttpRequestBase getRequest(String uri, DestinationRequest destinationRequest, HttpClientRequestOptions options)
       throws MethodNotSupportedException, IOException {
     switch (destinationRequest.getMethod()) {
@@ -113,11 +145,23 @@ public class CloudPlatformDestinationFacade implements IScriptingFacade {
     }
   }
 
+  /**
+   * Sets the request headers.
+   *
+   * @param destinationRequest the destination request
+   * @param request the request
+   */
   private static void setRequestHeaders(DestinationRequest destinationRequest, HttpRequestBase request) {
     destinationRequest.getHeaders()
         .forEach(e -> request.setHeader(e.getName(), e.getValue()));
   }
 
+  /**
+   * Creates the header.
+   *
+   * @param header the header
+   * @return the header
+   */
   private static Header createHeader(org.apache.http.Header header) {
     return new Header(header.getName(), header.getValue());
   }

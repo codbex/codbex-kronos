@@ -25,8 +25,8 @@ import javax.xml.bind.annotation.XmlRegistry;
 /**
  * This object contains factory methods for each
  * Java content interface and Java element interface
- * generated in the com.codbex.kronos.ndb.datamodelfilter package.
- * <p>An ObjectFactory allows you to programatically
+ * generated in the com.sap.ndb.datamodelfilter package.
+ * An ObjectFactory allows you to programatically
  * construct new instances of the Java representation
  * for XML content. The Java representation of XML
  * content can consist of schema derived interfaces
@@ -40,41 +40,51 @@ public class ObjectFactory {
 
 
   /**
-   * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.codbex.kronos.ndb.datamodelfilter
+   * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.sap.ndb.datamodelfilter
    */
   public ObjectFactory() {
   }
 
   /**
-   * Create an instance of {@link ValueFilterOperand }
+   * Create an instance of {@link ValueFilterOperand }.
+   *
+   * @return the value filter operand
    */
   public ValueFilterOperand createValueFilterOperand() {
     return new ValueFilterOperand();
   }
 
   /**
-   * Create an instance of {@link SingleValueFilter }
+   * Create an instance of {@link SingleValueFilter }.
+   *
+   * @return the single value filter
    */
   public SingleValueFilter createSingleValueFilter() {
     return new SingleValueFilter();
   }
 
   /**
-   * Create an instance of {@link RangeValueFilter }
+   * Create an instance of {@link RangeValueFilter }.
+   *
+   * @return the range value filter
    */
   public RangeValueFilter createRangeValueFilter() {
     return new RangeValueFilter();
   }
 
   /**
-   * Create an instance of {@link ListValueFilter }
+   * Create an instance of {@link ListValueFilter }.
+   *
+   * @return the list value filter
    */
   public ListValueFilter createListValueFilter() {
     return new ListValueFilter();
   }
 
   /**
-   * Create an instance of {@link DefaultRange }
+   * Create an instance of {@link DefaultRange }.
+   *
+   * @return the default range
    */
   public DefaultRange createDefaultRange() {
     return new DefaultRange();

@@ -30,9 +30,9 @@ import javax.xml.bind.annotation.XmlType;
  * Specification of the graph action PATTERN_MATCHING
  *
  *
- * <p>Java class for ScriptPatternMatching complex type.
+ * Java class for ScriptPatternMatching complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ScriptPatternMatching"&gt;
@@ -53,8 +53,11 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class ScriptPatternMatching {
 
+  /** The expression. */
   @XmlElement(required = true)
   protected String expression;
+  
+  /** The language. */
   @XmlAttribute(name = "language")
   protected GraphLanguage language;
 

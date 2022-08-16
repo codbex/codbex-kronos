@@ -29,9 +29,9 @@ import javax.xml.bind.annotation.XmlType;
  * Specification of unassigned member properties in hierarchies
  *
  *
- * <p>Java class for UnassignedMemberProperties complex type.
+ * Java class for UnassignedMemberProperties complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="UnassignedMemberProperties"&gt;
@@ -58,16 +58,29 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class UnassignedMemberProperties {
 
+  /** The caption. */
   protected EndUserTexts caption;
+  
+  /** The null caption. */
   protected EndUserTexts nullCaption;
+  
+  /** The mode. */
   @XmlAttribute(name = "mode")
   protected UnassignedMemberMode mode;
+  
+  /** The name. */
   @XmlAttribute(name = "name")
   protected String name;
+  
+  /** The drillable. */
   @XmlAttribute(name = "drillable")
   protected Boolean drillable;
+  
+  /** The include nulls. */
   @XmlAttribute(name = "includeNulls")
   protected Boolean includeNulls;
+  
+  /** The null convert value. */
   @XmlAttribute(name = "nullConvertValue")
   protected String nullConvertValue;
 

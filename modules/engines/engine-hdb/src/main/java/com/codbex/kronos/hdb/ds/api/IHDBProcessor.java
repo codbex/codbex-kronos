@@ -11,11 +11,25 @@
  */
 package com.codbex.kronos.hdb.ds.api;
 
-import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import com.codbex.kronos.hdb.ds.model.DataStructureModel;
+
+/**
+ * The Interface IHDBProcessor.
+ *
+ * @param <T> the generic type
+ */
 public interface IHDBProcessor<T extends DataStructureModel> {
 
+  /**
+   * Execute.
+   *
+   * @param connection the connection
+   * @param entityModel the entity model
+   * @return true, if successful
+   * @throws SQLException the SQL exception
+   */
   boolean execute(Connection connection, T entityModel) throws SQLException;
 }

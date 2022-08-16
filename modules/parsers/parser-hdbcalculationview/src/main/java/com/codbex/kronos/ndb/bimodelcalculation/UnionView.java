@@ -29,9 +29,9 @@ import javax.xml.bind.annotation.XmlType;
  * A view/node that combines one or more inputs by a union
  *
  *
- * <p>Java class for UnionView complex type.
+ * Java class for UnionView complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="UnionView"&gt;
@@ -48,6 +48,7 @@ import javax.xml.bind.annotation.XmlType;
 public class UnionView
     extends CalculationView {
 
+  /** The partitioned execution. */
   @XmlAttribute(name = "partitionedExecution")
   protected Boolean partitionedExecution;
 

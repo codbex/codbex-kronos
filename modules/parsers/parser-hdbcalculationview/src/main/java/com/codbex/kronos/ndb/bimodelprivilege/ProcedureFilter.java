@@ -19,11 +19,12 @@
 
 package com.codbex.kronos.ndb.bimodelprivilege;
 
-import com.codbex.kronos.ndb.sqlcoremodelaccesscontrol.ValueFilterOperator;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
+
+import com.codbex.kronos.ndb.sqlcoremodelaccesscontrol.ValueFilterOperator;
 
 
 /**
@@ -31,9 +32,9 @@ import javax.xml.bind.annotation.XmlType;
  * to determine the filter values dynamically at runtime.
  *
  *
- * <p>Java class for ProcedureFilter complex type.
+ * Java class for ProcedureFilter complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ProcedureFilter"&gt;
@@ -50,8 +51,11 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "ProcedureFilter")
 public class ProcedureFilter {
 
+  /** The operator. */
   @XmlAttribute(name = "operator", required = true)
   protected ValueFilterOperator operator;
+  
+  /** The procedure name. */
   @XmlAttribute(name = "procedureName", required = true)
   protected String procedureName;
 

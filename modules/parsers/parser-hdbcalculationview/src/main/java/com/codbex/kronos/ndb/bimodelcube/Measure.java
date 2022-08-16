@@ -19,9 +19,6 @@
 
 package com.codbex.kronos.ndb.bimodelcube;
 
-import com.codbex.kronos.ndb.bimodelconversion.CurrencyConversion;
-import com.codbex.kronos.ndb.bimodelconversion.UnitConversion;
-import com.codbex.kronos.ndb.bimodeldatafoundation.LogicalColumn;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -33,11 +30,15 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.codbex.kronos.ndb.bimodelconversion.CurrencyConversion;
+import com.codbex.kronos.ndb.bimodelconversion.UnitConversion;
+import com.codbex.kronos.ndb.bimodeldatafoundation.LogicalColumn;
+
 
 /**
- * <p>Java class for Measure complex type.
+ * Java class for Measure complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Measure"&gt;
@@ -75,18 +76,33 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class Measure
     extends LogicalColumn {
 
+  /** The currency conversion. */
   protected CurrencyConversion currencyConversion;
+  
+  /** The unit conversion. */
   protected UnitConversion unitConversion;
+  
+  /** The conversion reference. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String conversionReference;
+  
+  /** The exception aggregation. */
   protected List<MeasureDimensionality> exceptionAggregation;
+  
+  /** The measure type. */
   @XmlAttribute(name = "measureType")
   protected MeasureType measureType;
+  
+  /** The aggregation type. */
   @XmlAttribute(name = "aggregationType")
   protected AggregationType aggregationType;
+  
+  /** The engine aggregation. */
   @XmlAttribute(name = "engineAggregation")
   protected AggregationType engineAggregation;
+  
+  /** The unconverted. */
   @XmlAttribute(name = "unconverted")
   protected Boolean unconverted;
 
@@ -152,23 +168,25 @@ public class Measure
 
   /**
    * Gets the value of the exceptionAggregation property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the exceptionAggregation property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getExceptionAggregation().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link MeasureDimensionality }
+   *
+   * @return the exception aggregation
    */
   public List<MeasureDimensionality> getExceptionAggregation() {
     if (exceptionAggregation == null) {

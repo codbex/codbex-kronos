@@ -11,11 +11,11 @@
  */
 package com.codbex.kronos.parser.parser.custom;
 
+import com.codbex.kronos.parser.hana.core.custom.HanaTableFunctionListener;
+import com.codbex.kronos.parser.hana.core.models.TableFunctionDefinitionModel;
 import com.codbex.kronos.parser.hana.core.HanaLexer;
 import com.codbex.kronos.parser.hana.core.HanaParser;
-import custom.HanaTableFunctionListener;
-import models.TableFunctionDefinitionModel;
-import org.antlr.v4.runtime.ANTLRInputStream;
+
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;

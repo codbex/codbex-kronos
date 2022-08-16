@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Orphan.
+ * Java class for Orphan.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="Orphan"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -49,14 +49,10 @@ public enum Orphan {
    */
   ORPHAN_IGNORE,
 
-  /**
-   * If the input data contains any orphans, an error is returned
-   */
+  /** If the input data contains any orphans, an error is returned. */
   ORPHAN_ERROR,
 
-  /**
-   * Top-level orphans are treated as root nodes
-   */
+  /** Top-level orphans are treated as root nodes. */
   ORPHAN_ROOT,
 
   /**
@@ -65,10 +61,21 @@ public enum Orphan {
    */
   ORPHAN_ADOPT;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the orphan
+   */
   public static Orphan fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

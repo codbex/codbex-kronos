@@ -31,9 +31,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * For providing several named outputs for a node
  *
  *
- * <p>Java class for Output complex type.
+ * Java class for Output complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Output"&gt;
@@ -54,7 +54,10 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class Output {
 
+  /** The view attributes. */
   protected ViewAttributes viewAttributes;
+  
+  /** The name. */
   @XmlAttribute(name = "name", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String name;

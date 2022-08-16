@@ -11,7 +11,16 @@
  */
 package com.codbex.kronos.parser.hdbtable.exceptions;
 
+/**
+ * The Class HDBTableMissingPropertyException.
+ */
 public class HDBTableMissingPropertyException extends RuntimeException {
+    
+    /**
+     * Instantiates a new HDB table missing property exception.
+     *
+     * @param message the message
+     */
     public HDBTableMissingPropertyException(String message) {
         super(message);
     }

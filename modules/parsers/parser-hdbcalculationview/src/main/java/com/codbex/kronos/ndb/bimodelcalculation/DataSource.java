@@ -35,9 +35,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * e.g. package.subpackage::MyFunction.hdbtablefunction
  *
  *
- * <p>Java class for DataSource complex type.
+ * Java class for DataSource complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="DataSource"&gt;
@@ -68,16 +68,25 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class DataSource
     extends Node {
 
+  /** The resource uri. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String resourceUri;
+  
+  /** The database name. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String databaseName;
+  
+  /** The partition attribute name. */
   protected String partitionAttributeName;
+  
+  /** The client column. */
   @XmlAttribute(name = "clientColumn")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String clientColumn;
+  
+  /** The partitioned execution. */
   @XmlAttribute(name = "partitionedExecution")
   protected Boolean partitionedExecution;
 

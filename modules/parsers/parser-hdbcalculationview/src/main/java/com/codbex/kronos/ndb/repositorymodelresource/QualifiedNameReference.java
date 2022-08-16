@@ -30,9 +30,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 /**
  * Models a link to a name / id based object within an external resource
  *
- * <p>Java class for QualifiedNameReference complex type.
+ * Java class for QualifiedNameReference complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="QualifiedNameReference"&gt;
@@ -49,9 +49,12 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "QualifiedNameReference")
 public class QualifiedNameReference {
 
+  /** The name. */
   @XmlAttribute(name = "name", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String name;
+  
+  /** The resource uri. */
   @XmlAttribute(name = "resourceUri")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String resourceUri;

@@ -62,27 +62,49 @@ import com.codbex.kronos.hdbti.service.TableImportParser;
 import com.codbex.kronos.parser.hdbti.exception.HDBTISyntaxErrorException;
 import com.codbex.kronos.utils.Utils;
 
+/**
+ * The Class TableImportSynchronizer.
+ */
 public class TableImportSynchronizer extends AbstractSynchronizer implements IOrderedSynchronizerContribution {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(TableImportSynchronizer.class);
 
+  /** The Constant HDBTI_PREDELIVERED. */
   private static final Map<String, TableImportArtifact> HDBTI_PREDELIVERED = Collections
-      .synchronizedMap(new HashMap<>()); //ones which already exist in the JAR
+          .synchronizedMap(new HashMap<>()); //ones which already exist in the JAR
 
+  /** The Constant HDBTI_SYNCHRONIZED. */
   private static final List<String> HDBTI_SYNCHRONIZED = Collections
-      .synchronizedList(new ArrayList<>()); // used for leaving only the correct files after the sync
+          .synchronizedList(new ArrayList<>()); // used for leaving only the correct files after the sync
 
+  /** The Constant HDBTI_MODELS. */
   private static final Map<String, TableImportArtifact> HDBTI_MODELS = new LinkedHashMap<>(); // used for collecting all created/updated models and later for the actual execution of the query ( import/ alter etc)
 
+  /** The synchronizer name. */
   private final String SYNCHRONIZER_NAME = this.getClass().getCanonicalName();
 
+  /** The data source. */
   private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
+  
+  /** The table import parser. */
   private ITableImportParser tableImportParser = new TableImportParser();
+  
+  /** The hdbti processor. */
   private IHDBTIProcessor hdbtiProcessor = new HDBTIProcessor();
-  private ICSVToHDBTIRelationDao csvToHDBTIRelationDao = new CSVToHDBTIRelationDao();
+  
+  /** The csv to hdbti relation dao. */
+  private ICSVToHDBTIRelationDao csvToHdbtiRelationDao = new CSVToHDBTIRelationDao();
+  
+  /** The table import artifact dao. */
   private ITableImportArtifactDao tableImportArtifactDao = new TableImportArtifactDao();
+  
+  /** The hdbti core service. */
   private IHDBTICoreService hdbtiCoreService = new HDBTICoreService();
 
+  /**
+   * Synchronize.
+   */
   @Override
   public void synchronize() {
     synchronized (DataStructuresSynchronizer.class) {
@@ -90,7 +112,7 @@ public class TableImportSynchronizer extends AbstractSynchronizer implements IOr
         logger.trace("Synchronizing HDBTI files ...");
         try {
           if (isSynchronizerSuccessful("org.eclipse.dirigible.database.ds.synchronizer.DataStructuresSynchronizer")
-              && isSynchronizerSuccessful("com.codbex.kronos.hdb.ds.synchronizer.DataStructuresSynchronizer")) {
+                  && isSynchronizerSuccessful("com.codbex.kronos.hdb.ds.synchronizer.DataStructuresSynchronizer")) {
             startSynchronization(SYNCHRONIZER_NAME);
             clearCache();
             synchronizePredelivered();
@@ -103,8 +125,8 @@ public class TableImportSynchronizer extends AbstractSynchronizer implements IOr
             successfulSynchronization(SYNCHRONIZER_NAME, format("Immutable: {0}, Mutable: {1}", immutableCount, mutableCount));
           } else {
             failedSynchronization(SYNCHRONIZER_NAME,
-                "Skipped due to dependencies: org.eclipse.dirigible.database.ds.synchronizer.DataStructuresSynchronizer, "
-                    + "com.codbex.kronos.hdb.ds.synchronizer.DataStructuresSynchronizer");
+                    "Skipped due to dependencies: org.eclipse.dirigible.database.ds.synchronizer.DataStructuresSynchronizer, "
+                            + "com.codbex.kronos.hdb.ds.synchronizer.DataStructuresSynchronizer");
           }
         } catch (Exception e) {
           logger.error("Error during HDBTI synchronization", e);
@@ -120,19 +142,13 @@ public class TableImportSynchronizer extends AbstractSynchronizer implements IOr
     }
   }
 
-  /**
-   * Force synchronization.
-   */
-  public static final void forceSynchronization() {
-    TableImportSynchronizer synchronizer = new TableImportSynchronizer();
-    synchronizer.setForcedSynchronization(true);
-    try {
-      synchronizer.synchronize();
-    } finally {
-      synchronizer.setForcedSynchronization(false);
-    }
-  }
 
+  /**
+   * Synchronize resource.
+   *
+   * @param resource the resource
+   * @throws SynchronizationException the synchronization exception
+   */
   @Override
   protected void synchronizeResource(IResource resource) throws SynchronizationException {
     String resourceName = resource.getName();
@@ -153,20 +169,26 @@ public class TableImportSynchronizer extends AbstractSynchronizer implements IOr
         logger.error(throwables.getMessage(), throwables);
       }
     } else if (resourceName.endsWith(ITableImportModel.FILE_EXTENSION_CSV)) {
-      List<TableImportToCsvRelation> affectedHdbtiToCsvRelations = csvToHDBTIRelationDao
-          .getAffectedHdbtiToCsvRelations(getRegistryPath(resource));
+      List<TableImportToCsvRelation> affectedHdbtiToCsvRelations = csvToHdbtiRelationDao
+              .getAffectedHdbtiToCsvRelations(getRegistryPath(resource));
       if (!affectedHdbtiToCsvRelations.isEmpty()) {
-        if (csvToHDBTIRelationDao.hasCsvChanged(affectedHdbtiToCsvRelations.get(0), contentAsString)) {
+        if (csvToHdbtiRelationDao.hasCsvChanged(affectedHdbtiToCsvRelations.get(0), contentAsString)) {
           affectedHdbtiToCsvRelations.forEach(relation -> reimportAffectedHdbtiFiles(relation.getHdbti()));
         }
       }
     }
   }
 
+  /**
+   * Reimport affected hdbti files.
+   *
+   * @param hdbtiFilePath the hdbti file path
+   */
   private void reimportAffectedHdbtiFiles(String hdbtiFilePath) {
     IResource hdbtiResource = getRepository().getResource(Utils.convertToFullPath(hdbtiFilePath));
     try (Connection connection = dataSource.getConnection()) {
-      TableImportArtifact tableImportArtifact = tableImportParser.parseTableImportArtifact(hdbtiFilePath, getContentFromResource(hdbtiResource));
+      TableImportArtifact tableImportArtifact = tableImportParser
+              .parseTableImportArtifact(hdbtiFilePath, getContentFromResource(hdbtiResource));
       executeTableImport(tableImportArtifact, connection);
     } catch (IOException | SynchronizationException | SQLException e) {
       logger.error("Error during the force reimport of an HDBTI file due to a linked csv file change", e);
@@ -178,35 +200,48 @@ public class TableImportSynchronizer extends AbstractSynchronizer implements IOr
 
   }
 
+  /**
+   * Gets the content from resource.
+   *
+   * @param resource the resource
+   * @return the content from resource
+   * @throws SynchronizationException the synchronization exception
+   */
   private String getContentFromResource(IResource resource) throws SynchronizationException {
     byte[] content = resource.getContent();
     String contentAsString;
 
     try {
       contentAsString = IOUtils
-          .toString(new InputStreamReader(new ByteArrayInputStream(content), StandardCharsets.UTF_8));
+              .toString(new InputStreamReader(new ByteArrayInputStream(content), StandardCharsets.UTF_8));
     } catch (IOException e) {
       throw new SynchronizationException(e);
     }
     return contentAsString;
   }
 
+  /**
+   * Synchronize table import.
+   *
+   * @param tableImportArtifact the table import artifact
+   * @throws SynchronizationException the synchronization exception
+   */
   private void synchronizeTableImport(TableImportArtifact tableImportArtifact) throws SynchronizationException {
     try {
       if (!tableImportArtifactDao.existsTableImportArtifact(tableImportArtifact.getLocation())) {
         tableImportArtifactDao.createTableImportArtifact(tableImportArtifact);
         HDBTI_MODELS.put(tableImportArtifact.getName(), tableImportArtifact);
         logger
-            .info("Synchronized a new HDBTI file [{}] from location: {}", tableImportArtifact.getName(),
-                tableImportArtifact.getLocation());
+                .info("Synchronized a new HDBTI file [{}] from location: {}", tableImportArtifact.getName(),
+                        tableImportArtifact.getLocation());
       } else {
         DataStructureModel existing = tableImportArtifactDao.getTableImportArtifact(tableImportArtifact.getLocation());
         if (!tableImportArtifact.equals(existing)) {
           tableImportArtifactDao.updateTableImportArtifact(tableImportArtifact);
           HDBTI_MODELS.put(tableImportArtifact.getName(), tableImportArtifact);
           logger
-              .info("Synchronized a modified HDBTI file [{}] from location: {}",
-                  tableImportArtifact.getName(), tableImportArtifact.getLocation());
+                  .info("Synchronized a modified HDBTI file [{}] from location: {}",
+                          tableImportArtifact.getName(), tableImportArtifact.getLocation());
         }
       }
       if (!HDBTI_SYNCHRONIZED.contains(tableImportArtifact.getLocation())) {
@@ -217,6 +252,11 @@ public class TableImportSynchronizer extends AbstractSynchronizer implements IOr
     }
   }
 
+  /**
+   * Cleanup.
+   *
+   * @throws SynchronizationException the synchronization exception
+   */
   @Override
   protected void cleanup() throws SynchronizationException {
     try {
@@ -226,6 +266,9 @@ public class TableImportSynchronizer extends AbstractSynchronizer implements IOr
     }
   }
 
+  /**
+   * Process table imports.
+   */
   private void processTableImports() {
     try (Connection connection = dataSource.getConnection()) {
       for (String tableImportArtifact : HDBTI_MODELS.keySet()) {
@@ -236,6 +279,12 @@ public class TableImportSynchronizer extends AbstractSynchronizer implements IOr
     }
   }
 
+  /**
+   * Execute table import.
+   *
+   * @param tableImportArtifact the table import artifact
+   * @param connection the connection
+   */
   private void executeTableImport(TableImportArtifact tableImportArtifact, Connection connection) {
     List<TableImportConfigurationDefinition> configurationDefinitions = tableImportArtifact.getImportConfigurationDefinition();
 
@@ -253,11 +302,17 @@ public class TableImportSynchronizer extends AbstractSynchronizer implements IOr
     }
   }
 
+  /**
+   * Clear cache.
+   */
   private void clearCache() {
     HDBTI_MODELS.clear();
     HDBTI_SYNCHRONIZED.clear();
   }
 
+  /**
+   * Synchronize predelivered.
+   */
   private void synchronizePredelivered() {
     HDBTI_PREDELIVERED.values().forEach(tableImport -> {
       try {
@@ -268,20 +323,38 @@ public class TableImportSynchronizer extends AbstractSynchronizer implements IOr
     });
   }
 
+  /**
+   * Register predelivered table imports.
+   *
+   * @param contentPath the content path
+   * @throws Exception the exception
+   */
   public void registerPredeliveredTableImports(String contentPath) throws Exception {
     String data = loadResourceContent(contentPath);
     TableImportArtifact tableImportArtifact = tableImportParser.parseTableImportArtifact(contentPath, data);
     HDBTI_PREDELIVERED.put(contentPath, tableImportArtifact);
   }
 
+  /**
+   * Load resource content.
+   *
+   * @param modelPath the model path
+   * @return the string
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   private String loadResourceContent(String modelPath) throws IOException {
     try (InputStream in = DataStructuresSynchronizer.class.getResourceAsStream(modelPath)) {
       return IOUtils.toString(in, StandardCharsets.UTF_8);
     }
   }
 
-	@Override
-	public int getPriority() {
-		return 450;
-	}
+  /**
+   * Gets the priority.
+   *
+   * @return the priority
+   */
+  @Override
+  public int getPriority() {
+    return 450;
+  }
 }

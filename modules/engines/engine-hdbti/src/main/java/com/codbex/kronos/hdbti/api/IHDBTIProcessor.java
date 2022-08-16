@@ -16,19 +16,49 @@ import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.hdbti.model.TableImportConfigurationDefinition;
 import com.codbex.kronos.parser.hdbti.exception.HDBTISyntaxErrorException;
 import com.codbex.kronos.parser.hdbti.models.HDBTIImportConfigModel;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Interface IHDBTIProcessor.
+ */
 public interface IHDBTIProcessor {
 
+  /**
+   * Process.
+   *
+   * @param tableImportConfigurationDefinition the table import configuration definition
+   * @param connection the connection
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws SQLException the SQL exception
+   * @throws DataStructuresException the data structures exception
+   * @throws TableImportException the table import exception
+   */
   void process(TableImportConfigurationDefinition tableImportConfigurationDefinition, Connection connection)
       throws IOException, SQLException, DataStructuresException, TableImportException;
 
-  List<HDBTIImportConfigModel> parseHdbtiToJSON(String location, byte[] file)
+  /**
+   * Parses the HDBTI to JSON.
+   *
+   * @param location the location
+   * @param file the file
+   * @return the list
+   * @throws ArtifactParserException the artifact parser exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws HDBTISyntaxErrorException the HDBTI syntax error exception
+   */
+  List<HDBTIImportConfigModel> parseHDBTIToJSON(String location, byte[] file)
       throws ArtifactParserException, IOException, HDBTISyntaxErrorException;
 
+  /**
+   * Parses the JSO nto hdbti.
+   *
+   * @param json the json
+   * @return the string
+   */
   String parseJSONtoHdbti(ArrayList<HDBTIImportConfigModel> json);
 }

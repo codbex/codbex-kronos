@@ -33,9 +33,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * defines an alias and an alias description for the base dimension.
  *
  *
- * <p>Java class for DerivedDimension complex type.
+ * Java class for DerivedDimension complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="DerivedDimension"&gt;
@@ -58,10 +58,13 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class DerivedDimension
     extends Dimension {
 
+  /** The base dimension uri. */
   @XmlElement(required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String baseDimensionUri;
+  
+  /** The base dimension. */
   @XmlElement(required = true)
   protected Dimension baseDimension;
 

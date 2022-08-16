@@ -19,6 +19,11 @@
 
 package com.codbex.kronos.ndb.bimodelcalculation;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlType;
+
 import com.codbex.kronos.ndb.datamodelhierarchy.HierarchyAncestorsParameterization;
 import com.codbex.kronos.ndb.datamodelhierarchy.HierarchyDescendantsParameterization;
 import com.codbex.kronos.ndb.datamodelhierarchy.HierarchyFunction;
@@ -27,19 +32,15 @@ import com.codbex.kronos.ndb.datamodelhierarchy.HierarchyParameterization;
 import com.codbex.kronos.ndb.datamodelhierarchy.HierarchySiblingsParameterization;
 import com.codbex.kronos.ndb.datamodelhierarchy.HierarchySpanTreeParameterization;
 import com.codbex.kronos.ndb.datamodelhierarchy.HierarchyTemporalParameterization;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlType;
 
 
 /**
  * A View node for hierarchy generation functions and navigation functions.
  *
  *
- * <p>Java class for HierarchyView complex type.
+ * Java class for HierarchyView complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="HierarchyView"&gt;
@@ -73,13 +74,28 @@ import javax.xml.bind.annotation.XmlType;
 public class HierarchyView
     extends CalculationView {
 
+  /** The hierarchy parameterization. */
   protected HierarchyParameterization hierarchyParameterization;
+  
+  /** The hierarchy leveled parameterization. */
   protected HierarchyLeveledParameterization hierarchyLeveledParameterization;
+  
+  /** The hierarchy temporal parameterization. */
   protected HierarchyTemporalParameterization hierarchyTemporalParameterization;
+  
+  /** The hierarchy span tree parameterization. */
   protected HierarchySpanTreeParameterization hierarchySpanTreeParameterization;
+  
+  /** The hierarchy descendants parameterization. */
   protected HierarchyDescendantsParameterization hierarchyDescendantsParameterization;
+  
+  /** The hierarchy ancestors parameterization. */
   protected HierarchyAncestorsParameterization hierarchyAncestorsParameterization;
+  
+  /** The hierarchy siblings parameterization. */
   protected HierarchySiblingsParameterization hierarchySiblingsParameterization;
+  
+  /** The function. */
   @XmlAttribute(name = "function")
   protected HierarchyFunction function;
 

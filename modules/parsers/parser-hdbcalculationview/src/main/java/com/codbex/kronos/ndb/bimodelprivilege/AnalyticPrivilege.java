@@ -19,16 +19,17 @@
 
 package com.codbex.kronos.ndb.bimodelprivilege;
 
-import com.codbex.kronos.ndb.basemodelbase.PrivilegeType;
-import com.codbex.kronos.ndb.bimodeldatafoundation.BIResource;
-import com.codbex.kronos.ndb.repositorymodelresource.RepositoryObject;
-import com.codbex.kronos.ndb.sqlcoremodelaccesscontrol.ValueFilter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
+
+import com.codbex.kronos.ndb.basemodelbase.PrivilegeType;
+import com.codbex.kronos.ndb.bimodeldatafoundation.BIResource;
+import com.codbex.kronos.ndb.repositorymodelresource.RepositoryObject;
+import com.codbex.kronos.ndb.sqlcoremodelaccesscontrol.ValueFilter;
 
 
 /**
@@ -41,9 +42,9 @@ import javax.xml.bind.annotation.XmlType;
  * Prililege.Restriction.Filter.including = true for all restrictions and all filters
  *
  *
- * <p>Java class for AnalyticPrivilege complex type.
+ * Java class for AnalyticPrivilege complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="AnalyticPrivilege"&gt;
@@ -77,12 +78,25 @@ import javax.xml.bind.annotation.XmlType;
 public class AnalyticPrivilege
     extends BIResource {
 
+  /** The secured models. */
   protected SecuredModels securedModels;
+  
+  /** The validity. */
   protected List<ValueFilter> validity;
+  
+  /** The restriction. */
   protected List<Restriction> restriction;
+  
+  /** The condition procedure name. */
   protected String conditionProcedureName;
+  
+  /** The where sql. */
   protected String whereSql;
+  
+  /** The required entity. */
   protected List<RepositoryObject> requiredEntity;
+  
+  /** The privilege type. */
   @XmlAttribute(name = "privilegeType")
   protected PrivilegeType privilegeType;
 
@@ -108,23 +122,25 @@ public class AnalyticPrivilege
 
   /**
    * Gets the value of the validity property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the validity property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getValidity().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link ValueFilter }
+   *
+   * @return the validity
    */
   public List<ValueFilter> getValidity() {
     if (validity == null) {
@@ -135,23 +151,25 @@ public class AnalyticPrivilege
 
   /**
    * Gets the value of the restriction property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the restriction property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getRestriction().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link Restriction }
+   *
+   * @return the restriction
    */
   public List<Restriction> getRestriction() {
     if (restriction == null) {
@@ -202,23 +220,25 @@ public class AnalyticPrivilege
 
   /**
    * Gets the value of the requiredEntity property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the requiredEntity property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getRequiredEntity().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link RepositoryObject }
+   *
+   * @return the required entity
    */
   public List<RepositoryObject> getRequiredEntity() {
     if (requiredEntity == null) {

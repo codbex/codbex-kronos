@@ -21,8 +21,15 @@ import org.eclipse.dirigible.engine.js.api.IJavascriptEngineProcessor;
  */
 public class JavascriptEngineProcessor implements IJavascriptEngineProcessor {
 
+  /** The engine executor. */
   private JavascriptEngineExecutor engineExecutor = new JavascriptEngineExecutor();
 
+  /**
+   * Execute service.
+   *
+   * @param module the module
+   * @throws ScriptingException the scripting exception
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.engine.js.api.IJavascriptEngineProcessor#executeService(java.lang.String)

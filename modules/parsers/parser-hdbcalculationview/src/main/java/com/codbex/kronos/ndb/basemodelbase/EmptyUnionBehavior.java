@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for EmptyUnionBehavior.
+ * Java class for EmptyUnionBehavior.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="EmptyUnionBehavior"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -53,10 +53,21 @@ public enum EmptyUnionBehavior {
    */
   ROW_WITH_CONSTANTS;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the empty union behavior
+   */
   public static EmptyUnionBehavior fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

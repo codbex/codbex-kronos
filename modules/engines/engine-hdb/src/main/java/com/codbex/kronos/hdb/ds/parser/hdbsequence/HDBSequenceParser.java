@@ -11,16 +11,13 @@
  */
 package com.codbex.kronos.hdb.ds.parser.hdbsequence;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.codbex.kronos.exceptions.ArtifactParserException;
-import com.codbex.kronos.hdb.ds.api.HDBDataStructureModel;
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.hdb.ds.model.DBContentType;
 import com.codbex.kronos.hdb.ds.model.DataStructureModel;
 import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
-import com.codbex.kronos.hdb.ds.model.hdbsequence.HDBSequenceDataStructureModel;
+import com.codbex.kronos.hdb.ds.model.hdbsequence.DataStructureHDBSequenceModel;
 import com.codbex.kronos.hdb.ds.parser.DataStructureParser;
 import com.codbex.kronos.parser.hdbsequence.core.HdbsequenceBaseVisitor;
 import com.codbex.kronos.parser.hdbsequence.core.HdbsequenceLexer;
@@ -32,6 +29,10 @@ import com.codbex.kronos.parser.hdbsequence.models.HDBSequenceModel;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.utils.HDBUtils;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Locale;
@@ -43,10 +44,26 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class HDBSequenceParser.
+ */
 public class HDBSequenceParser implements DataStructureParser {
 
+
+  /**
+   * The Constant logger.
+   */
   private static final Logger logger = LoggerFactory.getLogger(HDBSequenceParser.class);
 
+  /**
+   * Parses the hdbsequence file.
+   *
+   * @param parametersModel the parameters model
+   * @return the data structure model
+   * @throws DataStructuresException the data structures exception
+   * @throws IOException             Signals that an I/O exception has occurred.
+   * @throws ArtifactParserException the artifact parser exception
+   */
   @Override
   public DataStructureModel parse(DataStructureParametersModel parametersModel)
       throws DataStructuresException, IOException, ArtifactParserException {
@@ -58,21 +75,38 @@ public class HDBSequenceParser implements DataStructureParser {
         : parseHanaXSClassicContent(parametersModel.getLocation(), parametersModel.getContent());
   }
 
-
+  /**
+   * Gets the type.
+   *
+   * @return the type
+   */
   @Override
   public String getType() {
-    return HDBDataStructureModel.TYPE_HDB_SEQUENCE;
+    return IDataStructureModel.TYPE_HDB_SEQUENCE;
   }
 
-
+  /**
+   * Gets the data structure class.
+   *
+   * @return the data structure class
+   */
   @Override
-  public Class<HDBSequenceDataStructureModel> getDataStructureClass() {
-    return HDBSequenceDataStructureModel.class;
+  public Class<DataStructureHDBSequenceModel> getDataStructureClass() {
+    return DataStructureHDBSequenceModel.class;
   }
 
+  /**
+   * Parses the hana XS classic content.
+   *
+   * @param location the location
+   * @param content  the content
+   * @return the data structure model
+   * @throws IOException             Signals that an I/O exception has occurred.
+   * @throws ArtifactParserException the artifact parser exception
+   */
   private DataStructureModel parseHanaXSClassicContent(String location, String content)
       throws IOException, ArtifactParserException {
-    logger.debug("Parsing hdbsequence as Hana XS Classic format");
+    logger.debug("Parsing HDB Sequence as Hana XS Classic format");
     ByteArrayInputStream is = new ByteArrayInputStream(content.getBytes());
     ANTLRInputStream inputStream = new ANTLRInputStream(is);
 
@@ -90,8 +124,10 @@ public class HDBSequenceParser implements DataStructureParser {
     parser.addErrorListener(parserErrorListener);
 
     ParseTree parseTree = parser.hdbsequence();
-    CommonsUtils.logParserErrors(parserErrorListener.getErrors(), CommonsConstants.PARSER_ERROR, location, CommonsConstants.HDB_SEQUENCE_PARSER);
-    CommonsUtils.logParserErrors(lexerErrorListener.getErrors(), CommonsConstants.LEXER_ERROR, location, CommonsConstants.HDB_SEQUENCE_PARSER);
+    CommonsUtils.logParserErrors(parserErrorListener.getErrors(), CommonsConstants.PARSER_ERROR, location,
+        CommonsConstants.HDB_SEQUENCE_PARSER);
+    CommonsUtils.logParserErrors(lexerErrorListener.getErrors(), CommonsConstants.LEXER_ERROR, location,
+        CommonsConstants.HDB_SEQUENCE_PARSER);
 
     HdbsequenceBaseVisitor<JsonElement> visitor = new HdbsequenceVisitor();
     JsonElement parsedResult = visitor.visit(parseTree);
@@ -100,18 +136,25 @@ public class HDBSequenceParser implements DataStructureParser {
         .create();
     HDBSequenceModel antlr4Model = gson.fromJson(parsedResult, HDBSequenceModel.class);
 
-    HDBSequenceDataStructureModel hdbSequenceModel = new HDBSequenceDataStructureModel(antlr4Model);
+    DataStructureHDBSequenceModel hdbSequenceModel = new DataStructureHDBSequenceModel(antlr4Model);
 
-    HDBUtils.populateDataStructureModel(location, content, hdbSequenceModel, HDBDataStructureModel.TYPE_HDB_SEQUENCE,
+    HDBUtils.populateDataStructureModel(location, content, hdbSequenceModel, IDataStructureModel.TYPE_HDB_SEQUENCE,
         DBContentType.XS_CLASSIC);
 
     return hdbSequenceModel;
   }
 
+  /**
+   * Parses the hana XS advanced content.
+   *
+   * @param location the location
+   * @param content  the content
+   * @return the data structure model
+   */
   private DataStructureModel parseHanaXSAdvancedContent(String location, String content) {
-    logger.debug("Parsing hdbsequence as Hana XS Advanced format");
-    HDBSequenceDataStructureModel hdbSequenceModel = new HDBSequenceDataStructureModel();
-    HDBUtils.populateDataStructureModel(location, content, hdbSequenceModel, HDBDataStructureModel.TYPE_HDB_SEQUENCE,
+    logger.debug("Parsing HDB Sequence as Hana XS Advanced format");
+    DataStructureHDBSequenceModel hdbSequenceModel = new DataStructureHDBSequenceModel();
+    HDBUtils.populateDataStructureModel(location, content, hdbSequenceModel, IDataStructureModel.TYPE_HDB_SEQUENCE,
         DBContentType.OTHERS);
     hdbSequenceModel.setRawContent(content);
     return hdbSequenceModel;

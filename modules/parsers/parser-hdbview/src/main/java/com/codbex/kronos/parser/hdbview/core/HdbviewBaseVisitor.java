@@ -25,57 +25,57 @@ public class HdbviewBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitHdbviewDefinition(HdbviewParser.HdbviewDefinitionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitProperty(HdbviewParser.PropertyContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitSchemaProp(HdbviewParser.SchemaPropContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitPublicProp(HdbviewParser.PublicPropContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitQueryProp(HdbviewParser.QueryPropContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitDependsOnProp(HdbviewParser.DependsOnPropContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitDependsOnTable(HdbviewParser.DependsOnTableContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitDependsOnView(HdbviewParser.DependsOnViewContext ctx) { return visitChildren(ctx); }
 }

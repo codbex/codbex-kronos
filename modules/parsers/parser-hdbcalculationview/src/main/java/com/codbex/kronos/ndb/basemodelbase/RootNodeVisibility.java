@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for RootNodeVisibility.
+ * Java class for RootNodeVisibility.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="RootNodeVisibility"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -56,21 +56,32 @@ public enum RootNodeVisibility {
 
   /**
    * The system will not add an artificial single root node to the hierarchy.
-   * Example 1: Assume we have the following simple table with a parent child hierarchy defined on top: A->B and A->C
+   * Example 1: Assume we have the following simple table with a parent child hierarchy defined on top: A to B and A to C
    * Then we have: ADD_ROOT_NODE_IF_DEFINED, ADD_ROOT_NODE: Results in a 2 level hierarchy with A at the root having B,
    * C as children	DO_NOT_ADD_ROOT_NODE: Results in a 1 level hierarchy with B and C as independent root nodes
    * Example 2: Assume we have the following simple table with a parent child hierarchy defined on top.
-   * null->A	and A->B and A->C
+   * null to A	and A to B and A to C
    * Then we have: ADD_ROOT_NODE_IF_DEFINED, DO_NOT_ADD_ROOT_NODE: Results in a 2 level hierarchy with A at the root
    * having B,C as children	ADD_ROOT_NODE: Results in a 3 level hierarchy with null as root node having A as
    * child and A having B,C as children.
    */
   DO_NOT_ADD_ROOT_NODE;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the root node visibility
+   */
   public static RootNodeVisibility fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

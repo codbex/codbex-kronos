@@ -19,11 +19,6 @@
 
 package com.codbex.kronos.ndb.bimodelconversion;
 
-import com.codbex.kronos.ndb.basemodelbase.CurrencyConversionTables;
-import com.codbex.kronos.ndb.basemodelbase.ErrorHandling;
-import com.codbex.kronos.ndb.basemodelbase.SchemaMappingBasedObject;
-import com.codbex.kronos.ndb.basemodelbase.UnitConversionTables;
-import com.codbex.kronos.ndb.bimodeldatafoundation.SimpleDataType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -33,14 +28,20 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.codbex.kronos.ndb.basemodelbase.CurrencyConversionTables;
+import com.codbex.kronos.ndb.basemodelbase.ErrorHandling;
+import com.codbex.kronos.ndb.basemodelbase.SchemaMappingBasedObject;
+import com.codbex.kronos.ndb.basemodelbase.UnitConversionTables;
+import com.codbex.kronos.ndb.bimodeldatafoundation.SimpleDataType;
+
 
 /**
  * General base for conversions
  *
  *
- * <p>Java class for Conversion complex type.
+ * Java class for Conversion complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Conversion"&gt;
@@ -77,16 +78,31 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public abstract class Conversion {
 
+  /** The client. */
   protected Parameterization client;
+  
+  /** The schema. */
   protected SchemaMappingBasedObject schema;
+  
+  /** The currency conversion tables. */
   protected CurrencyConversionTables currencyConversionTables;
+  
+  /** The unit conversion tables. */
   protected UnitConversionTables unitConversionTables;
+  
+  /** The output data type. */
   @XmlElement(required = true)
   protected SimpleDataType outputDataType;
+  
+  /** The error handling. */
   @XmlAttribute(name = "errorHandling")
   protected ErrorHandling errorHandling;
+  
+  /** The generate output unit currency attribute. */
   @XmlAttribute(name = "generateOutputUnitCurrencyAttribute")
   protected Boolean generateOutputUnitCurrencyAttribute;
+  
+  /** The output unit currency attribute name. */
   @XmlAttribute(name = "outputUnitCurrencyAttributeName")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String outputUnitCurrencyAttributeName;

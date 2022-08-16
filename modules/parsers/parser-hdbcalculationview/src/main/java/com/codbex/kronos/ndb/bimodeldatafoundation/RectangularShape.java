@@ -25,9 +25,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for RectangularShape complex type.
+ * Java class for RectangularShape complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="RectangularShape"&gt;
@@ -48,6 +48,7 @@ import javax.xml.bind.annotation.XmlType;
 public class RectangularShape
     extends Shape {
 
+  /** The size. */
   protected RectangleSize size;
 
   /**

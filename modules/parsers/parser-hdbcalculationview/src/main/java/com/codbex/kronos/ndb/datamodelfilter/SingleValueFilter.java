@@ -26,9 +26,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for SingleValueFilter complex type.
+ * Java class for SingleValueFilter complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="SingleValueFilter"&gt;
@@ -45,6 +45,7 @@ import javax.xml.bind.annotation.XmlType;
 public class SingleValueFilter
     extends ValueFilter {
 
+  /** The value. */
   @XmlAttribute(name = "value")
   protected String value;
 

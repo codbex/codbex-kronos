@@ -11,8 +11,16 @@
  */
 package com.codbex.kronos.parser.hdbview.exceptions;
 
+/**
+ * The Class HDBViewMissingPropertyException.
+ */
 public class HDBViewMissingPropertyException extends RuntimeException {
 
+  /**
+   * Instantiates a new HDB view missing property exception.
+   *
+   * @param message the message
+   */
   public HDBViewMissingPropertyException(String message) {
     super(message);
   }

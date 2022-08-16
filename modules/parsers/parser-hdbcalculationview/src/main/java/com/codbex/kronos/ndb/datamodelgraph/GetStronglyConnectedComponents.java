@@ -33,9 +33,9 @@ import javax.xml.bind.annotation.XmlType;
  * All vertices having the same component number belong to the same strongly connected component.
  *
  *
- * <p>Java class for GetStronglyConnectedComponents complex type.
+ * Java class for GetStronglyConnectedComponents complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="GetStronglyConnectedComponents"&gt;

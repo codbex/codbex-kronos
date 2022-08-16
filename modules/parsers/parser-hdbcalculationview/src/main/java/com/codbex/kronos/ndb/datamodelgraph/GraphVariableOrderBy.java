@@ -19,20 +19,21 @@
 
 package com.codbex.kronos.ndb.datamodelgraph;
 
-import com.codbex.kronos.ndb.basemodelbase.SortDirection;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
+
+import com.codbex.kronos.ndb.basemodelbase.SortDirection;
 
 
 /**
  * Specifying oder by according to a variable element
  *
  *
- * <p>Java class for GraphVariableOrderBy complex type.
+ * Java class for GraphVariableOrderBy complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="GraphVariableOrderBy"&gt;
@@ -49,6 +50,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GraphVariableOrderBy
     extends VariableElement {
 
+  /** The direction. */
   @XmlAttribute(name = "direction", required = true)
   protected SortDirection direction;
 

@@ -25,8 +25,8 @@ import javax.xml.bind.annotation.XmlRegistry;
 /**
  * This object contains factory methods for each
  * Java content interface and Java element interface
- * generated in the com.codbex.kronos.ndb.datamodelgraph package.
- * <p>An ObjectFactory allows you to programatically
+ * generated in the com.sap.ndb.datamodelgraph package.
+ * An ObjectFactory allows you to programatically
  * construct new instances of the Java representation
  * for XML content. The Java representation of XML
  * content can consist of schema derived interfaces
@@ -40,125 +40,159 @@ public class ObjectFactory {
 
 
   /**
-   * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.codbex.kronos.ndb.datamodelgraph
+   * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.sap.ndb.datamodelgraph
    */
   public ObjectFactory() {
   }
 
   /**
-   * Create an instance of {@link PatternMatching }
+   * Create an instance of {@link PatternMatching }.
+   *
+   * @return the pattern matching
    */
   public PatternMatching createPatternMatching() {
     return new PatternMatching();
   }
 
   /**
-   * Create an instance of {@link ScriptPatternMatching }
+   * Create an instance of {@link ScriptPatternMatching }.
+   *
+   * @return the script pattern matching
    */
   public ScriptPatternMatching createScriptPatternMatching() {
     return new ScriptPatternMatching();
   }
 
   /**
-   * Create an instance of {@link VertexVariable }
+   * Create an instance of {@link VertexVariable }.
+   *
+   * @return the vertex variable
    */
   public VertexVariable createVertexVariable() {
     return new VertexVariable();
   }
 
   /**
-   * Create an instance of {@link EdgeVariable }
+   * Create an instance of {@link EdgeVariable }.
+   *
+   * @return the edge variable
    */
   public EdgeVariable createEdgeVariable() {
     return new EdgeVariable();
   }
 
   /**
-   * Create an instance of {@link PathVariable }
+   * Create an instance of {@link PathVariable }.
+   *
+   * @return the path variable
    */
   public PathVariable createPathVariable() {
     return new PathVariable();
   }
 
   /**
-   * Create an instance of {@link VariableElement }
+   * Create an instance of {@link VariableElement }.
+   *
+   * @return the variable element
    */
   public VariableElement createVariableElement() {
     return new VariableElement();
   }
 
   /**
-   * Create an instance of {@link GraphVariableOrderBy }
+   * Create an instance of {@link GraphVariableOrderBy }.
+   *
+   * @return the graph variable order by
    */
   public GraphVariableOrderBy createGraphVariableOrderBy() {
     return new GraphVariableOrderBy();
   }
 
   /**
-   * Create an instance of {@link GraphVariableMapping }
+   * Create an instance of {@link GraphVariableMapping }.
+   *
+   * @return the graph variable mapping
    */
   public GraphVariableMapping createGraphVariableMapping() {
     return new GraphVariableMapping();
   }
 
   /**
-   * Create an instance of {@link CompoundOperation }
+   * Create an instance of {@link CompoundOperation }.
+   *
+   * @return the compound operation
    */
   public CompoundOperation createCompoundOperation() {
     return new CompoundOperation();
   }
 
   /**
-   * Create an instance of {@link PredicateOperation }
+   * Create an instance of {@link PredicateOperation }.
+   *
+   * @return the predicate operation
    */
   public PredicateOperation createPredicateOperation() {
     return new PredicateOperation();
   }
 
   /**
-   * Create an instance of {@link Argument }
+   * Create an instance of {@link Argument }.
+   *
+   * @return the argument
    */
   public Argument createArgument() {
     return new Argument();
   }
 
   /**
-   * Create an instance of {@link ConstantArgument }
+   * Create an instance of {@link ConstantArgument }.
+   *
+   * @return the constant argument
    */
   public ConstantArgument createConstantArgument() {
     return new ConstantArgument();
   }
 
   /**
-   * Create an instance of {@link ParameterArgument }
+   * Create an instance of {@link ParameterArgument }.
+   *
+   * @return the parameter argument
    */
   public ParameterArgument createParameterArgument() {
     return new ParameterArgument();
   }
 
   /**
-   * Create an instance of {@link GetNeighborhoodParameterization }
+   * Create an instance of {@link GetNeighborhoodParameterization }.
+   *
+   * @return the gets the neighborhood parameterization
    */
   public GetNeighborhoodParameterization createGetNeighborhoodParameterization() {
     return new GetNeighborhoodParameterization();
   }
 
   /**
-   * Create an instance of {@link GetShortestPathsParameterization }
+   * Create an instance of {@link GetShortestPathsParameterization }.
+   *
+   * @return the gets the shortest paths parameterization
    */
   public GetShortestPathsParameterization createGetShortestPathsParameterization() {
     return new GetShortestPathsParameterization();
   }
 
   /**
-   * Create an instance of {@link GetShortestPathParameterization }
+   * Create an instance of {@link GetShortestPathParameterization }.
+   *
+   * @return the gets the shortest path parameterization
    */
   public GetShortestPathParameterization createGetShortestPathParameterization() {
     return new GetShortestPathParameterization();
   }
 
   /**
-   * Create an instance of {@link GetStronglyConnectedComponents }
+   * Create an instance of {@link GetStronglyConnectedComponents }.
+   *
+   * @return the gets the strongly connected components
    */
   public GetStronglyConnectedComponents createGetStronglyConnectedComponents() {
     return new GetStronglyConnectedComponents();

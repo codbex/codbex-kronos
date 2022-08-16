@@ -19,8 +19,6 @@
 
 package com.codbex.kronos.ndb.repositorymodelresource;
 
-import com.codbex.kronos.ndb.basemodelbase.Descriptions;
-import com.codbex.kronos.ndb.bimodeldatafoundation.BIResource;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -33,13 +31,16 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.codbex.kronos.ndb.basemodelbase.Descriptions;
+import com.codbex.kronos.ndb.bimodeldatafoundation.BIResource;
+
 
 /**
  * Father object for EMF resources stored in the HANA repository
  *
- * <p>Java class for ResourceObject complex type.
+ * Java class for ResourceObject complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ResourceObject"&gt;
@@ -71,17 +72,28 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public abstract class ResourceObject
     extends AbstractRepositoryObject {
 
+  /** The descriptions. */
   protected Descriptions descriptions;
+  
+  /** The metadata. */
   protected ResourceMetadata metadata;
+  
+  /** The required resources. */
   @XmlElement(nillable = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected List<String> requiredResources;
+  
+  /** The required SQL objects. */
   @XmlSchemaType(name = "anyURI")
   protected List<String> requiredSQLObjects;
+  
+  /** The id. */
   @XmlAttribute(name = "id")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String id;
+  
+  /** The deprecated. */
   @XmlAttribute(name = "deprecated")
   protected Boolean deprecated;
 
@@ -127,23 +139,25 @@ public abstract class ResourceObject
 
   /**
    * Gets the value of the requiredResources property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the requiredResources property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getRequiredResources().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link String }
+   *
+   * @return the required resources
    */
   public List<String> getRequiredResources() {
     if (requiredResources == null) {
@@ -154,23 +168,25 @@ public abstract class ResourceObject
 
   /**
    * Gets the value of the requiredSQLObjects property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the requiredSQLObjects property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getRequiredSQLObjects().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link String }
+   *
+   * @return the required SQL objects
    */
   public List<String> getRequiredSQLObjects() {
     if (requiredSQLObjects == null) {

@@ -26,9 +26,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for ConstantVariableMapping complex type.
+ * Java class for ConstantVariableMapping complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ConstantVariableMapping"&gt;
@@ -45,6 +45,7 @@ import javax.xml.bind.annotation.XmlType;
 public class ConstantVariableMapping
     extends AbstractVariableMapping {
 
+  /** The value. */
   @XmlAttribute(name = "value")
   protected String value;
 

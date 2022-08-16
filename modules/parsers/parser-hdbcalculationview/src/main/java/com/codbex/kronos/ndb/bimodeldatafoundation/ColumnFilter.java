@@ -19,7 +19,6 @@
 
 package com.codbex.kronos.ndb.bimodeldatafoundation;
 
-import com.codbex.kronos.ndb.sqlcoremodelaccesscontrol.ValueFilter;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -28,11 +27,13 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.codbex.kronos.ndb.sqlcoremodelaccesscontrol.ValueFilter;
+
 
 /**
- * <p>Java class for ColumnFilter complex type.
+ * Java class for ColumnFilter complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ColumnFilter"&gt;
@@ -54,11 +55,16 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class ColumnFilter {
 
+  /** The value filter. */
   @XmlElement(required = true)
   protected ValueFilter valueFilter;
+  
+  /** The column name. */
   @XmlAttribute(name = "columnName", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String columnName;
+  
+  /** The enable functions. */
   @XmlAttribute(name = "enableFunctions")
   protected Boolean enableFunctions;
 

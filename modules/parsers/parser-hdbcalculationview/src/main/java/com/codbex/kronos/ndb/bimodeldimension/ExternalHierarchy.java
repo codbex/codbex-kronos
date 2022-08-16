@@ -19,17 +19,18 @@
 
 package com.codbex.kronos.ndb.bimodeldimension;
 
-import com.codbex.kronos.ndb.basemodelbase.QualifiedColumnObjectName;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import com.codbex.kronos.ndb.basemodelbase.QualifiedColumnObjectName;
+
 
 /**
- * <p>Java class for ExternalHierarchy complex type.
+ * Java class for ExternalHierarchy complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ExternalHierarchy"&gt;
@@ -50,6 +51,7 @@ import javax.xml.bind.annotation.XmlType;
 public class ExternalHierarchy
     extends Hierarchy {
 
+  /** The hierarchy table name. */
   @XmlElement(required = true)
   protected QualifiedColumnObjectName hierarchyTableName;
 

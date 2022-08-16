@@ -19,8 +19,6 @@
 
 package com.codbex.kronos.ndb.repositorymodelresource;
 
-import com.codbex.kronos.ndb.basemodelbase.EndUserTexts;
-import com.codbex.kronos.ndb.datamodeltype.DataType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -29,15 +27,18 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.codbex.kronos.ndb.basemodelbase.EndUserTexts;
+import com.codbex.kronos.ndb.datamodeltype.DataType;
+
 
 /**
  * Father object for EMF repository objects. The resource aspects of ResourceObject
  * have been removed from this to separate concerns
  *
  *
- * <p>Java class for RepositoryObject complex type.
+ * Java class for RepositoryObject complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="RepositoryObject"&gt;
@@ -64,12 +65,19 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public abstract class RepositoryObject
     extends AbstractRepositoryObject {
 
+  /** The end user texts. */
   protected EndUserTexts endUserTexts;
+  
+  /** The name. */
   @XmlAttribute(name = "name", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String name;
+  
+  /** The name qualifier. */
   @XmlAttribute(name = "nameQualifier")
   protected String nameQualifier;
+  
+  /** The deprecated. */
   @XmlAttribute(name = "deprecated")
   protected Boolean deprecated;
 

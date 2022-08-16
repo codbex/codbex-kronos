@@ -27,9 +27,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Shape complex type.
+ * Java class for Shape complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Shape"&gt;
@@ -60,18 +60,33 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class Shape {
 
+  /** The upper left corner. */
   protected Coordinates upperLeftCorner;
+  
+  /** The rectangle size. */
   protected RectangleSize rectangleSize;
+  
+  /** The model object type. */
   @XmlAttribute(name = "modelObjectType")
   protected ModelObjectType modelObjectType;
+  
+  /** The model object name space. */
   @XmlAttribute(name = "modelObjectNameSpace")
   protected String modelObjectNameSpace;
+  
+  /** The expanded. */
   @XmlAttribute(name = "expanded")
   protected Boolean expanded;
+  
+  /** The physical model object name space. */
   @XmlAttribute(name = "physicalModelObjectNameSpace")
   protected String physicalModelObjectNameSpace;
+  
+  /** The model object name. */
   @XmlAttribute(name = "modelObjectName", required = true)
   protected String modelObjectName;
+  
+  /** The visible in detail pane. */
   @XmlAttribute(name = "visibleInDetailPane")
   protected Boolean visibleInDetailPane;
 

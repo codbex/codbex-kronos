@@ -28,9 +28,9 @@ import javax.xml.bind.annotation.XmlType;
  * Argument of a PredicateOperation i.e. one of the following 3 possibilities:Variable element, constant, parameter
  *
  *
- * <p>Java class for Argument complex type.
+ * Java class for Argument complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Argument"&gt;
@@ -54,8 +54,13 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class Argument {
 
+  /** The variable element. */
   protected VariableElement variableElement;
+  
+  /** The constant. */
   protected ConstantArgument constant;
+  
+  /** The parameter. */
   protected ParameterArgument parameter;
 
   /**

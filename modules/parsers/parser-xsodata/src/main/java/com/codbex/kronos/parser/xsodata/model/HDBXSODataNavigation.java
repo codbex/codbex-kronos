@@ -30,37 +30,81 @@ import java.util.Objects;
 
 public class HDBXSODataNavigation {
 
+  /** The association. */
   private String association;
+  
+  /** The alias navigation. */
   private String aliasNavigation;
+  
+  /** The from binding type. */
   private HDBXSODataBindingType fromBindingType;
 
+  /**
+   * Gets the association.
+   *
+   * @return the association
+   */
   public String getAssociation() {
     return association;
   }
 
+  /**
+   * Sets the association.
+   *
+   * @param association the association
+   * @return the HDBXSO data navigation
+   */
   public HDBXSODataNavigation setAssociation(String association) {
     this.association = association;
     return this;
   }
 
+  /**
+   * Gets the alias navigation.
+   *
+   * @return the alias navigation
+   */
   public String getAliasNavigation() {
     return aliasNavigation;
   }
 
+  /**
+   * Sets the alias navigation.
+   *
+   * @param aliasNavigation the alias navigation
+   * @return the HDBXSO data navigation
+   */
   public HDBXSODataNavigation setAliasNavigation(String aliasNavigation) {
     this.aliasNavigation = aliasNavigation;
     return this;
   }
 
+  /**
+   * Gets the from binding type.
+   *
+   * @return the from binding type
+   */
   public HDBXSODataBindingType getFromBindingType() {
     return fromBindingType;
   }
 
+  /**
+   * Sets the from binding type.
+   *
+   * @param fromBindingType the from binding type
+   * @return the HDBXSO data navigation
+   */
   public HDBXSODataNavigation setFromBindingType(HDBXSODataBindingType fromBindingType) {
     this.fromBindingType = fromBindingType;
     return this;
   }
 
+  /**
+   * Equals.
+   *
+   * @param o the o
+   * @return true, if successful
+   */
   @Override
   public boolean equals(Object o) {
     if (this == o)
@@ -72,6 +116,11 @@ public class HDBXSODataNavigation {
         && fromBindingType == that.fromBindingType;
   }
 
+  /**
+   * Hash code.
+   *
+   * @return the int
+   */
   @Override
   public int hashCode() {
     return Objects.hash(association, aliasNavigation, fromBindingType);

@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for PartitionExpressionFunction.
+ * Java class for PartitionExpressionFunction.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="PartitionExpressionFunction"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -41,13 +41,27 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum PartitionExpressionFunction {
 
+  /** The year. */
   YEAR,
+  
+  /** The month. */
   MONTH;
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the partition expression function
+   */
   public static PartitionExpressionFunction fromValue(String v) {
     return valueOf(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return name();
   }

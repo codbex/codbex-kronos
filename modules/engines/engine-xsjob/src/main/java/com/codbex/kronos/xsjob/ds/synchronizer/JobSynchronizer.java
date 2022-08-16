@@ -13,8 +13,13 @@ package com.codbex.kronos.xsjob.ds.synchronizer;
 
 import static java.text.MessageFormat.format;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -23,7 +28,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.apache.commons.io.IOUtils;
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizer;
@@ -38,37 +42,42 @@ import com.codbex.kronos.xsjob.ds.api.IJobCoreService;
 import com.codbex.kronos.xsjob.ds.api.IJobModel;
 import com.codbex.kronos.xsjob.ds.model.JobArtifact;
 import com.codbex.kronos.xsjob.ds.model.JobDefinition;
-import com.codbex.kronos.xsjob.ds.scheduler.KronosSchedulerManager;
+import com.codbex.kronos.xsjob.ds.scheduler.SchedulerManager;
 import com.codbex.kronos.xsjob.ds.service.JobCoreService;
 import com.codbex.kronos.xsjob.ds.transformer.JobToKronosJobDefinitionTransformer;
 
+/**
+ * The Class JobSynchronizer.
+ */
 public class JobSynchronizer extends AbstractSynchronizer {
 
+  /** The Constant KRONOS_SYNCHRONIZER_XSJOB_ENABLED. */
   public static final String KRONOS_SYNCHRONIZER_XSJOB_ENABLED = "KRONOS_SYNCHRONIZER_XSJOB_ENABLED";
+  
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(JobSynchronizer.class);
 
+  /** The Constant JOBS_PREDELIVERED. */
   private static final Map<String, JobDefinition> JOBS_PREDELIVERED = Collections
       .synchronizedMap(new HashMap<String, JobDefinition>());
 
+  /** The Constant JOBS_SYNCHRONIZED. */
   private static final List<String> JOBS_SYNCHRONIZED = Collections.synchronizedList(new ArrayList<String>());
+  
+  /** The synchronizer name. */
   private final String SYNCHRONIZER_NAME = this.getClass().getCanonicalName();
+  
+  /** The scheduler core service. */
   private JobCoreService schedulerCoreService = new JobCoreService();
 
+  /** The job to kronos job definition transformer. */
   private JobToKronosJobDefinitionTransformer jobToKronosJobDefinitionTransformer = new JobToKronosJobDefinitionTransformer();
 
-  /**
-   * Force synchronization.
-   */
-  public static final void forceSynchronization() {
-    JobSynchronizer synchronizer = new JobSynchronizer();
-    synchronizer.setForcedSynchronization(true);
-    try {
-      synchronizer.synchronize();
-    } finally {
-      synchronizer.setForcedSynchronization(false);
-    }
-  }
 
+
+  /**
+   * Synchronize.
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.core.scheduler.api.ISynchronizer#synchronize()
@@ -111,6 +120,7 @@ public class JobSynchronizer extends AbstractSynchronizer {
    *
    * @param jobPath the job path
    * @throws IOException Signals that an I/O exception has occurred.
+   * @throws ParseException the parse exception
    */
   public void registerPredeliveredJob(String jobPath) throws IOException, ParseException {
     InputStream in = JobSynchronizer.class.getResourceAsStream(jobPath);
@@ -130,6 +140,11 @@ public class JobSynchronizer extends AbstractSynchronizer {
     }
   }
 
+  /**
+   * Synchronize registry.
+   *
+   * @throws SynchronizationException the synchronization exception
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizer#synchronizeRegistry()
@@ -143,6 +158,12 @@ public class JobSynchronizer extends AbstractSynchronizer {
     logger.trace("Done synchronizing Jobs from Registry.");
   }
 
+  /**
+   * Synchronize resource.
+   *
+   * @param resource the resource
+   * @throws SynchronizationException the synchronization exception
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizer#synchronizeResource(com.codbex.kronos.hdb.ds.parser.DataStructureParser
@@ -166,6 +187,11 @@ public class JobSynchronizer extends AbstractSynchronizer {
 
   }
 
+  /**
+   * Cleanup.
+   *
+   * @throws SynchronizationException the synchronization exception
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizer#cleanup()
@@ -189,25 +215,30 @@ public class JobSynchronizer extends AbstractSynchronizer {
     logger.trace("Done cleaning up Jobs.");
   }
 
+  /**
+   * Start jobs.
+   *
+   * @throws SchedulerException the scheduler exception
+   */
   private void startJobs() throws SchedulerException {
     logger.trace("Start Jobs...");
 
     for (String jobName : JOBS_SYNCHRONIZED) {
-      if (!KronosSchedulerManager.existsJob(jobName)) {
+      if (!SchedulerManager.existsJob(jobName)) {
         try {
           JobDefinition jobDefinition = schedulerCoreService.getJob(jobName);
-          KronosSchedulerManager.scheduleJob(jobDefinition);
+          SchedulerManager.scheduleJob(jobDefinition);
         } catch (SchedulerException e) {
           logger.error(e.getMessage(), e);
         }
       }
     }
 
-    Set<TriggerKey> runningJobs = KronosSchedulerManager.listJobs();
+    Set<TriggerKey> runningJobs = SchedulerManager.listJobs();
     for (TriggerKey jobKey : runningJobs) {
       try {
         if (!JOBS_SYNCHRONIZED.contains(jobKey.getName())) {
-          KronosSchedulerManager.unscheduleJob(jobKey.getName(), jobKey.getGroup());
+          SchedulerManager.unscheduleJob(jobKey.getName(), jobKey.getGroup());
         }
       } catch (SchedulerException e) {
         logger.error(e.getMessage(), e);
@@ -218,10 +249,18 @@ public class JobSynchronizer extends AbstractSynchronizer {
     logger.trace("Done starting Jobs.");
   }
 
+  /**
+   * Clear cache.
+   */
   private void clearCache() {
     JOBS_SYNCHRONIZED.clear();
   }
 
+  /**
+   * Synchronize predelivered.
+   *
+   * @throws SynchronizationException the synchronization exception
+   */
   private void synchronizePredelivered() throws SynchronizationException {
     logger.trace("Synchronizing predelivered Jobs...");
 
@@ -233,6 +272,12 @@ public class JobSynchronizer extends AbstractSynchronizer {
     logger.trace("Done synchronizing predelivered Jobs.");
   }
 
+  /**
+   * Synchronize job.
+   *
+   * @param job the job
+   * @throws SynchronizationException the synchronization exception
+   */
   private void synchronizeJob(JobDefinition job) throws SynchronizationException {
     try {
       if (!schedulerCoreService.existsJob(job.getName())) {

@@ -19,8 +19,6 @@
 
 package com.codbex.kronos.ndb.bimodeldatafoundation;
 
-import com.codbex.kronos.ndb.basemodelbase.QualifiedColumnObjectName;
-import com.codbex.kronos.ndb.basemodelbase.TemporalJoinProperties;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -29,11 +27,14 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.codbex.kronos.ndb.basemodelbase.QualifiedColumnObjectName;
+import com.codbex.kronos.ndb.basemodelbase.TemporalJoinProperties;
+
 
 /**
- * <p>Java class for Join complex type.
+ * Java class for Join complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Join"&gt;
@@ -64,17 +65,30 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class Join {
 
+  /** The left table. */
   @XmlElement(required = true)
   protected QualifiedColumnObjectName leftTable;
+  
+  /** The right table. */
   @XmlElement(required = true)
   protected QualifiedColumnObjectName rightTable;
+  
+  /** The left columns. */
   @XmlElement(required = true)
   protected Columns leftColumns;
+  
+  /** The right columns. */
   @XmlElement(required = true)
   protected Columns rightColumns;
+  
+  /** The properties. */
   @XmlElement(required = true)
   protected JoinProperties properties;
+  
+  /** The temporal join properties. */
   protected TemporalJoinProperties temporalJoinProperties;
+  
+  /** The language column. */
   @XmlAttribute(name = "languageColumn")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String languageColumn;

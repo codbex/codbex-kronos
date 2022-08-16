@@ -11,12 +11,23 @@
  */
 package com.codbex.kronos.xsaccess.ds.api;
 
+/**
+ * The Class AccessException.
+ */
 public class AccessException extends Exception {
 
+  /**
+   * Instantiates a new access exception.
+   */
   public AccessException() {
     super();
   }
 
+  /**
+   * Instantiates a new access exception.
+   *
+   * @param cause the cause
+   */
   public AccessException(Throwable cause) {
     super(cause);
   }

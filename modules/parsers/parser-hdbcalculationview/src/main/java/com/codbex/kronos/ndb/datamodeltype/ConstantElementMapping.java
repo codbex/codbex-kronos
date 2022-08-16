@@ -26,9 +26,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for ConstantElementMapping complex type.
+ * Java class for ConstantElementMapping complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ConstantElementMapping"&gt;
@@ -46,8 +46,11 @@ import javax.xml.bind.annotation.XmlType;
 public class ConstantElementMapping
     extends AbstractElementMapping {
 
+  /** The value. */
   @XmlAttribute(name = "value")
   protected String value;
+  
+  /** The null. */
   @XmlAttribute(name = "null")
   protected Boolean _null;
 

@@ -5,13 +5,13 @@
     <parent>
         <groupId>com.codbex.kronos</groupId>
         <artifactId>kronos-integration-tests-parent</artifactId>
-        <version>0.1.0-SNAPSHOT</version>
+        <version>0.2.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <name>Kronos - Integration Tests - UI</name>
     <artifactId>kronos-integration-tests-ui</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -57,8 +57,8 @@
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
-            <artifactId>integration-tests-core</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
+            <artifactId>kronos-integration-tests-core</artifactId>
+            <version>0.2.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

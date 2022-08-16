@@ -15,15 +15,27 @@ import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.xsjob.ds.model.JobArtifact;
 import com.codbex.kronos.xsjob.ds.model.JobDefinition;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The Class JobToKronosJobDefinitionTransformer.
+ */
 public class JobToKronosJobDefinitionTransformer {
 
+  /** The cron to quartz cron transformer. */
   private CronToQuartzCronTransformer cronToQuartzCronTransformer = new CronToQuartzCronTransformer();
 
+  /**
+   * Transform.
+   *
+   * @param jobArtifact the job artifact
+   * @return the array list
+   * @throws ParseException the parse exception
+   */
   public ArrayList<JobDefinition> transform(JobArtifact jobArtifact) throws ParseException {
     ArrayList<JobDefinition> jobDefinitions = new ArrayList<>();
     String[] parseAction = jobArtifact.getAction().split("::");
@@ -49,13 +61,19 @@ public class JobToKronosJobDefinitionTransformer {
         jobDefinitions.add(jobDefinition);
       }
     }else {
-      CommonsUtils.logProcessorErrors("Invalid xsjob artifact definition!", CommonsConstants.PROCESSOR_ERROR, jobArtifact.getDescription(), CommonsConstants.KRONOS_JOB_PARSER);
+      CommonsUtils.logProcessorErrors("Invalid xsjob artifact definition!", CommonsConstants.PROCESSOR_ERROR, jobArtifact.getDescription(), CommonsConstants.JOB_PARSER);
       throw new IllegalStateException("Invalid xsjob artifact definition!");
     }
 
     return jobDefinitions;
   }
 
+  /**
+   * Kronos path to dirigible path.
+   *
+   * @param filePath the file path
+   * @return the string
+   */
   public String kronosPathToDirigiblePath(String filePath) {
     String[] splitXscFilePath = filePath.split(":");
     List<String> splitPackage = Arrays.asList(splitXscFilePath[0].split("\\."));

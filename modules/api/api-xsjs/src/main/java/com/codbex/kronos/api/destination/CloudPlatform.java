@@ -18,36 +18,91 @@ import org.eclipse.dirigible.commons.config.Configuration;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+/**
+ * The Class CloudPlatform.
+ */
 public class CloudPlatform extends ScpCfCloudPlatform {
 
+	/** The Constant CLIENT_ID. */
 	private static final String CLIENT_ID = "clientid";
+	
+	/** The Constant CLIENT_SECRET. */
 	private static final String CLIENT_SECRET = "clientsecret";
+	
+	/** The Constant URL. */
 	private static final String URL = "url";
+	
+	/** The Constant URI. */
 	private static final String URI = "uri";
 
+	/** The Constant ONPREMISE_PROXY_HOST. */
 	private static final String ONPREMISE_PROXY_HOST = "onpremise_proxy_host";
+	
+	/** The Constant ONPREMISE_PROXY_HTTP_PORT. */
 	private static final String ONPREMISE_PROXY_HTTP_PORT = "onpremise_proxy_http_port";
+	
+	/** The Constant ONPREMISE_PROXY_LDAP_PORT. */
 	private static final String ONPREMISE_PROXY_LDAP_PORT = "onpremise_proxy_ldap_port";
+	
+	/** The Constant ONPREMISE_PROXY_PORT. */
 	private static final String ONPREMISE_PROXY_PORT = "onpremise_proxy_port";
+	
+	/** The Constant ONPREMISE_PROXY_RFC_PORT. */
 	private static final String ONPREMISE_PROXY_RFC_PORT = "onpremise_proxy_rfc_port";
+	
+	/** The Constant ONPREMISE_SOCKS5_PROXY_PORT. */
 	private static final String ONPREMISE_SOCKS5_PROXY_PORT = "onpremise_socks5_proxy_port";
 
+	/** The Constant DIRIGIBLE_DESTINATION_CLIENT_ID. */
 	private static final String DIRIGIBLE_DESTINATION_CLIENT_ID = "DIRIGIBLE_DESTINATION_CLIENT_ID";
+	
+	/** The Constant DIRIGIBLE_DESTINATION_CLIENT_SECRET. */
 	private static final String DIRIGIBLE_DESTINATION_CLIENT_SECRET = "DIRIGIBLE_DESTINATION_CLIENT_SECRET";
+	
+	/** The Constant DIRIGIBLE_DESTINATION_URL. */
 	private static final String DIRIGIBLE_DESTINATION_URL = "DIRIGIBLE_DESTINATION_URL";
+	
+	/** The Constant DIRIGIBLE_DESTINATION_URI. */
 	private static final String DIRIGIBLE_DESTINATION_URI = "DIRIGIBLE_DESTINATION_URI";
 
+	/** The Constant DIRIGIBLE_CONNECTIVITY_CLIENT_ID. */
 	private static final String DIRIGIBLE_CONNECTIVITY_CLIENT_ID = "DIRIGIBLE_CONNECTIVITY_CLIENT_ID";
+	
+	/** The Constant DIRIGIBLE_CONNECTIVITY_CLIENT_SECRET. */
 	private static final String DIRIGIBLE_CONNECTIVITY_CLIENT_SECRET = "DIRIGIBLE_CONNECTIVITY_CLIENT_SECRET";
+	
+	/** The Constant DIRIGIBLE_CONNECTIVITY_URL. */
 	private static final String DIRIGIBLE_CONNECTIVITY_URL = "DIRIGIBLE_CONNECTIVITY_URL";
+	
+	/** The Constant DIRIGIBLE_CONNECTIVITY_URI. */
 	private static final String DIRIGIBLE_CONNECTIVITY_URI = "DIRIGIBLE_CONNECTIVITY_URI";
+	
+	/** The Constant DIRIGIBLE_CONNECTIVITY_ONPREMISE_PROXY_HOST. */
 	private static final String DIRIGIBLE_CONNECTIVITY_ONPREMISE_PROXY_HOST = "DIRIGIBLE_CONNECTIVITY_ONPREMISE_PROXY_HOST";
+	
+	/** The Constant DIRIGIBLE_CONNECTIVITY_ONPREMISE_PROXY_HTTP_PORT. */
 	private static final String DIRIGIBLE_CONNECTIVITY_ONPREMISE_PROXY_HTTP_PORT = "DIRIGIBLE_CONNECTIVITY_ONPREMISE_PROXY_HTTP_PORT";
+	
+	/** The Constant DIRIGIBLE_CONNECTIVITY_ONPREMISE_PROXY_LDAP_PORT. */
 	private static final String DIRIGIBLE_CONNECTIVITY_ONPREMISE_PROXY_LDAP_PORT = "DIRIGIBLE_CONNECTIVITY_ONPREMISE_PROXY_LDAP_PORT";
+	
+	/** The Constant DIRIGIBLE_CONNECTIVITY_ONPREMISE_PROXY_PORT. */
 	private static final String DIRIGIBLE_CONNECTIVITY_ONPREMISE_PROXY_PORT = "DIRIGIBLE_CONNECTIVITY_ONPREMISE_PROXY_PORT";
+	
+	/** The Constant DIRIGIBLE_CONNECTIVITY_ONPREMISE_PROXY_RFC_PORT. */
 	private static final String DIRIGIBLE_CONNECTIVITY_ONPREMISE_PROXY_RFC_PORT = "DIRIGIBLE_CONNECTIVITY_ONPREMISE_PROXY_RFC_PORT";
+	
+	/** The Constant DIRIGIBLE_CONNECTIVITY_ONPREMISE_SOCKS5_PROXY_PORT. */
 	private static final String DIRIGIBLE_CONNECTIVITY_ONPREMISE_SOCKS5_PROXY_PORT = "DIRIGIBLE_CONNECTIVITY_ONPREMISE_SOCKS5_PROXY_PORT";
 
+	/**
+	 * Gets the service credentials.
+	 *
+	 * @param serviceName the service name
+	 * @param servicePlan the service plan
+	 * @return the service credentials
+	 * @throws CloudPlatformException the cloud platform exception
+	 */
 	@Nonnull
 	@Override
 	public JsonObject getServiceCredentials(@Nonnull String serviceName, @Nullable String servicePlan) throws CloudPlatformException {

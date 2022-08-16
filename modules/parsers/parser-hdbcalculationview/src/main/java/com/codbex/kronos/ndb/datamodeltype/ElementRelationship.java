@@ -37,9 +37,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * be derived by the system.
  *
  *
- * <p>Java class for ElementRelationship complex type.
+ * Java class for ElementRelationship complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="ElementRelationship"&gt;
@@ -56,9 +56,12 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "ElementRelationship")
 public class ElementRelationship {
 
+  /** The parent. */
   @XmlAttribute(name = "parent", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String parent;
+  
+  /** The type. */
   @XmlAttribute(name = "type")
   protected ElementRelationshipType type;
 

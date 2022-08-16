@@ -19,7 +19,6 @@
 
 package com.codbex.kronos.ndb.bimodelcalculation;
 
-import com.codbex.kronos.ndb.bimodelvariable.AbstractVariableMapping;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -28,6 +27,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.codbex.kronos.ndb.bimodelvariable.AbstractVariableMapping;
 
 
 /**
@@ -38,9 +39,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * The output of the table function will be mapped as	input to another node of the calculation view.
  *
  *
- * <p>Java class for TableFunctionView complex type.
+ * Java class for TableFunctionView complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="TableFunctionView"&gt;
@@ -62,30 +63,35 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class TableFunctionView
     extends CalculationView {
 
+  /** The variable mapping. */
   protected List<AbstractVariableMapping> variableMapping;
+  
+  /** The table function name. */
   @XmlAttribute(name = "tableFunctionName", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String tableFunctionName;
 
   /**
    * Gets the value of the variableMapping property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the variableMapping property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getVariableMapping().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link AbstractVariableMapping }
+   *
+   * @return the variable mapping
    */
   public List<AbstractVariableMapping> getVariableMapping() {
     if (variableMapping == null) {

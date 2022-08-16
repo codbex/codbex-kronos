@@ -56,7 +56,7 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
   }
 
   public KronosOData2EventHandler(ODataCoreService odataCoreService, KronosProcedureOData2EventHandler procedureHandler,
-                                  KronosScriptingOData2EventHandler scriptingHandler) {
+      KronosScriptingOData2EventHandler scriptingHandler) {
     this.odataCoreService = odataCoreService;
     this.procedureHandler = procedureHandler;
     this.scriptingHandler = scriptingHandler;

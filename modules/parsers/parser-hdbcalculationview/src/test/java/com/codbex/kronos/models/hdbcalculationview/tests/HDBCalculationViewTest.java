@@ -15,10 +15,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import com.codbex.kronos.ndb.bimodelcalculation.CalculationScenario;
-import com.codbex.kronos.ndb.bimodelcalculation.CalculationViewType;
-import com.codbex.kronos.ndb.bimodelcalculation.DataSource;
-import com.codbex.kronos.ndb.bimodelcalculation.DataSources;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -30,6 +26,11 @@ import org.junit.Test;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.codbex.kronos.ndb.bimodelcalculation.CalculationScenario;
+import com.codbex.kronos.ndb.bimodelcalculation.CalculationViewType;
+import com.codbex.kronos.ndb.bimodelcalculation.DataSource;
+import com.codbex.kronos.ndb.bimodelcalculation.DataSources;
 
 public class HDBCalculationViewTest {
 

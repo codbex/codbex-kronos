@@ -11,19 +11,41 @@
  */
 package com.codbex.kronos.hdbti.api;
 
+/**
+ * The Class TableImportException.
+ */
 public class TableImportException extends Exception {
 
+  /**
+   * Instantiates a new table import exception.
+   */
   public TableImportException() {
   }
 
+  /**
+   * Instantiates a new table import exception.
+   *
+   * @param message the message
+   */
   public TableImportException(String message) {
     super(message);
   }
 
+  /**
+   * Instantiates a new table import exception.
+   *
+   * @param message the message
+   * @param cause the cause
+   */
   public TableImportException(String message, Throwable cause) {
     super(message, cause);
   }
 
+  /**
+   * Instantiates a new table import exception.
+   *
+   * @param cause the cause
+   */
   public TableImportException(Throwable cause) {
     super(cause);
   }

@@ -1,6 +1,6 @@
 {
     "configuration": "/hdi-ext/config.hdiconfig",
-    "users": ["KRONOS_SAMPLES_HDI_EXT"],
+    "users": ["DBADMIN"],
     "group": "KRONOS_HDI_EXT_GROUP",
     "container": "KRONOS_HDI_EXT",
     "deploy": [

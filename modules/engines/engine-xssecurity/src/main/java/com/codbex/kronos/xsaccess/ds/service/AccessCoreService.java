@@ -11,14 +11,15 @@
  */
 package com.codbex.kronos.xsaccess.ds.service;
 
-import static com.codbex.kronos.utils.Utils.objectToByteArray;
-
 import com.codbex.kronos.utils.Utils;
 import com.codbex.kronos.xsaccess.ds.api.IAccessCoreService;
 import com.codbex.kronos.xsaccess.ds.api.AccessException;
 import com.codbex.kronos.xsaccess.ds.api.PrivilegeException;
 import com.codbex.kronos.xsaccess.ds.model.access.AccessArtifact;
 import com.codbex.kronos.xsaccess.ds.model.access.AccessDefinition;
+
+import static com.codbex.kronos.utils.Utils.objectToByteArray;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -31,13 +32,34 @@ import org.eclipse.dirigible.api.v3.security.UserFacade;
 import org.eclipse.dirigible.commons.config.StaticObjects;
 import org.eclipse.dirigible.database.persistence.PersistenceManager;
 
+/**
+ * The Class AccessCoreService.
+ */
 public class AccessCoreService implements IAccessCoreService {
 
+  /** The Constant CACHE. */
   private static final List<AccessDefinition> CACHE = Collections.synchronizedList(new ArrayList<>());
+  
+  /** The data source. */
   private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
+  
+  /** The persistence manager. */
   private PersistenceManager<AccessDefinition> persistenceManager = new PersistenceManager<AccessDefinition>();
+  
+  /** The privilege core service. */
   private PrivilegeCoreService privilegeCoreService = new PrivilegeCoreService();
 
+  /**
+   * Creates the access definition.
+   *
+   * @param path the path
+   * @param authenticationMethodsAsList the authentication methods as list
+   * @param hash the hash
+   * @param exposed the exposed
+   * @param authorizationRolesAsList the authorization roles as list
+   * @return the access definition
+   * @throws AccessException the access exception
+   */
   @Override
   public AccessDefinition createAccessDefinition(String path, List<String> authenticationMethodsAsList, String hash, boolean exposed,
       List<String> authorizationRolesAsList) throws AccessException {
@@ -80,6 +102,17 @@ public class AccessCoreService implements IAccessCoreService {
     }
   }
 
+  /**
+   * Update access definition.
+   *
+   * @param path the path
+   * @param authenticationMethodsAsList the authentication methods as list
+   * @param hash the hash
+   * @param exposed the exposed
+   * @param authorizationRolesAsList the authorization roles as list
+   * @return the access definition
+   * @throws AccessException the access exception
+   */
   @Override
   public AccessDefinition updateAccessDefinition(String path, List<String> authenticationMethodsAsList, String hash, boolean exposed,
       List<String> authorizationRolesAsList) throws AccessException {
@@ -111,6 +144,13 @@ public class AccessCoreService implements IAccessCoreService {
     }
   }
 
+  /**
+   * Gets the access definition.
+   *
+   * @param id the id
+   * @return the access definition
+   * @throws AccessException the access exception
+   */
   @Override
   public AccessDefinition getAccessDefinition(String id) throws AccessException {
     try {
@@ -138,6 +178,12 @@ public class AccessCoreService implements IAccessCoreService {
     }
   }
 
+  /**
+   * Gets the access definitions.
+   *
+   * @return the access definitions
+   * @throws AccessException the access exception
+   */
   @Override
   public List<AccessDefinition> getAccessDefinitions() throws AccessException {
     if (!CACHE.isEmpty()) {
@@ -170,6 +216,12 @@ public class AccessCoreService implements IAccessCoreService {
     }
   }
 
+  /**
+   * Removes the access definition.
+   *
+   * @param path the path
+   * @throws AccessException the access exception
+   */
   @Override
   public void removeAccessDefinition(String path) throws AccessException {
     try {
@@ -188,22 +240,44 @@ public class AccessCoreService implements IAccessCoreService {
   }
 
 
+  /**
+   * Exists access definition.
+   *
+   * @param path the path
+   * @return true, if successful
+   * @throws AccessException the access exception
+   */
   @Override
   public boolean existsAccessDefinition(String path) throws AccessException {
     return getAccessDefinition(path) != null;
   }
 
+  /**
+   * Parses the access artifact.
+   *
+   * @param json the json
+   * @return the access definition
+   */
   @Override
   public AccessDefinition parseAccessArtifact(byte[] json) {
     AccessArtifact accessArtifact = AccessArtifact.parse(json);
     return accessArtifact.toAccessDefinition();
   }
 
+  /**
+   * Clear cache.
+   */
   @Override
   public void clearCache() {
     CACHE.clear();
   }
 
+  /**
+   * Validate privileges.
+   *
+   * @param privileges the privileges
+   * @throws PrivilegeException the privilege exception
+   */
   private void validatePrivileges(List<String> privileges) throws PrivilegeException {
     for (String privilege : privileges) {
       if (!privilegeCoreService.privilegeExists(privilege)) {

@@ -11,10 +11,11 @@
  */
 package com.codbex.kronos.parser.parser.custom;
 
+import com.codbex.kronos.parser.hana.core.custom.HanaProcedureListener;
+import com.codbex.kronos.parser.hana.core.models.ProcedureDefinitionModel;
 import com.codbex.kronos.parser.hana.core.HanaLexer;
 import com.codbex.kronos.parser.hana.core.HanaParser;
-import custom.HanaProcedureListener;
-import models.HDBProcedureDefinitionModel;
+
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -30,46 +31,46 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class HanaProcedureListenerTest {
-    @Test
-    public void parseHDBProcedure() throws Exception {
-        String hdbProcedureSample = getSample("/sample.hdbprocedure");
-        HDBProcedureDefinitionModel model = parseModel(hdbProcedureSample);
-        assertModel(model, "KRONOS_TEST_APP", "kronos_test_app::usersProcedure");
-    }
 
+  @Test
+  public void parseHDBProcedure() throws Exception {
+    String hdbProcedureSample = getSample("/sample.hdbprocedure");
+    ProcedureDefinitionModel model = parseModel(hdbProcedureSample);
+    assertModel(model, "KRONOS_TEST_APP", "kronos_test_app::usersProcedure");
+  }
 
-    @Test
-    public void parseHDBProcedureWithComment() throws Exception {
-        String hdbProcedureSample = getSample("/sample_with_comment.hdbprocedure");
-        HDBProcedureDefinitionModel model = parseModel(hdbProcedureSample);
-        assertModel(model, "KRONOS_SAMPLES_HDB_PROCEDURE_SIMPLE", "hdb-procedure-simple.db::ItemProcedure");
-    }
+  @Test
+  public void parseHDBProcedureWithComment() throws Exception {
+    String hdbProcedureSample = getSample("/sample_with_comment.hdbprocedure");
+    ProcedureDefinitionModel model = parseModel(hdbProcedureSample);
+    assertModel(model, "KRONOS_SAMPLES_HDB_PROCEDURE_SIMPLE", "hdb-procedure-simple.db::ItemProcedure");
+  }
 
-    private String getSample(String sampleName) throws IOException {
-        return org.apache.commons.io.IOUtils
-                .toString(Objects.requireNonNull(HanaProcedureListenerTest.class.getResourceAsStream(sampleName)), StandardCharsets.UTF_8);
-    }
+  private String getSample(String sampleName) throws IOException {
+    return org.apache.commons.io.IOUtils
+        .toString(Objects.requireNonNull(HanaProcedureListenerTest.class.getResourceAsStream(sampleName)), StandardCharsets.UTF_8);
+  }
 
-    private HDBProcedureDefinitionModel parseModel(String sample) {
-        CharStream inputStream = CharStreams.fromString(sample);
-        HanaLexer lexer = new HanaLexer(inputStream);
-        CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+  private ProcedureDefinitionModel parseModel(String sample) {
+    CharStream inputStream = CharStreams.fromString(sample);
+    HanaLexer lexer = new HanaLexer(inputStream);
+    CommonTokenStream tokenStream = new CommonTokenStream(lexer);
 
-        HanaParser parser = new HanaParser(tokenStream);
-        parser.setBuildParseTree(true);
-        ParseTree parseTree = parser.sql_script();
+    HanaParser parser = new HanaParser(tokenStream);
+    parser.setBuildParseTree(true);
+    ParseTree parseTree = parser.sql_script();
 
-        HanaProcedureListener listener = new HanaProcedureListener();
-        ParseTreeWalker parseTreeWalker = new ParseTreeWalker();
-        parseTreeWalker.walk(listener, parseTree);
+    HanaProcedureListener listener = new HanaProcedureListener();
+    ParseTreeWalker parseTreeWalker = new ParseTreeWalker();
+    parseTreeWalker.walk(listener, parseTree);
 
-        return listener.getModel();
-    }
+    return listener.getModel();
+  }
 
-    private void assertModel(HDBProcedureDefinitionModel model, String expectedSchema, String expectedName) {
-        assertNotNull(model);
-        model.checkForAllMandatoryFieldsPresence();
-        assertEquals("Unexpected schema name. ", expectedSchema, model.getSchema());
-        assertEquals("Unexpected tablefunction name. ", expectedName, model.getName());
-    }
+  private void assertModel(ProcedureDefinitionModel model, String expectedSchema, String expectedName) {
+    assertNotNull(model);
+    model.checkForAllMandatoryFieldsPresence();
+    assertEquals("Unexpected schema name. ", expectedSchema, model.getSchema());
+    assertEquals("Unexpected procedure name. ", expectedName, model.getName());
+  }
 }

@@ -11,14 +11,32 @@
  */
 package com.codbex.kronos.parser.xsodata.model;
 
+/**
+ * The Enum HDBXSODataAggregationType.
+ */
 public enum HDBXSODataAggregationType {
+    
+    /** The explicit. */
     EXPLICIT,
+    
+    /** The implicit. */
     IMPLICIT;
 
+    /**
+     * Value.
+     *
+     * @return the string
+     */
     public String value() {
         return name();
     }
 
+    /**
+     * From value.
+     *
+     * @param v the v
+     * @return the HDBXSO data aggregation type
+     */
     public static HDBXSODataAggregationType fromValue(String v) {
         return valueOf(v);
     }

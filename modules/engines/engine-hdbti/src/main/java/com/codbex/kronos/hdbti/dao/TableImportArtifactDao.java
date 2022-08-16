@@ -11,9 +11,6 @@
  */
 package com.codbex.kronos.hdbti.dao;
 
-import com.codbex.kronos.hdbti.api.ITableImportArtifactDao;
-import com.codbex.kronos.hdbti.api.TableImportException;
-import com.codbex.kronos.hdbti.model.TableImportArtifact;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -24,14 +21,31 @@ import org.eclipse.dirigible.database.persistence.PersistenceManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.codbex.kronos.hdbti.api.ITableImportArtifactDao;
+import com.codbex.kronos.hdbti.api.TableImportException;
+import com.codbex.kronos.hdbti.model.TableImportArtifact;
+
+/**
+ * The Class TableImportArtifactDao.
+ */
 public class TableImportArtifactDao implements ITableImportArtifactDao {
 
+    /** The Constant logger. */
     private static final Logger logger = LoggerFactory.getLogger(TableImportArtifactDao.class);
 
+    /** The data source. */
     private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
 
+    /** The persistence manager. */
     private PersistenceManager<TableImportArtifact> persistenceManager = new PersistenceManager<TableImportArtifact>();
 
+    /**
+     * Creates the table import artifact.
+     *
+     * @param tableImportArtifact the table import artifact
+     * @return the table import artifact
+     * @throws TableImportException the table import exception
+     */
     @Override
     public TableImportArtifact createTableImportArtifact(TableImportArtifact tableImportArtifact) throws TableImportException {
 
@@ -43,6 +57,12 @@ public class TableImportArtifactDao implements ITableImportArtifactDao {
         }
     }
 
+    /**
+     * Update table import artifact.
+     *
+     * @param artifact the artifact
+     * @throws TableImportException the table import exception
+     */
     @Override
     public void updateTableImportArtifact(TableImportArtifact artifact) throws TableImportException {
         try (Connection connection = dataSource.getConnection()) {
@@ -55,6 +75,13 @@ public class TableImportArtifactDao implements ITableImportArtifactDao {
         }
     }
 
+    /**
+     * Gets the table import artifact.
+     *
+     * @param location the location
+     * @return the table import artifact
+     * @throws TableImportException the table import exception
+     */
     @Override
     public TableImportArtifact getTableImportArtifact(String location) throws TableImportException {
         try (Connection connection = dataSource.getConnection()) {
@@ -64,6 +91,11 @@ public class TableImportArtifactDao implements ITableImportArtifactDao {
         }
     }
 
+    /**
+     * Removes the table import artifact.
+     *
+     * @param location the location
+     */
     @Override
     public void removeTableImportArtifact(String location) {
         try (Connection connection = dataSource.getConnection()) {
@@ -73,6 +105,12 @@ public class TableImportArtifactDao implements ITableImportArtifactDao {
         }
     }
 
+    /**
+     * Gets the table import artifacts.
+     *
+     * @return the table import artifacts
+     * @throws TableImportException the table import exception
+     */
     @Override
     public List<TableImportArtifact> getTableImportArtifacts() throws TableImportException {
         try (Connection connection = dataSource.getConnection()) {
@@ -83,6 +121,13 @@ public class TableImportArtifactDao implements ITableImportArtifactDao {
         }
     }
 
+    /**
+     * Exists table import artifact.
+     *
+     * @param location the location
+     * @return true, if successful
+     * @throws TableImportException the table import exception
+     */
     @Override
     public boolean existsTableImportArtifact(String location) throws TableImportException {
         return getTableImportArtifact(location) != null;

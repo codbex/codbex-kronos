@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for DimensionType.
+ * Java class for DimensionType.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="DimensionType"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -51,34 +51,68 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum DimensionType {
 
+  /** The unknown. */
   @XmlEnumValue("Unknown")
   UNKNOWN("Unknown"),
+  
+  /** The time. */
   @XmlEnumValue("Time")
   TIME("Time"),
+  
+  /** The measure. */
   @XmlEnumValue("Measure")
   MEASURE("Measure"),
+  
+  /** The standard. */
   @XmlEnumValue("Standard")
   STANDARD("Standard"),
+  
+  /** The geography. */
   @XmlEnumValue("Geography")
   GEOGRAPHY("Geography"),
+  
+  /** The customer. */
   @XmlEnumValue("Customer")
   CUSTOMER("Customer"),
+  
+  /** The product. */
   @XmlEnumValue("Product")
   PRODUCT("Product"),
+  
+  /** The organization. */
   @XmlEnumValue("Organization")
   ORGANIZATION("Organization"),
+  
+  /** The employee. */
   @XmlEnumValue("Employee")
   EMPLOYEE("Employee"),
+  
+  /** The currency. */
   @XmlEnumValue("Currency")
   CURRENCY("Currency"),
+  
+  /** The channel. */
   @XmlEnumValue("Channel")
   CHANNEL("Channel");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new dimension type.
+   *
+   * @param v the v
+   */
   DimensionType(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the dimension type
+   */
   public static DimensionType fromValue(String v) {
     for (DimensionType c : DimensionType.values()) {
       if (c.value.equals(v)) {
@@ -88,6 +122,11 @@ public enum DimensionType {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

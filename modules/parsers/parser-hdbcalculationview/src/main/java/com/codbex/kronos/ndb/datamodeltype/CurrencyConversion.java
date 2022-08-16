@@ -19,7 +19,6 @@
 
 package com.codbex.kronos.ndb.datamodeltype;
 
-import com.codbex.kronos.ndb.basemodelbase.CurrencyConversionLookup;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -28,6 +27,8 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.codbex.kronos.ndb.basemodelbase.CurrencyConversionLookup;
 
 
 /**
@@ -38,9 +39,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * ERP decimal shift or a real currency conversion to a different target UNIT
  *
  *
- * <p>Java class for CurrencyConversion complex type.
+ * Java class for CurrencyConversion complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="CurrencyConversion"&gt;
@@ -77,23 +78,42 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class CurrencyConversion
     extends BaseUserDefinedFunction {
 
+  /** The source currency. */
   @XmlElement(required = true)
   protected UDFParameter sourceCurrency;
+  
+  /** The target currency. */
   @XmlElement(required = true)
   protected UDFParameter targetCurrency;
+  
+  /** The reference date. */
   @XmlElement(required = true)
   protected UDFParameter referenceDate;
+  
+  /** The exchange rate type. */
   protected UDFParameter exchangeRateType;
+  
+  /** The exchange rate element. */
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
   protected String exchangeRateElement;
+  
+  /** The erp decimal shift. */
   @XmlElement(defaultValue = "true")
   protected boolean erpDecimalShift;
+  
+  /** The round. */
   protected Boolean round;
+  
+  /** The erp decimal shift back. */
   @XmlElement(defaultValue = "true")
   protected boolean erpDecimalShiftBack;
+  
+  /** The convert. */
   @XmlAttribute(name = "convert")
   protected Boolean convert;
+  
+  /** The lookup. */
   @XmlAttribute(name = "lookup")
   protected CurrencyConversionLookup lookup;
 
@@ -199,6 +219,8 @@ public class CurrencyConversion
 
   /**
    * Gets the value of the erpDecimalShift property.
+   *
+   * @return true, if is erp decimal shift
    */
   public boolean isErpDecimalShift() {
     return erpDecimalShift;
@@ -206,6 +228,8 @@ public class CurrencyConversion
 
   /**
    * Sets the value of the erpDecimalShift property.
+   *
+   * @param value the new erp decimal shift
    */
   public void setErpDecimalShift(boolean value) {
     this.erpDecimalShift = value;
@@ -233,6 +257,8 @@ public class CurrencyConversion
 
   /**
    * Gets the value of the erpDecimalShiftBack property.
+   *
+   * @return true, if is erp decimal shift back
    */
   public boolean isErpDecimalShiftBack() {
     return erpDecimalShiftBack;
@@ -240,6 +266,8 @@ public class CurrencyConversion
 
   /**
    * Sets the value of the erpDecimalShiftBack property.
+   *
+   * @param value the new erp decimal shift back
    */
   public void setErpDecimalShiftBack(boolean value) {
     this.erpDecimalShiftBack = value;

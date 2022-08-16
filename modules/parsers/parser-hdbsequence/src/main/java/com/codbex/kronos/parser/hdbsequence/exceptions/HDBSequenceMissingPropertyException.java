@@ -11,8 +11,16 @@
  */
 package com.codbex.kronos.parser.hdbsequence.exceptions;
 
+/**
+ * The Class HDBSequenceMissingPropertyException.
+ */
 public class HDBSequenceMissingPropertyException extends RuntimeException {
 
+  /**
+   * Instantiates a new HDB sequence missing property exception.
+   *
+   * @param message the message
+   */
   public HDBSequenceMissingPropertyException(String message) {
     super(message);
   }

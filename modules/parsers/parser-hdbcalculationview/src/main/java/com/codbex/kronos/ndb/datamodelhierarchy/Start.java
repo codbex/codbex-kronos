@@ -19,17 +19,18 @@
 
 package com.codbex.kronos.ndb.datamodelhierarchy;
 
-import com.codbex.kronos.ndb.bimodelcalculation.AbstractAttributeMapping;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import com.codbex.kronos.ndb.bimodelcalculation.AbstractAttributeMapping;
+
 
 /**
- * <p>Java class for Start complex type.
+ * Java class for Start complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Start"&gt;
@@ -49,6 +50,7 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class Start {
 
+  /** The mapping. */
   @XmlElement(required = true)
   protected AbstractAttributeMapping mapping;
 

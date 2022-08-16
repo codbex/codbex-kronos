@@ -31,9 +31,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * For storing a localized text with its language
  *
  *
- * <p>Java class for LocalizedText complex type.
+ * Java class for LocalizedText complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="LocalizedText"&gt;
@@ -50,8 +50,11 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "LocalizedText")
 public class LocalizedText {
 
+  /** The text. */
   @XmlAttribute(name = "text", required = true)
   protected String text;
+  
+  /** The language. */
   @XmlAttribute(name = "language", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String language;

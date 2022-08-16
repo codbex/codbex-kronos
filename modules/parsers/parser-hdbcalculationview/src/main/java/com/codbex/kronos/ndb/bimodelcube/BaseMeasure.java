@@ -19,17 +19,18 @@
 
 package com.codbex.kronos.ndb.bimodelcube;
 
-import com.codbex.kronos.ndb.bimodeldatafoundation.ColumnMapping;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import com.codbex.kronos.ndb.bimodeldatafoundation.ColumnMapping;
+
 
 /**
- * <p>Java class for BaseMeasure complex type.
+ * Java class for BaseMeasure complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="BaseMeasure"&gt;
@@ -50,6 +51,7 @@ import javax.xml.bind.annotation.XmlType;
 public class BaseMeasure
     extends Measure {
 
+  /** The measure mapping. */
   @XmlElement(required = true)
   protected ColumnMapping measureMapping;
 

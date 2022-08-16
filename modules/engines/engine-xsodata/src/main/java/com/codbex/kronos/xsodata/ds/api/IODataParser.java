@@ -13,6 +13,18 @@ package com.codbex.kronos.xsodata.ds.api;
 
 import com.codbex.kronos.xsodata.ds.model.ODataModel;
 
+/**
+ * The Interface IODataParser.
+ */
 public interface IODataParser {
-    ODataModel parseXSODataArtifact(String location, String content) throws Exception;
+    
+    /**
+     * Parses the O data artifact.
+     *
+     * @param location the location
+     * @param content the content
+     * @return the o data model
+     * @throws Exception the exception
+     */
+    ODataModel parseODataArtifact(String location, String content) throws Exception;
 }

@@ -11,10 +11,19 @@
  */
 package com.codbex.kronos.parser.hdbti.exception;
 
+/**
+ * The Class DuplicateFieldNameException.
+ */
 public class DuplicateFieldNameException extends RuntimeException {
 
+  /** The Constant serialVersionUID. */
   private static final long serialVersionUID = -6378311157487445495L;
 
+  /**
+   * Instantiates a new duplicate field name exception.
+   *
+   * @param message the message
+   */
   public DuplicateFieldNameException(String message) {
     super(message);
   }

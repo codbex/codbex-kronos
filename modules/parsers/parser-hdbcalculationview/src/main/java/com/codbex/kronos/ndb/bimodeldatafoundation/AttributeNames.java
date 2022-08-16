@@ -34,9 +34,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * Models a collection of attribute names
  *
  *
- * <p>Java class for AttributeNames complex type.
+ * Java class for AttributeNames complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="AttributeNames"&gt;
@@ -56,6 +56,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class AttributeNames {
 
+  /** The attribute name. */
   @XmlElement(required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   @XmlSchemaType(name = "token")
@@ -63,23 +64,25 @@ public class AttributeNames {
 
   /**
    * Gets the value of the attributeName property.
-   *
-   * <p>
+   * 
+   * 
    * This accessor method returns a reference to the live list,
    * not a snapshot. Therefore any modification you make to the
    * returned list will be present inside the JAXB object.
    * This is why there is not a <CODE>set</CODE> method for the attributeName property.
-   *
-   * <p>
+   * 
+   * 
    * For example, to add a new item, do as follows:
    * <pre>
    *    getAttributeName().add(newItem);
    * </pre>
-   *
-   *
-   * <p>
+   * 
+   * 
+   * 
    * Objects of the following type(s) are allowed in the list
    * {@link String }
+   *
+   * @return the attribute name
    */
   public List<String> getAttributeName() {
     if (attributeName == null) {

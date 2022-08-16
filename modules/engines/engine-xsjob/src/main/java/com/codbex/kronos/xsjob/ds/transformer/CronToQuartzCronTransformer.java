@@ -14,24 +14,52 @@ package com.codbex.kronos.xsjob.ds.transformer;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.xsjob.ds.api.CronExpressionException;
+
 import java.text.ParseException;
 import java.util.List;
 
+/**
+ * The Class CronToQuartzCronTransformer.
+ */
 public class CronToQuartzCronTransformer {
 
+  /** The Constant KRONOS_CRON_YEAR. */
   private static final int KRONOS_CRON_YEAR = 0;
+  
+  /** The Constant KRONOS_CRON_MONTH. */
   private static final int KRONOS_CRON_MONTH = 1;
+  
+  /** The Constant KRONOS_CRON_DAY. */
   private static final int KRONOS_CRON_DAY = 2;
+  
+  /** The Constant KRONOS_CRON_DAY_OF_WEEK. */
   private static final int KRONOS_CRON_DAY_OF_WEEK = 3;
+  
+  /** The Constant KRONOS_CRON_HOUR. */
   private static final int KRONOS_CRON_HOUR = 4;
+  
+  /** The Constant KRONOS_CRON_MINUTE. */
   private static final int KRONOS_CRON_MINUTE = 5;
+  
+  /** The Constant KRONOS_CRON_SECOND. */
   private static final int KRONOS_CRON_SECOND = 6;
 
+  /** The cron expression arr. */
   private String[] cronExpressionArr;
 
+  /**
+   * Instantiates a new cron to quartz cron transformer.
+   */
   public CronToQuartzCronTransformer() {
   }
 
+  /**
+   * Transform.
+   *
+   * @param cronExpression the cron expression
+   * @return the string
+   * @throws ParseException the parse exception
+   */
   public String transform(String cronExpression) throws ParseException {
 
     cronExpressionArr = cronExpression.split(" ");
@@ -50,12 +78,18 @@ public class CronToQuartzCronTransformer {
       quartzCronExpression.setMinutes(parseRange(cronExpressionArr[KRONOS_CRON_MINUTE]));
       quartzCronExpression.setSeconds(parseRange(cronExpressionArr[KRONOS_CRON_SECOND]));
     } catch (Exception e) {
-      CommonsUtils.logProcessorErrors(e.getMessage(), CommonsConstants.PROCESSOR_ERROR, cronExpression, CommonsConstants.KRONOS_JOB_PARSER);
+      CommonsUtils.logProcessorErrors(e.getMessage(), CommonsConstants.PROCESSOR_ERROR, cronExpression, CommonsConstants.JOB_PARSER);
       throw e;
     }
     return quartzCronExpression.toString();
   }
 
+  /**
+   * Parses the range.
+   *
+   * @param cronElement the cron element
+   * @return the string
+   */
   private String parseRange(String cronElement) {
     if (!cronElement.contains(":")) {
       return cronElement;
@@ -66,6 +100,13 @@ public class CronToQuartzCronTransformer {
     return String.join("-", splitXscCronElement);
   }
 
+  /**
+   * Parses the day of week element.
+   *
+   * @param dayOfWeekElement the day of week element
+   * @return the string
+   * @throws ParseException the parse exception
+   */
   private String parseDayOfWeekElement(String dayOfWeekElement) throws ParseException {
     if (dayOfWeekElement.equals("*") &&
         cronExpressionArr[KRONOS_CRON_DAY].equals("*")) {
@@ -90,6 +131,11 @@ public class CronToQuartzCronTransformer {
     throw new CronExpressionException(String.join(" ", cronExpressionArr), KRONOS_CRON_DAY_OF_WEEK);
   }
 
+  /**
+   * Check day of week and day of month.
+   *
+   * @return the string
+   */
   private String checkDayOfWeekAndDayOfMonth(){
     final List<String> cronExpressionDayOfWeekArr = List.of("mon", "tue", "wed", "thu", "fri", "sat", "sun", "1", "2", "3", "4", "5", "6", "7");
     final List<String> dayOfWeekList = List.of(cronExpressionArr[KRONOS_CRON_DAY_OF_WEEK].split(","));

@@ -14,10 +14,19 @@ package com.codbex.kronos.xsodata.listener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+/**
+ * The Class XSODataInitializer.
+ */
 public class XSODataInitializer implements ServletContextListener {
 
+  /** The odata names validation pattern patcher. */
   private final ODataNamesValidationPatternPatcher odataNamesValidationPatternPatcher = new ODataNamesValidationPatternPatcher();
 
+  /**
+   * Context initialized.
+   *
+   * @param sce the sce
+   */
   public void contextInitialized(ServletContextEvent sce) {
     try {
       odataNamesValidationPatternPatcher.patch();

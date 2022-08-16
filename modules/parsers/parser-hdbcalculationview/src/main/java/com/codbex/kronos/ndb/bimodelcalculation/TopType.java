@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for TopType.
+ * Java class for TopType.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ * 
  * <pre>
  * &lt;simpleType name="TopType"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}NMTOKEN"&gt;
@@ -45,22 +45,44 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum TopType {
 
+  /** The rows. */
   @XmlEnumValue("rows")
   ROWS("rows"),
+  
+  /** The sum. */
   @XmlEnumValue("sum")
   SUM("sum"),
+  
+  /** The percent. */
   @XmlEnumValue("percent")
   PERCENT("percent"),
+  
+  /** The first. */
   @XmlEnumValue("first")
   FIRST("first"),
+  
+  /** The last. */
   @XmlEnumValue("last")
   LAST("last");
+  
+  /** The value. */
   private final String value;
 
+  /**
+   * Instantiates a new top type.
+   *
+   * @param v the v
+   */
   TopType(String v) {
     value = v;
   }
 
+  /**
+   * From value.
+   *
+   * @param v the v
+   * @return the top type
+   */
   public static TopType fromValue(String v) {
     for (TopType c : TopType.values()) {
       if (c.value.equals(v)) {
@@ -70,6 +92,11 @@ public enum TopType {
     throw new IllegalArgumentException(v);
   }
 
+  /**
+   * Value.
+   *
+   * @return the string
+   */
   public String value() {
     return value;
   }

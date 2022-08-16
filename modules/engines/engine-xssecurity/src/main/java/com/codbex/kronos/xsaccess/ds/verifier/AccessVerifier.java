@@ -11,14 +11,19 @@
  */
 package com.codbex.kronos.xsaccess.ds.verifier;
 
-import com.codbex.kronos.xsaccess.ds.api.IAccessCoreService;
-import com.codbex.kronos.xsaccess.ds.api.AccessException;
-import com.codbex.kronos.xsaccess.ds.model.access.AccessDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.codbex.kronos.xsaccess.ds.api.IAccessCoreService;
+import com.codbex.kronos.xsaccess.ds.api.AccessException;
+import com.codbex.kronos.xsaccess.ds.model.access.AccessDefinition;
+
+/**
+ * The Class AccessVerifier.
+ */
 public class AccessVerifier {
 
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(AccessVerifier.class);
 
   /**

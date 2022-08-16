@@ -21,7 +21,7 @@ jobs:
     #--------Restore success job-------# 
     - uses: actions/checkout@v2
       with:
-        token: ${{ secrets.GH_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         fetch-depth: 0
     - name: Download sapmachine JDK 17
       run: |
@@ -84,86 +84,86 @@ jobs:
         docker build --load -t ghcr.io/codbex/kronos-kyma-runtime-distro -f Dockerfile-distro .
         docker push ghcr.io/codbex/kronos-kyma-runtime-distro
         cd ../../
-    - uses: buildpacks/github-actions/setup-pack@v4.1.0
-    - name: Kronos Buildpack
-      run: |
-        cd releng/buildpacks/kronos/
-        docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-base . --target base
-        docker tag ghcr.io/codbex/kronos-buildpacks-stack-base ghcr.io/codbex/kronos-buildpacks-stack-base:${{ env.KRONOS_VERSION }}
-        docker push ghcr.io/codbex/kronos-buildpacks-stack-base:${{ env.KRONOS_VERSION }}
-        docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-run . --target run
-        docker tag ghcr.io/codbex/kronos-buildpacks-stack-run ghcr.io/codbex/kronos-buildpacks-stack-run:${{ env.KRONOS_VERSION }}
-        docker push ghcr.io/codbex/kronos-buildpacks-stack-run:${{ env.KRONOS_VERSION }}
-        docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-build . --target build
-        docker tag ghcr.io/codbex/kronos-buildpacks-stack-build ghcr.io/codbex/kronos-buildpacks-stack-build:${{ env.KRONOS_VERSION }}
-        docker push ghcr.io/codbex/kronos-buildpacks-stack-build:${{ env.KRONOS_VERSION }}
-        cd buildpack/
-        find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/${{ env.KRONOS_VERSION }}/g'' {} \;
-        pack buildpack package ghcr.io/codbex/kronos-buildpacks --config ./package.toml
-        docker tag ghcr.io/codbex/kronos-buildpacks ghcr.io/codbex/kronos-buildpacks:${{ env.KRONOS_VERSION }}
-        docker push ghcr.io/codbex/kronos-buildpacks:${{ env.KRONOS_VERSION }}
-        pack builder create ghcr.io/codbex/kronos-buildpacks-builder --config ./builder.toml
-        docker tag ghcr.io/codbex/kronos-buildpacks-builder ghcr.io/codbex/kronos-buildpacks-builder:${{ env.KRONOS_VERSION }}
-        docker push ghcr.io/codbex/kronos-buildpacks-builder:${{ env.KRONOS_VERSION }}
-        cd ../../../../
-    - name: Kronos Kyma Buildpack
-      run: |
-        cd releng/buildpacks/kronos-kyma/
-        docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-base-kyma . --target base
-        docker tag ghcr.io/codbex/kronos-buildpacks-stack-base-kyma ghcr.io/codbex/kronos-buildpacks-stack-base-kyma:${{ env.KRONOS_VERSION }}
-        docker push ghcr.io/codbex/kronos-buildpacks-stack-base-kyma:${{ env.KRONOS_VERSION }}
-        docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-run-kyma . --target run
-        docker tag ghcr.io/codbex/kronos-buildpacks-stack-run-kyma ghcr.io/codbex/kronos-buildpacks-stack-run-kyma:${{ env.KRONOS_VERSION }}
-        docker push ghcr.io/codbex/kronos-buildpacks-stack-run-kyma:${{ env.KRONOS_VERSION }}
-        docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-build-kyma . --target build
-        docker tag ghcr.io/codbex/kronos-buildpacks-stack-build-kyma ghcr.io/codbex/kronos-buildpacks-stack-build-kyma:${{ env.KRONOS_VERSION }}
-        docker push ghcr.io/codbex/kronos-buildpacks-stack-build-kyma:${{ env.KRONOS_VERSION }}
-        cd buildpack/
-        find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/${{ env.KRONOS_VERSION }}/g'' {} \;
-        pack buildpack package ghcr.io/codbex/kronos-buildpacks-kyma --config ./package.toml
-        docker tag ghcr.io/codbex/kronos-buildpacks-kyma ghcr.io/codbex/kronos-buildpacks-kyma:${{ env.KRONOS_VERSION }}
-        docker push ghcr.io/codbex/kronos-buildpacks-kyma:${{ env.KRONOS_VERSION }}
-        pack builder create ghcr.io/codbex/kronos-buildpacks-builder-kyma --config ./builder.toml
-        docker tag ghcr.io/codbex/kronos-buildpacks-builder-kyma ghcr.io/codbex/kronos-buildpacks-builder-kyma:${{ env.KRONOS_VERSION }}
-        docker push ghcr.io/codbex/kronos-buildpacks-builder-kyma:${{ env.KRONOS_VERSION }}
-        cd ../../../../
-    - name: Kronos Kyma Runtime Buildpack
-      run: |
-        cd releng/buildpacks/kronos-kyma-runtime/
-        docker build --load -t ghcr.io/codbex/kronos-buildpacks-stack-base-kyma-runtime . --target base
-        docker push ghcr.io/codbex/kronos-buildpacks-stack-base-kyma-runtime
-        docker build --load -t ghcr.io/codbex/kronos-buildpacks-stack-run-kyma-runtime . --target run
-        docker push ghcr.io/codbex/kronos-buildpacks-stack-run-kyma-runtime
-        docker build --load -t ghcr.io/codbex/kronos-buildpacks-stack-build-kyma-runtime . --target build
-        docker push ghcr.io/codbex/kronos-buildpacks-stack-build-kyma-runtime
-        cd buildpack/
-        find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/latest/g'' {} \;
-        pack buildpack package ghcr.io/codbex/kronos-buildpacks-kyma-runtime --config ./package.toml
-        docker push ghcr.io/codbex/kronos-buildpacks-kyma-runtime
-        pack builder create ghcr.io/codbex/kronos-buildpacks-builder-kyma-runtime --config ./builder.toml
-        docker push ghcr.io/codbex/kronos-buildpacks-builder-kyma-runtime
-        cd ../../../../
-    - name: Kronos Cloud Foundry Buildpack
-      run: |
-        cd releng/buildpacks/kronos-cf/
-        docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-base-cf . --target base
-        docker tag ghcr.io/codbex/kronos-buildpacks-stack-base-cf ghcr.io/codbex/kronos-buildpacks-stack-base-cf:${{ env.KRONOS_VERSION }}
-        docker push ghcr.io/codbex/kronos-buildpacks-stack-base-cf:${{ env.KRONOS_VERSION }}
-        docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-run-cf . --target run
-        docker tag ghcr.io/codbex/kronos-buildpacks-stack-run-cf ghcr.io/codbex/kronos-buildpacks-stack-run-cf:${{ env.KRONOS_VERSION }}
-        docker push ghcr.io/codbex/kronos-buildpacks-stack-run-cf:${{ env.KRONOS_VERSION }}
-        docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-build-cf . --target build
-        docker tag ghcr.io/codbex/kronos-buildpacks-stack-build-cf ghcr.io/codbex/kronos-buildpacks-stack-build-cf:${{ env.KRONOS_VERSION }}
-        docker push ghcr.io/codbex/kronos-buildpacks-stack-build-cf:${{ env.KRONOS_VERSION }}
-        cd buildpack/
-        find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/${{ env.KRONOS_VERSION }}/g'' {} \;
-        pack buildpack package ghcr.io/codbex/kronos-buildpacks-cf --config ./package.toml
-        docker tag ghcr.io/codbex/kronos-buildpacks-cf ghcr.io/codbex/kronos-buildpacks-cf:${{ env.KRONOS_VERSION }}
-        docker push ghcr.io/codbex/kronos-buildpacks-cf:${{ env.KRONOS_VERSION }}
-        pack builder create ghcr.io/codbex/kronos-buildpacks-builder-cf --config ./builder.toml
-        docker tag ghcr.io/codbex/kronos-buildpacks-builder-cf ghcr.io/codbex/kronos-buildpacks-builder-cf:${{ env.KRONOS_VERSION }}
-        docker push ghcr.io/codbex/kronos-buildpacks-builder-cf:${{ env.KRONOS_VERSION }}
-        cd ../../../../
+    # - uses: buildpacks/github-actions/setup-pack@v4.1.0
+    # - name: Kronos Buildpack
+    #   run: |
+    #     cd releng/buildpacks/kronos/
+    #     docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-base . --target base
+    #     docker tag ghcr.io/codbex/kronos-buildpacks-stack-base ghcr.io/codbex/kronos-buildpacks-stack-base:${{ env.KRONOS_VERSION }}
+    #     docker push ghcr.io/codbex/kronos-buildpacks-stack-base:${{ env.KRONOS_VERSION }}
+    #     docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-run . --target run
+    #     docker tag ghcr.io/codbex/kronos-buildpacks-stack-run ghcr.io/codbex/kronos-buildpacks-stack-run:${{ env.KRONOS_VERSION }}
+    #     docker push ghcr.io/codbex/kronos-buildpacks-stack-run:${{ env.KRONOS_VERSION }}
+    #     docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-build . --target build
+    #     docker tag ghcr.io/codbex/kronos-buildpacks-stack-build ghcr.io/codbex/kronos-buildpacks-stack-build:${{ env.KRONOS_VERSION }}
+    #     docker push ghcr.io/codbex/kronos-buildpacks-stack-build:${{ env.KRONOS_VERSION }}
+    #     cd buildpack/
+    #     find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/${{ env.KRONOS_VERSION }}/g'' {} \;
+    #     pack buildpack package ghcr.io/codbex/kronos-buildpacks --config ./package.toml
+    #     docker tag ghcr.io/codbex/kronos-buildpacks ghcr.io/codbex/kronos-buildpacks:${{ env.KRONOS_VERSION }}
+    #     docker push ghcr.io/codbex/kronos-buildpacks:${{ env.KRONOS_VERSION }}
+    #     pack builder create ghcr.io/codbex/kronos-buildpacks-builder --config ./builder.toml
+    #     docker tag ghcr.io/codbex/kronos-buildpacks-builder ghcr.io/codbex/kronos-buildpacks-builder:${{ env.KRONOS_VERSION }}
+    #     docker push ghcr.io/codbex/kronos-buildpacks-builder:${{ env.KRONOS_VERSION }}
+    #     cd ../../../../
+    # - name: Kronos Kyma Buildpack
+    #   run: |
+    #     cd releng/buildpacks/kronos-kyma/
+    #     docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-base-kyma . --target base
+    #     docker tag ghcr.io/codbex/kronos-buildpacks-stack-base-kyma ghcr.io/codbex/kronos-buildpacks-stack-base-kyma:${{ env.KRONOS_VERSION }}
+    #     docker push ghcr.io/codbex/kronos-buildpacks-stack-base-kyma:${{ env.KRONOS_VERSION }}
+    #     docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-run-kyma . --target run
+    #     docker tag ghcr.io/codbex/kronos-buildpacks-stack-run-kyma ghcr.io/codbex/kronos-buildpacks-stack-run-kyma:${{ env.KRONOS_VERSION }}
+    #     docker push ghcr.io/codbex/kronos-buildpacks-stack-run-kyma:${{ env.KRONOS_VERSION }}
+    #     docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-build-kyma . --target build
+    #     docker tag ghcr.io/codbex/kronos-buildpacks-stack-build-kyma ghcr.io/codbex/kronos-buildpacks-stack-build-kyma:${{ env.KRONOS_VERSION }}
+    #     docker push ghcr.io/codbex/kronos-buildpacks-stack-build-kyma:${{ env.KRONOS_VERSION }}
+    #     cd buildpack/
+    #     find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/${{ env.KRONOS_VERSION }}/g'' {} \;
+    #     pack buildpack package ghcr.io/codbex/kronos-buildpacks-kyma --config ./package.toml
+    #     docker tag ghcr.io/codbex/kronos-buildpacks-kyma ghcr.io/codbex/kronos-buildpacks-kyma:${{ env.KRONOS_VERSION }}
+    #     docker push ghcr.io/codbex/kronos-buildpacks-kyma:${{ env.KRONOS_VERSION }}
+    #     pack builder create ghcr.io/codbex/kronos-buildpacks-builder-kyma --config ./builder.toml
+    #     docker tag ghcr.io/codbex/kronos-buildpacks-builder-kyma ghcr.io/codbex/kronos-buildpacks-builder-kyma:${{ env.KRONOS_VERSION }}
+    #     docker push ghcr.io/codbex/kronos-buildpacks-builder-kyma:${{ env.KRONOS_VERSION }}
+    #     cd ../../../../
+    # - name: Kronos Kyma Runtime Buildpack
+    #   run: |
+    #     cd releng/buildpacks/kronos-kyma-runtime/
+    #     docker build --load -t ghcr.io/codbex/kronos-buildpacks-stack-base-kyma-runtime . --target base
+    #     docker push ghcr.io/codbex/kronos-buildpacks-stack-base-kyma-runtime
+    #     docker build --load -t ghcr.io/codbex/kronos-buildpacks-stack-run-kyma-runtime . --target run
+    #     docker push ghcr.io/codbex/kronos-buildpacks-stack-run-kyma-runtime
+    #     docker build --load -t ghcr.io/codbex/kronos-buildpacks-stack-build-kyma-runtime . --target build
+    #     docker push ghcr.io/codbex/kronos-buildpacks-stack-build-kyma-runtime
+    #     cd buildpack/
+    #     find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/latest/g'' {} \;
+    #     pack buildpack package ghcr.io/codbex/kronos-buildpacks-kyma-runtime --config ./package.toml
+    #     docker push ghcr.io/codbex/kronos-buildpacks-kyma-runtime
+    #     pack builder create ghcr.io/codbex/kronos-buildpacks-builder-kyma-runtime --config ./builder.toml
+    #     docker push ghcr.io/codbex/kronos-buildpacks-builder-kyma-runtime
+    #     cd ../../../../
+    # - name: Kronos Cloud Foundry Buildpack
+    #   run: |
+    #     cd releng/buildpacks/kronos-cf/
+    #     docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-base-cf . --target base
+    #     docker tag ghcr.io/codbex/kronos-buildpacks-stack-base-cf ghcr.io/codbex/kronos-buildpacks-stack-base-cf:${{ env.KRONOS_VERSION }}
+    #     docker push ghcr.io/codbex/kronos-buildpacks-stack-base-cf:${{ env.KRONOS_VERSION }}
+    #     docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-run-cf . --target run
+    #     docker tag ghcr.io/codbex/kronos-buildpacks-stack-run-cf ghcr.io/codbex/kronos-buildpacks-stack-run-cf:${{ env.KRONOS_VERSION }}
+    #     docker push ghcr.io/codbex/kronos-buildpacks-stack-run-cf:${{ env.KRONOS_VERSION }}
+    #     docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-build-cf . --target build
+    #     docker tag ghcr.io/codbex/kronos-buildpacks-stack-build-cf ghcr.io/codbex/kronos-buildpacks-stack-build-cf:${{ env.KRONOS_VERSION }}
+    #     docker push ghcr.io/codbex/kronos-buildpacks-stack-build-cf:${{ env.KRONOS_VERSION }}
+    #     cd buildpack/
+    #     find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/${{ env.KRONOS_VERSION }}/g'' {} \;
+    #     pack buildpack package ghcr.io/codbex/kronos-buildpacks-cf --config ./package.toml
+    #     docker tag ghcr.io/codbex/kronos-buildpacks-cf ghcr.io/codbex/kronos-buildpacks-cf:${{ env.KRONOS_VERSION }}
+    #     docker push ghcr.io/codbex/kronos-buildpacks-cf:${{ env.KRONOS_VERSION }}
+    #     pack builder create ghcr.io/codbex/kronos-buildpacks-builder-cf --config ./builder.toml
+    #     docker tag ghcr.io/codbex/kronos-buildpacks-builder-cf ghcr.io/codbex/kronos-buildpacks-builder-cf:${{ env.KRONOS_VERSION }}
+    #     docker push ghcr.io/codbex/kronos-buildpacks-builder-cf:${{ env.KRONOS_VERSION }}
+    #     cd ../../../../
 
 #----------------Helm Release------------------#
     - id: install-secret-key

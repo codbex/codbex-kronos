@@ -31,9 +31,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * Additional (join) properties neded to specify a temporal join
  *
  *
- * <p>Java class for TemporalJoinProperties complex type.
+ * Java class for TemporalJoinProperties complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="TemporalJoinProperties"&gt;
@@ -52,15 +52,22 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "TemporalJoinProperties")
 public class TemporalJoinProperties {
 
+  /** The temporal element name. */
   @XmlAttribute(name = "temporalElementName", required = true)
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String temporalElementName;
+  
+  /** The from element name. */
   @XmlAttribute(name = "fromElementName")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String fromElementName;
+  
+  /** The to element name. */
   @XmlAttribute(name = "toElementName")
   @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
   protected String toElementName;
+  
+  /** The temporal condition. */
   @XmlAttribute(name = "temporalCondition", required = true)
   protected TemporalCondition temporalCondition;
 

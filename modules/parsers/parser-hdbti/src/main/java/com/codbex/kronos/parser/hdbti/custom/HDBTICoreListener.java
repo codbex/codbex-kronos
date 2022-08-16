@@ -11,13 +11,6 @@
  */
 package com.codbex.kronos.parser.hdbti.custom;
 
-import com.codbex.kronos.parser.hdbti.core.HdbtiBaseListener;
-import com.codbex.kronos.parser.hdbti.core.HdbtiParser;
-import com.codbex.kronos.parser.hdbti.core.HdbtiParser.AssignTableContext;
-import com.codbex.kronos.parser.hdbti.exception.DuplicateFieldNameException;
-import com.codbex.kronos.parser.hdbti.exception.TablePropertySyntaxException;
-import com.codbex.kronos.parser.hdbti.models.HDBTIImportConfigModel;
-import com.codbex.kronos.parser.hdbti.models.HDBTIImportModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -26,17 +19,50 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.codbex.kronos.parser.hdbti.core.HdbtiBaseListener;
+import com.codbex.kronos.parser.hdbti.core.HdbtiParser;
+import com.codbex.kronos.parser.hdbti.core.HdbtiParser.AssignTableContext;
+import com.codbex.kronos.parser.hdbti.exception.DuplicateFieldNameException;
+import com.codbex.kronos.parser.hdbti.exception.TablePropertySyntaxException;
+import com.codbex.kronos.parser.hdbti.models.HDBTIImportConfigModel;
+import com.codbex.kronos.parser.hdbti.models.HDBTIImportModel;
+
+/**
+ * The listener interface for receiving HDBTICore events.
+ * The class that is interested in processing a HDBTICore
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addHDBTICoreListener</code> method. When
+ * the HDBTICore event occurs, that object's appropriate
+ * method is invoked.
+ *
+ */
 public class HDBTICoreListener extends HdbtiBaseListener {
 
+  /** The import model. */
   private final HDBTIImportModel importModel = new HDBTIImportModel();
+  
+  /** The used fields. */
   private final Set<String> usedFields = new HashSet<>();
+  
+  /** The config model. */
   private HDBTIImportConfigModel configModel;
 
+  /**
+   * Enter obj config.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterObjConfig(HdbtiParser.ObjConfigContext ctx) {
     configModel = new HDBTIImportConfigModel();
   }
 
+  /**
+   * Exit obj config.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void exitObjConfig(HdbtiParser.ObjConfigContext ctx) {
     List<HDBTIImportConfigModel.Pair> pairs = new ArrayList<>();
@@ -99,6 +125,11 @@ public class HDBTICoreListener extends HdbtiBaseListener {
     usedFields.clear();
   }
 
+  /**
+   * Enter assign expression.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterAssignExpression(HdbtiParser.AssignExpressionContext ctx) {
     String currentObjField = ctx.getChild(0).getChild(0).getText();
@@ -119,10 +150,20 @@ public class HDBTICoreListener extends HdbtiBaseListener {
     }
   }
 
+  /**
+   * Gets the import model.
+   *
+   * @return the import model
+   */
   public HDBTIImportModel getImportModel() {
     return importModel;
   }
 
+  /**
+   * Enter assign table.
+   *
+   * @param ctx the ctx
+   */
   @Override
   public void enterAssignTable(AssignTableContext ctx) {
     String tableProperty = handleStringLiteral(ctx.STRING().getText());
@@ -134,6 +175,10 @@ public class HDBTICoreListener extends HdbtiBaseListener {
 
   /**
    * Check if the table property has proper syntax.
+   *
+   * @param tableProperty the table property
+   * @return true, if is correct table property syntax
+   * @throws IllegalArgumentException the illegal argument exception
    */
   public static boolean isCorrectTablePropertySyntax(String tableProperty) throws IllegalArgumentException {
     String regex = new String();
@@ -150,6 +195,12 @@ public class HDBTICoreListener extends HdbtiBaseListener {
     return matcher.find();
   }
 
+  /**
+   * Handle string literal.
+   *
+   * @param value the value
+   * @return the string
+   */
   private String handleStringLiteral(String value) {
     if (value != null && value.length() > 1) {
       String subStr = value.substring(1, value.length() - 1);

@@ -19,13 +19,14 @@
 
 package com.codbex.kronos.ndb.bimodelcalculation;
 
-import com.codbex.kronos.ndb.basemodelbase.Cardinality;
-import com.codbex.kronos.ndb.basemodelbase.JoinType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+
+import com.codbex.kronos.ndb.basemodelbase.Cardinality;
+import com.codbex.kronos.ndb.basemodelbase.JoinType;
 
 
 /**
@@ -38,9 +39,9 @@ import javax.xml.bind.annotation.XmlType;
  * There is also no support for the 'dynamic join property' or the 'ignore multiple outputs for filter	property'.
  *
  *
- * <p>Java class for NonEquiJoinView complex type.
+ * Java class for NonEquiJoinView complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="NonEquiJoinView"&gt;
@@ -63,10 +64,15 @@ import javax.xml.bind.annotation.XmlType;
 public class NonEquiJoinView
     extends CalculationView {
 
+  /** The join attribute. */
   @XmlElement(required = true)
   protected NonEquiJoinAttribute joinAttribute;
+  
+  /** The join type. */
   @XmlAttribute(name = "joinType", required = true)
   protected JoinType joinType;
+  
+  /** The cardinality. */
   @XmlAttribute(name = "cardinality")
   protected Cardinality cardinality;
 

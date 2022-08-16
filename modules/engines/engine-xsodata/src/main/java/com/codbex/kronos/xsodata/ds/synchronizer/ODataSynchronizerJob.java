@@ -19,8 +19,14 @@ import org.eclipse.dirigible.core.scheduler.api.ISynchronizer;
  */
 public class ODataSynchronizerJob extends AbstractSynchronizerJob {
 
+  /** The odata synchronizer. */
   private final ODataSynchronizer odataSynchronizer = new ODataSynchronizer();
 
+  /**
+   * Gets the synchronizer.
+   *
+   * @return the synchronizer
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizerJob#getSynchronizer()
@@ -30,13 +36,18 @@ public class ODataSynchronizerJob extends AbstractSynchronizerJob {
     return odataSynchronizer;
   }
 
+  /**
+   * Gets the name.
+   *
+   * @return the name
+   */
   /*
    * (non-Javadoc)
    * @see org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizerJob#getName()
    */
   @Override
   public String getName() {
-    return ODataSynchronizerJobDefinitionProvider.KRONOS_ODATA_SYNCHRONIZER_JOB_NAME;
+    return ODataSynchronizerJobDefinitionProvider.ODATA_SYNCHRONIZER_JOB;
   }
 
 }

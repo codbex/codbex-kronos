@@ -14,6 +14,7 @@ package com.codbex.kronos.hdbti.dao;
 import com.codbex.kronos.hdbti.api.ICSVRecordDao;
 import com.codbex.kronos.hdbti.utils.CSVRecordMetadata;
 import com.codbex.kronos.utils.CommonsDBUtils;
+
 import org.apache.commons.csv.CSVRecord;
 import org.apache.cxf.common.util.StringUtils;
 import org.eclipse.dirigible.api.v3.core.ConsoleFacade;
@@ -38,14 +39,26 @@ import java.util.List;
 
 import static java.text.MessageFormat.format;
 
+/**
+ * The Class CSVRecordDao.
+ */
 public class CSVRecordDao implements ICSVRecordDao {
 
+    /** The Constant logger. */
     private static final Logger logger = LoggerFactory.getLogger(CSVRecordDao.class);
 
+    /** The data source. */
     private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
 
+    /** The db metadata util. */
     private DBMetadataUtil dbMetadataUtil = new DBMetadataUtil();
 
+    /**
+     * Save.
+     *
+     * @param csvRecordMetadata the csv record metadata
+     * @throws SQLException the SQL exception
+     */
     @Override
     public void save(CSVRecordMetadata csvRecordMetadata) throws SQLException {
         String tableName = csvRecordMetadata.getTableMetadataModel().getTableName();
@@ -70,6 +83,12 @@ public class CSVRecordDao implements ICSVRecordDao {
         }
     }
 
+    /**
+     * Update.
+     *
+     * @param csvRecordMetadata the csv record metadata
+     * @throws SQLException the SQL exception
+     */
     @Override
     public void update(CSVRecordMetadata csvRecordMetadata) throws SQLException {
         String tableName = csvRecordMetadata.getTableMetadataModel().getTableName();
@@ -104,6 +123,13 @@ public class CSVRecordDao implements ICSVRecordDao {
         }
     }
 
+    /**
+     * Delete all.
+     *
+     * @param ids the ids
+     * @param tableName the table name
+     * @throws SQLException the SQL exception
+     */
     @Override
     public void deleteAll(List<String> ids, String tableName) throws SQLException {
         if (ids.isEmpty()) {
@@ -127,6 +153,13 @@ public class CSVRecordDao implements ICSVRecordDao {
         }
     }
 
+    /**
+     * Delete.
+     *
+     * @param id the id
+     * @param tableName the table name
+     * @throws SQLException the SQL exception
+     */
     @Override
     public void delete(String id, String tableName) throws SQLException {
         if (StringUtils.isEmpty(id) || StringUtils.isEmpty(tableName)) {
@@ -150,16 +183,34 @@ public class CSVRecordDao implements ICSVRecordDao {
         }
     }
 
+    /**
+     * Gets the data source.
+     *
+     * @return the data source
+     */
     @Override
     public DataSource getDataSource() {
         return dataSource;
     }
 
+    /**
+     * Gets the db metadata util.
+     *
+     * @return the db metadata util
+     */
     @Override
     public DBMetadataUtil getDbMetadataUtil() {
         return dbMetadataUtil;
     }
 
+    /**
+     * Execute insert prepared statement.
+     *
+     * @param csvRecordMetadata the csv record metadata
+     * @param tableColumns the table columns
+     * @param statement the statement
+     * @throws SQLException the SQL exception
+     */
     private void executeInsertPreparedStatement(CSVRecordMetadata csvRecordMetadata, List<TableColumn> tableColumns, PreparedStatement statement) throws SQLException {
         if (csvRecordMetadata.getHeaderNames().size() > 0) {
             insertCsvWithHeader(csvRecordMetadata, tableColumns, statement);
@@ -170,6 +221,14 @@ public class CSVRecordDao implements ICSVRecordDao {
         statement.execute();
     }
 
+    /**
+     * Insert csv with header.
+     *
+     * @param csvRecordMetadata the csv record metadata
+     * @param tableColumns the table columns
+     * @param statement the statement
+     * @throws SQLException the SQL exception
+     */
     private void insertCsvWithHeader(CSVRecordMetadata csvRecordMetadata, List<TableColumn> tableColumns, PreparedStatement statement) throws SQLException {
 
         for (int i = 0; i < tableColumns.size(); i++) {
@@ -180,6 +239,14 @@ public class CSVRecordDao implements ICSVRecordDao {
         }
     }
 
+    /**
+     * Insert csv without header.
+     *
+     * @param csvRecordMetadata the csv record metadata
+     * @param tableColumns the table columns
+     * @param statement the statement
+     * @throws SQLException the SQL exception
+     */
     private void insertCsvWithoutHeader(CSVRecordMetadata csvRecordMetadata, List<TableColumn> tableColumns, PreparedStatement statement) throws SQLException {
         for (int i = 0; i < csvRecordMetadata.getCsvRecord().size(); i++) {
             String value = csvRecordMetadata.getCsvRecord().get(i);
@@ -189,6 +256,14 @@ public class CSVRecordDao implements ICSVRecordDao {
         }
     }
 
+    /**
+     * Execute update prepared statement.
+     *
+     * @param csvRecordMetadata the csv record metadata
+     * @param tableColumns the table columns
+     * @param statement the statement
+     * @throws SQLException the SQL exception
+     */
     private void executeUpdatePreparedStatement(CSVRecordMetadata csvRecordMetadata, List<TableColumn> tableColumns, PreparedStatement statement) throws SQLException {
         if (csvRecordMetadata.getHeaderNames().size() > 0) {
             updateCsvWithHeader(csvRecordMetadata, tableColumns, statement);
@@ -199,6 +274,14 @@ public class CSVRecordDao implements ICSVRecordDao {
         statement.execute();
     }
 
+    /**
+     * Update csv with header.
+     *
+     * @param csvRecordMetadata the csv record metadata
+     * @param tableColumns the table columns
+     * @param statement the statement
+     * @throws SQLException the SQL exception
+     */
     private void updateCsvWithHeader(CSVRecordMetadata csvRecordMetadata, List<TableColumn> tableColumns, PreparedStatement statement) throws SQLException {
         CSVRecord csvRecord = csvRecordMetadata.getCsvRecord();
 
@@ -218,6 +301,14 @@ public class CSVRecordDao implements ICSVRecordDao {
         setValue(statement, lastStatementPlaceholderIndex, pkColumnType, csvRecordMetadata.getCsvRecordPkValue());
     }
 
+    /**
+     * Update csv without header.
+     *
+     * @param csvRecordMetadata the csv record metadata
+     * @param tableColumns the table columns
+     * @param statement the statement
+     * @throws SQLException the SQL exception
+     */
     private void updateCsvWithoutHeader(CSVRecordMetadata csvRecordMetadata, List<TableColumn> tableColumns, PreparedStatement statement) throws SQLException {
         CSVRecord csvRecord = csvRecordMetadata.getCsvRecord();
         for (int i = 1; i < csvRecord.size(); i++) {
@@ -231,6 +322,16 @@ public class CSVRecordDao implements ICSVRecordDao {
         setValue(statement, lastStatementPlaceholderIndex, pkColumnType, csvRecord.get(0));
     }
 
+    /**
+     * Sets the prepared statement value.
+     *
+     * @param distinguishEmptyFromNull the distinguish empty from null
+     * @param statement the statement
+     * @param i the i
+     * @param value the value
+     * @param columnType the column type
+     * @throws SQLException the SQL exception
+     */
     private void setPreparedStatementValue(Boolean distinguishEmptyFromNull, PreparedStatement statement, int i, String value, int columnType)
             throws SQLException {
         if (!StringUtils.isEmpty(value)) {
@@ -301,6 +402,12 @@ public class CSVRecordDao implements ICSVRecordDao {
         }
     }
 
+    /**
+     * Sanitize.
+     *
+     * @param value the value
+     * @return the string
+     */
     private String sanitize(String value) {
         if (value != null && value.startsWith("\"") && value.endsWith("\"")) {
             value = value.substring(1, value.length() - 1);
@@ -311,6 +418,12 @@ public class CSVRecordDao implements ICSVRecordDao {
         return value != null ? value.trim() : null;
     }
 
+    /**
+     * Numberize.
+     *
+     * @param value the value
+     * @return the string
+     */
     private String numberize(String value) {
         if (StringUtils.isEmpty(value)) {
             value = "0";

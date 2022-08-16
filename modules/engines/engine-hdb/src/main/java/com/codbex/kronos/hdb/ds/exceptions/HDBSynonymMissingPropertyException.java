@@ -11,8 +11,16 @@
  */
 package com.codbex.kronos.hdb.ds.exceptions;
 
+/**
+ * The Class HDBSynonymMissingPropertyException.
+ */
 public class HDBSynonymMissingPropertyException extends RuntimeException {
 
+  /**
+   * Instantiates a new HDB synonym missing property exception.
+   *
+   * @param message the message
+   */
   public HDBSynonymMissingPropertyException(String message) {
     super(message);
   }

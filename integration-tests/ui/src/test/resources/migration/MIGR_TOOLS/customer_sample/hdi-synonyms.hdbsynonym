@@ -14,19 +14,19 @@
     "customer_sample::SalesOrders": {
         "target": {
             "object": "customer_sample::SalesOrders",
-            "schema": "KRONOS_SAMPLES_HDI_CUBE"
+            "schema": "SAMPLES_HDI_CUSTOMER"
         }
     },
     "customer_sample::SalesOrdersTable": {
         "target": {
             "object": "customer_sample::SalesOrdersTable",
-            "schema": "KRONOS_SAMPLES_HDI_CUBE"
+            "schema": "SAMPLES_HDI_CUSTOMER"
         }
     },
     "customer_sample::publishers": {
         "target": {
             "object": "customer_sample::publishers",
-            "schema": "KRONOS_SAMPLES_HDI_CUBE"
+            "schema": "SAMPLES_HDI_CUSTOMER"
         }
     }
 }

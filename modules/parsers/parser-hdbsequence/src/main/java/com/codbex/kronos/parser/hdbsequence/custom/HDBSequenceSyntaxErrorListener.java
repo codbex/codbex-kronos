@@ -11,17 +11,39 @@
  */
 package com.codbex.kronos.parser.hdbsequence.custom;
 
-import com.codbex.kronos.parser.models.BaseParserErrorsModel;
 import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 
+import com.codbex.kronos.parser.models.BaseParserErrorsModel;
+
 import java.util.ArrayList;
 
+/**
+ * The listener interface for receiving HDBSequenceSyntaxError events.
+ * The class that is interested in processing a HDBSequenceSyntaxError
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addHDBSequenceSyntaxErrorListener</code> method. When
+ * the HDBSequenceSyntaxError event occurs, that object's appropriate
+ * method is invoked.
+ *
+ */
 public class HDBSequenceSyntaxErrorListener extends BaseErrorListener {
 
+  /** The errors. */
   private final ArrayList<BaseParserErrorsModel> errors = new ArrayList<>();
 
+  /**
+   * Syntax error.
+   *
+   * @param recognizer the recognizer
+   * @param offendingSymbol the offending symbol
+   * @param line the line
+   * @param charPositionInLine the char position in line
+   * @param msg the msg
+   * @param e the e
+   */
   @Override
   public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg,
                           RecognitionException e) {
@@ -29,6 +51,11 @@ public class HDBSequenceSyntaxErrorListener extends BaseErrorListener {
     this.errors.add(new BaseParserErrorsModel(line, charPositionInLine, offendingSymbol == null? "" : offendingSymbol.toString(), msg));
   }
 
+  /**
+   * Gets the errors.
+   *
+   * @return the errors
+   */
   public ArrayList<BaseParserErrorsModel> getErrors() {
     return errors;
   }

@@ -19,21 +19,22 @@
 
 package com.codbex.kronos.ndb.bimodeldatafoundation;
 
-import com.codbex.kronos.ndb.bimodelprivilege.AnalyticPrivilege;
-import com.codbex.kronos.ndb.repositorymodelresource.ResourceObject;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
+
+import com.codbex.kronos.ndb.bimodelprivilege.AnalyticPrivilege;
+import com.codbex.kronos.ndb.repositorymodelresource.ResourceObject;
 
 
 /**
  * General base type for all BI resources
  *
  *
- * <p>Java class for BIResource complex type.
+ * Java class for BIResource complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="BIResource"&gt;
