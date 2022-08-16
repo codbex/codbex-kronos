@@ -27,14 +27,14 @@ import javax.xml.transform.stream.StreamSource;
 
 import com.codbex.kronos.parser.hana.core.HanaLexer;
 import com.codbex.kronos.parser.hana.core.HanaParser;
-import com.codbex.kronos.parser.hana.core.custom.HanaProcedureUpdateStatementListener;
-import com.codbex.kronos.parser.hana.core.models.FromClauseDefinitionModel;
-import com.codbex.kronos.parser.hana.core.models.JoinClauseDefinitionModel;
-import com.codbex.kronos.parser.hana.core.models.ProcedureDefinitionModel;
-import com.codbex.kronos.parser.hana.core.models.TableReferenceModel;
-import com.codbex.kronos.parser.hana.core.models.UpdateSetClauseDefinitionModel;
-import com.codbex.kronos.parser.hana.core.models.UpdateStatementDefinitionModel;
-import com.codbex.kronos.parser.hana.core.models.WhereClauseDefinitionModel;
+import com.codbex.kronos.parser.hana.custom.HanaProcedureUpdateStatementListener;
+import com.codbex.kronos.parser.hana.models.FromClauseDefinitionModel;
+import com.codbex.kronos.parser.hana.models.JoinClauseDefinitionModel;
+import com.codbex.kronos.parser.hana.models.ProcedureDefinitionModel;
+import com.codbex.kronos.parser.hana.models.TableReferenceModel;
+import com.codbex.kronos.parser.hana.models.UpdateSetClauseDefinitionModel;
+import com.codbex.kronos.parser.hana.models.UpdateStatementDefinitionModel;
+import com.codbex.kronos.parser.hana.models.WhereClauseDefinitionModel;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 

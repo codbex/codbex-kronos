@@ -11,8 +11,8 @@
  */
 package com.codbex.kronos.xsodata.ds.service;
 
-import com.codbex.kronos.parser.xsodata.model.HDBXSODataAssociation;
-import com.codbex.kronos.parser.xsodata.model.HDBXSODataEntity;
+import com.codbex.kronos.parser.xsodata.model.XSODataAssociation;
+import com.codbex.kronos.parser.xsodata.model.XSODataEntity;
 import com.codbex.kronos.xsodata.ds.api.IODataArtifactDao;
 import com.codbex.kronos.xsodata.ds.api.IODataCoreService;
 import com.codbex.kronos.xsodata.ds.api.IODataParser;
@@ -44,9 +44,9 @@ public class ODataCoreService implements IODataCoreService {
      * @param navigation the navigation
      * @return the entity
      */
-    public static HDBXSODataEntity getEntity(ODataModel model, String alias, String navigation) {
+    public static XSODataEntity getEntity(ODataModel model, String alias, String navigation) {
         if (model != null && model.getService() != null) {
-            for (HDBXSODataEntity entity : model.getService().getEntities()) {
+            for (XSODataEntity entity : model.getService().getEntities()) {
                 if (alias != null && alias.equals(entity.getAlias())) {
                     return entity;
                 }
@@ -64,9 +64,9 @@ public class ODataCoreService implements IODataCoreService {
      * @param navigation the navigation
      * @return the association
      */
-    public static HDBXSODataAssociation getAssociation(ODataModel model, String name, String navigation) {
+    public static XSODataAssociation getAssociation(ODataModel model, String name, String navigation) {
         if (model != null && model.getService() != null) {
-            for (HDBXSODataAssociation association : model.getService().getAssociations()) {
+            for (XSODataAssociation association : model.getService().getAssociations()) {
                 if (name != null && name.equals(association.getName())) {
                     return association;
                 }

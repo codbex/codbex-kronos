@@ -11,7 +11,7 @@
  */
 package com.codbex.kronos.parser.hdbtable.model;
 
-import com.codbex.kronos.parser.hdbtable.constants.HdbtablePropertiesConstants;
+import com.codbex.kronos.parser.hdbtable.constants.HDBTablePropertiesConstants;
 import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableMissingPropertyException;
 import com.google.gson.annotations.SerializedName;
 
@@ -31,7 +31,7 @@ public class HDBTableDefinitionModel {
     private String tableType;
 
     /** The pk columns. */
-    @SerializedName(value = HdbtablePropertiesConstants.HDBTABLE_PROPERTY_PKCOLUMNS)
+    @SerializedName(value = HDBTablePropertiesConstants.HDBTABLE_PROPERTY_PKCOLUMNS)
     private List<String> pkColumns = new ArrayList<>();
 
     /** The index type. */

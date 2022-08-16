@@ -47,7 +47,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 import com.codbex.kronos.exceptions.ArtifactParserException;
-import com.codbex.kronos.parser.xsodata.model.HDBXSODataAggregationType;
+import com.codbex.kronos.parser.xsodata.model.XSODataAggregationType;
 import com.codbex.kronos.xsodata.ds.model.DBArtifactModel;
 import com.codbex.kronos.xsodata.ds.model.ODataModel;
 
@@ -198,7 +198,7 @@ public class ODataParserTest extends AbstractDirigibleTest {
 		String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_implicit_aggregation.xsodata"), StandardCharsets.UTF_8);
 		ODataModel oDataModel = parser.parseODataArtifact("/entity_with_implicit_aggregation.xsodata", content);
     assertEquals(0, oDataModel.getService().getEntities().get(0).getAggregations().size());
-    assertEquals(HDBXSODataAggregationType.IMPLICIT, oDataModel.getService().getEntities().get(0).getAggregationType());
+    assertEquals(XSODataAggregationType.IMPLICIT, oDataModel.getService().getEntities().get(0).getAggregationType());
 	}
 
 	@Test
@@ -207,7 +207,7 @@ public class ODataParserTest extends AbstractDirigibleTest {
 		String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_explicit_aggregation.xsodata"), StandardCharsets.UTF_8);
     ODataModel oDataModel = parser.parseODataArtifact("/entity_with_explicit_aggregation.xsodata", content);
     assertEquals(3, oDataModel.getService().getEntities().get(0).getAggregations().size());
-    assertEquals(HDBXSODataAggregationType.EXPLICIT, oDataModel.getService().getEntities().get(0).getAggregationType());
+    assertEquals(XSODataAggregationType.EXPLICIT, oDataModel.getService().getEntities().get(0).getAggregationType());
 	}
 
 	@Test(expected = OData2TransformerException.class)

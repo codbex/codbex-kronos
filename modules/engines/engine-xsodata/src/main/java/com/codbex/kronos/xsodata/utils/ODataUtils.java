@@ -11,14 +11,14 @@
  */
 package com.codbex.kronos.xsodata.utils;
 
-import com.codbex.kronos.parser.xsodata.model.HDBXSODataAggregation;
-import com.codbex.kronos.parser.xsodata.model.HDBXSODataAggregationType;
-import com.codbex.kronos.parser.xsodata.model.HDBXSODataAssociation;
-import com.codbex.kronos.parser.xsodata.model.HDBXSODataEntity;
-import com.codbex.kronos.parser.xsodata.model.HDBXSODataEventType;
-import com.codbex.kronos.parser.xsodata.model.HDBXSODataModification;
-import com.codbex.kronos.parser.xsodata.model.HDBXSODataMultiplicityType;
-import com.codbex.kronos.parser.xsodata.model.HDBXSODataNavigation;
+import com.codbex.kronos.parser.xsodata.model.XSODataAggregation;
+import com.codbex.kronos.parser.xsodata.model.XSODataAggregationType;
+import com.codbex.kronos.parser.xsodata.model.XSODataAssociation;
+import com.codbex.kronos.parser.xsodata.model.XSODataEntity;
+import com.codbex.kronos.parser.xsodata.model.XSODataEventType;
+import com.codbex.kronos.parser.xsodata.model.XSODataModification;
+import com.codbex.kronos.parser.xsodata.model.XSODataMultiplicityType;
+import com.codbex.kronos.parser.xsodata.model.XSODataNavigation;
 import com.codbex.kronos.xsodata.ds.model.ODataModel;
 import com.codbex.kronos.xsodata.ds.service.OData2TransformerException;
 import com.codbex.kronos.xsodata.ds.service.ODataCoreService;
@@ -91,7 +91,7 @@ public class ODataUtils {
     String namespace = oDataModel.getService().getNamespace() != null ? oDataModel.getService().getNamespace() : "Default";
     oDataDefinitionModel.setNamespace(namespace);
 
-    for (HDBXSODataEntity entity : oDataModel.getService().getEntities()) {
+    for (XSODataEntity entity : oDataModel.getService().getEntities()) {
       List<PersistenceTableColumnModel> allEntityParameters = new ArrayList<>();
 
       String tableName = entity.getRepositoryObject().getCatalogObjectName();
@@ -169,13 +169,13 @@ public class ODataUtils {
       }
 
       // Process Aggregations
-      if (HDBXSODataAggregationType.EXPLICIT.equals(entity.getAggregationType())) {
+      if (XSODataAggregationType.EXPLICIT.equals(entity.getAggregationType())) {
         oDataEntityDefinition.getAnnotationsEntityType().put("sap:semantics", "aggregate");
-        for (HDBXSODataAggregation aggregation : entity.getAggregations()) {
+        for (XSODataAggregation aggregation : entity.getAggregations()) {
           oDataEntityDefinition.getAggregationsTypeAndColumn()
               .put(aggregation.getAggregateColumnName(), aggregation.getAggregateFunction());
         }
-      } else if (HDBXSODataAggregationType.IMPLICIT.equals(entity.getAggregationType())) {
+      } else if (XSODataAggregationType.IMPLICIT.equals(entity.getAggregationType())) {
         oDataEntityDefinition.getAnnotationsEntityType().put("sap:semantics", "aggregate");
       }
 
@@ -195,7 +195,7 @@ public class ODataUtils {
    * @param handlers the handlers
    * @return the consumer
    */
-  private Consumer<HDBXSODataModification> processModification(ODataEntityDefinition oDataEntityDefinition,
+  private Consumer<XSODataModification> processModification(ODataEntityDefinition oDataEntityDefinition,
       List<ODataHandler> handlers) {
     return modification -> {
       modification.getSpecification().getEvents().forEach(event -> {
@@ -232,7 +232,7 @@ public class ODataUtils {
    * @param oDataEntityDefinition the o data entity definition
    * @return the consumer
    */
-  Consumer<HDBXSODataNavigation> processNavigation(ODataModel oDataModel,
+  Consumer<XSODataNavigation> processNavigation(ODataModel oDataModel,
       ODataDefinition oDataDefinitionModel, ODataEntityDefinition oDataEntityDefinition) {
     return navigate -> {
       ODataNavigation oDataNavigation = new ODataNavigation();
@@ -243,7 +243,7 @@ public class ODataUtils {
       //set navigations
       ODataAssociationDefinition oDataAssociationDefinition = new ODataAssociationDefinition();
       oDataAssociationDefinition.setName(navigate.getAssociation());
-      HDBXSODataAssociation xsOdataAssoc = ODataCoreService
+      XSODataAssociation xsOdataAssoc = ODataCoreService
           .getAssociation(oDataModel, navigate.getAssociation(), navigate.getAliasNavigation());
 
       ODataAssociationEndDefinition fromDef = new ODataAssociationEndDefinition();
@@ -258,7 +258,7 @@ public class ODataUtils {
 
       //The Multiplicity of the Principal role must be 1, 0..1, 1..*, *
       //convert 1..* to *, because odata do not support it
-      if (xsOdataAssoc.getDependent().getMultiplicityType().getText().equals(HDBXSODataMultiplicityType.ONE_TO_MANY.getText())) {
+      if (xsOdataAssoc.getDependent().getMultiplicityType().getText().equals(XSODataMultiplicityType.ONE_TO_MANY.getText())) {
         toDef.setMultiplicity(EdmMultiplicity.MANY.toString());
       } else {
         validateEdmMultiplicity(xsOdataAssoc.getDependent().getMultiplicityType().getText(), navigate.getAssociation());
@@ -303,7 +303,7 @@ public class ODataUtils {
    * @param eventType the event type
    * @return true, if successful
    */
-  boolean validateHandlerType(HDBXSODataEventType eventType) {
+  boolean validateHandlerType(XSODataEventType eventType) {
     try {
       ODataHandlerTypes.fromValue(eventType.getOdataHandlerType());
     } catch (IllegalArgumentException ex) {
@@ -372,7 +372,7 @@ public class ODataUtils {
    * @param tableName the table name
    */
   private void processParameters(ODataDefinition oDataDefinitionModel, ODataEntityDefinition oDataEntityDefinition,
-      HDBXSODataEntity entity, List<PersistenceTableColumnModel> allEntityParameters, String tableName) {
+      XSODataEntity entity, List<PersistenceTableColumnModel> allEntityParameters, String tableName) {
     ODataEntityDefinition oDataEntityParametersDefinition = new ODataEntityDefinition();
 
     String parameterEntitySetName = entity.getParameterEntitySet().getParameterEntitySetName();

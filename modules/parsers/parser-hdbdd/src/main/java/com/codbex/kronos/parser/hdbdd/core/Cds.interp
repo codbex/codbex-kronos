@@ -185,7 +185,7 @@ Y
 Z
 
 rule names:
-cdsFile
+cdsDefinition
 namespaceRule
 usingRule
 topLevelSymbol

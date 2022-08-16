@@ -20,16 +20,15 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 import com.codbex.kronos.exceptions.ArtifactParserException;
-import com.codbex.kronos.parser.xsodata.model.HDBXSODataEntity;
-import com.codbex.kronos.parser.xsodata.model.HDBXSODataEventType;
-import com.codbex.kronos.parser.xsodata.model.HDBXSODataHandlerMethod;
+import com.codbex.kronos.parser.xsodata.model.XSODataEntity;
+import com.codbex.kronos.parser.xsodata.model.XSODataEventType;
+import com.codbex.kronos.parser.xsodata.model.XSODataHandlerMethod;
 import com.codbex.kronos.utils.CommonsDBUtils;
 import com.codbex.kronos.xsodata.ds.model.DBArtifactModel;
 import com.codbex.kronos.xsodata.ds.model.ODataModel;
 import com.codbex.kronos.xsodata.ds.service.OData2TransformerException;
 import com.codbex.kronos.xsodata.ds.service.ODataParser;
 import com.codbex.kronos.xsodata.ds.service.TableMetadataProvider;
-import com.codbex.kronos.xsodata.utils.ODataUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -296,9 +295,9 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
     assertEquals(ODataHandlerMethods.create.name(), entity1.getHandlers().get(2).getMethod());
     assertEquals(ODataHandlerTypes.forbid.name(), entity1.getHandlers().get(2).getType());
     assertNull(entity1.getHandlers().get(2).getHandler());
-    assertEquals("false", entity1.getAnnotationsEntitySet().get(HDBXSODataHandlerMethod.CREATE.getOdataSAPAnnotation()));
-    assertNull(entity1.getAnnotationsEntitySet().get(HDBXSODataHandlerMethod.UPDATE.getOdataSAPAnnotation()));
-    assertNull(entity1.getAnnotationsEntitySet().get(HDBXSODataHandlerMethod.DELETE.getOdataSAPAnnotation()));
+    assertEquals("false", entity1.getAnnotationsEntitySet().get(XSODataHandlerMethod.CREATE.getOdataSAPAnnotation()));
+    assertNull(entity1.getAnnotationsEntitySet().get(XSODataHandlerMethod.UPDATE.getOdataSAPAnnotation()));
+    assertNull(entity1.getAnnotationsEntitySet().get(XSODataHandlerMethod.DELETE.getOdataSAPAnnotation()));
 
     ODataEntityDefinition entity2 = oDataDefinition.getEntities().get(1);
     assertEquals(4, entity2.getHandlers().size());
@@ -314,9 +313,9 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
     assertEquals(ODataHandlerMethods.delete.name(), entity2.getHandlers().get(3).getMethod());
     assertEquals(ODataHandlerTypes.on.name(), entity2.getHandlers().get(3).getType());
     assertEquals("sample.odata::deleteMethod", entity2.getHandlers().get(3).getHandler());
-    assertNull(entity2.getAnnotationsEntitySet().get(HDBXSODataHandlerMethod.CREATE.getOdataSAPAnnotation()));
-    assertNull(entity2.getAnnotationsEntitySet().get(HDBXSODataHandlerMethod.UPDATE.getOdataSAPAnnotation()));
-    assertNull(entity2.getAnnotationsEntitySet().get(HDBXSODataHandlerMethod.DELETE.getOdataSAPAnnotation()));
+    assertNull(entity2.getAnnotationsEntitySet().get(XSODataHandlerMethod.CREATE.getOdataSAPAnnotation()));
+    assertNull(entity2.getAnnotationsEntitySet().get(XSODataHandlerMethod.UPDATE.getOdataSAPAnnotation()));
+    assertNull(entity2.getAnnotationsEntitySet().get(XSODataHandlerMethod.DELETE.getOdataSAPAnnotation()));
 
     ODataEntityDefinition entity3 = oDataDefinition.getEntities().get(2);
     assertEquals(2, entity3.getHandlers().size());
@@ -326,9 +325,9 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
     assertEquals(ODataHandlerMethods.delete.name(), entity3.getHandlers().get(1).getMethod());
     assertEquals(ODataHandlerTypes.forbid.name(), entity3.getHandlers().get(1).getType());
     assertNull(entity3.getHandlers().get(1).getHandler());
-    assertNull(entity3.getAnnotationsEntitySet().get(HDBXSODataHandlerMethod.CREATE.getOdataSAPAnnotation()));
-    assertNull(entity3.getAnnotationsEntitySet().get(HDBXSODataHandlerMethod.UPDATE.getOdataSAPAnnotation()));
-    assertEquals("false", entity3.getAnnotationsEntitySet().get(HDBXSODataHandlerMethod.DELETE.getOdataSAPAnnotation()));
+    assertNull(entity3.getAnnotationsEntitySet().get(XSODataHandlerMethod.CREATE.getOdataSAPAnnotation()));
+    assertNull(entity3.getAnnotationsEntitySet().get(XSODataHandlerMethod.UPDATE.getOdataSAPAnnotation()));
+    assertEquals("false", entity3.getAnnotationsEntitySet().get(XSODataHandlerMethod.DELETE.getOdataSAPAnnotation()));
 
     ODataEntityDefinition entity4 = oDataDefinition.getEntities().get(3);
     assertEquals(3, entity4.getHandlers().size());
@@ -341,9 +340,9 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
     assertEquals(ODataHandlerMethods.delete.name(), entity4.getHandlers().get(2).getMethod());
     assertEquals(ODataHandlerTypes.forbid.name(), entity4.getHandlers().get(2).getType());
     assertNull(entity4.getHandlers().get(2).getHandler());
-    assertEquals("false", entity4.getAnnotationsEntitySet().get(HDBXSODataHandlerMethod.CREATE.getOdataSAPAnnotation()));
-    assertEquals("false", entity4.getAnnotationsEntitySet().get(HDBXSODataHandlerMethod.UPDATE.getOdataSAPAnnotation()));
-    assertEquals("false", entity4.getAnnotationsEntitySet().get(HDBXSODataHandlerMethod.DELETE.getOdataSAPAnnotation()));
+    assertEquals("false", entity4.getAnnotationsEntitySet().get(XSODataHandlerMethod.CREATE.getOdataSAPAnnotation()));
+    assertEquals("false", entity4.getAnnotationsEntitySet().get(XSODataHandlerMethod.UPDATE.getOdataSAPAnnotation()));
+    assertEquals("false", entity4.getAnnotationsEntitySet().get(XSODataHandlerMethod.DELETE.getOdataSAPAnnotation()));
   }
 
   private void mockTableMetadataInvocations(String tableName) throws SQLException {
@@ -365,14 +364,14 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
 
   @Test
   public void testValidateHandlerTypeFailed() {
-    assertFalse(oDataUtil.validateHandlerType(HDBXSODataEventType.POSTCOMMIT));
-    assertFalse(oDataUtil.validateHandlerType(HDBXSODataEventType.PRECOMMIT));
+    assertFalse(oDataUtil.validateHandlerType(XSODataEventType.POSTCOMMIT));
+    assertFalse(oDataUtil.validateHandlerType(XSODataEventType.PRECOMMIT));
   }
 
   @Test
   public void testValidateHandlerTypeSuccessfully() {
-    assertTrue(oDataUtil.validateHandlerType(HDBXSODataEventType.AFTER));
-    assertTrue(oDataUtil.validateHandlerType(HDBXSODataEventType.BEFORE));
+    assertTrue(oDataUtil.validateHandlerType(XSODataEventType.AFTER));
+    assertTrue(oDataUtil.validateHandlerType(XSODataEventType.BEFORE));
   }
 
   @Test
@@ -485,7 +484,7 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
     ODataModel oDataModel = parser.parseODataArtifact("np/entity_with_3_navigations.xsodata", content);
 
     ODataDefinition oDataDefinitionModel = new ODataDefinition();
-    for (HDBXSODataEntity entity : oDataModel.getService().getEntities()) {
+    for (XSODataEntity entity : oDataModel.getService().getEntities()) {
       ODataEntityDefinition oDataEntityDefinition = new ODataEntityDefinition();
       entity.getNavigates().forEach(oDataUtil.processNavigation(oDataModel, oDataDefinitionModel, oDataEntityDefinition));
 
