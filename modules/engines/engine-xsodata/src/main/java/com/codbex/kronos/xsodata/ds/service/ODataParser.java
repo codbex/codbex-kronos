@@ -12,14 +12,14 @@
 package com.codbex.kronos.xsodata.ds.service;
 
 import com.codbex.kronos.exceptions.ArtifactParserException;
-import com.codbex.kronos.parser.xsodata.core.HdbxsodataLexer;
-import com.codbex.kronos.parser.xsodata.core.HdbxsodataParser;
-import com.codbex.kronos.parser.xsodata.custom.HDBXSODataCoreListener;
-import com.codbex.kronos.parser.xsodata.custom.HDBXSODataSyntaxErrorListener;
-import com.codbex.kronos.parser.xsodata.model.HDBXSODataBindingType;
-import com.codbex.kronos.parser.xsodata.model.HDBXSODataEntity;
-import com.codbex.kronos.parser.xsodata.model.HDBXSODataParameter;
-import com.codbex.kronos.parser.xsodata.model.HDBXSODataService;
+import com.codbex.kronos.parser.xsodata.core.XSODataLexer;
+import com.codbex.kronos.parser.xsodata.core.XSODataParser;
+import com.codbex.kronos.parser.xsodata.custom.XSODataDefinitionListener;
+import com.codbex.kronos.parser.xsodata.custom.XSODataSyntaxErrorListener;
+import com.codbex.kronos.parser.xsodata.model.XSODataBindingType;
+import com.codbex.kronos.parser.xsodata.model.XSODataEntity;
+import com.codbex.kronos.parser.xsodata.model.XSODataParameter;
+import com.codbex.kronos.parser.xsodata.model.XSODataService;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.xsodata.ds.api.IODataParser;
@@ -106,27 +106,27 @@ public class ODataParser implements IODataParser {
 
     ByteArrayInputStream is = new ByteArrayInputStream(content.getBytes());
     ANTLRInputStream inputStream = new ANTLRInputStream(is);
-    HdbxsodataLexer lexer = new HdbxsodataLexer(inputStream);
-    HDBXSODataSyntaxErrorListener lexerErrorListener = new HDBXSODataSyntaxErrorListener();
+    XSODataLexer lexer = new XSODataLexer(inputStream);
+    XSODataSyntaxErrorListener lexerErrorListener = new XSODataSyntaxErrorListener();
     lexer.addErrorListener(lexerErrorListener);
     lexer.removeErrorListeners();
 
     CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-    HdbxsodataParser parser = new HdbxsodataParser(tokenStream);
+    XSODataParser parser = new XSODataParser(tokenStream);
     parser.setBuildParseTree(true);
     parser.removeErrorListeners();
-    HDBXSODataSyntaxErrorListener parserErrorListener = new HDBXSODataSyntaxErrorListener();
+    XSODataSyntaxErrorListener parserErrorListener = new XSODataSyntaxErrorListener();
     parser.addErrorListener(parserErrorListener);
 
-    ParseTree parseTree = parser.xsodataDefinition();
+    ParseTree parseTree = parser.xsOdataDefinition();
     CommonsUtils.logParserErrors(parserErrorListener.getErrors(), CommonsConstants.PARSER_ERROR, location, CommonsConstants.ODATA_PARSER);
     CommonsUtils.logParserErrors(lexerErrorListener.getErrors(), CommonsConstants.LEXER_ERROR, location, CommonsConstants.ODATA_PARSER);
 
-    HDBXSODataCoreListener coreListener = new HDBXSODataCoreListener();
+    XSODataDefinitionListener coreListener = new XSODataDefinitionListener();
     ParseTreeWalker parseTreeWalker = new ParseTreeWalker();
     parseTreeWalker.walk(coreListener, parseTree);
 
-    HDBXSODataService antlr4Model = coreListener.getServiceModel();
+    XSODataService antlr4Model = coreListener.getServiceModel();
     odataModel.setService(antlr4Model);
 
     applyConditions(location, odataModel);
@@ -168,7 +168,7 @@ public class ODataParser implements IODataParser {
    * @throws SQLException the SQL exception
    */
   private void applyEmptyExistCondition(String location, ODataModel odataModel) throws SQLException {
-    for (HDBXSODataEntity entity : odataModel.getService().getEntities()) {
+    for (XSODataEntity entity : odataModel.getService().getEntities()) {
       if (entity.getKeyList().size() > 0) {
         if (!checkIfEntityExist(entity.getRepositoryObject().getCatalogObjectName())) {
           throw new OData2TransformerException(String
@@ -203,7 +203,7 @@ public class ODataParser implements IODataParser {
    * @throws SQLException the SQL exception
    */
   private void applyKeysCondition(ODataModel odataModel) throws SQLException {
-    for (HDBXSODataEntity entity : odataModel.getService().getEntities()) {
+    for (XSODataEntity entity : odataModel.getService().getEntities()) {
       if (entity.getKeyList().size() > 0) {
         String catalogObjectName = getCorrectCatalogObjectName(entity);
 
@@ -250,7 +250,7 @@ public class ODataParser implements IODataParser {
   private void applyNavEntryFromEndCondition(ODataModel odataModel) {
     odataModel.getService().getAssociations().forEach(ass -> {
       if (ass.getDependent().getEntitySetName().equals(ass.getPrincipal().getEntitySetName())) {
-        List<HDBXSODataEntity> entity = odataModel.getService().getEntities().stream()
+        List<XSODataEntity> entity = odataModel.getService().getEntities().stream()
             .filter(el -> el.getAlias().equals(ass.getDependent().getEntitySetName())).collect(Collectors.toList());
         if (entity.size() == 1) {
           entity.get(0).getNavigates().forEach(nav -> {
@@ -313,11 +313,11 @@ public class ODataParser implements IODataParser {
       if (ass.getAssociationTable() != null) {
         if (ass.getAssociationTable().getDependent().getKeys().size() != ass.getDependent().getBindingRole().getKeys().size()) {
           throw new OData2TransformerException(String
-              .format("Different number of %s properties in association %s", HDBXSODataBindingType.DEPENDENT.getText(), ass.getName()));
+              .format("Different number of %s properties in association %s", XSODataBindingType.DEPENDENT.getText(), ass.getName()));
         }
         if (ass.getAssociationTable().getPrincipal().getKeys().size() != ass.getPrincipal().getBindingRole().getKeys().size()) {
           throw new OData2TransformerException(String
-              .format("Different number of %s properties in association %s", HDBXSODataBindingType.PRINCIPAL.getText(), ass.getName()));
+              .format("Different number of %s properties in association %s", XSODataBindingType.PRINCIPAL.getText(), ass.getName()));
         }
       }
     });
@@ -330,7 +330,7 @@ public class ODataParser implements IODataParser {
    * @throws SQLException the SQL exception
    */
   private void applyParametersToViewsCondition(ODataModel odataModel) throws SQLException {
-    for (HDBXSODataEntity entity : odataModel.getService().getEntities()) {
+    for (XSODataEntity entity : odataModel.getService().getEntities()) {
       if (entity.getParameterEntitySet() != null) {
         String catalogObjectName = getCorrectCatalogObjectName(entity);
 
@@ -356,9 +356,9 @@ public class ODataParser implements IODataParser {
    * @param odataModel the odata model
    */
   private void applyOmittedParamResultCondition(ODataModel odataModel) {
-    for (HDBXSODataEntity entity : odataModel.getService().getEntities()) {
+    for (XSODataEntity entity : odataModel.getService().getEntities()) {
       if (entity.getParameterType() != null) {
-        HDBXSODataParameter defaultParam = new HDBXSODataParameter();
+        XSODataParameter defaultParam = new XSODataParameter();
         if (entity.getParameterEntitySet() != null && entity.getParameterEntitySet().getParameterEntitySetName() == null) {
           entity.setParameterEntitySet(defaultParam.setParameterEntitySetName(entity.getAlias() + "Parameters"));
         }
@@ -429,7 +429,7 @@ public class ODataParser implements IODataParser {
    * @return the correct catalog object name
    * @throws SQLException the SQL exception
    */
-  private String getCorrectCatalogObjectName(HDBXSODataEntity entity) throws SQLException {
+  private String getCorrectCatalogObjectName(XSODataEntity entity) throws SQLException {
     PersistenceTableModel targetObjectMetadata = new PersistenceTableModel();
     String catalogObjectName;
 

@@ -13,7 +13,7 @@ package com.codbex.kronos.xsodata.ds.model;
 
 import org.eclipse.dirigible.commons.api.helpers.GsonHelper;
 
-import com.codbex.kronos.parser.xsodata.model.HDBXSODataService;
+import com.codbex.kronos.parser.xsodata.model.XSODataService;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -50,14 +50,14 @@ public class ODataModel {
 
   /** The service. */
   @Transient
-  private HDBXSODataService service;
+  private XSODataService service;
 
   /**
    * Gets the service.
    *
    * @return the service
    */
-  public HDBXSODataService getService() {
+  public XSODataService getService() {
     return service;
   }
 
@@ -66,7 +66,7 @@ public class ODataModel {
    *
    * @param service the new service
    */
-  public void setService(HDBXSODataService service) {
+  public void setService(XSODataService service) {
     this.service = service;
   }
 

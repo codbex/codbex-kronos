@@ -23,13 +23,13 @@ import com.codbex.kronos.hdb.ds.model.hdbsynonym.DataStructureHDBSynonymModel;
 import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableModel;
 import com.codbex.kronos.hdb.ds.model.hdbtabletype.DataStructureHDBTableTypeModel;
 import com.codbex.kronos.hdb.ds.model.hdbview.DataStructureHDBViewModel;
-import com.codbex.kronos.hdb.ds.parser.hdbdd.HDBDDParser;
-import com.codbex.kronos.hdb.ds.parser.hdbschema.HDBSchemaParser;
-import com.codbex.kronos.hdb.ds.parser.hdbstructure.HDBStructureParser;
-import com.codbex.kronos.hdb.ds.parser.hdbsynonym.HDBSynonymParser;
-import com.codbex.kronos.hdb.ds.parser.hdbtable.HDBTableParser;
-import com.codbex.kronos.hdb.ds.parser.hdbtabletype.HDBTableTypeParser;
-import com.codbex.kronos.hdb.ds.parser.hdbview.HDBViewParser;
+import com.codbex.kronos.hdb.ds.parser.hdbdd.HDBDDDataStructureParser;
+import com.codbex.kronos.hdb.ds.parser.hdbschema.HDBSchemaDataStructureParser;
+import com.codbex.kronos.hdb.ds.parser.hdbstructure.HDBStructureDataStructureParser;
+import com.codbex.kronos.hdb.ds.parser.hdbsynonym.HDBSynonymDataStructureParser;
+import com.codbex.kronos.hdb.ds.parser.hdbtable.HDBTableDataStructureParser;
+import com.codbex.kronos.hdb.ds.parser.hdbtabletype.HDBTableTypeDataStructureParser;
+import com.codbex.kronos.hdb.ds.parser.hdbview.HDBViewDataStructureParser;
 import com.codbex.kronos.utils.CommonsConstants;
 
 /**
@@ -57,7 +57,7 @@ public class DataStructureModelFactory {
    */
   public static DataStructureHDBTableModel parseTable(String location, String content)
       throws DataStructuresException, ArtifactParserException, IOException {
-    HDBTableParser parser = new HDBTableParser();
+    HDBTableDataStructureParser parser = new HDBTableDataStructureParser();
     DataStructureParametersModel parametersModel =
         new DataStructureParametersModel(null, location, content, null);
     return parser.parse(parametersModel);
@@ -90,7 +90,7 @@ public class DataStructureModelFactory {
    */
   public static DataStructureHDBViewModel parseView(String location, String content)
       throws DataStructuresException, ArtifactParserException, IOException {
-    HDBViewParser parser = new HDBViewParser();
+    HDBViewDataStructureParser parser = new HDBViewDataStructureParser();
     DataStructureParametersModel parametersModel =
         new DataStructureParametersModel(null, location, content, null);
     return parser.parse(parametersModel);
@@ -121,7 +121,7 @@ public class DataStructureModelFactory {
    * @throws IOException Signals that an I/O exception has occurred.
    */
   public static DataStructureModel parseHdbdd(String location, String content) throws DataStructuresException, IOException {
-    HDBDDParser parser = new HDBDDParser();
+    HDBDDDataStructureParser parser = new HDBDDDataStructureParser();
     DataStructureParametersModel parametersModel =
         new DataStructureParametersModel(null, location, content, CommonsConstants.REGISTRY_PUBLIC);
     return parser.parse(parametersModel);
@@ -138,7 +138,7 @@ public class DataStructureModelFactory {
    */
   public static DataStructureHDBSynonymModel parseSynonym(String location, String content)
       throws DataStructuresException, IOException {
-    HDBSynonymParser parser = new HDBSynonymParser();
+    HDBSynonymDataStructureParser parser = new HDBSynonymDataStructureParser();
     DataStructureParametersModel parametersModel =
         new DataStructureParametersModel(null, location, content, null);
     return parser.parse(parametersModel);
@@ -156,7 +156,7 @@ public class DataStructureModelFactory {
    */
   public static DataStructureHDBSchemaModel parseSchema(String location, String content)
       throws DataStructuresException, ArtifactParserException, IOException {
-    HDBSchemaParser parser = new HDBSchemaParser();
+    HDBSchemaDataStructureParser parser = new HDBSchemaDataStructureParser();
     DataStructureParametersModel parametersModel =
         new DataStructureParametersModel(null, location, content, null);
     return parser.parse(parametersModel);
@@ -189,7 +189,7 @@ public class DataStructureModelFactory {
    */
   public static DataStructureHDBTableTypeModel parseTableType(String location, String content)
       throws DataStructuresException, ArtifactParserException, IOException {
-    HDBTableTypeParser parser = new HDBTableTypeParser();
+    HDBTableTypeDataStructureParser parser = new HDBTableTypeDataStructureParser();
     DataStructureParametersModel parametersModel =
         new DataStructureParametersModel(null, location, content, null);
     return parser.parse(parametersModel);
@@ -222,7 +222,7 @@ public class DataStructureModelFactory {
    */
   public static DataStructureHDBStructureModel parseStructure(String location, String content)
       throws DataStructuresException, ArtifactParserException, IOException {
-    HDBStructureParser parser = new HDBStructureParser();
+    HDBStructureDataStructureParser parser = new HDBStructureDataStructureParser();
     DataStructureParametersModel parametersModel =
         new DataStructureParametersModel(null, location, content, null);
     return parser.parse(parametersModel);

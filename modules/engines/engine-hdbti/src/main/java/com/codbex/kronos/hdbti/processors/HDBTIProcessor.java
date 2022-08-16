@@ -44,7 +44,7 @@ import com.codbex.kronos.hdbti.model.ImportedCSVRecordModel;
 import com.codbex.kronos.hdbti.model.TableImportConfigurationDefinition;
 import com.codbex.kronos.hdbti.service.HDBTICoreService;
 import com.codbex.kronos.hdbti.utils.HDBTIUtils;
-import com.codbex.kronos.parser.hdbti.custom.HDBTIParser;
+import com.codbex.kronos.hdbti.parser.HDBTIDataStructureParser;
 import com.codbex.kronos.parser.hdbti.exception.HDBTISyntaxErrorException;
 import com.codbex.kronos.parser.hdbti.models.HDBTIImportConfigModel;
 import com.codbex.kronos.parser.hdbti.models.HDBTIImportModel;
@@ -73,7 +73,7 @@ public class HDBTIProcessor implements IHDBTIProcessor {
   private final IHDBTICoreService hdbtiCoreService = new HDBTICoreService();
   
   /** The hdbti parser. */
-  private final HDBTIParser hdbtiParser = new HDBTIParser();
+  private final HDBTIDataStructureParser hdbtiParser = new HDBTIDataStructureParser();
 
   /**
    * Process.

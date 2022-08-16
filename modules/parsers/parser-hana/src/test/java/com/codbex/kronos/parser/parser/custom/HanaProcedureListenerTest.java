@@ -11,8 +11,8 @@
  */
 package com.codbex.kronos.parser.parser.custom;
 
-import com.codbex.kronos.parser.hana.core.custom.HanaProcedureListener;
-import com.codbex.kronos.parser.hana.core.models.ProcedureDefinitionModel;
+import com.codbex.kronos.parser.hana.custom.HanaProcedureListener;
+import com.codbex.kronos.parser.hana.models.ProcedureDefinitionModel;
 import com.codbex.kronos.parser.hana.core.HanaLexer;
 import com.codbex.kronos.parser.hana.core.HanaParser;
 
@@ -33,17 +33,17 @@ import static org.junit.Assert.assertNotNull;
 public class HanaProcedureListenerTest {
 
   @Test
-  public void parseHDBProcedure() throws Exception {
+  public void testParseProcedure() throws Exception {
     String hdbProcedureSample = getSample("/sample.hdbprocedure");
-    ProcedureDefinitionModel model = parseModel(hdbProcedureSample);
-    assertModel(model, "KRONOS_TEST_APP", "kronos_test_app::usersProcedure");
+    ProcedureDefinitionModel procedureDefinitionModel = parseProcedureModel(hdbProcedureSample);
+    assertModel(procedureDefinitionModel, "KRONOS_TEST_APP", "kronos_test_app::usersProcedure");
   }
 
   @Test
-  public void parseHDBProcedureWithComment() throws Exception {
+  public void testParseProcedureWithComment() throws Exception {
     String hdbProcedureSample = getSample("/sample_with_comment.hdbprocedure");
-    ProcedureDefinitionModel model = parseModel(hdbProcedureSample);
-    assertModel(model, "KRONOS_SAMPLES_HDB_PROCEDURE_SIMPLE", "hdb-procedure-simple.db::ItemProcedure");
+    ProcedureDefinitionModel procedureDefinitionModel = parseProcedureModel(hdbProcedureSample);
+    assertModel(procedureDefinitionModel, "KRONOS_SAMPLES_HDB_PROCEDURE_SIMPLE", "hdb-procedure-simple.db::ItemProcedure");
   }
 
   private String getSample(String sampleName) throws IOException {
@@ -51,14 +51,14 @@ public class HanaProcedureListenerTest {
         .toString(Objects.requireNonNull(HanaProcedureListenerTest.class.getResourceAsStream(sampleName)), StandardCharsets.UTF_8);
   }
 
-  private ProcedureDefinitionModel parseModel(String sample) {
+  private ProcedureDefinitionModel parseProcedureModel(String sample) {
     CharStream inputStream = CharStreams.fromString(sample);
     HanaLexer lexer = new HanaLexer(inputStream);
     CommonTokenStream tokenStream = new CommonTokenStream(lexer);
 
-    HanaParser parser = new HanaParser(tokenStream);
-    parser.setBuildParseTree(true);
-    ParseTree parseTree = parser.sql_script();
+    HanaParser hanaParser = new HanaParser(tokenStream);
+    hanaParser.setBuildParseTree(true);
+    ParseTree parseTree = hanaParser.sql_script();
 
     HanaProcedureListener listener = new HanaProcedureListener();
     ParseTreeWalker parseTreeWalker = new ParseTreeWalker();
