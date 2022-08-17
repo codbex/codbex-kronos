@@ -69,14 +69,8 @@ public class TableBuilder {
   private HanaCreateTableBuilder createTableBuilder(String tableName, String tableType) {
     HanaSqlDialect dialect = new HanaSqlDialect();
     if (null != tableType) {
-      if (tableType.equalsIgnoreCase(ISqlKeywords.KEYWORD_COLUMN))
-        return SqlFactory.getNative(dialect).create().table(tableName, ISqlKeywords.KEYWORD_COLUMNSTORE);
-      else if (tableType.equalsIgnoreCase(ISqlKeywords.KEYWORD_ROW))
-        return SqlFactory.getNative(dialect).create().table(tableName, ISqlKeywords.KEYWORD_ROWSTORE);
-      else
-        return SqlFactory.getNative(dialect).create().table(tableName);
+        return SqlFactory.getNative(dialect).create().table(tableName, tableType);
     }
-
     return SqlFactory.getNative(dialect).create().table(tableName);
   }
 

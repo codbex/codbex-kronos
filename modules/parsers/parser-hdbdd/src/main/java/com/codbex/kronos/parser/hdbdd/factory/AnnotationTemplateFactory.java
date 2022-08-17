@@ -55,6 +55,8 @@ public class AnnotationTemplateFactory {
     AnnotationEnum annotationEnum = new AnnotationEnum();
     annotationEnum.add("COLUMN");
     annotationEnum.add("ROW");
+    annotationEnum.add("GLOBAL_TEMPORARY");
+    annotationEnum.add("GLOBAL_TEMPORARY_COLUMN");
     catalogObj.define("tableType", annotationEnum);
     return catalogObj;
   }
