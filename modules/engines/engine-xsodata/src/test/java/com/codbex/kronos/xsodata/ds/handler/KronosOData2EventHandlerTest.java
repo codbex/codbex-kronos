@@ -329,7 +329,7 @@ public class KronosOData2EventHandlerTest {
   }
 
   private void assertResponse(ODataResponse response) throws EntityProviderException {
-    assertEquals(response.getStatus(), HttpStatusCodes.BAD_REQUEST);
+    assertEquals(HttpStatusCodes.BAD_REQUEST, response.getStatus());
     assertEquals("application/json", response.getHeader("Content-Type"));
 
     Map<String, Object> responseBody = GsonHelper.GSON.fromJson(new BasicEntityProvider().readText(((InputStream) response.getEntity())),
