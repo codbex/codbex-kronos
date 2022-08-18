@@ -1,6 +1,6 @@
 namespace gstr2;
 @Schema: 'ADMIN'
-context TableTypeGlobalTemporary {
+context TableTypeGlobalTemporaryColumn {
    @Catalog.tableType : #GLOBAL_TEMPORARY_COLUMN
    Entity CONFIGURATION1{
       KEY UUID: String(255) NOT NULL;
