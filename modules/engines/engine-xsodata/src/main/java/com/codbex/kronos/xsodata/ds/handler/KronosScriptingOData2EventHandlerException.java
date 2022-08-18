@@ -14,7 +14,7 @@ package com.codbex.kronos.xsodata.ds.handler;
 /**
  * The Scripting OData2 Event Handler Exception.
  */
-public class ScriptingOData2EventHandlerException extends RuntimeException {
+public class KronosScriptingOData2EventHandlerException extends RuntimeException {
 
   /** The Constant serialVersionUID. */
   private static final long serialVersionUID = 1560571830962118349L;
@@ -25,7 +25,7 @@ public class ScriptingOData2EventHandlerException extends RuntimeException {
    * @param message the message
    * @param cause   the cause
    */
-  public ScriptingOData2EventHandlerException(String message, Throwable cause) {
+  public KronosScriptingOData2EventHandlerException(String message, Throwable cause) {
     super(message, cause);
   }
 
@@ -34,7 +34,7 @@ public class ScriptingOData2EventHandlerException extends RuntimeException {
    *
    * @param cause the cause
    */
-  public ScriptingOData2EventHandlerException(Throwable cause) {
+  public KronosScriptingOData2EventHandlerException(Throwable cause) {
     super(cause);
   }
 
