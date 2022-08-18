@@ -159,22 +159,24 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
       ODataEntry entry,
       ODataContext oDataContext, SQLContext sqlContext, DataSource dataSource, String afterTableName)
       throws ODataException, SQLException {
-    Connection connectionParam = dataSource.getConnection();
-    SQLInsertBuilder dummyBuilder = queryBuilder.buildInsertEntityQuery((UriInfo) uriInfo, entry, oDataContext);
-    SQLInsertBuilder insertBuilder = queryBuilder.buildInsertEntityQuery((UriInfo) uriInfo, entry, oDataContext);
-    String targetTableName = getSQLInsertBuilderTargetTable(dummyBuilder, sqlContext);
-    createTemporaryTableLikeTable(connectionParam, afterTableName, targetTableName);
-    insertIntoTemporaryTable(connectionParam, insertBuilder, afterTableName, sqlContext);
-    return connectionParam;
+    try (Connection connectionParam = dataSource.getConnection()) {
+      SQLInsertBuilder dummyBuilder = queryBuilder.buildInsertEntityQuery((UriInfo) uriInfo, entry, oDataContext);
+      SQLInsertBuilder insertBuilder = queryBuilder.buildInsertEntityQuery((UriInfo) uriInfo, entry, oDataContext);
+      String targetTableName = getSQLInsertBuilderTargetTable(dummyBuilder, sqlContext);
+      createTemporaryTableLikeTable(connectionParam, afterTableName, targetTableName);
+      insertIntoTemporaryTable(connectionParam, insertBuilder, afterTableName, sqlContext);
+      return connectionParam;
+    }
   }
 
   private Connection createTempTableAndReturnConnectionForAfterCreateEntity(SQLQueryBuilder queryBuilder, PostUriInfo uriInfo,
       ODataContext oDataContext, SQLContext sqlContext, DataSource dataSource, String afterTableName)
       throws ODataException, SQLException {
-    Connection connectionParam = dataSource.getConnection();
-    SQLSelectBuilder selectBuilder = queryBuilder.buildSelectEntityQuery((UriInfo) uriInfo, oDataContext);
-    createTemporaryTableAsSelect(connectionParam, afterTableName, selectBuilder, sqlContext);
-    return connectionParam;
+    try ( Connection connectionParam = dataSource.getConnection() ) {
+      SQLSelectBuilder selectBuilder = queryBuilder.buildSelectEntityQuery((UriInfo) uriInfo, oDataContext);
+      createTemporaryTableAsSelect(connectionParam, afterTableName, selectBuilder, sqlContext);
+      return connectionParam;
+    }
   }
 
   /**
@@ -317,13 +319,14 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
       ODataContext oDataContext, SQLContext sqlContext, DataSource dataSource, Map<String, Object> mappedKeys, String afterTableName,
       String beforeTableName)
       throws ODataException, SQLException {
-    Connection connectionParam = dataSource.getConnection();
-    SQLSelectBuilder selectBuilder = queryBuilder.buildSelectEntityQuery((UriInfo) uriInfo, oDataContext);
-    SQLUpdateBuilder updateBuilder = queryBuilder.buildUpdateEntityQuery((UriInfo) uriInfo, entry, mappedKeys, oDataContext);
-    createTemporaryTableAsSelect(connectionParam, beforeTableName, selectBuilder, sqlContext);
-    createTemporaryTableAsSelect(connectionParam, afterTableName, selectBuilder, sqlContext);
-    updateTemporaryTable(connectionParam, updateBuilder, afterTableName, sqlContext);
-    return connectionParam;
+    try (Connection connectionParam = dataSource.getConnection()) {
+      SQLSelectBuilder selectBuilder = queryBuilder.buildSelectEntityQuery((UriInfo) uriInfo, oDataContext);
+      SQLUpdateBuilder updateBuilder = queryBuilder.buildUpdateEntityQuery((UriInfo) uriInfo, entry, mappedKeys, oDataContext);
+      createTemporaryTableAsSelect(connectionParam, beforeTableName, selectBuilder, sqlContext);
+      createTemporaryTableAsSelect(connectionParam, afterTableName, selectBuilder, sqlContext);
+      updateTemporaryTable(connectionParam, updateBuilder, afterTableName, sqlContext);
+      return connectionParam;
+    }
   }
 
   private Connection createTempTableAndReturnConnectionForAfterUpdateEntity(SQLQueryBuilder queryBuilder, PutMergePatchUriInfo uriInfo,
@@ -332,16 +335,17 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
       String afterTableName,
       String beforeTableName)
       throws ODataException, SQLException {
-    Connection connectionParam = dataSource.getConnection();
-    SQLUpdateBuilder dummyBuilder = queryBuilder.buildUpdateEntityQuery((UriInfo) uriInfo, entry,
-        mappedKeys, oDataContext);
-    SQLInsertBuilder insertBuilder = queryBuilder.buildInsertEntityQuery((UriInfo) uriInfo, entryBeforeUpdate, oDataContext);
-    SQLSelectBuilder selectBuilder = queryBuilder.buildSelectEntityQuery((UriInfo) uriInfo, oDataContext);
-    String targetTableName = getSQLUpdateBuilderTargetTable(dummyBuilder, sqlContext);
-    createTemporaryTableLikeTable(connectionParam, beforeTableName, targetTableName);
-    insertIntoTemporaryTable(connectionParam, insertBuilder, beforeTableName, sqlContext);
-    createTemporaryTableAsSelect(connectionParam, afterTableName, selectBuilder, sqlContext);
-    return connectionParam;
+    try (Connection connectionParam = dataSource.getConnection()) {
+      SQLUpdateBuilder dummyBuilder = queryBuilder.buildUpdateEntityQuery((UriInfo) uriInfo, entry,
+          mappedKeys, oDataContext);
+      SQLInsertBuilder insertBuilder = queryBuilder.buildInsertEntityQuery((UriInfo) uriInfo, entryBeforeUpdate, oDataContext);
+      SQLSelectBuilder selectBuilder = queryBuilder.buildSelectEntityQuery((UriInfo) uriInfo, oDataContext);
+      String targetTableName = getSQLUpdateBuilderTargetTable(dummyBuilder, sqlContext);
+      createTemporaryTableLikeTable(connectionParam, beforeTableName, targetTableName);
+      insertIntoTemporaryTable(connectionParam, insertBuilder, beforeTableName, sqlContext);
+      createTemporaryTableAsSelect(connectionParam, afterTableName, selectBuilder, sqlContext);
+      return connectionParam;
+    }
   }
 
   /**
@@ -453,21 +457,23 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
 
   private Connection createTempTableAndReturnConnectionForBeforeAndOnDeleteEntity(SQLQueryBuilder queryBuilder, DeleteUriInfo uriInfo, ODataContext oDataContext, SQLContext sqlContext, DataSource dataSource, String beforeTableName)
       throws ODataException, SQLException {
-    Connection connectionParam = dataSource.getConnection();
-    SQLSelectBuilder selectBuilder = queryBuilder.buildSelectEntityQuery((UriInfo) uriInfo, oDataContext);
-    createTemporaryTableAsSelect(connectionParam, beforeTableName, selectBuilder, sqlContext);
-    return connectionParam;
+    try (Connection connectionParam = dataSource.getConnection()) {
+      SQLSelectBuilder selectBuilder = queryBuilder.buildSelectEntityQuery((UriInfo) uriInfo, oDataContext);
+      createTemporaryTableAsSelect(connectionParam, beforeTableName, selectBuilder, sqlContext);
+      return connectionParam;
+    }
   }
 
   private Connection createTempTableAndReturnConnectionForAfterDeleteEntity(SQLQueryBuilder queryBuilder, DeleteUriInfo uriInfo, ODataContext oDataContext, SQLContext sqlContext, DataSource dataSource, ODataEntry entryBeforeDelete, Map<String, Object> mappedKeys, String beforeTableName)
       throws ODataException, SQLException {
-    Connection connectionParam = dataSource.getConnection();
-    SQLDeleteBuilder dummyBuilder = queryBuilder.buildDeleteEntityQuery((UriInfo) uriInfo, mappedKeys, oDataContext);
-    SQLInsertBuilder insertBuilder = queryBuilder.buildInsertEntityQuery((UriInfo) uriInfo, entryBeforeDelete, oDataContext);
-    String targetTableName = getSQLDeleteBuilderTargetTable(dummyBuilder, sqlContext);
-    createTemporaryTableLikeTable(connectionParam, beforeTableName, targetTableName);
-    insertIntoTemporaryTable(connectionParam, insertBuilder, beforeTableName, sqlContext);
-    return connectionParam;
+    try (Connection connectionParam = dataSource.getConnection()) {
+      SQLDeleteBuilder dummyBuilder = queryBuilder.buildDeleteEntityQuery((UriInfo) uriInfo, mappedKeys, oDataContext);
+      SQLInsertBuilder insertBuilder = queryBuilder.buildInsertEntityQuery((UriInfo) uriInfo, entryBeforeDelete, oDataContext);
+      String targetTableName = getSQLDeleteBuilderTargetTable(dummyBuilder, sqlContext);
+      createTemporaryTableLikeTable(connectionParam, beforeTableName, targetTableName);
+      insertIntoTemporaryTable(connectionParam, insertBuilder, beforeTableName, sqlContext);
+      return connectionParam;
+    }
   }
 
   void callSuperBeforeCreateEntity(PostUriInfo uriInfo, String requestContentType, String contentType, ODataEntry entry,
