@@ -527,6 +527,18 @@ public class HDBDDDataStructureParserTest extends AbstractDirigibleTest {
     assertEquals("ROW", ((DataStructureHDBDDModel) parsedModel).getTableModels().get(1).getTableType());
   }
 
+  @Test
+  public void testParseHDBDDWithTableTypeAnnotationGlobalTemporary() throws Exception {
+    DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/TableTypeGlobalTemporary.hdbdd", "");
+    assertEquals("GLOBAL_TEMPORARY", ((DataStructureHDBDDModel) parsedModel).getTableModels().get(0).getTableType());
+  }
+
+  @Test
+  public void testParseHDBDDWithTableTypeAnnotationGlobalTemporaryColumn() throws Exception {
+    DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/TableTypeGlobalTemporaryColumn.hdbdd", "");
+    assertEquals("GLOBAL_TEMPORARY_COLUMN", ((DataStructureHDBDDModel) parsedModel).getTableModels().get(0).getTableType());
+  }
+
   /**
    * When the table type is null a COLUMN table is always created
    */

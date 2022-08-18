@@ -190,6 +190,17 @@ public class HDBDDHanaITest extends AbstractHDBITest {
         assertTrue("Expected synonym was not found!",
             HanaITestUtils.checkExistOfPublicSynonym(connection, "hdbdd-itest::CatalogTableTypes.CONFIGURATION4"));
 
+        assertTrue("Expected table was not found!",
+            HanaITestUtils.checkExistOfTableGlobalTemporary(connection, "hdbdd-itest::CatalogTableTypes.CONFIGURATION5", TEST_SCHEMA));
+
+        assertTrue("Expected table was not found!",
+            HanaITestUtils.checkExistOfTableGlobalTemporary(connection, "hdbdd-itest::CatalogTableTypes.CONFIGURATION6", TEST_SCHEMA));
+
+        assertTrue("Expected table was not found!",
+            HanaITestUtils.checkExistOfTableGlobalTemporary(connection, "hdbdd-itest::CatalogTableTypes.CONFIGURATION7", TEST_SCHEMA));
+
+        assertTrue("Expected table was not found!",
+            HanaITestUtils.checkExistOfTableGlobalTemporary(connection, "hdbdd-itest::CatalogTableTypes.CONFIGURATION8", TEST_SCHEMA));
       } finally {
         HanaITestUtils.dropSchema(stmt, TEST_SCHEMA);
       }
