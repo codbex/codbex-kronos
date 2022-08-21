@@ -48,7 +48,10 @@ public class CSVRecordDao implements ICSVRecordDao {
     private static final Logger logger = LoggerFactory.getLogger(CSVRecordDao.class);
 
     /** The data source. */
-    private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
+    @Override
+    public DataSource getDataSource() { 
+  	  	return (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
+    }
 
     /** The db metadata util. */
     private DBMetadataUtil dbMetadataUtil = new DBMetadataUtil();
@@ -62,7 +65,7 @@ public class CSVRecordDao implements ICSVRecordDao {
     @Override
     public void save(CSVRecordMetadata csvRecordMetadata) throws SQLException {
         String tableName = csvRecordMetadata.getTableMetadataModel().getTableName();
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = getDataSource().getConnection()) {
             List<TableColumn> availableTableColumns = TableMetadataHelper.getColumns(connection, tableName, csvRecordMetadata.getTableMetadataModel().getSchemaName());
             for (TableColumn availableTableColumn : availableTableColumns) {
                 logger.debug("    {}: {}", availableTableColumn.getName(), availableTableColumn.getType());
@@ -92,7 +95,7 @@ public class CSVRecordDao implements ICSVRecordDao {
     @Override
     public void update(CSVRecordMetadata csvRecordMetadata) throws SQLException {
         String tableName = csvRecordMetadata.getTableMetadataModel().getTableName();
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = getDataSource().getConnection()) {
             List<TableColumn> availableTableColumns = TableMetadataHelper.getColumns(connection, tableName, csvRecordMetadata.getTableMetadataModel().getSchemaName());
             UpdateBuilder updateBuilder = new UpdateBuilder(SqlFactory.deriveDialect(connection));
             updateBuilder.table(tableName);
@@ -136,9 +139,9 @@ public class CSVRecordDao implements ICSVRecordDao {
             return;
         }
 
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = getDataSource().getConnection()) {
             PersistenceTableModel tableMetadata = dbMetadataUtil.getTableMetadata(tableName,
-                    CommonsDBUtils.getTableSchema(dataSource, tableName));
+                    CommonsDBUtils.getTableSchema(getDataSource(), tableName));
             if (null == tableMetadata) {
                 logger.debug("Table with name [{}] was not found.", tableName);
                 return;
@@ -166,9 +169,9 @@ public class CSVRecordDao implements ICSVRecordDao {
             return;
         }
 
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = getDataSource().getConnection()) {
             PersistenceTableModel tableMetadata = dbMetadataUtil.getTableMetadata(tableName,
-                    CommonsDBUtils.getTableSchema(dataSource, tableName));
+                    CommonsDBUtils.getTableSchema(getDataSource(), tableName));
             if (null == tableMetadata) {
                 logger.debug("Table with name [{}] was not found.", tableName);
                 return;
@@ -181,16 +184,6 @@ public class CSVRecordDao implements ICSVRecordDao {
                 logger.info(String.format("Entity with Row Id: %s from table: %s", id, tableName));
             }
         }
-    }
-
-    /**
-     * Gets the data source.
-     *
-     * @return the data source
-     */
-    @Override
-    public DataSource getDataSource() {
-        return dataSource;
     }
 
     /**

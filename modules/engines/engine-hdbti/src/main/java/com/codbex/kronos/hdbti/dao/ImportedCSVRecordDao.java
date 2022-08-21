@@ -41,7 +41,10 @@ public class ImportedCSVRecordDao implements IImportedCSVRecordDao {
     private static final Logger logger = LoggerFactory.getLogger(HDBTIProcessor.class);
 
     /** The data source. */
-    private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
+    @Override
+    public DataSource getDataSource() {
+    	return (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
+    }
 
     /** The persistence manager. */
     private PersistenceManager<ImportedCSVRecordModel> persistenceManager = new PersistenceManager<ImportedCSVRecordModel>();
@@ -55,7 +58,7 @@ public class ImportedCSVRecordDao implements IImportedCSVRecordDao {
      */
     @Override
     public ImportedCSVRecordModel save(ImportedCSVRecordModel importedRowModel) throws DataStructuresException {
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = getDataSource().getConnection()) {
             importedRowModel.setCreatedAt(new Timestamp(new java.util.Date().getTime()));
             persistenceManager.insert(connection, importedRowModel);
             ConsoleFacade.log("Entity with rowId: "+importedRowModel.getRowId()+" and tableName: "+importedRowModel.getTableName()+" was SAVED successfully in KRONOS_IMPORTED_CSV_RECORDS");
@@ -76,7 +79,7 @@ public class ImportedCSVRecordDao implements IImportedCSVRecordDao {
      */
     @Override
     public ImportedCSVRecordModel update(ImportedCSVRecordModel importedRowModel) throws SQLException {
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = getDataSource().getConnection()) {
             persistenceManager.update(connection, importedRowModel);
             ConsoleFacade.log("Entity with rowId: "+importedRowModel.getRowId()+" and tableName: "+importedRowModel.getTableName()+ " was UPDATED successfully in KRONOS_IMPORTED_CSV_RECORDS.");
             return importedRowModel;
@@ -96,7 +99,7 @@ public class ImportedCSVRecordDao implements IImportedCSVRecordDao {
             return;
         }
 
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = getDataSource().getConnection()) {
             importedCSVRecordModels.forEach(record -> {
                 persistenceManager.delete(connection, ImportedCSVRecordModel.class, record.getId());
             });
@@ -117,7 +120,7 @@ public class ImportedCSVRecordDao implements IImportedCSVRecordDao {
      */
     @Override
     public List<ImportedCSVRecordModel> getImportedCSVRecordsByTableAndCSVLocation(String tableName, String csvLocation) throws DataStructuresException {
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = getDataSource().getConnection()) {
             String sql = SqlFactory.getNative(connection).select().column("*").from("KRONOS_IMPORTED_CSV_RECORDS")
                     .where("TABLE_NAME = ? AND CSV_LOCATION = ?").toString();
             return persistenceManager.query(connection, ImportedCSVRecordModel.class, sql, tableName, csvLocation);
@@ -134,7 +137,7 @@ public class ImportedCSVRecordDao implements IImportedCSVRecordDao {
      */
     @Override
     public List<ImportedCSVRecordModel> getImportedCSVsByHdbtiLocation(String hdbtiLocation) {
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = getDataSource().getConnection()) {
             String sql = SqlFactory.getNative(connection).select().column("*").from("KRONOS_IMPORTED_CSV_RECORDS")
                     .where("HDBTI_LOCATION = ?").toString();
             return persistenceManager.query(connection, ImportedCSVRecordModel.class, sql, hdbtiLocation);
@@ -143,16 +146,6 @@ public class ImportedCSVRecordDao implements IImportedCSVRecordDao {
         }
 
         return new ArrayList<>();
-    }
-
-    /**
-     * Gets the data source.
-     *
-     * @return the data source
-     */
-    @Override
-    public DataSource getDataSource() {
-        return dataSource;
     }
 
     /**

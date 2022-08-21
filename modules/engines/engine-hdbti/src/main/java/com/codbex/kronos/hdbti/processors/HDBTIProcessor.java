@@ -67,7 +67,9 @@ public class HDBTIProcessor implements IHDBTIProcessor {
   private final DBMetadataUtil dbMetadataUtil = new DBMetadataUtil();
   
   /** The repository. */
-  private final IRepository repository = (IRepository) StaticObjects.get(StaticObjects.REPOSITORY);
+  private final IRepository getRepository() {
+	  return (IRepository) StaticObjects.get(StaticObjects.REPOSITORY);
+  }
   
   /** The hdbti core service. */
   private final IHDBTICoreService hdbtiCoreService = new HDBTICoreService();
@@ -87,7 +89,7 @@ public class HDBTIProcessor implements IHDBTIProcessor {
   @Override
   public void process(TableImportConfigurationDefinition tableImportConfigurationDefinition, Connection connection)
       throws DataStructuresException, TableImportException, SQLException {
-    IResource resource = repository.getResource(hdbtiCoreService.convertToActualFileName(tableImportConfigurationDefinition.getFile()));
+    IResource resource = getRepository().getResource(hdbtiCoreService.convertToActualFileName(tableImportConfigurationDefinition.getFile()));
     String tableName = hdbtiCoreService.convertToActualTableName(tableImportConfigurationDefinition.getTable());
     CSVParser csvParser = getCsvParser(tableImportConfigurationDefinition, resource);
     PersistenceTableModel tableMetadata = getTableMetadata(tableImportConfigurationDefinition);

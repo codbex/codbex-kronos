@@ -11,7 +11,7 @@
  */
 package com.codbex.kronos.xsjob.ds.scheduler.handler;
 
-import com.codbex.kronos.engine.JavascriptEngineExecutor;
+import com.codbex.kronos.engine.KronosJavascriptEngineExecutor;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.xsjob.ds.api.IJobCoreService;
@@ -32,7 +32,7 @@ public class JobHandler implements Job {
   private static final String XSJOB_HANDLER = "xsjob/wrappers/handler.xsjs";
 
   /** The javascript engine executor. */
-  private JavascriptEngineExecutor javascriptEngineExecutor = new JavascriptEngineExecutor();
+  private KronosJavascriptEngineExecutor javascriptEngineExecutor = new KronosJavascriptEngineExecutor();
 
   /**
    * Execute.

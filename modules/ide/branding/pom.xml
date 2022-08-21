@@ -4,13 +4,13 @@
 
     <parent>
         <groupId>com.codbex.kronos</groupId>
-        <artifactId>kronos-modules-ide-parent</artifactId>
+        <artifactId>codbex-kronos-modules-ide-parent</artifactId>
         <version>0.2.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <name>Kronos - Modules - IDE - Branding</name>
-    <artifactId>kronos-modules-ide-branding</artifactId>
+    <name>kronos - modules - ide - branding</name>
+    <artifactId>codbex-kronos-modules-ide-branding</artifactId>
     <version>0.2.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 

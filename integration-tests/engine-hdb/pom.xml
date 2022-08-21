@@ -4,26 +4,26 @@
 
     <parent>
         <groupId>com.codbex.kronos</groupId>
-        <artifactId>kronos-integration-tests-parent</artifactId>
+        <artifactId>codbex-kronos-integration-tests-parent</artifactId>
         <version>0.2.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <name>Kronos - Integration Tests - Engines - HDB</name>
-    <artifactId>kronos-integration-tests-engines-hdb</artifactId>
+    <name>kronos - integration - tests - engines - hdb</name>
+    <artifactId>codbex-kronos-integration-tests-engines-hdb</artifactId>
     <version>0.2.0-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
-            <artifactId>kronos-modules-engines-hdb</artifactId>
+            <artifactId>codbex-kronos-modules-engines-hdb</artifactId>
             <version>0.2.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>com.codbex.kronos</groupId>
-            <artifactId>kronos-integration-tests-core</artifactId>
+            <artifactId>codbex-kronos-integration-tests-core</artifactId>
             <version>0.2.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
@@ -67,27 +67,27 @@
 
         <dependency>
             <groupId>com.codbex.kronos</groupId>
-            <artifactId>kronos-modules-parsers-hdbti</artifactId>
+            <artifactId>codbex-kronos-modules-parsers-hdbti</artifactId>
             <version>0.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
-            <artifactId>kronos-modules-parsers-hdbsequence</artifactId>
+            <artifactId>codbex-kronos-modules-parsers-hdbsequence</artifactId>
             <version>0.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
-            <artifactId>kronos-modules-parsers-hdbschema</artifactId>
+            <artifactId>codbex-kronos-modules-parsers-hdbschema</artifactId>
             <version>0.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
-            <artifactId>kronos-modules-parsers-hdbtable</artifactId>
+            <artifactId>codbex-kronos-modules-parsers-hdbtable</artifactId>
             <version>0.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
-            <artifactId>kronos-modules-parsers-hdbdd</artifactId>
+            <artifactId>codbex-kronos-modules-parsers-hdbdd</artifactId>
             <version>0.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="500" height="500" viewBox="0 0 500 500" xml:space="preserve">
+<desc></desc>
+<defs>
+</defs>
+<g transform="matrix(8.71 0 0 8.71 249.86 249.86)" id="background"  >
+<path style="stroke: rgb(202,219,75); stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(230,138,0); fill-rule: nonzero; opacity: 1;" vector-effect="non-scaling-stroke"  transform=" translate(0, 0)" d="M -28.66972 -28.66972 L 28.669729999999998 -28.66972 L 28.669729999999998 28.669729999999998 L -28.66972 28.669729999999998 z" stroke-linecap="round" />
+</g>
+<g transform="matrix(1 0 0 1 80 80)" id="c" stroke-linecap="round" fill-rule="nonzero" font-size="9pt" stroke="#ffffff" stroke-width="0.25mm" fill="#ffffff" style="stroke:#ffffff;stroke-width:0.25mm;fill:#ffffff"><path d="M 324.605 82.204 L 252.005 121.204 A 100.507 100.507 0 0 0 239.774 103.55 A 75.049 75.049 0 0 0 220.505 87.604 Q 201.605 76.804 179.405 76.804 A 91.658 91.658 0 0 0 151.937 80.814 A 81.635 81.635 0 0 0 136.205 87.604 Q 117.005 98.404 105.905 118.204 A 83.977 83.977 0 0 0 96.929 143.136 Q 94.871 153.531 94.807 165.434 A 142.416 142.416 0 0 0 94.805 166.204 A 119.49 119.49 0 0 0 96.78 188.502 Q 99.487 202.757 105.905 214.204 Q 117.005 234.004 136.205 244.804 Q 155.405 255.604 179.405 255.604 Q 201.605 255.604 220.505 245.104 A 71.712 71.712 0 0 0 240.727 228.087 A 100.854 100.854 0 0 0 252.005 211.204 L 324.605 250.804 Q 306.605 289.804 268.805 311.104 A 163.436 163.436 0 0 1 213.507 329.887 A 215.106 215.106 0 0 1 180.005 332.404 A 218.791 218.791 0 0 1 127.76 326.392 A 180.689 180.689 0 0 1 87.005 311.104 Q 46.205 289.804 23.105 252.004 A 158.281 158.281 0 0 1 0.366 178.044 A 191.943 191.943 0 0 1 0.005 166.204 A 173.91 173.91 0 0 1 7.112 115.703 A 150.53 150.53 0 0 1 23.105 80.104 Q 46.205 42.604 87.005 21.304 A 187.329 187.329 0 0 1 151.544 1.688 A 234.394 234.394 0 0 1 180.005 0.004 A 206.203 206.203 0 0 1 224.917 4.684 A 159.48 159.48 0 0 1 268.805 21.304 Q 306.605 42.604 324.605 82.204 Z" id="0" vector-effect="non-scaling-stroke"/></g>
+</svg>

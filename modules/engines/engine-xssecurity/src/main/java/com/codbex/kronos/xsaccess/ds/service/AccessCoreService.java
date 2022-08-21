@@ -41,7 +41,9 @@ public class AccessCoreService implements IAccessCoreService {
   private static final List<AccessDefinition> CACHE = Collections.synchronizedList(new ArrayList<>());
   
   /** The data source. */
-  private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
+  public DataSource getDataSource() {
+  	return (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
+  }
   
   /** The persistence manager. */
   private PersistenceManager<AccessDefinition> persistenceManager = new PersistenceManager<AccessDefinition>();
@@ -88,7 +90,7 @@ public class AccessCoreService implements IAccessCoreService {
 
       Connection connection = null;
       try {
-        connection = dataSource.getConnection();
+        connection = getDataSource().getConnection();
         persistenceManager.insert(connection, accessDefinition);
         clearCache();
         return accessDefinition;
@@ -130,7 +132,7 @@ public class AccessCoreService implements IAccessCoreService {
 
       Connection connection = null;
       try {
-        connection = dataSource.getConnection();
+        connection = getDataSource().getConnection();
         persistenceManager.update(connection, accessDefinition);
         clearCache();
         return accessDefinition;
@@ -156,7 +158,7 @@ public class AccessCoreService implements IAccessCoreService {
     try {
       Connection connection = null;
       try {
-        connection = dataSource.getConnection();
+        connection = getDataSource().getConnection();
         AccessDefinition accessDefinition = persistenceManager.find(connection, AccessDefinition.class, id);
         if (accessDefinition == null) {
           return null;
@@ -193,7 +195,7 @@ public class AccessCoreService implements IAccessCoreService {
     try {
       Connection connection = null;
       try {
-        connection = dataSource.getConnection();
+        connection = getDataSource().getConnection();
         List<AccessDefinition> accessDefinitions = persistenceManager
             .findAll(connection, AccessDefinition.class);
         for (AccessDefinition accessDefinition : accessDefinitions) {
@@ -227,7 +229,7 @@ public class AccessCoreService implements IAccessCoreService {
     try {
       Connection connection = null;
       try {
-        connection = dataSource.getConnection();
+        connection = getDataSource().getConnection();
         persistenceManager.delete(connection, AccessDefinition.class, path);
       } finally {
         if (connection != null) {

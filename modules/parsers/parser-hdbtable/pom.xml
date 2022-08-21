@@ -4,13 +4,13 @@
 
     <parent>
         <groupId>com.codbex.kronos</groupId>
-        <artifactId>kronos-modules-parsers-parent</artifactId>
+        <artifactId>codbex-kronos-modules-parsers-parent</artifactId>
         <version>0.2.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <name>Kronos - Modules - Parsers - HDB Table</name>
-    <artifactId>kronos-modules-parsers-hdbtable</artifactId>
+    <name>kronos - modules - parsers - hdbtable</name>
+    <artifactId>codbex-kronos-modules-parsers-hdbtable</artifactId>
     <version>0.2.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -49,7 +49,7 @@
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
-            <artifactId>kronos-modules-parsers-commons</artifactId>
+            <artifactId>codbex-kronos-modules-parsers-commons</artifactId>
             <version>0.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>

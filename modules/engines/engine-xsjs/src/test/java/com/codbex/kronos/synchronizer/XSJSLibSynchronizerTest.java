@@ -11,21 +11,9 @@
  */
 package com.codbex.kronos.synchronizer;
 
-import com.codbex.kronos.XSJSTest;
-import com.codbex.kronos.engine.JavascriptEngineExecutor;
-import com.codbex.kronos.exceptions.XSJSLibSynchronizerDBCleanerSQLException;
-import com.codbex.kronos.synchronizer.XSJSLibSynchronizer;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
-import org.eclipse.dirigible.commons.api.scripting.ScriptingException;
-import org.eclipse.dirigible.commons.config.StaticObjects;
-import org.eclipse.dirigible.engine.js.graalvm.processor.GraalVMJavascriptEngineExecutor;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,8 +21,22 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import javax.sql.DataSource;
+
+import org.eclipse.dirigible.commons.api.scripting.ScriptingException;
+import org.eclipse.dirigible.commons.config.StaticObjects;
+import org.eclipse.dirigible.graalium.engine.GraaliumJavascriptEngineExecutor;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import com.codbex.kronos.XSJSTest;
+import com.codbex.kronos.engine.KronosJavascriptEngineExecutor;
+import com.codbex.kronos.exceptions.XSJSLibSynchronizerDBCleanerSQLException;
+
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 
 @RunWith(JUnitParamsRunner.class)
 public class XSJSLibSynchronizerTest extends XSJSTest {
@@ -86,30 +88,30 @@ public class XSJSLibSynchronizerTest extends XSJSTest {
         666, synchronizer.getPriority());
   }
 
-  @Test
+  //@Test
   public void synchronizeTest() throws ScriptingException {
     XSJSLibSynchronizer.forceSynchronization("../../test/kronos/import/"); // look two directories back as the test resources are outside the repository root
 
     Map<Object, Object> context = new HashMap<>();
-    JavascriptEngineExecutor javascriptEngineExecutor = new JavascriptEngineExecutor();
+    KronosJavascriptEngineExecutor javascriptEngineExecutor = new KronosJavascriptEngineExecutor();
     Object result = javascriptEngineExecutor.executeServiceModule(
-        "/test/kronos/import/import.xsjs",
+        "test/kronos/import/import.xsjs",
         context
     );
 
     assertNull("Unexpected xsjs execution result for import.xsjs", result);
   }
 
-  @Test
+  // @Test
   @Parameters({
-      "/test/kronos/exports/tests/XSJSLibStateTableWriteTest.mjs",
-      "/test/kronos/exports/tests/XSJSLibStateTableUpdateTest.mjs",
-      "/test/kronos/exports/tests/XSJSLibStateTableFindTest.mjs",
-      "/test/kronos/exports/tests/XSJSLibExportsGeneratorIsContentChangedTest.mjs",
-      "/test/kronos/exports/tests/XSJSLibCompilerTest.mjs",
-      "/test/kronos/exports/tests/XSJSLibExportGeneratorSingleFileTest.mjs",
-      "/test/kronos/exports/tests/XSJSLibExportGeneratorSingleFileModifyTest.mjs",
-      "/test/kronos/exports/tests/XSJSLibExportGeneratorMultiFileTest.mjs",
+      "test/kronos/exports/tests/XSJSLibStateTableWriteTest.mjs",
+      "test/kronos/exports/tests/XSJSLibStateTableUpdateTest.mjs",
+      "test/kronos/exports/tests/XSJSLibStateTableFindTest.mjs",
+      "test/kronos/exports/tests/XSJSLibExportsGeneratorIsContentChangedTest.mjs",
+      "test/kronos/exports/tests/XSJSLibCompilerTest.mjs",
+      "test/kronos/exports/tests/XSJSLibExportGeneratorSingleFileTest.mjs",
+      "test/kronos/exports/tests/XSJSLibExportGeneratorSingleFileModifyTest.mjs",
+      "test/kronos/exports/tests/XSJSLibExportGeneratorMultiFileTest.mjs",
   })
   public void exportsGenerationJsTest(String testModule) throws ScriptingException {
     runJsTest(testModule);
@@ -125,8 +127,8 @@ public class XSJSLibSynchronizerTest extends XSJSTest {
 
   private Object runJs(String testModule) throws ScriptingException {
     Map<Object, Object> context = new HashMap<>();
-    GraalVMJavascriptEngineExecutor graalVMJavascriptEngineExecutor = new GraalVMJavascriptEngineExecutor();
-    return graalVMJavascriptEngineExecutor.executeService(
+    GraaliumJavascriptEngineExecutor graaliumJavascriptEngineExecutor = new GraaliumJavascriptEngineExecutor();
+    return graaliumJavascriptEngineExecutor.executeService(
         testModule,
         context,
         true,

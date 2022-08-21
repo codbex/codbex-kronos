@@ -50,18 +50,18 @@ public class JavascriptEngineRestServiceTest {
 
   @Test
   public void getTypeTest() {
-    JavascriptEngineRestService restService = new JavascriptEngineRestService();
-    assertEquals(JavascriptEngineRestService.class, restService.getType());
+    KronosJavascriptEngineRestService restService = new KronosJavascriptEngineRestService();
+    assertEquals(KronosJavascriptEngineRestService.class, restService.getType());
   }
 
   @Test
   public void getLoggerTest() {
-    JavascriptEngineRestService restService = new JavascriptEngineRestService();
+    KronosJavascriptEngineRestService restService = new KronosJavascriptEngineRestService();
     assertNotNull(restService.getLogger());
   }
 
   private Response selectAndExecuteMethod(
-      JavascriptEngineRestService restService,
+      KronosJavascriptEngineRestService restService,
       HttpServletRequest servletRequest,
       String requestType
   ) throws ContextException {
@@ -86,11 +86,11 @@ public class JavascriptEngineRestServiceTest {
   @Test
   @Parameters({"GET", "PUT", "POST", "PATCH", "DELETE", "HEAD"})
   public void executeServicePostTest(String requestType) throws ContextException {
-    JavascriptEngineProcessor mockProcessor = Mockito.mock(JavascriptEngineProcessor.class);
+    KronosJavascriptEngineProcessor mockProcessor = Mockito.mock(KronosJavascriptEngineProcessor.class);
     HttpServletRequest mockRequest = Mockito.mock(HttpServletRequest.class);
 
     try (MockedStatic<ThreadContextFacade> mockedThreadContextFacade = mockStatic(ThreadContextFacade.class)) {
-      JavascriptEngineRestService restService = new JavascriptEngineRestService(mockProcessor);
+      KronosJavascriptEngineRestService restService = new KronosJavascriptEngineRestService(mockProcessor);
       Response response = selectAndExecuteMethod(restService, mockRequest, requestType);
 
       mockedThreadContextFacade.verify(ThreadContextFacade::setUp, times(1));
@@ -100,7 +100,7 @@ public class JavascriptEngineRestServiceTest {
               mockRequest
           ), times(1)
       );
-      verify(mockProcessor, times(1)).executeService(TEST_RESOURCE_NAME);
+      verify(mockProcessor, times(1)).executeService(TEST_RESOURCE_NAME, null);
       assertEquals(Status.OK, response.getStatusInfo().toEnum());
     }
   }
@@ -108,7 +108,7 @@ public class JavascriptEngineRestServiceTest {
   @Test(expected = ContextException.class)
   @Parameters({"GET", "PUT", "POST", "PATCH", "DELETE", "HEAD"})
   public void executeServicePostWithThreadContextExceptionTest(String requestType) throws ContextException {
-    JavascriptEngineProcessor mockProcessor = Mockito.mock(JavascriptEngineProcessor.class);
+    KronosJavascriptEngineProcessor mockProcessor = Mockito.mock(KronosJavascriptEngineProcessor.class);
     HttpServletRequest mockRequest = Mockito.mock(HttpServletRequest.class);
 
     try (MockedStatic<ThreadContextFacade> mockedThreadContextFacade = mockStatic(ThreadContextFacade.class)) {
@@ -119,7 +119,7 @@ public class JavascriptEngineRestServiceTest {
           )
       ).thenThrow(new ContextException());
 
-      JavascriptEngineRestService restService = new JavascriptEngineRestService(mockProcessor);
+      KronosJavascriptEngineRestService restService = new KronosJavascriptEngineRestService(mockProcessor);
       selectAndExecuteMethod(restService, mockRequest, requestType);
     }
   }
@@ -127,19 +127,19 @@ public class JavascriptEngineRestServiceTest {
   @Test(expected = ScriptingException.class)
   @Parameters({"GET", "PUT", "POST", "PATCH", "DELETE", "HEAD"})
   public void executeServicePostWithOtherExceptionTest(String requestType) throws ContextException {
-    JavascriptEngineProcessor mockProcessor = Mockito.mock(JavascriptEngineProcessor.class);
+    KronosJavascriptEngineProcessor mockProcessor = Mockito.mock(KronosJavascriptEngineProcessor.class);
     HttpServletRequest mockRequest = Mockito.mock(HttpServletRequest.class);
-    doThrow(new ScriptingException()).when(mockProcessor).executeService(TEST_RESOURCE_NAME);
+    doThrow(new ScriptingException()).when(mockProcessor).executeService(TEST_RESOURCE_NAME, null);
 
     try (MockedStatic<ThreadContextFacade> mockedThreadContextFacade = mockStatic(ThreadContextFacade.class)) {
-      JavascriptEngineRestService restService = new JavascriptEngineRestService(mockProcessor);
+      KronosJavascriptEngineRestService restService = new KronosJavascriptEngineRestService(mockProcessor);
       selectAndExecuteMethod(restService, mockRequest, requestType);
     }
   }
 
   @Test
   public void assertServiceClassHasCorrectAnnotations() {
-    Class<JavascriptEngineRestService> serviceClass = JavascriptEngineRestService.class;
+    Class<KronosJavascriptEngineRestService> serviceClass = KronosJavascriptEngineRestService.class;
     Path pathAnnotation = serviceClass.getAnnotation(Path.class);
     assertNotNull("Class does not have a path annotation", pathAnnotation);
     assertEquals("Class does not have correct path", "/kronos", pathAnnotation.value());
@@ -177,7 +177,7 @@ public class JavascriptEngineRestServiceTest {
 
   private static void assertMethodHasCorrectAnnotations(String methodName, Class<? extends Annotation> expectedHttpVerbAnnotation)
       throws NoSuchMethodException {
-    Class<JavascriptEngineRestService> serviceClass = JavascriptEngineRestService.class;
+    Class<KronosJavascriptEngineRestService> serviceClass = KronosJavascriptEngineRestService.class;
     Method headMethod = serviceClass.getMethod(methodName, HttpServletRequest.class, String.class);
     assertCorrectHttpVerbAnnotation(headMethod, expectedHttpVerbAnnotation);
     assertCorrectPathAnnotation(headMethod);

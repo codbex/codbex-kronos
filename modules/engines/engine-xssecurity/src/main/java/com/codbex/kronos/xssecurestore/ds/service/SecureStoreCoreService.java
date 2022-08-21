@@ -36,7 +36,9 @@ import com.google.gson.JsonSyntaxException;
 public class SecureStoreCoreService implements ISecureStoreCoreService {
 
   /** The data source. */
-  private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
+  public DataSource getDataSource() {
+  	return (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
+  }
 
   /** The secure store persistence manager. */
   private PersistenceManager<SecureStore> secureStorePersistenceManager = new PersistenceManager<SecureStore>();
@@ -68,7 +70,7 @@ public class SecureStoreCoreService implements ISecureStoreCoreService {
     try {
       Connection connection = null;
       try {
-        connection = dataSource.getConnection();
+        connection = getDataSource().getConnection();
         secureStorePersistenceManager.insert(connection, secureStore);
         return secureStore;
       } finally {
@@ -92,7 +94,7 @@ public class SecureStoreCoreService implements ISecureStoreCoreService {
     try {
       Connection connection = null;
       try {
-        connection = dataSource.getConnection();
+        connection = getDataSource().getConnection();
         return secureStorePersistenceManager.findAll(connection, SecureStore.class);
       } finally {
         if (connection != null) {
@@ -115,7 +117,7 @@ public class SecureStoreCoreService implements ISecureStoreCoreService {
     try {
       Connection connection = null;
       try {
-        connection = dataSource.getConnection();
+        connection = getDataSource().getConnection();
         secureStorePersistenceManager.delete(connection, SecureStore.class, location);
       } finally {
         if (connection != null) {
@@ -151,7 +153,7 @@ public class SecureStoreCoreService implements ISecureStoreCoreService {
     try {
       Connection connection = null;
       try {
-        connection = dataSource.getConnection();
+        connection = getDataSource().getConnection();
         return secureStorePersistenceManager.find(connection, SecureStore.class, location);
       } finally {
         if (connection != null) {
@@ -197,7 +199,7 @@ public class SecureStoreCoreService implements ISecureStoreCoreService {
     try {
       Connection connection = null;
       try {
-        connection = dataSource.getConnection();
+        connection = getDataSource().getConnection();
         secureStoreContentPersistenceManager.insert(connection, secureStoreContent);
       } finally {
         if (connection != null) {
@@ -220,7 +222,7 @@ public class SecureStoreCoreService implements ISecureStoreCoreService {
     try {
       Connection connection = null;
       try {
-        connection = dataSource.getConnection();
+        connection = getDataSource().getConnection();
         secureStoreContentPersistenceManager.update(connection, secureStoreContent);
       } finally {
         if (connection != null) {
@@ -249,7 +251,7 @@ public class SecureStoreCoreService implements ISecureStoreCoreService {
       Connection connection = null;
 
       try {
-        connection = dataSource.getConnection();
+        connection = getDataSource().getConnection();
         List<SecureStoreContent> foundContent = secureStoreContentPersistenceManager
             .query(connection, SecureStoreContent.class, ISecureStoreModel.SECURE_STORE_VALUE_FIND_STATEMENT, queryArguments);
 
@@ -294,7 +296,7 @@ public class SecureStoreCoreService implements ISecureStoreCoreService {
       Connection connection = null;
 
       try {
-        connection = dataSource.getConnection();
+        connection = getDataSource().getConnection();
         secureStoreContentPersistenceManager.execute(connection, ISecureStoreModel.SECURE_STORE_VALUE_DELETE_STATEMENT, queryArguments);
       } finally {
         if (connection != null) {
@@ -319,7 +321,7 @@ public class SecureStoreCoreService implements ISecureStoreCoreService {
       Connection connection = null;
 
       try {
-        connection = dataSource.getConnection();
+        connection = getDataSource().getConnection();
         secureStoreContentPersistenceManager
             .execute(connection, ISecureStoreModel.SECURE_STORE_DELETE_BY_STORE_ID, Arrays.asList(userId));
       } finally {

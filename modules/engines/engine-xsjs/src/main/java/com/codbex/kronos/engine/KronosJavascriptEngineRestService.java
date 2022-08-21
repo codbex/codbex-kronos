@@ -41,19 +41,19 @@ import org.slf4j.LoggerFactory;
 @Api(value = "JavaScript Engine - HANA XS Classic", authorizations = {@Authorization(value = "basicAuth", scopes = {})})
 @ApiResponses({@ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
     @ApiResponse(code = 404, message = "Not Found"), @ApiResponse(code = 500, message = "Internal Server Error")})
-public class JavascriptEngineRestService extends AbstractRestService {
+public class KronosJavascriptEngineRestService extends AbstractRestService {
 
   /** The logger. */
-  private Logger logger = LoggerFactory.getLogger(JavascriptEngineRestService.class);
+  private Logger logger = LoggerFactory.getLogger(KronosJavascriptEngineRestService.class);
 
   /** The processor. */
-  private JavascriptEngineProcessor processor;
+  private KronosJavascriptEngineProcessor processor;
 
   /**
    * Instantiates a new javascript engine rest service.
    */
-  public JavascriptEngineRestService() {
-    this.processor = new JavascriptEngineProcessor();
+  public KronosJavascriptEngineRestService() {
+    this.processor = new KronosJavascriptEngineProcessor();
   }
 
   /**
@@ -61,7 +61,7 @@ public class JavascriptEngineRestService extends AbstractRestService {
    *
    * @param processor the processor
    */
-  public JavascriptEngineRestService(JavascriptEngineProcessor processor) {
+  public KronosJavascriptEngineRestService(KronosJavascriptEngineProcessor processor) {
     this.processor = processor;
   }
 
@@ -191,7 +191,7 @@ public class JavascriptEngineRestService extends AbstractRestService {
     ThreadContextFacade.setUp();
     try {
       ThreadContextFacade.set(HttpServletRequest.class.getCanonicalName(), httpServletRequest);
-      processor.executeService(path);
+      processor.executeService(path, null);
       return Response.ok().build();
     } finally {
       ThreadContextFacade.tearDown();
@@ -209,7 +209,7 @@ public class JavascriptEngineRestService extends AbstractRestService {
    */
   @Override
   public Class<? extends IRestService> getType() {
-    return JavascriptEngineRestService.class;
+    return KronosJavascriptEngineRestService.class;
   }
 
   /**

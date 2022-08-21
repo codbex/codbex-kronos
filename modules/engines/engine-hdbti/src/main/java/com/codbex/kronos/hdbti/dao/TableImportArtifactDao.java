@@ -34,7 +34,9 @@ public class TableImportArtifactDao implements ITableImportArtifactDao {
     private static final Logger logger = LoggerFactory.getLogger(TableImportArtifactDao.class);
 
     /** The data source. */
-    private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
+    public DataSource getDataSource() {
+    	return (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
+    }
 
     /** The persistence manager. */
     private PersistenceManager<TableImportArtifact> persistenceManager = new PersistenceManager<TableImportArtifact>();
@@ -49,7 +51,7 @@ public class TableImportArtifactDao implements ITableImportArtifactDao {
     @Override
     public TableImportArtifact createTableImportArtifact(TableImportArtifact tableImportArtifact) throws TableImportException {
 
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = getDataSource().getConnection()) {
             persistenceManager.insert(connection, tableImportArtifact);
             return tableImportArtifact;
         } catch (SQLException e) {
@@ -65,7 +67,7 @@ public class TableImportArtifactDao implements ITableImportArtifactDao {
      */
     @Override
     public void updateTableImportArtifact(TableImportArtifact artifact) throws TableImportException {
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = getDataSource().getConnection()) {
             TableImportArtifact tableImportArtifact = getTableImportArtifact(artifact.getLocation());
             tableImportArtifact.setName(artifact.getName());
             tableImportArtifact.setHash(artifact.getHash());
@@ -84,7 +86,7 @@ public class TableImportArtifactDao implements ITableImportArtifactDao {
      */
     @Override
     public TableImportArtifact getTableImportArtifact(String location) throws TableImportException {
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = getDataSource().getConnection()) {
             return persistenceManager.find(connection, TableImportArtifact.class, location);
         } catch (SQLException e) {
             throw new TableImportException(e);
@@ -98,7 +100,7 @@ public class TableImportArtifactDao implements ITableImportArtifactDao {
      */
     @Override
     public void removeTableImportArtifact(String location) {
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = getDataSource().getConnection()) {
             persistenceManager.delete(connection, TableImportArtifact.class, location);
         } catch (SQLException e) {
             logger.error("Error cleaning up and HDBTI file from DB", e);
@@ -113,7 +115,7 @@ public class TableImportArtifactDao implements ITableImportArtifactDao {
      */
     @Override
     public List<TableImportArtifact> getTableImportArtifacts() throws TableImportException {
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = getDataSource().getConnection()) {
             return persistenceManager.findAll(connection, TableImportArtifact.class);
         } catch (SQLException e) {
             logger.error("Error getting the HDBTI artifacts from DB");

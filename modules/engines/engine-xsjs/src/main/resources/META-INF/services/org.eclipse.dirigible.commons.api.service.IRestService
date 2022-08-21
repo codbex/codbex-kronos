@@ -1,1 +1,1 @@
-com.codbex.kronos.engine.JavascriptEngineRestService	# HANA XS Classic Javascript Engine Service
+com.codbex.kronos.engine.KronosJavascriptEngineRestService	# HANA XS Classic Javascript Engine Service

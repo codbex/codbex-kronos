@@ -90,7 +90,9 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
   /**
    * The data source.
    */
-  private final DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
+  private DataSource getDataSource() { 
+	  return (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
+  }
 
   /**
    * The manager services.
@@ -209,7 +211,7 @@ public class HDBCoreSynchronizationFacade implements IHDBCoreSynchronizationFaca
   public void updateEntities() {
     List<String> errors = new ArrayList<>();
     try {
-      try (Connection connection = dataSource.getConnection()) {
+      try (Connection connection = getDataSource().getConnection()) {
         boolean hdiOnly = Boolean.parseBoolean(Configuration.get(IEnvironmentVariables.KRONOS_HDI_ONLY, "false"));
         if (!hdiOnly) {
           // Process artefacts for phase I

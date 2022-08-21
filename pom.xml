@@ -8,10 +8,10 @@
     <version>7</version>
   </parent>
 
-  <name>Kronos - Parent</name>
+  <name>kronos - parent</name>
   <description>Kronos - SAP HANA XS Classic, Java and HTML5 Compatibility Platform</description>
   <groupId>com.codbex.kronos</groupId>
-  <artifactId>kronos-parent</artifactId>
+  <artifactId>codbex-kronos-parent</artifactId>
   <version>0.2.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
@@ -282,7 +282,7 @@
     <java.version>11</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <dirigible.version>6.3.16</dirigible.version>
+    <dirigible.version>6.3.20</dirigible.version>
 
     <!-- Sonar Cloud -->
     <sonar.organization>codbex</sonar.organization>

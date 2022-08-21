@@ -26,17 +26,16 @@ import javax.sql.DataSource;
  */
 public class XSJSLibSynchronizerPublisherHandler extends MetadataPublisherHandler {
   
-  /** The Constant dataSource. */
-  private static final DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
-  
   /** The Constant repository. */
-  private static final IRepository repository = (IRepository) StaticObjects.get(StaticObjects.REPOSITORY);
+  private static IRepository getRepository() {
+	  return (IRepository) StaticObjects.get(StaticObjects.REPOSITORY);
+  }
 
   /** The db cleaner. */
-  private final XSJSLibSynchronizerCleaner dbCleaner = new XSJSLibSynchronizerDBCleaner(dataSource);
+  private final XSJSLibSynchronizerCleaner dbCleaner = new XSJSLibSynchronizerDBCleaner(getDataSource());
   
   /** The file cleaner. */
-  private final XSJSLibSynchronizerCleaner fileCleaner = new XSJSLibSynchronizerFileCleaner(repository);
+  private final XSJSLibSynchronizerCleaner fileCleaner = new XSJSLibSynchronizerFileCleaner(getRepository());
   
   /** The unpublisher. */
   private final XSJSLibSynchronizerUnpublisher unpublisher = new XSJSLibSynchronizerUnpublisher(fileCleaner, dbCleaner);
@@ -59,7 +58,7 @@ public class XSJSLibSynchronizerPublisherHandler extends MetadataPublisherHandle
    */
   @Override
   public void beforeUnpublish(String location) {
-    XSJSLibSynchronizerRegistryEntity entity = new XSJSLibSynchronizerRegistryEntity(location, repository, true);
+    XSJSLibSynchronizerRegistryEntity entity = new XSJSLibSynchronizerRegistryEntity(location, getRepository(), true);
     unpublisher.unpublish(entity);
   }
 }

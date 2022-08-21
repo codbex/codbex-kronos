@@ -18,7 +18,7 @@ try {
 	// there is no close() function in resultSet class from hdb namespace
 	//   	resultSet.close();
 } catch (e) {
-	console.trace(e);
+	console.error(e);
 	response.println(e.message);
 } finally {
    connection.close();

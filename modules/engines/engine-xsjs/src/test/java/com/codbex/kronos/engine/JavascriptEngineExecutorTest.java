@@ -61,7 +61,7 @@ public class JavascriptEngineExecutorTest extends XSJSTest {
   }
 
   private static void executeJSTest(String testSourceFileName) {
-    new JavascriptEngineExecutor().executeServiceModule(testSourceFileName, new HashMap<>());
+    new KronosJavascriptEngineExecutor().executeServiceModule(testSourceFileName, new HashMap<>());
   }
 
   private static void insertJSTestCodeInRepository(String testFileName) {
