@@ -28,4 +28,24 @@ context CatalogTableTypes {
       COMPANY_ID: String(255) NOT NULL;
    };
 
+   @Catalog.tableType : #GLOBAL_TEMPORARY
+   Entity CONFIGURATION5{
+      KEY UUID: String(255);
+      COMPANY_ID: String(255);
+   };
+
+   @Catalog: { tableType : #GLOBAL_TEMPORARY }
+   Entity CONFIGURATION6{
+      KEY UUID: String(255);
+      COMPANY_ID: String(255);
+   };
+   @Catalog.tableType : #GLOBAL_TEMPORARY_COLUMN
+   Entity CONFIGURATION7{
+      COMPANY_ID: String(255);
+   };
+
+   @Catalog: { tableType : #GLOBAL_TEMPORARY_COLUMN }
+   Entity CONFIGURATION8{
+      COMPANY_ID: String(255);
+   };
 };

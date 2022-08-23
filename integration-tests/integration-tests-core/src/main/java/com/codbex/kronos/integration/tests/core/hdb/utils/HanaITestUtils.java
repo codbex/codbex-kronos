@@ -45,6 +45,12 @@ public class HanaITestUtils {
     return rs.next();
   }
 
+  public static boolean checkExistOfTableGlobalTemporary(Connection connection, String tableName, String tableSchema) throws SQLException {
+    DatabaseMetaData metaData = connection.getMetaData();
+    ResultSet rs = metaData.getTables(null, tableSchema, tableName, new String[]{ISqlKeywords.METADATA_GLOBAL_TEMPORARY});
+    return rs.next();
+  }
+
   public static boolean checkExistOfView(Connection connection, String tableName, String tableSchema) throws SQLException {
     DatabaseMetaData metaData = connection.getMetaData();
     ResultSet rs = metaData.getTables(null, tableSchema, tableName, new String[]{ISqlKeywords.KEYWORD_VIEW});
