@@ -24,7 +24,6 @@ import java.util.function.Consumer;
 
 import org.apache.commons.io.IOUtils;
 import org.eclipse.dirigible.engine.api.script.IScriptEngineExecutor;
-import org.eclipse.dirigible.graalium.core.DirigibleJavascriptCodeRunner;
 import org.eclipse.dirigible.graalium.core.DirigibleJavascriptHooksProvider;
 import org.eclipse.dirigible.graalium.core.graal.GraalJSInterceptor;
 import org.eclipse.dirigible.graalium.engine.GraaliumJavascriptEngineExecutor;
@@ -34,12 +33,17 @@ import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Context.Builder;
 import org.graalvm.polyglot.Source;
 import org.graalvm.polyglot.Value;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The HANA XS Classic Javascript Engine Executor.
  */
 public class KronosJavascriptEngineExecutor extends GraaliumJavascriptEngineExecutor
 		implements IScriptEngineExecutor, DirigibleJavascriptHooksProvider, Consumer<Context>, GraalJSInterceptor {
+	
+	/** The logger. */
+	private Logger logger = LoggerFactory.getLogger(KronosJavascriptEngineExecutor.class);
 
 	/** The Constant ENGINE_NAME. */
 	public static final String ENGINE_NAME = "HANA XS Classic JavaScript Engine";
@@ -287,6 +291,7 @@ public class KronosJavascriptEngineExecutor extends GraaliumJavascriptEngineExec
 			context.getBindings(ENGINE_JAVA_SCRIPT).putMember("$", loadScriptStringResult);
 	    context.eval(getJSErrorFileNamePolyfillSource());
 		} catch (IOException e) {
+			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			new RuntimeException(e);
 		}
 		
@@ -297,21 +302,34 @@ public class KronosJavascriptEngineExecutor extends GraaliumJavascriptEngineExec
 	@Override
 	public void onBeforeRun(String sourcePath, Path absoluteSourcePath, Source source, Context context) {
 		
-		// Require
-		try {
-			if (sourcePath.endsWith(".mjs")) {
-				context.eval(Source.newBuilder(ENGINE_JAVA_SCRIPT, Require.CODE, "internal-require.js").internal(true).build());
-	            context.eval(Source.newBuilder(ENGINE_JAVA_SCRIPT, Require.DIRIGIBLE_REQUIRE_CODE, "internal-dirigible-require.js").internal(true).build()); // alias of Require.CODE
-//	            context.eval(Source.newBuilder(ENGINE_JAVA_SCRIPT, "globalThis.console = require('core/v4/console');", "internal-console.js").internal(true).build());
-			} else {
-		        context.getBindings(ENGINE_JAVA_SCRIPT).putMember("MODULE_FILENAME", sourcePath);
-				context.eval(Source.newBuilder(ENGINE_JAVA_SCRIPT, Require.MODULE_LOAD_CODE, "internal-require.js").internal(true).build());
-			}
-		} catch (IOException e) {
-			new RuntimeException(e);
-		}
+//		// Require
+//		try {
+//			if (sourcePath.endsWith(".mjs")) {
+//				checkIfExists(sourcePath);
+//				context.eval(Source.newBuilder(ENGINE_JAVA_SCRIPT, Require.CODE, "internal-require.js").internal(true).build());
+//	            context.eval(Source.newBuilder(ENGINE_JAVA_SCRIPT, Require.DIRIGIBLE_REQUIRE_CODE, "internal-dirigible-require.js").internal(true).build()); // alias of Require.CODE
+////	            context.eval(Source.newBuilder(ENGINE_JAVA_SCRIPT, "globalThis.console = require('core/v4/console');", "internal-console.js").internal(true).build());
+//			} else {
+//		        context.getBindings(ENGINE_JAVA_SCRIPT).putMember("MODULE_FILENAME", sourcePath);
+//				context.eval(Source.newBuilder(ENGINE_JAVA_SCRIPT, Require.MODULE_LOAD_CODE, "internal-require.js").internal(true).build());
+//			}
+//		} catch (IOException e) {
+//			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
+//			new RuntimeException(e);
+//		}
 		
 	}
+
+//	private void checkIfExists(String sourcePath) throws RepositoryWriteException, IOException {
+//		IResource resource = getRepository().getResource(IRepositoryStructure.PATH_REGISTRY_PUBLIC + IRepository.SEPARATOR + sourcePath);
+//		if (!resource.exists()) {
+//			InputStream in = KronosJavascriptEngineExecutor.class.getResourceAsStream(sourcePath);
+//			if (in != null) {
+//				resource.create();
+//				resource.setContent(IOUtils.toByteArray(in));
+//			}
+//		}
+//	}
 
 	@Override
 	public void onAfterRun(String arg0, Path arg1, Source arg2, Context arg3, Value arg4) {

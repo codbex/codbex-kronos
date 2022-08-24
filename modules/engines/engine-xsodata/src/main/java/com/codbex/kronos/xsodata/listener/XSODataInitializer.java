@@ -19,19 +19,29 @@ import javax.servlet.ServletContextListener;
  */
 public class XSODataInitializer implements ServletContextListener {
 
-  /** The odata names validation pattern patcher. */
-  private final ODataNamesValidationPatternPatcher odataNamesValidationPatternPatcher = new ODataNamesValidationPatternPatcher();
+	/** The odata names validation pattern patcher. */
+	private final ODataNamesValidationPatternPatcher odataNamesValidationPatternPatcher = new ODataNamesValidationPatternPatcher();
 
-  /**
-   * Context initialized.
-   *
-   * @param sce the sce
-   */
-  public void contextInitialized(ServletContextEvent sce) {
-    try {
-      odataNamesValidationPatternPatcher.patch();
-    } catch (Exception e) {
-      throw new IllegalStateException("Failed to replace default Olingo OData parameter name pattern.", e);
-    }
-  }
+	/**
+	 * Context initialized.
+	 *
+	 * @param sce the sce
+	 */
+	public void contextInitialized(ServletContextEvent sce) {
+		try {
+			odataNamesValidationPatternPatcher.patch();
+		} catch (Exception e) {
+			throw new IllegalStateException("Failed to replace default Olingo OData parameter name pattern.", e);
+		}
+	}
+
+	/**
+	 * Context destroyed.
+	 *
+	 * @param sce the sce
+	 */
+	@Override
+	public void contextDestroyed(ServletContextEvent sce) {
+	}
+
 }
