@@ -59,7 +59,7 @@ public class HDBHDBTISimpleSampleTest {
 
   private static final String ORDERS_TABLE = "hdb-hdbti-simple::Products.Orders";
 
-  private static final String XSJS_SERVICE_PATH = "/services/v4/kronos/hdb-hdbti-simple/Service.xsjs";
+  private static final String XSJS_SERVICE_PATH = "/services/v4/xsjs/hdb-hdbti-simple/Service.xsjs";
   private static final String XSODATA_SERVICE_PATH = "/services/v4/web/hdb-hdbti-simple/Service.xsodata";
 
   private static final String XSJS_PRODUCTS_ORDERS_PATH = XSJS_SERVICE_PATH + "/productsOrders";
