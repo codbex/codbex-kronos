@@ -228,7 +228,7 @@
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-ext</artifactId>
-            <version>7.0.0-SNAPSHOT</version>
+            <version>${dirigible.version}</version>
         </dependency>
 
         <!-- External -->
