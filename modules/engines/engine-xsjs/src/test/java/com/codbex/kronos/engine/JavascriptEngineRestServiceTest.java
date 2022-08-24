@@ -142,7 +142,7 @@ public class JavascriptEngineRestServiceTest {
     Class<KronosJavascriptEngineRestService> serviceClass = KronosJavascriptEngineRestService.class;
     Path pathAnnotation = serviceClass.getAnnotation(Path.class);
     assertNotNull("Class does not have a path annotation", pathAnnotation);
-    assertEquals("Class does not have correct path", "/kronos", pathAnnotation.value());
+    assertEquals("Class does not have correct path", "/xsjs", pathAnnotation.value());
   }
 
   @Test
