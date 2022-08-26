@@ -1,6 +1,6 @@
-import { dao } from '@dirigible-v4/db'
-import { query } from '@dirigible-v4/db'
-import { digest } from '@dirigible-v4/utils'
+import { dao } from '@dirigible/db'
+import { query } from '@dirigible/db'
+import { digest } from '@dirigible/utils'
 
 export class XSJSLibStateTable {
   tableName = "";

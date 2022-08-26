@@ -1,4 +1,4 @@
-import { query } from '@dirigible-v4/db'
+import { query } from '@dirigible/db'
 
 var assert = require('utils/assert');
 

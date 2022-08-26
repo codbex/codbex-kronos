@@ -1,9 +1,9 @@
 import { assertEquals } from '../utils/utils.mjs'
 import { getParams } from '../utils/stateTableParamsProvider.mjs'
 import { fetchAllEntriesInTable } from '../utils/utils.mjs'
-import { XSJSLibExportsGenerator } from '/exports/XSJSLibExportsGenerator.mjs'
-import { repository } from '@dirigible-v4/platform'
-import { digest } from '@dirigible-v4/utils'
+import { XSJSLibExportsGenerator } from './XSJSLibExportsGenerator.mjs'
+import { repository } from '@dirigible/platform'
+import { digest } from '@dirigible/utils'
 const XSJSLibSynchronizerRegistryEntity = Java.type("com.codbex.kronos.synchronizer.XSJSLibSynchronizerRegistryEntity");
 
 function testMultiFileFolderExportGeneration() {

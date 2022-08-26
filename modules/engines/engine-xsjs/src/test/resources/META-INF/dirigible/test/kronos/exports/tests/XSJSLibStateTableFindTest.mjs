@@ -1,7 +1,7 @@
 import { assertEquals } from '../utils/utils.mjs'
 import { getParams } from '../utils/stateTableParamsProvider.mjs'
-import { XSJSLibStateTable } from '/exports/XSJSLibStateTable.mjs'
-import { digest } from '@dirigible-v4/utils'
+import { XSJSLibStateTable } from './XSJSLibStateTable.mjs'
+import { digest } from '@dirigible/utils'
 
 function findTableTest() {
   // create new state table
