@@ -79,7 +79,7 @@
         </dependency>
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
-            <artifactId>dirigible-core-publisher</artifactId>
+            <artifactId>dirigible-workspace-publisher</artifactId>
             <version>${dirigible.version}</version>
             <exclusions>
                 <exclusion>
