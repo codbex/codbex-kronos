@@ -1,8 +1,8 @@
 {
     "configuration": "/hdi-cube/config.hdiconfig",
     "users": ["DBADMIN"],
-    "group": "KRONOS_HDI_CUBE_GROUP",
-    "container": "KRONOS_HDI_CUBE",
+    "group": "HDI_CUBE_GROUP",
+    "container": "HDI_CUBE",
     "deploy": [
     	"/hdi-cube/SalesOrders.hdbsynonym",
     	"/hdi-cube/SalesOrdersCalculationView.hdbcalculationview"
