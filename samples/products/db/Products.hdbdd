@@ -57,8 +57,8 @@ context Products {
 
     view OrderView as SELECT FROM Orders
     {
-        Id,
-        CreatedAt,
-        Status
+        "Id",
+        "CreatedAt",
+        "Status"
     };
 };

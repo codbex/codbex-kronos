@@ -1,11 +1,11 @@
 {
     "configuration": "/hdi-simple/config.hdiconfig",
     "users": ["DBADMIN"],
-    "group": "KRONOS_HDI_SIMPLE_GROUP",
-    "container": "KRONOS_HDI_SIMPLE",
+    "group": "HDI_SIMPLE_GROUP",
+    "container": "HDI_SIMPLE",
     "deploy": [
-    	"/hdi-simple/KRONOS_HDI_SIMPLE_TABLE.hdbtable",
-    	"/hdi-simple/KRONOS_HDI_SIMPLE_CALC_VIEW.hdbcalculationview"
+    	"/hdi-simple/HDI_SIMPLE_TABLE.hdbtable",
+    	"/hdi-simple/HDI_SIMPLE_CALC_VIEW.hdbcalculationview"
     ],
     "undeploy": []
 }
