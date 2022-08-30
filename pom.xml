@@ -12,7 +12,7 @@
   <description>Kronos - SAP HANA XS Classic, Java and HTML5 Compatibility Platform</description>
   <groupId>com.codbex.kronos</groupId>
   <artifactId>codbex-kronos-parent</artifactId>
-  <version>0.2.0</version>
+  <version>0.3.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <inceptionYear>2022</inceptionYear>
