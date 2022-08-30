@@ -5,13 +5,13 @@
     <parent>
         <groupId>com.codbex.kronos</groupId>
         <artifactId>codbex-kronos-modules-parsers-parent</artifactId>
-        <version>0.2.0-SNAPSHOT</version>
+        <version>0.2.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <name>kronos - modules - parsers - hana</name>
     <artifactId>codbex-kronos-modules-parsers-hana</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>0.2.0</version>
     <packaging>jar</packaging>
 
     <build>
@@ -45,7 +45,7 @@
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>codbex-kronos-modules-parsers-commons</artifactId>
-            <version>0.2.0-SNAPSHOT</version>
+            <version>0.2.0</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
