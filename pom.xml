@@ -350,7 +350,7 @@
     <jetbrains.annotations.version>23.0.0</jetbrains.annotations.version>
     <httpmime.version>4.5.13</httpmime.version>
     <httpasyncclient.version>4.1.5</httpasyncclient.version>
-    <jackson.databind.version>2.13.3</jackson.databind.version>
+    <jackson.databind.version>2.13.4</jackson.databind.version>
 
     <license.header.location>licensing-header.txt</license.header.location>
     <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
