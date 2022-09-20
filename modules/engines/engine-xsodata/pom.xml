@@ -115,6 +115,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+          <groupId>org.eclipse.dirigible</groupId>
+          <artifactId>dirigible-database-sql-hana</artifactId>
+          <version>${dirigible.version}</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-repository-local</artifactId>
             <version>${dirigible.version}</version>
