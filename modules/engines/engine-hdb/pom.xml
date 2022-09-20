@@ -97,6 +97,16 @@
             <version>${dirigible.version}</version>
         </dependency>
         <dependency>
+          <groupId>org.eclipse.dirigible</groupId>
+          <artifactId>dirigible-database-sql-hana</artifactId>
+          <version>${dirigible.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.eclipse.dirigible</groupId>
+          <artifactId>dirigible-database-sql-postgres</artifactId>
+          <version>${dirigible.version}</version>
+        </dependency>
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>${javax.servlet-api.version}</version>
@@ -107,7 +117,6 @@
             <version>${javax.websocket-api.version}</version>
             <scope>provided</scope>
         </dependency>
-
 
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
