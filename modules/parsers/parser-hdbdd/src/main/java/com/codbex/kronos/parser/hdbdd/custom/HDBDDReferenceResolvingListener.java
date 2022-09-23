@@ -44,26 +44,37 @@ import com.codbex.kronos.parser.hdbdd.util.HDBDDUtils;
  * component's <code>addReferenceResolvingListener</code> method. When
  * the referenceResolving event occurs, that object's appropriate
  * method is invoked.
- *
  */
 public class HDBDDReferenceResolvingListener extends CdsBaseListener {
 
-  /** The Constant UNMANAGED_ASSOCIATION_MARKER. */
+  /**
+   * The Constant UNMANAGED_ASSOCIATION_MARKER.
+   */
   private static final String UNMANAGED_ASSOCIATION_MARKER = "@";
 
-  /** The symbol table. */
+  /**
+   * The symbol table.
+   */
   private SymbolTable symbolTable;
-  
-  /** The cds file scope. */
+
+  /**
+   * The cds file scope.
+   */
   private CDSFileScope cdsFileScope = new CDSFileScope();
-  
-  /** The entity elements. */
+
+  /**
+   * The entity elements.
+   */
   private ParseTreeProperty<EntityElementSymbol> entityElements;
-  
-  /** The typeables. */
+
+  /**
+   * The typeables.
+   */
   private ParseTreeProperty<Typeable> typeables;
-  
-  /** The associations. */
+
+  /**
+   * The associations.
+   */
   private ParseTreeProperty<AssociationSymbol> associations;
 
   /**
@@ -106,8 +117,60 @@ public class HDBDDReferenceResolvingListener extends CdsBaseListener {
 
     Set<Symbol> nonResolvedRefSymbols = new HashSet<>();
     nonResolvedRefSymbols.add((Symbol) referencingSymbol);
-    Symbol resolvedTypeSymbol = resolveReferenceChain(referencingSymbol.getReference(), (Symbol) referencingSymbol, nonResolvedRefSymbols);
+
+    Symbol resolvedTypeSymbol;
+
+    if (symbolTable.getGlobalBuiltInTypeScope().resolve(referencingSymbol.getReference()) != null) {
+      resolvedTypeSymbol = symbolTable.getGlobalBuiltInTypeScope().resolve(referencingSymbol.getReference());
+    } else if (symbolTable.getHanaBuiltInTypeScope(referencingSymbol.getReference()) != null) {
+      resolvedTypeSymbol = symbolTable.getHanaBuiltInTypeScope(referencingSymbol.getReference());
+    } else {
+      resolvedTypeSymbol = resolveReferenceChain(referencingSymbol.getReference(), (Symbol) referencingSymbol, nonResolvedRefSymbols);
+    }
+
     setResolvedType(ctx.TYPE_OF() != null, referencingSymbol, resolvedTypeSymbol);
+  }
+
+  /**
+   * Enter assign type with arguments.
+   *
+   * @param ctx the ctx
+   */
+  @Override
+  public void enterAssignTypeWithArgs(AssignTypeWithArgsContext ctx) {
+    Typeable referencingSymbol = typeables.get(ctx.getParent());
+    if (referencingSymbol.getType() != null) {
+      return;
+    }
+
+    Set<Symbol> nonResolvedRefSymbols = new HashSet<>();
+    nonResolvedRefSymbols.add((Symbol) referencingSymbol);
+
+    Symbol resolvedTypeSymbol;
+
+    if (symbolTable.getGlobalBuiltInTypeScope().resolve(referencingSymbol.getReference()) != null) {
+      resolvedTypeSymbol = symbolTable.getGlobalBuiltInTypeScope().resolve(referencingSymbol.getReference());
+    } else if (symbolTable.getHanaBuiltInTypeScope(referencingSymbol.getReference()) != null) {
+      resolvedTypeSymbol = symbolTable.getHanaBuiltInTypeScope(referencingSymbol.getReference());
+    } else {
+      resolvedTypeSymbol = resolveReferenceChain(referencingSymbol.getReference(), (Symbol) referencingSymbol, nonResolvedRefSymbols);
+    }
+
+    if (resolvedTypeSymbol instanceof BuiltInTypeSymbol) {
+      BuiltInTypeSymbol resolvedBuiltInType = (BuiltInTypeSymbol) resolvedTypeSymbol;
+
+      if (resolvedBuiltInType.getArgsCount() != ctx.args.size()) {
+        throw new CDSRuntimeException(String.format("Error at line: %d col: %d. Invalid number of constructor arguments passed.",
+            ctx.identifier.start.getLine(), ctx.identifier.start.getCharPositionInLine()));
+      }
+
+      ctx.args.forEach(t -> resolvedBuiltInType.addArgValue(Integer.parseInt(t.getText())));
+
+      setResolvedType(ctx.TYPE_OF() != null, referencingSymbol, resolvedBuiltInType);
+    }
+    else {
+      setResolvedType(ctx.TYPE_OF() != null, referencingSymbol, resolvedTypeSymbol);
+    }
   }
 
   /**
@@ -261,8 +324,8 @@ public class HDBDDReferenceResolvingListener extends CdsBaseListener {
   /**
    * Resolve reference chain.
    *
-   * @param reference the reference
-   * @param referencingSymbol the referencing symbol
+   * @param reference             the reference
+   * @param referencingSymbol     the referencing symbol
    * @param nonResolvedRefSymbols the non resolved ref symbols
    * @return the symbol
    */
@@ -275,9 +338,7 @@ public class HDBDDReferenceResolvingListener extends CdsBaseListener {
     for (int i = 1; i < splitReference.length; i++) {
       String member = splitReference[i];
 
-      if (resolvedSubMember instanceof BuiltInTypeSymbol) {
-        return null;
-      } else if (resolvedSubMember instanceof FieldSymbol) {
+      if (resolvedSubMember instanceof FieldSymbol) {
         Scope scopeToExplore;
         FieldSymbol resolvedSubMemberField = (FieldSymbol) resolvedSubMember;
         Symbol resolvedSubMemberType = resolveSimpleReference(resolvedSubMember, nonResolvedRefSymbols);
@@ -306,7 +367,7 @@ public class HDBDDReferenceResolvingListener extends CdsBaseListener {
   /**
    * Checks if is circular dependency.
    *
-   * @param resolvedSubMember the resolved sub member
+   * @param resolvedSubMember     the resolved sub member
    * @param nonResolvedRefSymbols the non resolved ref symbols
    */
   private void isCircularDependency(Symbol resolvedSubMember, Set<Symbol> nonResolvedRefSymbols) {
@@ -329,12 +390,13 @@ public class HDBDDReferenceResolvingListener extends CdsBaseListener {
   /**
    * Sets the resolved type.
    *
-   * @param isTypeOfUsed the is type of used
-   * @param typeable the typeable
+   * @param isTypeOfUsed   the is type of used
+   * @param typeable       the typeable
    * @param resolvedSymbol the resolved symbol
    */
   private void setResolvedType(boolean isTypeOfUsed, Typeable typeable, Symbol resolvedSymbol) {
     Symbol typeableSymbol = (Symbol) typeable;
+
     if (resolvedSymbol == null) {
       throw new CDSRuntimeException(
           String.format("Error at line: %s. No such type existing.", typeableSymbol.getIdToken().start.getLine()));
@@ -358,7 +420,7 @@ public class HDBDDReferenceResolvingListener extends CdsBaseListener {
   /**
    * Resolve simple reference.
    *
-   * @param resolvedMember the resolved member
+   * @param resolvedMember        the resolved member
    * @param nonResolvedRefSymbols the non resolved ref symbols
    * @return the symbol
    */
@@ -381,15 +443,11 @@ public class HDBDDReferenceResolvingListener extends CdsBaseListener {
   /**
    * Resolve reference.
    *
-   * @param referencedId the referenced id
+   * @param referencedId      the referenced id
    * @param referencingSymbol the referencing symbol
    * @return the symbol
    */
   public Symbol resolveReference(String referencedId, Symbol referencingSymbol) {
-    if (symbolTable.getGlobalBuiltInTypeScope().resolve(referencedId) != null) {
-      return symbolTable.getGlobalBuiltInTypeScope().resolve(referencedId);
-    }
-
     Symbol resolvedTypeSymbol = referencingSymbol.getScope().resolve(referencedId);
 
     if (resolvedTypeSymbol == null &&

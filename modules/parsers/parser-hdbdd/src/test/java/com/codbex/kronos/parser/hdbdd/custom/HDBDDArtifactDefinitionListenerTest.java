@@ -355,7 +355,20 @@ public class HDBDDArtifactDefinitionListenerTest {
     assertEquals("BINARY", entity.getElements().get(7).getType().getName());
     assertEquals("ST_POINT", entity.getElements().get(8).getType().getName());
     assertEquals("ST_GEOMETRY", entity.getElements().get(9).getType().getName());
+  }
 
+  @Test
+  public void testParseHanaToCDSTypesSuccessfully() throws Exception {
+    CdsParser parsedFile = parseSampleFile("/HanaToCDSTypes.hdbdd", "sap/db/HanaToCDSTypes.hdbdd");
+    List<EntitySymbol> parsedEntities = this.symbolTable.getSortedEntities();
+
+    assertEquals(0, parsedFile.getNumberOfSyntaxErrors());
+    assertEquals(1, parsedEntities.size());
+    EntitySymbol entity = parsedEntities.get(0);
+    assertEquals(2, entity.getElements().size());
+
+    assertEquals("Integer", entity.getElements().get(0).getType().getName());
+    assertEquals("String", entity.getElements().get(1).getType().getName());
   }
 
   @Test
@@ -384,7 +397,6 @@ public class HDBDDArtifactDefinitionListenerTest {
     assertEquals("UTCTimestamp", entity.getElements().get(13).getType().getName());
     assertEquals("Boolean", entity.getElements().get(14).getType().getName());
     assertEquals("Decimal", entity.getElements().get(15).getType().getName());
-
   }
 
   @Test

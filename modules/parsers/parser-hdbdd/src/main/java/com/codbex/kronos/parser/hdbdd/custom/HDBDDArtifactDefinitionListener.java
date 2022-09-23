@@ -434,22 +434,22 @@ public class HDBDDArtifactDefinitionListener extends CdsBaseListener {
     }
   }
 
-  /**
-   * Enter assign built in type with args.
-   *
-   * @param ctx the ctx
-   */
-  @Override
-  public void enterAssignBuiltInTypeWithArgs(AssignBuiltInTypeWithArgsContext ctx) {
-    Token typeIdToken = ctx.ref.ID().getSymbol();
-    String typeId = typeIdToken.getText();
-    Symbol resolvedType = resolveReference(typeId, this.symbolsByParseTreeContext.get(ctx.getParent()));
-
-    assignBuiltInType(resolvedType, ctx.args, typeIdToken, ctx);
-    Typeable typeable = typeables.get(ctx.getParent());
-
-    typeable.setReference(ctx.ref.getText());
-  }
+//  /**
+//   * Enter assign built in type with args.
+//   *
+//   * @param ctx the ctx
+//   */
+//  @Override
+//  public void enterAssignBuiltInTypeWithArgs(AssignBuiltInTypeWithArgsContext ctx) {
+//    Token typeIdToken = ctx.ref.ID().getSymbol();
+//    String typeId = typeIdToken.getText();
+//    Symbol resolvedType = resolveReference(typeId, this.symbolsByParseTreeContext.get(ctx.getParent()));
+//
+//    assignBuiltInType(resolvedType, ctx.args, typeIdToken, ctx);
+//    Typeable typeable = typeables.get(ctx.getParent());
+//
+//    typeable.setReference(ctx.ref.getText());
+//  }
 
   /**
    * Enter assign type.
@@ -466,39 +466,53 @@ public class HDBDDArtifactDefinitionListener extends CdsBaseListener {
   }
 
   /**
-   * Enter assign hana type.
+   * Enter assign type with arguments.
    *
    * @param ctx the ctx
    */
   @Override
-  public void enterAssignHanaType(AssignHanaTypeContext ctx) {
-    String hanaType = ctx.hanaType.getText();
-    BuiltInTypeSymbol builtInHanaType = this.symbolTable.getHanaType(hanaType);
-
+  public void enterAssignTypeWithArgs(AssignTypeWithArgsContext ctx) {
     Typeable typeable = typeables.get(ctx.getParent());
-    if (builtInHanaType == null) {
-      throw new CDSRuntimeException(String.format("Error at line: %s. No such hana type found.", ctx.hanaType.start.getLine()));
-    } else {
-      typeable.setType(builtInHanaType);
-    }
+    String fullReference = ctx.pathSubMembers.stream().map(IdentifierContext::getText).map(HDBDDUtils::processEscapedSymbolName)
+        .collect(Collectors.joining("."));
+
+    typeable.setReference(fullReference);
   }
 
-  /**
-   * Enter assign hana type with args.
-   *
-   * @param ctx the ctx
-   */
-  @Override
-  public void enterAssignHanaTypeWithArgs(AssignHanaTypeWithArgsContext ctx) {
-    Token typeIdToken = ctx.hanaType.ID().getSymbol();
-    String typeId = typeIdToken.getText();
-    Symbol resolvedType = this.symbolTable.getHanaType(typeId);
+//  /**
+//   * Enter assign hana type.
+//   *
+//   * @param ctx the ctx
+//   */
+//  @Override
+//  public void enterAssignHanaType(AssignHanaTypeContext ctx) {
+//    String hanaType = ctx.hanaType.getText();
+//    BuiltInTypeSymbol builtInHanaType = this.symbolTable.getHanaType(hanaType);
+//
+//    Typeable typeable = typeables.get(ctx.getParent());
+//    if (builtInHanaType == null) {
+//      throw new CDSRuntimeException(String.format("Error at line: %s. No such hana type found.", ctx.hanaType.start.getLine()));
+//    } else {
+//      typeable.setType(builtInHanaType);
+//    }
+//  }
 
-    assignBuiltInType(resolvedType, ctx.args, typeIdToken, ctx);
-    Typeable typeable = typeables.get(ctx.getParent());
-
-    typeable.setReference(ctx.hanaType.getText());
-  }
+//  /**
+//   * Enter assign hana type with args.
+//   *
+//   * @param ctx the ctx
+//   */
+//  @Override
+//  public void enterAssignHanaTypeWithArgs(AssignHanaTypeWithArgsContext ctx) {
+//    Token typeIdToken = ctx.hanaType.ID().getSymbol();
+//    String typeId = typeIdToken.getText();
+//    Symbol resolvedType = this.symbolTable.getHanaType(typeId);
+//
+//    assignBuiltInType(resolvedType, ctx.args, typeIdToken, ctx);
+//    Typeable typeable = typeables.get(ctx.getParent());
+//
+//    typeable.setReference(ctx.hanaType.getText());
+//  }
 
   /**
    * Exit ann object rule.

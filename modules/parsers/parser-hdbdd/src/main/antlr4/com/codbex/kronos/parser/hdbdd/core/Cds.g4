@@ -16,11 +16,9 @@ entityRule: annotationRule* artifactType=ENTITY artifactName=identifier '{' ( el
 viewRule: annotationRule* DEFINE? artifactType=VIEW artifactName=identifier AS selectRule*;
 
 fieldDeclRule: (identifier | '"' identifier '"') ':' typeAssignRule SEMICOLUMN;
-typeAssignRule: ref=identifier '(' args+=INTEGER (',' args+=INTEGER)* ')'                 # AssignBuiltInTypeWithArgs
-                | HANA '.' hanaType=identifier                                            # AssignHanaType
-                | HANA '.' hanaType=identifier '(' args+=INTEGER (',' args+=INTEGER)* ')' # AssignHanaTypeWithArgs
-                | TYPE_OF? pathSubMembers+=identifier ('.'pathSubMembers+=identifier)*    # AssignType
-                ;
+typeAssignRule: TYPE_OF? pathSubMembers+=identifier ('.'pathSubMembers+=identifier)*                                            # AssignType
+              | TYPE_OF? pathSubMembers+=identifier ('.'pathSubMembers+=identifier)* '(' args+=INTEGER (',' args+=INTEGER)* ')' # AssignTypeWithArgs
+              ;
 elementDeclRule: annotationRule* (key=identifier)? (name=identifier | '"' name=identifier '"') ':' typeAssignRule elementDetails* SEMICOLUMN;
 elementDetails: defaultValue | elementConstraints;
 elementConstraints: constraints;
