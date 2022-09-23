@@ -1,15 +1,4 @@
-/*
- * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
- *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v20.html
- *
- * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
- * SPDX-License-Identifier: EPL-2.0
- */
-// Generated from com/codbex/kronos/parser/hdbdd/core/Cds.g4 by ANTLR 4.10.1
+// Generated from java-escape by ANTLR 4.11.1
 package com.codbex.kronos.parser.hdbdd.core;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -119,42 +108,6 @@ public interface CdsListener extends ParseTreeListener {
 	 */
 	void exitFieldDeclRule(CdsParser.FieldDeclRuleContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code AssignBuiltInTypeWithArgs}
-	 * labeled alternative in {@link CdsParser#typeAssignRule}.
-	 * @param ctx the parse tree
-	 */
-	void enterAssignBuiltInTypeWithArgs(CdsParser.AssignBuiltInTypeWithArgsContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code AssignBuiltInTypeWithArgs}
-	 * labeled alternative in {@link CdsParser#typeAssignRule}.
-	 * @param ctx the parse tree
-	 */
-	void exitAssignBuiltInTypeWithArgs(CdsParser.AssignBuiltInTypeWithArgsContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code AssignHanaType}
-	 * labeled alternative in {@link CdsParser#typeAssignRule}.
-	 * @param ctx the parse tree
-	 */
-	void enterAssignHanaType(CdsParser.AssignHanaTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code AssignHanaType}
-	 * labeled alternative in {@link CdsParser#typeAssignRule}.
-	 * @param ctx the parse tree
-	 */
-	void exitAssignHanaType(CdsParser.AssignHanaTypeContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code AssignHanaTypeWithArgs}
-	 * labeled alternative in {@link CdsParser#typeAssignRule}.
-	 * @param ctx the parse tree
-	 */
-	void enterAssignHanaTypeWithArgs(CdsParser.AssignHanaTypeWithArgsContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code AssignHanaTypeWithArgs}
-	 * labeled alternative in {@link CdsParser#typeAssignRule}.
-	 * @param ctx the parse tree
-	 */
-	void exitAssignHanaTypeWithArgs(CdsParser.AssignHanaTypeWithArgsContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code AssignType}
 	 * labeled alternative in {@link CdsParser#typeAssignRule}.
 	 * @param ctx the parse tree
@@ -166,6 +119,18 @@ public interface CdsListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAssignType(CdsParser.AssignTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AssignTypeWithArgs}
+	 * labeled alternative in {@link CdsParser#typeAssignRule}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssignTypeWithArgs(CdsParser.AssignTypeWithArgsContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AssignTypeWithArgs}
+	 * labeled alternative in {@link CdsParser#typeAssignRule}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssignTypeWithArgs(CdsParser.AssignTypeWithArgsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CdsParser#elementDeclRule}.
 	 * @param ctx the parse tree
