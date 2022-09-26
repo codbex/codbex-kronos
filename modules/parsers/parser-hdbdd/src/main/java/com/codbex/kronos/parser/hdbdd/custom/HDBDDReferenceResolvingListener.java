@@ -111,6 +111,7 @@ public class HDBDDReferenceResolvingListener extends CdsBaseListener {
   @Override
   public void enterAssignType(AssignTypeContext ctx) {
     Typeable referencingSymbol = typeables.get(ctx.getParent());
+
     if (referencingSymbol.getType() != null) {
       return;
     }
@@ -120,14 +121,14 @@ public class HDBDDReferenceResolvingListener extends CdsBaseListener {
 
     Symbol resolvedTypeSymbol;
 
-    if (symbolTable.getGlobalBuiltInTypeScope().resolve(referencingSymbol.getReference()) != null) {
-      resolvedTypeSymbol = symbolTable.getGlobalBuiltInTypeScope().resolve(referencingSymbol.getReference());
-    } else if (symbolTable.getHanaBuiltInTypeScope(referencingSymbol.getReference()) != null) {
-      resolvedTypeSymbol = symbolTable.getHanaBuiltInTypeScope(referencingSymbol.getReference());
+    if (symbolTable.getHanaTypeScope(referencingSymbol.getReference().toUpperCase()) != null){
+      String cdsType = symbolTable.getHanaTypeScope(referencingSymbol.getReference().toUpperCase());
+      resolvedTypeSymbol = symbolTable.getCDSTypeScope().resolve(cdsType);
+    } else if (symbolTable.getCDSTypeScope().resolve(referencingSymbol.getReference()) != null) {
+      resolvedTypeSymbol = symbolTable.getCDSTypeScope().resolve(referencingSymbol.getReference());
     } else {
       resolvedTypeSymbol = resolveReferenceChain(referencingSymbol.getReference(), (Symbol) referencingSymbol, nonResolvedRefSymbols);
     }
-
     setResolvedType(ctx.TYPE_OF() != null, referencingSymbol, resolvedTypeSymbol);
   }
 
@@ -139,19 +140,20 @@ public class HDBDDReferenceResolvingListener extends CdsBaseListener {
   @Override
   public void enterAssignTypeWithArgs(AssignTypeWithArgsContext ctx) {
     Typeable referencingSymbol = typeables.get(ctx.getParent());
-    if (referencingSymbol.getType() != null) {
-      return;
-    }
+//    if (referencingSymbol.getType() != null) {
+//      return;
+//    }
 
     Set<Symbol> nonResolvedRefSymbols = new HashSet<>();
     nonResolvedRefSymbols.add((Symbol) referencingSymbol);
 
     Symbol resolvedTypeSymbol;
 
-    if (symbolTable.getGlobalBuiltInTypeScope().resolve(referencingSymbol.getReference()) != null) {
-      resolvedTypeSymbol = symbolTable.getGlobalBuiltInTypeScope().resolve(referencingSymbol.getReference());
-    } else if (symbolTable.getHanaBuiltInTypeScope(referencingSymbol.getReference()) != null) {
-      resolvedTypeSymbol = symbolTable.getHanaBuiltInTypeScope(referencingSymbol.getReference());
+    if (symbolTable.getHanaTypeScope(referencingSymbol.getReference().toUpperCase()) != null){
+      String cdsType = symbolTable.getHanaTypeScope(referencingSymbol.getReference().toUpperCase());
+      resolvedTypeSymbol = symbolTable.getCDSTypeScope().resolve(cdsType);
+    } else if (symbolTable.getCDSTypeScope().resolve(referencingSymbol.getReference()) != null) {
+      resolvedTypeSymbol = symbolTable.getCDSTypeScope().resolve(referencingSymbol.getReference());
     } else {
       resolvedTypeSymbol = resolveReferenceChain(referencingSymbol.getReference(), (Symbol) referencingSymbol, nonResolvedRefSymbols);
     }
@@ -159,14 +161,18 @@ public class HDBDDReferenceResolvingListener extends CdsBaseListener {
     if (resolvedTypeSymbol instanceof BuiltInTypeSymbol) {
       BuiltInTypeSymbol resolvedBuiltInType = (BuiltInTypeSymbol) resolvedTypeSymbol;
 
+      BuiltInTypeSymbol builtInTypeToProvide = new BuiltInTypeSymbol(resolvedBuiltInType.getName(), resolvedBuiltInType.getArgsCount(),
+          resolvedBuiltInType.getValueType());
+      builtInTypeToProvide.setHanaType(resolvedBuiltInType.isHanaType());
+
       if (resolvedBuiltInType.getArgsCount() != ctx.args.size()) {
         throw new CDSRuntimeException(String.format("Error at line: %d col: %d. Invalid number of constructor arguments passed.",
             ctx.identifier.start.getLine(), ctx.identifier.start.getCharPositionInLine()));
       }
 
-      ctx.args.forEach(t -> resolvedBuiltInType.addArgValue(Integer.parseInt(t.getText())));
+      ctx.args.forEach(t -> builtInTypeToProvide.addArgValue(Integer.parseInt(t.getText())));
 
-      setResolvedType(ctx.TYPE_OF() != null, referencingSymbol, resolvedBuiltInType);
+      setResolvedType(ctx.TYPE_OF() != null, referencingSymbol, builtInTypeToProvide);
     }
     else {
       setResolvedType(ctx.TYPE_OF() != null, referencingSymbol, resolvedTypeSymbol);
@@ -448,6 +454,13 @@ public class HDBDDReferenceResolvingListener extends CdsBaseListener {
    * @return the symbol
    */
   public Symbol resolveReference(String referencedId, Symbol referencingSymbol) {
+    if (symbolTable.getHanaTypeScope(referencedId.toUpperCase()) != null){
+      String cdsType = symbolTable.getHanaTypeScope(referencedId.toUpperCase());
+      return symbolTable.getCDSTypeScope().resolve(cdsType);
+    } else if (symbolTable.getCDSTypeScope().resolve(referencedId) != null) {
+      return symbolTable.getCDSTypeScope().resolve(referencedId);
+    }
+
     Symbol resolvedTypeSymbol = referencingSymbol.getScope().resolve(referencedId);
 
     if (resolvedTypeSymbol == null &&
@@ -455,7 +468,7 @@ public class HDBDDReferenceResolvingListener extends CdsBaseListener {
       resolvedTypeSymbol = referencingSymbol.getScope().getEnclosingScope().resolve(referencedId);
       if (resolvedTypeSymbol == null) {
         throw new CDSRuntimeException(
-            String.format("Error at line: %s. No such type found: %s", referencingSymbol.getIdToken().start.getLine(), referencedId));
+            String.format("Error at line: %s. No such user defined type found: %s", referencingSymbol.getIdToken().start.getLine(), referencedId));
       }
 
       return resolvedTypeSymbol;

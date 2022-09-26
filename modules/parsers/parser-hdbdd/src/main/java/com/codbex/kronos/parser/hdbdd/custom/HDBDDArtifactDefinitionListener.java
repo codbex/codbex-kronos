@@ -813,26 +813,26 @@ public class HDBDDArtifactDefinitionListener extends CdsBaseListener {
    * @param referencingSymbol the referencing symbol
    * @return the symbol
    */
-  public Symbol resolveReference(String referencedId, Symbol referencingSymbol) {
-    if (symbolTable.getGlobalBuiltInTypeScope().resolve(referencedId) != null) {
-      return symbolTable.getGlobalBuiltInTypeScope().resolve(referencedId);
-    }
-
-    Symbol resolvedTypeSymbol = referencingSymbol.getScope().resolve(referencedId);
-
-    if (resolvedTypeSymbol == null && referencingSymbol instanceof EntityElementSymbol) {
-      resolvedTypeSymbol = referencingSymbol.getScope().getEnclosingScope().resolve(referencedId);
-      if (resolvedTypeSymbol == null) {
-        throw new CDSRuntimeException(
-            String.format("Error at line: %s col: %s - No such type: %s", referencingSymbol.getIdToken().start.getLine(),
-                referencingSymbol.getIdToken().start.getLine(), referencedId));
-      }
-
-      return resolvedTypeSymbol;
-    }
-
-    return resolvedTypeSymbol;
-  }
+//  public Symbol resolveReference(String referencedId, Symbol referencingSymbol) {
+//    if (symbolTable.getGlobalBuiltInTypeScope().resolve(referencedId) != null) {
+//      return symbolTable.getGlobalBuiltInTypeScope().resolve(referencedId);
+//    }
+//
+//    Symbol resolvedTypeSymbol = referencingSymbol.getScope().resolve(referencedId);
+//
+//    if (resolvedTypeSymbol == null && referencingSymbol instanceof EntityElementSymbol) {
+//      resolvedTypeSymbol = referencingSymbol.getScope().getEnclosingScope().resolve(referencedId);
+//      if (resolvedTypeSymbol == null) {
+//        throw new CDSRuntimeException(
+//            String.format("Error at line: %s col: %s - No such type: %s", referencingSymbol.getIdToken().start.getLine(),
+//                referencingSymbol.getIdToken().start.getLine(), referencedId));
+//      }
+//
+//      return resolvedTypeSymbol;
+//    }
+//
+//    return resolvedTypeSymbol;
+//  }
 
   /**
    * Validate annotation.
