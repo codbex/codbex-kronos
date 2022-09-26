@@ -13,8 +13,9 @@ context HanaToCDSTypes {
     entity MyTable {
      key ID    : Integer;
          COL_1 : String(20);
-         COL_2 : hana.VARCHAR(10, 2);
+         COL_2 : hana.VARCHAR(10);
 
+         COL_3 : Double;
          COL_4 : type of MyType.field1;
     }
 };

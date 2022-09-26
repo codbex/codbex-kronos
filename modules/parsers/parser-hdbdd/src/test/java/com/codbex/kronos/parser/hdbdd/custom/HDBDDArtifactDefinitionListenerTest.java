@@ -57,7 +57,7 @@ public class HDBDDArtifactDefinitionListenerTest {
     } catch (RuntimeException e) {
       assertEquals(CDSRuntimeException.class, e.getClass());
       assertEquals(
-          "Failed to parse file: sap/table/InvalidDefaultValueType.hdbdd. Error at line: 8 col: 50. Incompatible types! Expected NVARCHAR, Provided 1",
+          "Failed to parse file: sap/table/InvalidDefaultValueType.hdbdd. Error at line: 8 col: 50. Incompatible types! Expected hana.VARCHAR, Provided 1",
           e.getMessage());
     }
   }
@@ -345,16 +345,16 @@ public class HDBDDArtifactDefinitionListenerTest {
     EntitySymbol entity = parsedEntities.get(0);
     assertEquals(10, entity.getElements().size());
 
-    assertEquals("ALPHANUMERIC", entity.getElements().get(1).getType().getName());
-    assertEquals("NVARCHAR", entity.getElements().get(0).getType().getName());
-    assertEquals("SMALLINT", entity.getElements().get(2).getType().getName());
-    assertEquals("TINYINT", entity.getElements().get(3).getType().getName());
-    assertEquals("REAL", entity.getElements().get(4).getType().getName());
-    assertEquals("SMALLDECIMAL", entity.getElements().get(5).getType().getName());
-    assertEquals("CLOB", entity.getElements().get(6).getType().getName());
-    assertEquals("BINARY", entity.getElements().get(7).getType().getName());
-    assertEquals("ST_POINT", entity.getElements().get(8).getType().getName());
-    assertEquals("ST_GEOMETRY", entity.getElements().get(9).getType().getName());
+    assertEquals("hana.ALPHANUM", entity.getElements().get(1).getType().getName());
+    assertEquals("hana.VARCHAR", entity.getElements().get(0).getType().getName());
+    assertEquals("hana.SMALLINT", entity.getElements().get(2).getType().getName());
+    assertEquals("hana.TINYINT", entity.getElements().get(3).getType().getName());
+    assertEquals("hana.REAL", entity.getElements().get(4).getType().getName());
+    assertEquals("hana.SMALLDECIMAL", entity.getElements().get(5).getType().getName());
+    assertEquals("hana.CLOB", entity.getElements().get(6).getType().getName());
+    assertEquals("hana.BINARY", entity.getElements().get(7).getType().getName());
+    assertEquals("hana.ST_POINT", entity.getElements().get(8).getType().getName());
+    assertEquals("hana.ST_GEOMETRY", entity.getElements().get(9).getType().getName());
   }
 
   @Test
@@ -365,10 +365,13 @@ public class HDBDDArtifactDefinitionListenerTest {
     assertEquals(0, parsedFile.getNumberOfSyntaxErrors());
     assertEquals(1, parsedEntities.size());
     EntitySymbol entity = parsedEntities.get(0);
-    assertEquals(2, entity.getElements().size());
+    assertEquals(5, entity.getElements().size());
 
     assertEquals("Integer", entity.getElements().get(0).getType().getName());
     assertEquals("String", entity.getElements().get(1).getType().getName());
+    assertEquals("hana.VARCHAR", entity.getElements().get(2).getType().getName());
+    assertEquals("BinaryFloat", entity.getElements().get(3).getType().getName());
+    assertEquals("UTCTimestamp", entity.getElements().get(4).getType().getName());
   }
 
   @Test
@@ -391,12 +394,12 @@ public class HDBDDArtifactDefinitionListenerTest {
     assertEquals("Decimal", entity.getElements().get(7).getType().getName());
     assertEquals("DecimalFloat", entity.getElements().get(8).getType().getName());
     assertEquals("BinaryFloat", entity.getElements().get(9).getType().getName());
-    assertEquals("LocalDate", entity.getElements().get(10).getType().getName());
-    assertEquals("LocalTime", entity.getElements().get(11).getType().getName());
-    assertEquals("UTCDateTime", entity.getElements().get(12).getType().getName());
-    assertEquals("UTCTimestamp", entity.getElements().get(13).getType().getName());
-    assertEquals("Boolean", entity.getElements().get(14).getType().getName());
-    assertEquals("Decimal", entity.getElements().get(15).getType().getName());
+    assertEquals("Decimal", entity.getElements().get(10).getType().getName());
+    assertEquals("LocalDate", entity.getElements().get(11).getType().getName());
+    assertEquals("LocalTime", entity.getElements().get(12).getType().getName());
+    assertEquals("UTCDateTime", entity.getElements().get(13).getType().getName());
+    assertEquals("UTCTimestamp", entity.getElements().get(14).getType().getName());
+    assertEquals("Boolean", entity.getElements().get(15).getType().getName());
   }
 
   @Test
@@ -437,7 +440,7 @@ public class HDBDDArtifactDefinitionListenerTest {
       parseSampleFile("/InvalidBuiltInHanaType.hdbdd", "sap/db/InvalidBuiltInHanaType.hdbdd");
     } catch (RuntimeException e) {
       assertEquals(CDSRuntimeException.class, e.getClass());
-      assertEquals("Error at line: 7. No such hana type found.", e.getMessage());
+      assertEquals("Failed to parse file: sap/db/InvalidBuiltInHanaType.hdbdd. Error at line: 7. No such user defined type found: hana", e.getMessage());
     }
   }
 
@@ -447,7 +450,7 @@ public class HDBDDArtifactDefinitionListenerTest {
       parseSampleFile("/InvalidBuiltInHanaTypeWithArgs.hdbdd", "sap/db/InvalidBuiltInHanaTypeWithArgs.hdbdd");
     } catch (RuntimeException e) {
       assertEquals(CDSRuntimeException.class, e.getClass());
-      assertEquals("Error at line: 7 col: 19. No such type:  String.", e.getMessage());
+      assertEquals("Failed to parse file: sap/db/InvalidBuiltInHanaTypeWithArgs.hdbdd. Error at line: 7. No such user defined type found: hana", e.getMessage());
     }
   }
 
@@ -511,7 +514,7 @@ public class HDBDDArtifactDefinitionListenerTest {
       parseSampleFile("/InvalidNumberOfTypeArguments.hdbdd", "sap/db/InvalidNumberOfTypeArguments.hdbdd");
     } catch (RuntimeException e) {
       assertEquals(CDSRuntimeException.class, e.getClass());
-      assertEquals("Error at line: 7 col: 19. Invalid number of constructor arguments passed.", e.getMessage());
+      assertEquals("Failed to parse file: sap/db/InvalidNumberOfTypeArguments.hdbdd. Error at line: 7 col: 19. Invalid number of constructor arguments passed.", e.getMessage());
     }
   }
 
@@ -521,7 +524,7 @@ public class HDBDDArtifactDefinitionListenerTest {
       parseSampleFile("/InvalidBuiltInType.hdbdd", "sap/db/InvalidBuiltInType.hdbdd");
     } catch (RuntimeException e) {
       assertEquals(CDSRuntimeException.class, e.getClass());
-      assertEquals("Error at line: 7 col: 7 - No such type: Text", e.getMessage());
+      assertEquals("Failed to parse file: sap/db/InvalidBuiltInType.hdbdd. Error at line: 7. No such user defined type found: LongText", e.getMessage());
     }
   }
 
@@ -584,7 +587,7 @@ public class HDBDDArtifactDefinitionListenerTest {
       parseSampleFile("/NonExistingUserDefinedType.hdbdd", "sap/db/NonExistingUserDefinedType.hdbdd");
     } catch (RuntimeException e) {
       assertEquals(CDSRuntimeException.class, e.getClass());
-      assertEquals("Failed to parse file: sap/db/NonExistingUserDefinedType.hdbdd. Error at line: 9. No such type found: MyCustomType",
+      assertEquals("Failed to parse file: sap/db/NonExistingUserDefinedType.hdbdd. Error at line: 9. No such user defined type found: MyCustomType",
           e.getMessage());
     }
   }
