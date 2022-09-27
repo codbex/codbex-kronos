@@ -92,6 +92,8 @@ public class SymbolTable {
     cdsTypeScope.define(new BuiltInTypeSymbol("hana.ST_POINT", 0, Arrays.asList(CdsLexer.STRING), true));
     cdsTypeScope.define(new BuiltInTypeSymbol("hana.ST_GEOMETRY", 0, Arrays.asList(CdsLexer.STRING), true));
 
+    // TODO: Implement logic for missing hana to cds types with same names.
+
     hanaTypeScope.put("NVARCHAR", "String");
     hanaTypeScope.put("SHORTTEXT", "String");
     hanaTypeScope.put("NCLOB", "LargeString");
@@ -101,7 +103,6 @@ public class SymbolTable {
     hanaTypeScope.put("INTEGER", "Integer");
     hanaTypeScope.put("INT", "Integer");
     hanaTypeScope.put("BIGINT", "Integer64");
-    //hanaTypeScope.put("DECIMAL", "DecimalFloat");
     hanaTypeScope.put("DOUBLE", "BinaryFloat");
     hanaTypeScope.put("DAYDATE", "LocalDate");
     hanaTypeScope.put("DATE", "LocalDate");
@@ -116,7 +117,6 @@ public class SymbolTable {
     hanaTypeScope.put("REAL", "hana.REAL");
     hanaTypeScope.put("VARCHAR", "hana.VARCHAR");
     hanaTypeScope.put("CLOB", "hana.CLOB");
-    //hanaTypeScope.put("BINARY", "hana.BINARY");
     hanaTypeScope.put("ST_POINT", "hana.ST_POINT");
     hanaTypeScope.put("ST_GEOMETRY", "hana.ST_GEOMETRY");
 
