@@ -1,0 +1,15 @@
+namespace sap.db;
+
+@Schema: 'ADMIN'
+context MyTest {
+
+    entity  Orders{
+        key Id               : Integer;
+        Name                 : String(32);
+        key Country          : association to MyTest.Country { CId } not null;
+    };
+
+    entity Country {
+        key CId              : String(64);
+    };
+};

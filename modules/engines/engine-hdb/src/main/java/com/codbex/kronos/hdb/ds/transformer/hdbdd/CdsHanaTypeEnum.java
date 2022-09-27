@@ -17,30 +17,45 @@ package com.codbex.kronos.hdb.ds.transformer.hdbdd;
  */
 public enum CdsHanaTypeEnum {
   
-  /** The nvarchar. */
-  NVARCHAR,
+  /** The varchar. */
+  VARCHAR("hana.VARCHAR"),
   
   /** The alphanumeric. */
-  ALPHANUMERIC,
+  ALPHANUMERIC("hana.ALPHANUM"),
   
   /** The smallint. */
-  SMALLINT,
+  SMALLINT("hana.SMALLINT"),
   
   /** The tinyint. */
-  TINYINT,
+  TINYINT("hana.TINYINT"),
   
   /** The smalldecimal. */
-  SMALLDECIMAL,
+  SMALLDECIMAL("hana.SMALLDECIMAL"),
   
   /** The clob. */
-  CLOB,
+  CLOB("hana.CLOB"),
   
   /** The binary. */
-  BINARY,
+  BINARY("hana.BINARY"),
   
   /** The st point. */
-  ST_POINT,
+  ST_POINT("hana.ST_POINT"),
   
   /** The st geometry. */
-  ST_GEOMETRY
+  ST_GEOMETRY("hana.ST_GEOMETRY");
+
+  public final String prefixedName;
+
+  private CdsHanaTypeEnum(String prefixedName) {
+    this.prefixedName = prefixedName;
+  }
+
+  public static CdsHanaTypeEnum getSQLName(String prefixedName) {
+    for (CdsHanaTypeEnum e : values()) {
+      if (e.prefixedName.equals(prefixedName)) {
+        return e;
+      }
+    }
+    return null;
+  }
 }
