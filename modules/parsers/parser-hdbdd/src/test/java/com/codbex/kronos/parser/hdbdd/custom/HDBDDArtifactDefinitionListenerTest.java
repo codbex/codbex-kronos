@@ -360,18 +360,20 @@ public class HDBDDArtifactDefinitionListenerTest {
   @Test
   public void testParseHanaToCDSTypesSuccessfully() throws Exception {
     CdsParser parsedFile = parseSampleFile("/HanaToCDSTypes.hdbdd", "sap/db/HanaToCDSTypes.hdbdd");
-    List<EntitySymbol> parsedEntities = this.symbolTable.getSortedEntities();
 
+    List<EntitySymbol> parsedEntities = this.symbolTable.getSortedEntities();
     assertEquals(0, parsedFile.getNumberOfSyntaxErrors());
     assertEquals(1, parsedEntities.size());
+
     EntitySymbol entity = parsedEntities.get(0);
-    assertEquals(5, entity.getElements().size());
+    assertEquals(6, entity.getElements().size());
 
     assertEquals("Integer", entity.getElements().get(0).getType().getName());
     assertEquals("String", entity.getElements().get(1).getType().getName());
     assertEquals("hana.VARCHAR", entity.getElements().get(2).getType().getName());
     assertEquals("BinaryFloat", entity.getElements().get(3).getType().getName());
-    assertEquals("UTCTimestamp", entity.getElements().get(4).getType().getName());
+    assertEquals("BinaryFloat", entity.getElements().get(4).getType().getName());
+    assertEquals("UTCTimestamp", entity.getElements().get(5).getType().getName());
   }
 
   @Test
@@ -514,7 +516,7 @@ public class HDBDDArtifactDefinitionListenerTest {
       parseSampleFile("/InvalidNumberOfTypeArguments.hdbdd", "sap/db/InvalidNumberOfTypeArguments.hdbdd");
     } catch (RuntimeException e) {
       assertEquals(CDSRuntimeException.class, e.getClass());
-      assertEquals("Failed to parse file: sap/db/InvalidNumberOfTypeArguments.hdbdd. Error at line: 7 col: 19. Invalid number of constructor arguments passed.", e.getMessage());
+      assertEquals("Error at line: 7 col: 19. Invalid number of constructor arguments passed.", e.getMessage());
     }
   }
 

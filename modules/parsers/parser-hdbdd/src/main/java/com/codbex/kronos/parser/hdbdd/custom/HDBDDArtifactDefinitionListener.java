@@ -60,53 +60,82 @@ import com.codbex.kronos.parser.hdbdd.util.HDBDDUtils;
  * component's <code>addArtifactDefinitionListener</code> method. When
  * the artifactDefinition event occurs, that object's appropriate
  * method is invoked.
- *
  */
 public class HDBDDArtifactDefinitionListener extends CdsBaseListener {
 
-  /** The symbol table. */
+  /**
+   * The symbol table.
+   */
   private SymbolTable symbolTable;
-  
-  /** The file location. */
+
+  /**
+   * The file location.
+   */
   private String fileLocation;
-  
-  /** The schema. */
+
+  /**
+   * The schema.
+   */
   private String schema;
-  
-  /** The cds file scope. */
+
+  /**
+   * The CDS file scope.
+   */
   private CDSFileScope cdsFileScope = new CDSFileScope();
-  
-  /** The current scope. */
+
+  /**
+   * The current scope.
+   */
   private Scope currentScope = cdsFileScope;
-  
-  /** The entity elements. */
+
+  /**
+   * The entity elements.
+   */
   private final ParseTreeProperty<EntityElementSymbol> entityElements = new ParseTreeProperty<>();
-  
-  /** The typeables. */
+
+  /**
+   * The typeables.
+   */
   private final ParseTreeProperty<Typeable> typeables = new ParseTreeProperty<>();
-  
-  /** The symbols by parse tree context. */
+
+  /**
+   * The symbols by parse tree context.
+   */
   private final ParseTreeProperty<Symbol> symbolsByParseTreeContext = new ParseTreeProperty<>();
-  
-  /** The full symbol names. */
+
+  /**
+   * The full symbol names.
+   */
   private final Deque<String> fullSymbolNames = new ArrayDeque<>();
-  
-  /** The associations. */
+
+  /**
+   * The associations.
+   */
   private final ParseTreeProperty<AssociationSymbol> associations = new ParseTreeProperty<>();
-  
-  /** The values. */
+
+  /**
+   * The values.
+   */
   private final ParseTreeProperty<AbstractAnnotationValue> values = new ParseTreeProperty<>();
-  
-  /** The packages used. */
+
+  /**
+   * The packages used.
+   */
   private final Set<String> packagesUsed = new HashSet<>();
-  
-  /** The symbol factory. */
+
+  /**
+   * The symbol factory.
+   */
   private final SymbolFactory symbolFactory = new SymbolFactory();
-  
-  /** The package id. */
+
+  /**
+   * The package id.
+   */
   private String packageId;
-  
-  /** The Constant NOKEY_ANNOTATION. */
+
+  /**
+   * The Constant NOKEY_ANNOTATION.
+   */
   private static final String NOKEY_ANNOTATION = "nokey";
 
   /**
@@ -363,7 +392,7 @@ public class HDBDDArtifactDefinitionListener extends CdsBaseListener {
   public void enterAssociation(AssociationContext ctx) {
     AssociationSymbol associationSymbol = this.symbolFactory.getAssociationSymbol(ctx, currentScope);
 
-    if(ctx.key != null && ctx.key.getText().equalsIgnoreCase("key")) {
+    if (ctx.key != null && ctx.key.getText().equalsIgnoreCase("key")) {
       associationSymbol.setKey(true);
     }
 
@@ -434,23 +463,6 @@ public class HDBDDArtifactDefinitionListener extends CdsBaseListener {
     }
   }
 
-//  /**
-//   * Enter assign built in type with args.
-//   *
-//   * @param ctx the ctx
-//   */
-//  @Override
-//  public void enterAssignBuiltInTypeWithArgs(AssignBuiltInTypeWithArgsContext ctx) {
-//    Token typeIdToken = ctx.ref.ID().getSymbol();
-//    String typeId = typeIdToken.getText();
-//    Symbol resolvedType = resolveReference(typeId, this.symbolsByParseTreeContext.get(ctx.getParent()));
-//
-//    assignBuiltInType(resolvedType, ctx.args, typeIdToken, ctx);
-//    Typeable typeable = typeables.get(ctx.getParent());
-//
-//    typeable.setReference(ctx.ref.getText());
-//  }
-
   /**
    * Enter assign type.
    *
@@ -458,10 +470,16 @@ public class HDBDDArtifactDefinitionListener extends CdsBaseListener {
    */
   @Override
   public void enterAssignType(AssignTypeContext ctx) {
-    Typeable typeable = typeables.get(ctx.getParent());
     String fullReference = ctx.pathSubMembers.stream().map(IdentifierContext::getText).map(HDBDDUtils::processEscapedSymbolName)
         .collect(Collectors.joining("."));
 
+    Symbol resolvedType = resolveReference(fullReference, this.symbolsByParseTreeContext.get(ctx.getParent()));
+
+    if (resolvedType != null && resolvedType instanceof BuiltInTypeSymbol) {
+      assignBuiltInType(resolvedType, ctx.identifier.getStart(), ctx);
+    }
+
+    Typeable typeable = typeables.get(ctx.getParent());
     typeable.setReference(fullReference);
   }
 
@@ -472,47 +490,18 @@ public class HDBDDArtifactDefinitionListener extends CdsBaseListener {
    */
   @Override
   public void enterAssignTypeWithArgs(AssignTypeWithArgsContext ctx) {
-    Typeable typeable = typeables.get(ctx.getParent());
     String fullReference = ctx.pathSubMembers.stream().map(IdentifierContext::getText).map(HDBDDUtils::processEscapedSymbolName)
         .collect(Collectors.joining("."));
 
+    Symbol resolvedType = resolveReference(fullReference, this.symbolsByParseTreeContext.get(ctx.getParent()));
+
+    if (resolvedType != null && resolvedType instanceof BuiltInTypeSymbol) {
+      assignBuiltInTypeWithArgs(resolvedType, ctx.args, ctx.identifier.getStart(), ctx);
+    }
+
+    Typeable typeable = typeables.get(ctx.getParent());
     typeable.setReference(fullReference);
   }
-
-//  /**
-//   * Enter assign hana type.
-//   *
-//   * @param ctx the ctx
-//   */
-//  @Override
-//  public void enterAssignHanaType(AssignHanaTypeContext ctx) {
-//    String hanaType = ctx.hanaType.getText();
-//    BuiltInTypeSymbol builtInHanaType = this.symbolTable.getHanaType(hanaType);
-//
-//    Typeable typeable = typeables.get(ctx.getParent());
-//    if (builtInHanaType == null) {
-//      throw new CDSRuntimeException(String.format("Error at line: %s. No such hana type found.", ctx.hanaType.start.getLine()));
-//    } else {
-//      typeable.setType(builtInHanaType);
-//    }
-//  }
-
-//  /**
-//   * Enter assign hana type with args.
-//   *
-//   * @param ctx the ctx
-//   */
-//  @Override
-//  public void enterAssignHanaTypeWithArgs(AssignHanaTypeWithArgsContext ctx) {
-//    Token typeIdToken = ctx.hanaType.ID().getSymbol();
-//    String typeId = typeIdToken.getText();
-//    Symbol resolvedType = this.symbolTable.getHanaType(typeId);
-//
-//    assignBuiltInType(resolvedType, ctx.args, typeIdToken, ctx);
-//    Typeable typeable = typeables.get(ctx.getParent());
-//
-//    typeable.setReference(ctx.hanaType.getText());
-//  }
 
   /**
    * Exit ann object rule.
@@ -809,36 +798,28 @@ public class HDBDDArtifactDefinitionListener extends CdsBaseListener {
   /**
    * Resolve reference.
    *
-   * @param referencedId the referenced id
+   * @param referencedId      the referenced id
    * @param referencingSymbol the referencing symbol
    * @return the symbol
    */
-//  public Symbol resolveReference(String referencedId, Symbol referencingSymbol) {
-//    if (symbolTable.getGlobalBuiltInTypeScope().resolve(referencedId) != null) {
-//      return symbolTable.getGlobalBuiltInTypeScope().resolve(referencedId);
-//    }
-//
-//    Symbol resolvedTypeSymbol = referencingSymbol.getScope().resolve(referencedId);
-//
-//    if (resolvedTypeSymbol == null && referencingSymbol instanceof EntityElementSymbol) {
-//      resolvedTypeSymbol = referencingSymbol.getScope().getEnclosingScope().resolve(referencedId);
-//      if (resolvedTypeSymbol == null) {
-//        throw new CDSRuntimeException(
-//            String.format("Error at line: %s col: %s - No such type: %s", referencingSymbol.getIdToken().start.getLine(),
-//                referencingSymbol.getIdToken().start.getLine(), referencedId));
-//      }
-//
-//      return resolvedTypeSymbol;
-//    }
-//
-//    return resolvedTypeSymbol;
-//  }
+  public Symbol resolveReference(String referencedId, Symbol referencingSymbol) {
+    if (symbolTable.getHanaTypeScope(referencedId.toUpperCase()) != null) {
+      String cdsType = symbolTable.getHanaTypeScope(referencedId.toUpperCase());
+      return symbolTable.getCDSTypeScope().resolve(cdsType);
+    } else if (symbolTable.getCDSTypeScope().resolve(referencedId) != null) {
+      return symbolTable.getCDSTypeScope().resolve(referencedId);
+    }
+
+    Symbol resolvedTypeSymbol = referencingSymbol.getScope().resolve(referencedId);
+
+    return resolvedTypeSymbol;
+  }
 
   /**
    * Validate annotation.
    *
    * @param annIdToken the ann id token
-   * @param symbol the symbol
+   * @param symbol     the symbol
    */
   private void validateAnnotation(IdentifierContext annIdToken, Symbol symbol) {
     String annId = annIdToken.getText();
@@ -865,22 +846,40 @@ public class HDBDDArtifactDefinitionListener extends CdsBaseListener {
    * Assign built in type.
    *
    * @param builtInType the built in type
-   * @param args the args
    * @param typeIdToken the type id token
-   * @param ctx the ctx
+   * @param ctx         the ctx
    */
-  private void assignBuiltInType(Symbol builtInType, List<Token> args, Token typeIdToken, ParserRuleContext ctx) {
+  private void assignBuiltInType(Symbol builtInType, Token typeIdToken, ParserRuleContext ctx) {
     String typeId = typeIdToken.getText();
-    if (builtInType == null) {
-      throw new CDSRuntimeException(String.format("Error at line: %d col: %d. No such type:  %s.",
-          typeIdToken.getLine(), typeIdToken.getCharPositionInLine(), typeId));
-    } else if (!(builtInType instanceof BuiltInTypeSymbol)) {
-      throw new CDSRuntimeException(String.format("Error at line: %d col: %d. Constructor usage is only allowed for some built in types.",
-          typeIdToken.getLine(), typeIdToken.getCharPositionInLine()));
-    }
+
     BuiltInTypeSymbol resolvedBuiltInType = (BuiltInTypeSymbol) builtInType;
+
     BuiltInTypeSymbol builtInTypeToProvide = new BuiltInTypeSymbol(builtInType.getName(), resolvedBuiltInType.getArgsCount(),
         resolvedBuiltInType.getValueType());
+
+    builtInTypeToProvide.setHanaType(resolvedBuiltInType.isHanaType());
+
+    Typeable typeable = typeables.get(ctx.getParent());
+
+    typeable.setType(builtInTypeToProvide);
+  }
+
+  /**
+   * Assign built in type with arguments.
+   *
+   * @param builtInType the built in type
+   * @param args        the args
+   * @param typeIdToken the type id token
+   * @param ctx         the ctx
+   */
+  private void assignBuiltInTypeWithArgs(Symbol builtInType, List<Token> args, Token typeIdToken, ParserRuleContext ctx) {
+    String typeId = typeIdToken.getText();
+
+    BuiltInTypeSymbol resolvedBuiltInType = (BuiltInTypeSymbol) builtInType;
+
+    BuiltInTypeSymbol builtInTypeToProvide = new BuiltInTypeSymbol(builtInType.getName(), resolvedBuiltInType.getArgsCount(),
+        resolvedBuiltInType.getValueType());
+
     builtInTypeToProvide.setHanaType(resolvedBuiltInType.isHanaType());
 
     if (resolvedBuiltInType.getArgsCount() != args.size()) {
@@ -890,6 +889,7 @@ public class HDBDDArtifactDefinitionListener extends CdsBaseListener {
 
     args.forEach(t ->
         builtInTypeToProvide.addArgValue(Integer.parseInt(t.getText())));
+
     Typeable typeable = typeables.get(ctx.getParent());
 
     typeable.setType(builtInTypeToProvide);

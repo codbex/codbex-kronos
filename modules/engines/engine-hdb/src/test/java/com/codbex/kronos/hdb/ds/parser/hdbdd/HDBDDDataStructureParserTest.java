@@ -647,7 +647,7 @@ public class HDBDDDataStructureParserTest extends AbstractDirigibleTest {
   @Test
   public void testParseHDBDDWithSetHanaType() throws Exception {
     DataStructureModel parsedModel = DataStructureModelFactory.parseHdbdd("gstr2/SetHanaType.hdbdd", "");
-    assertEquals("NVARCHAR", ((DataStructureHDBDDModel) parsedModel).getTableTypeModels().get(0).getColumns().get(0).getType());
+    assertEquals("VARCHAR", ((DataStructureHDBDDModel) parsedModel).getTableTypeModels().get(0).getColumns().get(0).getType());
     assertEquals("SMALLINT", ((DataStructureHDBDDModel) parsedModel).getTableTypeModels().get(0).getColumns().get(1).getType());
   }
 
