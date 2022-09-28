@@ -476,7 +476,7 @@ public class HDBDDArtifactDefinitionListener extends CdsBaseListener {
     Symbol resolvedType = resolveReference(fullReference, this.symbolsByParseTreeContext.get(ctx.getParent()));
 
     if (resolvedType instanceof BuiltInTypeSymbol) {
-      assignBuiltInType(resolvedType, ctx.identifier.getStart(), ctx);
+      assignBuiltInType(resolvedType, ctx);
     }
 
     Typeable typeable = typeables.get(ctx.getParent());
@@ -845,19 +845,15 @@ public class HDBDDArtifactDefinitionListener extends CdsBaseListener {
    * Assign built in type.
    *
    * @param builtInType the built in type
-   * @param typeIdToken the type id token
    * @param ctx         the ctx
    */
-  private void assignBuiltInType(Symbol builtInType, Token typeIdToken, ParserRuleContext ctx) {
+  private void assignBuiltInType(Symbol builtInType, ParserRuleContext ctx) {
     BuiltInTypeSymbol resolvedBuiltInType = (BuiltInTypeSymbol) builtInType;
-
     BuiltInTypeSymbol builtInTypeToProvide = new BuiltInTypeSymbol(builtInType.getName(), resolvedBuiltInType.getArgsCount(),
         resolvedBuiltInType.getValueType());
-
-    builtInTypeToProvide.setHanaType(resolvedBuiltInType.isHanaType());
-
     Typeable typeable = typeables.get(ctx.getParent());
 
+    builtInTypeToProvide.setHanaType(resolvedBuiltInType.isHanaType());
     typeable.setType(builtInTypeToProvide);
   }
 
