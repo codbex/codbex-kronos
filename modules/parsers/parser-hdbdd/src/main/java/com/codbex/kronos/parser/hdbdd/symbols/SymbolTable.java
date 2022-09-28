@@ -34,6 +34,23 @@ import com.codbex.kronos.parser.hdbdd.symbols.view.ViewSymbol;
  * The Class SymbolTable.
  */
 public class SymbolTable {
+  /** The Constant FUZZY_SEARCH_INDEX_ENABLED. */
+  private static final String STRING = "String";
+
+  /** The Constant FUZZY_SEARCH_INDEX_ENABLED. */
+  private static final String LARGE_STRING = "LargeString";
+
+  /** The Constant FUZZY_SEARCH_INDEX_ENABLED. */
+  private static final String INTEGER = "Integer";
+
+  /** The Constant FUZZY_SEARCH_INDEX_ENABLED. */
+  private static final String LOCAL_DATE = "LocalDate";
+
+  /** The Constant FUZZY_SEARCH_INDEX_ENABLED. */
+  private static final String LOCAL_TIME = "LocalTime";
+
+  /** The Constant FUZZY_SEARCH_INDEX_ENABLED. */
+  private static final String UTC_TIMESTAMP = "UTCTimestamp";
 
   /** The global built in type scope. */
   private CDSFileScope cdsTypeScope = new CDSFileScope();
@@ -67,19 +84,19 @@ public class SymbolTable {
    * Inits the type system.
    */
   protected void initTypeSystem() {
-    cdsTypeScope.define(new BuiltInTypeSymbol("String", 1, Arrays.asList(CdsLexer.STRING)));
-    cdsTypeScope.define(new BuiltInTypeSymbol("LargeString", 0, Arrays.asList(CdsLexer.STRING)));
+    cdsTypeScope.define(new BuiltInTypeSymbol(STRING, 1, Arrays.asList(CdsLexer.STRING)));
+    cdsTypeScope.define(new BuiltInTypeSymbol(LARGE_STRING, 0, Arrays.asList(CdsLexer.STRING)));
     cdsTypeScope.define(new BuiltInTypeSymbol("Binary", 1, Arrays.asList(CdsLexer.VARBINARY)));
     cdsTypeScope.define(new BuiltInTypeSymbol("LargeBinary", 0, Arrays.asList(CdsLexer.VARBINARY)));
-    cdsTypeScope.define(new BuiltInTypeSymbol("Integer", 0, Arrays.asList(CdsLexer.INTEGER)));
+    cdsTypeScope.define(new BuiltInTypeSymbol(INTEGER, 0, Arrays.asList(CdsLexer.INTEGER)));
     cdsTypeScope.define(new BuiltInTypeSymbol("Integer64", 0, Arrays.asList(CdsLexer.INTEGER)));
     cdsTypeScope.define(new BuiltInTypeSymbol("Decimal", 2, Arrays.asList(CdsLexer.DECIMAL, CdsLexer.INTEGER)));
     cdsTypeScope.define(new BuiltInTypeSymbol("DecimalFloat", 0, Arrays.asList(CdsLexer.DECIMAL)));
     cdsTypeScope.define(new BuiltInTypeSymbol("BinaryFloat", 0, Arrays.asList(CdsLexer.DECIMAL)));
-    cdsTypeScope.define(new BuiltInTypeSymbol("LocalDate", 0, Arrays.asList(CdsLexer.LOCAL_DATE, CdsLexer.DATETIME_VALUE_FUNCTION)));
-    cdsTypeScope.define(new BuiltInTypeSymbol("LocalTime", 0, Arrays.asList(CdsLexer.LOCAL_TIME, CdsLexer.DATETIME_VALUE_FUNCTION)));
+    cdsTypeScope.define(new BuiltInTypeSymbol(LOCAL_DATE, 0, Arrays.asList(CdsLexer.LOCAL_DATE, CdsLexer.DATETIME_VALUE_FUNCTION)));
+    cdsTypeScope.define(new BuiltInTypeSymbol(LOCAL_TIME, 0, Arrays.asList(CdsLexer.LOCAL_TIME, CdsLexer.DATETIME_VALUE_FUNCTION)));
     cdsTypeScope.define(new BuiltInTypeSymbol("UTCDateTime", 0, Arrays.asList(CdsLexer.UTC_DATE_TIME, CdsLexer.DATETIME_VALUE_FUNCTION)));
-    cdsTypeScope.define(new BuiltInTypeSymbol("UTCTimestamp", 0, Arrays.asList(CdsLexer.UTC_TIMESTAMP, CdsLexer.DATETIME_VALUE_FUNCTION)));
+    cdsTypeScope.define(new BuiltInTypeSymbol(UTC_TIMESTAMP, 0, Arrays.asList(CdsLexer.UTC_TIMESTAMP, CdsLexer.DATETIME_VALUE_FUNCTION)));
     cdsTypeScope.define(new BuiltInTypeSymbol("Boolean", 0, Arrays.asList(CdsLexer.BOOLEAN)));
     cdsTypeScope.define(new BuiltInTypeSymbol("hana.ALPHANUM", 0, Arrays.asList(CdsLexer.STRING), true));
     cdsTypeScope.define(new BuiltInTypeSymbol("hana.SMALLINT", 0, Arrays.asList(CdsLexer.INTEGER), true));
@@ -92,25 +109,23 @@ public class SymbolTable {
     cdsTypeScope.define(new BuiltInTypeSymbol("hana.ST_POINT", 0, Arrays.asList(CdsLexer.STRING), true));
     cdsTypeScope.define(new BuiltInTypeSymbol("hana.ST_GEOMETRY", 0, Arrays.asList(CdsLexer.STRING), true));
 
-    // TODO: Implement logic for missing hana to cds types with same names.
-
-    hanaTypeScope.put("NVARCHAR", "String");
-    hanaTypeScope.put("SHORTTEXT", "String");
-    hanaTypeScope.put("NCLOB", "LargeString");
-    hanaTypeScope.put("TEXT", "LargeString");
+    hanaTypeScope.put("NVARCHAR", STRING);
+    hanaTypeScope.put("SHORTTEXT", STRING);
+    hanaTypeScope.put("NCLOB", LARGE_STRING);
+    hanaTypeScope.put("TEXT", LARGE_STRING);
     hanaTypeScope.put("VARBINARY", "Binary");
     hanaTypeScope.put("BLOB", "LargeBinary");
-    hanaTypeScope.put("INTEGER", "Integer");
-    hanaTypeScope.put("INT", "Integer");
+    hanaTypeScope.put("INTEGER", INTEGER);
+    hanaTypeScope.put("INT", INTEGER);
     hanaTypeScope.put("BIGINT", "Integer64");
     hanaTypeScope.put("DOUBLE", "BinaryFloat");
-    hanaTypeScope.put("DAYDATE", "LocalDate");
-    hanaTypeScope.put("DATE", "LocalDate");
-    hanaTypeScope.put("SECONDTIME", "LocalTime");
-    hanaTypeScope.put("TIME", "LocalTime");
+    hanaTypeScope.put("DAYDATE", LOCAL_DATE);
+    hanaTypeScope.put("DATE", LOCAL_DATE);
+    hanaTypeScope.put("SECONDTIME", LOCAL_TIME);
+    hanaTypeScope.put("TIME", LOCAL_TIME);
     hanaTypeScope.put("SECONDDATE", "UTCDateTime");
-    hanaTypeScope.put("LONGDATE", "UTCTimestamp");
-    hanaTypeScope.put("TIMESTAMP", "UTCTimestamp");
+    hanaTypeScope.put("LONGDATE", UTC_TIMESTAMP);
+    hanaTypeScope.put("TIMESTAMP", UTC_TIMESTAMP);
     hanaTypeScope.put("ALPHANUM", "hana.ALPHANUM");
     hanaTypeScope.put("TINYINT", "hana.TINYINT");
     hanaTypeScope.put("SMALLDECIMAL", "hana.SMALLDECIMAL");
