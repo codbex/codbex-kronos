@@ -282,7 +282,7 @@
     <java.version>11</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <dirigible.version>6.3.24</dirigible.version>
+    <dirigible.version>6.3.23</dirigible.version>
 
     <sonar.organization>codbex</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
