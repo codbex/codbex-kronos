@@ -475,7 +475,7 @@ public class HDBDDArtifactDefinitionListener extends CdsBaseListener {
 
     Symbol resolvedType = resolveReference(fullReference, this.symbolsByParseTreeContext.get(ctx.getParent()));
 
-    if (resolvedType != null && resolvedType instanceof BuiltInTypeSymbol) {
+    if (resolvedType instanceof BuiltInTypeSymbol) {
       assignBuiltInType(resolvedType, ctx.identifier.getStart(), ctx);
     }
 
@@ -495,7 +495,7 @@ public class HDBDDArtifactDefinitionListener extends CdsBaseListener {
 
     Symbol resolvedType = resolveReference(fullReference, this.symbolsByParseTreeContext.get(ctx.getParent()));
 
-    if (resolvedType != null && resolvedType instanceof BuiltInTypeSymbol) {
+    if (resolvedType instanceof BuiltInTypeSymbol) {
       assignBuiltInTypeWithArgs(resolvedType, ctx.args, ctx.identifier.getStart(), ctx);
     }
 
@@ -811,7 +811,6 @@ public class HDBDDArtifactDefinitionListener extends CdsBaseListener {
     }
 
     Symbol resolvedTypeSymbol = referencingSymbol.getScope().resolve(referencedId);
-
     return resolvedTypeSymbol;
   }
 
@@ -850,8 +849,6 @@ public class HDBDDArtifactDefinitionListener extends CdsBaseListener {
    * @param ctx         the ctx
    */
   private void assignBuiltInType(Symbol builtInType, Token typeIdToken, ParserRuleContext ctx) {
-    String typeId = typeIdToken.getText();
-
     BuiltInTypeSymbol resolvedBuiltInType = (BuiltInTypeSymbol) builtInType;
 
     BuiltInTypeSymbol builtInTypeToProvide = new BuiltInTypeSymbol(builtInType.getName(), resolvedBuiltInType.getArgsCount(),
@@ -873,8 +870,6 @@ public class HDBDDArtifactDefinitionListener extends CdsBaseListener {
    * @param ctx         the ctx
    */
   private void assignBuiltInTypeWithArgs(Symbol builtInType, List<Token> args, Token typeIdToken, ParserRuleContext ctx) {
-    String typeId = typeIdToken.getText();
-
     BuiltInTypeSymbol resolvedBuiltInType = (BuiltInTypeSymbol) builtInType;
 
     BuiltInTypeSymbol builtInTypeToProvide = new BuiltInTypeSymbol(builtInType.getName(), resolvedBuiltInType.getArgsCount(),
