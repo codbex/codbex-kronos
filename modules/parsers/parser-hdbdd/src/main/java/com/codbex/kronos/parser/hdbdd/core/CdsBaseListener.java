@@ -1,15 +1,4 @@
-/*
- * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
- *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v20.html
- *
- * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
- * SPDX-License-Identifier: EPL-2.0
- */
-// Generated from com/codbex/kronos/parser/hdbdd/core/Cds.g4 by ANTLR 4.10.1
+// Generated from java-escape by ANTLR 4.11.1
 package com.codbex.kronos.parser.hdbdd.core;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -21,6 +10,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
+@SuppressWarnings("CheckReturnValue")
 public class CdsBaseListener implements CdsListener {
 	/**
 	 * {@inheritDoc}
@@ -147,42 +137,6 @@ public class CdsBaseListener implements CdsListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssignBuiltInTypeWithArgs(CdsParser.AssignBuiltInTypeWithArgsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAssignBuiltInTypeWithArgs(CdsParser.AssignBuiltInTypeWithArgsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterAssignHanaType(CdsParser.AssignHanaTypeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAssignHanaType(CdsParser.AssignHanaTypeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterAssignHanaTypeWithArgs(CdsParser.AssignHanaTypeWithArgsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAssignHanaTypeWithArgs(CdsParser.AssignHanaTypeWithArgsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterAssignType(CdsParser.AssignTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -190,6 +144,18 @@ public class CdsBaseListener implements CdsListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAssignType(CdsParser.AssignTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAssignTypeWithArgs(CdsParser.AssignTypeWithArgsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAssignTypeWithArgs(CdsParser.AssignTypeWithArgsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

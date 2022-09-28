@@ -521,13 +521,13 @@ public class HDBDDTransformer {
    */
   private void setHanaType(DataStructureHDBTableColumnModel columnModel, BuiltInTypeSymbol builtInTypeSymbol) {
     String typeName = builtInTypeSymbol.getName();
-    CdsHanaTypeEnum cdsHanaTypeEnum = CdsHanaTypeEnum.valueOf(typeName);
+    CdsHanaTypeEnum cdsHanaTypeEnum = CdsHanaTypeEnum.getSQLName(typeName);
 
-    if (cdsHanaTypeEnum.equals(CdsHanaTypeEnum.NVARCHAR)) {
+    if (cdsHanaTypeEnum.equals(CdsHanaTypeEnum.VARCHAR)) {
       columnModel.setLength(builtInTypeSymbol.getArgsValues().get(0).toString());
     }
 
-    columnModel.setType(typeName);
+    columnModel.setType(cdsHanaTypeEnum.toString());
   }
 
   /**

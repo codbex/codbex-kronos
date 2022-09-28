@@ -14,12 +14,10 @@ entity GlobalBuiltInTypes {
       COL_7 : Decimal(15,2) default 0.00;
       COL_8 : DecimalFloat default 0.00;
       COL_9 : BinaryFloat default 0.00;
-
+      COL_10 : Decimal(15,2) default 0;
       COL_11 : LocalDate default null;
       COL_12 : LocalTime default null;
       COL_13 : UTCDateTime default null;
       COL_14 : UTCTimestamp default null;
       COL_15 : Boolean default true;
-
-      COL_10 : Decimal(15,2) default 0;
 };

@@ -34,9 +34,26 @@ import com.codbex.kronos.parser.hdbdd.symbols.view.ViewSymbol;
  * The Class SymbolTable.
  */
 public class SymbolTable {
+  /** The Constant FUZZY_SEARCH_INDEX_ENABLED. */
+  private static final String STRING = "String";
+
+  /** The Constant FUZZY_SEARCH_INDEX_ENABLED. */
+  private static final String LARGE_STRING = "LargeString";
+
+  /** The Constant FUZZY_SEARCH_INDEX_ENABLED. */
+  private static final String INTEGER = "Integer";
+
+  /** The Constant FUZZY_SEARCH_INDEX_ENABLED. */
+  private static final String LOCAL_DATE = "LocalDate";
+
+  /** The Constant FUZZY_SEARCH_INDEX_ENABLED. */
+  private static final String LOCAL_TIME = "LocalTime";
+
+  /** The Constant FUZZY_SEARCH_INDEX_ENABLED. */
+  private static final String UTC_TIMESTAMP = "UTCTimestamp";
 
   /** The global built in type scope. */
-  private CDSFileScope globalBuiltInTypeScope = new CDSFileScope();
+  private CDSFileScope cdsTypeScope = new CDSFileScope();
   
   /** The symbols by full name. */
   private Map<String, Symbol> symbolsByFullName = new HashMap<>();
@@ -51,7 +68,7 @@ public class SymbolTable {
   private Map<String, List<String>> viewGraph = new HashMap<>();
   
   /** The hana built in types. */
-  private Map<String, BuiltInTypeSymbol> hanaBuiltInTypes = new HashMap<>();
+  private Map<String, String> hanaTypeScope = new HashMap<>();
   
   /** The annotation template factory. */
   private AnnotationTemplateFactory annotationTemplateFactory = new AnnotationTemplateFactory();
@@ -67,31 +84,56 @@ public class SymbolTable {
    * Inits the type system.
    */
   protected void initTypeSystem() {
-    globalBuiltInTypeScope.define(new BuiltInTypeSymbol("String", 1, Arrays.asList(CdsLexer.STRING)));
-    globalBuiltInTypeScope.define(new BuiltInTypeSymbol("LargeString", Arrays.asList(CdsLexer.STRING)));
-    globalBuiltInTypeScope.define(new BuiltInTypeSymbol("Binary", 1, Arrays.asList(CdsLexer.VARBINARY)));
-    globalBuiltInTypeScope.define(new BuiltInTypeSymbol("LargeBinary", Arrays.asList(CdsLexer.VARBINARY)));
-    globalBuiltInTypeScope.define(new BuiltInTypeSymbol("Integer", Arrays.asList(CdsLexer.INTEGER)));
-    globalBuiltInTypeScope.define(new BuiltInTypeSymbol("Integer64", Arrays.asList(CdsLexer.INTEGER)));
-    globalBuiltInTypeScope.define(new BuiltInTypeSymbol("Decimal", 2, Arrays.asList(CdsLexer.DECIMAL, CdsLexer.INTEGER)));
-    globalBuiltInTypeScope.define(new BuiltInTypeSymbol("DecimalFloat", Arrays.asList(CdsLexer.DECIMAL)));
-    globalBuiltInTypeScope.define(new BuiltInTypeSymbol("BinaryFloat", Arrays.asList(CdsLexer.DECIMAL)));
-    globalBuiltInTypeScope.define(new BuiltInTypeSymbol("LocalDate", Arrays.asList(CdsLexer.LOCAL_DATE, CdsLexer.DATETIME_VALUE_FUNCTION)));
-    globalBuiltInTypeScope.define(new BuiltInTypeSymbol("LocalTime", Arrays.asList(CdsLexer.LOCAL_TIME, CdsLexer.DATETIME_VALUE_FUNCTION)));
-    globalBuiltInTypeScope.define(new BuiltInTypeSymbol("UTCDateTime", Arrays.asList(CdsLexer.UTC_DATE_TIME, CdsLexer.DATETIME_VALUE_FUNCTION)));
-    globalBuiltInTypeScope.define(new BuiltInTypeSymbol("UTCTimestamp", Arrays.asList(CdsLexer.UTC_TIMESTAMP, CdsLexer.DATETIME_VALUE_FUNCTION)));
-    globalBuiltInTypeScope.define(new BuiltInTypeSymbol("Boolean", Arrays.asList(CdsLexer.BOOLEAN)));
+    cdsTypeScope.define(new BuiltInTypeSymbol(STRING, 1, Arrays.asList(CdsLexer.STRING)));
+    cdsTypeScope.define(new BuiltInTypeSymbol(LARGE_STRING, 0, Arrays.asList(CdsLexer.STRING)));
+    cdsTypeScope.define(new BuiltInTypeSymbol("Binary", 1, Arrays.asList(CdsLexer.VARBINARY)));
+    cdsTypeScope.define(new BuiltInTypeSymbol("LargeBinary", 0, Arrays.asList(CdsLexer.VARBINARY)));
+    cdsTypeScope.define(new BuiltInTypeSymbol(INTEGER, 0, Arrays.asList(CdsLexer.INTEGER)));
+    cdsTypeScope.define(new BuiltInTypeSymbol("Integer64", 0, Arrays.asList(CdsLexer.INTEGER)));
+    cdsTypeScope.define(new BuiltInTypeSymbol("Decimal", 2, Arrays.asList(CdsLexer.DECIMAL, CdsLexer.INTEGER)));
+    cdsTypeScope.define(new BuiltInTypeSymbol("DecimalFloat", 0, Arrays.asList(CdsLexer.DECIMAL)));
+    cdsTypeScope.define(new BuiltInTypeSymbol("BinaryFloat", 0, Arrays.asList(CdsLexer.DECIMAL)));
+    cdsTypeScope.define(new BuiltInTypeSymbol(LOCAL_DATE, 0, Arrays.asList(CdsLexer.LOCAL_DATE, CdsLexer.DATETIME_VALUE_FUNCTION)));
+    cdsTypeScope.define(new BuiltInTypeSymbol(LOCAL_TIME, 0, Arrays.asList(CdsLexer.LOCAL_TIME, CdsLexer.DATETIME_VALUE_FUNCTION)));
+    cdsTypeScope.define(new BuiltInTypeSymbol("UTCDateTime", 0, Arrays.asList(CdsLexer.UTC_DATE_TIME, CdsLexer.DATETIME_VALUE_FUNCTION)));
+    cdsTypeScope.define(new BuiltInTypeSymbol(UTC_TIMESTAMP, 0, Arrays.asList(CdsLexer.UTC_TIMESTAMP, CdsLexer.DATETIME_VALUE_FUNCTION)));
+    cdsTypeScope.define(new BuiltInTypeSymbol("Boolean", 0, Arrays.asList(CdsLexer.BOOLEAN)));
+    cdsTypeScope.define(new BuiltInTypeSymbol("hana.ALPHANUM", 0, Arrays.asList(CdsLexer.STRING), true));
+    cdsTypeScope.define(new BuiltInTypeSymbol("hana.SMALLINT", 0, Arrays.asList(CdsLexer.INTEGER), true));
+    cdsTypeScope.define(new BuiltInTypeSymbol("hana.TINYINT", 0, Arrays.asList(CdsLexer.INTEGER), true));
+    cdsTypeScope.define(new BuiltInTypeSymbol("hana.REAL", 0, Arrays.asList(CdsLexer.DECIMAL), true));
+    cdsTypeScope.define(new BuiltInTypeSymbol("hana.SMALLDECIMAL", 0, Arrays.asList(CdsLexer.DECIMAL), true));
+    cdsTypeScope.define(new BuiltInTypeSymbol("hana.VARCHAR", 1, Arrays.asList(CdsLexer.STRING), true));
+    cdsTypeScope.define(new BuiltInTypeSymbol("hana.CLOB", 0, Arrays.asList(CdsLexer.VARBINARY), true));
+    cdsTypeScope.define(new BuiltInTypeSymbol("hana.BINARY", 1, Arrays.asList(CdsLexer.VARBINARY), true));
+    cdsTypeScope.define(new BuiltInTypeSymbol("hana.ST_POINT", 0, Arrays.asList(CdsLexer.STRING), true));
+    cdsTypeScope.define(new BuiltInTypeSymbol("hana.ST_GEOMETRY", 0, Arrays.asList(CdsLexer.STRING), true));
 
-    hanaBuiltInTypes.put("ALPHANUM", new BuiltInTypeSymbol("ALPHANUMERIC", 0, Arrays.asList(CdsLexer.STRING), true));
-    hanaBuiltInTypes.put("SMALLINT", new BuiltInTypeSymbol("SMALLINT", 0, Arrays.asList(CdsLexer.INTEGER), true));
-    hanaBuiltInTypes.put("TINYINT", new BuiltInTypeSymbol("TINYINT", 0, Arrays.asList(CdsLexer.INTEGER), true));
-    hanaBuiltInTypes.put("REAL", new BuiltInTypeSymbol("REAL", 0, Arrays.asList(CdsLexer.DECIMAL), true));
-    hanaBuiltInTypes.put("SMALLDECIMAL", new BuiltInTypeSymbol("SMALLDECIMAL", 0, Arrays.asList(CdsLexer.DECIMAL), true));
-    hanaBuiltInTypes.put("VARCHAR", new BuiltInTypeSymbol("NVARCHAR", 1, Arrays.asList(CdsLexer.STRING), true));
-    hanaBuiltInTypes.put("CLOB", new BuiltInTypeSymbol("CLOB", 0, Arrays.asList(CdsLexer.VARBINARY), true));
-    hanaBuiltInTypes.put("BINARY", new BuiltInTypeSymbol("BINARY", 0, Arrays.asList(CdsLexer.VARBINARY), true));
-    hanaBuiltInTypes.put("ST_POINT", new BuiltInTypeSymbol("ST_POINT", 0, Arrays.asList(CdsLexer.STRING), true));
-    hanaBuiltInTypes.put("ST_GEOMETRY", new BuiltInTypeSymbol("ST_GEOMETRY", 0, Arrays.asList(CdsLexer.STRING), true));
+    hanaTypeScope.put("NVARCHAR", STRING);
+    hanaTypeScope.put("SHORTTEXT", STRING);
+    hanaTypeScope.put("NCLOB", LARGE_STRING);
+    hanaTypeScope.put("TEXT", LARGE_STRING);
+    hanaTypeScope.put("VARBINARY", "Binary");
+    hanaTypeScope.put("BLOB", "LargeBinary");
+    hanaTypeScope.put("INTEGER", INTEGER);
+    hanaTypeScope.put("INT", INTEGER);
+    hanaTypeScope.put("BIGINT", "Integer64");
+    hanaTypeScope.put("DOUBLE", "BinaryFloat");
+    hanaTypeScope.put("DAYDATE", LOCAL_DATE);
+    hanaTypeScope.put("DATE", LOCAL_DATE);
+    hanaTypeScope.put("SECONDTIME", LOCAL_TIME);
+    hanaTypeScope.put("TIME", LOCAL_TIME);
+    hanaTypeScope.put("SECONDDATE", "UTCDateTime");
+    hanaTypeScope.put("LONGDATE", UTC_TIMESTAMP);
+    hanaTypeScope.put("TIMESTAMP", UTC_TIMESTAMP);
+    hanaTypeScope.put("ALPHANUM", "hana.ALPHANUM");
+    hanaTypeScope.put("TINYINT", "hana.TINYINT");
+    hanaTypeScope.put("SMALLDECIMAL", "hana.SMALLDECIMAL");
+    hanaTypeScope.put("REAL", "hana.REAL");
+    hanaTypeScope.put("VARCHAR", "hana.VARCHAR");
+    hanaTypeScope.put("CLOB", "hana.CLOB");
+    hanaTypeScope.put("ST_POINT", "hana.ST_POINT");
+    hanaTypeScope.put("ST_GEOMETRY", "hana.ST_GEOMETRY");
 
     initAnnotations();
   }
@@ -182,8 +224,8 @@ public class SymbolTable {
    * @param hanaType the hana type
    * @return the hana type
    */
-  public BuiltInTypeSymbol getHanaType(String hanaType) {
-    return this.hanaBuiltInTypes.get(hanaType);
+  public String getHanaTypeScope(String hanaType) {
+    return this.hanaTypeScope.get(hanaType);
   }
 
   /**
@@ -249,8 +291,8 @@ public class SymbolTable {
    *
    * @return the global built in type scope
    */
-  public CDSFileScope getGlobalBuiltInTypeScope() {
-    return globalBuiltInTypeScope;
+  public CDSFileScope getCDSTypeScope() {
+    return cdsTypeScope;
   }
 
   /**

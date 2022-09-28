@@ -1,0 +1,21 @@
+namespace sap.db;
+
+@Schema : 'TEST_SCHEMA'
+
+context HanaToCDSTypes {
+
+    type MyType {
+        field1 : UTCTimestamp;
+        field2 : Integer;
+    };
+
+    @Catalog.tableType : #COLUMN
+    entity MyTable {
+     key ID    : Integer;
+         COL_1 : String(20);
+         COL_2 : hana.VARCHAR(10);
+         COL_3 : Double;
+         COL_4 : DOUBLE default 0.18;
+         COL_5 : type of MyType.field1;
+    }
+};
