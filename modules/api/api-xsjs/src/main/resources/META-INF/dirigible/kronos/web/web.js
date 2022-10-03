@@ -213,13 +213,13 @@ exports.WebRequest = function (method, path) {
 
     this.path = function () {
       var dRequestURI = dRequest.getRequestURI();
-      var filePlaceInURI = dRequestURI.search(XSJS_FILE_EXTENSION);
+      var filePlaceInURI = dRequestURI.indexOf(XSJS_FILE_EXTENSION);
       return dRequestURI.substring(0, filePlaceInURI + XSJS_FILE_EXTENSION_LENGTH + dRequestURI.length);
     }();
 
     this.queryPath = function () {
       var dRequestURI = dRequest.getRequestURI();
-      var filePlaceInURI = dRequestURI.search(XSJS_FILE_EXTENSION);
+      var filePlaceInURI = dRequestURI.indexOf(XSJS_FILE_EXTENSION);
       return dRequestURI.substring(filePlaceInURI + XSJS_FILE_EXTENSION_LENGTH, dRequestURI.length);
     }();
 
