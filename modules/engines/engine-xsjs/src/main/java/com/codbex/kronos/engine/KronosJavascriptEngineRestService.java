@@ -46,6 +46,12 @@ public class KronosJavascriptEngineRestService extends AbstractRestService {
   /** The logger. */
   private Logger logger = LoggerFactory.getLogger(KronosJavascriptEngineRestService.class);
 
+  /** The Constant HTTP_PATH_MATCHER. */
+  private static final String HTTP_PATH_MATCHER = "/{servicePath:.*\\.xsjs}";
+
+  /** The Constant HTTP_PATH_WITH_PARAM_MATCHER. */
+  private static final String HTTP_PATH_WITH_PARAM_MATCHER = "/{servicePath:.*\\.xsjs}/{servicePathParam:.*}";
+
   /** The processor. */
   private KronosJavascriptEngineProcessor processor;
 
@@ -66,132 +72,258 @@ public class KronosJavascriptEngineRestService extends AbstractRestService {
   }
 
   /**
-   * Gets the.
+   * Handles xsjs service get http requests.
    *
    * @param httpServletRequest the http servlet request
-   * @param path the path
+   * @param servicePath the path to the xsjs service file
    * @return the response
    * @throws ContextException the context exception
    */
   @GET
-  @Path("/{path:.*}")
+  @Path(HTTP_PATH_MATCHER)
   @ApiOperation("Execute Server Side JavaScript HANA XS Classic Resource")
   @ApiResponses({@ApiResponse(code = 200, message = "Execution Result")})
   public Response get(
       @Context HttpServletRequest httpServletRequest,
-      @PathParam("path") String path
+      @PathParam("servicePath") String servicePath
   ) throws ContextException {
-    return executeJS(httpServletRequest, path);
+    return executeJS(httpServletRequest, servicePath);
   }
 
   /**
-   * Post.
+   * Handles xsjs service get http requests when path params are provided.
    *
    * @param httpServletRequest the http servlet request
-   * @param path the path
+   * @param servicePath the path to the xsjs service file
+   * @param servicePathParam the path parameters
+   * @return the response
+   * @throws ContextException the context exception
+   */
+  @GET
+  @Path(HTTP_PATH_WITH_PARAM_MATCHER)
+  @ApiOperation("Execute Server Side JavaScript HANA XS Classic Resource")
+  @ApiResponses({@ApiResponse(code = 200, message = "Execution Result")})
+  public Response get(
+      @Context HttpServletRequest httpServletRequest,
+      @PathParam("servicePath") String servicePath,
+      @PathParam("servicePathParam") String servicePathParam
+  ) throws ContextException {
+    return executeJS(httpServletRequest, servicePath);
+  }
+
+  /**
+   * Handles xsjs service post http requests.
+   *
+   * @param httpServletRequest the http servlet request
+   * @param servicePath the path to the xsjs service file
    * @return the response
    * @throws ContextException the context exception
    */
   @POST
-  @Path("/{path:.*}")
+  @Path(HTTP_PATH_MATCHER)
   @ApiOperation("Execute Server Side JavaScript HANA XS Classic Resource")
   @ApiResponses({@ApiResponse(code = 200, message = "Execution Result")})
   public Response post(
       @Context HttpServletRequest httpServletRequest,
-      @PathParam("path") String path
+      @PathParam("servicePath") String servicePath
   ) throws ContextException {
-    return executeJS(httpServletRequest, path);
+    return executeJS(httpServletRequest, servicePath);
   }
 
   /**
-   * Put.
+   * Handles xsjs service post http requests when path params are provided.
    *
    * @param httpServletRequest the http servlet request
-   * @param path the path
+   * @param servicePath the path to the xsjs service file
+   * @param servicePathParam the path parameters
+   * @return the response
+   * @throws ContextException the context exception
+   */
+  @POST
+  @Path(HTTP_PATH_WITH_PARAM_MATCHER)
+  @ApiOperation("Execute Server Side JavaScript HANA XS Classic Resource")
+  @ApiResponses({@ApiResponse(code = 200, message = "Execution Result")})
+  public Response post(
+      @Context HttpServletRequest httpServletRequest,
+      @PathParam("servicePath") String servicePath,
+      @PathParam("servicePathParam") String servicePathParam
+  ) throws ContextException {
+    return executeJS(httpServletRequest, servicePath);
+  }
+
+  /**
+   * Handles xsjs service put http requests.
+   *
+   * @param httpServletRequest the http servlet request
+   * @param servicePath the path to the xsjs service file
    * @return the response
    * @throws ContextException the context exception
    */
   @PUT
-  @Path("/{path:.*}")
+  @Path(HTTP_PATH_MATCHER)
   @ApiOperation("Execute Server Side JavaScript HANA XS Classic Resource")
   @ApiResponses({@ApiResponse(code = 200, message = "Execution Result")})
   public Response put(
       @Context HttpServletRequest httpServletRequest,
-      @PathParam("path") String path
+      @PathParam("servicePath") String servicePath
   ) throws ContextException {
-    return executeJS(httpServletRequest, path);
+    return executeJS(httpServletRequest, servicePath);
   }
 
   /**
-   * Delete.
+   * Handles xsjs service put http requests when path params are provided.
    *
    * @param httpServletRequest the http servlet request
-   * @param path the path
+   * @param servicePath the path to the xsjs service file
+   * @param servicePathParam the path parameters
+   * @return the response
+   * @throws ContextException the context exception
+   */
+  @PUT
+  @Path(HTTP_PATH_WITH_PARAM_MATCHER)
+  @ApiOperation("Execute Server Side JavaScript HANA XS Classic Resource")
+  @ApiResponses({@ApiResponse(code = 200, message = "Execution Result")})
+  public Response put(
+      @Context HttpServletRequest httpServletRequest,
+      @PathParam("servicePath") String servicePath,
+      @PathParam("servicePathParam") String servicePathParam
+  ) throws ContextException {
+    return executeJS(httpServletRequest, servicePath);
+  }
+
+  /**
+   * Handles xsjs service delete http requests.
+   *
+   * @param httpServletRequest the http servlet request
+   * @param servicePath the path to the xsjs service file
    * @return the response
    * @throws ContextException the context exception
    */
   @DELETE
-  @Path("/{path:.*}")
+  @Path(HTTP_PATH_MATCHER)
   @ApiOperation("Execute Server Side JavaScript HANA XS Classic Resource")
   @ApiResponses({@ApiResponse(code = 200, message = "Execution Result")})
   public Response delete(
       @Context HttpServletRequest httpServletRequest,
-      @PathParam("path") String path
+      @PathParam("servicePath") String servicePath
   ) throws ContextException {
-    return executeJS(httpServletRequest, path);
+    return executeJS(httpServletRequest, servicePath);
   }
 
   /**
-   * Head.
+   * Handles xsjs service delete http requests when path params are provided.
    *
    * @param httpServletRequest the http servlet request
-   * @param path the path
+   * @param servicePath the path to the xsjs service file
+   * @param servicePathParam the path parameters
+   * @return the response
+   * @throws ContextException the context exception
+   */
+  @DELETE
+  @Path(HTTP_PATH_WITH_PARAM_MATCHER)
+  @ApiOperation("Execute Server Side JavaScript HANA XS Classic Resource")
+  @ApiResponses({@ApiResponse(code = 200, message = "Execution Result")})
+  public Response delete(
+      @Context HttpServletRequest httpServletRequest,
+      @PathParam("servicePath") String servicePath,
+      @PathParam("servicePathParam") String servicePathParam
+  ) throws ContextException {
+    return executeJS(httpServletRequest, servicePath);
+  }
+
+  /**
+   * Handles xsjs service head http requests.
+   *
+   * @param httpServletRequest the http servlet request
+   * @param servicePath the path to the xsjs service file
    * @return the response
    * @throws ContextException the context exception
    */
   @HEAD
-  @Path("/{path:.*}")
+  @Path(HTTP_PATH_MATCHER)
   @ApiOperation("Execute Server Side JavaScript HANA XS Classic Resource")
   @ApiResponses({@ApiResponse(code = 200, message = "Execution Result")})
   public Response head(
       @Context HttpServletRequest httpServletRequest,
-      @PathParam("path") String path
+      @PathParam("servicePath") String servicePath
   ) throws ContextException {
-    return executeJS(httpServletRequest, path);
+    return executeJS(httpServletRequest, servicePath);
   }
 
   /**
-   * Patch.
+   * Handles xsjs service head http requests when path params are provided.
    *
    * @param httpServletRequest the http servlet request
-   * @param path the path
+   * @param servicePath the path to the xsjs service file
+   * @param servicePathParam the path parameters
+   * @return the response
+   * @throws ContextException the context exception
+   */
+  @HEAD
+  @Path(HTTP_PATH_WITH_PARAM_MATCHER)
+  @ApiOperation("Execute Server Side JavaScript HANA XS Classic Resource")
+  @ApiResponses({@ApiResponse(code = 200, message = "Execution Result")})
+  public Response head(
+      @Context HttpServletRequest httpServletRequest,
+      @PathParam("servicePath") String servicePath,
+      @PathParam("servicePathParam") String servicePathParam
+  ) throws ContextException {
+    return executeJS(httpServletRequest, servicePath);
+  }
+
+  /**
+   * Handles xsjs service patch http requests.
+   *
+   * @param httpServletRequest the http servlet request
+   * @param servicePath the path to the xsjs service file
    * @return the response
    * @throws ContextException the context exception
    */
   @PATCH
-  @Path("/{path:.*}")
+  @Path(HTTP_PATH_MATCHER)
   @ApiOperation("Execute Server Side JavaScript HANA XS Classic Resource")
   @ApiResponses({@ApiResponse(code = 200, message = "Execution Result")})
   public Response patch(
       @Context HttpServletRequest httpServletRequest,
-      @PathParam("path") String path
+      @PathParam("servicePath") String servicePath
   ) throws ContextException {
-    return executeJS(httpServletRequest, path);
+    return executeJS(httpServletRequest, servicePath);
   }
 
   /**
-   * Execute JS.
+   * Handles xsjs service patch http requests when path params are provided.
    *
    * @param httpServletRequest the http servlet request
-   * @param path the path
+   * @param servicePath the path to the xsjs service file
+   * @param servicePathParam the path parameters
    * @return the response
    * @throws ContextException the context exception
    */
-  private Response executeJS(HttpServletRequest httpServletRequest, String path) throws ContextException {
+  @PATCH
+  @Path(HTTP_PATH_WITH_PARAM_MATCHER)
+  @ApiOperation("Execute Server Side JavaScript HANA XS Classic Resource")
+  @ApiResponses({@ApiResponse(code = 200, message = "Execution Result")})
+  public Response patch(
+      @Context HttpServletRequest httpServletRequest,
+      @PathParam("servicePath") String servicePath,
+      @PathParam("servicePathParam") String servicePathParam
+  ) throws ContextException {
+    return executeJS(httpServletRequest, servicePath);
+  }
+
+  /**
+   * Execute XSJS service.
+   *
+   * @param httpServletRequest the http servlet request
+   * @param servicePath the path to the xsjs service file
+   * @return the response
+   * @throws ContextException the context exception
+   */
+  private Response executeJS(HttpServletRequest httpServletRequest, String servicePath) throws ContextException {
     ThreadContextFacade.setUp();
     try {
       ThreadContextFacade.set(HttpServletRequest.class.getCanonicalName(), httpServletRequest);
-      processor.executeService(path, null);
+      processor.executeService(servicePath, null);
       return Response.ok().build();
     } finally {
       ThreadContextFacade.tearDown();
