@@ -4,55 +4,55 @@
     <parent>
         <groupId>com.codbex.kronos</groupId>
         <artifactId>codbex-kronos-modules-ide-parent</artifactId>
-        <version>0.3.0-SNAPSHOT</version>
+        <version>0.3.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <name>kronos - modules - ide - all</name>
     <artifactId>codbex-kronos-modules-ide-all</artifactId>
-    <version>0.3.0-SNAPSHOT</version>
+    <version>0.3.0</version>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>codbex-kronos-modules-ide-migration</artifactId>
-            <version>0.3.0-SNAPSHOT</version>
+            <version>0.3.0</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>codbex-kronos-modules-ide-file-types</artifactId>
-            <version>0.3.0-SNAPSHOT</version>
+            <version>0.3.0</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>codbex-kronos-modules-ide-hdbti</artifactId>
-            <version>0.3.0-SNAPSHOT</version>
+            <version>0.3.0</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>codbex-kronos-modules-ide-workspace-menu</artifactId>
-            <version>0.3.0-SNAPSHOT</version>
+            <version>0.3.0</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>codbex-kronos-modules-ide-branding</artifactId>
-            <version>0.3.0-SNAPSHOT</version>
+            <version>0.3.0</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>codbex-kronos-modules-ide-xsjob</artifactId>
-            <version>0.3.0-SNAPSHOT</version>
+            <version>0.3.0</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>codbex-kronos-modules-ide-hdi</artifactId>
-            <version>0.3.0-SNAPSHOT</version>
+            <version>0.3.0</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>codbex-kronos-modules-ide-xsaccess</artifactId>
-            <version>0.3.0-SNAPSHOT</version>
+            <version>0.3.0</version>
         </dependency>
     </dependencies>
 
