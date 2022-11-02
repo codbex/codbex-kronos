@@ -45,8 +45,7 @@ public class ProjectDeploymentRule extends ExternalResource {
         break;
       case CUSTOM:
         URL resource = getClass().getResource(CUSTOM_APPS_DIR_NAME + applicationName);
-        String resourcePathString = Objects.requireNonNull(resource).getPath();
-        resourcePath = Path.of(resourcePathString);
+        resourcePath = Path.of(resource.toURI());
         break;
     }
 

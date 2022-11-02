@@ -13,25 +13,23 @@ package com.codbex.kronos.hdi.ds.module;
 
 import java.util.Map;
 
-import org.eclipse.dirigible.commons.api.module.AbstractDirigibleModule;
-
 import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.module.HDBModule;
 import com.codbex.kronos.hdb.ds.parser.DataStructureParser;
 import com.codbex.kronos.hdi.ds.parser.HDIParser;
 
+import org.eclipse.dirigible.commons.api.module.IDirigibleModule;
 
 /**
  * The Class HDIModule.
  */
-public class HDIModule extends AbstractDirigibleModule {
+public class HDIModule implements IDirigibleModule {
 
   /**
    * Configure.
    */
   @Override
   public void configure() {
-
     bindParsersToFileExtension();
   }
 
@@ -39,13 +37,11 @@ public class HDIModule extends AbstractDirigibleModule {
    * Bind parsers to file extension.
    */
   private void bindParsersToFileExtension() {
-//    MapBinder<String, DataStructureParser> mapBinder
-//        = MapBinder.newMapBinder(binder(), String.class, DataStructureParser.class);
+    // MapBinder<String, DataStructureParser> mapBinder = MapBinder.newMapBinder(binder(), String.class, DataStructureParser.class);
 
-	  Map<String, DataStructureParser> parserServices = HDBModule.getParserServices();
-      parserServices.put(IDataStructureModel.TYPE_HDI, new HDIParser());
+    Map<String, DataStructureParser> parserServices = HDBModule.getParserServices();
+    parserServices.put(IDataStructureModel.TYPE_HDI, new HDIParser());
   }
-
 
   /**
    * Gets the name.
@@ -54,6 +50,11 @@ public class HDIModule extends AbstractDirigibleModule {
    */
   @Override
   public String getName() {
-    return "Kronos HDBTI Module";
+    return "Kronos HDI Module";
+  }
+
+  @Override
+  public int getPriority() {
+    return PRIORITY_ENGINE;
   }
 }

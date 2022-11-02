@@ -11,27 +11,32 @@
  */
 package com.codbex.kronos.hdbti.module;
 
-import org.eclipse.dirigible.commons.api.module.AbstractDirigibleModule;
+import org.eclipse.dirigible.commons.api.module.IDirigibleModule;
 
 /**
  * The Class HDBTIModule.
  */
-public class HDBTIModule extends AbstractDirigibleModule {
+public class HDBTIModule implements IDirigibleModule {
 
-    /**
-     * Configure.
-     */
-    @Override
-    public void configure() {
-    }
+  /**
+   * Configure.
+   */
+  @Override
+  public void configure() {
+  }
 
-    /**
-     * Gets the name.
-     *
-     * @return the name
-     */
-    @Override
-    public String getName() {
-        return "Kronos HDBTI Module";
-    }
+  /**
+   * Gets the name.
+   *
+   * @return the name
+   */
+  @Override
+  public String getName() {
+    return "Kronos HDBTI Module";
+  }
+
+  @Override
+  public int getPriority() {
+    return PRIORITY_ENGINE;
+  }
 }

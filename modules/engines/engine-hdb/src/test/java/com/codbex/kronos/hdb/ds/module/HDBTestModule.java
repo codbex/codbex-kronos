@@ -14,12 +14,12 @@ package com.codbex.kronos.hdb.ds.module;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.eclipse.dirigible.commons.api.module.AbstractDirigibleModule;
+import org.eclipse.dirigible.commons.api.module.IDirigibleModule;
 import org.eclipse.dirigible.commons.config.StaticObjects;
 
 import com.codbex.kronos.hdb.ds.repository.TestRepository;
 
-public class HDBTestModule extends AbstractDirigibleModule {
+public class HDBTestModule implements IDirigibleModule {
 
   @Override
   public String getName() {
@@ -28,7 +28,7 @@ public class HDBTestModule extends AbstractDirigibleModule {
 
   @Override
   public int getPriority() {
-    return super.getPriority();
+    return getPriority();
   }
 
   @Override
