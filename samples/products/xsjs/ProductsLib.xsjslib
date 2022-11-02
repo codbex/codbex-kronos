@@ -45,7 +45,6 @@ function Products(connection, schema) {
 	};
 
 	this.handleGetRequest = function () {
-
 		var resOrders = connection.executeQuery('SELECT * FROM "' + schema + '"."' + ORDERS_TABLE + '"');
 		let result = { orders: [] };
 		let iterator = resOrders.getIterator();
@@ -137,7 +136,6 @@ function beforeCreateItem(paramObject) {
 	pstmt.close();
 }
 
-
 function updateOrder(paramObject) {
 	var oConnection = paramObject.connection;
 	var sTableName = paramObject.afterTableName;
@@ -147,7 +145,6 @@ function updateOrder(paramObject) {
 	pstmt.executeUpdate();
 	pstmt.close();
 }
-
 
 function createLineItem(paramObject) {
 	$.trace.error(paramObject);

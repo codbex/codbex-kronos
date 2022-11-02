@@ -1,9 +1,8 @@
  service namespace "products.odata"  {
- 
    "products.db::Products.Orders" as "Orders"
    		navigates("Lines4Orders" as "Lines", "User4Order" as "Buyer")
-    create events(before "products.xsjs:ProductsLib.xsjslib::beforeCreateOrder")
-    delete using "products.xsjs:ProductsLib.xsjslib::deleteOrder";
+      create events(before "products.xsjs:ProductsLib.xsjslib::beforeCreateOrder")
+      delete using "products.xsjs:ProductsLib.xsjslib::deleteOrder";
 
     "products.db::Products.ShippingAddresses" as "ShippingAddress"
       delete forbidden;
@@ -12,18 +11,18 @@
         create forbidden
         delete forbidden;
 
-  "products.db::Products.Item" as "Items"
-    create events(before "products.xsjs:ProductsLib.xsjslib::beforeCreateItem") 
-    update forbidden;
+    "products.db::Products.Item" as "Items"
+      create events(before "products.xsjs:ProductsLib.xsjslib::beforeCreateItem") 
+      update forbidden;
 
     association "Lines4Orders" principal "Orders"("Id")
-       multiplicity "1" dependent "LineItems"("OrderId") multiplicity "*";
+      multiplicity "1" dependent "LineItems"("OrderId") multiplicity "*";
  
     association "User4Order" principal "Orders"("Customer.Id")
-       multiplicity "1" dependent "Buyers"("Id") multiplicity "1";
+      multiplicity "1" dependent "Buyers"("Id") multiplicity "1";
     
     association "TotalToItem" principal "TotalPurchased"("ItemName")
-        multiplicity "1" dependent "Items"("Name") multiplicity "1";
+      multiplicity "1" dependent "Items"("Name") multiplicity "1";
        
     "products.views::items_ordered_total" as "TotalPurchased" keys ("ItemName");
 
