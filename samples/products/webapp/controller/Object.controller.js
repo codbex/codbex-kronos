@@ -3,9 +3,9 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/core/routing/History",
 	"../model/formatter",
-    "sap/m/MessageBox",
-    "sap/m/MessageToast"
-], function(BaseController, JSONModel, History, formatter, MessageBox, MessageToast) {
+	"sap/m/MessageBox",
+	"sap/m/MessageToast"
+], function (BaseController, JSONModel, History, formatter, MessageBox, MessageToast) {
 	"use strict";
 
 	return BaseController.extend("products.demo.app.controller.Object", {
@@ -20,7 +20,7 @@ sap.ui.define([
 		 * Called when the worklist controller is instantiated.
 		 * @public
 		 */
-		onInit: function() {
+		onInit: function () {
 			// Model used to manipulate control states. The chosen values make sure,
 			// detail page is busy indication immediately so there is no break in
 			// between the busy indication for loading the view's meta data
@@ -36,7 +36,7 @@ sap.ui.define([
 			// Store original busy indicator delay, so it can be restored later on
 			iOriginalBusyDelay = this.getView().getBusyIndicatorDelay();
 			this.setModel(oViewModel, "objectView");
-			this.getOwnerComponent().getModel().metadataLoaded().then(function() {
+			this.getOwnerComponent().getModel().metadataLoaded().then(function () {
 				// Restore original busy indicator delay for the object view
 				oViewModel.setProperty("/delay", iOriginalBusyDelay);
 			});
@@ -52,7 +52,7 @@ sap.ui.define([
 		 * If not, it will replace the current entry of the browser history with the worklist route.
 		 * @public
 		 */
-		onNavBack: function() {
+		onNavBack: function () {
 			var sPreviousHash = History.getInstance().getPreviousHash();
 
 			if (sPreviousHash !== undefined) {
@@ -67,7 +67,7 @@ sap.ui.define([
 		 *
 		 * @public
 		 */
-		onOpenProductDialogPress: function(oEvent) {
+		onOpenProductDialogPress: function (oEvent) {
 
 			var oModel = this.getModel();
 			var sOrderId = oEvent.getSource().getBindingContext().getProperty("Id");
@@ -96,7 +96,7 @@ sap.ui.define([
 		 *
 		 * @public
 		 */
-		onCloseProductPress: function() {
+		onCloseProductPress: function () {
 
 			var oModel = this.getModel();
 			var oCtx = this._ProductDialog.getBindingContext();
@@ -111,7 +111,7 @@ sap.ui.define([
 		 *
 		 * @public
 		 */
-		onCreateProductPress: function() {
+		onCreateProductPress: function () {
 
 			var oModel = this.getModel();
 			oModel.submitChanges();
@@ -125,7 +125,7 @@ sap.ui.define([
 		 *
 		 * @public
 		 */
-		onDeleteProduct: function(oEvent) {
+		onDeleteProduct: function (oEvent) {
 
 			var sPath = oEvent.getParameter('listItem').getBindingContextPath();
 			this.deleteObject(sPath);
@@ -137,7 +137,7 @@ sap.ui.define([
 		 *
 		 * @public
 		 */
-		onEditCustomerPress: function() {
+		onEditCustomerPress: function () {
 
 			this.getModel("objectView").setProperty("/customerEditMode", true);
 		},
@@ -147,23 +147,22 @@ sap.ui.define([
 		 *
 		 * @public
 		 */
-		onUpdateCustomerInfoPress: function() {
+		onUpdateCustomerInfoPress: function (oEvent) {
+      this.getModel("objectView").setProperty("/customerEditMode", false);
+      var oModel = this.getModel();
 
-			this.getModel("objectView").setProperty("/customerEditMode", false);
-			var oModel = this.getModel();
+      var oCtx = this.getView().byId("simpleFormId").getBindingContext();
+      var sPath = oCtx.getPath();
+      var oData = this._formatOrderObject(oCtx.getObject());
 
-			var oCtx = this.getView().byId("simpleFormId").getBindingContext();
-			var sPath = oCtx.getPath();
-			var oData = this._formatOrderObject(oCtx.getObject());
-
-			oModel.update(sPath, oData, {
-				success: function() {
-					MessageToast.show("Object has been updated!");
-				},
-				error: function() {
-					MessageBox.error("Error!");
-				}
-			});
+      oModel.update(sPath, oData, {
+        success: function() {
+          MessageToast.show("Object has been updated!");
+        },
+        error: function() {
+          MessageBox.error("Error!");
+        }
+      });
 		},
 
 		/**
@@ -171,7 +170,7 @@ sap.ui.define([
 		 *
 		 * @public
 		 */
-		onCloseUpdateCustomerInfoPress: function() {
+		onCloseUpdateCustomerInfoPress: function () {
 
 			this.getModel("objectView").setProperty("/customerEditMode", false);
 			var oModel = this.getModel();
@@ -188,9 +187,9 @@ sap.ui.define([
 		 * @param {sap.ui.base.Event} oEvent pattern match event in route 'object'
 		 * @private
 		 */
-		_onObjectMatched: function(oEvent) {
+		_onObjectMatched: function (oEvent) {
 			var sObjectId = oEvent.getParameter("arguments").objectId;
-			this.getModel().metadataLoaded().then(function() {
+			this.getModel().metadataLoaded().then(function () {
 				var sObjectPath = this.getModel().createKey("Orders", {
 					Id: sObjectId
 				});
@@ -198,7 +197,7 @@ sap.ui.define([
 			}.bind(this));
 		},
 
-		_formatOrderObject: function(oData) {
+		_formatOrderObject: function (oData) {
 			return {
 				Id: oData.Id,
 				CreatedAt: oData.CreatedAt,
@@ -219,15 +218,15 @@ sap.ui.define([
 		 * @param {string} sObjectPath path to the object to be bound
 		 * @private
 		 */
-		_bindView: function(sObjectPath) {
+		_bindView: function (sObjectPath) {
 			var oViewModel = this.getModel("objectView"),
 				oDataModel = this.getModel();
 
 			this.getView().bindElement({
 				path: sObjectPath,
 				events: {
-					dataRequested: function() {
-						oDataModel.metadataLoaded().then(function() {
+					dataRequested: function () {
+						oDataModel.metadataLoaded().then(function () {
 							// Busy indicator on view should only be set if metadata is loaded,
 							// otherwise there may be two busy indications next to each other on the
 							// screen. This happens because route matched handler already calls '_bindView'
@@ -235,7 +234,7 @@ sap.ui.define([
 							oViewModel.setProperty("/busy", true);
 						});
 					},
-					dataReceived: function() {
+					dataReceived: function () {
 						oViewModel.setProperty("/busy", false);
 					}
 				}

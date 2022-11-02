@@ -2,9 +2,9 @@ sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/UIComponent",
 	"sap/m/library",
-    "sap/m/MessageBox",
-    "sap/m/MessageToast"
-], function(Controller, UIComponent, mobileLibrary, MessageBox, MessageToast) {
+	"sap/m/MessageBox",
+	"sap/m/MessageToast"
+], function (Controller, UIComponent, mobileLibrary, MessageBox, MessageToast) {
 	"use strict";
 
 	// shortcut for sap.m.URLHelper
@@ -16,7 +16,7 @@ sap.ui.define([
 		 * @public
 		 * @returns {sap.ui.core.routing.Router} the router for this component
 		 */
-		getRouter: function() {
+		getRouter: function () {
 			return UIComponent.getRouterFor(this);
 		},
 
@@ -26,7 +26,7 @@ sap.ui.define([
 		 * @param {string} [sName] the model name
 		 * @returns {sap.ui.model.Model} the model instance
 		 */
-		getModel: function(sName) {
+		getModel: function (sName) {
 			return this.getView().getModel(sName);
 		},
 
@@ -37,7 +37,7 @@ sap.ui.define([
 		 * @param {string} sName the model name
 		 * @returns {sap.ui.mvc.View} the view instance
 		 */
-		setModel: function(oModel, sName) {
+		setModel: function (oModel, sName) {
 			return this.getView().setModel(oModel, sName);
 		},
 
@@ -46,7 +46,7 @@ sap.ui.define([
 		 * @public
 		 * @returns {sap.ui.model.resource.ResourceModel} the resourceModel of the component
 		 */
-		getResourceBundle: function() {
+		getResourceBundle: function () {
 			return this.getOwnerComponent().getModel("i18n").getResourceBundle();
 		},
 
@@ -57,13 +57,13 @@ sap.ui.define([
 		 *
 		 * @public
 		 */
-		deleteObject: function(sPath) {
+		deleteObject: function (sPath) {
 			var oModel = this.getModel();
 			oModel.remove(sPath, {
-				success: function() {
+				success: function () {
 					MessageToast.show("Object has been removed!");
 				},
-				error: function() {
+				error: function () {
 					MessageBox.error("Error while removing order!");
 				}
 			});
@@ -73,7 +73,7 @@ sap.ui.define([
 		 * Event handler when the share by E-Mail button has been clicked
 		 * @public
 		 */
-		onShareEmailPress: function() {
+		onShareEmailPress: function () {
 			var oViewModel = (this.getModel("objectView") || this.getModel("worklistView"));
 			URLHelper.triggerEmail(
 				null,

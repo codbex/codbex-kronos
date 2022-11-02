@@ -1,108 +1,82 @@
-<mvc:View
-	controllerName="products.demo.app.controller.Worklist"
-	xmlns="sap.m"
-    xmlns:f="sap.ui.layout.form"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.f.semantic">
+<mvc:View controllerName="products.demo.app.controller.Worklist" xmlns="sap.m" xmlns:f="sap.ui.layout.form"
+    xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.f.semantic">
 
-    <Page
-        title="{i18n>ordersViewTitle}">
+    <Page title="{i18n>ordersViewTitle}">
         <content>
- 
+
             <f:SimpleForm>
-                <Table
-                    id="table"
-                    width="auto"
-                    items="{
+                <Table id="table" width="auto" items="{
                         path: '/Orders',
-                        sorter: {
-                            path: 'CustomerName',
-                            descending: false
+                        parameters: {
+                            expand: 'Buyer/Address'
                         }
-                    }"
-                    mode="Delete"
-                    delete="onDeleteOrder"
+                    }" mode="Delete" delete="onDeleteOrder"
                     class="sapUiResponsiveMargin sapUiNoMarginTop sapUiNoMarginBegin"
-                    noDataText="{worklistView>/tableNoDataText}"
-                    busyIndicatorDelay="{worklistView>/tableBusyDelay}"
-                    growing="true"
-                    growingScrollToLoad="true"
-                    updateFinished="onUpdateFinished">
-                    
+                    noDataText="{worklistView>/tableNoDataText}" busyIndicatorDelay="{worklistView>/tableBusyDelay}"
+                    growing="true" growingScrollToLoad="true" updateFinished="onUpdateFinished">
+
                     <headerToolbar>
                         <OverflowToolbar>
-                            <Title
-                                id="tableHeader"
-                                text="{worklistView>/worklistTableTitle}"
-                                level="H3"/>
+                            <Title id="tableHeader" text="{worklistView>/worklistTableTitle}" level="H3" />
                             <ToolbarSpacer />
-                            <SearchField
-                                id="searchField"
-                                tooltip="{i18n>worklistSearchTooltip}"
-                                search="onSearch">
+                            <SearchField id="searchField" tooltip="{i18n>worklistSearchTooltip}" search="onSearch">
                                 <layoutData>
-                                    <OverflowToolbarLayoutData
-                                        maxWidth="200px"
-                                        priority="NeverOverflow"/>
+                                    <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow" />
                                 </layoutData>
                             </SearchField>
-                        <OverflowToolbarButton
-                                text="add"
-                                icon="sap-icon://add"
-                                type="Transparent"
-                                press="onOpenOrderDialogPress"/>
+                            <OverflowToolbarButton text="add" icon="sap-icon://add" type="Transparent"
+                                press="onOpenOrderDialogPress" />
                         </OverflowToolbar>
-                        
-                    
+
+
                     </headerToolbar>
 
                     <columns>
                         <Column>
-                            <Text text="{i18n>tableNameColumnTitle}"/>
+                            <Text text="{i18n>tableNameColumnTitle}" />
                         </Column>
 
                         <Column>
-                            <Text text="{i18n>tableCreateAtColumnTitle}"/>
+                            <Text text="{i18n>tableCreateAtColumnTitle}" />
                         </Column>
 
                         <Column>
-                            <Text text="{i18n>tableCreateByColumnTitle}"/>
+                            <Text text="{i18n>tableStatusColumnTitle}" />
                         </Column>
-                        
+
                         <Column>
-                            <Text text="{i18n>tableStatusColumnTitle}"/>
+                            <Text text="{i18n>tableDeliveryDateColumnTitle}" />
                         </Column>
-                        
+
                         <Column hAlign="End">
-                            <Text text="{i18n>tableDescriptionNumberColumnTitle}"/>
+                            <Text text="{i18n>tableDescriptionNumberColumnTitle}" />
                         </Column>
-                    </columns>				
+                    </columns>
 
                     <items>
-                        <ColumnListItem
-                            type="Navigation"
-                            press="onPress">
+                        <ColumnListItem type="Navigation" press="onPress">
                             <cells>
-                                <ObjectIdentifier
-                                    title="{CustomerName}"/>
+                                <ObjectIdentifier title="{Buyer/FirstName}" />
 
-                                <ObjectIdentifier
-                                    title="{
+                                <ObjectIdentifier title="{
                                         path: 'CreatedAt',
                                         type: 'sap.ui.model.type.Date',
                                         formatOptions: { 
                                             style: 'long', UTC: true
                                         }       
-                                    }"/>
-                                    
-                                <ObjectIdentifier
-                                    title="{CreatedBy}"/>
-                                    
-                                <ObjectIdentifier
-                                    title="{Status}"/>
-                                    
-                                <ObjectIdentifier
-                                    title="{Description}"/>
+                                    }" />
+
+                                <ObjectIdentifier title="{Status}" />
+
+                                <ObjectIdentifier title="{
+                                        path: 'DeliveryDate',
+                                        type: 'sap.ui.model.type.Date',
+                                        formatOptions: { 
+                                            style: 'long', UTC: true
+                                        }       
+                                    }" />
+
+                                <ObjectIdentifier title="{Description}" />
                             </cells>
                         </ColumnListItem>
                     </items>
@@ -111,4 +85,4 @@
         </content>
     </Page>
 
-</mvc:View> 
+</mvc:View>

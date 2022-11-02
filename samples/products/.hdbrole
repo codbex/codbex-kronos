@@ -1,0 +1,11 @@
+{ 
+  "role":{ 
+    "name":"PADMIN#", 
+    "schema_analytic_privileges":[ 
+      { 
+        "schema_reference":"ProductsContainer", 
+        "privileges_with_grant_option": ["items_ordered_total_ap"] 
+      } 
+    ] 
+  } 
+}

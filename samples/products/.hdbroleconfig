@@ -1,0 +1,7 @@
+{ 
+  "PADMIN#":{ 
+    "ProductsContainer":{ 
+      "schema":"HDI_PRODUCTS" 
+    }
+  } 
+}
