@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="line_item" applyPrivilegeType="SQL_ANALYTIC_PRIVILEGE"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="line_item" applyPrivilegeType="NONE"
   dataCategory="DIMENSION" schemaVersion="2.3" defaultClient="$$client$$" visibility="internal"
   outputViewType="Aggregation" calculationScenarioType="TREE_BASED" enforceSqlExecution="false">
   <descriptions defaultDescription="line_item" />

@@ -6,18 +6,18 @@ sap.ui.define([
 
 	return BaseController.extend("products.demo.app.controller.App", {
 
-		onInit : function () {
+		onInit: function () {
 			var oViewModel,
 				fnSetAppNotBusy,
 				iOriginalBusyDelay = this.getView().getBusyIndicatorDelay();
 
 			oViewModel = new JSONModel({
-				busy : true,
-				delay : 0
+				busy: true,
+				delay: 0
 			});
 			this.setModel(oViewModel, "appView");
 
-			fnSetAppNotBusy = function() {
+			fnSetAppNotBusy = function () {
 				oViewModel.setProperty("/busy", false);
 				oViewModel.setProperty("/delay", iOriginalBusyDelay);
 			};

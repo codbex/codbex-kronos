@@ -1,12 +1,15 @@
 {
     "configuration": "/products/.hdiconfig",
     "users": [
+        "KRONOS",
         "DBADMIN"
     ],
     "group": "HDI_PRODUCTS_GROUP",
     "container": "HDI_PRODUCTS",
     "undeploy": [],
     "deploy": [
+        "/products/.hdbrole",
+        "/products/.hdbroleconfig",
         "/products/hdi-synonyms.hdbsynonym",
         "/products/hdi-public-synonyms.hdbpublicsynonym",
         "/products/views/line_item.hdbcalculationview",
