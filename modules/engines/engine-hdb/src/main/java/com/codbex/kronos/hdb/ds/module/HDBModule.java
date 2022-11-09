@@ -46,20 +46,26 @@ import com.codbex.kronos.hdb.ds.synchronizer.DataStructuresSynchronizer;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.dirigible.commons.api.module.AbstractDirigibleModule;
+import org.eclipse.dirigible.commons.api.module.IDirigibleModule;
 
 /**
  * The Class HDBModule.
  */
-public class HDBModule extends AbstractDirigibleModule {
+public class HDBModule implements IDirigibleModule {
 
-  /** The manager services. */
+  /**
+   * The manager services.
+   */
   private static Map<String, IDataStructureManager> managerServices;
 
-  /** The parser services. */
+  /**
+   * The parser services.
+   */
   private static Map<String, DataStructureParser> parserServices;
 
-  /** The parser types. */
+  /**
+   * The parser types.
+   */
   private static Map<String, String> parserTypes;
 
   // Do not initialize classes that may use the database or other Dirigible modules as the static initializer is called too early
@@ -146,9 +152,9 @@ public class HDBModule extends AbstractDirigibleModule {
     );
 
     HDBProcedureDataStructureParser hdbProcedureParser = new HDBProcedureDataStructureParser(
-            dataStructuresSynchronizer,
-            new HDBProcedureSynchronizationArtefactType(),
-            new HDBProcedureLogger()
+        dataStructuresSynchronizer,
+        new HDBProcedureSynchronizationArtefactType(),
+        new HDBProcedureLogger()
     );
 
     parserServices.put(IDataStructureModel.FILE_EXTENSION_HDBDD, new HDBDDDataStructureParser());
@@ -174,7 +180,6 @@ public class HDBModule extends AbstractDirigibleModule {
     parserServices.put(IDataStructureModel.TYPE_HDB_SEQUENCE, new HDBSequenceDataStructureParser());
     parserServices.put(IDataStructureModel.TYPE_HDB_TABLE_TYPE, new HDBTableTypeDataStructureParser());
     parserServices.put(IDataStructureModel.TYPE_HDB_STRUCTURE, new HDBStructureDataStructureParser());
-
   }
 
   /**
@@ -204,5 +209,10 @@ public class HDBModule extends AbstractDirigibleModule {
   @Override
   public String getName() {
     return "Kronos HDB Module";
+  }
+
+  @Override
+  public int getPriority() {
+    return PRIORITY_ENGINE;
   }
 }

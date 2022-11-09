@@ -33,7 +33,7 @@ import org.eclipse.dirigible.api.v3.security.UserFacade;
 public class HDIParser implements DataStructureParser {
 
   /**
-   * Parses the.
+   * Parses the hdi artefact.
    *
    * @param parametersModel the parameters model
    * @return the data structure HDI model
@@ -41,7 +41,7 @@ public class HDIParser implements DataStructureParser {
    * @throws IOException Signals that an I/O exception has occurred.
    */
   @Override
-  public DataStructureHDIModel parse(DataStructureParametersModel parametersModel) throws DataStructuresException, IOException {
+  public DataStructureHDIModel parse(DataStructureParametersModel parametersModel) {
     Gson gson = new GsonBuilder()
         .registerTypeAdapter(DataStructureHDIModel.class, new HDIModelAdapter())
         .create();
