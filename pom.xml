@@ -338,7 +338,7 @@
     <neo-java-web-sdk.jaxb.version>2.2.11</neo-java-web-sdk.jaxb.version>
     <jaxb.version>2.3.1</jaxb.version>
     <javax.activation.version>1.2.0</javax.activation.version>
-    <ngdbc.version>2.14.9</ngdbc.version>
+    <ngdbc.version>2.14.10</ngdbc.version>
     <maven-dependency-plugin.version>3.3.0</maven-dependency-plugin.version>
     <commons-csv.version>1.9.0</commons-csv.version>
     <commons-dbcp2.version>2.9.0</commons-dbcp2.version>
