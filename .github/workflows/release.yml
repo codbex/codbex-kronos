@@ -11,9 +11,7 @@ on:
         description: Snapshot Version
         required: true
         default: 7.0.0-SNAPSHOT
-  push:
-    tags:
-      - 'v*'
+        
 run-name: 'version set to ${{ github.event.inputs.releaseVersion }} for release'
 
 jobs:
