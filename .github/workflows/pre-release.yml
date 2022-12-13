@@ -14,12 +14,12 @@ jobs:
     #--------Restore success job-------#
     - name: Previous succeeded job
       id: success
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
           path: success-job-${{ github.sha }}-${{ matrix.name }}
           key: success-job-job-${{ github.sha }}-${{ matrix.name }}
     #--------Restore success job-------# 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         fetch-depth: 0
@@ -28,7 +28,7 @@ jobs:
         download_url="https://github.com/SAP/SapMachine/releases/download/sapmachine-17.0.2/sapmachine-jdk-17.0.2_linux-x64_bin.tar.gz"
         wget -O "${RUNNER_TEMP}/sapmachine-jdk-17.tar.gz" "${download_url}"
     - name: Setup sapmachine JDK 17
-      uses: actions/setup-java@v2
+      uses: actions/setup-java@v3
       with:
         distribution: 'jdkfile'
         jdkFile: ${{ runner.temp }}/sapmachine-jdk-17.tar.gz
@@ -40,11 +40,11 @@ jobs:
       run: echo "::set-output name=KRONOS_VERSION_OUTPUT::$KRONOS_VERSION"
       id: KRONOS_VERSION_PRINT
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v1
+      uses: docker/setup-qemu-action@v2
       with:
         platforms: amd64,arm64
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
+      uses: docker/setup-buildx-action@v2
       with:
         install: true
     - name: Set Multi-Builder Docker Buildx

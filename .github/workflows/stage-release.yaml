@@ -39,7 +39,7 @@ jobs:
     #------Restore previous job---------#
     - name: Composer cache
       if: steps.success.outputs.cache-hit != 'true'
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
           path: vendor
           key: composer-${{ hashFiles('composer.lock') }}
@@ -47,13 +47,13 @@ jobs:
     #--------Restore previous job-------#
     # Set Kronos Kyma context 
     - name: Kubernetes set context
-      uses: Azure/k8s-set-context@v1
+      uses: Azure/k8s-set-context@v2
       with:
         method: kubeconfig
         kubeconfig: ${{ secrets.STAGE_KYMA_CONFIG }}
 
     # Install helm
-    - uses: azure/setup-helm@v1
+    - uses: azure/setup-helm@v3
       with:
         version: 'latest' # default is latest stable
       id: install

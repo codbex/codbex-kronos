@@ -1,45 +1,77 @@
 name: Release
 
 on:
+  workflow_dispatch:
+    inputs:
+      releaseVersion:
+        description: Release Version
+        required: true
+        default: 7.0.0
+      snapshotVersion:
+        description: Snapshot Version
+        required: true
+        default: 7.0.0-SNAPSHOT
   push:
     tags:
       - 'v*'
+run-name: 'version set to ${{ github.event.inputs.releaseVersion }} for release'
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
+
       - name: Download sapmachine JDK 17
         run: |
           download_url="https://github.com/SAP/SapMachine/releases/download/sapmachine-17.0.2/sapmachine-jdk-17.0.2_linux-x64_bin.tar.gz"
           wget -O "${RUNNER_TEMP}/sapmachine-jdk-17.tar.gz" "${download_url}"
+
       - name: Setup sapmachine JDK 17
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           distribution: 'jdkfile'
           jdkFile: ${{ runner.temp }}/sapmachine-jdk-17.tar.gz
           java-version: '17.0.2'
           gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+          server-id: ossrh
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+          gpg-passphrase: GPG_PASSPHRASE
           architecture: x64
+
       - name: Set Kronos Version
         run: echo KRONOS_VERSION=${GITHUB_REF#refs/*/} | tr v " " | sed 's/ //'  >> $GITHUB_ENV
-      - name: Updates /.m2/settings.xml
-        run: echo '${{ secrets.MAVEN_M2_SETTINGS }}' > /home/runner/.m2/settings.xml
+
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+        uses: docker/setup-qemu-action@v2
         with:
           platforms: amd64,arm64
+
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
         with:
           install: true
+
       - name: Set Multi-Builder Docker Buildx
         run: docker buildx create --use --name multi-builder --platform linux/arm64,linux/amd64
+
+      - name: "Configure Git"
+        run: |
+          git fetch
+          git checkout master
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      
+      - name: "Maven: Set Release Version"
+        run: mvn versions:set -DnewVersion=${{ github.event.inputs.releaseVersion }}
+
       - name: Maven Build
         run: mvn clean install -Dmaven.javadoc.skip=false
+
       - name: Docker Login
         run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASSWORD}} ${{secrets.DOCKER_REGISTRY}}
       - name: Push Kronos
@@ -160,8 +192,13 @@ jobs:
       - name: Publish packages to Maven Central
         run: |
           mvn javadoc:jar
-          mvn deploy -P release -DskipTests -Dgpg.passphrase=${{ secrets.MAVEN_GPG_PASS_PHRASE }}
+          mvn deploy -P release -DskipTests
       #---------------Publish to Maven Central-----------------#
+
+      - name: "Git: Commit Snapshot Version"
+        run: |
+          git add .
+          git commit -m "version set to ${{ github.event.inputs.snapshotVersion }} for development"
 
       #----------------Publish GitHub Release------------------#
 
@@ -204,14 +241,46 @@ jobs:
 
       - name: Create Release
         id: create_release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: v${{ env.KRONOS_VERSION }}
-          release_name: ${{ env.KRONOS_VERSION }}
+          name: ${{ env.KRONOS_VERSION }}
           draft: false
           prerelease: false
+          files: |
+            ./server.zip
+            ./sap-cf.zip
+            ./samples/api-db.zip
+            ./samples/api-hdb.zip
+            ./samples/api-import.zip
+            ./samples/api-jobs.zip
+            ./samples/api-net.zip
+            ./samples/api-session.zip
+            ./samples/api-trace.zip
+            ./samples/api-util.zip
+            ./samples/api-web.zip
+            ./samples/products.zip
+            ./samples/hdb-hdbsequence-simple.zip
+            ./samples/hdb-hdbstructure-simple.zip
+            ./samples/hdb-hdbtable-simple.zip
+            ./samples/hdb-hdbti-simple.zip
+            ./samples/hdb-hdbdd-simple.zip
+            ./samples/hdb-procedure-simple.zip
+            ./samples/hdb-schema-simple.zip
+            ./samples/hdb-simple.zip
+            ./samples/hdb-synonym-simple.zip
+            ./samples/hdb-tablefunction-simple.zip
+            ./samples/hdb-view-simple.zip
+            ./samples/hdi-cube.zip
+            ./samples/hdi-ext.zip
+            ./samples/hdi-simple.zip
+            ./samples/xsjs.zip
+            ./samples/xsjs-simple.zip
+            ./samples/xsodata-navigations.zip
+            ./samples/xsodata-simple.zip
+            
           body: |
             ## Kronos - ${{ env.KRONOS_VERSION }}
 
@@ -361,335 +430,6 @@ jobs:
 
             > _**Note**: Also replace `<your-docker-organization>/<your-application-docker-image-repository>` with your Docker Repository, where the Docker Image Builder will be hosted (e.g. `my-organization/my-application`)_
 
-      - name: Upload Server
-        id: upload-server
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./server.zip
-          asset_name: server.zip
-          asset_content_type: application/zip
-
-      - name: Upload SAP CF
-        id: upload-sap-cf
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./sap-cf.zip
-          asset_name: sap-cf.zip
-          asset_content_type: application/zip
-
-      - name: Upload Sample - api-db
-        id: upload-sample-api-db
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/api-db.zip
-          asset_name: api-db.zip
-          asset_content_type: api-db/zip
-
-      - name: Upload Sample - api-hdb
-        id: upload-sample-api-hdb
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/api-hdb.zip
-          asset_name: api-hdb.zip
-          asset_content_type: api-hdb/zip
-
-      - name: Upload Sample - api-import
-        id: upload-sample-api-import
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/api-import.zip
-          asset_name: api-import.zip
-          asset_content_type: api-import/zip
-
-      - name: Upload Sample - api-jobs
-        id: upload-sample-api-jobs
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/api-jobs.zip
-          asset_name: api-jobs.zip
-          asset_content_type: api-jobs/zip
-
-      - name: Upload Sample - api-net
-        id: upload-sample-api-net
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/api-net.zip
-          asset_name: api-net.zip
-          asset_content_type: api-net/zip
-
-      - name: Upload Sample - api-session
-        id: upload-sample-api-session
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/api-session.zip
-          asset_name: api-session.zip
-          asset_content_type: api-session/zip
-
-      - name: Upload Sample - api-trace
-        id: upload-sample-api-trace
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/api-trace.zip
-          asset_name: api-trace.zip
-          asset_content_type: api-trace/zip
-
-      - name: Upload Sample - api-util
-        id: upload-sample-api-util
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/api-util.zip
-          asset_name: api-util.zip
-          asset_content_type: api-util/zip
-
-      - name: Upload Sample - api-web
-        id: upload-sample-api-web
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/api-web.zip
-          asset_name: api-web.zip
-          asset_content_type: api-web/zip
-
-      - name: Upload Sample - products
-        id: upload-sample-products
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/products.zip
-          asset_name: products.zip
-          asset_content_type: application/zip
-
-      - name: Upload Sample - hdb-hdbsequence-simple
-        id: upload-sample-hdb-hdbsequence-simple
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/hdb-hdbsequence-simple.zip
-          asset_name: hdb-hdbsequence-simple.zip
-          asset_content_type: hdb-hdbsequence-simple/zip
-
-      - name: Upload Sample - hdb-hdbstructure-simple
-        id: upload-sample-hdb-hdbstructure-simple
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/hdb-hdbstructure-simple.zip
-          asset_name: hdb-hdbstructure-simple.zip
-          asset_content_type: hdb-hdbstructure-simple/zip
-
-      - name: Upload Sample - hdb-hdbtable-simple
-        id: upload-sample-hdb-hdbtable-simple
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/hdb-hdbtable-simple.zip
-          asset_name: hdb-hdbtable-simple.zip
-          asset_content_type: hdb-hdbtable-simple/zip
-
-      - name: Upload Sample - hdb-hdbti-simple
-        id: upload-sample-hdb-hdbti-simple
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/hdb-hdbti-simple.zip
-          asset_name: hdb-hdbti-simple.zip
-          asset_content_type: hdb-hdbti-simple/zip
-
-      - name: Upload Sample - hdb-hdbdd-simple
-        id: upload-sample-hdb-hdbdd-simple
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/hdb-hdbdd-simple.zip
-          asset_name: hdb-hdbdd-simple.zip
-          asset_content_type: hdb-hdbdd-simple/zip
-
-      - name: Upload Sample - hdb-procedure-simple
-        id: upload-sample-hdb-procedure-simple
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/hdb-procedure-simple.zip
-          asset_name: hdb-procedure-simple.zip
-          asset_content_type: hdb-procedure-simple/zip
-
-      - name: Upload Sample - hdb-schema-simple
-        id: upload-sample-hdb-schema-simple
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/hdb-schema-simple.zip
-          asset_name: hdb-schema-simple.zip
-          asset_content_type: hdb-schema-simple/zip
-
-      - name: Upload Sample - hdb-simple
-        id: upload-sample-hdb-simple
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/hdb-simple.zip
-          asset_name: hdb-simple.zip
-          asset_content_type: hdb-simple/zip
-
-      - name: Upload Sample - hdb-synonym-simple
-        id: upload-sample-hdb-synonym-simple
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/hdb-synonym-simple.zip
-          asset_name: hdb-synonym-simple.zip
-          asset_content_type: hdb-synonym-simple/zip
-
-      - name: Upload Sample - hdb-tablefunction-simple
-        id: upload-sample-hdb-tablefunction-simple
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/hdb-tablefunction-simple.zip
-          asset_name: hdb-tablefunction-simple.zip
-          asset_content_type: hdb-tablefunction-simple/zip
-
-      - name: Upload Sample - hdb-view-simple
-        id: upload-sample-hdb-view-simple
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/hdb-view-simple.zip
-          asset_name: hdb-view-simple.zip
-          asset_content_type: hdb-view-simple/zip
-
-      - name: Upload Sample - hdi-cube
-        id: upload-sample-hdi-cube
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/hdi-cube.zip
-          asset_name: hdi-cube.zip
-          asset_content_type: hdi-cube/zip
-
-      - name: Upload Sample - hdi-ext
-        id: upload-sample-hdi-ext
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/hdi-ext.zip
-          asset_name: hdi-ext.zip
-          asset_content_type: hdi-ext/zip
-
-      - name: Upload Sample - hdi-simple
-        id: upload-sample-hdi-simple
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/hdi-simple.zip
-          asset_name: hdi-simple.zip
-          asset_content_type: hdi-simple/zip
-
-      - name: Upload Sample - xsjs
-        id: upload-sample-xsjs
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/xsjs.zip
-          asset_name: xsjs.zip
-          asset_content_type: xsjs/zip
-
-      - name: Upload Sample - xsjs-simple
-        id: upload-sample-xsjs-simple
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/xsjs-simple.zip
-          asset_name: xsjs-simple.zip
-          asset_content_type: xsjs-simple/zip
-
-      - name: Upload Sample - xsodata-navigations
-        id: upload-sample-xsodata-navigations
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/xsodata-navigations.zip
-          asset_name: xsodata-navigations.zip
-          asset_content_type: xsodata-navigations/zip
-
-      - name: Upload Sample - xsodata-simple
-        id: upload-sample-xsodata-simple
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./samples/xsodata-simple.zip
-          asset_name: xsodata-simple.zip
-          asset_content_type: xsodata-simple/zip
 
       #----------------Publish GitHub Release------------------#
 
@@ -699,7 +439,7 @@ jobs:
       #   run: |
       #     cat <(echo -e "${{ secrets.GPG_KEY_HELM }}") | gpg --batch --import  --no-tty --batch --yes
       # - name: Helm tool installer
-      #   uses: Azure/setup-helm@v1
+      #   uses: Azure/setup-helm@v3
       # - name: Helm Charts Release - Checkout gh-pages
       #   run: |
       #     mkdir charts-temp
@@ -728,7 +468,7 @@ jobs:
       #   run: |
       #     cp charts/* charts-temp/helm-charts/
       #     cd charts-temp/helm-charts/
-          
+
       #     gpg --no-tty --batch --export-secret-keys > ~/.gnupg/secring.gpg
       #     helm package --sign --key "Kronos-gpg" --keyring /home/runner/.gnupg/secring.gpg kronos
       #     helm package --sign --key "Kronos-gpg" --keyring /home/runner/.gnupg/secring.gpg kronos-kpack
