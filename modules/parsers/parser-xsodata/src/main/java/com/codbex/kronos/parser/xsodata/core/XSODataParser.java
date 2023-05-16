@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-// Generated from com\codbex\kronos\parser\xsodata\core\XSOData.g4 by ANTLR 4.10.1
+// Generated from java-escape by ANTLR 4.11.1
 package com.codbex.kronos.parser.xsodata.core;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -20,9 +20,9 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
-@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
+@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
 public class XSODataParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.10.1", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.11.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -151,7 +151,7 @@ public class XSODataParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "XSOData.g4"; }
+	public String getGrammarFileName() { return "java-escape"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -167,6 +167,7 @@ public class XSODataParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class XsOdataDefinitionContext extends ParserRuleContext {
 		public ServiceContext service() {
 			return getRuleContext(ServiceContext.class,0);
@@ -238,6 +239,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ServiceContext extends ParserRuleContext {
 		public BodyContext body() {
 			return getRuleContext(BodyContext.class,0);
@@ -298,6 +300,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class NamespaceContext extends ParserRuleContext {
 		public TerminalNode QUATED_STRING() { return getToken(XSODataParser.QUATED_STRING, 0); }
 		public NamespaceContext(ParserRuleContext parent, int invokingState) {
@@ -342,6 +345,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class BodyContext extends ParserRuleContext {
 		public ContentContext content() {
 			return getRuleContext(ContentContext.class,0);
@@ -399,6 +403,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ContentContext extends ParserRuleContext {
 		public EntryContext entry() {
 			return getRuleContext(EntryContext.class,0);
@@ -457,6 +462,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class EntryContext extends ParserRuleContext {
 		public EntityContext entity() {
 			return getRuleContext(EntityContext.class,0);
@@ -521,6 +527,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class EntityContext extends ParserRuleContext {
 		public ObjectContext object() {
 			return getRuleContext(ObjectContext.class,0);
@@ -651,7 +658,7 @@ public class XSODataParser extends Parser {
 			setState(225);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__32) | (1L << T__33) | (1L << T__34))) != 0)) {
+			if (((_la) & ~0x3f) == 0 && ((1L << _la) & 60129542144L) != 0) {
 				{
 				setState(224);
 				modificationBody();
@@ -673,6 +680,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ObjectContext extends ParserRuleContext {
 		public CatalogobjectnameContext catalogobjectname() {
 			return getRuleContext(CatalogobjectnameContext.class,0);
@@ -743,6 +751,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class CatalogobjectschemaContext extends ParserRuleContext {
 		public TerminalNode QUATED_STRING() { return getToken(XSODataParser.QUATED_STRING, 0); }
 		public CatalogobjectschemaContext(ParserRuleContext parent, int invokingState) {
@@ -785,6 +794,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class CatalogobjectnameContext extends ParserRuleContext {
 		public TerminalNode QUATED_STRING() { return getToken(XSODataParser.QUATED_STRING, 0); }
 		public CatalogobjectnameContext(ParserRuleContext parent, int invokingState) {
@@ -827,6 +837,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class EntitysetContext extends ParserRuleContext {
 		public EntitysetnameContext entitysetname() {
 			return getRuleContext(EntitysetnameContext.class,0);
@@ -873,6 +884,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class EntitysetnameContext extends ParserRuleContext {
 		public TerminalNode QUATED_STRING() { return getToken(XSODataParser.QUATED_STRING, 0); }
 		public EntitysetnameContext(ParserRuleContext parent, int invokingState) {
@@ -915,6 +927,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class WithContext extends ParserRuleContext {
 		public PropertylistContext propertylist() {
 			return getRuleContext(PropertylistContext.class,0);
@@ -983,6 +996,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class WithPropContext extends ParserRuleContext {
 		public WithPropContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1024,6 +1038,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class WithoutPropContext extends ParserRuleContext {
 		public WithoutPropContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1065,6 +1080,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class PropertylistContext extends ParserRuleContext {
 		public List<ColumnnameContext> columnname() {
 			return getRuleContexts(ColumnnameContext.class);
@@ -1139,6 +1155,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ColumnnameContext extends ParserRuleContext {
 		public TerminalNode QUATED_STRING() { return getToken(XSODataParser.QUATED_STRING, 0); }
 		public ColumnnameContext(ParserRuleContext parent, int invokingState) {
@@ -1181,6 +1198,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class KeysContext extends ParserRuleContext {
 		public KeylistContext keylist() {
 			return getRuleContext(KeylistContext.class,0);
@@ -1255,6 +1273,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class KeylistContext extends ParserRuleContext {
 		public PropertylistContext propertylist() {
 			return getRuleContext(PropertylistContext.class,0);
@@ -1299,6 +1318,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class KeygeneratedContext extends ParserRuleContext {
 		public ColumnnameContext columnname() {
 			return getRuleContext(ColumnnameContext.class,0);
@@ -1347,6 +1367,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ConcurrencytokenContext extends ParserRuleContext {
 		public KeylistContext keylist() {
 			return getRuleContext(KeylistContext.class,0);
@@ -1402,6 +1423,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class NavigatesContext extends ParserRuleContext {
 		public NavlistContext navlist() {
 			return getRuleContext(NavlistContext.class,0);
@@ -1452,6 +1474,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class NavlistContext extends ParserRuleContext {
 		public NaventryContext naventry() {
 			return getRuleContext(NaventryContext.class,0);
@@ -1527,6 +1550,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class NaventryContext extends ParserRuleContext {
 		public AssocnameContext assocname() {
 			return getRuleContext(AssocnameContext.class,0);
@@ -1592,6 +1616,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AssocnameContext extends ParserRuleContext {
 		public TerminalNode QUATED_STRING() { return getToken(XSODataParser.QUATED_STRING, 0); }
 		public AssocnameContext(ParserRuleContext parent, int invokingState) {
@@ -1634,6 +1659,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class NavpropnameContext extends ParserRuleContext {
 		public TerminalNode QUATED_STRING() { return getToken(XSODataParser.QUATED_STRING, 0); }
 		public NavpropnameContext(ParserRuleContext parent, int invokingState) {
@@ -1676,6 +1702,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class FromendContext extends ParserRuleContext {
 		public PrincipalContext principal() {
 			return getRuleContext(PrincipalContext.class,0);
@@ -1741,6 +1768,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class PrincipalContext extends ParserRuleContext {
 		public PrincipalContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1782,6 +1810,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class DependentContext extends ParserRuleContext {
 		public DependentContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1823,6 +1852,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AggregatesContext extends ParserRuleContext {
 		public AggregatestupleContext aggregatestuple() {
 			return getRuleContext(AggregatestupleContext.class,0);
@@ -1880,6 +1910,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AggregatestupleContext extends ParserRuleContext {
 		public List<AggregateContext> aggregate() {
 			return getRuleContexts(AggregateContext.class);
@@ -1954,6 +1985,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AggregateContext extends ParserRuleContext {
 		public AggregatefunctionContext aggregatefunction() {
 			return getRuleContext(AggregatefunctionContext.class,0);
@@ -2005,6 +2037,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AggregatefunctionContext extends ParserRuleContext {
 		public AggregatefunctionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -2034,7 +2067,7 @@ public class XSODataParser extends Parser {
 			{
 			setState(338);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__23) | (1L << T__24) | (1L << T__25) | (1L << T__26))) != 0)) ) {
+			if ( !(((_la) & ~0x3f) == 0 && ((1L << _la) & 251658240L) != 0) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -2055,6 +2088,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ParametersContext extends ParserRuleContext {
 		public ParameterskeyandContext parameterskeyand() {
 			return getRuleContext(ParameterskeyandContext.class,0);
@@ -2140,6 +2174,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ParameterskeyandContext extends ParserRuleContext {
 		public ParameterskeyandContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -2183,6 +2218,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ParameterentitysetnameContext extends ParserRuleContext {
 		public TerminalNode QUATED_STRING() { return getToken(XSODataParser.QUATED_STRING, 0); }
 		public ParameterentitysetnameContext(ParserRuleContext parent, int invokingState) {
@@ -2225,6 +2261,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ParametersresultspropContext extends ParserRuleContext {
 		public TerminalNode QUATED_STRING() { return getToken(XSODataParser.QUATED_STRING, 0); }
 		public ParametersresultspropContext(ParserRuleContext parent, int invokingState) {
@@ -2271,6 +2308,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ModificationBodyContext extends ParserRuleContext {
 		public List<ModificationContext> modification() {
 			return getRuleContexts(ModificationContext.class);
@@ -2309,7 +2347,7 @@ public class XSODataParser extends Parser {
 			setState(365);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__32) | (1L << T__33) | (1L << T__34))) != 0)) {
+			while (((_la) & ~0x3f) == 0 && ((1L << _la) & 60129542144L) != 0) {
 				{
 				{
 				setState(362);
@@ -2333,6 +2371,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ModificationContext extends ParserRuleContext {
 		public CreateContext create() {
 			return getRuleContext(CreateContext.class,0);
@@ -2405,6 +2444,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class CreateContext extends ParserRuleContext {
 		public ModificationspecContext modificationspec() {
 			return getRuleContext(ModificationspecContext.class,0);
@@ -2451,6 +2491,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class UpdateContext extends ParserRuleContext {
 		public ModificationspecContext modificationspec() {
 			return getRuleContext(ModificationspecContext.class,0);
@@ -2497,6 +2538,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class DeleteContext extends ParserRuleContext {
 		public ModificationspecContext modificationspec() {
 			return getRuleContext(ModificationspecContext.class,0);
@@ -2543,6 +2585,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ModificationspecContext extends ParserRuleContext {
 		public EventsContext events() {
 			return getRuleContext(EventsContext.class,0);
@@ -2628,6 +2671,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ModificationactionContext extends ParserRuleContext {
 		public ActionContext action() {
 			return getRuleContext(ActionContext.class,0);
@@ -2674,6 +2718,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ForbiddenContext extends ParserRuleContext {
 		public ForbiddenContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -2715,6 +2760,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ActionContext extends ParserRuleContext {
 		public TerminalNode QUATED_STRING() { return getToken(XSODataParser.QUATED_STRING, 0); }
 		public ActionContext(ParserRuleContext parent, int invokingState) {
@@ -2757,6 +2803,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class EventsContext extends ParserRuleContext {
 		public EventlistContext eventlist() {
 			return getRuleContext(EventlistContext.class,0);
@@ -2807,6 +2854,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class EventlistContext extends ParserRuleContext {
 		public List<EventlistElementContext> eventlistElement() {
 			return getRuleContexts(EventlistElementContext.class);
@@ -2877,6 +2925,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class EventlistElementContext extends ParserRuleContext {
 		public EventtypeContext eventtype() {
 			return getRuleContext(EventtypeContext.class,0);
@@ -2926,6 +2975,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class EventtypeContext extends ParserRuleContext {
 		public EventtypeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -2955,7 +3005,7 @@ public class XSODataParser extends Parser {
 			{
 			setState(413);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__38) | (1L << T__39) | (1L << T__40) | (1L << T__41))) != 0)) ) {
+			if ( !(((_la) & ~0x3f) == 0 && ((1L << _la) & 8246337208320L) != 0) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -2976,6 +3026,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AssociationContext extends ParserRuleContext {
 		public AssociationdefContext associationdef() {
 			return getRuleContext(AssociationdefContext.class,0);
@@ -3085,6 +3136,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AssociationdefContext extends ParserRuleContext {
 		public AssocnameContext assocname() {
 			return getRuleContext(AssocnameContext.class,0);
@@ -3131,6 +3183,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AssocrefconstraintContext extends ParserRuleContext {
 		public AssocrefconstraintContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -3176,6 +3229,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class PrincipalendContext extends ParserRuleContext {
 		public PrincipalContext principal() {
 			return getRuleContext(PrincipalContext.class,0);
@@ -3225,6 +3279,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class DependentendContext extends ParserRuleContext {
 		public DependentContext dependent() {
 			return getRuleContext(DependentContext.class,0);
@@ -3274,6 +3329,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class EndContext extends ParserRuleContext {
 		public EndrefContext endref() {
 			return getRuleContext(EndrefContext.class,0);
@@ -3323,6 +3379,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class EndrefContext extends ParserRuleContext {
 		public EndtypeContext endtype() {
 			return getRuleContext(EndtypeContext.class,0);
@@ -3381,6 +3438,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class EndtypeContext extends ParserRuleContext {
 		public EntitysetnameContext entitysetname() {
 			return getRuleContext(EntitysetnameContext.class,0);
@@ -3425,6 +3483,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class JoinpropertieslistContext extends ParserRuleContext {
 		public PropertylistContext propertylist() {
 			return getRuleContext(PropertylistContext.class,0);
@@ -3469,6 +3528,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class MultiplicityContext extends ParserRuleContext {
 		public MultiplicityvalueContext multiplicityvalue() {
 			return getRuleContext(MultiplicityvalueContext.class,0);
@@ -3515,6 +3575,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class MultiplicityvalueContext extends ParserRuleContext {
 		public MultiplicityvalueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -3544,7 +3605,7 @@ public class XSODataParser extends Parser {
 			{
 			setState(455);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__46) | (1L << T__47) | (1L << T__48) | (1L << T__49))) != 0)) ) {
+			if ( !(((_la) & ~0x3f) == 0 && ((1L << _la) & 2111062325329920L) != 0) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -3565,6 +3626,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AssoctableContext extends ParserRuleContext {
 		public RepoobjectContext repoobject() {
 			return getRuleContext(RepoobjectContext.class,0);
@@ -3615,7 +3677,7 @@ public class XSODataParser extends Parser {
 			setState(462);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__32) | (1L << T__33) | (1L << T__34))) != 0)) {
+			if (((_la) & ~0x3f) == 0 && ((1L << _la) & 60129542144L) != 0) {
 				{
 				setState(461);
 				modificationBody();
@@ -3635,6 +3697,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class RepoobjectContext extends ParserRuleContext {
 		public TerminalNode QUATED_STRING() { return getToken(XSODataParser.QUATED_STRING, 0); }
 		public RepoobjectContext(ParserRuleContext parent, int invokingState) {
@@ -3677,6 +3740,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class OverprincipalendContext extends ParserRuleContext {
 		public PrincipalContext principal() {
 			return getRuleContext(PrincipalContext.class,0);
@@ -3726,6 +3790,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class OverdependentendContext extends ParserRuleContext {
 		public DependentContext dependent() {
 			return getRuleContext(DependentContext.class,0);
@@ -3775,6 +3840,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class OverendContext extends ParserRuleContext {
 		public PropertylistContext propertylist() {
 			return getRuleContext(PropertylistContext.class,0);
@@ -3819,6 +3885,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class StorageContext extends ParserRuleContext {
 		public NostorageContext nostorage() {
 			return getRuleContext(NostorageContext.class,0);
@@ -3871,7 +3938,7 @@ public class XSODataParser extends Parser {
 				setState(477);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__32) | (1L << T__33) | (1L << T__34))) != 0)) {
+				if (((_la) & ~0x3f) == 0 && ((1L << _la) & 60129542144L) != 0) {
 					{
 					setState(476);
 					modificationBody();
@@ -3896,6 +3963,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class NostorageContext extends ParserRuleContext {
 		public NostorageContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -3939,6 +4007,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class StorageendContext extends ParserRuleContext {
 		public PrincipalContext principal() {
 			return getRuleContext(PrincipalContext.class,0);
@@ -4006,6 +4075,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AnnotationsContext extends ParserRuleContext {
 		public AnnotationsbodyContext annotationsbody() {
 			return getRuleContext(AnnotationsbodyContext.class,0);
@@ -4052,6 +4122,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AnnotationsbodyContext extends ParserRuleContext {
 		public List<AnnotationconfigContext> annotationconfig() {
 			return getRuleContexts(AnnotationconfigContext.class);
@@ -4114,6 +4185,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AnnotationconfigContext extends ParserRuleContext {
 		public TerminalNode SEMICOLON() { return getToken(XSODataParser.SEMICOLON, 0); }
 		public AnnotationconfigContext(ParserRuleContext parent, int invokingState) {
@@ -4160,6 +4232,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class SettingsContext extends ParserRuleContext {
 		public SettingsbodyContext settingsbody() {
 			return getRuleContext(SettingsbodyContext.class,0);
@@ -4206,6 +4279,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class SettingsbodyContext extends ParserRuleContext {
 		public List<SettingselementContext> settingselement() {
 			return getRuleContexts(SettingselementContext.class);
@@ -4244,7 +4318,7 @@ public class XSODataParser extends Parser {
 			setState(511);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((((_la - 59)) & ~0x3f) == 0 && ((1L << (_la - 59)) & ((1L << (T__58 - 59)) | (1L << (T__60 - 59)) | (1L << (T__62 - 59)) | (1L << (T__63 - 59)) | (1L << (T__64 - 59)))) != 0)) {
+			while ((((_la - 59)) & ~0x3f) == 0 && ((1L << (_la - 59)) & 117L) != 0) {
 				{
 				{
 				setState(508);
@@ -4270,6 +4344,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class SettingselementContext extends ParserRuleContext {
 		public SupportnullContext supportnull() {
 			return getRuleContext(SupportnullContext.class,0);
@@ -4362,6 +4437,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class SupportnullContext extends ParserRuleContext {
 		public TerminalNode SEMICOLON() { return getToken(XSODataParser.SEMICOLON, 0); }
 		public SupportnullContext(ParserRuleContext parent, int invokingState) {
@@ -4408,6 +4484,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ContentcashecontrolContext extends ParserRuleContext {
 		public TerminalNode QUATED_STRING() { return getToken(XSODataParser.QUATED_STRING, 0); }
 		public TerminalNode SEMICOLON() { return getToken(XSODataParser.SEMICOLON, 0); }
@@ -4457,6 +4534,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class MetadatacashecontrolContext extends ParserRuleContext {
 		public TerminalNode QUATED_STRING() { return getToken(XSODataParser.QUATED_STRING, 0); }
 		public TerminalNode SEMICOLON() { return getToken(XSODataParser.SEMICOLON, 0); }
@@ -4506,6 +4584,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class HintsContext extends ParserRuleContext {
 		public TerminalNode SEMICOLON() { return getToken(XSODataParser.SEMICOLON, 0); }
 		public HintlistContext hintlist() {
@@ -4577,6 +4656,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class HintlistContext extends ParserRuleContext {
 		public List<HintvalueContext> hintvalue() {
 			return getRuleContexts(HintvalueContext.class);
@@ -4647,6 +4727,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class HintvalueContext extends ParserRuleContext {
 		public TerminalNode QUATED_STRING() { return getToken(XSODataParser.QUATED_STRING, 0); }
 		public HintvalueContext(ParserRuleContext parent, int invokingState) {
@@ -4689,6 +4770,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class NullvalueContext extends ParserRuleContext {
 		public NullvalueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -4730,6 +4812,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class LimitsContext extends ParserRuleContext {
 		public List<LimitvalueContext> limitvalue() {
 			return getRuleContexts(LimitvalueContext.class);
@@ -4803,6 +4886,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class LimitvalueContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(XSODataParser.EQ, 0); }
 		public TerminalNode INT() { return getToken(XSODataParser.INT, 0); }
@@ -4872,6 +4956,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class MaxrecordsContext extends ParserRuleContext {
 		public MaxrecordsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -4913,6 +4998,7 @@ public class XSODataParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class MaxexpandedrecordsContext extends ParserRuleContext {
 		public MaxexpandedrecordsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);

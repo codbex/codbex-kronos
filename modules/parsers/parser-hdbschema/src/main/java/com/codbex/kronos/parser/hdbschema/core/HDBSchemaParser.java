@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-// Generated from com\codbex\kronos\parser\hdbschema\core\HDBSchema.g4 by ANTLR 4.10.1
+// Generated from java-escape by ANTLR 4.11.1
 package com.codbex.kronos.parser.hdbschema.core;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -20,9 +20,9 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
-@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
+@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
 public class HDBSchemaParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.10.1", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.11.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -86,7 +86,7 @@ public class HDBSchemaParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "HDBSchema.g4"; }
+	public String getGrammarFileName() { return "java-escape"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -102,6 +102,7 @@ public class HDBSchemaParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class HdbSchemaDefinitionContext extends ParserRuleContext {
 		public SchemaNamePropContext schemaNameProp() {
 			return getRuleContext(SchemaNamePropContext.class,0);
@@ -146,6 +147,7 @@ public class HDBSchemaParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class SchemaNamePropContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBSchemaParser.EQ, 0); }
 		public TerminalNode STRING() { return getToken(HDBSchemaParser.STRING, 0); }

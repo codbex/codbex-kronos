@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-// Generated from com/codbex/kronos/parser/hdbtable/core/HDBTable.g4 by ANTLR 4.10.1
+// Generated from java-escape by ANTLR 4.11.1
 package com.codbex.kronos.parser.hdbtable.core;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -20,9 +20,9 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
-@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
+@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
 public class HDBTableParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.10.1", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.11.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -117,7 +117,7 @@ public class HDBTableParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "HDBTable.g4"; }
+	public String getGrammarFileName() { return "java-escape"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -133,6 +133,7 @@ public class HDBTableParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class HdbTableDefinitionContext extends ParserRuleContext {
 		public List<HdbTablePropertiesContext> hdbTableProperties() {
 			return getRuleContexts(HdbTablePropertiesContext.class);
@@ -193,6 +194,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class HdbTablePropertiesContext extends ParserRuleContext {
 		public SchemaNamePropContext schemaNameProp() {
 			return getRuleContext(SchemaNamePropContext.class,0);
@@ -333,6 +335,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class SchemaNamePropContext extends ParserRuleContext {
 		public TerminalNode TABLE() { return getToken(HDBTableParser.TABLE, 0); }
 		public TerminalNode DOT() { return getToken(HDBTableParser.DOT, 0); }
@@ -389,6 +392,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class TemporaryPropContext extends ParserRuleContext {
 		public TerminalNode TABLE() { return getToken(HDBTableParser.TABLE, 0); }
 		public TerminalNode DOT() { return getToken(HDBTableParser.DOT, 0); }
@@ -445,6 +449,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class TableTypePropContext extends ParserRuleContext {
 		public TerminalNode TABLE() { return getToken(HDBTableParser.TABLE, 0); }
 		public TerminalNode DOT() { return getToken(HDBTableParser.DOT, 0); }
@@ -501,6 +506,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class PublicPropContext extends ParserRuleContext {
 		public TerminalNode TABLE() { return getToken(HDBTableParser.TABLE, 0); }
 		public TerminalNode DOT() { return getToken(HDBTableParser.DOT, 0); }
@@ -557,6 +563,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class LoggingTypePropContext extends ParserRuleContext {
 		public TerminalNode TABLE() { return getToken(HDBTableParser.TABLE, 0); }
 		public TerminalNode DOT() { return getToken(HDBTableParser.DOT, 0); }
@@ -613,6 +620,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class TableColumnsPropContext extends ParserRuleContext {
 		public TerminalNode TABLE() { return getToken(HDBTableParser.TABLE, 0); }
 		public TerminalNode DOT() { return getToken(HDBTableParser.DOT, 0); }
@@ -703,6 +711,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class TableIndexesPropContext extends ParserRuleContext {
 		public TerminalNode TABLE() { return getToken(HDBTableParser.TABLE, 0); }
 		public TerminalNode DOT() { return getToken(HDBTableParser.DOT, 0); }
@@ -793,6 +802,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class TablePrimaryKeyPropContext extends ParserRuleContext {
 		public TerminalNode TABLE() { return getToken(HDBTableParser.TABLE, 0); }
 		public List<TerminalNode> DOT() { return getTokens(HDBTableParser.DOT); }
@@ -858,6 +868,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class TablePrimaryKeyColumnsPropContext extends ParserRuleContext {
 		public List<TerminalNode> STRING() { return getTokens(HDBTableParser.STRING); }
 		public TerminalNode STRING(int i) {
@@ -924,6 +935,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class TablePrimaryKeyIndexTypePropContext extends ParserRuleContext {
 		public TerminalNode TABLE() { return getToken(HDBTableParser.TABLE, 0); }
 		public List<TerminalNode> DOT() { return getTokens(HDBTableParser.DOT); }
@@ -987,6 +999,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class DescriptionPropContext extends ParserRuleContext {
 		public TerminalNode TABLE() { return getToken(HDBTableParser.TABLE, 0); }
 		public TerminalNode DOT() { return getToken(HDBTableParser.DOT, 0); }
@@ -1043,6 +1056,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ColumnsObjectContext extends ParserRuleContext {
 		public List<ColumnsPropertiesContext> columnsProperties() {
 			return getRuleContexts(ColumnsPropertiesContext.class);
@@ -1091,7 +1105,7 @@ public class HDBTableParser extends Parser {
 				setState(192); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__16) | (1L << T__17) | (1L << T__18) | (1L << T__19) | (1L << T__20) | (1L << T__21) | (1L << T__22) | (1L << T__23) | (1L << T__24))) != 0) );
+			} while ( ((_la) & ~0x3f) == 0 && ((1L << _la) & 66977792L) != 0 );
 			setState(194);
 			match(T__15);
 			}
@@ -1107,6 +1121,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ColumnsPropertiesContext extends ParserRuleContext {
 		public ColumnAssignNameContext columnAssignName() {
 			return getRuleContext(ColumnAssignNameContext.class,0);
@@ -1239,6 +1254,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class IndexesObjectContext extends ParserRuleContext {
 		public List<IndexPropertiesContext> indexProperties() {
 			return getRuleContexts(IndexPropertiesContext.class);
@@ -1287,7 +1303,7 @@ public class HDBTableParser extends Parser {
 				setState(211); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__12) | (1L << T__16) | (1L << T__19) | (1L << T__25) | (1L << T__26))) != 0) );
+			} while ( ((_la) & ~0x3f) == 0 && ((1L << _la) & 202514432L) != 0 );
 			setState(213);
 			match(T__15);
 			}
@@ -1303,6 +1319,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class IndexPropertiesContext extends ParserRuleContext {
 		public IndexAssignNameContext indexAssignName() {
 			return getRuleContext(IndexAssignNameContext.class,0);
@@ -1395,6 +1412,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ColumnAssignNameContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBTableParser.EQ, 0); }
 		public TerminalNode STRING() { return getToken(HDBTableParser.STRING, 0); }
@@ -1445,6 +1463,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ColumnAssignSQLTypeContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBTableParser.EQ, 0); }
 		public TerminalNode SQLTYPES() { return getToken(HDBTableParser.SQLTYPES, 0); }
@@ -1495,6 +1514,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ColumnAssignNullableContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBTableParser.EQ, 0); }
 		public TerminalNode BOOLEAN() { return getToken(HDBTableParser.BOOLEAN, 0); }
@@ -1545,6 +1565,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ColumnAssignUniqueContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBTableParser.EQ, 0); }
 		public TerminalNode BOOLEAN() { return getToken(HDBTableParser.BOOLEAN, 0); }
@@ -1595,6 +1616,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ColumnAssignLengthContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBTableParser.EQ, 0); }
 		public TerminalNode INT() { return getToken(HDBTableParser.INT, 0); }
@@ -1645,6 +1667,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ColumnAssignCommentContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBTableParser.EQ, 0); }
 		public TerminalNode STRING() { return getToken(HDBTableParser.STRING, 0); }
@@ -1695,6 +1718,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ColumnAssignDefaultValueContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBTableParser.EQ, 0); }
 		public TerminalNode SEMICOLON() { return getToken(HDBTableParser.SEMICOLON, 0); }
@@ -1733,7 +1757,7 @@ public class HDBTableParser extends Parser {
 			match(EQ);
 			setState(254);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << STRING) | (1L << INT) | (1L << DATETIMEDEFAULTVALUES))) != 0)) ) {
+			if ( !(((_la) & ~0x3f) == 0 && ((1L << _la) & 2474169597952L) != 0) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -1756,6 +1780,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ColumnAssignPrecisionContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBTableParser.EQ, 0); }
 		public TerminalNode INT() { return getToken(HDBTableParser.INT, 0); }
@@ -1806,6 +1831,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ColumnAssignScaleContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBTableParser.EQ, 0); }
 		public TerminalNode INT() { return getToken(HDBTableParser.INT, 0); }
@@ -1856,6 +1882,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class IndexAssignNameContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBTableParser.EQ, 0); }
 		public TerminalNode STRING() { return getToken(HDBTableParser.STRING, 0); }
@@ -1906,6 +1933,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class IndexAssignUniqueContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBTableParser.EQ, 0); }
 		public TerminalNode BOOLEAN() { return getToken(HDBTableParser.BOOLEAN, 0); }
@@ -1956,6 +1984,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class IndexAssignOrderContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBTableParser.EQ, 0); }
 		public TerminalNode ORDER() { return getToken(HDBTableParser.ORDER, 0); }
@@ -2006,6 +2035,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class IndexAssignIndexColumnsContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBTableParser.EQ, 0); }
 		public IndexColumnsArrayContext indexColumnsArray() {
@@ -2055,6 +2085,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class IndexAssignIndexTypeContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBTableParser.EQ, 0); }
 		public TerminalNode INDEXTYPE() { return getToken(HDBTableParser.INDEXTYPE, 0); }
@@ -2105,6 +2136,7 @@ public class HDBTableParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class IndexColumnsArrayContext extends ParserRuleContext {
 		public TerminalNode SEMICOLON() { return getToken(HDBTableParser.SEMICOLON, 0); }
 		public List<TerminalNode> STRING() { return getTokens(HDBTableParser.STRING); }
