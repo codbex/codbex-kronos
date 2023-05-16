@@ -332,7 +332,7 @@ public class KronosOData2EventHandlerTest {
     assertEquals(HttpStatusCodes.BAD_REQUEST, response.getStatus());
     assertEquals("application/json", response.getHeader("Content-Type"));
 
-    Map<String, Object> responseBody = GsonHelper.GSON.fromJson(new BasicEntityProvider().readText(((InputStream) response.getEntity())),
+    Map<String, Object> responseBody = GsonHelper.fromJson(new BasicEntityProvider().readText(((InputStream) response.getEntity())),
         HashMap.class);
 
     assertEquals("INVALID ID", ((LinkedTreeMap) ((LinkedTreeMap) responseBody.get("error")).get("message")).get("value"));

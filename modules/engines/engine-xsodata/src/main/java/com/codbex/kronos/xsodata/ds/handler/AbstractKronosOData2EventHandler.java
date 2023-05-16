@@ -257,7 +257,7 @@ public abstract class AbstractKronosOData2EventHandler extends ScriptingOData2Ev
       errorContext.setErrorCode(errorCode);
       errorContext.setHttpStatus(HttpStatusCodes.fromStatusCode(Integer.parseInt(errorCode)));
       errorContext.setMessage(message);
-      errorContext.setInnerError(GsonHelper.GSON.toJson(innerError));
+      errorContext.setInnerError(GsonHelper.toJson(innerError));
       ODataResponse response = EntityProvider.writeErrorDocument(errorContext);
       if (!response.containsHeader(HttpHeaders.CONTENT_TYPE)) {
         response = ODataResponse.fromResponse(response).contentHeader(applicationJSONContentTypeString).build();

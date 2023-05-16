@@ -207,7 +207,7 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
           dataSource,
           mappedKeys, afterTableName, beforeTableName);
 
-      String beforeUpdateEntryJSON = GsonHelper.GSON.toJson(readEntryMap(connectionParam, beforeTableName));
+      String beforeUpdateEntryJSON = GsonHelper.toJson(readEntryMap(connectionParam, beforeTableName));
 
       context.put(CONNECTION_CONTEXT_KEY, connectionParam);
       context.put(BEFORE_TABLE_NAME_CONTEXT_KEY, beforeTableName);
@@ -374,7 +374,7 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
 
       context.put(CONNECTION_CONTEXT_KEY, connectionParam);
       context.put(BEFORE_TABLE_NAME_CONTEXT_KEY, beforeTableName);
-      String beforeDeleteEntryJSON = GsonHelper.GSON.toJson(readEntryMap(connectionParam, beforeTableName));
+      String beforeDeleteEntryJSON = GsonHelper.toJson(readEntryMap(connectionParam, beforeTableName));
       context.put(ENTRY_JSON_CONTEXT_KEY, beforeDeleteEntryJSON);
 
       callSuperBeforeDeleteEntity(uriInfo, contentType, context);

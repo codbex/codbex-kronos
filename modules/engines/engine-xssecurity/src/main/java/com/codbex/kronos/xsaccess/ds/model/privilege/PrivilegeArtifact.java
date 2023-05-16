@@ -39,7 +39,7 @@ public class PrivilegeArtifact {
    * @return the privilege artifact
    */
   public static PrivilegeArtifact parse(byte[] json) {
-    return GsonHelper.GSON
+    return GsonHelper
         .fromJson(new InputStreamReader(new ByteArrayInputStream(json), StandardCharsets.UTF_8), PrivilegeArtifact.class);
   }
 
@@ -50,7 +50,7 @@ public class PrivilegeArtifact {
    * @return the privilege artifact
    */
   public static PrivilegeArtifact parse(String json) {
-    return GsonHelper.GSON.fromJson(json, PrivilegeArtifact.class);
+    return GsonHelper.fromJson(json, PrivilegeArtifact.class);
   }
 
   /**

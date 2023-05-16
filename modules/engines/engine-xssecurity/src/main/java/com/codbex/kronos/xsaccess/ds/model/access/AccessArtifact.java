@@ -49,7 +49,7 @@ public class AccessArtifact {
    * @return the access artifact
    */
   public static AccessArtifact parse(byte[] json) {
-    LinkedTreeMap artifactAsObject = (LinkedTreeMap) GsonHelper.GSON.fromJson(new InputStreamReader(new ByteArrayInputStream(json), StandardCharsets.UTF_8), Object.class);
+    LinkedTreeMap artifactAsObject = (LinkedTreeMap) GsonHelper.fromJson(new InputStreamReader(new ByteArrayInputStream(json), StandardCharsets.UTF_8), Object.class);
     if(artifactAsObject.get("authentication") instanceof LinkedTreeMap) {
       AccessArtifact artifact = new AccessArtifact();
       artifact.setExposed(Boolean.TRUE.equals(artifactAsObject.get("exposed")));
@@ -62,7 +62,7 @@ public class AccessArtifact {
 
       return artifact;
     } else {
-      return GsonHelper.GSON.fromJson(new InputStreamReader(new ByteArrayInputStream(json), StandardCharsets.UTF_8),
+      return GsonHelper.fromJson(new InputStreamReader(new ByteArrayInputStream(json), StandardCharsets.UTF_8),
           AccessArtifact.class);
     }
   }
@@ -74,7 +74,7 @@ public class AccessArtifact {
    * @return the access artifact
    */
   public static AccessArtifact parse(String json) {
-    return GsonHelper.GSON.fromJson(json, AccessArtifact.class);
+    return GsonHelper.fromJson(json, AccessArtifact.class);
   }
 
   /**

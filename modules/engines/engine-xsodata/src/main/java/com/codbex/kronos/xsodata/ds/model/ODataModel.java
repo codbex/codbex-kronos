@@ -173,7 +173,7 @@ public class ODataModel {
    * @return the string
    */
   public String toJson() {
-    return GsonHelper.GSON.toJson(this);
+    return GsonHelper.toJson(this);
   }
 
   /**

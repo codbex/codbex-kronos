@@ -169,7 +169,7 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
       updateTemporaryTable(connection, updateBuilder, newTableParam, sqlContext);
       createTemporaryTableAsSelect(connection, beforeUpdateOldTableParam, selectBuilder, sqlContext);
 
-      String beforeUpdateEntryJSON = GsonHelper.GSON.toJson(readEntryMap(connection, oldTableParam));
+      String beforeUpdateEntryJSON = GsonHelper.toJson(readEntryMap(connection, oldTableParam));
       context.put(ENTRY_JSON_CONTEXT_KEY, beforeUpdateEntryJSON);
 
       String targetTableName = getSQLUpdateBuilderTargetTable(dummyBuilder, sqlContext);
@@ -213,7 +213,7 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
       insertIntoTemporaryTable(connection, insertBuilder, oldTableParam, sqlContext);
       createTemporaryTableAsSelect(connection, newTableParam, selectBuilder, sqlContext);
 
-      String beforeUpdateEntryJSON = GsonHelper.GSON.toJson(readEntryMap(connection, oldTableParam));
+      String beforeUpdateEntryJSON = GsonHelper.toJson(readEntryMap(connection, oldTableParam));
       context.put(ENTRY_JSON_CONTEXT_KEY, beforeUpdateEntryJSON);
 
       String schema = getODataArtifactTypeSchema(targetTableName);
@@ -288,7 +288,7 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
       connection = dataSource.getConnection();
       createTemporaryTableAsSelect(connection, oldTableParam, selectBuilder, sqlContext);
 
-      String beforeDeleteEntryJSON = GsonHelper.GSON.toJson(readEntryMap(connection, oldTableParam));
+      String beforeDeleteEntryJSON = GsonHelper.toJson(readEntryMap(connection, oldTableParam));
       context.put(ENTRY_JSON_CONTEXT_KEY, beforeDeleteEntryJSON);
 
       String targetTableName = getSQLDeleteBuilderTargetTable(dummyBuilder, sqlContext);
