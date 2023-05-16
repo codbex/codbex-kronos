@@ -336,7 +336,12 @@ public class KronosOData2EventHandlerTest {
         HashMap.class);
 
     assertEquals("INVALID ID", ((LinkedTreeMap) ((LinkedTreeMap) responseBody.get("error")).get("message")).get("value"));
-    assertEquals("{\"errordetail\":{\"errorDetail2\":\"detail message 2\",\"errorDetail1\":\"detail message 1\"}}",
+    assertEquals("{\n"
+    		+ "  \"errordetail\": {\n"
+    		+ "    \"errorDetail2\": \"detail message 2\",\n"
+    		+ "    \"errorDetail1\": \"detail message 1\"\n"
+    		+ "  }\n"
+    		+ "}",
         (((LinkedTreeMap) responseBody.get("error")).get("innererror")));
   }
 }

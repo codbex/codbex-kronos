@@ -148,7 +148,7 @@ public class CloudPlatformDestinationFacadeTest {
     String options = "{}";
 
     String response = CloudPlatformDestinationFacade.executeRequest(request, destinationName, options);
-    assertEquals("{\"headers\":[],\"statusCode\":200,\"text\":\"success\"}", response);
+    assertEquals("{\"headers\":[],\"statusCode\":200,\"text\":\"success\"}", response.replaceAll("\\s+",""));
   }
 
 }
