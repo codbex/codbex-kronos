@@ -11,18 +11,40 @@
  */
 package com.codbex.kronos.xsodata.ds.handler;
 
-import com.google.gson.internal.LinkedTreeMap;
+import static com.codbex.kronos.xsodata.ds.handler.AbstractKronosOData2EventHandler.AFTER_TABLE_NAME_CONTEXT_KEY;
+import static com.codbex.kronos.xsodata.ds.handler.AbstractKronosOData2EventHandler.BEFORE_TABLE_NAME_CONTEXT_KEY;
+import static com.codbex.kronos.xsodata.ds.handler.AbstractKronosOData2EventHandler.CONNECTION_CONTEXT_KEY;
+import static com.codbex.kronos.xsodata.ds.handler.AbstractKronosOData2EventHandler.DATASOURCE_CONTEXT_KEY;
+import static com.codbex.kronos.xsodata.ds.handler.AbstractKronosOData2EventHandler.ENTRY_JSON_CONTEXT_KEY;
+import static com.codbex.kronos.xsodata.ds.handler.AbstractKronosOData2EventHandler.SQL_BUILDER_CONTEXT_KEY;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
+
+import java.io.InputStream;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.sql.DataSource;
+
 import org.apache.olingo.odata2.api.commons.HttpStatusCodes;
 import org.apache.olingo.odata2.api.edm.EdmException;
 import org.apache.olingo.odata2.api.edm.EdmType;
 import org.apache.olingo.odata2.api.ep.EntityProviderException;
 import org.apache.olingo.odata2.api.ep.entry.ODataEntry;
+import org.apache.olingo.odata2.api.exception.ODataException;
 import org.apache.olingo.odata2.api.processor.ODataResponse;
 import org.apache.olingo.odata2.api.uri.UriInfo;
 import org.apache.olingo.odata2.core.ep.BasicEntityProvider;
 import org.eclipse.dirigible.commons.api.helpers.GsonHelper;
 import org.eclipse.dirigible.commons.config.StaticObjects;
-import org.eclipse.dirigible.engine.odata2.api.ODataException;
 import org.eclipse.dirigible.engine.odata2.definition.ODataHandlerDefinition;
 import org.eclipse.dirigible.engine.odata2.service.ODataCoreService;
 import org.eclipse.dirigible.engine.odata2.sql.builder.SQLQueryBuilder;
@@ -34,21 +56,8 @@ import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-import javax.sql.DataSource;
-import java.io.InputStream;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import static com.codbex.kronos.xsodata.ds.handler.AbstractKronosOData2EventHandler.DATASOURCE_CONTEXT_KEY;
-import static com.codbex.kronos.xsodata.ds.handler.AbstractKronosOData2EventHandler.SQL_BUILDER_CONTEXT_KEY;
-import static com.codbex.kronos.xsodata.ds.handler.AbstractKronosOData2EventHandler.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.*;
+import com.google.gson.internal.LinkedTreeMap;
 
 
 @RunWith(MockitoJUnitRunner.class)

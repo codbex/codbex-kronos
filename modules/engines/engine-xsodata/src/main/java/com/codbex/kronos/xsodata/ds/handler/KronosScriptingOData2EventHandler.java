@@ -11,6 +11,13 @@
  */
 package com.codbex.kronos.xsodata.ds.handler;
 
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Map;
+
+import javax.sql.DataSource;
+
 import org.apache.olingo.odata2.api.commons.HttpStatusCodes;
 import org.apache.olingo.odata2.api.ep.entry.ODataEntry;
 import org.apache.olingo.odata2.api.exception.ODataException;
@@ -27,11 +34,6 @@ import org.eclipse.dirigible.engine.odata2.sql.builder.SQLInsertBuilder;
 import org.eclipse.dirigible.engine.odata2.sql.builder.SQLQueryBuilder;
 import org.eclipse.dirigible.engine.odata2.sql.builder.SQLSelectBuilder;
 import org.eclipse.dirigible.engine.odata2.sql.builder.SQLUpdateBuilder;
-import javax.sql.DataSource;
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.Map;
 
 /**
  * The Class ScriptingOData2EventHandler.
@@ -67,7 +69,7 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
       context.put(AFTER_TABLE_NAME_CONTEXT_KEY, afterTableName);
 
       callSuperBeforeCreateEntity(uriInfo, requestContentType, contentType, entry, context);
-    } catch (ODataException | org.eclipse.dirigible.engine.odata2.api.ODataException | SQLException e) {
+    } catch (ODataException | SQLException e) {
       throw new KronosScriptingOData2EventHandlerException(UNABLE_TO_HANDLE_BEFORE_CREATE_ENTITY_EVENT_ERROR, e);
     } finally {
       batchDropTemporaryTables(connectionParam, (String) context.get(AFTER_TABLE_NAME_CONTEXT_KEY));
@@ -105,7 +107,7 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
       context.put(AFTER_TABLE_NAME_CONTEXT_KEY, afterTableName);
 
       callSuperAfterCreateEntity(uriInfo, requestContentType, contentType, entry, context);
-    } catch (ODataException | org.eclipse.dirigible.engine.odata2.api.ODataException | SQLException e) {
+    } catch (ODataException | SQLException e) {
       throw new KronosScriptingOData2EventHandlerException(UNABLE_TO_HANDLE_AFTER_CREATE_ENTITY_EVENT_ERROR, e);
     } finally {
       batchDropTemporaryTables(connectionParam, (String) context.get(AFTER_TABLE_NAME_CONTEXT_KEY));
@@ -147,7 +149,7 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
 
       callSuperOnCreateEntity(uriInfo, content, requestContentType, contentType, context);
       return buildResponse((UriInfo) uriInfo, oDataContext, entryMap, contentType, HttpStatusCodes.CREATED);
-    } catch (ODataException | org.eclipse.dirigible.engine.odata2.api.ODataException | SQLException e) {
+    } catch (ODataException | SQLException e) {
       throw new KronosScriptingOData2EventHandlerException(UNABLE_TO_HANDLE_ON_CREATE_ENTITY_EVENT_ERROR, e);
     } finally {
       batchDropTemporaryTables(connectionParam, (String) context.get(AFTER_TABLE_NAME_CONTEXT_KEY));
@@ -215,7 +217,7 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
       context.put(ENTRY_JSON_CONTEXT_KEY, beforeUpdateEntryJSON);
 
       callSuperBeforeUpdateEntity(uriInfo, requestContentType, merge, contentType, entry, context);
-    } catch (ODataException | org.eclipse.dirigible.engine.odata2.api.ODataException | SQLException e) {
+    } catch (ODataException | SQLException e) {
       throw new KronosScriptingOData2EventHandlerException(UNABLE_TO_HANDLE_BEFORE_UPDATE_ENTITY_EVENT_ERROR, e);
     } finally {
       batchDropTemporaryTables(connectionParam, (String) context.get(BEFORE_TABLE_NAME_CONTEXT_KEY), (String) context.get(
@@ -259,7 +261,7 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
       context.put(AFTER_TABLE_NAME_CONTEXT_KEY, afterTableName);
 
       callSuperAfterUpdateEntity(uriInfo, requestContentType, merge, contentType, entry, context);
-    } catch (ODataException | org.eclipse.dirigible.engine.odata2.api.ODataException | SQLException e) {
+    } catch (ODataException | SQLException e) {
       throw new KronosScriptingOData2EventHandlerException(UNABLE_TO_HANDLE_AFTER_UPDATE_ENTITY_EVENT_ERROR, e);
     } finally {
       batchDropTemporaryTables(connectionParam, (String) context.get(BEFORE_TABLE_NAME_CONTEXT_KEY), (String) context.get(
@@ -303,7 +305,7 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
       context.put(AFTER_TABLE_NAME_CONTEXT_KEY, afterTableName);
 
       callSuperOnUpdateEntity(uriInfo, content, requestContentType, merge, contentType, context);
-    } catch (ODataException | org.eclipse.dirigible.engine.odata2.api.ODataException | SQLException e) {
+    } catch (ODataException | SQLException e) {
       throw new KronosScriptingOData2EventHandlerException(UNABLE_TO_HANDLE_ON_UPDATE_ENTITY_EVENT_ERROR, e);
     } finally {
       batchDropTemporaryTables(connectionParam, (String) context.get(BEFORE_TABLE_NAME_CONTEXT_KEY), (String) context.get(
@@ -378,7 +380,7 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
       context.put(ENTRY_JSON_CONTEXT_KEY, beforeDeleteEntryJSON);
 
       callSuperBeforeDeleteEntity(uriInfo, contentType, context);
-    } catch (ODataException | org.eclipse.dirigible.engine.odata2.api.ODataException | SQLException e) {
+    } catch (ODataException | SQLException e) {
       throw new KronosScriptingOData2EventHandlerException(UNABLE_TO_HANDLE_BEFORE_DELETE_ENTITY_EVENT_ERROR, e);
     } finally {
       batchDropTemporaryTables(connectionParam, (String) context.get(BEFORE_TABLE_NAME_CONTEXT_KEY));
@@ -413,7 +415,7 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
       context.put(BEFORE_TABLE_NAME_CONTEXT_KEY, beforeTableName);
 
       callSuperAfterDeleteEntity(uriInfo, contentType, context);
-    } catch (org.eclipse.dirigible.engine.odata2.api.ODataException | SQLException | ODataException e) {
+    } catch (ODataException | SQLException e) {
       throw new KronosScriptingOData2EventHandlerException(UNABLE_TO_HANDLE_AFTER_DELETE_ENTITY_EVENT_ERROR, e);
     } finally {
       batchDropTemporaryTables(connectionParam, (String) context.get(BEFORE_TABLE_NAME_CONTEXT_KEY));
@@ -446,7 +448,7 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
       context.put(BEFORE_TABLE_NAME_CONTEXT_KEY, beforeTableName);
 
       callSuperOnDeleteEntity(uriInfo, contentType, context);
-    } catch (ODataException | org.eclipse.dirigible.engine.odata2.api.ODataException | SQLException e) {
+    } catch (ODataException | SQLException e) {
       throw new KronosScriptingOData2EventHandlerException(UNABLE_TO_HANDLE_ON_DELETE_ENTITY_EVENT_ERROR, e);
     } finally {
       batchDropTemporaryTables(connectionParam, (String) context.get(BEFORE_TABLE_NAME_CONTEXT_KEY));
@@ -477,47 +479,47 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
   }
 
   void callSuperBeforeCreateEntity(PostUriInfo uriInfo, String requestContentType, String contentType, ODataEntry entry,
-      Map<Object, Object> context) throws org.eclipse.dirigible.engine.odata2.api.ODataException {
+      Map<Object, Object> context) throws ODataException {
     super.beforeCreateEntity(uriInfo, requestContentType, contentType, entry, context);
   }
 
   void callSuperAfterCreateEntity(PostUriInfo uriInfo, String requestContentType, String contentType, ODataEntry entry,
-      Map<Object, Object> context) throws org.eclipse.dirigible.engine.odata2.api.ODataException {
+      Map<Object, Object> context) throws ODataException {
     super.afterCreateEntity(uriInfo, requestContentType, contentType, entry, context);
   }
 
   void callSuperOnCreateEntity(PostUriInfo uriInfo, InputStream content, String requestContentType, String contentType,
-      Map<Object, Object> context) throws org.eclipse.dirigible.engine.odata2.api.ODataException {
+      Map<Object, Object> context) throws ODataException {
     super.onCreateEntity(uriInfo, content, requestContentType, contentType, context);
   }
 
   void callSuperBeforeUpdateEntity(PutMergePatchUriInfo uriInfo, String requestContentType, boolean merge, String contentType,
-      ODataEntry entry, Map<Object, Object> context) throws org.eclipse.dirigible.engine.odata2.api.ODataException {
+      ODataEntry entry, Map<Object, Object> context) throws ODataException {
     super.beforeUpdateEntity(uriInfo, requestContentType, merge, contentType, entry, context);
   }
 
   void callSuperAfterUpdateEntity(PutMergePatchUriInfo uriInfo, String requestContentType, boolean merge, String contentType,
-      ODataEntry entry, Map<Object, Object> context) throws org.eclipse.dirigible.engine.odata2.api.ODataException {
+      ODataEntry entry, Map<Object, Object> context) throws ODataException {
     super.afterUpdateEntity(uriInfo, requestContentType, merge, contentType, entry, context);
   }
 
   void callSuperOnUpdateEntity(PutMergePatchUriInfo uriInfo, InputStream content, String requestContentType, boolean merge,
-      String contentType, Map<Object, Object> context) throws org.eclipse.dirigible.engine.odata2.api.ODataException {
+      String contentType, Map<Object, Object> context) throws ODataException {
     super.onUpdateEntity(uriInfo, content, requestContentType, merge, contentType, context);
   }
 
   void callSuperBeforeDeleteEntity(DeleteUriInfo uriInfo, String contentType, Map<Object, Object> context)
-      throws org.eclipse.dirigible.engine.odata2.api.ODataException {
+      throws ODataException {
     super.beforeDeleteEntity(uriInfo, contentType, context);
   }
 
   void callSuperAfterDeleteEntity(DeleteUriInfo uriInfo, String contentType, Map<Object, Object> context)
-      throws org.eclipse.dirigible.engine.odata2.api.ODataException {
+      throws ODataException {
     super.afterDeleteEntity(uriInfo, contentType, context);
   }
 
   void callSuperOnDeleteEntity(DeleteUriInfo uriInfo, String contentType, Map<Object, Object> context)
-      throws org.eclipse.dirigible.engine.odata2.api.ODataException {
+      throws ODataException {
     super.onDeleteEntity(uriInfo, contentType, context);
   }
 

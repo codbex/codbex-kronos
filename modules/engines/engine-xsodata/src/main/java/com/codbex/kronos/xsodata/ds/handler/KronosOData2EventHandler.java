@@ -11,13 +11,17 @@
  */
 package com.codbex.kronos.xsodata.ds.handler;
 
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.olingo.odata2.api.edm.EdmException;
 import org.apache.olingo.odata2.api.ep.entry.ODataEntry;
+import org.apache.olingo.odata2.api.exception.ODataException;
 import org.apache.olingo.odata2.api.processor.ODataResponse;
 import org.apache.olingo.odata2.api.uri.info.DeleteUriInfo;
 import org.apache.olingo.odata2.api.uri.info.PostUriInfo;
 import org.apache.olingo.odata2.api.uri.info.PutMergePatchUriInfo;
-import org.eclipse.dirigible.engine.odata2.api.ODataException;
 import org.eclipse.dirigible.engine.odata2.definition.ODataHandlerDefinition;
 import org.eclipse.dirigible.engine.odata2.definition.ODataHandlerMethods;
 import org.eclipse.dirigible.engine.odata2.definition.ODataHandlerTypes;
@@ -25,9 +29,6 @@ import org.eclipse.dirigible.engine.odata2.handler.ScriptingOData2EventHandler;
 import org.eclipse.dirigible.engine.odata2.service.ODataCoreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Map;
 
 public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
 
