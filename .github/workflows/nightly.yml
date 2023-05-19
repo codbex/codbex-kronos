@@ -251,7 +251,7 @@ jobs:
         with:
           source_file: '/home/runner/work/kronos/kronos/test_results'
           destination_repo: "${{ secrets.INTEGRATION_TESTS_RESULTS_REPO_NAME }}"
-          destination_branch: "master"
+          destination_branch: "main"
           destination_folder: "nightly/results_${{ steps.current-time.outputs.formattedTime }}_gmtplus_2"
           user_email: "${{ secrets.INTEGRATION_TESTS_RESULTS_REPO_MAIL }}"
           user_name: "${{ secrets.INTEGRATION_TESTS_RESULTS_REPO_UNAME }}"
