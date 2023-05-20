@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
           fetch-depth: 0
 
       - name: Download sapmachine JDK 17
@@ -28,7 +28,7 @@ jobs:
           download_url="https://github.com/SAP/SapMachine/releases/download/sapmachine-17.0.2/sapmachine-jdk-17.0.2_linux-x64_bin.tar.gz"
           wget -O "${RUNNER_TEMP}/sapmachine-jdk-17.tar.gz" "${download_url}"
 
-      - name: Setup sapmachine JDK 17
+      - name: "Configure sapmachine JDK 17"
         uses: actions/setup-java@v3
         with:
           distribution: 'jdkfile'
@@ -41,21 +41,19 @@ jobs:
           gpg-passphrase: GPG_PASSPHRASE
           architecture: x64
 
-      - name: Set Kronos Version
-        run: echo KRONOS_VERSION=${GITHUB_REF#refs/*/} | tr v " " | sed 's/ //'  >> $GITHUB_ENV
-
-      - name: Set up QEMU
+      - name: "Configure Docker: QEMU"
         uses: docker/setup-qemu-action@v2
         with:
           platforms: amd64,arm64
 
-      - name: Set up Docker Buildx
+      - name: "Configure Docker: Buildx"
         uses: docker/setup-buildx-action@v2
         with:
           install: true
 
-      - name: Set Multi-Builder Docker Buildx
+      - name: "Configure Docker: Multi-Builder Buildx"
         run: docker buildx create --use --name multi-builder --platform linux/arm64,linux/amd64
+
 
       - name: "Configure Git"
         run: |
@@ -63,37 +61,44 @@ jobs:
           git checkout main
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: "Set Kronos Version"
+        run: echo KRONOS_VERSION=${{ github.event.inputs.releaseVersion }}  >> $GITHUB_ENV
       
       - name: "Maven: Set Release Version"
         run: mvn versions:set -DnewVersion=${{ github.event.inputs.releaseVersion }}
 
-      - name: Maven Build
+      - name: "Maven: Build"
         run: mvn clean install -Dmaven.javadoc.skip=false
 
-      - name: Docker Login
+      - name: "Docker: Login"
         run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASSWORD}} ${{secrets.DOCKER_REGISTRY}}
-      - name: Push Kronos
+
+      - name: "Docker: Push Kronos"
         run: |
           cd releng/server
           cp -r "${JAVA_HOME}" jdk
           docker build --load -t ghcr.io/codbex/kronos:${{ env.KRONOS_VERSION }} --build-arg JDK_TYPE=external-jdk --build-arg JDK_HOME=jdk .
           docker push ghcr.io/codbex/kronos:${{ env.KRONOS_VERSION }}
           cd ../../
-      - name: Push Kronos for SAP Cloud Foundry
+
+      - name: "Docker: Push Kronos for SAP Cloud Foundry"
         run: |
           cd releng/sap-cf
           cp -r "${JAVA_HOME}" jdk
           docker build --load -t ghcr.io/codbex/kronos-cf:${{ env.KRONOS_VERSION }} --build-arg JDK_TYPE=external-jdk --build-arg JDK_HOME=jdk .
           docker push ghcr.io/codbex/kronos-cf:${{ env.KRONOS_VERSION }}
           cd ../../
-      - name: Push Kronos for SAP Kyma
+
+      - name: "Docker: Push Kronos for SAP Kyma"
         run: |
           cd releng/sap-kyma
           cp -r "${JAVA_HOME}" jdk
           docker build --load -t ghcr.io/codbex/kronos-kyma:${{ env.KRONOS_VERSION }} --build-arg JDK_TYPE=external-jdk --build-arg JDK_HOME=jdk .
           docker push ghcr.io/codbex/kronos-kyma:${{ env.KRONOS_VERSION }}
           cd ../../
-      - name: Push Kronos for SAP Kyma Runtime
+
+      - name: "Docker: Push Kronos for SAP Kyma Runtime"
         run: |
           cd releng/sap-kyma-runtime
           docker build --load -t ghcr.io/codbex/kronos-kyma-runtime-base -f Dockerfile-base .
@@ -103,106 +108,13 @@ jobs:
           docker build --load -t ghcr.io/codbex/kronos-kyma-runtime-distro -f Dockerfile-distro .
           docker push ghcr.io/codbex/kronos-kyma-runtime-distro
           cd ../../
-      # - uses: buildpacks/github-actions/setup-pack@v4.1.0
-      # - name: Kronos Buildpack
-      #   run: |
-      #     cd releng/buildpacks/kronos/
-      #     docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-base . --target base
-      #     docker tag ghcr.io/codbex/kronos-buildpacks-stack-base ghcr.io/codbex/kronos-buildpacks-stack-base:${{ env.KRONOS_VERSION }}
-      #     docker push ghcr.io/codbex/kronos-buildpacks-stack-base:${{ env.KRONOS_VERSION }}
-      #     docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-run . --target run
-      #     docker tag ghcr.io/codbex/kronos-buildpacks-stack-run ghcr.io/codbex/kronos-buildpacks-stack-run:${{ env.KRONOS_VERSION }}
-      #     docker push ghcr.io/codbex/kronos-buildpacks-stack-run:${{ env.KRONOS_VERSION }}
-      #     docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-build . --target build
-      #     docker tag ghcr.io/codbex/kronos-buildpacks-stack-build ghcr.io/codbex/kronos-buildpacks-stack-build:${{ env.KRONOS_VERSION }}
-      #     docker push ghcr.io/codbex/kronos-buildpacks-stack-build:${{ env.KRONOS_VERSION }}
-      #     cd buildpack/
-      #     find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/${{ env.KRONOS_VERSION }}/g'' {} \;
-      #     pack buildpack package ghcr.io/codbex/kronos-buildpacks --config ./package.toml
-      #     docker tag ghcr.io/codbex/kronos-buildpacks ghcr.io/codbex/kronos-buildpacks:${{ env.KRONOS_VERSION }}
-      #     docker push ghcr.io/codbex/kronos-buildpacks:${{ env.KRONOS_VERSION }}
-      #     pack builder create ghcr.io/codbex/kronos-buildpacks-builder --config ./builder.toml
-      #     docker tag ghcr.io/codbex/kronos-buildpacks-builder ghcr.io/codbex/kronos-buildpacks-builder:${{ env.KRONOS_VERSION }}
-      #     docker push ghcr.io/codbex/kronos-buildpacks-builder:${{ env.KRONOS_VERSION }}
-      #     cd ../../../../
-      # - name: Kronos Kyma Buildpack
-      #   run: |
-      #     cd releng/buildpacks/kronos-kyma/
-      #     docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-base-kyma . --target base
-      #     docker tag ghcr.io/codbex/kronos-buildpacks-stack-base-kyma ghcr.io/codbex/kronos-buildpacks-stack-base-kyma:${{ env.KRONOS_VERSION }}
-      #     docker push ghcr.io/codbex/kronos-buildpacks-stack-base-kyma:${{ env.KRONOS_VERSION }}
-      #     docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-run-kyma . --target run
-      #     docker tag ghcr.io/codbex/kronos-buildpacks-stack-run-kyma ghcr.io/codbex/kronos-buildpacks-stack-run-kyma:${{ env.KRONOS_VERSION }}
-      #     docker push ghcr.io/codbex/kronos-buildpacks-stack-run-kyma:${{ env.KRONOS_VERSION }}
-      #     docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-build-kyma . --target build
-      #     docker tag ghcr.io/codbex/kronos-buildpacks-stack-build-kyma ghcr.io/codbex/kronos-buildpacks-stack-build-kyma:${{ env.KRONOS_VERSION }}
-      #     docker push ghcr.io/codbex/kronos-buildpacks-stack-build-kyma:${{ env.KRONOS_VERSION }}
-      #     cd buildpack/
-      #     find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/${{ env.KRONOS_VERSION }}/g'' {} \;
-      #     pack buildpack package ghcr.io/codbex/kronos-buildpacks-kyma --config ./package.toml
-      #     docker tag ghcr.io/codbex/kronos-buildpacks-kyma ghcr.io/codbex/kronos-buildpacks-kyma:${{ env.KRONOS_VERSION }}
-      #     docker push ghcr.io/codbex/kronos-buildpacks-kyma:${{ env.KRONOS_VERSION }}
-      #     pack builder create ghcr.io/codbex/kronos-buildpacks-builder-kyma --config ./builder.toml
-      #     docker tag ghcr.io/codbex/kronos-buildpacks-builder-kyma ghcr.io/codbex/kronos-buildpacks-builder-kyma:${{ env.KRONOS_VERSION }}
-      #     docker push ghcr.io/codbex/kronos-buildpacks-builder-kyma:${{ env.KRONOS_VERSION }}
-      #     cd ../../../../
-      # - name: Kronos Kyma Runtime Buildpack
-      #   run: |
-      #     cd releng/buildpacks/kronos-kyma/
-      #     docker build --load -t ghcr.io/codbex/kronos-buildpacks-stack-base-kyma . --target base
-      #     docker push ghcr.io/codbex/kronos-buildpacks-stack-base-kyma
-      #     docker build --load -t ghcr.io/codbex/kronos-buildpacks-stack-run-kyma . --target run
-      #     docker push ghcr.io/codbex/kronos-buildpacks-stack-run-kyma
-      #     docker build --load -t ghcr.io/codbex/kronos-buildpacks-stack-build-kyma . --target build
-      #     docker push ghcr.io/codbex/kronos-buildpacks-stack-build-kyma
-      #     cd buildpack/
-      #     find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/latest/g'' {} \;
-      #     pack buildpack package ghcr.io/codbex/kronos-buildpacks-kyma --config ./package.toml
-      #     docker push ghcr.io/codbex/kronos-buildpacks-kyma
-      #     pack builder create ghcr.io/codbex/kronos-buildpacks-builder-kyma --config ./builder.toml
-      #     docker push ghcr.io/codbex/kronos-buildpacks-builder-kyma
-      #     cd ../../../../
-      # - name: Kronos Cloud Foundry Buildpack
-      #   run: |
-      #     cd releng/buildpacks/kronos-cf/
-      #     docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-base-cf . --target base
-      #     docker tag ghcr.io/codbex/kronos-buildpacks-stack-base-cf ghcr.io/codbex/kronos-buildpacks-stack-base-cf:${{ env.KRONOS_VERSION }}
-      #     docker push ghcr.io/codbex/kronos-buildpacks-stack-base-cf:${{ env.KRONOS_VERSION }}
-      #     docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-run-cf . --target run
-      #     docker tag ghcr.io/codbex/kronos-buildpacks-stack-run-cf ghcr.io/codbex/kronos-buildpacks-stack-run-cf:${{ env.KRONOS_VERSION }}
-      #     docker push ghcr.io/codbex/kronos-buildpacks-stack-run-cf:${{ env.KRONOS_VERSION }}
-      #     docker build --load --build-arg KRONOS_VERSION=${{ env.KRONOS_VERSION }} -t ghcr.io/codbex/kronos-buildpacks-stack-build-cf . --target build
-      #     docker tag ghcr.io/codbex/kronos-buildpacks-stack-build-cf ghcr.io/codbex/kronos-buildpacks-stack-build-cf:${{ env.KRONOS_VERSION }}
-      #     docker push ghcr.io/codbex/kronos-buildpacks-stack-build-cf:${{ env.KRONOS_VERSION }}
-      #     cd buildpack/
-      #     find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/${{ env.KRONOS_VERSION }}/g'' {} \;
-      #     pack buildpack package ghcr.io/codbex/kronos-buildpacks-cf --config ./package.toml
-      #     docker tag ghcr.io/codbex/kronos-buildpacks-cf ghcr.io/codbex/kronos-buildpacks-cf:${{ env.KRONOS_VERSION }}
-      #     docker push ghcr.io/codbex/kronos-buildpacks-cf:${{ env.KRONOS_VERSION }}
-      #     pack builder create ghcr.io/codbex/kronos-buildpacks-builder-cf --config ./builder.toml
-      #     docker tag ghcr.io/codbex/kronos-buildpacks-builder-cf ghcr.io/codbex/kronos-buildpacks-builder-cf:${{ env.KRONOS_VERSION }}
-      #     docker push ghcr.io/codbex/kronos-buildpacks-builder-cf:${{ env.KRONOS_VERSION }}
-      #     cd ../../../../
 
-
-      #---------------Publish to Maven Central-----------------#
-
-      - name: Publish packages to Maven Central
-        run: |
-          mvn javadoc:jar
-          mvn deploy -P release -DskipTests
+      - name: "Maven: Publish Package"
+        run: mvn deploy -P release -DskipTests
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-      #---------------Publish to Maven Central-----------------#
-
-      - name: "Git: Commit Snapshot Version"
-        run: |
-          git add .
-          git commit -m "version set to ${{ github.event.inputs.snapshotVersion }} for development"
-
-      #----------------Publish GitHub Release------------------#
 
       - name: Package WAR files
         run: |
@@ -432,84 +344,18 @@ jobs:
 
             > _**Note**: Also replace `<your-docker-organization>/<your-application-docker-image-repository>` with your Docker Repository, where the Docker Image Builder will be hosted (e.g. `my-organization/my-application`)_
 
-
-      #----------------Publish GitHub Release------------------#
-
-      #----------------Publish Helm Release------------------#
-      # - id: install-secret-key
-      #   name: Install gpg secret key
-      #   run: |
-      #     cat <(echo -e "${{ secrets.GPG_KEY_HELM }}") | gpg --batch --import  --no-tty --batch --yes
-      # - name: Helm tool installer
-      #   uses: Azure/setup-helm@v3
-      # - name: Helm Charts Release - Checkout gh-pages
-      #   run: |
-      #     mkdir charts-temp
-      #     cp -r releng/helm-charts/ charts-temp/
-      #     #### Git Checkout Workaround
-      #     git add .github/
-      #     git add .reuse/
-      #     git add LICENSES/
-      #     git add modules/
-      #     git add releng/
-      #     git add samples/
-      #     git reset --hard
-      #     ####
-      #     git fetch
-      #     git checkout gh-pages
-
-      #     cp charts/* .
-      # - name: Helm Charts Release - Set Chart Version - Kronos
-      #   run: |
-      #     cd charts-temp/helm-charts/
-      #     find kronos/*.yaml -type f -exec sed -i ''s/#{KronosVersion}#/${{ env.KRONOS_VERSION }}/g'' {} \;
-      #     find kronos-kpack/*.yaml -type f -exec sed -i ''s/#{KronosVersion}#/${{ env.KRONOS_VERSION }}/g'' {} \;
-      #     find kronos-kpack/templates/*.yaml -type f -exec sed -i ''s/#{KronosVersion}#/${{ env.KRONOS_VERSION }}/g'' {} \;
-      #     find kronos-landscape/*.yaml -type f -exec sed -i ''s/#{KronosVersion}#/${{ env.KRONOS_VERSION }}/g'' {} \;
-      # - name: Helm Charts Release
-      #   run: |
-      #     cp charts/* charts-temp/helm-charts/
-      #     cd charts-temp/helm-charts/
-
-      #     gpg --no-tty --batch --export-secret-keys > ~/.gnupg/secring.gpg
-      #     helm package --sign --key "Kronos-gpg" --keyring /home/runner/.gnupg/secring.gpg kronos
-      #     helm package --sign --key "Kronos-gpg" --keyring /home/runner/.gnupg/secring.gpg kronos-kpack
-      #     helm package --sign --key "Kronos-gpg" --keyring /home/runner/.gnupg/secring.gpg kronos-landscape
-      #     cd ..
-      #     helm repo index helm-charts/ --url https://codbex.github.io/codbex-kronos/charts
-
-      #     cp helm-charts/index.yaml ../.
-      #     cp helm-charts/kronos-${{ env.KRONOS_VERSION }}.tgz ../charts/
-      #     cp helm-charts/kronos-${{ env.KRONOS_VERSION }}.tgz.prov ../charts/
-      #     cp helm-charts/kronos-kpack-${{ env.KRONOS_VERSION }}.tgz ../charts/
-      #     cp helm-charts/kronos-kpack-${{ env.KRONOS_VERSION }}.tgz.prov ../charts/
-      #     cp helm-charts/kronos-landscape-${{ env.KRONOS_VERSION }}.tgz ../charts/
-      #     cp helm-charts/kronos-landscape-${{ env.KRONOS_VERSION }}.tgz.prov ../charts/
-      #     cd ..
-      #     git config user.name "$GITHUB_ACTOR"
-      #     git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-      #     git add index.yaml
-      #     git add charts/
-      #     git commit -m "Updates Helm Charts - Release ${{ env.KRONOS_VERSION }} - ci skip"
-      #     git push origin gh-pages
-      #     git add .
-      #     git reset --hard
-      #     git checkout main
-      #----------------Publish Helm Release------------------#
-
-      #-----------------Create GitHub Branch-------------------#
-
-      - name: Create GitHub Branch
+      - name: "Git: Push Release Version"
         run: |
+          git push
           git checkout -b ${{ env.KRONOS_VERSION }}
           git push origin ${{ env.KRONOS_VERSION }}
+          git checkout main
 
-      #-----------------Create GitHub Branch-------------------#
+      - name: "Maven: Set Snapshot Version"
+        run: mvn versions:set -DnewVersion=${{ github.event.inputs.snapshotVersion }}
 
-      - name: Slack Notification
-        if: ${{ failure() }}
-        uses: slackapi/slack-github-action@v1.14.0
-        with:
-          payload: "{\"type\":\"Release\",\"url\":\"${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\"}"
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: "Git: Commit Snapshot Version"
+        run: |
+          git add .
+          git commit -m "version set to ${{ github.event.inputs.snapshotVersion }} for development"
+          git push
