@@ -35,7 +35,10 @@ jobs:
           java-version: '17.0.2'
           jdkFile: ${{ runner.temp }}/sapmachine-jdk-17.tar.gz
           server-id: ossrh
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          gpg-passphrase: GPG_PASSPHRASE
           architecture: x64
 
       - name: Set Kronos Version
