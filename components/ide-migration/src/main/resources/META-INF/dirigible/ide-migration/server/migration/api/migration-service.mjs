@@ -21,7 +21,7 @@ const ProjectMigrationInterceptor = Java.type("com.codbex.kronos.modificators.Pr
 const HDBCoreFacade = Java.type("com.codbex.kronos.hdb.ds.facade.HDBCoreSynchronizationFacade");
 const hdbDDModel = "com.codbex.kronos.hdb.ds.model.hdbdd.DataStructureCdsModel";
 const kronosModificator = new ProjectMigrationInterceptor();
-const streams = org.eclipse.dirigible.api.v3.io.StreamsFacade;
+const streams = org.eclipse.dirigible.components.api.io.StreamsFacade;
 
 export class MigrationService {
     repo = null;

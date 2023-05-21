@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
-import org.eclipse.dirigible.api.v3.problems.ProblemsFacade;
+import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockedStatic;

@@ -25,28 +25,28 @@ import org.springframework.stereotype.Service;
 import com.codbex.kronos.engine.KronosSourceProvider;
 
 @Service
-public class XSJSService implements InitializingBean {
+public class XsjsService implements InitializingBean {
 	
 	/** The Constant logger. */
-    private static final Logger logger = LoggerFactory.getLogger(XSJSService.class);
+    private static final Logger logger = LoggerFactory.getLogger(XsjsService.class);
 
     /** The dirigible source provider. */
     private JavascriptSourceProvider sourceProvider;
     
     /** The instance. */
-    private static XSJSService INSTANCE;
+    private static XsjsService INSTANCE;
     
 	/** The repository. */
 	private final IRepository repository;
 	
 	/** The handler. */
-    private XSJSHandler handler;
+    private XsjsHandler handler;
 	
 	@Autowired
-	public XSJSService(IRepository repository) {
+	public XsjsService(IRepository repository) {
 		this.repository = repository;
 		this.sourceProvider = new KronosSourceProvider();
-    	this.handler = new XSJSHandler(getRepository(), getSourceProvider());
+    	this.handler = new XsjsHandler(getRepository(), getSourceProvider());
 	}
     
     /**
@@ -64,7 +64,7 @@ public class XSJSService implements InitializingBean {
      *
      * @return the javascript service
      */
-    public static XSJSService get() {
+    public static XsjsService get() {
         return INSTANCE;
     }
     

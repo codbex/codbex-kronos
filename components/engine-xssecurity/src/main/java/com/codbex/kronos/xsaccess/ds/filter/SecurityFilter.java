@@ -11,8 +11,8 @@
  */
 package com.codbex.kronos.xsaccess.ds.filter;
 
-import org.eclipse.dirigible.api.v3.http.HttpRequestFacade;
-import org.eclipse.dirigible.api.v3.utils.EscapeFacade;
+import org.eclipse.dirigible.components.api.http.HttpRequestFacade;
+import org.eclipse.dirigible.components.api.utils.EscapeFacade;
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.repository.api.IRepositoryStructure;
 import org.slf4j.Logger;

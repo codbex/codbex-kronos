@@ -19,7 +19,7 @@ function testSingleFileExportGeneration() {
   const generator = new XSJSLibExportsGenerator(stateTableParams);
   const target = new XSJSLibSynchronizerRegistryEntity(collection.getPath(), repository);
   generator.run(target);
-  const generatedExportsResource = repository.getResource(resource.getPath() + ".generated_exports");
+  const generatedExportsResource = repository.getResource(resource.getPath() + "_generated_exports.js");
   assertEquals(expectedContent, generatedExportsResource.getText(), "Unexpected xsjslib content after exports generation.");
   assertEquals(input, resource.getText(), "Unexpected xsjslib content after exports generation.");
 

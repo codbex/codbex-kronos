@@ -14,7 +14,7 @@ package com.codbex.kronos.mail;
 import com.codbex.kronos.api.destination.CloudPlatformDestinationFacade;
 import com.sap.cloud.sdk.cloudplatform.connectivity.exception.DestinationAccessException;
 
-import org.eclipse.dirigible.api.v3.mail.api.IMailConfigurationProvider;
+import org.eclipse.dirigible.components.api.mail.MailConfigurationProvider;
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

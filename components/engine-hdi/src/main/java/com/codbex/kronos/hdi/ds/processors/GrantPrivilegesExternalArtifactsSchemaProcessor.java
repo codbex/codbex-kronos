@@ -21,7 +21,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.commons.io.FilenameUtils;
-import org.eclipse.dirigible.api.v3.platform.RegistryFacade;
+import org.eclipse.dirigible.components.api.platform.RegistryFacade;
 import org.jetbrains.annotations.NotNull;
 
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;

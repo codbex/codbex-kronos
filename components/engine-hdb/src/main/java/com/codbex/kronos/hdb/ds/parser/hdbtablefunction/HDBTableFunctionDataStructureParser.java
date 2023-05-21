@@ -14,7 +14,7 @@ package com.codbex.kronos.hdb.ds.parser.hdbtablefunction;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.eclipse.dirigible.api.v3.security.UserFacade;
+import org.eclipse.dirigible.components.api.security.UserFacade;
 
 import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.hdb.ds.api.IDataStructureModel;

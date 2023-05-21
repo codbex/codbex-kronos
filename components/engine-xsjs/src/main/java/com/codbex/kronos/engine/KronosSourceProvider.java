@@ -37,7 +37,7 @@ public class KronosSourceProvider implements JavascriptSourceProvider {
 	private static final String XSJSLIB_EXTENSION = ".xsjslib"; //$NON-NLS-1$
 
 	/** The Constant XSJSLIB_EXPORTS_RESERVED_EXTENSION. */
-	private static final String XSJSLIB_EXPORTS_RESERVED_EXTENSION = ".generated_exports";
+	private static final String XSJSLIB_EXPORTS_RESERVED_EXTENSION = "_generated_exports.js";
 
 	/** The Constant JS_EXTENSION. */
 	private static final String JS_EXTENSION = ".js"; //$NON-NLS-1$

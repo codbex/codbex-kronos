@@ -35,10 +35,10 @@ import org.slf4j.LoggerFactory;
 
 import com.codbex.kronos.engine.Require;
 
-public class XSJSHandler extends JavascriptHandler {
+public class XsjsHandler extends JavascriptHandler {
 	
 	/** The Constant logger. */
-    private static final Logger logger = LoggerFactory.getLogger(XSJSHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(XsjsHandler.class);
 	
 	/** The Constant ENGINE_JAVA_SCRIPT. */
 	private static final String ENGINE_JAVA_SCRIPT = "js";
@@ -61,7 +61,7 @@ public class XSJSHandler extends JavascriptHandler {
     
     private JavascriptSourceProvider sourceProvider;
 
-	public XSJSHandler(IRepository repository, JavascriptSourceProvider sourceProvider) {
+	public XsjsHandler(IRepository repository, JavascriptSourceProvider sourceProvider) {
 		super(repository, sourceProvider);
 		this.repository = repository;
 		this.sourceProvider = sourceProvider;
@@ -85,7 +85,7 @@ public class XSJSHandler extends JavascriptHandler {
      */
     private static Source getJSErrorFileNamePolyfillSource() throws IOException {
       String errorFileNamePolyfillName = "/ErrorFileNamePolyfill.js";
-      InputStream errorFileNamePolyfillInputStream = XSJSHandler.class
+      InputStream errorFileNamePolyfillInputStream = XsjsHandler.class
           .getResourceAsStream("/js/polyfills" + errorFileNamePolyfillName);
       String errorFileNamePolyfillCode = IOUtils.toString(Objects.requireNonNull(errorFileNamePolyfillInputStream), StandardCharsets.UTF_8);
       return Source
@@ -107,7 +107,7 @@ public class XSJSHandler extends JavascriptHandler {
   			if (resource.exists()) {
   				KRONOS_API_CONTENT = new String(resource.getContent(), DEFAULT_CHARSET);
   			} else {
-  				KRONOS_API_CONTENT = IOUtils.toString(XSJSHandler.class
+  				KRONOS_API_CONTENT = IOUtils.toString(XsjsHandler.class
   					.getResourceAsStream("/META-INF/dirigible" + KRONOS_API_LOCATION), DEFAULT_CHARSET);
   				resource = getRepository().createResource(API_PATH, KRONOS_API_CONTENT.getBytes());
   			}

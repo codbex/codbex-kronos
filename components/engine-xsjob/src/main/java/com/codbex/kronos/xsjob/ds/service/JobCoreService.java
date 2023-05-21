@@ -23,10 +23,9 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.eclipse.dirigible.api.v3.security.UserFacade;
+import org.eclipse.dirigible.components.api.security.UserFacade;
 import org.eclipse.dirigible.commons.api.helpers.GsonHelper;
 import org.eclipse.dirigible.commons.config.StaticObjects;
-import org.eclipse.dirigible.core.scheduler.api.SchedulerException;
 import org.eclipse.dirigible.database.persistence.PersistenceManager;
 
 import com.codbex.kronos.utils.Utils;

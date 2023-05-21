@@ -30,7 +30,7 @@ import com.codbex.kronos.utils.HDBUtils;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.eclipse.dirigible.api.v3.security.UserFacade;
+import org.eclipse.dirigible.components.api.security.UserFacade;
 import org.eclipse.dirigible.core.scheduler.api.ISynchronizerArtefactType;
 
 /**

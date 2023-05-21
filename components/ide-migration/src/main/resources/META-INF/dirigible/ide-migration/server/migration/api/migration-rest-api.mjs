@@ -94,7 +94,7 @@ function getJwtToken(host, username, password) {
 function continueProcess(ctx, req, res) {
     const userDataJson = req.getJSON();
 
-    const tasksJson = org.eclipse.dirigible.api.v3.bpm.BpmFacade.getTasks();
+    const tasksJson = org.eclipse.dirigible.components.api.bpm.BpmFacade.getTasks();
     const tasks = JSON.parse(tasksJson);
     for (const task of tasks) {
         if (task.processInstanceId === userDataJson.processInstanceId.toString()) {

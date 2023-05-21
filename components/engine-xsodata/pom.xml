@@ -30,6 +30,7 @@
             <artifactId>codbex-kronos-components-engine-commons</artifactId>
             <version>0.4.0-SNAPSHOT</version>
         </dependency>
+        
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-engine-graalium-execution-core</artifactId>
@@ -40,7 +41,11 @@
             <artifactId>dirigible-odata-core</artifactId>
             <version>${dirigible.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-components-engine-odata</artifactId>
+            <version>${dirigible.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-commons-helpers</artifactId>

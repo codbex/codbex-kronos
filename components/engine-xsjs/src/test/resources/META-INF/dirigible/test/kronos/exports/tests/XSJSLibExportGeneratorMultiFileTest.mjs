@@ -28,8 +28,8 @@ function testMultiFileFolderExportGeneration() {
   generator.run(target);
   assertEquals(baseInput, baseResource.getText(), "Unexpected xsjslib content after exports generation.");
   assertEquals(childInput, childResource.getText(), "Unexpected xsjslib content after exports generation.");
-  const baseGeneratedExports = repository.getResource(baseResource.getPath() + ".generated_exports");
-  const childGeneratedExports = repository.getResource(childResource.getPath() + ".generated_exports");
+  const baseGeneratedExports = repository.getResource(baseResource.getPath() + "_generated_exports.js");
+  const childGeneratedExports = repository.getResource(childResource.getPath() + "_generated_exports.js");
   assertEquals(baseExpectedContent, baseGeneratedExports.getText(), "Unexpected xsjslib content after exports generation.");
   assertEquals(childExpectedContent, childGeneratedExports.getText(), "Unexpected xsjslib content after exports generation.");
 

@@ -42,7 +42,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.codbex.kronos.engine.xsjs.service.XSJSService;
+import com.codbex.kronos.engine.xsjs.service.XsjsService;
 
 @RestController
 @RequestMapping({BaseEndpoint.PREFIX_ENDPOINT_SECURED + "xsjs", BaseEndpoint.PREFIX_ENDPOINT_PUBLIC + "xsjs"})
@@ -56,7 +56,7 @@ public class XSJSEndpoint {
 	
 	
 	/** The javascript service. */
-	private final XSJSService javascriptService;
+	private final XsjsService javascriptService;
 	
 	/** The repository. */
 	private final IRepository repository;
@@ -68,7 +68,7 @@ public class XSJSEndpoint {
 	 * @param repository the repository
 	 */
 	@Autowired
-	public XSJSEndpoint(XSJSService javascriptService, IRepository repository) {
+	public XSJSEndpoint(XsjsService javascriptService, IRepository repository) {
 		this.javascriptService = javascriptService;
 		this.repository = repository;
 	}
@@ -300,7 +300,7 @@ public class XSJSEndpoint {
 	 *
 	 * @return the javascript handler
 	 */
-	protected XSJSService getJavascriptHandler() {
+	protected XsjsService getJavascriptHandler() {
 		return javascriptService;
 	}
 

@@ -17,7 +17,6 @@ import com.codbex.kronos.utils.CommonsDBUtils;
 
 import org.apache.commons.csv.CSVRecord;
 import org.apache.cxf.common.util.StringUtils;
-import org.eclipse.dirigible.api.v3.core.ConsoleFacade;
 import org.eclipse.dirigible.commons.api.helpers.DateTimeUtils;
 import org.eclipse.dirigible.commons.config.StaticObjects;
 import org.eclipse.dirigible.database.ds.model.transfer.TableColumn;

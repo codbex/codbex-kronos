@@ -89,23 +89,23 @@ public class Require {
 
     public static final String LOAD_CONSOLE_CODE = "let console = {};\n" +
             "console.log = function(message) {\n" +
-            "\torg.eclipse.dirigible.api.v3.core.ConsoleFacade.log(stringify(message));\n" +
+            "\toconsole.log(stringify(message));\n" +
             "};\n" +
             "\n" +
             "console.error = function(message) {\n" +
-            "\torg.eclipse.dirigible.api.v3.core.ConsoleFacade.error(stringify(message));\n" +
+            "\tconsole.error(stringify(message));\n" +
             "};\n" +
             "\n" +
             "console.info = function(message) {\n" +
-            "\torg.eclipse.dirigible.api.v3.core.ConsoleFacade.info(stringify(message));\n" +
+            "\tconsole.info(stringify(message));\n" +
             "};\n" +
             "\n" +
             "console.warn = function(message) {\n" +
-            "\torg.eclipse.dirigible.api.v3.core.ConsoleFacade.warn(stringify(message));\n" +
+            "\tconsole.error(stringify(message));\n" +
             "};\n" +
             "\n" +
             "console.debug = function(message) {\n" +
-            "\torg.eclipse.dirigible.api.v3.core.ConsoleFacade.debug(stringify(message));\n" +
+            "\tconsole.log(stringify(message));\n" +
             "};\n" +
             "\n" +
             "console.trace = function(message) {\n" +
@@ -113,7 +113,7 @@ public class Require {
             "\tif (traceMessage) {\n" +
             "\t\ttraceMessage = traceMessage.substring(\"Error: \".length, traceMessage.length);\n" +
             "\t}\n" +
-            "\torg.eclipse.dirigible.api.v3.core.ConsoleFacade.trace(traceMessage);\n" +
+            "\tconsole.log(traceMessage);\n" +
             "};\n" +
             "\n" +
             "function stringify(message) {\n" +

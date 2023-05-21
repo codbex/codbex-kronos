@@ -30,7 +30,7 @@ public class XSJSLibSynchronizerFileCleanerTest {
 //  @Test
 //  public void cleanupGeneratedExportsFileTest() {
 //    String testResourcePath = "/cleanupFileTest/test.xsjslib";
-//    String generatedExportsExtension = ".generated_exports";
+//    String generatedExportsExtension = "_generated_exports.js";
 //
 //    IResource resourceMock = mock(LocalResource.class);
 //    when(resourceMock.exists()).thenReturn(true);

@@ -16,8 +16,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Set;
 import java.util.TreeSet;
-import org.eclipse.dirigible.api.v3.platform.RegistryFacade;
-import org.eclipse.dirigible.commons.api.scripting.ScriptingException;
+import org.eclipse.dirigible.components.api.platform.RegistryFacade;
 import org.eclipse.dirigible.repository.api.RepositoryPath;
 
 /**

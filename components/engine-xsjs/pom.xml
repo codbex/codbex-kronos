@@ -23,6 +23,11 @@
 			<version>${dirigible.version}</version>
 		</dependency>
 		<dependency>
+      <groupId>org.eclipse.dirigible</groupId>
+      <artifactId>dirigible-components-core-database</artifactId>
+      <version>${dirigible.version}</version>
+    </dependency>
+		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-components-engine-javascript</artifactId>
 			<version>${dirigible.version}</version>

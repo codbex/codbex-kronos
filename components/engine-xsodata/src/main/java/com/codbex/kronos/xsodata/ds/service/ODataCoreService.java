@@ -20,7 +20,7 @@ import com.codbex.kronos.xsodata.ds.api.ODataException;
 import com.codbex.kronos.xsodata.ds.dao.ODataArtifactDao;
 import com.codbex.kronos.xsodata.ds.model.ODataModel;
 
-import org.eclipse.dirigible.api.v3.security.UserFacade;
+import org.eclipse.dirigible.components.api.security.UserFacade;
 
 import java.sql.Timestamp;
 import java.util.List;

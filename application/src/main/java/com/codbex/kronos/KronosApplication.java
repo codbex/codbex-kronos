@@ -18,7 +18,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableJpaAuditing
-@EnableJpaRepositories
+@EnableJpaRepositories(basePackages = "com.codbex.kronos")
 @SpringBootApplication(scanBasePackages = {"com.codbex.kronos", "org.eclipse.dirigible.components"})
 @EnableScheduling
 public class KronosApplication {

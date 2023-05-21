@@ -48,12 +48,12 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.eclipse.dirigible.api.v3.security.UserFacade;
+import org.eclipse.dirigible.components.api.security.UserFacade;
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.commons.config.StaticObjects;
 import org.eclipse.dirigible.database.persistence.model.PersistenceTableModel;
 import org.eclipse.dirigible.database.sql.ISqlKeywords;
-import org.eclipse.dirigible.engine.odata2.transformers.DBMetadataUtil;
+import org.eclipse.dirigible.components.odata.transformers.ODataDatabaseMetadataUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

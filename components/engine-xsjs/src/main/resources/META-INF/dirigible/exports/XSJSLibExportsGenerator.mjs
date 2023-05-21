@@ -1,20 +1,11 @@
 import { XSJSLibCompiler } from './XSJSLibCompiler.mjs'
-import { XSJSLibStateTable } from './XSJSLibStateTable.mjs'
 import { digest } from '@dirigible/utils'
 import { repository } from '@dirigible/platform'
 import { bytes } from '@dirigible/io'
 
-const ProblemsFacade = Java.type('org.eclipse.dirigible.api.v3.problems.ProblemsFacade');
+const ProblemsFacade = Java.type('org.eclipse.dirigible.components.api.platform.ProblemsFacade');
 
 export class XSJSLibExportsGenerator {
-  processedArtefactsTable = null;
-
-  constructor(stateTableParams) {
-    this.processedArtefactsTable = new XSJSLibStateTable(
-      stateTableParams.name,
-      stateTableParams.schema
-    );
-  }
 
   run(synchronizerTarget) {
     if(synchronizerTarget.isCollection()) {
@@ -78,26 +69,16 @@ export class XSJSLibExportsGenerator {
         return;
       }
     }
+    
+    console.log('Generating exports for: ' + resource.getPath());
 
     const content = bytes.byteArrayToText(resource.getContent());
     const location = resource.getPath();
-    const findEntryByResourceLocation = this.processedArtefactsTable.findEntryByResourceLocation(location);
-
-    if (!findEntryByResourceLocation) {
-      this._generateExportsFile(location, content);
-      this.processedArtefactsTable.createEntryForResource(location, content);
-    }
-    else if (this._isContentChanged(findEntryByResourceLocation, content)) {
-      this._generateExportsFile(location, content);
-      this.processedArtefactsTable.updateEntryForResource(findEntryByResourceLocation, location, content);
-    }
-    else {
-      // No entry in state table and no change in content => do not generate.
-    }
+    this._generateExportsFile(location, content);
   }
 
   _validateResource(resource) {
-    if(!resource.exists()) {
+    if(!resource && !resource.exists()) {
       this._logProblem(
         resource.getPath(),
         "Requested .xsjslib synchronisation for resource '"
@@ -131,7 +112,7 @@ export class XSJSLibExportsGenerator {
   _generateExportsFile(location, content) {
     const compiler = new XSJSLibCompiler();
     const contentWithExports = compiler.appendExports(content);
-    const generatedExportsFilePath = location + ".generated_exports";
+    const generatedExportsFilePath = location + "_generated_exports.js";
     const exportsResource = repository.createResource(
       generatedExportsFilePath,
       contentWithExports,

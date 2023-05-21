@@ -144,7 +144,7 @@ function Module (id, parent) {
        }  else {
 
            try {
-             var registry = org.eclipse.dirigible.api.v3.platform.RegistryFacade;
+             var registry = org.eclipse.dirigible.components.api.platform.RegistryFacade;
              resource = registry.getText(location);
              if (resource && resource.length && resource.length > 0) {
                  return location;

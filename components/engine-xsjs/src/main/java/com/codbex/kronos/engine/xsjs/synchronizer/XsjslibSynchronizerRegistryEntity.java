@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos.synchronizer;
+package com.codbex.kronos.engine.xsjs.synchronizer;
 
 import org.eclipse.dirigible.repository.api.ICollection;
 import org.eclipse.dirigible.repository.api.IEntity;
@@ -19,7 +19,7 @@ import org.eclipse.dirigible.repository.api.IResource;
 /**
  * The Class XSJSLibSynchronizerRegistryEntity.
  */
-public class XSJSLibSynchronizerRegistryEntity {
+public class XsjslibSynchronizerRegistryEntity {
   
   /** The Constant XSJSLIB_FILE_EXTENSION. */
   private static final String XSJSLIB_FILE_EXTENSION = ".xsjslib";
@@ -39,7 +39,7 @@ public class XSJSLibSynchronizerRegistryEntity {
    * @param registryPath the registry path
    * @param repository the repository
    */
-  public XSJSLibSynchronizerRegistryEntity(String registryPath, IRepository repository) {
+  public XsjslibSynchronizerRegistryEntity(String registryPath, IRepository repository) {
     this(registryPath, repository,false);
   }
 
@@ -50,7 +50,7 @@ public class XSJSLibSynchronizerRegistryEntity {
    * @param repository the repository
    * @param resolveWithCollectionFirst the resolve with collection first
    */
-  public XSJSLibSynchronizerRegistryEntity(String registryPath, IRepository repository, boolean resolveWithCollectionFirst) {
+  public XsjslibSynchronizerRegistryEntity(String registryPath, IRepository repository, boolean resolveWithCollectionFirst) {
     this.repository = repository;
 
     if(resolveWithCollectionFirst) {

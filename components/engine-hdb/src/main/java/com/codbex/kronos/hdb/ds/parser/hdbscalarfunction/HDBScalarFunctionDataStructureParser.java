@@ -14,7 +14,7 @@ package com.codbex.kronos.hdb.ds.parser.hdbscalarfunction;
 import java.sql.Timestamp;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.eclipse.dirigible.api.v3.security.UserFacade;
+import org.eclipse.dirigible.components.api.security.UserFacade;
 
 import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;

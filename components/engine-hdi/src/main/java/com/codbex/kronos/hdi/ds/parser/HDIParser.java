@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.eclipse.dirigible.api.v3.security.UserFacade;
+import org.eclipse.dirigible.components.api.security.UserFacade;
 
 /**
  * The Class HDIParser.

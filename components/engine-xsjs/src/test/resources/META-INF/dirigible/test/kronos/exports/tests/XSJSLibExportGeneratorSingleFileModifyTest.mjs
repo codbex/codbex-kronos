@@ -33,7 +33,7 @@ function testSingleFileModificationAndExportGeneration() {
   // run generation to update the content and state table and assert content is valid
   const targetUpdate = new XSJSLibSynchronizerRegistryEntity(resource.getPath(), repository);
   generator.run(targetUpdate);
-  let generatedExports = repository.getResource(resource.getPath() + ".generated_exports");
+  let generatedExports = repository.getResource(resource.getPath() + "_generated_exports.js");
   assertEquals(input, resource.getText(), "Unexpected xsjslib content after exports generation.");
   assertEquals(expectedContent, generatedExports.getText(), "Unexpected xsjslib content after exports generation.");
 

@@ -43,7 +43,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.eclipse.dirigible.api.v3.security.UserFacade;
+import org.eclipse.dirigible.components.api.security.UserFacade;
 import org.eclipse.dirigible.database.sql.ISqlKeywords;
 
 import static org.eclipse.dirigible.database.sql.ISqlKeywords.SPACE;

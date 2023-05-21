@@ -9,17 +9,19 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos.synchronizer.cleaners;
+package com.codbex.kronos.engine.xsjs.exceptions;
 
 /**
- * The Interface XSJSLibSynchronizerCleaner.
+ * The Class XSJSLibSynchronizerUnresolvedPathTypeException.
  */
-public interface XSJSLibSynchronizerCleaner {
+public class XSJSLibSynchronizerUnresolvedPathTypeException extends RuntimeException {
   
   /**
-   * Cleanup.
+   * Instantiates a new XSJS lib synchronizer unresolved path type exception.
    *
-   * @param registryPath the registry path
+   * @param message the message
    */
-  void cleanup(String registryPath);
+  public XSJSLibSynchronizerUnresolvedPathTypeException(String message) {
+    super(message);
+  }
 }
