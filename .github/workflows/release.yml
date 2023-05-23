@@ -54,11 +54,10 @@ jobs:
       - name: "Configure Docker: Multi-Builder Buildx"
         run: docker buildx create --use --name multi-builder --platform linux/arm64,linux/amd64
 
-
       - name: "Configure Git"
         run: |
           git fetch
-          git checkout lkg
+          git checkout ${{ github.event.inputs.branch }}
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
