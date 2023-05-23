@@ -45,8 +45,8 @@ import org.apache.olingo.odata2.api.uri.UriInfo;
 import org.apache.olingo.odata2.core.ep.BasicEntityProvider;
 import org.eclipse.dirigible.commons.api.helpers.GsonHelper;
 import org.eclipse.dirigible.commons.config.StaticObjects;
-import org.eclipse.dirigible.engine.odata2.definition.ODataHandlerDefinition;
-import org.eclipse.dirigible.engine.odata2.service.ODataCoreService;
+import org.eclipse.dirigible.components.odata.domain.ODataHandler;
+import org.eclipse.dirigible.components.odata.service.ODataHandlerService;
 import org.eclipse.dirigible.engine.odata2.sql.builder.SQLQueryBuilder;
 import org.junit.After;
 import org.junit.Before;
@@ -60,45 +60,64 @@ import org.mockito.junit.MockitoJUnitRunner;
 import com.google.gson.internal.LinkedTreeMap;
 
 
+/**
+ * The Class KronosOData2EventHandlerTest.
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class KronosOData2EventHandlerTest {
 
+  /** The edm type. */
   @Mock
   private EdmType edmType;
 
+  /** The uri info. */
   @Mock
   private UriInfo uriInfo;
 
-  @Mock
-  private ODataCoreService odataCoreService;
-
+  /** The data source. */
   @Mock
   private DataSource dataSource;
 
+  /** The entry. */
   @Mock
   private ODataEntry entry;
 
+  /** The input stream. */
   @Mock
   private InputStream inputStream;
 
+  /** The query builder. */
   @Mock
   private SQLQueryBuilder queryBuilder;
 
+  /** The static objects. */
   private static MockedStatic<StaticObjects> staticObjects;
 
+  /** The spy scripting handler. */
   private KronosScriptingOData2EventHandler spyScriptingHandler;
+  
+  /** The spy procedure handler. */
   private KronosProcedureOData2EventHandler spyProcedureHandler;
+  
+  /** The kronos O data 2 event handler. */
   private KronosOData2EventHandler kronosOData2EventHandler;
+  
+  /** The scripting handler context. */
   private Map<Object, Object> scriptingHandlerContext;
+  
+  /** The procedure handler context. */
   private Map<Object, Object> procedureHandlerContext;
 
+  /**
+	 * Setup.
+	 */
   @Before
   public void setup() {
     staticObjects = Mockito.mockStatic(StaticObjects.class);
     staticObjects.when(() -> StaticObjects.get(StaticObjects.DATASOURCE)).thenReturn(dataSource, dataSource);
     spyScriptingHandler = Mockito.spy(new KronosScriptingOData2EventHandler());
     spyProcedureHandler = Mockito.spy(new KronosProcedureOData2EventHandler());
-    kronosOData2EventHandler = new KronosOData2EventHandler(odataCoreService, spyProcedureHandler, spyScriptingHandler);
+    kronosOData2EventHandler = new KronosOData2EventHandler(spyProcedureHandler, spyScriptingHandler);
     scriptingHandlerContext = new HashMap();
     procedureHandlerContext = new HashMap();
     scriptingHandlerContext.put(SQL_BUILDER_CONTEXT_KEY,  queryBuilder);
@@ -107,11 +126,21 @@ public class KronosOData2EventHandlerTest {
     procedureHandlerContext.put(DATASOURCE_CONTEXT_KEY, dataSource);
   }
 
+  /**
+	 * Teardown.
+	 */
   @After
   public void teardown() {
     staticObjects.close();
   }
 
+  /**
+	 * Test before create entity.
+	 *
+	 * @throws ODataException the o data exception
+	 * @throws ODataException the o data exception
+	 * @throws SQLException   the SQL exception
+	 */
   @Test
   public void testBeforeCreateEntity() throws org.apache.olingo.odata2.api.exception.ODataException, ODataException, SQLException {
     // procedure
@@ -130,6 +159,13 @@ public class KronosOData2EventHandlerTest {
     assertTrue(scriptingHandlerContext.containsKey("afterTableName"));
   }
 
+  /**
+	 * Test after create entity.
+	 *
+	 * @throws ODataException the o data exception
+	 * @throws ODataException the o data exception
+	 * @throws SQLException   the SQL exception
+	 */
   @Test
   public void testAfterCreateEntity() throws ODataException, org.apache.olingo.odata2.api.exception.ODataException, SQLException {
     // procedure
@@ -148,6 +184,13 @@ public class KronosOData2EventHandlerTest {
     assertTrue(scriptingHandlerContext.containsKey(AFTER_TABLE_NAME_CONTEXT_KEY));
   }
 
+  /**
+	 * Test on create entity.
+	 *
+	 * @throws ODataException the o data exception
+	 * @throws ODataException the o data exception
+	 * @throws SQLException   the SQL exception
+	 */
   @Test
   public void testOnCreateEntity() throws ODataException, org.apache.olingo.odata2.api.exception.ODataException, SQLException {
     // procedure
@@ -166,6 +209,13 @@ public class KronosOData2EventHandlerTest {
     assertTrue(scriptingHandlerContext.containsKey(AFTER_TABLE_NAME_CONTEXT_KEY));
   }
 
+  /**
+	 * Test before update entity.
+	 *
+	 * @throws ODataException the o data exception
+	 * @throws ODataException the o data exception
+	 * @throws SQLException   the SQL exception
+	 */
   @Test
   public void testBeforeUpdateEntity() throws ODataException, org.apache.olingo.odata2.api.exception.ODataException, SQLException {
     // procedure
@@ -187,6 +237,13 @@ public class KronosOData2EventHandlerTest {
     assertTrue(scriptingHandlerContext.containsKey(ENTRY_JSON_CONTEXT_KEY));
   }
 
+  /**
+	 * Test after update entity.
+	 *
+	 * @throws SQLException   the SQL exception
+	 * @throws ODataException the o data exception
+	 * @throws ODataException the o data exception
+	 */
   @Test
   public void testAfterUpdateEntity() throws SQLException, ODataException, org.apache.olingo.odata2.api.exception.ODataException {
     // procedure
@@ -206,6 +263,13 @@ public class KronosOData2EventHandlerTest {
     assertTrue(scriptingHandlerContext.containsKey(AFTER_TABLE_NAME_CONTEXT_KEY));
   }
 
+  /**
+	 * Test on update entity.
+	 *
+	 * @throws SQLException   the SQL exception
+	 * @throws ODataException the o data exception
+	 * @throws ODataException the o data exception
+	 */
   @Test
   public void testOnUpdateEntity() throws SQLException, ODataException, org.apache.olingo.odata2.api.exception.ODataException {
     // procedure
@@ -225,6 +289,13 @@ public class KronosOData2EventHandlerTest {
     assertTrue(scriptingHandlerContext.containsKey(AFTER_TABLE_NAME_CONTEXT_KEY));
   }
 
+  /**
+	 * Test before delete entity.
+	 *
+	 * @throws SQLException   the SQL exception
+	 * @throws ODataException the o data exception
+	 * @throws ODataException the o data exception
+	 */
   @Test
   public void testBeforeDeleteEntity() throws SQLException, ODataException, org.apache.olingo.odata2.api.exception.ODataException {
     // procedure
@@ -244,6 +315,13 @@ public class KronosOData2EventHandlerTest {
     assertTrue(scriptingHandlerContext.containsKey(ENTRY_JSON_CONTEXT_KEY));
   }
 
+  /**
+	 * Test after delete entity.
+	 *
+	 * @throws SQLException   the SQL exception
+	 * @throws ODataException the o data exception
+	 * @throws ODataException the o data exception
+	 */
   @Test
   public void testAfterDeleteEntity() throws SQLException, ODataException, org.apache.olingo.odata2.api.exception.ODataException {
     // procedure
@@ -261,6 +339,13 @@ public class KronosOData2EventHandlerTest {
     assertTrue(scriptingHandlerContext.containsKey(BEFORE_TABLE_NAME_CONTEXT_KEY));
   }
 
+  /**
+	 * Test on delete entity.
+	 *
+	 * @throws SQLException   the SQL exception
+	 * @throws ODataException the o data exception
+	 * @throws ODataException the o data exception
+	 */
   @Test
   public void testOnDeleteEntity() throws SQLException, ODataException, org.apache.olingo.odata2.api.exception.ODataException {
     // procedure
@@ -278,21 +363,34 @@ public class KronosOData2EventHandlerTest {
     assertTrue(scriptingHandlerContext.containsKey(BEFORE_TABLE_NAME_CONTEXT_KEY));
   }
 
+  /**
+	 * Mock get handlers.
+	 *
+	 * @throws EdmException   the edm exception
+	 * @throws ODataException the o data exception
+	 */
   private void mockGetHandlers() throws EdmException, ODataException {
     Mockito.when(uriInfo.getTargetType()).thenReturn(edmType, edmType);
     Mockito.when(edmType.getNamespace()).thenReturn("test-namespace", "test-namespace");
     Mockito.when(edmType.getName()).thenReturn("test-name", "test-name");
 
-    ODataHandlerDefinition procedureHandler = new ODataHandlerDefinition();
+    ODataHandler procedureHandler = new ODataHandler();
     procedureHandler.setHandler("test-namespace::procedure");
-    List<ODataHandlerDefinition> procedureHandlers = List.of(procedureHandler);
-    ODataHandlerDefinition scriptingHandler = new ODataHandlerDefinition();
+    List<ODataHandler> procedureHandlers = List.of(procedureHandler);
+    ODataHandler scriptingHandler = new ODataHandler();
     scriptingHandler.setHandler("test-namespace::handler.xsjslib::handlerFunction");
-    List<ODataHandlerDefinition> scriptingHandlers = List.of(scriptingHandler);
-    Mockito.when(odataCoreService.getHandlers(any(), any(), any(), any()))
+    List<ODataHandler> scriptingHandlers = List.of(scriptingHandler);
+    Mockito.when(ODataHandlerService.get().getByNamespaceNameMethodAndKind(any(), any(), any(), any()))
         .thenReturn(procedureHandlers, scriptingHandlers);
   }
 
+  /**
+	 * Mock temporary tables.
+	 *
+	 * @param handler the handler
+	 * @throws ODataException the o data exception
+	 * @throws SQLException   the SQL exception
+	 */
   private void mockTemporaryTables(AbstractKronosOData2EventHandler handler)
       throws org.apache.olingo.odata2.api.exception.ODataException, SQLException {
     Mockito.doReturn("test-table").when(handler).getSQLInsertBuilderTargetTable(any(), any());
@@ -316,6 +414,13 @@ public class KronosOData2EventHandlerTest {
     }
   }
 
+  /**
+	 * Mock call procedure.
+	 *
+	 * @param handler  the handler
+	 * @param isUpdate the is update
+	 * @throws SQLException the SQL exception
+	 */
   private void mockCallProcedure(KronosProcedureOData2EventHandler handler, boolean isUpdate)
       throws SQLException {
     ResultSet resultSetMock = Mockito.mock(ResultSet.class);
@@ -337,6 +442,12 @@ public class KronosOData2EventHandlerTest {
     }
   }
 
+  /**
+	 * Assert response.
+	 *
+	 * @param response the response
+	 * @throws EntityProviderException the entity provider exception
+	 */
   private void assertResponse(ODataResponse response) throws EntityProviderException {
     assertEquals(HttpStatusCodes.BAD_REQUEST, response.getStatus());
     assertEquals("application/json", response.getHeader("Content-Type"));

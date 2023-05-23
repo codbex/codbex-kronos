@@ -22,47 +22,115 @@ import org.apache.olingo.odata2.api.processor.ODataResponse;
 import org.apache.olingo.odata2.api.uri.info.DeleteUriInfo;
 import org.apache.olingo.odata2.api.uri.info.PostUriInfo;
 import org.apache.olingo.odata2.api.uri.info.PutMergePatchUriInfo;
-import org.eclipse.dirigible.engine.odata2.definition.ODataHandlerDefinition;
-import org.eclipse.dirigible.engine.odata2.definition.ODataHandlerMethods;
-import org.eclipse.dirigible.engine.odata2.definition.ODataHandlerTypes;
-import org.eclipse.dirigible.engine.odata2.handler.ScriptingOData2EventHandler;
-import org.eclipse.dirigible.engine.odata2.service.ODataCoreService;
+import org.eclipse.dirigible.components.odata.api.ODataHandlerMethods;
+import org.eclipse.dirigible.components.odata.api.ODataHandlerTypes;
+import org.eclipse.dirigible.components.odata.domain.ODataHandler;
+import org.eclipse.dirigible.components.odata.handler.ScriptingOData2EventHandler;
+import org.eclipse.dirigible.components.odata.service.ODataHandlerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class KronosOData2EventHandler.
+ */
 public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
 
+  /** The Constant LOGGER. */
   public static final Logger LOGGER = LoggerFactory.getLogger(KronosOData2EventHandler.class);
 
+  /** The Constant ODATA2_EVENT_HANDLER_NAME. */
   private static final String ODATA2_EVENT_HANDLER_NAME = "kronos-odata-event-handler";
 
+  /** The Constant HANDLER. */
   private static final String HANDLER = "handler";
 
+  /**
+	 * The Constant
+	 * MORE_THAN_ONE_HANDLER_PRESENT_FOR_BEFORE_CREATE_ENTITY_EVENT_ERROR.
+	 */
   private static final String MORE_THAN_ONE_HANDLER_PRESENT_FOR_BEFORE_CREATE_ENTITY_EVENT_ERROR = "More than one handler present for before create entity event";
+  
+  /**
+	 * The Constant
+	 * MORE_THAN_ONE_HANDLER_PRESENT_FOR_AFTER_CREATE_ENTITY_EVENT_ERROR.
+	 */
   private static final String MORE_THAN_ONE_HANDLER_PRESENT_FOR_AFTER_CREATE_ENTITY_EVENT_ERROR = "More than one handler present for after create entity event";
+  
+  /**
+	 * The Constant MORE_THAN_ONE_HANDLER_PRESENT_FOR_ON_CREATE_ENTITY_EVENT_ERROR.
+	 */
   private static final String MORE_THAN_ONE_HANDLER_PRESENT_FOR_ON_CREATE_ENTITY_EVENT_ERROR = "More than one handler present for on create entity event";
+  
+  /**
+	 * The Constant
+	 * MORE_THAN_ONE_HANDLER_PRESENT_FOR_BEFORE_UPDATE_ENTITY_EVENT_ERROR.
+	 */
   private static final String MORE_THAN_ONE_HANDLER_PRESENT_FOR_BEFORE_UPDATE_ENTITY_EVENT_ERROR = "More than one handler present for before update entity event";
+  
+  /**
+	 * The Constant
+	 * MORE_THAN_ONE_HANDLER_PRESENT_FOR_AFTER_UPDATE_ENTITY_EVENT_ERROR.
+	 */
   private static final String MORE_THAN_ONE_HANDLER_PRESENT_FOR_AFTER_UPDATE_ENTITY_EVENT_ERROR = "More than one handler present for after update entity event";
+  
+  /**
+	 * The Constant MORE_THAN_ONE_HANDLER_PRESENT_FOR_ON_UPDATE_ENTITY_EVENT_ERROR.
+	 */
   private static final String MORE_THAN_ONE_HANDLER_PRESENT_FOR_ON_UPDATE_ENTITY_EVENT_ERROR = "More than one handler present for on update entity event";
+  
+  /**
+	 * The Constant
+	 * MORE_THAN_ONE_HANDLER_PRESENT_FOR_BEFORE_DELETE_ENTITY_EVENT_ERROR.
+	 */
   private static final String MORE_THAN_ONE_HANDLER_PRESENT_FOR_BEFORE_DELETE_ENTITY_EVENT_ERROR = "More than one handler present for before delete entity event";
+  
+  /**
+	 * The Constant
+	 * MORE_THAN_ONE_HANDLER_PRESENT_FOR_AFTER_DELETE_ENTITY_EVENT_ERROR.
+	 */
   private static final String MORE_THAN_ONE_HANDLER_PRESENT_FOR_AFTER_DELETE_ENTITY_EVENT_ERROR = "More than one handler present for after delete entity event";
+  
+  /**
+	 * The Constant MORE_THAN_ONE_HANDLER_PRESENT_FOR_ON_DELETE_ENTITY_EVENT_ERROR.
+	 */
   private static final String MORE_THAN_ONE_HANDLER_PRESENT_FOR_ON_DELETE_ENTITY_EVENT_ERROR = "More than one handler present for on delete entity event";
 
-  private ODataCoreService odataCoreService;
+  /** The procedure handler. */
   private KronosProcedureOData2EventHandler procedureHandler;
+  
+  /** The scripting handler. */
   private KronosScriptingOData2EventHandler scriptingHandler;
 
+  /**
+	 * Instantiates a new kronos O data 2 event handler.
+	 */
   public KronosOData2EventHandler() {
-    this(new ODataCoreService(), new KronosProcedureOData2EventHandler(), new KronosScriptingOData2EventHandler());
+    this(new KronosProcedureOData2EventHandler(), new KronosScriptingOData2EventHandler());
   }
 
-  public KronosOData2EventHandler(ODataCoreService odataCoreService, KronosProcedureOData2EventHandler procedureHandler,
+  /**
+	 * Instantiates a new kronos O data 2 event handler.
+	 *
+	 * @param procedureHandler the procedure handler
+	 * @param scriptingHandler the scripting handler
+	 */
+  public KronosOData2EventHandler(KronosProcedureOData2EventHandler procedureHandler,
       KronosScriptingOData2EventHandler scriptingHandler) {
-    this.odataCoreService = odataCoreService;
     this.procedureHandler = procedureHandler;
     this.scriptingHandler = scriptingHandler;
   }
 
+  /**
+	 * Before create entity.
+	 *
+	 * @param uriInfo            the uri info
+	 * @param requestContentType the request content type
+	 * @param contentType        the content type
+	 * @param entry              the entry
+	 * @param context            the context
+	 * @return the o data response
+	 * @throws ODataException the o data exception
+	 */
   @Override
   public ODataResponse beforeCreateEntity(PostUriInfo uriInfo, String requestContentType, String contentType, ODataEntry entry,
       Map<Object, Object> context)
@@ -72,7 +140,7 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
       String name = uriInfo.getTargetType().getName();
       String method = ODataHandlerMethods.create.name();
       String type = ODataHandlerTypes.before.name();
-      List<ODataHandlerDefinition> handlers = odataCoreService.getHandlers(namespace, name, method, type);
+      List<ODataHandler> handlers = ODataHandlerService.get().getByNamespaceNameMethodAndKind(namespace, name, method, type);
       if (!handlers.isEmpty()) {
         AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
         context.put(HANDLER, handlers.get(0));
@@ -85,6 +153,17 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
     }
   }
 
+  /**
+	 * After create entity.
+	 *
+	 * @param uriInfo            the uri info
+	 * @param requestContentType the request content type
+	 * @param contentType        the content type
+	 * @param entry              the entry
+	 * @param context            the context
+	 * @return the o data response
+	 * @throws ODataException the o data exception
+	 */
   @Override
   public ODataResponse afterCreateEntity(PostUriInfo uriInfo, String requestContentType, String contentType, ODataEntry entry,
       Map<Object, Object> context)
@@ -94,7 +173,7 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
       String name = uriInfo.getTargetType().getName();
       String method = ODataHandlerMethods.create.name();
       String type = ODataHandlerTypes.after.name();
-      List<ODataHandlerDefinition> handlers = odataCoreService.getHandlers(namespace, name, method, type);
+      List<ODataHandler> handlers = ODataHandlerService.get().getByNamespaceNameMethodAndKind(namespace, name, method, type);
       if (!handlers.isEmpty()) {
         AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
         context.put(HANDLER, handlers.get(0));
@@ -107,6 +186,17 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
     }
   }
 
+  /**
+	 * On create entity.
+	 *
+	 * @param uriInfo            the uri info
+	 * @param content            the content
+	 * @param requestContentType the request content type
+	 * @param contentType        the content type
+	 * @param context            the context
+	 * @return the o data response
+	 * @throws ODataException the o data exception
+	 */
   @Override
   public ODataResponse onCreateEntity(PostUriInfo uriInfo, InputStream content, String requestContentType, String contentType,
       Map<Object, Object> context)
@@ -116,7 +206,7 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
       String name = uriInfo.getTargetType().getName();
       String method = ODataHandlerMethods.create.name();
       String type = ODataHandlerTypes.on.name();
-      List<ODataHandlerDefinition> handlers = odataCoreService.getHandlers(namespace, name, method, type);
+      List<ODataHandler> handlers = ODataHandlerService.get().getByNamespaceNameMethodAndKind(namespace, name, method, type);
       if (!handlers.isEmpty()) {
         AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
         context.put(HANDLER, handlers.get(0));
@@ -129,6 +219,18 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
     }
   }
 
+  /**
+	 * Before update entity.
+	 *
+	 * @param uriInfo            the uri info
+	 * @param requestContentType the request content type
+	 * @param merge              the merge
+	 * @param contentType        the content type
+	 * @param entry              the entry
+	 * @param context            the context
+	 * @return the o data response
+	 * @throws ODataException the o data exception
+	 */
   @Override
   public ODataResponse beforeUpdateEntity(PutMergePatchUriInfo uriInfo, String requestContentType, boolean merge, String contentType,
       ODataEntry entry, Map<Object, Object> context) throws ODataException {
@@ -137,7 +239,7 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
       String name = uriInfo.getTargetType().getName();
       String method = ODataHandlerMethods.update.name();
       String type = ODataHandlerTypes.before.name();
-      List<ODataHandlerDefinition> handlers = odataCoreService.getHandlers(namespace, name, method, type);
+      List<ODataHandler> handlers = ODataHandlerService.get().getByNamespaceNameMethodAndKind(namespace, name, method, type);
       if (!handlers.isEmpty()) {
         AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
         context.put(HANDLER, handlers.get(0));
@@ -150,6 +252,18 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
     }
   }
 
+  /**
+	 * After update entity.
+	 *
+	 * @param uriInfo            the uri info
+	 * @param requestContentType the request content type
+	 * @param merge              the merge
+	 * @param contentType        the content type
+	 * @param entry              the entry
+	 * @param context            the context
+	 * @return the o data response
+	 * @throws ODataException the o data exception
+	 */
   @Override
   public ODataResponse afterUpdateEntity(PutMergePatchUriInfo uriInfo, String requestContentType, boolean merge, String contentType,
       ODataEntry entry, Map<Object, Object> context) throws ODataException {
@@ -158,7 +272,7 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
       String name = uriInfo.getTargetType().getName();
       String method = ODataHandlerMethods.update.name();
       String type = ODataHandlerTypes.after.name();
-      List<ODataHandlerDefinition> handlers = odataCoreService.getHandlers(namespace, name, method, type);
+      List<ODataHandler> handlers = ODataHandlerService.get().getByNamespaceNameMethodAndKind(namespace, name, method, type);
       if (!handlers.isEmpty()) {
         AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
         context.put(HANDLER, handlers.get(0));
@@ -171,6 +285,18 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
     }
   }
 
+  /**
+	 * On update entity.
+	 *
+	 * @param uriInfo            the uri info
+	 * @param content            the content
+	 * @param requestContentType the request content type
+	 * @param merge              the merge
+	 * @param contentType        the content type
+	 * @param context            the context
+	 * @return the o data response
+	 * @throws ODataException the o data exception
+	 */
   @Override
   public ODataResponse onUpdateEntity(PutMergePatchUriInfo uriInfo, InputStream content, String requestContentType, boolean merge,
       String contentType, Map<Object, Object> context) throws ODataException {
@@ -179,7 +305,7 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
       String name = uriInfo.getTargetType().getName();
       String method = ODataHandlerMethods.update.name();
       String type = ODataHandlerTypes.on.name();
-      List<ODataHandlerDefinition> handlers = odataCoreService.getHandlers(namespace, name, method, type);
+      List<ODataHandler> handlers = ODataHandlerService.get().getByNamespaceNameMethodAndKind(namespace, name, method, type);
       if (!handlers.isEmpty()) {
         AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
         context.put(HANDLER, handlers.get(0));
@@ -192,6 +318,15 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
     }
   }
 
+  /**
+	 * Before delete entity.
+	 *
+	 * @param uriInfo     the uri info
+	 * @param contentType the content type
+	 * @param context     the context
+	 * @return the o data response
+	 * @throws ODataException the o data exception
+	 */
   @Override
   public ODataResponse beforeDeleteEntity(DeleteUriInfo uriInfo, String contentType, Map<Object, Object> context) throws ODataException {
     try {
@@ -199,7 +334,7 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
       String name = uriInfo.getTargetType().getName();
       String method = ODataHandlerMethods.delete.name();
       String type = ODataHandlerTypes.before.name();
-      List<ODataHandlerDefinition> handlers = odataCoreService.getHandlers(namespace, name, method, type);
+      List<ODataHandler> handlers = ODataHandlerService.get().getByNamespaceNameMethodAndKind(namespace, name, method, type);
       if (!handlers.isEmpty()) {
         AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
         context.put(HANDLER, handlers.get(0));
@@ -212,6 +347,15 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
     }
   }
 
+  /**
+	 * After delete entity.
+	 *
+	 * @param uriInfo     the uri info
+	 * @param contentType the content type
+	 * @param context     the context
+	 * @return the o data response
+	 * @throws ODataException the o data exception
+	 */
   @Override
   public ODataResponse afterDeleteEntity(DeleteUriInfo uriInfo, String contentType, Map<Object, Object> context) throws ODataException {
     try {
@@ -219,7 +363,7 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
       String name = uriInfo.getTargetType().getName();
       String method = ODataHandlerMethods.delete.name();
       String type = ODataHandlerTypes.after.name();
-      List<ODataHandlerDefinition> handlers = odataCoreService.getHandlers(namespace, name, method, type);
+      List<ODataHandler> handlers = ODataHandlerService.get().getByNamespaceNameMethodAndKind(namespace, name, method, type);
       if (!handlers.isEmpty()) {
         AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
         context.put(HANDLER, handlers.get(0));
@@ -232,6 +376,15 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
     }
   }
 
+  /**
+	 * On delete entity.
+	 *
+	 * @param uriInfo     the uri info
+	 * @param contentType the content type
+	 * @param context     the context
+	 * @return the o data response
+	 * @throws ODataException the o data exception
+	 */
   @Override
   public ODataResponse onDeleteEntity(DeleteUriInfo uriInfo, String contentType, Map<Object, Object> context) throws ODataException {
     try {
@@ -239,7 +392,7 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
       String name = uriInfo.getTargetType().getName();
       String method = ODataHandlerMethods.delete.name();
       String type = ODataHandlerTypes.on.name();
-      List<ODataHandlerDefinition> handlers = odataCoreService.getHandlers(namespace, name, method, type);
+      List<ODataHandler> handlers = ODataHandlerService.get().getByNamespaceNameMethodAndKind(namespace, name, method, type);
       if (!handlers.isEmpty()) {
         AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
         context.put(HANDLER, handlers.get(0));
@@ -252,12 +405,23 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
     }
   }
 
+  /**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
   @Override
   public String getName() {
     return ODATA2_EVENT_HANDLER_NAME;
   }
 
-  private AbstractKronosOData2EventHandler determineEventHandler(ODataHandlerDefinition handler) {
+  /**
+	 * Determine event handler.
+	 *
+	 * @param handler the handler
+	 * @return the abstract kronos O data 2 event handler
+	 */
+  private AbstractKronosOData2EventHandler determineEventHandler(ODataHandler handler) {
     if (handler.getHandler().contains(".xsjslib::")) {
       return scriptingHandler;
     } else {

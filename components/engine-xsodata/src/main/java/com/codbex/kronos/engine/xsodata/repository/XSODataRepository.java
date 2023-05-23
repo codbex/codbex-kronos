@@ -9,19 +9,17 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos.xsodata.ds.api;
+package com.codbex.kronos.engine.xsodata.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.codbex.kronos.engine.xsodata.domain.XSOData;
 
 /**
- * The Interface IODataModel.
+ * The Interface XSODataRepository.
  */
-public interface IODataModel {
-
-    /**
-     * File extension for *.xsodata files
-     */
-    String FILE_EXTENSION_XSODATA = ".xsodata";
-
-    /** Type OData. */
-    String TYPE_ODATA = "XSODATA";
+@Repository("xsodataRepository")
+public interface XSODataRepository extends JpaRepository<XSOData, Long> {
 
 }

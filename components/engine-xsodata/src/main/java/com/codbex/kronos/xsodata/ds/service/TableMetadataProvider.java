@@ -15,21 +15,23 @@ import static com.codbex.kronos.utils.CommonsDBUtils.getSynonymTargetObjectMetad
 
 import java.sql.SQLException;
 import java.util.List;
+
 import javax.sql.DataSource;
+
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.commons.config.StaticObjects;
+import org.eclipse.dirigible.components.data.structures.domain.Table;
+import org.eclipse.dirigible.components.odata.api.ODataEntity;
+import org.eclipse.dirigible.components.odata.transformers.ODataDatabaseMetadataUtil;
 import org.eclipse.dirigible.database.persistence.model.PersistenceTableModel;
 import org.eclipse.dirigible.database.sql.ISqlKeywords;
-import org.eclipse.dirigible.engine.odata2.api.ITableMetadataProvider;
-import org.eclipse.dirigible.engine.odata2.definition.ODataEntityDefinition;
-import org.eclipse.dirigible.engine.odata2.transformers.DBMetadataUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * The Class TableMetadataProvider.
  */
-public class TableMetadataProvider implements ITableMetadataProvider {
+public class TableMetadataProvider implements org.eclipse.dirigible.components.odata.api.TableMetadataProvider {
 
   /** The data source. */
   private DataSource getDataSource() { 
@@ -40,7 +42,7 @@ public class TableMetadataProvider implements ITableMetadataProvider {
   private static final Logger logger = LoggerFactory.getLogger(TableMetadataProvider.class);
 
   /** The db metadata util. */
-  private final DBMetadataUtil dbMetadataUtil = new DBMetadataUtil();
+  private final ODataDatabaseMetadataUtil dbMetadataUtil = new ODataDatabaseMetadataUtil();
 
   /** The Constant METADATA_ENTITY_TYPES. */
   private static final List<String> METADATA_ENTITY_TYPES = List.of(ISqlKeywords.METADATA_TABLE, ISqlKeywords.METADATA_CALC_VIEW,
@@ -57,7 +59,7 @@ public class TableMetadataProvider implements ITableMetadataProvider {
    * @throws SQLException the SQL exception
    */
   @Override
-  public PersistenceTableModel getPersistenceTableModel(ODataEntityDefinition oDataEntityDefinition) throws SQLException {
+  public Table getTableMetadata(ODataEntity oDataEntityDefinition) throws SQLException {
     return getPersistenceTableModel(oDataEntityDefinition.getTable());
   }
 
@@ -68,19 +70,19 @@ public class TableMetadataProvider implements ITableMetadataProvider {
    * @return the persistence table model
    * @throws SQLException the SQL exception
    */
-  public PersistenceTableModel getPersistenceTableModel(String artifactName) throws SQLException {
+  public Table getPersistenceTableModel(String artifactName) throws SQLException {
     String currentUserSchema = Configuration.get("HANA_USERNAME");
-    PersistenceTableModel tableMetadata = dbMetadataUtil.getTableMetadata(artifactName, currentUserSchema);
+    Table tableMetadata = dbMetadataUtil.getTableMetadata(artifactName, currentUserSchema);
 
-    if (null != tableMetadata && METADATA_ENTITY_TYPES.contains(tableMetadata.getTableType())) {
+    if (null != tableMetadata && METADATA_ENTITY_TYPES.contains(tableMetadata.getKind())) {
       return tableMetadata;
     }
 
     PersistenceTableModel targetObjectMetadata = null;
     if (null == tableMetadata) {
       targetObjectMetadata = getSynonymTargetObjectMetadata(getDataSource(), artifactName, PUBLIC_SCHEMA);
-    } else if (ISqlKeywords.METADATA_SYNONYM.equals(tableMetadata.getTableType())) {
-      targetObjectMetadata = getSynonymTargetObjectMetadata(getDataSource(), artifactName, tableMetadata.getSchemaName());
+    } else if (ISqlKeywords.METADATA_SYNONYM.equals(tableMetadata.getKind())) {
+      targetObjectMetadata = getSynonymTargetObjectMetadata(getDataSource(), artifactName, tableMetadata.getSchema());
     }
 
     if (null == targetObjectMetadata || targetObjectMetadata.getTableName() == null) {

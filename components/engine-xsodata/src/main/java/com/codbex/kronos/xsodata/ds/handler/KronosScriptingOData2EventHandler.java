@@ -157,6 +157,20 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
     }
   }
 
+  /**
+	 * Creates the temp table and return connection for before and on create entity.
+	 *
+	 * @param queryBuilder   the query builder
+	 * @param uriInfo        the uri info
+	 * @param entry          the entry
+	 * @param oDataContext   the o data context
+	 * @param sqlContext     the sql context
+	 * @param dataSource     the data source
+	 * @param afterTableName the after table name
+	 * @return the connection
+	 * @throws ODataException the o data exception
+	 * @throws SQLException   the SQL exception
+	 */
   private Connection createTempTableAndReturnConnectionForBeforeAndOnCreateEntity(SQLQueryBuilder queryBuilder, PostUriInfo uriInfo,
       ODataEntry entry,
       ODataContext oDataContext, SQLContext sqlContext, DataSource dataSource, String afterTableName)
@@ -171,6 +185,19 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
     }
   }
 
+  /**
+	 * Creates the temp table and return connection for after create entity.
+	 *
+	 * @param queryBuilder   the query builder
+	 * @param uriInfo        the uri info
+	 * @param oDataContext   the o data context
+	 * @param sqlContext     the sql context
+	 * @param dataSource     the data source
+	 * @param afterTableName the after table name
+	 * @return the connection
+	 * @throws ODataException the o data exception
+	 * @throws SQLException   the SQL exception
+	 */
   private Connection createTempTableAndReturnConnectionForAfterCreateEntity(SQLQueryBuilder queryBuilder, PostUriInfo uriInfo,
       ODataContext oDataContext, SQLContext sqlContext, DataSource dataSource, String afterTableName)
       throws ODataException, SQLException {
@@ -315,6 +342,22 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
     return null;
   }
 
+  /**
+	 * Creates the temp table and return connection for before and on update entity.
+	 *
+	 * @param queryBuilder    the query builder
+	 * @param uriInfo         the uri info
+	 * @param entry           the entry
+	 * @param oDataContext    the o data context
+	 * @param sqlContext      the sql context
+	 * @param dataSource      the data source
+	 * @param mappedKeys      the mapped keys
+	 * @param afterTableName  the after table name
+	 * @param beforeTableName the before table name
+	 * @return the connection
+	 * @throws ODataException the o data exception
+	 * @throws SQLException   the SQL exception
+	 */
   private Connection createTempTableAndReturnConnectionForBeforeAndOnUpdateEntity(SQLQueryBuilder queryBuilder,
       PutMergePatchUriInfo uriInfo,
       ODataEntry entry,
@@ -331,6 +374,23 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
     }
   }
 
+  /**
+	 * Creates the temp table and return connection for after update entity.
+	 *
+	 * @param queryBuilder      the query builder
+	 * @param uriInfo           the uri info
+	 * @param entry             the entry
+	 * @param oDataContext      the o data context
+	 * @param sqlContext        the sql context
+	 * @param dataSource        the data source
+	 * @param entryBeforeUpdate the entry before update
+	 * @param mappedKeys        the mapped keys
+	 * @param afterTableName    the after table name
+	 * @param beforeTableName   the before table name
+	 * @return the connection
+	 * @throws ODataException the o data exception
+	 * @throws SQLException   the SQL exception
+	 */
   private Connection createTempTableAndReturnConnectionForAfterUpdateEntity(SQLQueryBuilder queryBuilder, PutMergePatchUriInfo uriInfo,
       ODataEntry entry,
       ODataContext oDataContext, SQLContext sqlContext, DataSource dataSource, ODataEntry entryBeforeUpdate, Map<String, Object> mappedKeys,
@@ -457,6 +517,19 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
     return null;
   }
 
+  /**
+	 * Creates the temp table and return connection for before and on delete entity.
+	 *
+	 * @param queryBuilder    the query builder
+	 * @param uriInfo         the uri info
+	 * @param oDataContext    the o data context
+	 * @param sqlContext      the sql context
+	 * @param dataSource      the data source
+	 * @param beforeTableName the before table name
+	 * @return the connection
+	 * @throws ODataException the o data exception
+	 * @throws SQLException   the SQL exception
+	 */
   private Connection createTempTableAndReturnConnectionForBeforeAndOnDeleteEntity(SQLQueryBuilder queryBuilder, DeleteUriInfo uriInfo, ODataContext oDataContext, SQLContext sqlContext, DataSource dataSource, String beforeTableName)
       throws ODataException, SQLException {
     try (Connection connectionParam = dataSource.getConnection()) {
@@ -466,6 +539,21 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
     }
   }
 
+  /**
+	 * Creates the temp table and return connection for after delete entity.
+	 *
+	 * @param queryBuilder      the query builder
+	 * @param uriInfo           the uri info
+	 * @param oDataContext      the o data context
+	 * @param sqlContext        the sql context
+	 * @param dataSource        the data source
+	 * @param entryBeforeDelete the entry before delete
+	 * @param mappedKeys        the mapped keys
+	 * @param beforeTableName   the before table name
+	 * @return the connection
+	 * @throws ODataException the o data exception
+	 * @throws SQLException   the SQL exception
+	 */
   private Connection createTempTableAndReturnConnectionForAfterDeleteEntity(SQLQueryBuilder queryBuilder, DeleteUriInfo uriInfo, ODataContext oDataContext, SQLContext sqlContext, DataSource dataSource, ODataEntry entryBeforeDelete, Map<String, Object> mappedKeys, String beforeTableName)
       throws ODataException, SQLException {
     try (Connection connectionParam = dataSource.getConnection()) {
@@ -478,46 +566,133 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
     }
   }
 
+  /**
+	 * Call super before create entity.
+	 *
+	 * @param uriInfo            the uri info
+	 * @param requestContentType the request content type
+	 * @param contentType        the content type
+	 * @param entry              the entry
+	 * @param context            the context
+	 * @throws ODataException the o data exception
+	 */
   void callSuperBeforeCreateEntity(PostUriInfo uriInfo, String requestContentType, String contentType, ODataEntry entry,
       Map<Object, Object> context) throws ODataException {
     super.beforeCreateEntity(uriInfo, requestContentType, contentType, entry, context);
   }
 
+  /**
+	 * Call super after create entity.
+	 *
+	 * @param uriInfo            the uri info
+	 * @param requestContentType the request content type
+	 * @param contentType        the content type
+	 * @param entry              the entry
+	 * @param context            the context
+	 * @throws ODataException the o data exception
+	 */
   void callSuperAfterCreateEntity(PostUriInfo uriInfo, String requestContentType, String contentType, ODataEntry entry,
       Map<Object, Object> context) throws ODataException {
     super.afterCreateEntity(uriInfo, requestContentType, contentType, entry, context);
   }
 
+  /**
+	 * Call super on create entity.
+	 *
+	 * @param uriInfo            the uri info
+	 * @param content            the content
+	 * @param requestContentType the request content type
+	 * @param contentType        the content type
+	 * @param context            the context
+	 * @throws ODataException the o data exception
+	 */
   void callSuperOnCreateEntity(PostUriInfo uriInfo, InputStream content, String requestContentType, String contentType,
       Map<Object, Object> context) throws ODataException {
     super.onCreateEntity(uriInfo, content, requestContentType, contentType, context);
   }
 
+  /**
+	 * Call super before update entity.
+	 *
+	 * @param uriInfo            the uri info
+	 * @param requestContentType the request content type
+	 * @param merge              the merge
+	 * @param contentType        the content type
+	 * @param entry              the entry
+	 * @param context            the context
+	 * @throws ODataException the o data exception
+	 */
   void callSuperBeforeUpdateEntity(PutMergePatchUriInfo uriInfo, String requestContentType, boolean merge, String contentType,
       ODataEntry entry, Map<Object, Object> context) throws ODataException {
     super.beforeUpdateEntity(uriInfo, requestContentType, merge, contentType, entry, context);
   }
 
+  /**
+	 * Call super after update entity.
+	 *
+	 * @param uriInfo            the uri info
+	 * @param requestContentType the request content type
+	 * @param merge              the merge
+	 * @param contentType        the content type
+	 * @param entry              the entry
+	 * @param context            the context
+	 * @throws ODataException the o data exception
+	 */
   void callSuperAfterUpdateEntity(PutMergePatchUriInfo uriInfo, String requestContentType, boolean merge, String contentType,
       ODataEntry entry, Map<Object, Object> context) throws ODataException {
     super.afterUpdateEntity(uriInfo, requestContentType, merge, contentType, entry, context);
   }
 
+  /**
+	 * Call super on update entity.
+	 *
+	 * @param uriInfo            the uri info
+	 * @param content            the content
+	 * @param requestContentType the request content type
+	 * @param merge              the merge
+	 * @param contentType        the content type
+	 * @param context            the context
+	 * @throws ODataException the o data exception
+	 */
   void callSuperOnUpdateEntity(PutMergePatchUriInfo uriInfo, InputStream content, String requestContentType, boolean merge,
       String contentType, Map<Object, Object> context) throws ODataException {
     super.onUpdateEntity(uriInfo, content, requestContentType, merge, contentType, context);
   }
 
+  /**
+	 * Call super before delete entity.
+	 *
+	 * @param uriInfo     the uri info
+	 * @param contentType the content type
+	 * @param context     the context
+	 * @throws ODataException the o data exception
+	 */
   void callSuperBeforeDeleteEntity(DeleteUriInfo uriInfo, String contentType, Map<Object, Object> context)
       throws ODataException {
     super.beforeDeleteEntity(uriInfo, contentType, context);
   }
 
+  /**
+	 * Call super after delete entity.
+	 *
+	 * @param uriInfo     the uri info
+	 * @param contentType the content type
+	 * @param context     the context
+	 * @throws ODataException the o data exception
+	 */
   void callSuperAfterDeleteEntity(DeleteUriInfo uriInfo, String contentType, Map<Object, Object> context)
       throws ODataException {
     super.afterDeleteEntity(uriInfo, contentType, context);
   }
 
+  /**
+	 * Call super on delete entity.
+	 *
+	 * @param uriInfo     the uri info
+	 * @param contentType the content type
+	 * @param context     the context
+	 * @throws ODataException the o data exception
+	 */
   void callSuperOnDeleteEntity(DeleteUriInfo uriInfo, String contentType, Map<Object, Object> context)
       throws ODataException {
     super.onDeleteEntity(uriInfo, contentType, context);

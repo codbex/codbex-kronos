@@ -13,8 +13,9 @@ package com.codbex.kronos.xsodata.ds.service;
 
 import java.sql.SQLException;
 import java.util.List;
-import org.eclipse.dirigible.engine.odata2.definition.ODataDefinition;
-import org.eclipse.dirigible.engine.odata2.definition.ODataHandlerDefinition;
+
+import org.eclipse.dirigible.components.odata.domain.OData;
+import org.eclipse.dirigible.components.odata.domain.ODataHandler;
 
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
@@ -22,10 +23,11 @@ import com.codbex.kronos.utils.CommonsUtils;
 /**
  * The Class OData2ODataHTransformer.
  */
-public class OData2ODataHTransformer {
+public class XSOData2ODataHTransformer {
 
-  /** The o data 2 O data H transformer. */
-  private org.eclipse.dirigible.engine.odata2.transformers.OData2ODataHTransformer oData2ODataHTransformer = new org.eclipse.dirigible.engine.odata2.transformers.OData2ODataHTransformer();
+  /** The odata 2 ODataH transformer. */
+  private org.eclipse.dirigible.components.odata.transformers.OData2ODataHTransformer oData2ODataHTransformer =
+		  new org.eclipse.dirigible.components.odata.transformers.OData2ODataHTransformer();
 
   /**
    * Transform.
@@ -34,7 +36,7 @@ public class OData2ODataHTransformer {
    * @return the list
    * @throws SQLException the SQL exception
    */
-  public List<ODataHandlerDefinition> transform(ODataDefinition oDataDefinition) throws SQLException {
+  public List<ODataHandler> transform(OData oDataDefinition) throws SQLException {
     try {
       return oData2ODataHTransformer.transform(oDataDefinition);
     } catch (Exception e) {

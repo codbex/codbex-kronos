@@ -18,6 +18,7 @@
         <module>engine-commons</module>
         <module>engine-core</module>
         <module>engine-xsjs</module>
+        <module>engine-xsodata</module>
         
         <!--
         <module>engine-hdb</module>
@@ -26,7 +27,7 @@
         <module>engine-mail-destination</module>
         <module>engine-xsjob</module>
         
-        <module>engine-xsodata</module>
+        
         <module>engine-xssecurity</module>
         <module>ide-migration</module>
         -->

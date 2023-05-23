@@ -13,10 +13,12 @@ package com.codbex.kronos.xsodata.listener;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 
 /**
  * The Class XSODataInitializer.
  */
+@WebListener
 public class XSODataInitializer implements ServletContextListener {
 
 	/** The odata names validation pattern patcher. */

@@ -11,19 +11,6 @@
  */
 package com.codbex.kronos.xsodata.utils;
 
-import com.codbex.kronos.parser.xsodata.model.XSODataAggregation;
-import com.codbex.kronos.parser.xsodata.model.XSODataAggregationType;
-import com.codbex.kronos.parser.xsodata.model.XSODataAssociation;
-import com.codbex.kronos.parser.xsodata.model.XSODataEntity;
-import com.codbex.kronos.parser.xsodata.model.XSODataEventType;
-import com.codbex.kronos.parser.xsodata.model.XSODataModification;
-import com.codbex.kronos.parser.xsodata.model.XSODataMultiplicityType;
-import com.codbex.kronos.parser.xsodata.model.XSODataNavigation;
-import com.codbex.kronos.xsodata.ds.model.ODataModel;
-import com.codbex.kronos.xsodata.ds.service.OData2TransformerException;
-import com.codbex.kronos.xsodata.ds.service.ODataCoreService;
-import com.codbex.kronos.xsodata.ds.service.TableMetadataProvider;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,24 +19,39 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+
 import javax.sql.DataSource;
+
 import org.apache.olingo.odata2.api.edm.EdmMultiplicity;
 import org.eclipse.dirigible.commons.config.StaticObjects;
+import org.eclipse.dirigible.components.data.structures.domain.Table;
+import org.eclipse.dirigible.components.data.structures.domain.TableColumn;
+import org.eclipse.dirigible.components.odata.api.ODataAssociation;
+import org.eclipse.dirigible.components.odata.api.ODataAssociationEnd;
+import org.eclipse.dirigible.components.odata.api.ODataEntity;
+import org.eclipse.dirigible.components.odata.api.ODataHandler;
+import org.eclipse.dirigible.components.odata.api.ODataHandlerTypes;
+import org.eclipse.dirigible.components.odata.api.ODataNavigation;
+import org.eclipse.dirigible.components.odata.api.ODataParameter;
+import org.eclipse.dirigible.components.odata.api.ODataProperty;
+import org.eclipse.dirigible.components.odata.domain.OData;
+import org.eclipse.dirigible.components.odata.transformers.ODataDatabaseMetadataUtil;
 import org.eclipse.dirigible.database.persistence.model.PersistenceTableColumnModel;
-import org.eclipse.dirigible.database.persistence.model.PersistenceTableModel;
 import org.eclipse.dirigible.database.sql.ISqlKeywords;
-import org.eclipse.dirigible.engine.odata2.definition.ODataAssociationDefinition;
-import org.eclipse.dirigible.engine.odata2.definition.ODataAssociationEndDefinition;
-import org.eclipse.dirigible.engine.odata2.definition.ODataDefinition;
-import org.eclipse.dirigible.engine.odata2.definition.ODataEntityDefinition;
-import org.eclipse.dirigible.engine.odata2.definition.ODataHandler;
-import org.eclipse.dirigible.engine.odata2.definition.ODataHandlerTypes;
-import org.eclipse.dirigible.engine.odata2.definition.ODataNavigation;
-import org.eclipse.dirigible.engine.odata2.definition.ODataParameter;
-import org.eclipse.dirigible.engine.odata2.definition.ODataProperty;
-import org.eclipse.dirigible.engine.odata2.transformers.DBMetadataUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.codbex.kronos.engine.xsodata.domain.XSOData;
+import com.codbex.kronos.parser.xsodata.model.XSODataAggregation;
+import com.codbex.kronos.parser.xsodata.model.XSODataAggregationType;
+import com.codbex.kronos.parser.xsodata.model.XSODataAssociation;
+import com.codbex.kronos.parser.xsodata.model.XSODataEntity;
+import com.codbex.kronos.parser.xsodata.model.XSODataEventType;
+import com.codbex.kronos.parser.xsodata.model.XSODataModification;
+import com.codbex.kronos.parser.xsodata.model.XSODataMultiplicityType;
+import com.codbex.kronos.parser.xsodata.model.XSODataNavigation;
+import com.codbex.kronos.xsodata.ds.service.TableMetadataProvider;
+import com.codbex.kronos.xsodata.ds.service.XSOData2TransformerException;
 
 /**
  * The Class ODataUtils.
@@ -59,6 +61,11 @@ public class ODataUtils {
   /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(ODataUtils.class);
   
+  /**
+	 * Gets the data source.
+	 *
+	 * @return the data source
+	 */
   private DataSource getDataSource() { 
 	  return (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
   }
@@ -67,7 +74,7 @@ public class ODataUtils {
   private TableMetadataProvider metadataProvider;
   
   /** The db metadata util. */
-  private DBMetadataUtil dbMetadataUtil = new DBMetadataUtil();
+  private ODataDatabaseMetadataUtil dbMetadataUtil = new ODataDatabaseMetadataUtil();
 
   /**
    * Instantiates a new o data utils.
@@ -84,8 +91,8 @@ public class ODataUtils {
    * @param oDataModel the o data model
    * @return the o data definition
    */
-  public ODataDefinition convertODataModelToODataDefinition(ODataModel oDataModel) {
-    ODataDefinition oDataDefinitionModel = new ODataDefinition();
+  public OData convertODataModelToODataDefinition(XSOData oDataModel) {
+    OData oDataDefinitionModel = new OData();
 
     oDataDefinitionModel.setLocation(oDataModel.getLocation());
 
@@ -97,7 +104,7 @@ public class ODataUtils {
 
       String tableName = entity.getRepositoryObject().getCatalogObjectName();
 
-      ODataEntityDefinition oDataEntityDefinition = new ODataEntityDefinition();
+      ODataEntity oDataEntityDefinition = new ODataEntity();
       oDataEntityDefinition.setName(entity.getAlias());
       oDataEntityDefinition.setAlias(entity.getAlias());
       oDataEntityDefinition.setTable(tableName);
@@ -106,16 +113,16 @@ public class ODataUtils {
 
       // Set properties
       try {
-        PersistenceTableModel tableMetadata = metadataProvider.getPersistenceTableModel(tableName);
+        Table tableMetadata = metadataProvider.getPersistenceTableModel(tableName);
 
         if (tableMetadata == null) {
           logger.error("DB artifact {} not available for entity {}, so it will be skipped.", tableName, entity.getAlias());
           continue;
         }
 
-        List<PersistenceTableColumnModel> allEntityDbColumns = tableMetadata.getColumns();
+        List<TableColumn> allEntityDbColumns = tableMetadata.getColumns();
 
-        if (ISqlKeywords.METADATA_CALC_VIEW.equals(tableMetadata.getTableType()) && entity.getWithPropertyProjections().isEmpty() && entity
+        if (ISqlKeywords.METADATA_CALC_VIEW.equals(tableMetadata.getKind()) && entity.getWithPropertyProjections().isEmpty() && entity
             .getWithoutPropertyProjections().isEmpty()) {
 
           getParametersForCalcView(allEntityParameters, tableName);
@@ -134,7 +141,7 @@ public class ODataUtils {
           ODataProperty oDataProperty = new ODataProperty();
           oDataProperty.setName(prop);
           oDataProperty.setColumn(prop);
-          List<PersistenceTableColumnModel> dbProp = allEntityDbColumns.stream().filter(x -> x.getName().equals(prop))
+          List<TableColumn> dbProp = allEntityDbColumns.stream().filter(x -> x.getName().equals(prop))
               .collect(Collectors.toList());
           if (!dbProp.isEmpty()) {
             oDataProperty.setNullable(dbProp.get(0).isNullable());
@@ -156,7 +163,7 @@ public class ODataUtils {
           });
         }
       } catch (SQLException e) {
-        throw new OData2TransformerException(e);
+        throw new XSOData2TransformerException(e);
       }
 
       List<ODataHandler> handlers = new ArrayList<>();
@@ -196,7 +203,7 @@ public class ODataUtils {
    * @param handlers the handlers
    * @return the consumer
    */
-  private Consumer<XSODataModification> processModification(ODataEntityDefinition oDataEntityDefinition,
+  private Consumer<XSODataModification> processModification(ODataEntity oDataEntityDefinition,
       List<ODataHandler> handlers) {
     return modification -> {
       modification.getSpecification().getEvents().forEach(event -> {
@@ -233,8 +240,8 @@ public class ODataUtils {
    * @param oDataEntityDefinition the o data entity definition
    * @return the consumer
    */
-  Consumer<XSODataNavigation> processNavigation(ODataModel oDataModel,
-      ODataDefinition oDataDefinitionModel, ODataEntityDefinition oDataEntityDefinition) {
+  Consumer<XSODataNavigation> processNavigation(XSOData oDataModel,
+      OData oDataDefinitionModel, ODataEntity oDataEntityDefinition) {
     return navigate -> {
       ODataNavigation oDataNavigation = new ODataNavigation();
       oDataNavigation.setName(navigate.getAliasNavigation());
@@ -242,19 +249,19 @@ public class ODataUtils {
       oDataEntityDefinition.getNavigations().add(oDataNavigation);
 
       //set navigations
-      ODataAssociationDefinition oDataAssociationDefinition = new ODataAssociationDefinition();
+      ODataAssociation oDataAssociationDefinition = new ODataAssociation();
       oDataAssociationDefinition.setName(navigate.getAssociation());
-      XSODataAssociation xsOdataAssoc = ODataCoreService
-          .getAssociation(oDataModel, navigate.getAssociation(), navigate.getAliasNavigation());
+      XSODataAssociation xsOdataAssoc = 
+          getAssociation(oDataModel, navigate.getAssociation(), navigate.getAliasNavigation());
 
-      ODataAssociationEndDefinition fromDef = new ODataAssociationEndDefinition();
+      ODataAssociationEnd fromDef = new ODataAssociationEnd();
       fromDef.setEntity(xsOdataAssoc.getPrincipal().getEntitySetName());
 
       //The Multiplicity of the Principal role must be 1 or 0..1
       validateEdmMultiplicity(xsOdataAssoc.getPrincipal().getMultiplicityType().getText(), navigate.getAssociation());
       fromDef.setMultiplicity(xsOdataAssoc.getPrincipal().getMultiplicityType().getText());
       fromDef.setProperties(xsOdataAssoc.getPrincipal().getBindingRole().getKeys());
-      ODataAssociationEndDefinition toDef = new ODataAssociationEndDefinition();
+      ODataAssociationEnd toDef = new ODataAssociationEnd();
       toDef.setEntity(xsOdataAssoc.getDependent().getEntitySetName());
 
       //The Multiplicity of the Principal role must be 1, 0..1, 1..*, *
@@ -273,11 +280,11 @@ public class ODataUtils {
       if (xsOdataAssoc.getDependent().getMultiplicityType().getText().equals(EdmMultiplicity.MANY.toString())
           && xsOdataAssoc.getPrincipal().getMultiplicityType().getText().equals(EdmMultiplicity.MANY.toString())) {
 
-        fromDef.getMappingTableDefinition().setMappingTableName(xsOdataAssoc.getAssociationTable().getRepositoryObject());
-        fromDef.getMappingTableDefinition().setMappingTableJoinColumn(xsOdataAssoc.getAssociationTable().getPrincipal().getKeys().get(0));
+        fromDef.getMappingTable().setMappingTableName(xsOdataAssoc.getAssociationTable().getRepositoryObject());
+        fromDef.getMappingTable().setMappingTableJoinColumn(xsOdataAssoc.getAssociationTable().getPrincipal().getKeys().get(0));
 
-        toDef.getMappingTableDefinition().setMappingTableName(xsOdataAssoc.getAssociationTable().getRepositoryObject());
-        toDef.getMappingTableDefinition().setMappingTableJoinColumn(xsOdataAssoc.getAssociationTable().getDependent().getKeys().get(0));
+        toDef.getMappingTable().setMappingTableName(xsOdataAssoc.getAssociationTable().getRepositoryObject());
+        toDef.getMappingTable().setMappingTableJoinColumn(xsOdataAssoc.getAssociationTable().getDependent().getKeys().get(0));
       }
 
       oDataDefinitionModel.getAssociations().add(oDataAssociationDefinition);
@@ -294,7 +301,7 @@ public class ODataUtils {
     try {
       EdmMultiplicity.fromLiteral(actualValue);
     } catch (IllegalArgumentException ex) {
-      throw new OData2TransformerException(String.format("Unsupported multiplicity %s for association %s", actualValue, assName));
+      throw new XSOData2TransformerException(String.format("Unsupported multiplicity %s for association %s", actualValue, assName));
     }
   }
 
@@ -372,9 +379,9 @@ public class ODataUtils {
    * @param allEntityParameters the all entity parameters
    * @param tableName the table name
    */
-  private void processParameters(ODataDefinition oDataDefinitionModel, ODataEntityDefinition oDataEntityDefinition,
+  private void processParameters(OData oDataDefinitionModel, ODataEntity oDataEntityDefinition,
       XSODataEntity entity, List<PersistenceTableColumnModel> allEntityParameters, String tableName) {
-    ODataEntityDefinition oDataEntityParametersDefinition = new ODataEntityDefinition();
+    ODataEntity oDataEntityParametersDefinition = new ODataEntity();
 
     String parameterEntitySetName = entity.getParameterEntitySet().getParameterEntitySetName();
 
@@ -392,11 +399,11 @@ public class ODataUtils {
       oDataEntityParametersDefinition.getParameters().add(oDataParameter);
     });
 
-    ODataAssociationDefinition oDataParametersAssociation = new ODataAssociationDefinition();
+    ODataAssociation oDataParametersAssociation = new ODataAssociation();
     oDataParametersAssociation.setName(oDataEntityParametersDefinition.getName() + "_" + oDataEntityDefinition.getName() + "Type");
 
-    ODataAssociationEndDefinition oDataParametersFrom = new ODataAssociationEndDefinition();
-    ODataAssociationEndDefinition oDataParametersTo = new ODataAssociationEndDefinition();
+    ODataAssociationEnd oDataParametersFrom = new ODataAssociationEnd();
+    ODataAssociationEnd oDataParametersTo = new ODataAssociationEnd();
 
     oDataParametersFrom.setEntity(oDataEntityParametersDefinition.getName());
     oDataParametersFrom.setMultiplicity("*");
@@ -414,5 +421,25 @@ public class ODataUtils {
     oDataEntityParametersDefinition.getNavigations().add(oDataResultsNavigation);
 
     oDataDefinitionModel.getEntities().add(oDataEntityParametersDefinition);
+  }
+  
+  /**
+   * Gets the association.
+   *
+   * @param model the model
+   * @param name the name
+   * @param navigation the navigation
+   * @return the association
+   */
+  public static XSODataAssociation getAssociation(XSOData model, String name, String navigation) {
+      if (model != null && model.getService() != null) {
+          for (XSODataAssociation association : model.getService().getAssociations()) {
+              if (name != null && name.equals(association.getName())) {
+                  return association;
+              }
+          }
+      }
+      throw new IllegalArgumentException(
+              String.format("There is no association with name: %s, referenced by the navigation: %s", name, navigation));
   }
 }

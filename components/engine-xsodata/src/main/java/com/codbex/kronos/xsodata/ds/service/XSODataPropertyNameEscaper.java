@@ -11,7 +11,7 @@
  */
 package com.codbex.kronos.xsodata.ds.service;
 
-import org.eclipse.dirigible.engine.odata2.transformers.ODataPropertyNameEscaper;
+import org.eclipse.dirigible.components.odata.transformers.ODataPropertyNameEscaper;
 
 /**
  * The Class XSODataPropertyNameEscaper.

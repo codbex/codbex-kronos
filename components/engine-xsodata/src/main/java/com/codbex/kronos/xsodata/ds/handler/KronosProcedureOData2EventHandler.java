@@ -11,7 +11,15 @@
  */
 package com.codbex.kronos.xsodata.ds.handler;
 
-import com.codbex.kronos.xsodata.ds.service.TableMetadataProvider;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Map;
+
+import javax.sql.DataSource;
+
 import org.apache.olingo.odata2.api.commons.HttpStatusCodes;
 import org.apache.olingo.odata2.api.ep.entry.ODataEntry;
 import org.apache.olingo.odata2.api.exception.ODataException;
@@ -22,20 +30,33 @@ import org.apache.olingo.odata2.api.uri.info.DeleteUriInfo;
 import org.apache.olingo.odata2.api.uri.info.PostUriInfo;
 import org.apache.olingo.odata2.api.uri.info.PutMergePatchUriInfo;
 import org.eclipse.dirigible.commons.api.helpers.GsonHelper;
-import org.eclipse.dirigible.database.persistence.model.PersistenceTableModel;
-import org.eclipse.dirigible.engine.odata2.definition.ODataHandlerDefinition;
-import org.eclipse.dirigible.engine.odata2.sql.builder.*;
-import org.eclipse.dirigible.engine.odata2.transformers.DBMetadataUtil;
-import javax.sql.DataSource;
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Map;
+import org.eclipse.dirigible.components.data.structures.domain.Table;
+import org.eclipse.dirigible.components.odata.api.ODataHandler;
+import org.eclipse.dirigible.components.odata.transformers.ODataDatabaseMetadataUtil;
+import org.eclipse.dirigible.engine.odata2.sql.builder.SQLContext;
+import org.eclipse.dirigible.engine.odata2.sql.builder.SQLDeleteBuilder;
+import org.eclipse.dirigible.engine.odata2.sql.builder.SQLInsertBuilder;
+import org.eclipse.dirigible.engine.odata2.sql.builder.SQLQueryBuilder;
+import org.eclipse.dirigible.engine.odata2.sql.builder.SQLSelectBuilder;
+import org.eclipse.dirigible.engine.odata2.sql.builder.SQLUpdateBuilder;
 
+import com.codbex.kronos.xsodata.ds.service.TableMetadataProvider;
+
+/**
+ * The Class KronosProcedureOData2EventHandler.
+ */
 public class KronosProcedureOData2EventHandler extends AbstractKronosOData2EventHandler {
 
+  /**
+	 * Before create entity.
+	 *
+	 * @param uriInfo            the uri info
+	 * @param requestContentType the request content type
+	 * @param contentType        the content type
+	 * @param entry              the entry
+	 * @param context            the context
+	 * @return the o data response
+	 */
   @Override
   public ODataResponse beforeCreateEntity(PostUriInfo uriInfo, String requestContentType, String contentType, ODataEntry entry,
       Map<Object, Object> context) {
@@ -43,7 +64,7 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
     ODataContext oDataContext = (ODataContext) context.get(ODATA_CONTEXT_CONTEXT_KEY);
     SQLContext sqlContext = (SQLContext) context.get(SQL_CONTEXT_CONTEXT_KEY);
     DataSource dataSource = (DataSource) context.get(DATASOURCE_CONTEXT_KEY);
-    ODataHandlerDefinition handler = (ODataHandlerDefinition) context.get(HANDLER_CONTEXT_KEY);
+    ODataHandler handler = (ODataHandler) context.get(HANDLER_CONTEXT_KEY);
 
     String newTableParam = null;
     Connection connection = null;
@@ -70,6 +91,16 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
     }
   }
 
+  /**
+	 * After create entity.
+	 *
+	 * @param uriInfo            the uri info
+	 * @param requestContentType the request content type
+	 * @param contentType        the content type
+	 * @param entry              the entry
+	 * @param context            the context
+	 * @return the o data response
+	 */
   @Override
   public ODataResponse afterCreateEntity(PostUriInfo uriInfo, String requestContentType, String contentType, ODataEntry entry,
       Map<Object, Object> context) {
@@ -77,7 +108,7 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
     ODataContext oDataContext = (ODataContext) context.get(ODATA_CONTEXT_CONTEXT_KEY);
     SQLContext sqlContext = (SQLContext) context.get(SQL_CONTEXT_CONTEXT_KEY);
     DataSource dataSource = (DataSource) context.get(DATASOURCE_CONTEXT_KEY);
-    ODataHandlerDefinition handler = (ODataHandlerDefinition) context.get(HANDLER_CONTEXT_KEY);
+    ODataHandler handler = (ODataHandler) context.get(HANDLER_CONTEXT_KEY);
 
     Connection connection = null;
     String newTableParam = null;
@@ -103,6 +134,16 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
     }
   }
 
+  /**
+	 * On create entity.
+	 *
+	 * @param uriInfo            the uri info
+	 * @param content            the content
+	 * @param requestContentType the request content type
+	 * @param contentType        the content type
+	 * @param context            the context
+	 * @return the o data response
+	 */
   @Override
   public ODataResponse onCreateEntity(PostUriInfo uriInfo, InputStream content, String requestContentType, String contentType,
       Map<Object, Object> context) {
@@ -111,7 +152,7 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
     SQLContext sqlContext = (SQLContext) context.get(SQL_CONTEXT_CONTEXT_KEY);
     DataSource dataSource = (DataSource) context.get(DATASOURCE_CONTEXT_KEY);
     ODataEntry entry = (ODataEntry) context.get(ENTRY_CONTEXT_KEY);
-    ODataHandlerDefinition handler = (ODataHandlerDefinition) context.get(HANDLER_CONTEXT_KEY);
+    ODataHandler handler = (ODataHandler) context.get(HANDLER_CONTEXT_KEY);
 
     Connection connection = null;
     String newTableParam = null;
@@ -141,6 +182,17 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
     }
   }
 
+  /**
+	 * Before update entity.
+	 *
+	 * @param uriInfo            the uri info
+	 * @param requestContentType the request content type
+	 * @param merge              the merge
+	 * @param contentType        the content type
+	 * @param entry              the entry
+	 * @param context            the context
+	 * @return the o data response
+	 */
   @Override
   public ODataResponse beforeUpdateEntity(PutMergePatchUriInfo uriInfo, String requestContentType, boolean merge, String contentType,
       ODataEntry entry, Map<Object, Object> context) {
@@ -149,7 +201,7 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
     SQLContext sqlContext = (SQLContext) context.get(SQL_CONTEXT_CONTEXT_KEY);
     DataSource dataSource = (DataSource) context.get(DATASOURCE_CONTEXT_KEY);
     Map<String, Object> mappedKeys = (Map<String, Object>) context.get(MAPPED_KEYS_CONTEXT_KEY);
-    ODataHandlerDefinition handler = (ODataHandlerDefinition) context.get(HANDLER_CONTEXT_KEY);
+    ODataHandler handler = (ODataHandler) context.get(HANDLER_CONTEXT_KEY);
 
     Connection connection = null;
     String oldTableParam = null;
@@ -185,6 +237,17 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
     }
   }
 
+  /**
+	 * After update entity.
+	 *
+	 * @param uriInfo            the uri info
+	 * @param requestContentType the request content type
+	 * @param merge              the merge
+	 * @param contentType        the content type
+	 * @param entry              the entry
+	 * @param context            the context
+	 * @return the o data response
+	 */
   @Override
   public ODataResponse afterUpdateEntity(PutMergePatchUriInfo uriInfo, String requestContentType, boolean merge, String contentType,
       ODataEntry entry, Map<Object, Object> context) {
@@ -194,7 +257,7 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
     DataSource dataSource = (DataSource) context.get(DATASOURCE_CONTEXT_KEY);
     Map<String, Object> mappedKeys = (Map<String, Object>) context.get(MAPPED_KEYS_CONTEXT_KEY);
     ODataEntry entryBeforeUpdate = (ODataEntry) context.get(ENTRY_CONTEXT_KEY);
-    ODataHandlerDefinition handler = (ODataHandlerDefinition) context.get(HANDLER_CONTEXT_KEY);
+    ODataHandler handler = (ODataHandler) context.get(HANDLER_CONTEXT_KEY);
 
     Connection connection = null;
     String oldTableParam = null;
@@ -228,6 +291,17 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
     }
   }
 
+  /**
+	 * On update entity.
+	 *
+	 * @param uriInfo            the uri info
+	 * @param content            the content
+	 * @param requestContentType the request content type
+	 * @param merge              the merge
+	 * @param contentType        the content type
+	 * @param context            the context
+	 * @return the o data response
+	 */
   @Override
   public ODataResponse onUpdateEntity(PutMergePatchUriInfo uriInfo, InputStream content, String requestContentType, boolean merge,
       String contentType, Map<Object, Object> context) {
@@ -237,7 +311,7 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
     DataSource dataSource = (DataSource) context.get(DATASOURCE_CONTEXT_KEY);
     Map<String, Object> mappedKeys = (Map<String, Object>) context.get(MAPPED_KEYS_CONTEXT_KEY);
     ODataEntry entry = (ODataEntry) context.get(ENTRY_CONTEXT_KEY);
-    ODataHandlerDefinition handler = (ODataHandlerDefinition) context.get(HANDLER_CONTEXT_KEY);
+    ODataHandler handler = (ODataHandler) context.get(HANDLER_CONTEXT_KEY);
 
     Connection connection = null;
     String oldTableParam = null;
@@ -268,6 +342,14 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
     }
   }
 
+  /**
+	 * Before delete entity.
+	 *
+	 * @param uriInfo     the uri info
+	 * @param contentType the content type
+	 * @param context     the context
+	 * @return the o data response
+	 */
   @Override
   public ODataResponse beforeDeleteEntity(DeleteUriInfo uriInfo, String contentType, Map<Object, Object> context) {
     SQLQueryBuilder queryBuilder = (SQLQueryBuilder) context.get(SQL_BUILDER_CONTEXT_KEY);
@@ -275,7 +357,7 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
     SQLContext sqlContext = (SQLContext) context.get(SQL_CONTEXT_CONTEXT_KEY);
     DataSource dataSource = (DataSource) context.get(DATASOURCE_CONTEXT_KEY);
     Map<String, Object> mappedKeys = (Map<String, Object>) context.get(MAPPED_KEYS_CONTEXT_KEY);
-    ODataHandlerDefinition handler = (ODataHandlerDefinition) context.get(HANDLER_CONTEXT_KEY);
+    ODataHandler handler = (ODataHandler) context.get(HANDLER_CONTEXT_KEY);
 
     Connection connection = null;
     String oldTableParam = null;
@@ -304,6 +386,14 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
     }
   }
 
+  /**
+	 * After delete entity.
+	 *
+	 * @param uriInfo     the uri info
+	 * @param contentType the content type
+	 * @param context     the context
+	 * @return the o data response
+	 */
   @Override
   public ODataResponse afterDeleteEntity(DeleteUriInfo uriInfo, String contentType, Map<Object, Object> context) {
     SQLQueryBuilder queryBuilder = (SQLQueryBuilder) context.get(SQL_BUILDER_CONTEXT_KEY);
@@ -312,7 +402,7 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
     DataSource dataSource = (DataSource) context.get(DATASOURCE_CONTEXT_KEY);
     Map<String, Object> mappedKeys = (Map<String, Object>) context.get(MAPPED_KEYS_CONTEXT_KEY);
     ODataEntry entryBeforeDelete = (ODataEntry) context.get(ENTRY_CONTEXT_KEY);
-    ODataHandlerDefinition handler = (ODataHandlerDefinition) context.get(HANDLER_CONTEXT_KEY);
+    ODataHandler handler = (ODataHandler) context.get(HANDLER_CONTEXT_KEY);
 
     Connection connection = null;
     String oldTableParam = null;
@@ -339,6 +429,14 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
     }
   }
 
+  /**
+	 * On delete entity.
+	 *
+	 * @param uriInfo     the uri info
+	 * @param contentType the content type
+	 * @param context     the context
+	 * @return the o data response
+	 */
   @Override
   public ODataResponse onDeleteEntity(DeleteUriInfo uriInfo, String contentType, Map<Object, Object> context) {
     SQLQueryBuilder queryBuilder = (SQLQueryBuilder) context.get(SQL_BUILDER_CONTEXT_KEY);
@@ -346,7 +444,7 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
     SQLContext sqlContext = (SQLContext) context.get(SQL_CONTEXT_CONTEXT_KEY);
     DataSource dataSource = (DataSource) context.get(DATASOURCE_CONTEXT_KEY);
     Map<String, Object> mappedKeys = (Map<String, Object>) context.get(MAPPED_KEYS_CONTEXT_KEY);
-    ODataHandlerDefinition handler = (ODataHandlerDefinition) context.get(HANDLER_CONTEXT_KEY);
+    ODataHandler handler = (ODataHandler) context.get(HANDLER_CONTEXT_KEY);
 
     Connection connection = null;
     String oldTableParam = null;
@@ -372,6 +470,16 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
     }
   }
 
+  /**
+	 * Call procedure.
+	 *
+	 * @param connection    the connection
+	 * @param schema        the schema
+	 * @param procedureName the procedure name
+	 * @param newTableParam the new table param
+	 * @return the result set
+	 * @throws SQLException the SQL exception
+	 */
   protected ResultSet callProcedure(Connection connection, String schema, String procedureName, String newTableParam) throws SQLException {
     String callProcedureSQL = "CALL \"" + schema + "\".\"" + procedureName + "\" (\"" + newTableParam + "\", ?)";
     try(PreparedStatement statement = createPreparedStatement(connection, callProcedureSQL)) {
@@ -379,6 +487,17 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
     }
   }
 
+  /**
+	 * Call procedure.
+	 *
+	 * @param connection    the connection
+	 * @param schema        the schema
+	 * @param procedureName the procedure name
+	 * @param oldTableParam the old table param
+	 * @param newTableParam the new table param
+	 * @return the result set
+	 * @throws SQLException the SQL exception
+	 */
   protected ResultSet callProcedure(Connection connection, String schema, String procedureName, String oldTableParam, String newTableParam)
       throws SQLException {
     String callProcedureSQL = "CALL \"" + schema + "\".\"" + procedureName + "\" (\"" + newTableParam + "\", \"" + oldTableParam + "\", ?)";
@@ -387,10 +506,17 @@ public class KronosProcedureOData2EventHandler extends AbstractKronosOData2Event
     }
   }
 
+  /**
+	 * Gets the o data artifact type schema.
+	 *
+	 * @param tableName the table name
+	 * @return the o data artifact type schema
+	 * @throws SQLException the SQL exception
+	 */
   protected String getODataArtifactTypeSchema(String tableName) throws SQLException {
-    String normalizedTableName = DBMetadataUtil.normalizeTableName(tableName);
+    String normalizedTableName = ODataDatabaseMetadataUtil.normalizeTableName(tableName);
     TableMetadataProvider tableMetadataProvider = new TableMetadataProvider();
-    PersistenceTableModel persistenceTableModel = tableMetadataProvider.getPersistenceTableModel(normalizedTableName);
-    return persistenceTableModel.getSchemaName();
+    Table persistenceTableModel = tableMetadataProvider.getPersistenceTableModel(normalizedTableName);
+    return persistenceTableModel.getSchema();
   }
 }

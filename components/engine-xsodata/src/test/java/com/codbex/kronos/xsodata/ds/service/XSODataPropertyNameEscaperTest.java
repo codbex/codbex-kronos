@@ -11,35 +11,46 @@
  */
 package com.codbex.kronos.xsodata.ds.service;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.codbex.kronos.xsodata.ds.service.XSODataPropertyNameEscaper;
-
-@RunWith(MockitoJUnitRunner.class)
+/**
+ * The Class XSODataPropertyNameEscaperTest.
+ */
+@ExtendWith(MockitoExtension.class)
 public class XSODataPropertyNameEscaperTest {
 
+    /** The escaper. */
     private XSODataPropertyNameEscaper escaper;
 
-    @Before
+    /**
+	 * Sets the up.
+	 */
+    @BeforeEach
     public void setUp() {
         this.escaper = new XSODataPropertyNameEscaper();
     }
 
+    /**
+	 * Test escape with dots.
+	 */
     @Test
     public void testEscapeWithDots() {
         String propertyName = "Property.Name";
-        assertEquals("Unexpected property name", propertyName, escaper.escape(propertyName));
+        assertEquals(propertyName, escaper.escape(propertyName), "Unexpected property name");
     }
 
+    /**
+	 * Test escape with underscore.
+	 */
     @Test
     public void testEscapeWithUnderscore() {
         String propertyName = "Property_Name";
-        assertEquals("Unexpected property name", propertyName, escaper.escape(propertyName));
+        assertEquals(propertyName, escaper.escape(propertyName), "Unexpected property name");
     }
 
 }

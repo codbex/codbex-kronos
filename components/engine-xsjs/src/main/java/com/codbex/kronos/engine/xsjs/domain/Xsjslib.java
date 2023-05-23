@@ -26,7 +26,7 @@ import com.google.gson.annotations.Expose;
  * The Class Xsjslib.
  */
 @Entity
-@Table(name = "CODBEX_KRONOS_XSJSLIB")
+@Table(name = "KRONOS_XSJSLIB")
 public class Xsjslib extends Artefact {
 	
 	/** The Constant ARTEFACT_TYPE. */

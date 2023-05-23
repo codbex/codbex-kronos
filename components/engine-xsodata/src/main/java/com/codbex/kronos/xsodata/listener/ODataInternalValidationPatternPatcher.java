@@ -11,13 +11,14 @@
  */
 package com.codbex.kronos.xsodata.listener;
 
-import org.apache.olingo.odata2.core.edm.provider.EdmNamedImplProv;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.regex.Pattern;
+
+import org.apache.olingo.odata2.core.edm.provider.EdmNamedImplProv;
 
 class ODataNamesValidationPatternPatcher {
 

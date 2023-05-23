@@ -11,16 +11,14 @@
  */
 package com.codbex.kronos.xsodata.ds.synchronizer;
 
-import org.eclipse.dirigible.core.publisher.api.handlers.MetadataPublisherHandler;
-import org.eclipse.dirigible.core.scheduler.api.SchedulerException;
-import org.eclipse.dirigible.database.persistence.PersistenceManager;
-
-import com.codbex.kronos.xsodata.ds.model.ODataModel;
+import org.eclipse.dirigible.components.base.publisher.PublisherHandler;
+import org.springframework.stereotype.Component;
 
 /**
  * The Class ODataSynchronizerPublisherHandler.
  */
-public class XSODataSynchronizerPublisherHandler extends MetadataPublisherHandler {
+@Component
+public class XSODataSynchronizerPublisherHandler implements PublisherHandler {
 
   /**
    * Before publish.
@@ -60,8 +58,8 @@ public class XSODataSynchronizerPublisherHandler extends MetadataPublisherHandle
    * @throws SchedulerException the scheduler exception
    */
   @Override
-  public void afterUnpublish(String location) throws SchedulerException {
-    removeMetadata(new PersistenceManager<ODataModel>(), "KRONOS_ODATA", "OD_LOCATION", location, true);
+  public void afterUnpublish(String location) {
+//    removeMetadata(new PersistenceManager<ODataModel>(), "KRONOS_ODATA", "OD_LOCATION", location, true);
   }
 }
 

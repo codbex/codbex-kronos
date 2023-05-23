@@ -11,30 +11,40 @@
  */
 package com.codbex.kronos.xsodata.listener;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.doThrow;
+
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.olingo.odata2.api.edm.EdmException;
 import org.apache.olingo.odata2.core.edm.provider.EdmNamedImplProv;
 import org.hamcrest.MatcherAssert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import com.codbex.kronos.xsodata.listener.ODataNamesValidationPatternPatcher;
-import com.codbex.kronos.xsodata.listener.XSODataInitializer;
-
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.doThrow;
-
+/**
+ * The Class XSODataInitializerTest.
+ */
 public class XSODataInitializerTest {
 
+  /** The xso data initializer. */
   private XSODataInitializer xsoDataInitializer;
 
-  @Before
+  /**
+	 * Sets the up.
+	 */
+  @BeforeEach
   public void setUp() {
     xsoDataInitializer = new XSODataInitializer();
   }
 
+  /**
+	 * Test when validation pattern is patched names can have dot.
+	 *
+	 * @throws EdmException the edm exception
+	 */
   @Test
   public void testWhenValidationPatternIsPatchedNamesCanHaveDot() throws EdmException {
     xsoDataInitializer.contextInitialized(null);
@@ -42,14 +52,25 @@ public class XSODataInitializerTest {
     var expectedName = "test.name";
     var dummyEdmNamedImplProv = new DummyEdmNamedImplProv(expectedName);
 
-    assertEquals("Unexpected name", "test.name", dummyEdmNamedImplProv.getName());
+    assertEquals("test.name", dummyEdmNamedImplProv.getName(), "Unexpected name");
   }
 
+  /**
+	 * Test when validation pattern is not patched names can not have dot.
+	 *
+	 * @throws EdmException the edm exception
+	 */
   @Test
   public void testWhenValidationPatternIsNotPatchedNamesCanNotHaveDot() throws EdmException {
     assertThrows(EdmException.class, () -> new DummyEdmNamedImplProv("test.name"));
   }
 
+  /**
+	 * Test when validation patcher throws exception new illegal state exception is
+	 * thrown.
+	 *
+	 * @throws ReflectiveOperationException the reflective operation exception
+	 */
   @Test
   public void testWhenValidationPatcherThrowsExceptionNewIllegalStateExceptionIsThrown() throws ReflectiveOperationException {
     var odataInternalValidationPatternPatcherMock = Mockito.mock(ODataNamesValidationPatternPatcher.class);
@@ -62,9 +83,9 @@ public class XSODataInitializerTest {
     );
 
     assertEquals(
-        "Unexpected exception message",
         "Failed to replace default Olingo OData parameter name pattern.",
-        illegalStateException.getMessage()
+        illegalStateException.getMessage(),
+        "Unexpected exception message"
     );
     MatcherAssert.assertThat(
         "Unexpected exception cause",
@@ -73,8 +94,17 @@ public class XSODataInitializerTest {
     );
   }
 
+  /**
+	 * The Class DummyEdmNamedImplProv.
+	 */
   class DummyEdmNamedImplProv extends EdmNamedImplProv {
 
+    /**
+	 * Instantiates a new dummy edm named impl prov.
+	 *
+	 * @param name the name
+	 * @throws EdmException the edm exception
+	 */
     public DummyEdmNamedImplProv(String name) throws EdmException {
       super(null, name);
     }
