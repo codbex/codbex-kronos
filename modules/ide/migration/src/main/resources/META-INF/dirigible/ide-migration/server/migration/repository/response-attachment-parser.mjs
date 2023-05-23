@@ -1,4 +1,4 @@
-import { Utils } from "../utils";
+import { Utils } from "../utils.mjs";
 
 export class ResponseAttachmentParser {
     static parse(responseAttachmentBuffer, numberOfAttachments) {

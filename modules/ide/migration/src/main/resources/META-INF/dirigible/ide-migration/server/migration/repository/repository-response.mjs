@@ -1,5 +1,5 @@
-import { RepositoryHeader } from "./repository-header";
-import { ResponseAttachmentParser } from "./response-attachment-parser";
+import { RepositoryHeader } from "./repository-header.mjs";
+import { ResponseAttachmentParser } from "./response-attachment-parser.mjs";
 
 let utf8 = org.eclipse.dirigible.api.v3.utils.UTF8Facade;
 
