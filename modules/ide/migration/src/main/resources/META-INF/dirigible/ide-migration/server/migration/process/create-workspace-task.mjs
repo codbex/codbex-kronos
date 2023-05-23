@@ -17,7 +17,7 @@ export class CreateWorkspaceTask extends MigrationTask {
         const migrationService = new MigrationService();
 
         if (migrationType === 'FROM_LOCAL_ZIP') {
-            migrationService.createMigratedWorkspace(userData.selectedWorkspace);
+            migrationService.createMigratedWorkspace(userData.workspace);
         } else {
             for (const deliveryUnit of userData.du) {
                 migrationService.createMigratedWorkspace(userData.workspace, deliveryUnit);
