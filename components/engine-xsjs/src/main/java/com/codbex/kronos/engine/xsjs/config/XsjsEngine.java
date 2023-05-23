@@ -15,7 +15,7 @@ import org.eclipse.dirigible.components.base.artefact.Engine;
 import org.springframework.stereotype.Component;
 
 @Component
-public class XSJSEngine implements Engine {
+public class XsjsEngine implements Engine {
 	
 	@Override
 	public String getName() {

@@ -65,8 +65,8 @@ public class CSVRecordDao implements ICSVRecordDao {
     public void save(CSVRecordMetadata csvRecordMetadata) throws SQLException {
         String tableName = csvRecordMetadata.getTableMetadataModel().getTableName();
         try (Connection connection = getDataSource().getConnection()) {
-            List<TableColumn> availableTableColumns = TableMetadataHelper.getColumns(connection, tableName, csvRecordMetadata.getTableMetadataModel().getSchemaName());
-            for (TableColumn availableTableColumn : availableTableColumns) {
+            List<HDBTableColumn> availableTableColumns = TableMetadataHelper.getColumns(connection, tableName, csvRecordMetadata.getTableMetadataModel().getSchemaName());
+            for (HDBTableColumn availableTableColumn : availableTableColumns) {
                 logger.debug("    {}: {}", availableTableColumn.getName(), availableTableColumn.getType());
             }
 
@@ -95,10 +95,10 @@ public class CSVRecordDao implements ICSVRecordDao {
     public void update(CSVRecordMetadata csvRecordMetadata) throws SQLException {
         String tableName = csvRecordMetadata.getTableMetadataModel().getTableName();
         try (Connection connection = getDataSource().getConnection()) {
-            List<TableColumn> availableTableColumns = TableMetadataHelper.getColumns(connection, tableName, csvRecordMetadata.getTableMetadataModel().getSchemaName());
+            List<HDBTableColumn> availableTableColumns = TableMetadataHelper.getColumns(connection, tableName, csvRecordMetadata.getTableMetadataModel().getSchemaName());
             UpdateBuilder updateBuilder = new UpdateBuilder(SqlFactory.deriveDialect(connection));
             updateBuilder.table(tableName);
-            for (TableColumn tableColumn : availableTableColumns) {
+            for (HDBTableColumn tableColumn : availableTableColumns) {
                 logger.debug("    {}: {}", tableColumn.getName(), tableColumn.getType());
             }
 
@@ -203,7 +203,7 @@ public class CSVRecordDao implements ICSVRecordDao {
      * @param statement the statement
      * @throws SQLException the SQL exception
      */
-    private void executeInsertPreparedStatement(CSVRecordMetadata csvRecordMetadata, List<TableColumn> tableColumns, PreparedStatement statement) throws SQLException {
+    private void executeInsertPreparedStatement(CSVRecordMetadata csvRecordMetadata, List<HDBTableColumn> tableColumns, PreparedStatement statement) throws SQLException {
         if (csvRecordMetadata.getHeaderNames().size() > 0) {
             insertCsvWithHeader(csvRecordMetadata, tableColumns, statement);
         } else {
@@ -221,7 +221,7 @@ public class CSVRecordDao implements ICSVRecordDao {
      * @param statement the statement
      * @throws SQLException the SQL exception
      */
-    private void insertCsvWithHeader(CSVRecordMetadata csvRecordMetadata, List<TableColumn> tableColumns, PreparedStatement statement) throws SQLException {
+    private void insertCsvWithHeader(CSVRecordMetadata csvRecordMetadata, List<HDBTableColumn> tableColumns, PreparedStatement statement) throws SQLException {
 
         for (int i = 0; i < tableColumns.size(); i++) {
             String columnName = tableColumns.get(i).getName();
@@ -239,7 +239,7 @@ public class CSVRecordDao implements ICSVRecordDao {
      * @param statement the statement
      * @throws SQLException the SQL exception
      */
-    private void insertCsvWithoutHeader(CSVRecordMetadata csvRecordMetadata, List<TableColumn> tableColumns, PreparedStatement statement) throws SQLException {
+    private void insertCsvWithoutHeader(CSVRecordMetadata csvRecordMetadata, List<HDBTableColumn> tableColumns, PreparedStatement statement) throws SQLException {
         for (int i = 0; i < csvRecordMetadata.getCsvRecord().size(); i++) {
             String value = csvRecordMetadata.getCsvRecord().get(i);
             int columnType = tableColumns.get(i).getType();
@@ -256,7 +256,7 @@ public class CSVRecordDao implements ICSVRecordDao {
      * @param statement the statement
      * @throws SQLException the SQL exception
      */
-    private void executeUpdatePreparedStatement(CSVRecordMetadata csvRecordMetadata, List<TableColumn> tableColumns, PreparedStatement statement) throws SQLException {
+    private void executeUpdatePreparedStatement(CSVRecordMetadata csvRecordMetadata, List<HDBTableColumn> tableColumns, PreparedStatement statement) throws SQLException {
         if (csvRecordMetadata.getHeaderNames().size() > 0) {
             updateCsvWithHeader(csvRecordMetadata, tableColumns, statement);
         } else {
@@ -274,7 +274,7 @@ public class CSVRecordDao implements ICSVRecordDao {
      * @param statement the statement
      * @throws SQLException the SQL exception
      */
-    private void updateCsvWithHeader(CSVRecordMetadata csvRecordMetadata, List<TableColumn> tableColumns, PreparedStatement statement) throws SQLException {
+    private void updateCsvWithHeader(CSVRecordMetadata csvRecordMetadata, List<HDBTableColumn> tableColumns, PreparedStatement statement) throws SQLException {
         CSVRecord csvRecord = csvRecordMetadata.getCsvRecord();
 
         for (int i = 1; i < tableColumns.size(); i++) {
@@ -301,7 +301,7 @@ public class CSVRecordDao implements ICSVRecordDao {
      * @param statement the statement
      * @throws SQLException the SQL exception
      */
-    private void updateCsvWithoutHeader(CSVRecordMetadata csvRecordMetadata, List<TableColumn> tableColumns, PreparedStatement statement) throws SQLException {
+    private void updateCsvWithoutHeader(CSVRecordMetadata csvRecordMetadata, List<HDBTableColumn> tableColumns, PreparedStatement statement) throws SQLException {
         CSVRecord csvRecord = csvRecordMetadata.getCsvRecord();
         for (int i = 1; i < csvRecord.size(); i++) {
             String value = csvRecord.get(i);
