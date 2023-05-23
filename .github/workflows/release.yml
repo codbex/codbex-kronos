@@ -344,18 +344,18 @@ jobs:
 
             > _**Note**: Also replace `<your-docker-organization>/<your-application-docker-image-repository>` with your Docker Repository, where the Docker Image Builder will be hosted (e.g. `my-organization/my-application`)_
 
-      - name: "Git: Push Release Version"
-        run: |
-          git push
-          git checkout -b ${{ env.KRONOS_VERSION }}
-          git push origin ${{ env.KRONOS_VERSION }}
-          git checkout main
+#       - name: "Git: Push Release Version"
+#         run: |
+#           git push
+#           git checkout -b ${{ env.KRONOS_VERSION }}
+#           git push origin ${{ env.KRONOS_VERSION }}
+#           git checkout main
 
-      - name: "Maven: Set Snapshot Version"
-        run: mvn versions:set -DnewVersion=${{ github.event.inputs.snapshotVersion }}
+#       - name: "Maven: Set Snapshot Version"
+#         run: mvn versions:set -DnewVersion=${{ github.event.inputs.snapshotVersion }}
 
-      - name: "Git: Commit Snapshot Version"
-        run: |
-          git add .
-          git commit -m "version set to ${{ github.event.inputs.snapshotVersion }} for development"
-          git push
+#       - name: "Git: Commit Snapshot Version"
+#         run: |
+#           git add .
+#           git commit -m "version set to ${{ github.event.inputs.snapshotVersion }} for development"
+#           git push
