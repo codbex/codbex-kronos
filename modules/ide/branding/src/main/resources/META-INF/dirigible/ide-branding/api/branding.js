@@ -21,11 +21,11 @@ let DIRIGIBLE_BRANDING_ICON = 'DIRIGIBLE_BRANDING_ICON';
 let DIRIGIBLE_BRANDING_LOGO = 'DIRIGIBLE_BRANDING_LOGO';
 let DIRIGIBLE_BRANDING_WELCOME_PAGE = 'DIRIGIBLE_BRANDING_WELCOME_PAGE';
 
-let DIRIGIBLE_BRANDING_NAME_DEFAULT = 'Eclipse Dirigible';
-let DIRIGIBLE_BRANDING_BRAND_DEFAULT = 'Eclipse Dirigible';
-let DIRIGIBLE_BRANDING_BRAND_URL_DEFAULT = "https://www.dirigible.io/";
-let DIRIGIBLE_BRANDING_ICON_DEFAULT = '/services/v4/web/resources/images/favicon.png';
-let DIRIGIBLE_BRANDING_LOGO_DEFAULT = '/services/v4/web/resources/images/dirigible.svg';
+let DIRIGIBLE_BRANDING_NAME_DEFAULT = 'codbex';
+let DIRIGIBLE_BRANDING_BRAND_DEFAULT = 'codbex';
+let DIRIGIBLE_BRANDING_BRAND_URL_DEFAULT = "https://www.codbex.com/";
+let DIRIGIBLE_BRANDING_ICON_DEFAULT = '/services/v4/web/ide-branding/images/favicon.ico';
+let DIRIGIBLE_BRANDING_LOGO_DEFAULT = '/services/v4/web/ide-branding/images/logo.svg';
 let DIRIGIBLE_BRANDING_WELCOME_PAGE_DEFAULT = '/services/v4/web/ide-welcome/welcome.html';
 
 rs.service()

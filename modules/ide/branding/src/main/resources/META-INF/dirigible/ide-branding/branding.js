@@ -10,13 +10,13 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 const brandingInfo = {
-    name: 'Codbex Platform',
-    brand: 'Codbex Platform',
+    name: 'codbex',
+    brand: 'codbex',
     brandUrl: 'https://www.codbex.com/',
     icons: {
         faviconIco: '/services/v4/web/ide-branding/images/favicon.ico',
         favicon32: '/services/v4/web/ide-branding/images/favicon-32x32.png',
         favicon16: '/services/v4/web/ide-branding/images/favicon-16x16.png',
     },
-    logo: '/services/v4/web/ide-branding/images/kronos-logo.svg',
+    logo: '/services/v4/web/ide-branding/images/logo.svg',
 };
