@@ -137,7 +137,7 @@ public class KronosApiSuiteTest extends XSJSTest {
     when(mockedRequest.getHeaders("Accept-Language"))
         .thenReturn(Collections.enumeration(Collections.singletonList("en-US,en;q=0.9,bg;q=0.8,nb;q=0.7")));
     when(mockedRequest.getCookies()).thenReturn(new Cookie[]{new Cookie("SESSIONID", "D7B319C3D55AC4CD126181F01E4C1DC7")});
-    when(mockedRequest.getRequestURI()).thenReturn("/services/v4/kronos/test/test.xsjs");
+    when(mockedRequest.getRequestURI()).thenReturn("/services/v4/xsjs/test/test.xsjs");
     when(mockedRequest.getSession(true)).thenReturn(httpSession);
     when(mockedRequest.getServerName()).thenReturn("Test");
     when(mockedRequest.getServerPort()).thenReturn(443);
