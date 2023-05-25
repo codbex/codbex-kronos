@@ -362,7 +362,7 @@
     <httpasyncclient.version>4.1.5</httpasyncclient.version>
     <jackson.databind.version>2.14.2</jackson.databind.version>
 
-    <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
+    <maven.surefire.plugin.version>3.1.0</maven.surefire.plugin.version>
     <exec-maven-plugin.version>3.1.0</exec-maven-plugin.version>
 
     <license.header.location>licensing-header.txt</license.header.location>
