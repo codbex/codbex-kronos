@@ -112,7 +112,7 @@ jobs:
         cd ../../
 
     - name: "Maven: Publish Package"
-      run: mvn deploy -P release -DskipTests -Dmaven.test.skip=true
+      run: mvn deploy -P release -DskipTests
       env:
         MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
