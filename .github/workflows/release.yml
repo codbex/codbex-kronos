@@ -364,4 +364,4 @@ jobs:
     - name: "Git: Push Changes"
       run: |
         git push origin ${{ github.event.inputs.releaseVersion }}
-        git push
+        git push origin ${{ github.event.inputs.branch }}
