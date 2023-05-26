@@ -363,5 +363,5 @@ jobs:
 
     - name: "Git: Push Changes"
       run: |
-        git push origin ${{ github.event.inputs.releaseVersion }}
+        git push --set-upstream origin ${{ github.event.inputs.releaseVersion }}
         git push origin ${{ github.event.inputs.branch }}
