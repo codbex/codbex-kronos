@@ -1,7 +1,7 @@
 // Import .xsjslib to our file using $.import api ("package","library")
 // In our case package equals to "sap.myapp.lib"
 
-let mathlib = $.import("demo.lib","math");
+let mathlib = $.import("/api-import/demo.lib","math");
 
 let square = mathlib.square(6);
 let multiply = mathlib.multiply(4,9);
