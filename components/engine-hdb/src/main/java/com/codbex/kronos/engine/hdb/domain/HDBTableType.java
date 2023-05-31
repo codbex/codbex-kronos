@@ -1,19 +1,18 @@
 /*
- * Copyright (c) 2023 SAP SE or an SAP affiliate company and Eclipse Dirigible contributors
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
- * SPDX-FileCopyrightText: 2023 SAP SE or an SAP affiliate company and Eclipse Dirigible contributors
+ * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
 package com.codbex.kronos.engine.hdb.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import javax.annotation.Nullable;
 import javax.persistence.CascadeType;
@@ -28,7 +27,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import org.eclipse.dirigible.components.base.artefact.Artefact;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
@@ -41,8 +39,8 @@ import com.google.gson.annotations.Expose;
  * The Class View.
  */
 @Entity
-@javax.persistence.Table(name = "KRONOS_DATA_TABLETYPES")
-public class HDBTableType extends Artefact {
+@javax.persistence.Table(name = "KRONOS_TABLETYPES")
+public class HDBTableType extends HDBDataStructure {
 	
 	/** The Constant ARTEFACT_TYPE. */
 	public static final String ARTEFACT_TYPE = "hdbtabletype";
@@ -53,15 +51,17 @@ public class HDBTableType extends Artefact {
 	@Column(name = "TABLETYPE_ID", nullable = false)
 	private Long id;
 	
-	/** The kind. */
-	@Column(name = "TABLETYPE_KIND", columnDefinition = "VARCHAR", nullable = true, length = 255)
+	/** The columns. */
+	@OneToMany(mappedBy = "tableType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Expose
-	protected String kind;
+	private List<HDBTableTypeColumn> columns = new ArrayList<HDBTableTypeColumn>();
 	
-	/** The schema name. */
-	@Column(name = "TABLETYPE_SCHEMA", columnDefinition = "VARCHAR", nullable = true, length = 255)
+	/** The primary key. */
+	@OneToOne(mappedBy = "tableType", fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = true)
+	@Nullable
 	@Expose
-	protected String schema;
+	private HDBTableTypePrimaryKey primaryKey;
 	
 	/** The schema reference. */
 	@ManyToOne(fetch = FetchType.EAGER, optional = true)
@@ -72,34 +72,26 @@ public class HDBTableType extends Artefact {
 	
 	
 	/**
-	 * Instantiates a new view.
+	 * Instantiates a new model.
 	 *
-	 * @param location the location
-	 * @param name the name
-	 * @param description the description
+	 * @param location     the location
+	 * @param name         the name
+	 * @param description  the description
 	 * @param dependencies the dependencies
-	 * @param kind the kind
-	 * @param schema the schema name
-	 * @param query the query
+	 * @param schema       the schema
+	 * @param content      the content
+	 * @param classic      the classic
+	 * @param tableType    the table type
+	 * @param isPublic     the is public
+	 * @param loggingType  the logging type
+	 * @param temporary    the temporary
 	 */
-	public HDBTableType(String location, String name, String description, String dependencies, String kind, String schema, String query) {
-		super(location, name, ARTEFACT_TYPE, description, dependencies);
-		this.kind = kind;
-		this.schema = schema;
-		this.query = query;
+	public HDBTableType(String location, String name, String description, String dependencies, String schema, String content, boolean classic, String tableType, Boolean isPublic, String loggingType, Boolean isTemporary) {
+		super(location, name, ARTEFACT_TYPE, null, null, schema, content, classic);
 	}
 	
 	/**
-	 * Instantiates a new view.
-	 *
-	 * @param viewName the view name
-	 */
-	public HDBTableType(String viewName) {
-		this(viewName, viewName, null, null, "VIEW", "", "");
-	}
-	
-	/**
-	 * Instantiates a new table.
+	 * Instantiates a new model.
 	 */
 	public HDBTableType() {
 		super();
@@ -122,77 +114,74 @@ public class HDBTableType extends Artefact {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	/**
-	 * Gets the kind.
+	 * Gets the columns.
 	 *
-	 * @return the kind
+	 * @return the columns
 	 */
-	public String getKind() {
-		return kind;
+	public List<HDBTableTypeColumn> getColumns() {
+		return columns;
 	}
 
 	/**
-	 * Sets the kind.
+	 * Sets the columns.
 	 *
-	 * @param kind the kind to set
+	 * @param columns the new columns
 	 */
-	public void setKind(String kind) {
-		this.kind = kind;
-	}
-
-	/**
-	 * Gets the schema name.
-	 *
-	 * @return the schema name
-	 */
-	public String getSchema() {
-		return schema;
-	}
-
-	/**
-	 * Sets the schema name.
-	 *
-	 * @param schema the schema name to set
-	 */
-	public void setSchema(String schema) {
-		this.schema = schema;
-	}
-
-	/**
-	 * Gets the query.
-	 *
-	 * @return the query
-	 */
-	public String getQuery() {
-		return query;
-	}
-
-	/**
-	 * Sets the query.
-	 *
-	 * @param query the query to set
-	 */
-	public void setQuery(String query) {
-		this.query = query;
+	public void setColumns(List<HDBTableTypeColumn> columns) {
+		this.columns = columns;
 	}
 	
 	/**
-	 * Gets the schema reference.
+	 * Get the column by name.
 	 *
-	 * @return the schema reference
+	 * @param name the name
+	 * @return the column
 	 */
-	public Schema getSchemaReference() {
-		return schemaReference;
+	public HDBTableTypeColumn getColumn(String name) {
+		for (HDBTableTypeColumn c : columns) {
+			if (c.getName().equals(name)) {
+				return c;
+			}
+		}
+		return null;
 	}
-	
+
 	/**
-	 * Sets the schema reference.
+	 * Gets the primary key.
 	 *
-	 * @param schemaReference the new schema reference
+	 * @return the primary key
 	 */
-	public void setSchemaReference(Schema schemaReference) {
-		this.schemaReference = schemaReference;
+	public HDBTableTypePrimaryKey getPrimaryKey() {
+		return primaryKey;
+	}
+
+	/**
+	 * Sets the primary key.
+	 *
+	 * @param primaryKey the new primary key
+	 */
+	public void setPrimaryKey(HDBTableTypePrimaryKey primaryKey) {
+		this.primaryKey = primaryKey;
+	}
+
+	/**
+	 * Gets the hdbdd.
+	 *
+	 * @return the hdbdd
+	 */
+	public HDBDD getHdbdd() {
+		return hdbdd;
+	}
+
+	/**
+	 * Sets the hdbdd.
+	 *
+	 * @param hdbdd the new hdbdd
+	 */
+	public void setHdbdd(HDBDD hdbdd) {
+		this.hdbdd = hdbdd;
 	}
 
 	/**
@@ -202,10 +191,11 @@ public class HDBTableType extends Artefact {
 	 */
 	@Override
 	public String toString() {
-		return "View [id=" + id + ", schemaName=" + schema
-				+ ", query=" + query + ", location=" + location + ", name=" + name + ", type=" + type + ", description="
-				+ description + ", key=" + key + ", dependencies=" + dependencies + ", createdBy=" + createdBy
-				+ ", createdAt=" + createdAt + ", updatedBy=" + updatedBy + ", updatedAt=" + updatedAt + "]";
+		return "HDBTableType [id=" + id + ", columns=" + columns + ", primaryKey=" + primaryKey + ", location="
+				+ location + ", name=" + name + ", type=" + type + ", description=" + description + ", key=" + key
+				+ ", dependencies=" + dependencies + ", lifecycle=" + lifecycle + ", phase=" + phase + ", error="
+				+ error + ", createdBy=" + createdBy + ", createdAt=" + createdAt + ", updatedBy=" + updatedBy
+				+ ", updatedAt=" + updatedAt + "]";
 	}
 	
 }

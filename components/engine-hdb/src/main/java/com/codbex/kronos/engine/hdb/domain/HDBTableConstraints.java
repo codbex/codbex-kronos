@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2023 SAP SE or an SAP affiliate company and Eclipse Dirigible contributors
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
- * SPDX-FileCopyrightText: 2023 SAP SE or an SAP affiliate company and Eclipse Dirigible contributors
+ * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
 package com.codbex.kronos.engine.hdb.domain;
@@ -26,6 +26,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -39,7 +40,7 @@ import com.google.gson.annotations.Expose;
  * The Class TableConstraints.
  */
 @Entity
-@javax.persistence.Table(name = "DIRIGIBLE_DATA_TABLE_CONSTRAINTS")
+@Table(name = "KRONOS_TABLE_CONSTRAINTS")
 public class HDBTableConstraints {
 	
 	/** The id. */

@@ -13,10 +13,9 @@ package com.codbex.kronos.engine.hdb.parser;
 
 import java.io.IOException;
 
+import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdb.domain.HDBDataStructure;
 import com.codbex.kronos.exceptions.ArtifactParserException;
-import com.codbex.kronos.hdb.ds.api.DataStructuresException;
-import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
 
 /**
  * The Interface DataStructureParser.
@@ -34,7 +33,7 @@ public interface HDBDataStructureParser<T extends HDBDataStructure> {
    * @throws IOException Signals that an I/O exception has occurred.
    * @throws ArtifactParserException the artifact parser exception
    */
-  T parse(DataStructureParametersModel parametersModel) throws DataStructuresException, IOException, ArtifactParserException;
+  T parse(HDBParameters parametersModel) throws DataStructuresException, IOException, ArtifactParserException;
 
   /**
    * Gets the type.

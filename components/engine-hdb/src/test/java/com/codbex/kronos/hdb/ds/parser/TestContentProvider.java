@@ -11,14 +11,14 @@
  */
 package com.codbex.kronos.hdb.ds.parser;
 
-import org.apache.commons.io.IOUtils;
-
-import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
+
+import org.apache.commons.io.IOUtils;
+
+import com.codbex.kronos.engine.hdb.parser.HDBParameters;
 
 public class TestContentProvider {
 
@@ -27,7 +27,7 @@ public class TestContentProvider {
         return IOUtils.toString(Objects.requireNonNull(in), StandardCharsets.UTF_8);
     }
 
-    DataStructureParametersModel getParametersModel(String type, String location, String content, String workspacePath) {
-        return new DataStructureParametersModel(type, location, content, workspacePath);
+    HDBParameters getParametersModel(String type, String location, String content, String workspacePath) {
+        return new HDBParameters(type, location, content, workspacePath);
     }
 }

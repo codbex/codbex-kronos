@@ -1,19 +1,15 @@
 /*
- * Copyright (c) 2023 SAP SE or an SAP affiliate company and Eclipse Dirigible contributors
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
- * SPDX-FileCopyrightText: 2023 SAP SE or an SAP affiliate company and Eclipse Dirigible contributors
+ * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
 package com.codbex.kronos.engine.hdb.domain;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -28,7 +24,6 @@ import javax.persistence.OrderColumn;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.data.annotation.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
@@ -37,7 +32,7 @@ import com.google.gson.annotations.Expose;
  * The Class TableIndex.
  */
 @Entity
-@javax.persistence.Table(name = "DIRIGIBLE_DATA_TABLE_INDEXES")
+@javax.persistence.Table(name = "KRONOS_TABLE_INDEXES")
 public class HDBTableIndex {
 	
 	/** The id. */
@@ -55,11 +50,16 @@ public class HDBTableIndex {
 	@Column(name = "INDEX_TYPE", columnDefinition = "VARCHAR", nullable = false, length = 255)
 	@Expose
 	private String type;
-    
+	
 	/** The unique. */
 	@Column(name = "INDEX_UNIQUE", columnDefinition = "BOOLEAN", nullable = true)
 	@Expose
 	private boolean unique;
+	
+	/** The order. */
+	@Column(name = "INDEX_ORDER", columnDefinition = "VARCHAR", nullable = false, length = 20)
+	@Expose
+	private String order;
     
     /** The index columns. */
 	@Column(name = "INDEX_COLUMNS", columnDefinition = "VARCHAR", nullable = false, length = 2000)
@@ -84,11 +84,12 @@ public class HDBTableIndex {
 	 * @param columns the columns
 	 * @param table the table
 	 */
-	HDBTableIndex(String name, String type, boolean unique, String[] columns, HDBTable table) {
+	public HDBTableIndex(String name, String type, boolean unique, String order, String[] columns, HDBTable table) {
 		super();
 		this.name = name;
 		this.type = type;
 		this.unique = unique;
+		this.order = order;
 		this.columns = columns;
 		this.table = table;
 		this.table.getIndexes().add(this);
@@ -172,6 +173,24 @@ public class HDBTableIndex {
 	public void setUnique(boolean unique) {
 		this.unique = unique;
 	}
+	
+	/**
+	 * Gets the order.
+	 *
+	 * @return the order
+	 */
+	public String getOrder() {
+		return order;
+	}
+
+	/**
+	 * Sets the order.
+	 *
+	 * @param order the order to set
+	 */
+	public void setOrder(String order) {
+		this.order = order;
+	}
 
 	/**
 	 * Gets the columns.
@@ -216,7 +235,7 @@ public class HDBTableIndex {
 	 */
 	@Override
 	public String toString() {
-		return "TableIndex [id=" + id + ", name=" + name + ", type=" + type + ", unique=" + unique + ", columns="
+		return "TableIndex [id=" + id + ", name=" + name + ", type=" + type + ", unique=" + unique + ", order=" + order + ", columns="
 				+ columns + ", table=" + table.getName() + "]";
 	}
 	

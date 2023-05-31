@@ -9,7 +9,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <name>kronos - modules - parsers - calculationview</name>
+    <name>codbex - kronos - modules - parsers - calculationview</name>
     <artifactId>codbex-kronos-modules-parsers-calculationview</artifactId>
     <version>0.4.0-SNAPSHOT</version>
     <packaging>jar</packaging>

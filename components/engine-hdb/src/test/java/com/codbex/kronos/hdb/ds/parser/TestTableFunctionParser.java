@@ -11,23 +11,24 @@
  */
 package com.codbex.kronos.hdb.ds.parser;
 
-import com.codbex.kronos.exceptions.ArtifactParserException;
-import com.codbex.kronos.hdb.ds.api.DataStructuresException;
-import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
-import com.codbex.kronos.hdb.ds.model.hdbtablefunction.DataStructureHDBTableFunctionModel;
-import com.codbex.kronos.hdb.ds.parser.DataStructureParser;
-
-import com.codbex.kronos.hdb.ds.parser.TestContentProvider;
-import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
 
+import org.jetbrains.annotations.NotNull;
+
+import com.codbex.kronos.engine.hdb.api.DataStructuresException;
+import com.codbex.kronos.engine.hdb.domain.HDBTableFunction;
+import com.codbex.kronos.engine.hdb.parser.HDBDataStructureParser;
+import com.codbex.kronos.engine.hdb.parser.HDBParameters;
+import com.codbex.kronos.exceptions.ArtifactParserException;
+
 public class TestTableFunctionParser {
+	
     TestContentProvider testContentProvider = new TestContentProvider();
-    public DataStructureHDBTableFunctionModel parseTableFunction(@NotNull DataStructureParser<DataStructureHDBTableFunctionModel> parser,
+    
+    public HDBTableFunction parseTableFunction(@NotNull HDBDataStructureParser<HDBTableFunction> parser,
         String location, String content)
             throws DataStructuresException, ArtifactParserException, IOException {
-        DataStructureParametersModel parametersModel =
+        HDBParameters parametersModel =
                 testContentProvider.getParametersModel(null, location, content, null);
         return parser.parse(parametersModel);
     }

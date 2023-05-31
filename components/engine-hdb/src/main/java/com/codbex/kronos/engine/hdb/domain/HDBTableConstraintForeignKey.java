@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2023 SAP SE or an SAP affiliate company and Eclipse Dirigible contributors
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
- * SPDX-FileCopyrightText: 2023 SAP SE or an SAP affiliate company and Eclipse Dirigible contributors
+ * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
 package com.codbex.kronos.engine.hdb.domain;
@@ -26,7 +26,7 @@ import com.google.gson.annotations.Expose;
  * The Class TableConstraintForeignKey.
  */
 @Entity
-@javax.persistence.Table(name = "DIRIGIBLE_DATA_TABLE_FOREIGNKEYS")
+@javax.persistence.Table(name = "KRONOS_TABLE_FOREIGNKEYS")
 public class HDBTableConstraintForeignKey extends HDBTableConstraint {
 	
 	/** The id. */
@@ -40,6 +40,12 @@ public class HDBTableConstraintForeignKey extends HDBTableConstraint {
 	@Nullable
 	@Expose
 	private String referencedTable;
+	
+	/** The referenced schema. */
+	@Column(name = "FOREIGNKEY_REF_SCHEMA", columnDefinition = "VARCHAR", nullable = true, length = 255)
+	@Nullable
+	@Expose
+	private String referencedSchema;
 	
 	/** The referenced columns. */
 	@Column(name = "FOREIGNKEY_REF_COLUMNS", columnDefinition = "VARCHAR", nullable = true, length = 2000)
@@ -60,9 +66,10 @@ public class HDBTableConstraintForeignKey extends HDBTableConstraint {
 	 * @param constraints the constraints
 	 */
 	public HDBTableConstraintForeignKey(String name, String[] modifiers, String[] columns,
-			String referencedTable, String[] referencedColumns, HDBTableConstraints constraints) {
+			String referencedTable, String referencedSchema, String[] referencedColumns, HDBTableConstraints constraints) {
 		super(name, modifiers, columns, constraints);
 		this.referencedTable = referencedTable;
+		this.referencedSchema = referencedSchema;
 		this.referencedColumns = referencedColumns;
 		this.constraints.getForeignKeys().add(this);
 	}
@@ -75,9 +82,9 @@ public class HDBTableConstraintForeignKey extends HDBTableConstraint {
 	 * @param referencedColumnName the referenced column name
 	 * @param constraints the constraints
 	 */
-	public HDBTableConstraintForeignKey(String referencedTable, String columnName, String referencedColumnName, HDBTableConstraints constraints) {
+	public HDBTableConstraintForeignKey(String referencedTable, String referencedSchema, String columnName, String referencedColumnName, HDBTableConstraints constraints) {
 		this(constraints.getTable().getName() + "_" + referencedTable, null,
-				new String[] {columnName}, referencedTable, new String[] {referencedColumnName}, constraints);
+				new String[] {columnName}, referencedTable, referencedSchema, new String[] {referencedColumnName}, constraints);
 	}
 	
 	
@@ -123,6 +130,24 @@ public class HDBTableConstraintForeignKey extends HDBTableConstraint {
 	 */
 	public void setReferencedTable(String referencedTable) {
 		this.referencedTable = referencedTable;
+	}
+	
+	/**
+	 * Gets the referenced schema.
+	 *
+	 * @return the referenced schema
+	 */
+	public String getReferencedSchema() {
+		return referencedSchema;
+	}
+	
+	/**
+	 * Sets the referenced schema.
+	 *
+	 * @param referencedSchema the new referenced schema
+	 */
+	public void setReferencedSchema(String referencedSchema) {
+		this.referencedSchema = referencedSchema;
 	}
 
 	/**

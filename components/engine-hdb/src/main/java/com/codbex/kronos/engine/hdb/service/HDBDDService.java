@@ -49,7 +49,7 @@ public class HDBDDService implements ArtefactService<HDBDD>, InitializingBean {
 	/**
 	 * Gets the.
 	 *
-	 * @return the XSOData service
+	 * @return the HDBDD service
 	 */
 	public static HDBDDService get() {
         return INSTANCE;
@@ -84,15 +84,15 @@ public class HDBDDService implements ArtefactService<HDBDD>, InitializingBean {
      * Find by id.
      *
      * @param id the id
-     * @return the OData
+     * @return the HDBDD
      */
     @Override
     public HDBDD findById(Long id) {
-        Optional<HDBDD> odata = hdbddRepository.findById(id);
-        if (odata.isPresent()) {
-            return odata.get();
+        Optional<HDBDD> hdbdd = hdbddRepository.findById(id);
+        if (hdbdd.isPresent()) {
+            return hdbdd.get();
         } else {
-            throw new IllegalArgumentException("XSOData with id does not exist: " + id);
+            throw new IllegalArgumentException("HDBDD with id does not exist: " + id);
         }
     }
 
@@ -100,18 +100,18 @@ public class HDBDDService implements ArtefactService<HDBDD>, InitializingBean {
      * Find by name.
      *
      * @param name the name
-     * @return the XSOData
+     * @return the HDBDD
      */
     @Override
     public HDBDD findByName(String name) {
     	HDBDD filter = new HDBDD();
         filter.setName(name);
         Example<HDBDD> example = Example.of(filter);
-        Optional<HDBDD> odata = hdbddRepository.findOne(example);
-        if (odata.isPresent()) {
-            return odata.get();
+        Optional<HDBDD> hdbdd = hdbddRepository.findOne(example);
+        if (hdbdd.isPresent()) {
+            return hdbdd.get();
         } else {
-            throw new IllegalArgumentException("XSOData with name does not exist: " + name);
+            throw new IllegalArgumentException("HDBDD with name does not exist: " + name);
         }
     }
     
@@ -135,7 +135,7 @@ public class HDBDDService implements ArtefactService<HDBDD>, InitializingBean {
      * Find by key.
      *
      * @param key the key
-     * @return the XSOData
+     * @return the HDBDD
      */
     @Override
     @Transactional(readOnly = true)
@@ -143,9 +143,9 @@ public class HDBDDService implements ArtefactService<HDBDD>, InitializingBean {
     	HDBDD filter = new HDBDD();
         filter.setKey(key);
         Example<HDBDD> example = Example.of(filter);
-        Optional<HDBDD> odata = hdbddRepository.findOne(example);
-        if (odata.isPresent()) {
-            return odata.get();
+        Optional<HDBDD> hdbdd = hdbddRepository.findOne(example);
+        if (hdbdd.isPresent()) {
+            return hdbdd.get();
         }
         return null;
     }
@@ -153,8 +153,8 @@ public class HDBDDService implements ArtefactService<HDBDD>, InitializingBean {
     /**
      * Save.
      *
-     * @param hdbdd the XSOData
-     * @return the XSOData
+     * @param hdbdd the HDBDD
+     * @return the HDBDD
      */
     @Override
     public HDBDD save(HDBDD hdbdd) {
@@ -164,11 +164,11 @@ public class HDBDDService implements ArtefactService<HDBDD>, InitializingBean {
     /**
      * Delete.
      *
-     * @param odata the XSOData
+     * @param hdbdd the HDBDD
      */
     @Override
-    public void delete(HDBDD odata) {
-    	hdbddRepository.delete(odata);
+    public void delete(HDBDD hdbdd) {
+    	hdbddRepository.delete(hdbdd);
     }
 
 }

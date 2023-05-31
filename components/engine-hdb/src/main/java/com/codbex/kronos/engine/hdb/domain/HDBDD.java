@@ -28,9 +28,6 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
-import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableModel;
-import com.codbex.kronos.hdb.ds.model.hdbtabletype.DataStructureHDBTableTypeModel;
-import com.codbex.kronos.hdb.ds.model.hdbview.DataStructureHDBViewModel;
 import com.google.gson.annotations.Expose;
 
 /**
@@ -39,44 +36,37 @@ import com.google.gson.annotations.Expose;
 @Entity
 @Table(name = "KRONOS_HDBDD")
 public class HDBDD extends HDBDataStructure {
-	
+
 	/** The Constant ARTEFACT_TYPE. */
 	public static final String ARTEFACT_TYPE = "hdbdd";
-	
+
 	/** The id. */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "HDBDD_ID", nullable = false)
 	private Long id;
 
-  /** The force update. */
-  @Transient
-  private boolean forceUpdate;
-
-  /** The table models. */
-  @Transient
-  private List<HDBTable> tableModels;
-
-  /** The table type models. */
-  @Transient
-  private List<DataStructureHDBTableTypeModel> tableTypeModels;
-
-  /** The view models. */
-  @Transient
-  private List<DataStructureHDBViewModel> viewModels;
-  
-  
-  /** The tables. */
+	/** The tables. */
 	@OneToMany(mappedBy = "hdbdd", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@Expose
 	private List<HDBTable> tables = new ArrayList<HDBTable>();
-	
+
+	/** The tables. */
+	@OneToMany(mappedBy = "hdbdd", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@Expose
+	private List<HDBTableType> tableTypes = new ArrayList<HDBTableType>();
+
 	/** The views. */
 	@OneToMany(mappedBy = "hdbdd", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@Expose
 	private List<HDBView> views = new ArrayList<HDBView>();
+
+	/** The force update. */
+	@Transient
+	private boolean forceUpdate;
 
 	/**
 	 * Gets the id.
@@ -110,8 +100,26 @@ public class HDBDD extends HDBDataStructure {
 	 *
 	 * @param tables the tables to set
 	 */
-	public void setHDBTables(List<HDBTable> tables) {
+	public void setTables(List<HDBTable> tables) {
 		this.tables = tables;
+	}
+
+	/**
+	 * Gets the table types.
+	 *
+	 * @return the table types
+	 */
+	public List<HDBTableType> getTableTypes() {
+		return tableTypes;
+	}
+
+	/**
+	 * Sets the table types.
+	 *
+	 * @param tabletypes the table types to set
+	 */
+	public void setTableTypes(List<HDBTableType> tabletypes) {
+		this.tableTypes = tabletypes;
 	}
 
 	/**
@@ -131,7 +139,7 @@ public class HDBDD extends HDBDataStructure {
 	public void setViews(List<HDBView> views) {
 		this.views = views;
 	}
-	
+
 	/**
 	 * Find table.
 	 *
@@ -139,7 +147,7 @@ public class HDBDD extends HDBDataStructure {
 	 * @return the table
 	 */
 	public HDBTable findTable(String name) {
-		for (Table t : getTables()) {
+		for (HDBTable t : getTables()) {
 			if (t.getName().equals(name)) {
 				return t;
 			}
@@ -147,6 +155,21 @@ public class HDBDD extends HDBDataStructure {
 		return null;
 	}
 	
+	/**
+	 * Find table type.
+	 *
+	 * @param name the name
+	 * @return the table type
+	 */
+	public HDBTableType findTableType(String name) {
+		for (HDBTableType t : getTableTypes()) {
+			if (t.getName().equals(name)) {
+				return t;
+			}
+		}
+		return null;
+	}
+
 	/**
 	 * Find view.
 	 *
@@ -162,21 +185,21 @@ public class HDBDD extends HDBDataStructure {
 		return null;
 	}
 
-  /**
-   * Checks if is force update.
-   *
-   * @return true, if is force update
-   */
-  public boolean isForceUpdate() {
-    return forceUpdate;
-  }
+	/**
+	 * Checks if is force update.
+	 *
+	 * @return true, if is force update
+	 */
+	public boolean isForceUpdate() {
+		return forceUpdate;
+	}
 
-  /**
-   * Sets the force update.
-   *
-   * @param forceUpdate the new force update
-   */
-  public void setForceUpdate(boolean forceUpdate) {
-    this.forceUpdate = forceUpdate;
-  }
+	/**
+	 * Sets the force update.
+	 *
+	 * @param forceUpdate the new force update
+	 */
+	public void setForceUpdate(boolean forceUpdate) {
+		this.forceUpdate = forceUpdate;
+	}
 }

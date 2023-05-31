@@ -19,9 +19,10 @@
         <module>engine-core</module>
         <module>engine-xsjs</module>
         <module>engine-xsodata</module>
+        <module>engine-hdb</module>
         
         <!--
-        <module>engine-hdb</module>
+        
         <module>engine-hdbti</module>
         <module>engine-hdi</module>
         <module>engine-mail-destination</module>

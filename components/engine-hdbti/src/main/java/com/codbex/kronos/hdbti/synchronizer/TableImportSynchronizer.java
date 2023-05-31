@@ -185,7 +185,7 @@ public class TableImportSynchronizer extends AbstractSynchronizer implements IOr
    * @param hdbtiFilePath the hdbti file path
    */
   private void reimportAffectedHdbtiFiles(String hdbtiFilePath) {
-    IResource hdbtiResource = getRepository().getResource(Utils.convertToFullPath(hdbtiFilePath));
+    IResource hdbtiResource = getRepository().migrate(Utils.convertToFullPath(hdbtiFilePath));
     try (Connection connection = dataSource.getConnection()) {
       TableImportArtifact tableImportArtifact = tableImportParser
               .parseTableImportArtifact(hdbtiFilePath, getContentFromResource(hdbtiResource));

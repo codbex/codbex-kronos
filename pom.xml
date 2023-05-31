@@ -187,6 +187,21 @@
 			</activation>
 			<build>
 				<plugins>
+				  <plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>${maven.surefire.plugin.version}</version>
+						<configuration>
+							<argLine>
+								--add-opens java.base/java.lang=ALL-UNNAMED
+								--add-opens java.base/java.math=ALL-UNNAMED
+								--add-opens java.base/java.util=ALL-UNNAMED
+								--add-opens java.base/java.util.concurrent=ALL-UNNAMED
+								--add-opens java.base/java.net=ALL-UNNAMED
+								--add-opens java.base/java.text=ALL-UNNAMED
+							</argLine>
+						</configuration>
+					</plugin>
 					<plugin>
 						<groupId>org.jacoco</groupId>
 						<artifactId>jacoco-maven-plugin</artifactId>
@@ -320,7 +335,7 @@
 		<java.version>11</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<dirigible.version>8.4.5</dirigible.version>
+		<dirigible.version>9.0.0-SNAPSHOT</dirigible.version>
 		<dirigible.acorn.version>7.2.0</dirigible.acorn.version>
 
 		<java.version>11</java.version>
@@ -328,7 +343,7 @@
 		<maven.clean.plugin.version>3.2.0</maven.clean.plugin.version>
 		<maven.clean.plugin.directory>src/main/resources/META-INF/dirigible</maven.clean.plugin.directory>
 		<maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
-		<maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
+		<maven.surefire.plugin.version>3.1.0</maven.surefire.plugin.version>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
 		<maven.scm.plugin.version>1.13.0</maven.scm.plugin.version>
@@ -449,6 +464,7 @@
 		<javax.servlet-api.version>4.0.1</javax.servlet-api.version>
 		<scp-cf.version>3.77.0</scp-cf.version>
 		<jetbrains.annotations.version>23.0.0</jetbrains.annotations.version>
+		<ngdbc.version>2.15.12</ngdbc.version>
 		
 		<!-- old dependencies - to be revised 
 
@@ -498,7 +514,7 @@
 		<neo-java-web-sdk.javax.activation.version>1.2.0</neo-java-web-sdk.javax.activation.version>
 		<neo-java-web-sdk.jaxb.version>2.2.11</neo-java-web-sdk.jaxb.version>
 		<jaxb.version>2.3.1</jaxb.version>
-		<ngdbc.version>2.15.12</ngdbc.version>
+		
 		<maven-dependency-plugin.version>3.3.0</maven-dependency-plugin.version>
 		<commons-csv.version>1.9.0</commons-csv.version>
 		<commons-dbcp2.version>2.9.0</commons-dbcp2.version>
