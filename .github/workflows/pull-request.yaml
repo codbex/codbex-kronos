@@ -1,8 +1,5 @@
 name: Pull Request
 
-concurrency:
-  group: ${{ github.workflow }}
-
 on:
   pull_request:
     branches: [ main, lkg ]
@@ -67,48 +64,3 @@ jobs:
           docker build -t ghcr.io/codbex/kronos-kyma-runtime .
           docker build -t ghcr.io/codbex/kronos-kyma-runtime-distro -f Dockerfile-distro .
           cd ../../
-      # - uses: buildpacks/github-actions/setup-pack@v4.1.0
-      # - name: Kronos Buildpack
-      #   run: |
-      #     cd releng/buildpacks/kronos/
-      #     docker build -t ghcr.io/codbex/kronos-buildpacks-stack-base . --target base
-      #     docker build -t ghcr.io/codbex/kronos-buildpacks-stack-run . --target run
-      #     docker build -t ghcr.io/codbex/kronos-buildpacks-stack-build . --target build
-      #     cd buildpack/
-      #     find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/latest/g'' {} \;
-      #     pack buildpack package ghcr.io/codbex/kronos-buildpacks --config ./package.toml
-      #     pack builder create ghcr.io/codbex/kronos-buildpacks-builder --config ./builder.toml
-      #     cd ../../../../
-      # - name: Kronos Kyma Buildpack
-      #   run: |
-      #     cd releng/buildpacks/kronos-kyma/
-      #     docker build -t ghcr.io/codbex/kronos-buildpacks-stack-base-kyma . --target base
-      #     docker build -t ghcr.io/codbex/kronos-buildpacks-stack-run-kyma . --target run
-      #     docker build -t ghcr.io/codbex/kronos-buildpacks-stack-build-kyma . --target build
-      #     cd buildpack/
-      #     find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/latest/g'' {} \;
-      #     pack buildpack package ghcr.io/codbex/kronos-buildpacks-kyma --config ./package.toml
-      #     pack builder create ghcr.io/codbex/kronos-buildpacks-builder-kyma --config ./builder.toml
-      #     cd ../../../../
-      # - name: Kronos Kyma Runtime Buildpack
-      #   run: |
-      #     cd releng/buildpacks/kronos-kyma-runtime/
-      #     docker build -t ghcr.io/codbex/kronos-buildpacks-stack-base-kyma-runtime . --target base
-      #     docker build -t ghcr.io/codbex/kronos-buildpacks-stack-run-kyma-runtime . --target run
-      #     docker build -t ghcr.io/codbex/kronos-buildpacks-stack-build-kyma-runtime . --target build
-      #     cd buildpack/
-      #     find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/latest/g'' {} \;
-      #     pack buildpack package ghcr.io/codbex/kronos-buildpacks-kyma-runtime --config ./package.toml
-      #     pack builder create ghcr.io/codbex/kronos-buildpacks-builder-kyma-runtime --config ./builder.toml
-      #     cd ../../../../
-      # - name: Kronos Cloud Foundry Buildpack
-      #   run: |
-      #     cd releng/buildpacks/kronos-cf/
-      #     docker build -t ghcr.io/codbex/kronos-buildpacks-stack-base-cf . --target base
-      #     docker build -t ghcr.io/codbex/kronos-buildpacks-stack-run-cf . --target run
-      #     docker build -t ghcr.io/codbex/kronos-buildpacks-stack-build-cf . --target build
-      #     cd buildpack/
-      #     find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/latest/g'' {} \;
-      #     pack buildpack package ghcr.io/codbex/kronos-buildpacks-cf --config ./package.toml
-      #     pack builder create ghcr.io/codbex/kronos-buildpacks-builder-cf --config ./builder.toml
-      #     cd ../../../../
