@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
@@ -282,7 +283,7 @@
     <java.version>11</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <dirigible.version>6.3.16.1</dirigible.version>
+    <dirigible.version>6.3.16.2</dirigible.version>
 
     <!-- Sonar Cloud -->
     <sonar.organization>codbex</sonar.organization>
@@ -330,8 +331,8 @@
     <apache.httpclient.version>4.5.8</apache.httpclient.version>
     <commons.lang3>3.12.0</commons.lang3>
     <license-maven-plugin.version>4.2.rc3</license-maven-plugin.version>
-    <antlr4-runtime.version>4.11.1</antlr4-runtime.version>
-    <antlr4-maven-plugin.version>4.11.1</antlr4-maven-plugin.version>
+    <antlr4-runtime.version>4.13.0</antlr4-runtime.version>
+    <antlr4-maven-plugin.version>4.13.0</antlr4-maven-plugin.version>
     <selenium.version>4.5.0</selenium.version>
     <selenium.webdriver.manager.version>5.3.1</selenium.webdriver.manager.version>
     <neo-java-web-sdk.version>4.8.9</neo-java-web-sdk.version>
