@@ -144,11 +144,11 @@ public class ODataUtilsTest {
     TableColumn column4 = new TableColumn("FK_COMPANY_ID", "Edm.Int32", "0", true, false, model);
     TableColumn column5 = new TableColumn("FK_EMPLOYEE_NUMBER", "Edm.Int32", "0", true, false, model);
     TableColumn column6 = new TableColumn("FK_ADDRESS_ID", "Edm.Int32", "0", true, false, model);
-    TableConstraintForeignKey rel = new TableConstraintForeignKey("kneo.test.helloodata.CompositeKey::phones",
+    TableConstraintForeignKey rel = new TableConstraintForeignKey("kneo.test.helloodata.CompositeKey::phones", null,
         "kneo.test.helloodata.CompositeKey::employee", "FK_COMPANY_ID", model.getConstraints());
-    TableConstraintForeignKey rel2 = new TableConstraintForeignKey("kneo.test.helloodata.CompositeKey::phones",
+    TableConstraintForeignKey rel2 = new TableConstraintForeignKey("kneo.test.helloodata.CompositeKey::phones", null,
         "kneo.test.helloodata.CompositeKey::employee", "FK_EMPLOYEE_NUMBER", model.getConstraints());
-    TableConstraintForeignKey rel3 = new TableConstraintForeignKey("kneo.test.helloodata.CompositeKey::phones",
+    TableConstraintForeignKey rel3 = new TableConstraintForeignKey("kneo.test.helloodata.CompositeKey::phones", null,
         "kneo.test.helloodata.CompositeKey::address", "FK_ADDRESS_ID", model.getConstraints());
    
     model.setKind(ISqlKeywords.METADATA_TABLE);
@@ -230,11 +230,11 @@ public class ODataUtilsTest {
     TableColumn column4 = new TableColumn("FK_COMPANY_ID", "Edm.Int32", "0", true, false, model);
     TableColumn column5 = new TableColumn("FK_EMPLOYEE_NUMBER", "Edm.Int32", "0", true, false, model);
     TableColumn column6 = new TableColumn("FK_ADDRESS_ID", "Edm.Int32", "0", true, false, model);
-    TableConstraintForeignKey rel = new TableConstraintForeignKey("kneo.test.helloodata.CompositeKey::phones",
+    TableConstraintForeignKey rel = new TableConstraintForeignKey("kneo.test.helloodata.CompositeKey::phones", null,
         "kneo.test.helloodata.CompositeKey::employee", "FK_COMPANY_ID", model.getConstraints());
-    TableConstraintForeignKey rel2 = new TableConstraintForeignKey("kneo.test.helloodata.CompositeKey::phones",
+    TableConstraintForeignKey rel2 = new TableConstraintForeignKey("kneo.test.helloodata.CompositeKey::phones", null,
         "kneo.test.helloodata.CompositeKey::employee", "FK_EMPLOYEE_NUMBER", model.getConstraints());
-    TableConstraintForeignKey rel3 = new TableConstraintForeignKey("kneo.test.helloodata.CompositeKey::phones",
+    TableConstraintForeignKey rel3 = new TableConstraintForeignKey("kneo.test.helloodata.CompositeKey::phones", null,
         "kneo.test.helloodata.CompositeKey::address", "FK_ADDRESS_ID", model.getConstraints());
    
     model.setKind(ISqlKeywords.METADATA_TABLE);
