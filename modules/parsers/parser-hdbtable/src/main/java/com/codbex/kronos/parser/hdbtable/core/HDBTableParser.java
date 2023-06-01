@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-// Generated from java-escape by ANTLR 4.11.1
+// Generated from com/codbex/kronos/parser/hdbtable/core/HDBTable.g4 by ANTLR 4.13.0
 package com.codbex.kronos.parser.hdbtable.core;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
 public class HDBTableParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.11.1", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.13.0", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -117,7 +117,7 @@ public class HDBTableParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "java-escape"; }
+	public String getGrammarFileName() { return "HDBTable.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -1105,7 +1105,7 @@ public class HDBTableParser extends Parser {
 				setState(192); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( ((_la) & ~0x3f) == 0 && ((1L << _la) & 66977792L) != 0 );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 66977792L) != 0) );
 			setState(194);
 			match(T__15);
 			}
@@ -1303,7 +1303,7 @@ public class HDBTableParser extends Parser {
 				setState(211); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( ((_la) & ~0x3f) == 0 && ((1L << _la) & 202514432L) != 0 );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 202514432L) != 0) );
 			setState(213);
 			match(T__15);
 			}
@@ -1757,7 +1757,7 @@ public class HDBTableParser extends Parser {
 			match(EQ);
 			setState(254);
 			_la = _input.LA(1);
-			if ( !(((_la) & ~0x3f) == 0 && ((1L << _la) & 2474169597952L) != 0) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 2474169597952L) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
