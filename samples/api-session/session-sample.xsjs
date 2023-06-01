@@ -5,9 +5,6 @@ var timeout = session.getTimeout()
 var token = session.getSecurityToken()
 var authType = session.authType
 
-// Check the language of the session
-response.println("Session language: " + session.language)
-
 // Check if a particular user has the "Administrator" role
 if (username === "dirigible" && session.hasAppPrivilege("Administrator")) {
   // Check a specific system privilege for that user
