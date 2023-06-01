@@ -53,7 +53,7 @@ public class HDBDDDataStructureParserTest {
 
   @Test
   public void testParseHanaXSClassicContentWithSyntaxErrorFail() {
-	  migrator.migrate("gstr2/ITC_EXPIRED_CONFIG.hdbdd");
+	migrator.migrate("gstr2/ITC_EXPIRED_CONFIG.hdbdd");
     DataStructuresException exception = assertThrows(
         DataStructuresException.class,
         () -> HDBDataStructureModelFactory.parseHdbdd("gstr2/ITC_EXPIRED_CONFIG.hdbdd", "")
