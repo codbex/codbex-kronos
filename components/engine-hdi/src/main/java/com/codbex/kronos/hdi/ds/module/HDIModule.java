@@ -13,9 +13,9 @@ package com.codbex.kronos.hdi.ds.module;
 
 import java.util.Map;
 
+import com.codbex.kronos.engine.hdb.parser.DataStructureParser;
 import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
 import com.codbex.kronos.hdb.ds.module.HDBModule;
-import com.codbex.kronos.hdb.ds.parser.DataStructureParser;
 import com.codbex.kronos.hdi.ds.parser.HDIParser;
 
 import org.eclipse.dirigible.commons.api.module.IDirigibleModule;

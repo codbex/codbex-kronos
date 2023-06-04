@@ -12,10 +12,10 @@
 package com.codbex.kronos.hdi.ds.parser;
 
 import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
+import com.codbex.kronos.engine.hdb.parser.DataStructureParser;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
 import com.codbex.kronos.hdi.ds.model.DataStructureHDIModel;
-import com.codbex.kronos.hdb.ds.parser.DataStructureParser;
 import com.codbex.kronos.hdi.ds.parser.deserializer.HDIModelAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
