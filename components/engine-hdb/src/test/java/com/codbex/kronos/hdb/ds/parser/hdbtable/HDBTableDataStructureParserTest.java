@@ -25,6 +25,8 @@ import java.nio.charset.StandardCharsets;
 import javax.transaction.Transactional;
 
 import org.apache.commons.io.IOUtils;
+import org.junit.Ignore;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -42,6 +44,7 @@ import com.codbex.kronos.engine.hdb.parser.HDBParameters;
 import com.codbex.kronos.engine.hdb.parser.HDBTableDataStructureParser;
 import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableDuplicatePropertyException;
+import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableMissingPropertyException;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -127,48 +130,49 @@ public class HDBTableDataStructureParserTest {
       assertThrows(HDBTableDuplicatePropertyException.class, () -> new HDBTableDataStructureParser().parse(parametersModel));
     }
 
-//    @Ignore
-//    @Test(expected = HDBTableMissingPropertyException.class)
-//    public void failIfParsingMissingMandatoryProperties() throws Exception {
-//      InputStream in = HDBTableDataStructureParserTest.class.getResourceAsStream("/MissingMandatoryTableProperties.hdbtable");
-//      String content = IOUtils.toString(in, StandardCharsets.UTF_8);
-//      HDBParameters parametersModel =
-//          new HDBParameters(null, "/MissingMandatoryTableProperties.hdbtable", content, null);
-//      new HDBTableDataStructureParser().parse(parametersModel);
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void failIfParsingWrongPKDefinition() {
-//      String content = "table.schemaName = \"SPORTS\";\n" +
-//              "table.tableType = COLUMNSTORE;\n" +
-//              "table.columns = [\n" +
-//              "\t{ name = \"MATCH_ID\";\tsqlType = NVARCHAR;},\n" +
-//              "\t{ name = \"TEAM_ID\";\t\tsqlType = NVARCHAR;}\n" +
-//              "];\n" +
-//              "table.primaryKey.pkcolumns = [\"MATCH_ID_WRONG\", \"TEAM_ID\"];";
-//
-//      HDBParameters parametersModel =
-//          new HDBParameters(null, "/someFileName.hdbtable", content, null);
-//      assertThrows(IllegalStateException.class, () -> new HDBTableDataStructureParser().parse(parametersModel));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void failIfParsingWrongIndexDefinition() {
-//      String content = "table.schemaName = \"SPORTS\";\n" +
-//              "table.tableType = COLUMNSTORE;\n" +
-//              "table.columns = [\n" +
-//              "\t{ name = \"MATCH_ID\";\tsqlType = NVARCHAR;},\n" +
-//              "\t{ name = \"TEAM_ID\";\t\tsqlType = NVARCHAR;}\n" +
-//              "];\n" +
-//              "table.primaryKey.pkcolumns = [\"MATCH_ID\", \"TEAM_ID\"];" +
-//              "table.indexes = [ {name = \"INDEX1\"; unique = true; indexColumns = [\"MATCH_ID_WRONG\"];}];";
-//
-//      HDBParameters parametersModel =
-//          new HDBParameters(null, "/someFileName.hdbtable", content, null);
-//      assertThrows(IllegalStateException.class, () -> new HDBTableDataStructureParser().parse(parametersModel));
-//    }
+    @Test
+    public void failIfParsingMissingMandatoryProperties() throws Exception {
+    	
+      HDBTableMissingPropertyException exception = Assertions.assertThrows(HDBTableMissingPropertyException.class, () -> {
+    		InputStream in = HDBTableDataStructureParserTest.class.getResourceAsStream("/MissingMandatoryTableProperties.hdbtable");
+    	      String content = IOUtils.toString(in, StandardCharsets.UTF_8);
+    	      HDBParameters parametersModel =
+    	          new HDBParameters(null, "/MissingMandatoryTableProperties.hdbtable", content, null);
+    	      new HDBTableDataStructureParser().parse(parametersModel);
+      });
+      Assertions.assertEquals("Wrong format of table definition: [/MissingMandatoryTableProperties.hdbtable]. [Missing mandatory field columns!]", exception.getMessage());
+    }
+
+    @Test
+    public void failIfParsingWrongPKDefinition() {
+      String content = "table.schemaName = \"SPORTS\";\n" +
+              "table.tableType = COLUMNSTORE;\n" +
+              "table.columns = [\n" +
+              "\t{ name = \"MATCH_ID\";\tsqlType = NVARCHAR;},\n" +
+              "\t{ name = \"TEAM_ID\";\t\tsqlType = NVARCHAR;}\n" +
+              "];\n" +
+              "table.primaryKey.pkcolumns = [\"MATCH_ID_WRONG\", \"TEAM_ID\"];";
+
+      HDBParameters parametersModel =
+          new HDBParameters(null, "/someFileName.hdbtable", content, null);
+      assertThrows(IllegalStateException.class, () -> new HDBTableDataStructureParser().parse(parametersModel));
+    }
+
+    @Test
+    public void failIfParsingWrongIndexDefinition() {
+      String content = "table.schemaName = \"SPORTS\";\n" +
+              "table.tableType = COLUMNSTORE;\n" +
+              "table.columns = [\n" +
+              "\t{ name = \"MATCH_ID\";\tsqlType = NVARCHAR;},\n" +
+              "\t{ name = \"TEAM_ID\";\t\tsqlType = NVARCHAR;}\n" +
+              "];\n" +
+              "table.primaryKey.pkcolumns = [\"MATCH_ID\", \"TEAM_ID\"];" +
+              "table.indexes = [ {name = \"INDEX1\"; unique = true; indexColumns = [\"MATCH_ID_WRONG\"];}];";
+
+      HDBParameters parametersModel =
+          new HDBParameters(null, "/someFileName.hdbtable", content, null);
+      assertThrows(IllegalStateException.class, () -> new HDBTableDataStructureParser().parse(parametersModel));
+    }
 
     @Test
     public void parseHanaXSAdvancedContentWithAdditionalSpaces() throws Exception {
@@ -208,22 +212,22 @@ public class HDBTableDataStructureParserTest {
         assertEquals(content, model.getContent());
     }
 
-//    @Test(expected = ArtifactParserException.class)
-//    public void parseHanaXSClassicContentWithLexerErrorFail() throws Exception {
-//        String content = "table.schemaName = \"SPORTS\";\n" +
-//                "table.tableType = COLUMNSTORE;\n" +
-//                "table.columns = [dd\n" +
-//                "\t{ name = \"MATCH_ID\";sqlType = NVARCHAR;\tlength = 32;nullable = false;}\n" +
-//                "];";
-//        HDBDataStructureModelFactory.parseView("db/test.hdbtable", content);
-//    }
-//
-//    @Test(expected = ArtifactParserException.class)
-//    public void parseHanaXSClassicContentWithSyntaxErrorFail() throws Exception {
-//        String content = "table.schemaName = \"SPORTS;\n" +
-//                "table.tableType = COLUMNSTORE;";
-//        HDBDataStructureModelFactory.parseView("db/test.hdbtable", content);
-//    }
+    @Test
+    public void parseHanaXSClassicContentWithLexerErrorFail() throws Exception {
+        String content = "table.schemaName = \"SPORTS\";\n" +
+                "table.tableType = COLUMNSTORE;\n" +
+                "table.columns = [dd\n" +
+                "\t{ name = \"MATCH_ID\";sqlType = NVARCHAR;\tlength = 32;nullable = false;}\n" +
+                "];";
+        assertThrows(ArtifactParserException.class, () -> HDBDataStructureModelFactory.parseTable("db/test.hdbtable", content));
+    }
+
+    @Test
+    public void parseHanaXSClassicContentWithSyntaxErrorFail() throws Exception {
+        String content = "table.schemaName = \"SPORTS;\n" +
+                "table.tableType = COLUMNSTORE;";
+        assertThrows(ArtifactParserException.class, () -> HDBDataStructureModelFactory.parseTable("db/test.hdbtable", content));
+    }
 
     @Test
     public void parseRowTableWithIndexes() throws Exception {
