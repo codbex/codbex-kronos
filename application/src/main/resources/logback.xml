@@ -75,4 +75,8 @@
 		<appender-ref ref="FILE_BASE" />
 	</root>
 	
+	<logger name="org.eclipse.dirigible.components.initializers.synchronizer" level="ALL"/>
+	
+	<logger name="com.codbex.kronos.engine.hdb" level="ALL"/>
+	
 </configuration>

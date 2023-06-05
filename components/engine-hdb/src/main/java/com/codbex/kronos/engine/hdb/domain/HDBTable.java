@@ -129,7 +129,7 @@ public class HDBTable extends HDBDataStructure {
 	 */
 	public HDBTable() {
 		super();
-		this.constraints = new HDBTableConstraints(this);
+		this.constraints = new HDBTableConstraints();
 	}
 
 	/**

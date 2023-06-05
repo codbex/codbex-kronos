@@ -166,7 +166,7 @@ public abstract class HDBTableConstraint {
 	@Override
 	public String toString() {
 		return "TableConstraint [name=" + name + ", modifiers=" + Arrays.toString(modifiers) + ", columns="
-				+ Arrays.toString(columns) + ", constraints=" + constraints + "]";
+				+ Arrays.toString(columns) + "]";
 	}
 
 }
