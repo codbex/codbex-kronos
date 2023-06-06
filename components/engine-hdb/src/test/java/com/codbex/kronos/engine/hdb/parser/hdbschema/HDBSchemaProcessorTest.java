@@ -34,6 +34,10 @@ import org.eclipse.dirigible.database.sql.builders.schema.CreateSchemaBuilder;
 import org.eclipse.dirigible.database.sql.builders.schema.DropSchemaBuilder;
 import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
 import org.eclipse.dirigible.database.sql.dialects.postgres.PostgresSqlDialect;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.Answers;
 import org.mockito.Mock;
@@ -41,6 +45,7 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -50,9 +55,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import com.codbex.kronos.engine.hdb.domain.HDBSchema;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.processors.HDBSchemaCreateProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBSchemaDropProcessor;
+import com.codbex.kronos.exceptions.ArtifactParserException;
 
 //@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
@@ -60,122 +67,127 @@ import com.codbex.kronos.engine.hdb.processors.HDBSchemaDropProcessor;
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})
 @EntityScan(value = {"org.eclipse.dirigible.components", "com.codbex.kronos"})
 @Transactional
+@ExtendWith(MockitoExtension.class)
 public class HDBSchemaProcessorTest {
 
-//  @Mock(answer = Answers.RETURNS_DEEP_STUBS)
-//  private Connection mockConnection;
-//
-//  @Mock(answer = Answers.RETURNS_DEEP_STUBS)
-//  private SqlFactory mockSqlFactory;
-//
-//  @Mock
-//  private CreateBranchingBuilder create;
-//
-//  @Mock
-//  private CreateSchemaBuilder mockCreateSchemaBuilder;
-//
-//  @Mock
-//  private DropSchemaBuilder mockDropSchemaBuilder;
-//
-//  @Mock
-//  private DropBranchingBuilder drop;
-//
-//  @Mock
-//  private DataStructuresSynchronizer dataStructuresSynchronizer;
-//
-//  @Before
-//  public void openMocks() {
-//    MockitoAnnotations.openMocks(this);
-//    Configuration.set(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true");
-//  }
-//
-//  @Test
-//  public void executeCreateSchemaSuccessfully() throws Exception {
-//    HDBSchemaCreateProcessor processorSpy = spy(HDBSchemaCreateProcessor.class);
-//    String hdbschemaSample = IOUtils.toString(SchemaProcessorTest.class.getResourceAsStream("/Myschema.hdbschema"), StandardCharsets.UTF_8);
-//
-//    DataStructureHDBSchemaModel model = HDBDataStructureModelFactory.parseSchema("hdb_schema/Myschema.hdbschema", hdbschemaSample);
-//
-//    try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class)) {
-//      String mockSQL = "testSQLScript";
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
-//      sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).exists(mockConnection, "MySchema", DatabaseArtifactTypes.SCHEMA))
-//          .thenReturn(false);
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).create()).thenReturn(create);
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).create().schema(anyString())).thenReturn(mockCreateSchemaBuilder);
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).create().schema(anyString()).build()).thenReturn(mockSQL);
-//
+  @Mock(answer = Answers.RETURNS_DEEP_STUBS)
+  private Connection mockConnection;
+
+  @Mock(answer = Answers.RETURNS_DEEP_STUBS)
+  private SqlFactory mockSqlFactory;
+
+  @Mock
+  private CreateBranchingBuilder create;
+
+  @Mock
+  private CreateSchemaBuilder mockCreateSchemaBuilder;
+
+  @Mock
+  private DropSchemaBuilder mockDropSchemaBuilder;
+
+  @Mock
+  private DropBranchingBuilder drop;
+
+
+  @BeforeEach
+  public void openMocks() {
+    MockitoAnnotations.openMocks(this);
+    Configuration.set(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true");
+  }
+
+  @Test
+  public void executeCreateSchemaSuccessfully() throws Exception {
+    HDBSchemaCreateProcessor processorSpy = spy(HDBSchemaCreateProcessor.class);
+    String hdbschemaSample = IOUtils.toString(HDBSchemaProcessorTest.class.getResourceAsStream("/Myschema.hdbschema"), StandardCharsets.UTF_8);
+
+    HDBSchema model = HDBDataStructureModelFactory.parseSchema("hdb_schema/Myschema.hdbschema", hdbschemaSample);
+
+    try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class)) {
+      String mockSQL = "testSQLScript";
+      sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
+      sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
+      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).exists(mockConnection, "MySchema", DatabaseArtifactTypes.SCHEMA))
+          .thenReturn(false);
+      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).create()).thenReturn(create);
+      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).create().schema(anyString())).thenReturn(mockCreateSchemaBuilder);
+      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).create().schema(anyString()).build()).thenReturn(mockSQL);
+
 //      Mockito.doNothing().when(processorSpy).applyArtefactState(any(), any(), any(), any(), any());
-//
-//      processorSpy.execute(mockConnection, model);
-//      verify(processorSpy, times(1)).executeSql(mockSQL, mockConnection);
+
+      processorSpy.execute(mockConnection, model);
+      verify(processorSpy, times(1)).executeSql(mockSQL, mockConnection);
 //      verify(processorSpy, times(1)).applyArtefactState(any(), any(), any(), eq(ArtefactState.SUCCESSFUL_CREATE), any());
-//    }
-//  }
-//
-//  @Test(expected = IllegalStateException.class)
-//  public void executeCreateSchemaFail() throws Exception {
-//    HDBSchemaCreateProcessor processorSpy = spy(HDBSchemaCreateProcessor.class);
-//    String hdbschemaSample = IOUtils.toString(SchemaProcessorTest.class.getResourceAsStream("/Myschema.hdbschema"), StandardCharsets.UTF_8);
-//
-//    DataStructureHDBSchemaModel model = HDBDataStructureModelFactory.parseSchema("hdb_schema/Myschema.hdbschema", hdbschemaSample);
-//
-//    try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
-//        MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)) {
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
-//      sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new PostgresSqlDialect());
-//      problemsFacade.when(() -> ProblemsFacade.save(any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
-//          .thenAnswer((Answer<Void>) invocation -> null);
+    }
+  }
+
+  @Test
+  public void executeCreateSchemaFail() throws Exception {
+	  IllegalStateException exception = Assertions.assertThrows(IllegalStateException.class, () -> {
+		  HDBSchemaCreateProcessor processorSpy = spy(HDBSchemaCreateProcessor.class);
+		    String hdbschemaSample = IOUtils.toString(HDBSchemaProcessorTest.class.getResourceAsStream("/Myschema.hdbschema"), StandardCharsets.UTF_8);
+
+		    HDBSchema model = HDBDataStructureModelFactory.parseSchema("hdb_schema/Myschema.hdbschema", hdbschemaSample);
+
+		    try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
+//		        MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)
+		        		) {
+		      sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
+		      sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new PostgresSqlDialect());
+//		      problemsFacade.when(() -> ProblemsFacade.save(any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
+//		          .thenAnswer((Answer<Void>) invocation -> null);
+//		      Mockito.doNothing().when(processorSpy).applyArtefactState(any(), any(), any(), any(), any());
+
+		      processorSpy.execute(mockConnection, model);
+		    }
+	    });
+  }
+
+  @Test
+  public void executeDropSchemaSuccessfully() throws Exception {
+    HDBSchemaDropProcessor processorSpy = spy(HDBSchemaDropProcessor.class);
+    String hdbschemaSample = IOUtils.toString(HDBSchemaProcessorTest.class.getResourceAsStream("/Myschema.hdbschema"), StandardCharsets.UTF_8);
+
+    HDBSchema model = HDBDataStructureModelFactory.parseSchema("hdb_schema/Myschema.hdbschema", hdbschemaSample);
+    String mockSQL = "testSQLScript";
+
+    try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class)) {
+      sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
+      sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
+      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).exists(mockConnection, "MySchema", DatabaseArtifactTypes.SCHEMA))
+          .thenReturn(true);
+      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).drop()).thenReturn(drop);
+      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).drop().schema(anyString())).thenReturn(mockDropSchemaBuilder);
+      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).drop().schema(anyString()).build()).thenReturn(mockSQL);
+
 //      Mockito.doNothing().when(processorSpy).applyArtefactState(any(), any(), any(), any(), any());
-//
-//      processorSpy.execute(mockConnection, model);
-//    }
-//  }
-//
-//  @Test
-//  public void executeDropSchemaSuccessfully() throws Exception {
-//    HDBSchemaDropProcessor processorSpy = spy(HDBSchemaDropProcessor.class);
-//    String hdbschemaSample = IOUtils.toString(SchemaProcessorTest.class.getResourceAsStream("/Myschema.hdbschema"), StandardCharsets.UTF_8);
-//
-//    DataStructureHDBSchemaModel model = HDBDataStructureModelFactory.parseSchema("hdb_schema/Myschema.hdbschema", hdbschemaSample);
-//    String mockSQL = "testSQLScript";
-//
-//    try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class)) {
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
-//      sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).exists(mockConnection, "MySchema", DatabaseArtifactTypes.SCHEMA))
-//          .thenReturn(true);
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).drop()).thenReturn(drop);
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).drop().schema(anyString())).thenReturn(mockDropSchemaBuilder);
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).drop().schema(anyString()).build()).thenReturn(mockSQL);
-//
-//      Mockito.doNothing().when(processorSpy).applyArtefactState(any(), any(), any(), any(), any());
-//
-//      processorSpy.execute(mockConnection, model);
-//      verify(processorSpy, times(1)).executeSql(mockSQL, mockConnection);
+
+      processorSpy.execute(mockConnection, model);
+      verify(processorSpy, times(1)).executeSql(mockSQL, mockConnection);
 //      verify(processorSpy, times(1)).applyArtefactState(any(), any(), any(), eq(ArtefactState.SUCCESSFUL_DELETE), any());
-//    }
-//  }
-//
-//  @Test(expected = IllegalStateException.class)
-//  public void executeDropSchemaFail() throws Exception {
-//    try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
-//        MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)) {
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
-//      sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new PostgresSqlDialect());
-//
-//      HDBSchemaDropProcessor processorSpy = spy(HDBSchemaDropProcessor.class);
-//      String hdbschemaSample = IOUtils.toString(SchemaProcessorTest.class.getResourceAsStream("/Myschema.hdbschema"), StandardCharsets.UTF_8);
-//
-//      DataStructureHDBSchemaModel model = HDBDataStructureModelFactory.parseSchema("hdb_schema/Myschema.hdbschema", hdbschemaSample);
-//      problemsFacade.when(() -> ProblemsFacade.save(any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
-//          .thenAnswer((Answer<Void>) invocation -> null);
-//      Mockito.doNothing().when(processorSpy).applyArtefactState(any(), any(), any(), any(), any());
-//
-//      processorSpy.execute(mockConnection, model);
-//    }
-//  }
+    }
+  }
+
+  @Test
+  public void executeDropSchemaFail() throws Exception {
+	  IllegalStateException exception = Assertions.assertThrows(IllegalStateException.class, () -> {
+	    try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
+//	        MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)
+	        		) {
+	      sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
+	      sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new PostgresSqlDialect());
+	
+	      HDBSchemaDropProcessor processorSpy = spy(HDBSchemaDropProcessor.class);
+	      String hdbschemaSample = IOUtils.toString(HDBSchemaProcessorTest.class.getResourceAsStream("/Myschema.hdbschema"), StandardCharsets.UTF_8);
+	
+	      HDBSchema model = HDBDataStructureModelFactory.parseSchema("hdb_schema/Myschema.hdbschema", hdbschemaSample);
+//	      problemsFacade.when(() -> ProblemsFacade.save(any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
+//	          .thenAnswer((Answer<Void>) invocation -> null);
+//	      Mockito.doNothing().when(processorSpy).applyArtefactState(any(), any(), any(), any(), any());
+	
+	      processorSpy.execute(mockConnection, model);
+	    }
+	  });
+  }
   
   /**
    * The Class TestConfiguration.
