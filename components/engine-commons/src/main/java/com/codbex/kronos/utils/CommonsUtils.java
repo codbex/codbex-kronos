@@ -137,6 +137,8 @@ public class CommonsUtils {
 		if (errorList.size() > 0) {
 			for (BaseParserErrorsModel errorModel : errorList) {
 				try {
+					logger.error("Parser error at file: {}, line: {}, position: {}, symbol: {}", location, errorModel.getLine(), errorModel.getCharPositionInLine(), errorModel.getOffendingSymbol());
+					logger.error(errorModel.getMsg());
 					ProblemsFacade.save(location, errorType, Integer.toString(errorModel.getLine()),
 							Integer.toString(errorModel.getCharPositionInLine()), errorModel.getOffendingSymbol(),
 							errorModel.getMsg(), artifactType, CommonsConstants.MODULE_PARSERS,
