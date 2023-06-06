@@ -672,7 +672,7 @@ public class HDBDDArtifactDefinitionListenerTest {
     List<ViewSymbol> parsedViews = this.symbolTable.getSortedViews();
 
     assertEquals(0, parsedFile.getNumberOfSyntaxErrors());
-    assertEquals(4, parsedViews.size());
+    assertEquals(5, parsedViews.size());
   }
 
   private CdsParser parseSampleFile(String sampleFileName, String location) throws Exception {

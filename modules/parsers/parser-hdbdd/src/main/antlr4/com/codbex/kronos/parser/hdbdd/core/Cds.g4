@@ -53,8 +53,10 @@ keyValue: identifier ':' annValue;
 selectRule: isUnion=UNION? SELECT FROM dependsOnTable+=identifier ('.' dependsOnTable+=identifier)* ((AS dependingTableAlias=identifier) | dependingTableAlias=identifier)? joinRule* isDistinct=DISTINCT? '{' selectedColumnsRule '}' SEMICOLUMN? (WHERE whereRule SEMICOLUMN?)?;
 joinRule: joinType=JOIN_TYPES joinArtifactName=identifier ((AS joinTableAlias=identifier) | joinTableAlias=identifier)? joinFields;
 joinFields: .*?;
-selectedColumnsRule: .*?;
+selectedColumnsRule: (.*? characters*?);
 whereRule: .*?;
+
+characters: '<' | '>' | '/' | '%' | '^' | '*' | '+';
 
 identifier: ID
 | STRING
