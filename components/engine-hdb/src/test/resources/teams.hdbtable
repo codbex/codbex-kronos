@@ -1,4 +1,4 @@
-table.schemaName = "SPORTS";
+table.schemaName = "TEAMS";
 table.tableType = COLUMNSTORE;
 table.columns = [
 	{ name = "MATCH_ID";	sqlType = NVARCHAR;		length = 32;	nullable = false;   comment="test"; defaultValue="D1"; unique=true;},

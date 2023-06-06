@@ -55,16 +55,16 @@ public class HDBTableDataStructureParserTest {
 
     @Test
     public void parseTable() throws Exception {
-        InputStream in = HDBTableDataStructureParserTest.class.getResourceAsStream("/Sports.hdbtable");
+        InputStream in = HDBTableDataStructureParserTest.class.getResourceAsStream("/teams.hdbtable");
         String contents = IOUtils.toString(in, StandardCharsets.UTF_8);
-        HDBTable model = HDBDataStructureModelFactory.parseTable("/Sports.hdbtable", contents);
+        HDBTable model = HDBDataStructureModelFactory.parseTable("/teams.hdbtable", contents);
 
         assertEquals(6, model.getColumns().size());
-        assertEquals("Sports", model.getName());
-        assertEquals("SPORTS", model.getSchema());
+        assertEquals("teams", model.getName());
+        assertEquals("TEAMS", model.getSchema());
         assertEquals("COLUMNSTORE", model.getTableType());
         assertEquals("Team players", model.getDescription());
-        assertEquals("/Sports.hdbtable", model.getLocation());
+        assertEquals("/teams.hdbtable", model.getLocation());
         assertEquals("HDBTABLE", model.getType());
         assertNotNull(model.getCreatedBy());
         assertNotNull(model.getCreatedAt());
@@ -110,7 +110,7 @@ public class HDBTableDataStructureParserTest {
         assertFalse(changedAt.isPrimaryKey());
         assertFalse(changedAt.isUnique());
 
-        assertEquals("PK_Sports", model.getConstraints().getPrimaryKey().getName());
+        assertEquals("PK_teams", model.getConstraints().getPrimaryKey().getName());
         assertEquals(3, model.getConstraints().getPrimaryKey().getColumns().length);
         assertNull(model.getConstraints().getPrimaryKey().getModifiers());
         assertEquals(0, model.getConstraints().getForeignKeys().size());
@@ -145,7 +145,7 @@ public class HDBTableDataStructureParserTest {
 
     @Test
     public void failIfParsingWrongPKDefinition() {
-      String content = "table.schemaName = \"SPORTS\";\n" +
+      String content = "table.schemaName = \"TEAMS\";\n" +
               "table.tableType = COLUMNSTORE;\n" +
               "table.columns = [\n" +
               "\t{ name = \"MATCH_ID\";\tsqlType = NVARCHAR;},\n" +
@@ -160,7 +160,7 @@ public class HDBTableDataStructureParserTest {
 
     @Test
     public void failIfParsingWrongIndexDefinition() {
-      String content = "table.schemaName = \"SPORTS\";\n" +
+      String content = "table.schemaName = \"TEAMS\";\n" +
               "table.tableType = COLUMNSTORE;\n" +
               "table.columns = [\n" +
               "\t{ name = \"MATCH_ID\";\tsqlType = NVARCHAR;},\n" +
@@ -214,7 +214,7 @@ public class HDBTableDataStructureParserTest {
 
     @Test
     public void parseHanaXSClassicContentWithLexerErrorFail() throws Exception {
-        String content = "table.schemaName = \"SPORTS\";\n" +
+        String content = "table.schemaName = \"TEAMS\";\n" +
                 "table.tableType = COLUMNSTORE;\n" +
                 "table.columns = [dd\n" +
                 "\t{ name = \"MATCH_ID\";sqlType = NVARCHAR;\tlength = 32;nullable = false;}\n" +
@@ -224,7 +224,7 @@ public class HDBTableDataStructureParserTest {
 
     @Test
     public void parseHanaXSClassicContentWithSyntaxErrorFail() throws Exception {
-        String content = "table.schemaName = \"SPORTS;\n" +
+        String content = "table.schemaName = \"TEAMS;\n" +
                 "table.tableType = COLUMNSTORE;";
         assertThrows(ArtifactParserException.class, () -> HDBDataStructureModelFactory.parseTable("db/test.hdbtable", content));
     }
