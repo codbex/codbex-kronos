@@ -162,6 +162,7 @@ public class HDBUtils {
     target.setObject(artifactName);
     target.setSchema(artifactSchema);
     defModel.setTarget(target);
+    defModel.setGroup(model);
 
     model.getSynonymDefinitions().put(artifactName, defModel);
     model.setType(IDataStructureModel.TYPE_HDB_SYNONYM);

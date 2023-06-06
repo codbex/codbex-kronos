@@ -77,7 +77,7 @@ public class HDBTableTypeDropProcessor extends AbstractHDBProcessor<HDBTableType
    * @param tableTypeModel the table type model
    * @param ex             the ex
    */
-  void processException(HDBTableType tableTypeModel, String tableTypeParser, Exception ex) {
+  public void processException(HDBTableType tableTypeModel, String tableTypeParser, Exception ex) {
     logger.error("Failed to drop table type [{}] in schema [{}]", tableTypeModel.getName(), tableTypeModel.getSchema(), ex);
     CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, tableTypeModel.getLocation(),
         tableTypeParser);
@@ -90,7 +90,7 @@ public class HDBTableTypeDropProcessor extends AbstractHDBProcessor<HDBTableType
    * @param tableTypeModel the table type model
    * @return the string
    */
-  String escapeTableTypeName(Connection connection, HDBTableType tableTypeModel) {
+  public String escapeTableTypeName(Connection connection, HDBTableType tableTypeModel) {
     return HDBUtils.escapeArtifactName(tableTypeModel.getName(), tableTypeModel.getSchema());
   }
 
@@ -102,7 +102,7 @@ public class HDBTableTypeDropProcessor extends AbstractHDBProcessor<HDBTableType
    * @return the drop table type SQL
    * @throws IllegalStateException the illegal state exception
    */
-  String getDropTableTypeSQL(Connection connection, String tableTypeName) throws IllegalStateException {
+  public String getDropTableTypeSQL(Connection connection, String tableTypeName) throws IllegalStateException {
     return SqlFactory.getNative(connection).drop().tableType(tableTypeName).build();
   }
 
@@ -114,7 +114,7 @@ public class HDBTableTypeDropProcessor extends AbstractHDBProcessor<HDBTableType
    * @return true, if successful
    * @throws SQLException the SQL exception
    */
-  boolean tableTypeDoesNotExist(Connection connection, HDBTableType tableTypeModel) throws SQLException {
+  public boolean tableTypeDoesNotExist(Connection connection, HDBTableType tableTypeModel) throws SQLException {
     return !SqlFactory.getNative(connection)
         .exists(connection, tableTypeModel.getSchema(), tableTypeModel.getName(), DatabaseArtifactTypes.TABLE_TYPE);
   }

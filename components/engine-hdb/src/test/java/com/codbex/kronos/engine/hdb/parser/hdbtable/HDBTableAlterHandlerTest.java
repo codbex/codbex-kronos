@@ -30,17 +30,16 @@ import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.eclipse.dirigible.database.sql.builders.AlterBranchingBuilder;
 import org.eclipse.dirigible.database.sql.builders.table.AlterTableBuilder;
 import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Answers;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.mockito.stubbing.Answer;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -49,241 +48,275 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import com.codbex.kronos.engine.hdb.domain.HDBTable;
+import com.codbex.kronos.engine.hdb.domain.HDBTableColumn;
+import com.codbex.kronos.engine.hdb.domain.HDBTableConstraintPrimaryKey;
+import com.codbex.kronos.engine.hdb.domain.HDBTableConstraints;
 import com.codbex.kronos.engine.hdb.processors.HDBTableAlterHandler;
 
-//@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})
-@EntityScan(value = {"org.eclipse.dirigible.components", "com.codbex.kronos"})
+@ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
+@EntityScan(value = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
 @Transactional
+@ExtendWith(MockitoExtension.class)
 public class HDBTableAlterHandlerTest {
 
-//  @Mock(answer = Answers.RETURNS_DEEP_STUBS)
-//  private Connection mockConnection;
-//
-//  @Mock(answer = Answers.RETURNS_DEEP_STUBS)
-//  private SqlFactory mockSqlFactory;
-//
-//  @Mock
-//  private AlterBranchingBuilder alter;
-//
-//  @Mock
-//  private AlterTableBuilder alterTableBuilder;
-//
-//  @Mock
-//  private DatabaseMetaData databaseMetaData;
-//
-//  @Mock
-//  private ResultSet resultSet;
-//
-//  private DataStructureHDBTableConstraintPrimaryKeyModel primaryKey = new DataStructureHDBTableConstraintPrimaryKeyModel();
-//  private DataStructureHDBTableConstraintsModel constraintsModel = new DataStructureHDBTableConstraintsModel();
-//  private DataStructureHDBTableModel tableModel = new DataStructureHDBTableModel();
-//
-//  @Before
-//  public void openMocks() {
-//    MockitoAnnotations.openMocks(this);
-//  }
-//
+	@Mock(answer = Answers.RETURNS_DEEP_STUBS)
+	private Connection mockConnection;
+
+	@Mock(answer = Answers.RETURNS_DEEP_STUBS)
+	private SqlFactory mockSqlFactory;
+
+	@Mock
+	private AlterBranchingBuilder alter;
+
+	@Mock
+	private AlterTableBuilder alterTableBuilder;
+
+	@Mock
+	private DatabaseMetaData databaseMetaData;
+
+	@Mock
+	private ResultSet resultSet;
+
+	private HDBTableConstraintPrimaryKey primaryKey = new HDBTableConstraintPrimaryKey();
+	private HDBTableConstraints constraintsModel = new HDBTableConstraints();
+	private HDBTable tableModel = new HDBTable();
+
+	@BeforeEach
+	public void openMocks() {
+		MockitoAnnotations.openMocks(this);
+	}
+
 //  @Ignore("Missing verifyPrivate() in Mockito, test needs to be refactored")
-//  @Test
-//  public void addColumnsSuccessfully() throws Exception {
-//    try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
-//        MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)) {
-//      configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
-//      sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
-//
-//      List<DataStructureHDBTableColumnModel> columns = new ArrayList<>();
-//      columns.add(new DataStructureHDBTableColumnModel("Id", "NVARCHAR", "32", true, false, null, false, null, null, true, null));
-//      columns.add(new DataStructureHDBTableColumnModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
-//      tableModel.setColumns(columns);
-//      tableModel.setConstraints(constraintsModel);
-//      tableModel.setName("hdb_table::SampleHdbdd");
-//      tableModel.setSchema("MYSCHEMA");
-//
-//      HDBTableAlterHandler tableAlterHandler = new HDBTableAlterHandler(mockConnection, tableModel);
-//      HDBTableAlterHandler handlerSpy = spy(tableAlterHandler);
-//
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter()).thenReturn(alter);
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().table(any())).thenReturn(alterTableBuilder);
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().table(any()).add()).thenReturn(alterTableBuilder);
-//      when(alterTableBuilder.build()).thenReturn("sql");
-//
-//      handlerSpy.addColumns(mockConnection);
-////			verifyPrivate(handlerSpy, times(2)).invoke("executeAlterBuilder", mockConnection, alterTableBuilder);
-//    }
-//  }
-//
-//  @Test(expected = SQLException.class)
-//  public void addColumnsFailedWhenPrimaryKey() throws Exception {
-//    try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
-//        MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class);
-//        MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)) {
-//      configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
-//      sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
-//
-//      List<DataStructureHDBTableColumnModel> columns = new ArrayList<>();
-//      columns.add(new DataStructureHDBTableColumnModel("Age", "INTEGER", "32", true, true, null, false, null, null, true, null));
-//      tableModel.setColumns(columns);
-//      tableModel.setConstraints(constraintsModel);
-//      tableModel.setName("hdb_table::SampleHdbdd");
-//      tableModel.setSchema("MYSCHEMA");
-//
-//      HDBTableAlterHandler tableAlterHandler = new HDBTableAlterHandler(mockConnection, tableModel);
-//      HDBTableAlterHandler handlerSpy = spy(tableAlterHandler);
-//
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter()).thenReturn(alter);
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().table(any())).thenReturn(alterTableBuilder);
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().table(any()).add()).thenReturn(alterTableBuilder);
+	@Test
+	public void addColumnsSuccessfully() throws Exception {
+		try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
+				MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)) {
+			configuration.when(
+					() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
+					.thenReturn("true");
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
+			sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
+
+			List<HDBTableColumn> columns = new ArrayList<>();
+			columns.add(new HDBTableColumn("Id", "NVARCHAR", "32", true, false, null, null, false, tableModel));
+			columns.add(new HDBTableColumn("Name", "NVARCHAR", "32", true, false, null, null, false, tableModel));
+			tableModel.setColumns(columns);
+			tableModel.setConstraints(constraintsModel);
+			tableModel.setName("hdb_table::SampleHdbdd");
+			tableModel.setSchema("MYSCHEMA");
+
+			HDBTableAlterHandler tableAlterHandler = new HDBTableAlterHandler(mockConnection, tableModel);
+			HDBTableAlterHandler handlerSpy = spy(tableAlterHandler);
+
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter()).thenReturn(alter);
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().table(any()))
+					.thenReturn(alterTableBuilder);
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().table(any()).add())
+					.thenReturn(alterTableBuilder);
+			when(alterTableBuilder.build()).thenReturn("sql");
+
+			handlerSpy.addColumns(mockConnection);
+//			verifyPrivate(handlerSpy, times(2)).invoke("executeAlterBuilder", mockConnection, alterTableBuilder);
+		}
+	}
+
+	@Test
+	public void addColumnsFailedWhenPrimaryKey() throws Exception {
+		SQLException exception = Assertions.assertThrows(SQLException.class, () -> {
+			try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
+					MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class);
+//        MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)
+			) {
+				configuration.when(
+						() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
+						.thenReturn("true");
+				sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
+				sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
+
+				List<HDBTableColumn> columns = new ArrayList<>();
+				columns.add(new HDBTableColumn("Age", "INTEGER", "32", true, true, null, null, false, tableModel));
+				tableModel.setColumns(columns);
+				tableModel.setConstraints(constraintsModel);
+				tableModel.setName("hdb_table::SampleHdbdd");
+				tableModel.setSchema("MYSCHEMA");
+
+				HDBTableAlterHandler tableAlterHandler = new HDBTableAlterHandler(mockConnection, tableModel);
+				HDBTableAlterHandler handlerSpy = spy(tableAlterHandler);
+
+				sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter()).thenReturn(alter);
+				sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().table(any()))
+						.thenReturn(alterTableBuilder);
+				sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().table(any()).add())
+						.thenReturn(alterTableBuilder);
 //      problemsFacade.when(() -> ProblemsFacade.save(any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
 //          .thenAnswer((Answer<Void>) invocation -> null);
-//      handlerSpy.addColumns(mockConnection);
-//    }
-//  }
-//
+				handlerSpy.addColumns(mockConnection);
+			}
+		});
+	}
+
 //  @Ignore("Missing verifyPrivate() in Mockito, test needs to be refactored")
-//  @Test
-//  public void removeColumnsSuccessfully() throws Exception {
-//
-//    try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
-//        MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)) {
-//      configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
-//      sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
-//
-//      List<DataStructureHDBTableColumnModel> columns = new ArrayList<>();
-//      columns.add(new DataStructureHDBTableColumnModel("Id", "NVARCHAR", "32", true, false, null, false, null, null, true, null));
-//      columns.add(new DataStructureHDBTableColumnModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
-//      tableModel.setColumns(columns);
-//      tableModel.setConstraints(constraintsModel);
-//      tableModel.setName("hdb_table::SampleHdbdd");
-//      tableModel.setSchema("MYSCHEMA");
-//
-//      when(mockConnection.getMetaData()).thenReturn(databaseMetaData);
-//      when(databaseMetaData.getColumns(any(), any(), any(), any())).thenReturn(resultSet);
-//      when(resultSet.next()).thenReturn(true).thenReturn(false);
-//      when(resultSet.getString("COLUMN_NAME")).thenReturn("Test");
-//      when(resultSet.getString("TYPE_NAME")).thenReturn("NVARCHAR");
-//
-//      HDBTableAlterHandler tableAlterHandler = new HDBTableAlterHandler(mockConnection, tableModel);
-//      HDBTableAlterHandler handlerSpy = spy(tableAlterHandler);
-//
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter()).thenReturn(alter);
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().table(any())).thenReturn(alterTableBuilder);
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().table(any()).drop()).thenReturn(alterTableBuilder);
-//      when(alterTableBuilder.build()).thenReturn("sql");
-//
-//      handlerSpy.removeColumns(mockConnection);
-//      // TODO: Refactor -> Mockito doesn't have support for verifyPrivate()
-//      // verifyPrivate(handlerSpy, times(1)).invoke("executeAlterBuilder", mockConnection, alterTableBuilder);
-//    }
-//  }
-//
+	@Test
+	public void removeColumnsSuccessfully() throws Exception {
+
+		try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
+				MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)) {
+			configuration.when(
+					() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
+					.thenReturn("true");
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
+			sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
+
+			List<HDBTableColumn> columns = new ArrayList<>();
+			columns.add(new HDBTableColumn("Id", "NVARCHAR", "32", true, false, null, null, false, tableModel));
+			columns.add(new HDBTableColumn("Name", "NVARCHAR", "32", true, false, null, null, false, tableModel));
+			tableModel.setColumns(columns);
+			tableModel.setConstraints(constraintsModel);
+			tableModel.setName("hdb_table::SampleHdbdd");
+			tableModel.setSchema("MYSCHEMA");
+
+			when(mockConnection.getMetaData()).thenReturn(databaseMetaData);
+			when(databaseMetaData.getColumns(any(), any(), any(), any())).thenReturn(resultSet);
+			when(resultSet.next()).thenReturn(true).thenReturn(false);
+			when(resultSet.getString("COLUMN_NAME")).thenReturn("Test");
+			when(resultSet.getString("TYPE_NAME")).thenReturn("NVARCHAR");
+
+			HDBTableAlterHandler tableAlterHandler = new HDBTableAlterHandler(mockConnection, tableModel);
+			HDBTableAlterHandler handlerSpy = spy(tableAlterHandler);
+
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter()).thenReturn(alter);
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().table(any()))
+					.thenReturn(alterTableBuilder);
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().table(any()).drop())
+					.thenReturn(alterTableBuilder);
+			when(alterTableBuilder.build()).thenReturn("sql");
+
+			handlerSpy.removeColumns(mockConnection);
+			// TODO: Refactor -> Mockito doesn't have support for verifyPrivate()
+			// verifyPrivate(handlerSpy, times(1)).invoke("executeAlterBuilder",
+			// mockConnection, alterTableBuilder);
+		}
+	}
+
 //  @Ignore("Missing verifyPrivate() in Mockito, test needs to be refactored")
-//  @Test
-//  public void updateColumnsSuccessfully() throws Exception {
-//    try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
-//        MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)) {
-//      configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
-//      sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
-//
-//      List<DataStructureHDBTableColumnModel> columns = new ArrayList<>();
-//      columns.add(new DataStructureHDBTableColumnModel("Id", "NVARCHAR", "32", true, false, null, false, null, null, true, null));
-//      columns.add(new DataStructureHDBTableColumnModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
-//      tableModel.setColumns(columns);
-//      tableModel.setConstraints(constraintsModel);
-//      tableModel.setName("hdb_table::SampleHdbdd");
-//      tableModel.setSchema("MYSCHEMA");
-//
-//      when(mockConnection.getMetaData()).thenReturn(databaseMetaData);
-//      when(databaseMetaData.getColumns(any(), any(), any(), any())).thenReturn(resultSet);
-//      when(resultSet.next()).thenReturn(true).thenReturn(false);
-//      when(resultSet.getString("COLUMN_NAME")).thenReturn("Name");
-//      when(resultSet.getString("TYPE_NAME")).thenReturn("NVARCHAR");
-//
-//      HDBTableAlterHandler tableAlterHandler = new HDBTableAlterHandler(mockConnection, tableModel);
-//      HDBTableAlterHandler handlerSpy = spy(tableAlterHandler);
-//
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter()).thenReturn(alter);
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().table(any())).thenReturn(alterTableBuilder);
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().table(any()).alter()).thenReturn(alterTableBuilder);
-//      when(alterTableBuilder.build()).thenReturn("sql");
-//
-//      handlerSpy.updateColumns(mockConnection);
-//      // TODO: Refactor -> Mockito doesn't have support for verifyPrivate()
-//      // verifyPrivate(handlerSpy, times(1)).invoke("executeAlterBuilder", mockConnection, alterTableBuilder);
-//    }
-//  }
-//
+	@Test
+	public void updateColumnsSuccessfully() throws Exception {
+		try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
+				MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)) {
+			configuration.when(
+					() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
+					.thenReturn("true");
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
+			sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
+
+			List<HDBTableColumn> columns = new ArrayList<>();
+			columns.add(new HDBTableColumn("Id", "NVARCHAR", "32", true, false, null, null, false, tableModel));
+			columns.add(new HDBTableColumn("Name", "NVARCHAR", "32", true, false, null, null, false, tableModel));
+			tableModel.setColumns(columns);
+			tableModel.setConstraints(constraintsModel);
+			tableModel.setName("hdb_table::SampleHdbdd");
+			tableModel.setSchema("MYSCHEMA");
+
+			when(mockConnection.getMetaData()).thenReturn(databaseMetaData);
+			when(databaseMetaData.getColumns(any(), any(), any(), any())).thenReturn(resultSet);
+			when(resultSet.next()).thenReturn(true).thenReturn(false);
+			when(resultSet.getString("COLUMN_NAME")).thenReturn("Name");
+			when(resultSet.getString("TYPE_NAME")).thenReturn("NVARCHAR");
+
+			HDBTableAlterHandler tableAlterHandler = new HDBTableAlterHandler(mockConnection, tableModel);
+			HDBTableAlterHandler handlerSpy = spy(tableAlterHandler);
+
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter()).thenReturn(alter);
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().table(any()))
+					.thenReturn(alterTableBuilder);
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().table(any()).alter())
+					.thenReturn(alterTableBuilder);
+			when(alterTableBuilder.build()).thenReturn("sql");
+
+			handlerSpy.updateColumns(mockConnection);
+			// TODO: Refactor -> Mockito doesn't have support for verifyPrivate()
+			// verifyPrivate(handlerSpy, times(1)).invoke("executeAlterBuilder",
+			// mockConnection, alterTableBuilder);
+		}
+	}
+
 //  @Ignore("Missing verifyPrivate() in Mockito, test needs to be refactored")
-//  @Test
-//  public void rebuildIndecesSuccessfully() throws Exception {
-//    try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
-//        MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)) {
-//      configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
-//      sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
-//      List<DataStructureHDBTableColumnModel> columns = new ArrayList<>();
-//      columns.add(new DataStructureHDBTableColumnModel("Id", "NVARCHAR", "32", true, false, null, false, null, null, true, null));
-//      columns.add(new DataStructureHDBTableColumnModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
-//      tableModel.setColumns(columns);
-//      tableModel.setConstraints(constraintsModel);
-//      tableModel.setName("hdb_table::SampleHdbdd");
-//      tableModel.setSchema("MYSCHEMA");
-//
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter()).thenReturn(alter);
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().table(any())).thenReturn(alterTableBuilder);
-//      when(alterTableBuilder.build()).thenReturn("sql");
-//
-//      HDBTableAlterHandler tableAlterHandler = new HDBTableAlterHandler(mockConnection, tableModel);
-//      HDBTableAlterHandler handlerSpy = spy(tableAlterHandler);
-//
-//      handlerSpy.rebuildIndeces(mockConnection);
-//      // TODO: Refactor -> Mockito doesn't have support for verifyPrivate()
-//      // verifyPrivate(handlerSpy, times(1)).invoke("executeAlterBuilder", mockConnection, alterTableBuilder);
-//    }
-//  }
-//
-//  @Test(expected = SQLException.class)
-//  public void ensurePrimaryKeyIsUnchangedSuccessfully() throws Exception {
-//    try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
-//        MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class);
-//        MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)) {
-//      configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
-//      sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
-//
-//      List<DataStructureHDBTableColumnModel> columns = new ArrayList<>();
-//      columns.add(new DataStructureHDBTableColumnModel("Id", "NVARCHAR", "32", true, true, null, false, null, null, true, null));
-//      columns.add(new DataStructureHDBTableColumnModel("Name", "NVARCHAR", "32", true, false, null, false, null, null, false, null));
-//      tableModel.setColumns(columns);
-//      tableModel.setConstraints(constraintsModel);
-//      primaryKey.setColumns(new String[]{"Id"});
-//      constraintsModel.setPrimaryKey(primaryKey);
-//      tableModel.setName("hdb_table::SampleHdbdd");
-//      tableModel.setSchema("MYSCHEMA");
-//
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter()).thenReturn(alter);
+	@Test
+	public void rebuildIndecesSuccessfully() throws Exception {
+		try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
+				MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)) {
+			configuration.when(
+					() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
+					.thenReturn("true");
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
+			sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
+			List<HDBTableColumn> columns = new ArrayList<>();
+			columns.add(new HDBTableColumn("Id", "NVARCHAR", "32", true, false, null, null, false, tableModel));
+			columns.add(new HDBTableColumn("Name", "NVARCHAR", "32", true, false, null, null, false, tableModel));
+			tableModel.setColumns(columns);
+			tableModel.setConstraints(constraintsModel);
+			tableModel.setName("hdb_table::SampleHdbdd");
+			tableModel.setSchema("MYSCHEMA");
+
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter()).thenReturn(alter);
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().table(any()))
+					.thenReturn(alterTableBuilder);
+			when(alterTableBuilder.build()).thenReturn("sql");
+
+			HDBTableAlterHandler tableAlterHandler = new HDBTableAlterHandler(mockConnection, tableModel);
+			HDBTableAlterHandler handlerSpy = spy(tableAlterHandler);
+
+			handlerSpy.rebuildIndeces(mockConnection);
+			// TODO: Refactor -> Mockito doesn't have support for verifyPrivate()
+			// verifyPrivate(handlerSpy, times(1)).invoke("executeAlterBuilder",
+			// mockConnection, alterTableBuilder);
+		}
+	}
+
+	@Test
+	public void ensurePrimaryKeyIsUnchangedSuccessfully() throws Exception {
+		SQLException exception = Assertions.assertThrows(SQLException.class, () -> {
+			try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
+					MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class);
+//        MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)
+			) {
+				configuration.when(
+						() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
+						.thenReturn("true");
+				sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
+				sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
+
+				List<HDBTableColumn> columns = new ArrayList<>();
+				columns.add(new HDBTableColumn("Id", "NVARCHAR", "32", true, true, null, null, false, tableModel));
+				columns.add(new HDBTableColumn("Name", "NVARCHAR", "32", true, false, null, null, false, tableModel));
+				tableModel.setColumns(columns);
+				tableModel.setConstraints(constraintsModel);
+				primaryKey.setColumns(new String[] { "Id" });
+				constraintsModel.setPrimaryKey(primaryKey);
+				tableModel.setName("hdb_table::SampleHdbdd");
+				tableModel.setSchema("MYSCHEMA");
+
+				sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter()).thenReturn(alter);
 //      problemsFacade.when(() -> ProblemsFacade.save(any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
 //          .thenAnswer((Answer<Void>) invocation -> null);
-//      HDBTableAlterHandler tableAlterHandler = new HDBTableAlterHandler(mockConnection, tableModel);
-//      HDBTableAlterHandler handlerSpy = spy(tableAlterHandler);
-//
-//      handlerSpy.ensurePrimaryKeyIsUnchanged(mockConnection);
-//    }
-//  }
-  
-  /**
-   * The Class TestConfiguration.
-   */
-  @EnableJpaRepositories(basePackages = "com.codbex.kronos")
-  @SpringBootApplication(scanBasePackages = {"com.codbex.kronos", "org.eclipse.dirigible.components"})
-  @EnableScheduling
-  static class TestConfiguration {
-  }
+				HDBTableAlterHandler tableAlterHandler = new HDBTableAlterHandler(mockConnection, tableModel);
+				HDBTableAlterHandler handlerSpy = spy(tableAlterHandler);
+
+				handlerSpy.ensurePrimaryKeyIsUnchanged(mockConnection);
+			}
+		});
+	}
+
+	/**
+	 * The Class TestConfiguration.
+	 */
+	@EnableJpaRepositories(basePackages = "com.codbex.kronos")
+	@SpringBootApplication(scanBasePackages = { "com.codbex.kronos", "org.eclipse.dirigible.components" })
+	@EnableScheduling
+	static class TestConfiguration {
+	}
 
 }

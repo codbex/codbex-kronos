@@ -27,6 +27,7 @@ import java.sql.SQLException;
 import javax.transaction.Transactional;
 
 import org.eclipse.dirigible.commons.config.Configuration;
+import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;
 import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
 import org.eclipse.dirigible.database.sql.SqlFactory;
@@ -38,15 +39,16 @@ import org.eclipse.dirigible.database.sql.builders.sequence.CreateSequenceBuilde
 import org.eclipse.dirigible.database.sql.builders.sequence.DropSequenceBuilder;
 import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
 import org.eclipse.dirigible.database.sql.dialects.postgres.PostgresSqlDialect;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Answers;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -56,206 +58,232 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import com.codbex.kronos.engine.hdb.domain.HDBSequence;
 import com.codbex.kronos.engine.hdb.processors.HDBSequenceCreateProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBSequenceDropProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBSequenceUpdateProcessor;
 
-//@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})
-@EntityScan(value = {"org.eclipse.dirigible.components", "com.codbex.kronos"})
+@ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
+@EntityScan(value = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
 @Transactional
+@ExtendWith(MockitoExtension.class)
 public class HDBSequenceProcessorsTest {
 
-//  @Mock(answer = Answers.RETURNS_DEEP_STUBS)
-//  private Connection mockConnection;
-//
-//  @Mock(answer = Answers.RETURNS_DEEP_STUBS)
-//  private SqlFactory mockSqlFactory;
-//
-//  @Mock
-//  private CreateBranchingBuilder create;
-//
-//  @Mock
-//  private AlterBranchingBuilder alter;
-//
-//  @Mock
-//  private DropBranchingBuilder drop;
-//
-//  @Mock
-//  private CreateSequenceBuilder mockCreateSequenceBuilder;
-//
-//  @Mock
-//  private AlterSequenceBuilder mockAlterSequenceBuilder;
-//
-//  @Mock
-//  private DropSequenceBuilder mockDropSequenceBuilder;
-//
-//  @Before
-//  public void openMocks() {
-//    MockitoAnnotations.openMocks(this);
-//  }
-//
-//  @Test
-//  public void executeCreateSuccessfully() throws Exception {
-//    HDBSequenceCreateProcessor spyProccessor = spy(HDBSequenceCreateProcessor.class);
-//
-//    DataStructureHDBSequenceModel mockModel = mock(DataStructureHDBSequenceModel.class);
-//    String sql = "TestExecuteCreateSuccessfully";
-//    try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class)) {
-//      sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
-//      sqlFactory.when(() -> mockModel.getName()).thenReturn("\"MYSCHEMA\".\"hdb_sequence::SampleSequence_HanaXSClassic\"");
-//      sqlFactory.when(() -> mockModel.getDBContentType()).thenReturn(DBContentType.XS_CLASSIC);
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).create()).thenReturn(create);
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).create().sequence(any())).thenReturn(mockCreateSequenceBuilder);
-//      when(mockModel.getResetBy()).thenReturn("LL");
-//      when(mockCreateSequenceBuilder.start(anyInt())).thenReturn(mockCreateSequenceBuilder);
-//      when(mockCreateSequenceBuilder.start(anyInt()).increment(anyInt())).thenReturn(mockCreateSequenceBuilder);
-//      when(mockCreateSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt())).thenReturn(mockCreateSequenceBuilder);
-//      when(mockCreateSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt()).nomaxvalue(anyBoolean())).thenReturn(
-//          mockCreateSequenceBuilder);
-//      when(mockCreateSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt()).nomaxvalue(anyBoolean())
-//          .minvalue(anyInt())).thenReturn(mockCreateSequenceBuilder);
-//      when(mockCreateSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt()).nomaxvalue(anyBoolean()).minvalue(anyInt())
-//          .nominvalue(anyBoolean())).thenReturn(mockCreateSequenceBuilder);
-//      when(mockCreateSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt()).nomaxvalue(anyBoolean()).minvalue(anyInt())
-//          .nominvalue(anyBoolean()).cycles(anyBoolean())).thenReturn(mockCreateSequenceBuilder);
-//      when(mockCreateSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt()).nomaxvalue(anyBoolean()).minvalue(anyInt())
-//          .nominvalue(anyBoolean()).cycles(anyBoolean()).resetBy(anyString())).thenReturn(mockCreateSequenceBuilder);
-//      when(mockCreateSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt()).nomaxvalue(anyBoolean()).minvalue(anyInt())
-//          .nominvalue(anyBoolean()).cycles(anyBoolean()).resetBy(anyString()).build()).thenReturn(sql);
-//      spyProccessor.execute(mockConnection, mockModel);
-//
-//      verify(spyProccessor, times(1)).executeSql(sql, mockConnection);
-//    }
-//
-//  }
-//
-//  @Test
-//  public void executeUpdateSuccessfully() throws SQLException {
-//    HDBSequenceUpdateProcessor spyProccessor = spy(HDBSequenceUpdateProcessor.class);
-//    DataStructureHDBSequenceModel mockModel = mock(DataStructureHDBSequenceModel.class);
-//    String sql = "TestExecuteUpdateSuccessfully";
-//
-//    try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class)) {
-//      sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter()).thenReturn(alter);
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().sequence(any())).thenReturn(mockAlterSequenceBuilder);
-//      when(mockModel.getName()).thenReturn("\"MYSCHEMA\".\"hdb_sequence::SampleSequence_HanaXSClassic\"");
-//      when(mockModel.getDBContentType()).thenReturn(DBContentType.XS_CLASSIC);
-//      when(mockModel.getResetBy()).thenReturn("LL");
-//      when(mockAlterSequenceBuilder.start(anyInt())).thenReturn(mockAlterSequenceBuilder);
-//      when(mockAlterSequenceBuilder.start(anyInt()).increment(anyInt())).thenReturn(mockAlterSequenceBuilder);
-//      when(mockAlterSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt())).thenReturn(mockAlterSequenceBuilder);
-//      when(mockAlterSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt()).nomaxvalue(anyBoolean())).thenReturn(
-//          mockAlterSequenceBuilder);
-//      when(mockAlterSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt()).nomaxvalue(anyBoolean())
-//          .minvalue(anyInt())).thenReturn(mockAlterSequenceBuilder);
-//      when(mockAlterSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt()).nomaxvalue(anyBoolean()).minvalue(anyInt())
-//          .nominvalue(anyBoolean())).thenReturn(mockAlterSequenceBuilder);
-//      when(mockAlterSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt()).nomaxvalue(anyBoolean()).minvalue(anyInt())
-//          .nominvalue(anyBoolean()).cycles(anyBoolean())).thenReturn(mockAlterSequenceBuilder);
-//      when(mockAlterSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt()).nomaxvalue(anyBoolean()).minvalue(anyInt())
-//          .nominvalue(anyBoolean()).cycles(anyBoolean()).resetBy(anyString())).thenReturn(mockAlterSequenceBuilder);
-//      when(mockAlterSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt()).nomaxvalue(anyBoolean()).minvalue(anyInt())
-//          .nominvalue(anyBoolean()).cycles(anyBoolean()).resetBy(anyString()).build()).thenReturn(sql);
-//      spyProccessor.execute(mockConnection, mockModel);
-//
-//      verify(spyProccessor, times(1)).executeSql(sql, mockConnection);
-//    }
-//  }
-//
-//  @Test
-//  public void executeDropSuccessfully() throws SQLException {
-//    HDBSequenceDropProcessor spyProccessor = spy(HDBSequenceDropProcessor.class);
-//    try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
-//        MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)) {
-//      DataStructureHDBSequenceModel mockModel = mock(DataStructureHDBSequenceModel.class);
-//      String sql = "TestExecuteDropSuccessfully";
-//      configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("false");
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
-//
-//      sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
-//      when(mockModel.getName()).thenReturn("\"MYSCHEMA\".\"hdb_sequence::SampleSequence_HanaXSClassic\"");
-//      sqlFactory.when(
-//              () -> SqlFactory.getNative(mockConnection).exists(mockConnection, mockModel.getName(), DatabaseArtifactTypes.SEQUENCE))
-//          .thenReturn(true);
-//      when(mockModel.getDBContentType()).thenReturn(DBContentType.XS_CLASSIC);
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).drop()).thenReturn(drop);
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).drop().sequence(any())).thenReturn(mockDropSequenceBuilder);
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection).drop().sequence(any()).build()).thenReturn(sql);
-//
-//      spyProccessor.execute(mockConnection, mockModel);
-//
-//      verify(spyProccessor, times(1)).executeSql(sql, mockConnection);
-//    }
-//
-//  }
-//
-//  @Test(expected = IllegalStateException.class)
-//  public void executeCreateFailed() throws Exception {
-//    HDBSequenceCreateProcessor spyProccessor = spy(HDBSequenceCreateProcessor.class);
-//
-//    DataStructureHDBSequenceModel mockModel = mock(DataStructureHDBSequenceModel.class);
-//    try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
-//        MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)) {
-//      when(mockModel.getName()).thenReturn("\"MYSCHEMA\".\"hdb_sequence::SampleSequence_HanaXSClassic\"");
-//      when(mockModel.getDBContentType()).thenReturn(DBContentType.OTHERS);
-//      sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new PostgresSqlDialect());
-//      problemsFacade.when(() -> ProblemsFacade.save(any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
-//          .thenAnswer((Answer<Void>) invocation -> null);
-//      spyProccessor.execute(mockConnection, mockModel);
-//    }
-//  }
-//
-//  @Test(expected = IllegalStateException.class)
-//  public void executeUpdateFailed() throws Exception {
-//    HDBSequenceUpdateProcessor spyProccessor = spy(HDBSequenceUpdateProcessor.class);
-//    DataStructureHDBSequenceModel mockModel = mock(DataStructureHDBSequenceModel.class);
-//    try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
-//        MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)) {
-//      when(mockModel.getName()).thenReturn("\"MYSCHEMA\".\"hdb_sequence::SampleSequence_HanaXSClassic\"");
-//      when(mockModel.getDBContentType()).thenReturn(DBContentType.OTHERS);
-//      sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new PostgresSqlDialect());
-//      problemsFacade.when(() -> ProblemsFacade.save(any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
-//          .thenAnswer((Answer<Void>) invocation -> null);
-//      spyProccessor.execute(mockConnection, mockModel);
-//    }
-//  }
-//
-//  @Test(expected = IllegalStateException.class)
-//  public void executeDropFailed() throws Exception {
-//    HDBSequenceDropProcessor spyProccessor = spy(HDBSequenceDropProcessor.class);
-//    try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
-//        MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class);
-//        MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)) {
-//
-//      DataStructureHDBSequenceModel mockModel = mock(DataStructureHDBSequenceModel.class);
-//      when(mockModel.getName()).thenReturn("\"MYSCHEMA\".\"hdb_sequence::SampleSequence_HanaXSClassic\"");
-//      configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("false");
-//      sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
-//      sqlFactory.when(
-//              () -> SqlFactory.getNative(mockConnection).exists(mockConnection, mockModel.getName(), DatabaseArtifactTypes.SEQUENCE))
-//          .thenReturn(true);
-//      when(mockModel.getDBContentType()).thenReturn(DBContentType.OTHERS);
-//      sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new PostgresSqlDialect());
-//      problemsFacade.when(() -> ProblemsFacade.save(any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
-//          .thenAnswer((Answer<Void>) invocation -> null);
-//      spyProccessor.execute(mockConnection, mockModel);
-//    }
-//  }
-  
-  /**
-   * The Class TestConfiguration.
-   */
-  @EnableJpaRepositories(basePackages = "com.codbex.kronos")
-  @SpringBootApplication(scanBasePackages = {"com.codbex.kronos", "org.eclipse.dirigible.components"})
-  @EnableScheduling
-  static class TestConfiguration {
-  }
+	@Mock(answer = Answers.RETURNS_DEEP_STUBS)
+	private Connection mockConnection;
+
+	@Mock(answer = Answers.RETURNS_DEEP_STUBS)
+	private SqlFactory mockSqlFactory;
+
+	@Mock
+	private CreateBranchingBuilder create;
+
+	@Mock
+	private AlterBranchingBuilder alter;
+
+	@Mock
+	private DropBranchingBuilder drop;
+
+	@Mock
+	private CreateSequenceBuilder mockCreateSequenceBuilder;
+
+	@Mock
+	private AlterSequenceBuilder mockAlterSequenceBuilder;
+
+	@Mock
+	private DropSequenceBuilder mockDropSequenceBuilder;
+
+	@BeforeEach
+	public void openMocks() {
+		MockitoAnnotations.openMocks(this);
+	}
+
+	@Test
+	public void executeCreateSuccessfully() throws Exception {
+		HDBSequenceCreateProcessor spyProccessor = spy(HDBSequenceCreateProcessor.class);
+
+		HDBSequence mockModel = mock(HDBSequence.class);
+		String sql = "TestExecuteCreateSuccessfully";
+		try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class)) {
+			sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
+			sqlFactory.when(() -> mockModel.getName())
+					.thenReturn("\"MYSCHEMA\".\"hdb_sequence::SampleSequence_HanaXSClassic\"");
+			sqlFactory.when(() -> mockModel.isClassic()).thenReturn(true);
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).create()).thenReturn(create);
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).create().sequence(any()))
+					.thenReturn(mockCreateSequenceBuilder);
+			when(mockModel.getResetBy()).thenReturn("LL");
+			when(mockCreateSequenceBuilder.start(anyInt())).thenReturn(mockCreateSequenceBuilder);
+			when(mockCreateSequenceBuilder.start(anyInt()).increment(anyInt())).thenReturn(mockCreateSequenceBuilder);
+			when(mockCreateSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt()))
+					.thenReturn(mockCreateSequenceBuilder);
+			when(mockCreateSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt())
+					.nomaxvalue(anyBoolean())).thenReturn(mockCreateSequenceBuilder);
+			when(mockCreateSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt())
+					.nomaxvalue(anyBoolean()).minvalue(anyInt())).thenReturn(mockCreateSequenceBuilder);
+			when(mockCreateSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt())
+					.nomaxvalue(anyBoolean()).minvalue(anyInt()).nominvalue(anyBoolean()))
+					.thenReturn(mockCreateSequenceBuilder);
+			when(mockCreateSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt())
+					.nomaxvalue(anyBoolean()).minvalue(anyInt()).nominvalue(anyBoolean()).cycles(anyBoolean()))
+					.thenReturn(mockCreateSequenceBuilder);
+			when(mockCreateSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt())
+					.nomaxvalue(anyBoolean()).minvalue(anyInt()).nominvalue(anyBoolean()).cycles(anyBoolean())
+					.resetBy(anyString())).thenReturn(mockCreateSequenceBuilder);
+			when(mockCreateSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt())
+					.nomaxvalue(anyBoolean()).minvalue(anyInt()).nominvalue(anyBoolean()).cycles(anyBoolean())
+					.resetBy(anyString()).build()).thenReturn(sql);
+			spyProccessor.execute(mockConnection, mockModel);
+
+			verify(spyProccessor, times(1)).executeSql(sql, mockConnection);
+		}
+
+	}
+
+	@Test
+	public void executeUpdateSuccessfully() throws SQLException {
+		HDBSequenceUpdateProcessor spyProccessor = spy(HDBSequenceUpdateProcessor.class);
+		HDBSequence mockModel = mock(HDBSequence.class);
+		String sql = "TestExecuteUpdateSuccessfully";
+
+		try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class)) {
+			sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter()).thenReturn(alter);
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).alter().sequence(any()))
+					.thenReturn(mockAlterSequenceBuilder);
+			when(mockModel.getName()).thenReturn("\"MYSCHEMA\".\"hdb_sequence::SampleSequence_HanaXSClassic\"");
+			when(mockModel.isClassic()).thenReturn(true);
+			when(mockModel.getResetBy()).thenReturn("LL");
+			when(mockAlterSequenceBuilder.start(anyInt())).thenReturn(mockAlterSequenceBuilder);
+			when(mockAlterSequenceBuilder.start(anyInt()).increment(anyInt())).thenReturn(mockAlterSequenceBuilder);
+			when(mockAlterSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt()))
+					.thenReturn(mockAlterSequenceBuilder);
+			when(mockAlterSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt())
+					.nomaxvalue(anyBoolean())).thenReturn(mockAlterSequenceBuilder);
+			when(mockAlterSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt())
+					.nomaxvalue(anyBoolean()).minvalue(anyInt())).thenReturn(mockAlterSequenceBuilder);
+			when(mockAlterSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt())
+					.nomaxvalue(anyBoolean()).minvalue(anyInt()).nominvalue(anyBoolean()))
+					.thenReturn(mockAlterSequenceBuilder);
+			when(mockAlterSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt())
+					.nomaxvalue(anyBoolean()).minvalue(anyInt()).nominvalue(anyBoolean()).cycles(anyBoolean()))
+					.thenReturn(mockAlterSequenceBuilder);
+			when(mockAlterSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt())
+					.nomaxvalue(anyBoolean()).minvalue(anyInt()).nominvalue(anyBoolean()).cycles(anyBoolean())
+					.resetBy(anyString())).thenReturn(mockAlterSequenceBuilder);
+			when(mockAlterSequenceBuilder.start(anyInt()).increment(anyInt()).maxvalue(anyInt())
+					.nomaxvalue(anyBoolean()).minvalue(anyInt()).nominvalue(anyBoolean()).cycles(anyBoolean())
+					.resetBy(anyString()).build()).thenReturn(sql);
+			spyProccessor.execute(mockConnection, mockModel);
+
+			verify(spyProccessor, times(1)).executeSql(sql, mockConnection);
+		}
+	}
+
+	@Test
+	public void executeDropSuccessfully() throws SQLException {
+		HDBSequenceDropProcessor spyProccessor = spy(HDBSequenceDropProcessor.class);
+		try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
+				MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)) {
+			HDBSequence mockModel = mock(HDBSequence.class);
+			String sql = "TestExecuteDropSuccessfully";
+			configuration.when(
+					() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
+					.thenReturn("false");
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
+
+			sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
+			when(mockModel.getName()).thenReturn("\"MYSCHEMA\".\"hdb_sequence::SampleSequence_HanaXSClassic\"");
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).exists(mockConnection, mockModel.getName(),
+					DatabaseArtifactTypes.SEQUENCE)).thenReturn(true);
+			when(mockModel.isClassic()).thenReturn(true);
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).drop()).thenReturn(drop);
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).drop().sequence(any()))
+					.thenReturn(mockDropSequenceBuilder);
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).drop().sequence(any()).build()).thenReturn(sql);
+
+			spyProccessor.execute(mockConnection, mockModel);
+
+			verify(spyProccessor, times(1)).executeSql(sql, mockConnection);
+		}
+
+	}
+
+	@Test
+	public void executeCreateFailed() throws Exception {
+		IllegalStateException exception = Assertions.assertThrows(IllegalStateException.class, () -> {
+			HDBSequenceCreateProcessor spyProccessor = spy(HDBSequenceCreateProcessor.class);
+
+			HDBSequence mockModel = mock(HDBSequence.class);
+			try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
+					MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)) {
+				when(mockModel.getName()).thenReturn("\"MYSCHEMA\".\"hdb_sequence::SampleSequence_HanaXSClassic\"");
+				when(mockModel.isClassic()).thenReturn(false);
+				sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new PostgresSqlDialect());
+				problemsFacade.when(
+						() -> ProblemsFacade.save(any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
+						.thenAnswer((Answer<Void>) invocation -> null);
+				spyProccessor.execute(mockConnection, mockModel);
+			}
+		});
+	}
+
+	@Test
+	public void executeUpdateFailed() throws Exception {
+		IllegalStateException exception = Assertions.assertThrows(IllegalStateException.class, () -> {
+			HDBSequenceUpdateProcessor spyProccessor = spy(HDBSequenceUpdateProcessor.class);
+			HDBSequence mockModel = mock(HDBSequence.class);
+			try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
+					MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)) {
+				when(mockModel.getName()).thenReturn("\"MYSCHEMA\".\"hdb_sequence::SampleSequence_HanaXSClassic\"");
+				when(mockModel.isClassic()).thenReturn(false);
+				sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new PostgresSqlDialect());
+				problemsFacade.when(
+						() -> ProblemsFacade.save(any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
+						.thenAnswer((Answer<Void>) invocation -> null);
+				spyProccessor.execute(mockConnection, mockModel);
+			}
+		});
+	}
+
+	@Test
+	public void executeDropFailed() throws Exception {
+		IllegalStateException exception = Assertions.assertThrows(IllegalStateException.class, () -> {
+			HDBSequenceDropProcessor spyProccessor = spy(HDBSequenceDropProcessor.class);
+			try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
+					MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class);
+					MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)) {
+
+				HDBSequence mockModel = mock(HDBSequence.class);
+				when(mockModel.getName()).thenReturn("\"MYSCHEMA\".\"hdb_sequence::SampleSequence_HanaXSClassic\"");
+				configuration.when(
+						() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
+						.thenReturn("false");
+				sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
+				sqlFactory.when(() -> SqlFactory.getNative(mockConnection).exists(mockConnection, mockModel.getName(),
+						DatabaseArtifactTypes.SEQUENCE)).thenReturn(true);
+				when(mockModel.isClassic()).thenReturn(false);
+				sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new PostgresSqlDialect());
+				problemsFacade.when(
+						() -> ProblemsFacade.save(any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
+						.thenAnswer((Answer<Void>) invocation -> null);
+				spyProccessor.execute(mockConnection, mockModel);
+			}
+		});
+	}
+
+	/**
+	 * The Class TestConfiguration.
+	 */
+	@EnableJpaRepositories(basePackages = "com.codbex.kronos")
+	@SpringBootApplication(scanBasePackages = { "com.codbex.kronos", "org.eclipse.dirigible.components" })
+	@EnableScheduling
+	static class TestConfiguration {
+	}
 
 }

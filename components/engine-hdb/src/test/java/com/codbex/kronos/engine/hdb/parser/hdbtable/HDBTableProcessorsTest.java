@@ -20,14 +20,14 @@ import java.sql.Connection;
 
 import javax.transaction.Transactional;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Answers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -36,51 +36,52 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import com.codbex.kronos.engine.hdb.domain.HDBTable;
 import com.codbex.kronos.engine.hdb.processors.HDBTableAlterHandler;
 import com.codbex.kronos.engine.hdb.processors.HDBTableAlterProcessor;
 
-//@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})
 @EntityScan(value = {"org.eclipse.dirigible.components", "com.codbex.kronos"})
 @Transactional
+@ExtendWith(MockitoExtension.class)
 public class HDBTableProcessorsTest {
 
-//  @Mock(answer = Answers.RETURNS_DEEP_STUBS)
-//  private Connection mockConnection;
-//
-//  @Mock
-//  private DataStructureHDBTableModel mockModel;
-//
-//  @Mock
-//  private HDBTableAlterHandler mockHandler;
-//
-//  private HDBTableAlterProcessor tableAlterProcessor = spy(new HDBTableAlterProcessor());
-//
-//  @Before
-//  public void openMocks() {
-//    MockitoAnnotations.openMocks(this);
-//  }
-//
-//  @Test
-//  public void executeAlterSuccessfully() throws Exception {
-//    Mockito.doReturn(mockHandler).when(tableAlterProcessor).createTableAlterHandler(mockConnection, mockModel);
-//
-//    doNothing().when(mockHandler).addColumns(mockConnection);
-//    doNothing().when(mockHandler).removeColumns(mockConnection);
-//    doNothing().when(mockHandler).updateColumns(mockConnection);
-//    doNothing().when(mockHandler).rebuildIndeces(mockConnection);
-//    doNothing().when(mockHandler).ensurePrimaryKeyIsUnchanged(mockConnection);
-//
-//    tableAlterProcessor.execute(mockConnection, mockModel);
-//
-//    verify(mockHandler, times(1)).addColumns(mockConnection);
-//    verify(mockHandler, times(1)).removeColumns(mockConnection);
-//    verify(mockHandler, times(1)).updateColumns(mockConnection);
-//    verify(mockHandler, times(1)).rebuildIndeces(mockConnection);
-//    verify(mockHandler, times(1)).ensurePrimaryKeyIsUnchanged(mockConnection);
-//  }
+  @Mock(answer = Answers.RETURNS_DEEP_STUBS)
+  private Connection mockConnection;
+
+  @Mock
+  private HDBTable mockModel;
+
+  @Mock
+  private HDBTableAlterHandler mockHandler;
+
+  private HDBTableAlterProcessor tableAlterProcessor = spy(new HDBTableAlterProcessor());
+
+  @BeforeEach
+  public void openMocks() {
+    MockitoAnnotations.openMocks(this);
+  }
+
+  @Test
+  public void executeAlterSuccessfully() throws Exception {
+    Mockito.doReturn(mockHandler).when(tableAlterProcessor).createTableAlterHandler(mockConnection, mockModel);
+
+    doNothing().when(mockHandler).addColumns(mockConnection);
+    doNothing().when(mockHandler).removeColumns(mockConnection);
+    doNothing().when(mockHandler).updateColumns(mockConnection);
+    doNothing().when(mockHandler).rebuildIndeces(mockConnection);
+    doNothing().when(mockHandler).ensurePrimaryKeyIsUnchanged(mockConnection);
+
+    tableAlterProcessor.execute(mockConnection, mockModel);
+
+    verify(mockHandler, times(1)).addColumns(mockConnection);
+    verify(mockHandler, times(1)).removeColumns(mockConnection);
+    verify(mockHandler, times(1)).updateColumns(mockConnection);
+    verify(mockHandler, times(1)).rebuildIndeces(mockConnection);
+    verify(mockHandler, times(1)).ensurePrimaryKeyIsUnchanged(mockConnection);
+  }
   
   /**
    * The Class TestConfiguration.
