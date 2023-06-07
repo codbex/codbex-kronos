@@ -16,7 +16,7 @@ import org.eclipse.dirigible.commons.api.module.IDirigibleModule;
 /**
  * The Class ODataModule.
  */
-public class ODataModule implements IDirigibleModule {
+public class XSODataModule implements IDirigibleModule {
 
   /**
    * Configure.

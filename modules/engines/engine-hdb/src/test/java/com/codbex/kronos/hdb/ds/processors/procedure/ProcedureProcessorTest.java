@@ -17,11 +17,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.codbex.kronos.hdb.ds.model.DataStructureModelBuilder;
-import com.codbex.kronos.hdb.ds.model.hdbprocedure.DataStructureHDBProcedureModel;
-import com.codbex.kronos.utils.CommonsUtils;
-import com.codbex.kronos.utils.Constants;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
@@ -32,7 +27,7 @@ import org.apache.commons.io.IOUtils;
 import org.eclipse.dirigible.api.v3.problems.ProblemsFacade;
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.core.test.AbstractDirigibleTest;
-import org.eclipse.dirigible.database.ds.model.IDataStructureModel;
+import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;
 import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.eclipse.dirigible.database.sql.dialects.DefaultSqlDialect;
@@ -48,6 +43,11 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
+
+import com.codbex.kronos.hdb.ds.model.DataStructureModelBuilder;
+import com.codbex.kronos.hdb.ds.model.hdbprocedure.DataStructureHDBProcedureModel;
+import com.codbex.kronos.utils.CommonsUtils;
+import com.codbex.kronos.utils.Constants;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProcedureProcessorTest extends AbstractDirigibleTest {
@@ -85,7 +85,7 @@ public class ProcedureProcessorTest extends AbstractDirigibleTest {
         MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)) {
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
       sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
-      configuration.when(() -> Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
+      configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
 
       ProcedureCreateProcessor processorSpy = spy(ProcedureCreateProcessor.class);
       String hdbProcedureSample = IOUtils.toString(ProcedureProcessorTest.class.getResourceAsStream("/OrderProcedure.hdbprocedure"),
@@ -147,7 +147,7 @@ public class ProcedureProcessorTest extends AbstractDirigibleTest {
         MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)) {
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
       sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
-      configuration.when(() -> Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
+      configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
 
       ProcedureDropProcessor processorSpy = spy(ProcedureDropProcessor.class);
 

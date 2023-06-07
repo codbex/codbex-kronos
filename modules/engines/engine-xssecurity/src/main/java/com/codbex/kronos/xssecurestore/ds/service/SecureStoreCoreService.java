@@ -356,7 +356,7 @@ public class SecureStoreCoreService implements ISecureStoreCoreService {
    */
   private boolean isJSONValid(String content) {
     try {
-      GsonHelper.PARSER.parse(content);
+      GsonHelper.parseJson(content);
       return true;
     } catch (JsonSyntaxException ex) {
       return false;

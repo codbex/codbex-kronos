@@ -246,7 +246,7 @@ public class JobCoreService implements IJobCoreService {
    */
   @Override
   public JobArtifact parseJob(String json) {
-    JobArtifact jobDefinition = GsonHelper.GSON.fromJson(json, JobArtifact.class);
+    JobArtifact jobDefinition = GsonHelper.fromJson(json, JobArtifact.class);
     return jobDefinition;
   }
 
@@ -258,7 +258,7 @@ public class JobCoreService implements IJobCoreService {
    */
   @Override
   public JobArtifact parseJob(byte[] content) {
-    JobArtifact jobDefinition = GsonHelper.GSON
+    JobArtifact jobDefinition = GsonHelper
         .fromJson(new InputStreamReader(new ByteArrayInputStream(content), StandardCharsets.UTF_8),
             JobArtifact.class);
 

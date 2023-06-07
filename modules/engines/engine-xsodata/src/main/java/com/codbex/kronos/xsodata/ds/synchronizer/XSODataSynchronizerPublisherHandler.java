@@ -20,7 +20,7 @@ import com.codbex.kronos.xsodata.ds.model.ODataModel;
 /**
  * The Class ODataSynchronizerPublisherHandler.
  */
-public class ODataSynchronizerPublisherHandler extends MetadataPublisherHandler {
+public class XSODataSynchronizerPublisherHandler extends MetadataPublisherHandler {
 
   /**
    * Before publish.

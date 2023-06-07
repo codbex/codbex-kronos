@@ -21,9 +21,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.eclipse.dirigible.api.v3.problems.ProblemsFacade;
 import org.eclipse.dirigible.commons.config.Configuration;
-import org.eclipse.dirigible.database.ds.model.IDataStructureModel;
+import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.eclipse.dirigible.database.sql.builders.AlterBranchingBuilder;
 import org.eclipse.dirigible.database.sql.builders.table.AlterTableBuilder;
@@ -80,7 +81,7 @@ public class TableAlterHandlerTest {
   public void addColumnsSuccessfully() throws Exception {
     try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
         MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)) {
-      configuration.when(() -> Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
+      configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
       sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
 
@@ -110,7 +111,7 @@ public class TableAlterHandlerTest {
     try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
         MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class);
         MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)) {
-      configuration.when(() -> Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
+      configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
       sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
 
@@ -139,7 +140,7 @@ public class TableAlterHandlerTest {
 
     try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
         MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)) {
-      configuration.when(() -> Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
+      configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
       sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
 
@@ -176,7 +177,7 @@ public class TableAlterHandlerTest {
   public void updateColumnsSuccessfully() throws Exception {
     try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
         MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)) {
-      configuration.when(() -> Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
+      configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
       sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
 
@@ -213,7 +214,7 @@ public class TableAlterHandlerTest {
   public void rebuildIndecesSuccessfully() throws Exception {
     try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
         MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)) {
-      configuration.when(() -> Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
+      configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
       sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
       List<DataStructureHDBTableColumnModel> columns = new ArrayList<>();
@@ -242,7 +243,7 @@ public class TableAlterHandlerTest {
     try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
         MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class);
         MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)) {
-      configuration.when(() -> Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
+      configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
       sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
 

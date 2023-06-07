@@ -78,7 +78,7 @@ public class CloudPlatformDestinationFacade implements IScriptingFacade {
       throws IOException, MethodNotSupportedException {
     setKymaCloudPlatformFacade();
 
-    DestinationRequest destinationRequest = GsonHelper.GSON.fromJson(requestObject, DestinationRequest.class);
+    DestinationRequest destinationRequest = GsonHelper.fromJson(requestObject, DestinationRequest.class);
     HttpClientRequestOptions parsedOptions = HttpClientFacade.parseOptions(options);
     HttpDestination httpDestination = DestinationAccessor.getDestination(destinationName).asHttp();
     HttpClient client = HttpClientAccessor.getHttpClient(httpDestination);
@@ -95,7 +95,7 @@ public class CloudPlatformDestinationFacade implements IScriptingFacade {
     destinationResponse.setStatusCode(response.getStatusLine().getStatusCode());
     destinationResponse.setText(EntityUtils.toString(response.getEntity()));
 
-    return GsonHelper.GSON.toJson(destinationResponse);
+    return GsonHelper.toJson(destinationResponse);
   }
 
   /**

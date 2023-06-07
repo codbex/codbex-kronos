@@ -95,6 +95,6 @@ public class Destination {
    * @return the properties as JSON
    */
   public String getPropertiesAsJSON() {
-    return GsonHelper.GSON.toJson(getProperties());
+    return GsonHelper.toJson(getProperties());
   }
 }

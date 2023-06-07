@@ -27,7 +27,7 @@ import org.eclipse.dirigible.api.v3.problems.ProblemsFacade;
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.core.scheduler.api.ISynchronizerArtefactType.ArtefactState;
 import org.eclipse.dirigible.core.test.AbstractDirigibleTest;
-import org.eclipse.dirigible.database.ds.model.IDataStructureModel;
+import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;
 import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.eclipse.dirigible.database.sql.builders.CreateBranchingBuilder;
@@ -105,7 +105,7 @@ public class ViewProcessorTest extends AbstractDirigibleTest {
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection).create().view(any())).thenReturn(mockCreateViewBuilder);
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection).create().view(any()).asSelect(any())).thenReturn(mockCreateViewBuilder);
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection).create().view(any()).asSelect(any()).build()).thenReturn(mockSQL);
-      configuration.when(() -> Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
+      configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
 
       Mockito.doNothing().when(processorSpy).applyArtefactState(any(), any(), any(), any(), any());
 
@@ -131,7 +131,7 @@ public class ViewProcessorTest extends AbstractDirigibleTest {
       sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new HanaSqlDialect());
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection).exists(mockConnection, model.getName(), DatabaseArtifactTypes.VIEW))
           .thenReturn(false);
-      configuration.when(() -> Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
+      configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
 
       Mockito.doNothing().when(processorSpy).applyArtefactState(any(), any(), any(), any(), any());
 
@@ -177,7 +177,7 @@ public class ViewProcessorTest extends AbstractDirigibleTest {
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection).drop()).thenReturn(drop);
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection).drop().view(any())).thenReturn(mockDropViewBuilder);
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection).drop().view(any()).build()).thenReturn(mockSQL);
-      configuration.when(() -> Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
+      configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
       Mockito.doNothing().when(processorSpy).applyArtefactState(any(), any(), any(), any(), any());
 
       processorSpy.execute(mockConnection, model);

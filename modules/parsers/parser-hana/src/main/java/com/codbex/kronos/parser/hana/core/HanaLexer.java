@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-// Generated from com.codbex.kronos.parser.hana.core/Hana.g4 by ANTLR 4.10.1
+// Generated from java-escape by ANTLR 4.11.1
 package com.codbex.kronos.parser.hana.core;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
@@ -20,21 +20,13 @@ import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
-/**
- * The Class HanaLexer.
- */
-@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
+@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
 public class HanaLexer extends Lexer {
-	static { RuntimeMetaData.checkVersion("4.10.1", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.11.1", RuntimeMetaData.VERSION); }
 
-	/** The Constant _decisionToDFA. */
 	protected static final DFA[] _decisionToDFA;
-	
-	/** The Constant _sharedContextCache. */
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
-	
-	/** The Constant REGULAR_ID. */
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, A_LETTER=9, 
 		ADD=10, AFTER=11, AGENT=12, AGGREGATE=13, ALL=14, ALTER=15, ALPHANUM=16, 
@@ -135,22 +127,14 @@ public class HanaLexer extends Lexer {
 		GREATER_THAN_OP=557, CONCATENATION_OP=558, VERTICAL_BAR=559, EQUALS_OP=560, 
 		LEFT_BRACKET=561, RIGHT_BRACKET=562, INTRODUCER=563, SPACES=564, SINGLE_LINE_COMMENT=565, 
 		MULTI_LINE_COMMENT=566, PROMPT=567, REGULAR_ID=568;
-	
-	/** The channel names. */
 	public static String[] channelNames = {
 		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
 	};
 
-	/** The mode names. */
 	public static String[] modeNames = {
 		"DEFAULT_MODE"
 	};
 
-	/**
-	 * Make rule names.
-	 *
-	 * @return the string[]
-	 */
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"T__0", "T__1", "T__2", "T__3", "T__4", "T__5", "T__6", "T__7", "A_LETTER", 
@@ -246,15 +230,8 @@ public class HanaLexer extends Lexer {
 			"MULTI_LINE_COMMENT", "PROMPT", "NEWLINE", "SPACE", "REGULAR_ID"
 		};
 	}
-	
-	/** The Constant ruleNames. */
 	public static final String[] ruleNames = makeRuleNames();
 
-	/**
-	 * Make literal names.
-	 *
-	 * @return the string[]
-	 */
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'..'", "'''", "'=>'", "'!='", "'<>'", "'::'", "'^='", "'~='", 
@@ -307,15 +284,7 @@ public class HanaLexer extends Lexer {
 			"'>'", "'||'", "'|'", "'='", "'['", "']'", "'_'"
 		};
 	}
-	
-	/** The Constant _LITERAL_NAMES. */
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
-	
-	/**
-	 * Make symbolic names.
-	 *
-	 * @return the string[]
-	 */
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, "A_LETTER", "ADD", 
@@ -407,16 +376,10 @@ public class HanaLexer extends Lexer {
 			"PROMPT", "REGULAR_ID"
 		};
 	}
-	
-	/** The Constant _SYMBOLIC_NAMES. */
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
-	
-	/** The Constant VOCABULARY. */
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
 	/**
-	 * The Constant tokenNames.
-	 *
 	 * @deprecated Use {@link #VOCABULARY} instead.
 	 */
 	@Deprecated
@@ -435,22 +398,12 @@ public class HanaLexer extends Lexer {
 		}
 	}
 
-	/**
-	 * Gets the token names.
-	 *
-	 * @return the token names
-	 */
 	@Override
 	@Deprecated
 	public String[] getTokenNames() {
 		return tokenNames;
 	}
 
-	/**
-	 * Gets the vocabulary.
-	 *
-	 * @return the vocabulary
-	 */
 	@Override
 
 	public Vocabulary getVocabulary() {
@@ -458,65 +411,29 @@ public class HanaLexer extends Lexer {
 	}
 
 
-	/**
-	 * Instantiates a new hana lexer.
-	 *
-	 * @param input the input
-	 */
 	public HanaLexer(CharStream input) {
 		super(input);
 		_interp = new LexerATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
-	/**
-	 * Gets the grammar file name.
-	 *
-	 * @return the grammar file name
-	 */
 	@Override
 	public String getGrammarFileName() { return "Hana.g4"; }
 
-	/**
-	 * Gets the rule names.
-	 *
-	 * @return the rule names
-	 */
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
 
-	/**
-	 * Gets the serialized ATN.
-	 *
-	 * @return the serialized ATN
-	 */
 	@Override
 	public String getSerializedATN() { return _serializedATN; }
 
-	/**
-	 * Gets the channel names.
-	 *
-	 * @return the channel names
-	 */
 	@Override
 	public String[] getChannelNames() { return channelNames; }
 
-	/**
-	 * Gets the mode names.
-	 *
-	 * @return the mode names
-	 */
 	@Override
 	public String[] getModeNames() { return modeNames; }
 
-	/**
-	 * Gets the atn.
-	 *
-	 * @return the atn
-	 */
 	@Override
 	public ATN getATN() { return _ATN; }
 
-	/** The Constant _serializedATNSegment0. */
 	private static final String _serializedATNSegment0 =
 		"\u0004\u0000\u0238\u16b6\u0006\uffff\uffff\u0002\u0000\u0007\u0000\u0002"+
 		"\u0001\u0007\u0001\u0002\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002"+
@@ -2236,8 +2153,6 @@ public class HanaLexer extends Lexer {
 		"\u020e\u0000\u05ca\u05cb\u0003\u0437\u021b\u0000\u05cb\u05cc\u0003\u0421"+
 		"\u0210\u0000\u05cc\u05cd\u0003\u044b\u0225\u0000\u05cdT\u0001\u0000\u0000"+
 		"\u0000\u05ce\u05cf\u0003\u041d\u020e\u0000";
-	
-	/** The Constant _serializedATNSegment1. */
 	private static final String _serializedATNSegment1 =
 		"\u05cf\u05d0\u0003\u0437\u021b\u0000\u05d0\u05d1\u0003\u0437\u021b\u0000"+
 		"\u05d1\u05d2\u0003\u0431\u0218\u0000\u05d2\u05d3\u0003\u0423\u0211\u0000"+
@@ -4054,8 +3969,6 @@ public class HanaLexer extends Lexer {
 		"\u0003\u0423\u0211\u0000\u1403\u1404\u0003\u0445\u0222\u0000\u1404\u1405"+
 		"\u0005_\u0000\u0000\u1405\u1406\u0003\u043f\u021f\u0000\u1406\u1407\u0003"+
 		"\u041b\u020d\u0000\u1407\u1408\u0003\u0433\u0219";
-	
-	/** The Constant _serializedATNSegment2. */
 	private static final String _serializedATNSegment2 =
 		"\u0000\u1408\u1409\u0003\u0439\u021c\u0000\u1409\u03de\u0001\u0000\u0000"+
 		"\u0000\u140a\u140b\u0003\u0445\u0222\u0000\u140b\u140c\u0003\u041b\u020d"+
@@ -4419,8 +4332,6 @@ public class HanaLexer extends Lexer {
 		"\u15de\u15ea\u15ec\u160d\u1612\u1614\u161b\u1620\u1626\u162a\u1640\u165c"+
 		"\u1665\u166a\u166e\u1673\u167b\u1680\u168a\u169d\u16a2\u16a5\u16ac\u16b1"+
 		"\u16b3\u0003\u0007\u0215\u0000\u0006\u0000\u0000\u0000\u0001\u0000";
-	
-	/** The Constant _serializedATN. */
 	public static final String _serializedATN = Utils.join(
 		new String[] {
 			_serializedATNSegment0,
@@ -4429,8 +4340,6 @@ public class HanaLexer extends Lexer {
 		},
 		""
 	);
-	
-	/** The Constant _ATN. */
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

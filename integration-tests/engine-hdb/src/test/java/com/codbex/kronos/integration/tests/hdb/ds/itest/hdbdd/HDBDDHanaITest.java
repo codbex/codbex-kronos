@@ -21,15 +21,15 @@ import java.util.Arrays;
 
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.core.scheduler.api.SynchronizationException;
-import org.eclipse.dirigible.database.ds.model.IDataStructureModel;
+import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;
 import org.eclipse.dirigible.repository.local.LocalResource;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.codbex.kronos.integration.tests.hdb.ds.AbstractHDBITest;
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.integration.tests.core.hdb.module.HDBTestModule;
 import com.codbex.kronos.integration.tests.core.hdb.utils.HanaITestUtils;
+import com.codbex.kronos.integration.tests.hdb.ds.AbstractHDBITest;
 
 public class HDBDDHanaITest extends AbstractHDBITest {
 
@@ -44,7 +44,7 @@ public class HDBDDHanaITest extends AbstractHDBITest {
         "'/hdbdd-itest/EmployeesWithViewDefinitions.hdbdd'",
         "'/hdbdd-itest/CalculatedColumns.hdbdd'"
     ));
-    Configuration.set(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true");
+    Configuration.set(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true");
     facade.clearCache();
   }
 

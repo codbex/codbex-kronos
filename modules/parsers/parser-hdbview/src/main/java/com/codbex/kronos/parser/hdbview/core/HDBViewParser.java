@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-// Generated from com/codbex/kronos/parser/hdbview/core/HDBView.g4 by ANTLR 4.10.1
+// Generated from java-escape by ANTLR 4.11.1
 package com.codbex.kronos.parser.hdbview.core;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -20,9 +20,9 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
-@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
+@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
 public class HDBViewParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.10.1", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.11.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -91,7 +91,7 @@ public class HDBViewParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "HDBView.g4"; }
+	public String getGrammarFileName() { return "java-escape"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -107,6 +107,7 @@ public class HDBViewParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class HdbViewDefinitionContext extends ParserRuleContext {
 		public List<PropertyContext> property() {
 			return getRuleContexts(PropertyContext.class);
@@ -153,7 +154,7 @@ public class HDBViewParser extends Parser {
 				setState(19); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2) | (1L << T__3) | (1L << T__7) | (1L << T__8))) != 0) );
+			} while ( ((_la) & ~0x3f) == 0 && ((1L << _la) & 798L) != 0 );
 			}
 		}
 		catch (RecognitionException re) {
@@ -167,6 +168,7 @@ public class HDBViewParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class PropertyContext extends ParserRuleContext {
 		public SchemaPropContext schemaProp() {
 			return getRuleContext(SchemaPropContext.class,0);
@@ -269,6 +271,7 @@ public class HDBViewParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class SchemaPropContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBViewParser.EQ, 0); }
 		public TerminalNode STRING() { return getToken(HDBViewParser.STRING, 0); }
@@ -319,6 +322,7 @@ public class HDBViewParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class PublicPropContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBViewParser.EQ, 0); }
 		public TerminalNode BOOLEAN() { return getToken(HDBViewParser.BOOLEAN, 0); }
@@ -369,6 +373,7 @@ public class HDBViewParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class QueryPropContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBViewParser.EQ, 0); }
 		public TerminalNode STRING() { return getToken(HDBViewParser.STRING, 0); }
@@ -419,6 +424,7 @@ public class HDBViewParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class DependsOnPropContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBViewParser.EQ, 0); }
 		public TerminalNode SEMICOLON() { return getToken(HDBViewParser.SEMICOLON, 0); }
@@ -501,6 +507,7 @@ public class HDBViewParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class DependsOnTableContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBViewParser.EQ, 0); }
 		public TerminalNode SEMICOLON() { return getToken(HDBViewParser.SEMICOLON, 0); }
@@ -583,6 +590,7 @@ public class HDBViewParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class DependsOnViewContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBViewParser.EQ, 0); }
 		public TerminalNode SEMICOLON() { return getToken(HDBViewParser.SEMICOLON, 0); }

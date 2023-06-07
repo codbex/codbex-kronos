@@ -19,12 +19,13 @@ import static org.mockito.Mockito.verify;
 
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
+
 import org.apache.commons.io.IOUtils;
 import org.eclipse.dirigible.api.v3.problems.ProblemsFacade;
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.core.scheduler.api.ISynchronizerArtefactType.ArtefactState;
 import org.eclipse.dirigible.core.test.AbstractDirigibleTest;
-import org.eclipse.dirigible.database.ds.model.IDataStructureModel;
+import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;
 import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.eclipse.dirigible.database.sql.builders.CreateBranchingBuilder;
@@ -71,7 +72,7 @@ public class SynonymProcessorTest extends AbstractDirigibleTest {
   @Before
   public void openMocks() {
     MockitoAnnotations.openMocks(this);
-    Configuration.set(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true");
+    Configuration.set(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true");
   }
 
   @Test
@@ -93,7 +94,7 @@ public class SynonymProcessorTest extends AbstractDirigibleTest {
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection).create().synonym(any()).forSource(any()))
           .thenReturn(mockCreateSynonymBuilder);
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection).create().synonym(any()).forSource(any()).build()).thenReturn(mockSQL);
-      configuration.when(() -> Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
+      configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
 
       Mockito.doNothing().when(processorSpy).applyArtefactState(any(), any(), any(), any(), any());
 
@@ -149,7 +150,7 @@ public class SynonymProcessorTest extends AbstractDirigibleTest {
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection).drop()).thenReturn(drop);
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection).drop().synonym(any())).thenReturn(mockDropSynonymBuilder);
       sqlFactory.when(() -> SqlFactory.getNative(mockConnection).drop().synonym(any()).build()).thenReturn(mockSQL);
-      configuration.when(() -> Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
+      configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false")).thenReturn("true");
 
       Mockito.doNothing().when(processorSpy).applyArtefactState(any(), any(), any(), any(), any());
 

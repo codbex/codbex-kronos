@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-// Generated from com/codbex/kronos/parser/hdbti/core/HDBTI.g4 by ANTLR 4.10.1
+// Generated from java-escape by ANTLR 4.11.1
 package com.codbex.kronos.parser.hdbti.core;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -20,9 +20,9 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
-@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
+@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
 public class HDBTIParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.10.1", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.11.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -99,7 +99,7 @@ public class HDBTIParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "HDBTI.g4"; }
+	public String getGrammarFileName() { return "java-escape"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -115,6 +115,7 @@ public class HDBTIParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ImportArrContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBTIParser.EQ, 0); }
 		public TerminalNode RB() { return getToken(HDBTIParser.RB, 0); }
@@ -200,6 +201,7 @@ public class HDBTIParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ObjConfigContext extends ParserRuleContext {
 		public List<AssignExpressionContext> assignExpression() {
 			return getRuleContexts(AssignExpressionContext.class);
@@ -238,7 +240,7 @@ public class HDBTIParser extends Parser {
 			setState(54);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << T__14) | (1L << T__15) | (1L << T__16))) != 0)) {
+			while (((_la) & ~0x3f) == 0 && ((1L << _la) & 245696L) != 0) {
 				{
 				{
 				setState(51);
@@ -264,6 +266,7 @@ public class HDBTIParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AssignExpressionContext extends ParserRuleContext {
 		public AssignTableContext assignTable() {
 			return getRuleContext(AssignTableContext.class,0);
@@ -398,6 +401,7 @@ public class HDBTIParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AssignTableContext extends ParserRuleContext {
 		public TableNameContext tableName() {
 			return getRuleContext(TableNameContext.class,0);
@@ -450,6 +454,7 @@ public class HDBTIParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AssignSchemaContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBTIParser.EQ, 0); }
 		public TerminalNode STRING() { return getToken(HDBTIParser.STRING, 0); }
@@ -499,6 +504,7 @@ public class HDBTIParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AssignFileContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBTIParser.EQ, 0); }
 		public TerminalNode STRING() { return getToken(HDBTIParser.STRING, 0); }
@@ -548,6 +554,7 @@ public class HDBTIParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AssignHeaderContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBTIParser.EQ, 0); }
 		public TerminalNode BOOLEAN() { return getToken(HDBTIParser.BOOLEAN, 0); }
@@ -597,6 +604,7 @@ public class HDBTIParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AssignUseHeaderNamesContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBTIParser.EQ, 0); }
 		public TerminalNode BOOLEAN() { return getToken(HDBTIParser.BOOLEAN, 0); }
@@ -646,6 +654,7 @@ public class HDBTIParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AssignDelimFieldContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBTIParser.EQ, 0); }
 		public TerminalNode STRING() { return getToken(HDBTIParser.STRING, 0); }
@@ -695,6 +704,7 @@ public class HDBTIParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AssignDelimEnclosingContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBTIParser.EQ, 0); }
 		public TerminalNode STRING() { return getToken(HDBTIParser.STRING, 0); }
@@ -744,6 +754,7 @@ public class HDBTIParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AssignDistinguishEmptyFromNullContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBTIParser.EQ, 0); }
 		public TerminalNode BOOLEAN() { return getToken(HDBTIParser.BOOLEAN, 0); }
@@ -793,6 +804,7 @@ public class HDBTIParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AssignKeysContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBTIParser.EQ, 0); }
 		public KeyArrContext keyArr() {
@@ -842,6 +854,7 @@ public class HDBTIParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class KeyArrContext extends ParserRuleContext {
 		public TerminalNode RB() { return getToken(HDBTIParser.RB, 0); }
 		public TerminalNode LB() { return getToken(HDBTIParser.LB, 0); }
@@ -922,6 +935,7 @@ public class HDBTIParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class PairContext extends ParserRuleContext {
 		public PairKeyContext pairKey() {
 			return getRuleContext(PairKeyContext.class,0);
@@ -973,6 +987,7 @@ public class HDBTIParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class PairKeyContext extends ParserRuleContext {
 		public TerminalNode STRING() { return getToken(HDBTIParser.STRING, 0); }
 		public PairKeyContext(ParserRuleContext parent, int invokingState) {
@@ -1015,6 +1030,7 @@ public class HDBTIParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class PairValueContext extends ParserRuleContext {
 		public TerminalNode STRING() { return getToken(HDBTIParser.STRING, 0); }
 		public PairValueContext(ParserRuleContext parent, int invokingState) {
@@ -1057,6 +1073,7 @@ public class HDBTIParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class TableNameContext extends ParserRuleContext {
 		public TableNameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1086,7 +1103,7 @@ public class HDBTIParser extends Parser {
 			{
 			setState(136);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__14) | (1L << T__15) | (1L << T__16))) != 0)) ) {
+			if ( !(((_la) & ~0x3f) == 0 && ((1L << _la) & 229376L) != 0) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {

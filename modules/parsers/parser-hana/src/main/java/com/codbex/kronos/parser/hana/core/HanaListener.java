@@ -9,14 +9,13 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-// Generated from com.codbex.kronos.parser.hana.core/Hana.g4 by ANTLR 4.10.1
+// Generated from java-escape by ANTLR 4.11.1
 package com.codbex.kronos.parser.hana.core;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
  * This interface defines a complete listener for a parse tree produced by
  * {@link HanaParser}.
- *
  */
 public interface HanaListener extends ParseTreeListener {
 	/**

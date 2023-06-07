@@ -11,6 +11,19 @@
  */
 package com.codbex.kronos.hdb.ds.processors.table;
 
+import java.util.List;
+import java.util.Objects;
+
+import org.eclipse.dirigible.commons.config.Configuration;
+import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;
+import org.eclipse.dirigible.database.sql.DataType;
+import org.eclipse.dirigible.database.sql.ISqlKeywords;
+import org.eclipse.dirigible.database.sql.SqlFactory;
+import org.eclipse.dirigible.database.sql.TableStatements;
+import org.eclipse.dirigible.database.sql.builders.table.AbstractTableBuilder;
+import org.eclipse.dirigible.database.sql.dialects.hana.HanaCreateTableBuilder;
+import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
+
 import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableColumnModel;
 import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableConstraintCheckModel;
 import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableConstraintForeignKeyModel;
@@ -20,18 +33,6 @@ import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableIndexModel;
 import com.codbex.kronos.hdb.ds.model.hdbtable.DataStructureHDBTableModel;
 import com.codbex.kronos.utils.HDBUtils;
 
-import java.util.List;
-import java.util.Objects;
-import org.eclipse.dirigible.commons.config.Configuration;
-import org.eclipse.dirigible.database.ds.model.IDataStructureModel;
-import org.eclipse.dirigible.database.sql.DataType;
-import org.eclipse.dirigible.database.sql.ISqlKeywords;
-import org.eclipse.dirigible.database.sql.SqlFactory;
-import org.eclipse.dirigible.database.sql.TableStatements;
-import org.eclipse.dirigible.database.sql.builders.table.AbstractTableBuilder;
-import org.eclipse.dirigible.database.sql.dialects.hana.HanaCreateTableBuilder;
-import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
-
 /**
  * The Class TableBuilder.
  */
@@ -39,7 +40,7 @@ public class TableBuilder {
 
   /** The case sensitive. */
   private boolean caseSensitive = Boolean
-      .parseBoolean(Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true"));
+      .parseBoolean(Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true"));
 
   /**
    * Builds the.
