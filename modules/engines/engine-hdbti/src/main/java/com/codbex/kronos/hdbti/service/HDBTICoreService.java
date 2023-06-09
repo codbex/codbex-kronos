@@ -13,26 +13,6 @@ package com.codbex.kronos.hdbti.service;
 
 import static java.lang.String.format;
 
-import java.sql.SQLException;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import javax.sql.DataSource;
-
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.csv.CSVRecord;
-import org.eclipse.dirigible.commons.config.Configuration;
-import org.eclipse.dirigible.commons.config.StaticObjects;
-import org.eclipse.dirigible.database.persistence.model.PersistenceTableColumnModel;
-import org.eclipse.dirigible.database.persistence.model.PersistenceTableModel;
-import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;
-import org.eclipse.dirigible.engine.odata2.transformers.DBMetadataUtil;
-import org.eclipse.dirigible.repository.api.IRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.codbex.kronos.hdb.ds.api.DataStructuresException;
 import com.codbex.kronos.hdbti.api.ICSVRecordDao;
 import com.codbex.kronos.hdbti.api.ICSVToHDBTIRelationDao;
@@ -53,6 +33,25 @@ import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsDBUtils;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.utils.Utils;
+
+import java.sql.SQLException;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import javax.sql.DataSource;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.csv.CSVRecord;
+import org.apache.cxf.common.util.StringUtils;
+import org.eclipse.dirigible.commons.config.Configuration;
+import org.eclipse.dirigible.commons.config.StaticObjects;
+import org.eclipse.dirigible.database.ds.model.IDataStructureModel;
+import org.eclipse.dirigible.database.persistence.model.PersistenceTableColumnModel;
+import org.eclipse.dirigible.database.persistence.model.PersistenceTableModel;
+import org.eclipse.dirigible.engine.odata2.transformers.DBMetadataUtil;
+import org.eclipse.dirigible.repository.api.IRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Class HDBTICoreService.
@@ -308,7 +307,7 @@ public class HDBTICoreService implements IHDBTICoreService {
    */
   @Override
   public String convertToActualTableName(String tableName) {
-    boolean caseSensitive = Boolean.parseBoolean(Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"));
+    boolean caseSensitive = Boolean.parseBoolean(Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"));
     if (caseSensitive) {
       tableName = "\"" + tableName + "\"";
     }

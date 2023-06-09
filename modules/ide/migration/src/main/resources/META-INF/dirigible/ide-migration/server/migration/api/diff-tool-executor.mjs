@@ -1,6 +1,6 @@
 import { configurations as config } from "@dirigible/core";
 import { repository } from "@dirigible/platform";
-import { MigrationToolExecutor } from "./migration-tool-executor.mjs";
+import { MigrationToolExecutor } from "./migration-tool-executor";
 
 const differPath = config.get("user.dir") + "/target/dirigible/resources-neo-sdk/differ.sh";
 

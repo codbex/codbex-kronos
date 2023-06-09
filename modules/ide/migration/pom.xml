@@ -4,14 +4,14 @@
 
     <parent>
         <groupId>com.codbex.kronos</groupId>
-        <artifactId>codbex-kronos-modules-ide-parent</artifactId>
-        <version>0.4.0-SNAPSHOT</version>
+        <artifactId>kronos-modules-ide-parent</artifactId>
+        <version>0.2.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <name>kronos - modules - ide - migration</name>
-    <artifactId>codbex-kronos-modules-ide-migration</artifactId>
-    <version>0.4.0-SNAPSHOT</version>
+    <name>Kronos - Modules - IDE - Migration</name>
+    <artifactId>kronos-modules-ide-migration</artifactId>
+    <version>0.2.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -39,13 +39,13 @@
         </dependency>
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
-            <artifactId>dirigible-engine-javascript-graalium</artifactId>
+            <artifactId>dirigible-engine-javascript-graalvm</artifactId>
             <version>${dirigible.version}</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-modules-engines-hdb</artifactId>
-            <version>0.4.0-SNAPSHOT</version>
+            <artifactId>kronos-modules-engines-hdb</artifactId>
+            <version>0.2.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

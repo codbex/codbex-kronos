@@ -10,7 +10,7 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 
-import { XSJSLibExportsGenerator } from './XSJSLibExportsGenerator.mjs'
+import { XSJSLibExportsGenerator } from '/exports/XSJSLibExportsGenerator.mjs'
 const stateTableParams = {
   name: __context.stateTableName,
   schema: "PUBLIC"

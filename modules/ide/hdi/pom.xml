@@ -3,13 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>codbex-kronos-modules-ide-parent</artifactId>
+        <artifactId>kronos-modules-ide-parent</artifactId>
         <groupId>com.codbex.kronos</groupId>
-        <version>0.4.0-SNAPSHOT</version>
+        <version>0.2.0-SNAPSHOT</version>
     </parent>
 
-    <name>kronos - ide - modules - hdi</name>
-    <artifactId>codbex-kronos-modules-ide-hdi</artifactId>
+    <name>Kronos - IDE - HDI</name>
+    <artifactId>kronos-modules-ide-hdi</artifactId>
     <packaging>jar</packaging>
 
 

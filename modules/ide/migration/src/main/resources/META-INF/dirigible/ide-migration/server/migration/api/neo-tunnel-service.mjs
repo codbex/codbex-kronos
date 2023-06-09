@@ -10,7 +10,7 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 import { configurations as config } from "@dirigible/core";
-import { MigrationToolExecutor } from "./migration-tool-executor.mjs";
+import { MigrationToolExecutor } from "./migration-tool-executor";
 
 const neoClientPath = config.get("user.dir") + "/target/dirigible/resources-neo-sdk/sdk/tools/neo.sh";
 

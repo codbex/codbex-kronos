@@ -4,12 +4,12 @@
 
     <parent>
         <groupId>com.codbex.kronos</groupId>
-        <artifactId>codbex-kronos-modules-ide-parent</artifactId>
-        <version>0.4.0-SNAPSHOT</version>
+        <artifactId>kronos-modules-ide-parent</artifactId>
+        <version>0.2.0-SNAPSHOT</version>
     </parent>
 
-    <name>kronos - workspace - menu</name>
-    <artifactId>codbex-kronos-modules-ide-workspace-menu</artifactId>
+    <name>Kronos - Workspace - Menu</name>
+    <artifactId>kronos-modules-ide-workspace-menu</artifactId>
     <packaging>jar</packaging>
 
     <properties>

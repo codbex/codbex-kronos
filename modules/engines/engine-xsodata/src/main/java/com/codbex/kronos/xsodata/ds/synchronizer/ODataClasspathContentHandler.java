@@ -20,13 +20,13 @@ import com.codbex.kronos.xsodata.ds.api.IODataModel;
 /**
  * The OData Classpath Content Handler.
  */
-public class XSODataClasspathContentHandler extends AbstractClasspathContentHandler {
+public class ODataClasspathContentHandler extends AbstractClasspathContentHandler {
 
   /** The Constant logger. */
-  private static final Logger logger = LoggerFactory.getLogger(XSODataClasspathContentHandler.class);
+  private static final Logger logger = LoggerFactory.getLogger(ODataClasspathContentHandler.class);
 
   /** The odata synchronizer. */
-  private final XSODataSynchronizer odataSynchronizer = new XSODataSynchronizer();
+  private final ODataSynchronizer odataSynchronizer = new ODataSynchronizer();
 
   /**
    * Checks if is valid.

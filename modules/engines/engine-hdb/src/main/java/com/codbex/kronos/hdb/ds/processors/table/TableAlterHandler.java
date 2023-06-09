@@ -35,7 +35,6 @@ import java.util.stream.Collectors;
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.core.scheduler.api.ISynchronizerArtefactType.ArtefactState;
 import org.eclipse.dirigible.database.ds.model.IDataStructureModel;
-import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;
 import org.eclipse.dirigible.database.sql.DataType;
 import org.eclipse.dirigible.database.sql.ISqlKeywords;
 import org.eclipse.dirigible.database.sql.SqlFactory;
@@ -169,7 +168,7 @@ public class TableAlterHandler {
    * @throws SQLException the SQL exception
    */
   public void removeColumns(Connection connection) throws SQLException {
-    boolean caseSensitive = Boolean.parseBoolean(Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"));
+    boolean caseSensitive = Boolean.parseBoolean(Configuration.get(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"));
     for (String columnName : this.dbColumnTypes.keySet()) {
       if (!modelColumnNames.contains(columnName)) {
         AlterTableBuilder alterTableBuilder = SqlFactory.getNative(connection).alter()

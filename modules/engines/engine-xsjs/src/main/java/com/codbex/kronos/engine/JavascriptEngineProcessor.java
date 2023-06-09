@@ -19,10 +19,10 @@ import org.eclipse.dirigible.engine.js.api.IJavascriptEngineProcessor;
 /**
  * The HANA XS Classic Javascript Engine Processor.
  */
-public class KronosJavascriptEngineProcessor implements IJavascriptEngineProcessor {
+public class JavascriptEngineProcessor implements IJavascriptEngineProcessor {
 
   /** The engine executor. */
-  private KronosJavascriptEngineExecutor engineExecutor = new KronosJavascriptEngineExecutor();
+  private JavascriptEngineExecutor engineExecutor = new JavascriptEngineExecutor();
 
   /**
    * Execute service.
@@ -35,8 +35,9 @@ public class KronosJavascriptEngineProcessor implements IJavascriptEngineProcess
    * @see org.eclipse.dirigible.engine.js.api.IJavascriptEngineProcessor#executeService(java.lang.String)
    */
   @Override
-  public Object executeService(String module, Map<Object, Object> parameters) throws ScriptingException {
-    return engineExecutor.executeServiceModule(module, parameters);
+  public void executeService(String module) throws ScriptingException {
+    Map<Object, Object> executionContext = new HashMap<Object, Object>();
+    engineExecutor.executeServiceModule(module, executionContext);
   }
 
 }

@@ -4,35 +4,35 @@
 
     <parent>
         <groupId>com.codbex.kronos</groupId>
-        <artifactId>codbex-kronos-modules-engines-parent</artifactId>
-        <version>0.4.0-SNAPSHOT</version>
+        <artifactId>kronos-modules-engines-parent</artifactId>
+        <version>0.2.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <name>kronos - modules - engines - xsodata</name>
-    <artifactId>codbex-kronos-modules-engines-xsodata</artifactId>
-    <version>0.4.0-SNAPSHOT</version>
+    <name>Kronos - Modules - Engines - XS OData</name>
+    <artifactId>kronos-modules-engines-xsodata</artifactId>
+    <version>0.2.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-modules-parsers-xsodata</artifactId>
-            <version>0.4.0-SNAPSHOT</version>
+            <artifactId>kronos-modules-parsers-xsodata</artifactId>
+            <version>0.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-modules-api-all</artifactId>
-            <version>0.4.0-SNAPSHOT</version>
+            <artifactId>kronos-modules-api-all</artifactId>
+            <version>0.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-modules-engines-commons</artifactId>
-            <version>0.4.0-SNAPSHOT</version>
+            <artifactId>kronos-modules-engines-commons</artifactId>
+            <version>0.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
-            <artifactId>dirigible-engine-javascript-graalium</artifactId>
+            <artifactId>dirigible-engine-javascript-graalvm</artifactId>
             <version>${dirigible.version}</version>
         </dependency>
         <dependency>
@@ -79,7 +79,7 @@
         </dependency>
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
-            <artifactId>dirigible-workspace-publisher</artifactId>
+            <artifactId>dirigible-core-publisher</artifactId>
             <version>${dirigible.version}</version>
             <exclusions>
                 <exclusion>
@@ -113,12 +113,6 @@
             <artifactId>dirigible-database-h2</artifactId>
             <version>${dirigible.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.eclipse.dirigible</groupId>
-          <artifactId>dirigible-database-sql-hana</artifactId>
-          <version>${dirigible.version}</version>
-          <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
@@ -156,11 +150,6 @@
             <version>${commons-dbcp2.version}</version>
             <scope>test</scope>
         </dependency>
-      <dependency>
-        <groupId>org.jetbrains</groupId>
-        <artifactId>annotations</artifactId>
-        <version>24.0.1</version>
-      </dependency>
     </dependencies>
 
     <build>

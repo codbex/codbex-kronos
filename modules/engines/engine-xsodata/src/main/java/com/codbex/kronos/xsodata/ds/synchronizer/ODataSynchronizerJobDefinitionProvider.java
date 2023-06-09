@@ -19,7 +19,7 @@ import org.eclipse.dirigible.core.scheduler.service.definition.JobDefinition;
 /**
  * The Data Structures Synchronizer Job Definition Provider.
  */
-public class XSODataSynchronizerJobDefinitionProvider implements IJobDefinitionProvider {
+public class ODataSynchronizerJobDefinitionProvider implements IJobDefinitionProvider {
 
   /** The Constant ODATA_SYNCHRONIZER_JOB. */
   static final String ODATA_SYNCHRONIZER_JOB = "Kronos OData Synchronizer Job";
@@ -44,7 +44,7 @@ public class XSODataSynchronizerJobDefinitionProvider implements IJobDefinitionP
     JobDefinition jobDefinition = new JobDefinition();
     jobDefinition.setName(KRONOS_ODATA_SYNCHRONIZER_JOB);
     jobDefinition.setGroup(ISchedulerCoreService.JOB_GROUP_INTERNAL);
-    jobDefinition.setClazz(XSODataSynchronizerJob.class.getCanonicalName());
+    jobDefinition.setClazz(ODataSynchronizerJob.class.getCanonicalName());
     jobDefinition.setDescription(ODATA_SYNCHRONIZER_JOB);
     jobDefinition.setExpression(Configuration.get(KRONOS_JOB_EXPRESSION_ODATA, "0/55 * * * * ?"));
     jobDefinition.setSingleton(true);

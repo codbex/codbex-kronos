@@ -10,7 +10,7 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 const brandingInfo = {
-    name: 'Kronos',
+    name: 'codbex',
     brand: 'codbex',
     brandUrl: 'https://www.codbex.com/',
     icons: {

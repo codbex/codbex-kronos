@@ -30,9 +30,7 @@ import com.codbex.kronos.xsaccess.ds.model.privilege.PrivilegeDefinition;
 public class PrivilegeCoreService implements IPrivilegeCoreService {
 
   /** The data source. */
-  public DataSource getDataSource() {
-  	return (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
-  }
+  private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
 
   /** The persistence manager. */
   private PersistenceManager<PrivilegeDefinition> persistenceManager = new PersistenceManager<PrivilegeDefinition>();
@@ -50,7 +48,7 @@ public class PrivilegeCoreService implements IPrivilegeCoreService {
     try {
       Connection connection = null;
       try {
-        connection = getDataSource().getConnection();
+        connection = dataSource.getConnection();
         PrivilegeDefinition privilegeDefinition = new PrivilegeDefinition();
         privilegeDefinition.setName(name);
         privilegeDefinition.setDescription(description);
@@ -88,7 +86,7 @@ public class PrivilegeCoreService implements IPrivilegeCoreService {
     try {
       Connection connection = null;
       try {
-        connection = getDataSource().getConnection();
+        connection = dataSource.getConnection();
         foundXscPrivilegeDefinition.setName(name);
         foundXscPrivilegeDefinition.setDescription(description);
         persistenceManager.update(connection, foundXscPrivilegeDefinition);
@@ -116,7 +114,7 @@ public class PrivilegeCoreService implements IPrivilegeCoreService {
     try {
       Connection connection = null;
       try {
-        connection = getDataSource().getConnection();
+        connection = dataSource.getConnection();
         return persistenceManager.findAll(connection, PrivilegeDefinition.class);
       } finally {
         if (connection != null) {
@@ -139,7 +137,7 @@ public class PrivilegeCoreService implements IPrivilegeCoreService {
     try {
       Connection connection = null;
       try {
-        connection = getDataSource().getConnection();
+        connection = dataSource.getConnection();
 
         persistenceManager.delete(connection, PrivilegeDefinition.class, name);
       } finally {
@@ -164,7 +162,7 @@ public class PrivilegeCoreService implements IPrivilegeCoreService {
     try {
       Connection connection = null;
       try {
-        connection = getDataSource().getConnection();
+        connection = dataSource.getConnection();
 
         PrivilegeDefinition privilegeDefinition = persistenceManager
             .find(connection, PrivilegeDefinition.class, name);

@@ -3,14 +3,14 @@
 
     <parent>
         <groupId>com.codbex.kronos</groupId>
-        <artifactId>codbex-kronos-modules-parent</artifactId>
-        <version>0.4.0-SNAPSHOT</version>
+        <artifactId>kronos-modules-parent</artifactId>
+        <version>0.2.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <name>kronos - modules - ide - parent</name>
-    <artifactId>codbex-kronos-modules-ide-parent</artifactId>
-    <version>0.4.0-SNAPSHOT</version>
+    <name>Kronos - Modules - IDE - Parent</name>
+    <artifactId>kronos-modules-ide-parent</artifactId>
+    <version>0.2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>

@@ -62,7 +62,9 @@ import org.slf4j.LoggerFactory;
  */
 public class ODataParser implements IODataParser {
 
-  
+  /** The data source. */
+  private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
+
   /** The Constant METADATA_VIEW_TYPES. */
   private static final List<String> METADATA_VIEW_TYPES = List.of(ISqlKeywords.METADATA_CALC_VIEW, ISqlKeywords.METADATA_VIEW);
   
@@ -81,10 +83,6 @@ public class ODataParser implements IODataParser {
 
   /** The db metadata util. */
   private DBMetadataUtil dbMetadataUtil = new DBMetadataUtil();
-  
-  private DataSource getDataSource() { 
-	  return (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
-  }
 
   /**
    * Creates a odata model from the raw content.
@@ -436,7 +434,7 @@ public class ODataParser implements IODataParser {
     String catalogObjectName;
 
     if (checkIfEntityIsOfSynonymType(entity.getRepositoryObject().getCatalogObjectName())) {
-      targetObjectMetadata = getSynonymTargetObjectMetadata(getDataSource(), entity.getRepositoryObject().getCatalogObjectName(),
+      targetObjectMetadata = getSynonymTargetObjectMetadata(dataSource, entity.getRepositoryObject().getCatalogObjectName(),
           entity.getRepositoryObject().getCatalogObjectSchema());
     }
 
@@ -479,7 +477,7 @@ public class ODataParser implements IODataParser {
    */
   private DBArtifactModel getTargetObjectOfSynonymIfAny(String schemaName, String artifactName, List<String> dbTypes)
       throws SQLException {
-    PersistenceTableModel targetObjectMetadata = getSynonymTargetObjectMetadata(getDataSource(), artifactName, schemaName);
+    PersistenceTableModel targetObjectMetadata = getSynonymTargetObjectMetadata(dataSource, artifactName, schemaName);
 
     String type = targetObjectMetadata.getTableType();
     if (type != null && dbTypes.contains(type)) {
@@ -499,7 +497,7 @@ public class ODataParser implements IODataParser {
    * @throws SQLException the SQL exception
    */
   public List<DBArtifactModel> getDBArtifactsByName(String artifactName) throws SQLException {
-    try (Connection connection = getDataSource().getConnection()) {
+    try (Connection connection = dataSource.getConnection()) {
       DatabaseMetaData databaseMetaData = connection.getMetaData();
       ResultSet rs = databaseMetaData.getTables(connection.getCatalog(), Configuration.get("HANA_USERNAME"), artifactName, null);
       List<DBArtifactModel> artifacts = new ArrayList<>();

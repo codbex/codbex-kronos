@@ -32,9 +32,7 @@ import org.slf4j.LoggerFactory;
 public class TableMetadataProvider implements ITableMetadataProvider {
 
   /** The data source. */
-  private DataSource getDataSource() { 
-	  return (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
-  }
+  private final DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
 
   /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(TableMetadataProvider.class);
@@ -78,9 +76,9 @@ public class TableMetadataProvider implements ITableMetadataProvider {
 
     PersistenceTableModel targetObjectMetadata = null;
     if (null == tableMetadata) {
-      targetObjectMetadata = getSynonymTargetObjectMetadata(getDataSource(), artifactName, PUBLIC_SCHEMA);
+      targetObjectMetadata = getSynonymTargetObjectMetadata(dataSource, artifactName, PUBLIC_SCHEMA);
     } else if (ISqlKeywords.METADATA_SYNONYM.equals(tableMetadata.getTableType())) {
-      targetObjectMetadata = getSynonymTargetObjectMetadata(getDataSource(), artifactName, tableMetadata.getSchemaName());
+      targetObjectMetadata = getSynonymTargetObjectMetadata(dataSource, artifactName, tableMetadata.getSchemaName());
     }
 
     if (null == targetObjectMetadata || targetObjectMetadata.getTableName() == null) {

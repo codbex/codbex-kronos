@@ -33,7 +33,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import javax.sql.DataSource;
-import org.eclipse.dirigible.commons.api.module.IDirigibleModule;
+import org.eclipse.dirigible.commons.api.module.AbstractDirigibleModule;
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.commons.config.StaticObjects;
 import org.eclipse.dirigible.database.api.IDatabase;
@@ -44,7 +44,7 @@ import org.eclipse.dirigible.repository.fs.FileSystemRepository;
 import org.eclipse.dirigible.repository.local.LocalRepository;
 import org.eclipse.dirigible.repository.local.LocalResource;
 
-public class HDBTestModule implements IDirigibleModule {
+public class HDBTestModule extends AbstractDirigibleModule {
 
   private JDBCModel model;
 
@@ -96,11 +96,6 @@ public class HDBTestModule implements IDirigibleModule {
   @Override
   public String getName() {
     return "HDB Test Module";
-  }
-
-  @Override
-  public int getPriority() {
-    return getPriority();
   }
 
   @Override

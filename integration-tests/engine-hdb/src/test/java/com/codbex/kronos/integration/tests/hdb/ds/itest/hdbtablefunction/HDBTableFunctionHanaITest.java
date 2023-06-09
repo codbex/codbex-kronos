@@ -13,20 +13,19 @@ package com.codbex.kronos.integration.tests.hdb.ds.itest.hdbtablefunction;
 
 import static org.junit.Assert.assertTrue;
 
+import com.codbex.kronos.integration.tests.hdb.ds.AbstractHDBITest;
+import com.codbex.kronos.integration.tests.core.hdb.module.HDBTestModule;
+import com.codbex.kronos.integration.tests.core.hdb.utils.HanaITestUtils;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
-
 import org.eclipse.dirigible.commons.config.Configuration;
-import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;
+import org.eclipse.dirigible.database.ds.model.IDataStructureModel;
 import org.eclipse.dirigible.repository.local.LocalResource;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.codbex.kronos.integration.tests.core.hdb.module.HDBTestModule;
-import com.codbex.kronos.integration.tests.core.hdb.utils.HanaITestUtils;
-import com.codbex.kronos.integration.tests.hdb.ds.AbstractHDBITest;
 
 public class HDBTableFunctionHanaITest extends AbstractHDBITest {
 
@@ -35,7 +34,7 @@ public class HDBTableFunctionHanaITest extends AbstractHDBITest {
         HanaITestUtils.clearDataFromDataStructure(systemDatasource, Arrays.asList( //
             "'/hdbtablefunction-itest/SampleHanaTableFunction.hdbtablefunction'" //
         ));
-        Configuration.set(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true");
+        Configuration.set(IDataStructureModel.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true");
         facade.clearCache();
     }
 

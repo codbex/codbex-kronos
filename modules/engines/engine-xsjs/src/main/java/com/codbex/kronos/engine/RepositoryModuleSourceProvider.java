@@ -33,9 +33,6 @@ public class RepositoryModuleSourceProvider implements IJavascriptModuleSourcePr
   
   /** The Constant JS_EXTENSION. */
   private static final String JS_EXTENSION = ".js"; //$NON-NLS-1$
-  
-  /** The Constant JS_EXTENSION. */
-  private static final String MJS_EXTENSION = ".mjs"; //$NON-NLS-1$
 
   /** The executor. */
   private IScriptEngineExecutor executor;
@@ -76,8 +73,6 @@ public class RepositoryModuleSourceProvider implements IJavascriptModuleSourcePr
       sourceCode = executor.retrieveModule(root, module + XSJSLIB_EXPORTS_RESERVED_EXTENSION).getContent();
     } else if (module.endsWith(JS_EXTENSION)) {
       sourceCode = executor.retrieveModule(root, module).getContent();
-    } else if (module.endsWith(MJS_EXTENSION)) {
-        sourceCode = executor.retrieveModule(root, module).getContent();
     } else if (module.indexOf(XSJS_EXTENSION + "/") > 0) {
       module = module.substring(0, module.indexOf(XSJS_EXTENSION + "/") + 5);
       sourceCode = executor.retrieveModule(root, module).getContent();

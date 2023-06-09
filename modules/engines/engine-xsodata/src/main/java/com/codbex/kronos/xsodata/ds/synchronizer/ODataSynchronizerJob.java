@@ -17,10 +17,10 @@ import org.eclipse.dirigible.core.scheduler.api.ISynchronizer;
 /**
  * The Data Structures Synchronizer Job.
  */
-public class XSODataSynchronizerJob extends AbstractSynchronizerJob {
+public class ODataSynchronizerJob extends AbstractSynchronizerJob {
 
   /** The odata synchronizer. */
-  private final XSODataSynchronizer odataSynchronizer = new XSODataSynchronizer();
+  private final ODataSynchronizer odataSynchronizer = new ODataSynchronizer();
 
   /**
    * Gets the synchronizer.
@@ -47,7 +47,7 @@ public class XSODataSynchronizerJob extends AbstractSynchronizerJob {
    */
   @Override
   public String getName() {
-    return XSODataSynchronizerJobDefinitionProvider.ODATA_SYNCHRONIZER_JOB;
+    return ODataSynchronizerJobDefinitionProvider.ODATA_SYNCHRONIZER_JOB;
   }
 
 }

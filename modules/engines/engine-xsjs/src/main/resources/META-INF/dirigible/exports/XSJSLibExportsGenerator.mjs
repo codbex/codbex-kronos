@@ -1,8 +1,8 @@
-import { XSJSLibCompiler } from './XSJSLibCompiler.mjs'
-import { XSJSLibStateTable } from './XSJSLibStateTable.mjs'
-import { digest } from '@dirigible/utils'
-import { repository } from '@dirigible/platform'
-import { bytes } from '@dirigible/io'
+import { XSJSLibCompiler } from '/exports/XSJSLibCompiler.mjs'
+import { XSJSLibStateTable } from '/exports/XSJSLibStateTable.mjs'
+import { digest } from '@dirigible-v4/utils'
+import { repository } from '@dirigible-v4/platform'
+import { bytes } from '@dirigible-v4/io'
 
 const ProblemsFacade = Java.type('org.eclipse.dirigible.api.v3.problems.ProblemsFacade');
 

@@ -11,19 +11,21 @@
  */
 package com.codbex.kronos.hdi.ds.parser;
 
+import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
+import com.codbex.kronos.hdb.ds.api.DataStructuresException;
+import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
+import com.codbex.kronos.hdi.ds.model.DataStructureHDIModel;
+import com.codbex.kronos.hdb.ds.parser.DataStructureParser;
+import com.codbex.kronos.hdi.ds.parser.deserializer.HDIModelAdapter;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.eclipse.dirigible.api.v3.security.UserFacade;
-
-import com.codbex.kronos.hdb.ds.api.IDataStructureModel;
-import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
-import com.codbex.kronos.hdb.ds.parser.DataStructureParser;
-import com.codbex.kronos.hdi.ds.model.DataStructureHDIModel;
-import com.codbex.kronos.hdi.ds.parser.deserializer.HDIModelAdapter;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 /**
  * The Class HDIParser.
@@ -31,13 +33,15 @@ import com.google.gson.GsonBuilder;
 public class HDIParser implements DataStructureParser {
 
   /**
-   * Parses the hdi artefact.
+   * Parses the.
    *
    * @param parametersModel the parameters model
    * @return the data structure HDI model
+   * @throws DataStructuresException the data structures exception
+   * @throws IOException Signals that an I/O exception has occurred.
    */
   @Override
-  public DataStructureHDIModel parse(DataStructureParametersModel parametersModel) {
+  public DataStructureHDIModel parse(DataStructureParametersModel parametersModel) throws DataStructuresException, IOException {
     Gson gson = new GsonBuilder()
         .registerTypeAdapter(DataStructureHDIModel.class, new HDIModelAdapter())
         .create();

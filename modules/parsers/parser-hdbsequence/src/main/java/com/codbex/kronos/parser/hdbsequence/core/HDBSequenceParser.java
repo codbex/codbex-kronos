@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-// Generated from java-escape by ANTLR 4.11.1
+// Generated from com/codbex/kronos/parser/hdbsequence/core/HDBSequence.g4 by ANTLR 4.10.1
 package com.codbex.kronos.parser.hdbsequence.core;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -20,9 +20,9 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
-@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
+@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class HDBSequenceParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.11.1", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.10.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -96,7 +96,7 @@ public class HDBSequenceParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "java-escape"; }
+	public String getGrammarFileName() { return "HDBSequence.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -112,7 +112,6 @@ public class HDBSequenceParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class HdbSequenceDefinitionContext extends ParserRuleContext {
 		public List<PropertyContext> property() {
 			return getRuleContexts(PropertyContext.class);
@@ -159,7 +158,7 @@ public class HDBSequenceParser extends Parser {
 				setState(31); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( ((_la) & ~0x3f) == 0 && ((1L << _la) & 8190L) != 0 );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2) | (1L << T__3) | (1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11))) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -173,7 +172,6 @@ public class HDBSequenceParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class PropertyContext extends ParserRuleContext {
 		public SchemaContext schema() {
 			return getRuleContext(SchemaContext.class,0);
@@ -336,7 +334,6 @@ public class HDBSequenceParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class SchemaContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBSequenceParser.EQ, 0); }
 		public TerminalNode STRING() { return getToken(HDBSequenceParser.STRING, 0); }
@@ -387,7 +384,6 @@ public class HDBSequenceParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class IncrementByContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBSequenceParser.EQ, 0); }
 		public TerminalNode INT() { return getToken(HDBSequenceParser.INT, 0); }
@@ -438,7 +434,6 @@ public class HDBSequenceParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class StartWithContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBSequenceParser.EQ, 0); }
 		public TerminalNode INT() { return getToken(HDBSequenceParser.INT, 0); }
@@ -489,7 +484,6 @@ public class HDBSequenceParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class MaxValueContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBSequenceParser.EQ, 0); }
 		public TerminalNode INT() { return getToken(HDBSequenceParser.INT, 0); }
@@ -540,7 +534,6 @@ public class HDBSequenceParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class NoMaxValueContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBSequenceParser.EQ, 0); }
 		public TerminalNode BOOLEAN() { return getToken(HDBSequenceParser.BOOLEAN, 0); }
@@ -591,7 +584,6 @@ public class HDBSequenceParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class MinValueContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBSequenceParser.EQ, 0); }
 		public TerminalNode INT() { return getToken(HDBSequenceParser.INT, 0); }
@@ -642,7 +634,6 @@ public class HDBSequenceParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class NoMinValueContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBSequenceParser.EQ, 0); }
 		public TerminalNode BOOLEAN() { return getToken(HDBSequenceParser.BOOLEAN, 0); }
@@ -693,7 +684,6 @@ public class HDBSequenceParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class CyclesContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBSequenceParser.EQ, 0); }
 		public TerminalNode BOOLEAN() { return getToken(HDBSequenceParser.BOOLEAN, 0); }
@@ -744,7 +734,6 @@ public class HDBSequenceParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class ResetByContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBSequenceParser.EQ, 0); }
 		public TerminalNode STRING() { return getToken(HDBSequenceParser.STRING, 0); }
@@ -795,7 +784,6 @@ public class HDBSequenceParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class PubliccContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBSequenceParser.EQ, 0); }
 		public TerminalNode BOOLEAN() { return getToken(HDBSequenceParser.BOOLEAN, 0); }
@@ -846,7 +834,6 @@ public class HDBSequenceParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class DependsOnTableContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBSequenceParser.EQ, 0); }
 		public TerminalNode STRING() { return getToken(HDBSequenceParser.STRING, 0); }
@@ -897,7 +884,6 @@ public class HDBSequenceParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class DependsOnViewContext extends ParserRuleContext {
 		public TerminalNode EQ() { return getToken(HDBSequenceParser.EQ, 0); }
 		public TerminalNode STRING() { return getToken(HDBSequenceParser.STRING, 0); }

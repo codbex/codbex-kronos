@@ -1,6 +1,6 @@
 import { assertEquals } from '../utils/utils.mjs'
-import { XSJSLibCompiler } from './XSJSLibCompiler.mjs'
-import { repository } from '@dirigible/platform'
+import { XSJSLibCompiler } from '/exports/XSJSLibCompiler.mjs'
+import { repository } from '@dirigible-v4/platform'
 
 function testContentModifier_AcornSimpleContentModification() {
   const compiler = new XSJSLibCompiler();

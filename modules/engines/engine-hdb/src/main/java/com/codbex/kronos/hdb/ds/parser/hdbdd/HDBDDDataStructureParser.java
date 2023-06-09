@@ -80,9 +80,7 @@ public class HDBDDDataStructureParser implements DataStructureParser {
   /**
    * The repository.
    */
-  private IRepository getRepository() {
-	  return (IRepository) StaticObjects.get(StaticObjects.REPOSITORY);
-  }
+  private IRepository repository = (IRepository) StaticObjects.get(StaticObjects.REPOSITORY);
 
   /**
    * The symbol table.
@@ -120,7 +118,7 @@ public class HDBDDDataStructureParser implements DataStructureParser {
   @Override
   public DataStructureModel parse(DataStructureParametersModel parametersModel) throws DataStructuresException, IOException {
     for (String fileLocation : this.getFilesToProcess(parametersModel.getLocation())) {
-      IResource loadedResource = getRepository().getResource(parametersModel.getWorkspacePath() + fileLocation);
+      IResource loadedResource = this.repository.getResource(parametersModel.getWorkspacePath() + fileLocation);
       String fileContent = new String(loadedResource.getContent());
       try {
         parseHDBDD(fileLocation, fileContent);
@@ -204,7 +202,7 @@ public class HDBDDDataStructureParser implements DataStructureParser {
       }
 
       try {
-        IResource loadedResource = getRepository().getResource("/registry/public/" + fileLocation);
+        IResource loadedResource = this.repository.getResource("/registry/public/" + fileLocation);
         String loadedResourceContent = new String(loadedResource.getContent());
         parseHDBDD(fileLocation, loadedResourceContent);
         parsedNodes.add(fileLocation);

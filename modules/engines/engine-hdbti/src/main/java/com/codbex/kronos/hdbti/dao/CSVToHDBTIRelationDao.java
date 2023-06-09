@@ -41,10 +41,7 @@ public class CSVToHDBTIRelationDao implements ICSVToHDBTIRelationDao {
     private PersistenceManager<TableImportToCsvRelation> tableImportToCsvRelationPersistenceManager = new PersistenceManager<TableImportToCsvRelation>();
 
     /** The data source. */
-    @Override
-    public DataSource getDataSource() {
-    	return (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
-    }
+    private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
 
     /**
      * Persist new csv and hdbti relations.
@@ -55,7 +52,7 @@ public class CSVToHDBTIRelationDao implements ICSVToHDBTIRelationDao {
     public void persistNewCsvAndHdbtiRelations(TableImportArtifact tableImportArtifact) {
         for(TableImportToCsvRelation relation : tableImportArtifact.getTableImportToCsvRelations()){
             relation.setHdbti(relation.getHdbti());
-            try (Connection connection = getDataSource().getConnection()) {
+            try (Connection connection = dataSource.getConnection()) {
                 tableImportToCsvRelationPersistenceManager.insert(connection, relation);
             } catch (SQLException sqlException) {
                 logger.error(String.format("Something went wrong while trying to insert TableImportArtifact located at: %s", tableImportArtifact.getLocation()), sqlException);
@@ -71,7 +68,7 @@ public class CSVToHDBTIRelationDao implements ICSVToHDBTIRelationDao {
     @Override
     public void deleteCsvAndHdbtiRelations(String hdbtiFileName) {
         String sql = String.format("DELETE FROM \"KRONOS_TABLE_IMPORT_TO_CSV\" WHERE \"HDBTI_LOCATION\"='%s'", hdbtiFileName);
-        try (Connection connection = getDataSource().getConnection();
+        try (Connection connection = dataSource.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.execute();
         } catch (SQLException e) {
@@ -87,7 +84,7 @@ public class CSVToHDBTIRelationDao implements ICSVToHDBTIRelationDao {
     @Override
     public List<TableImportToCsvRelation> getAllHdbtiToCsvRelations() {
         List<TableImportToCsvRelation> listOfcsvToHdbtiRelations = new ArrayList<>();
-        try (Connection connection = getDataSource().getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             listOfcsvToHdbtiRelations = tableImportToCsvRelationPersistenceManager.findAll(connection, TableImportToCsvRelation.class);
         } catch (SQLException e) {
             logger.error("Error occured while retrieving the HdbtiToCsv relations from DB", e);
@@ -128,5 +125,14 @@ public class CSVToHDBTIRelationDao implements ICSVToHDBTIRelationDao {
     public PersistenceManager<TableImportToCsvRelation> getTableImportToCsvRelationPersistenceManager() {
         return tableImportToCsvRelationPersistenceManager;
     }
-    
+
+    /**
+     * Gets the data source.
+     *
+     * @return the data source
+     */
+    @Override
+    public DataSource getDataSource() {
+        return dataSource;
+    }
 }

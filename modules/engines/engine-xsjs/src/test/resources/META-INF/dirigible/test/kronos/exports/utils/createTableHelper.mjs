@@ -1,5 +1,5 @@
-import { XSJSLibStateTable } from './XSJSLibStateTable.mjs'
-import { repository } from '@dirigible/platform'
+import { XSJSLibStateTable } from '/exports/XSJSLibStateTable.mjs'
+import { repository } from '@dirigible-v4/platform'
 
 let stateTableParams = {
   name: "PROCESSED_XSJSLIB_ARTEFACTS",

@@ -1,9 +1,9 @@
 import { bytes as bytesUtils } from "@dirigible/io";
-import { RepositoryResponse } from "./repository-response.mjs";
-import { RepositoryObject } from "./repository-object.mjs";
-import { RepositoryPackage } from "./repository-package.mjs";
-import { PackageFilter } from "./package-filter.mjs";
-import { Utils } from "../utils.mjs";
+import { RepositoryResponse } from "./repository-response";
+import { RepositoryObject } from "./repository-object";
+import { RepositoryPackage } from "./repository-package";
+import { PackageFilter } from "./package-filter";
+import { Utils } from "../utils";
 
 const packageFilter = new PackageFilter();
 const utf8 = org.eclipse.dirigible.api.v3.utils.UTF8Facade;

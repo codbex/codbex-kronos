@@ -273,7 +273,7 @@ public class DataStructureModel {
    * @return the string
    */
   public String toJson() {
-    return GsonHelper.toJson(this);
+    return GsonHelper.GSON.toJson(this);
   }
 
   /**

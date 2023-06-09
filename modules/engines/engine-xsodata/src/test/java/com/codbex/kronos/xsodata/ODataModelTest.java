@@ -9,8 +9,9 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos.xsodata.ds.model;
+package com.codbex.kronos.xsodata;
 import com.codbex.kronos.parser.xsodata.model.XSODataService;
+import com.codbex.kronos.xsodata.ds.model.ODataModel;
 
 import org.junit.Test;
 

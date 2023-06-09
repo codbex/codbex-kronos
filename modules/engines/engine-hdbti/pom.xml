@@ -4,41 +4,41 @@
 
     <parent>
         <groupId>com.codbex.kronos</groupId>
-        <artifactId>codbex-kronos-modules-engines-parent</artifactId>
-        <version>0.4.0-SNAPSHOT</version>
+        <artifactId>kronos-modules-engines-parent</artifactId>
+        <version>0.2.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <name>kronos - modules - engines - hdbti</name>
-    <artifactId>codbex-kronos-modules-engines-hdbti</artifactId>
-    <version>0.4.0-SNAPSHOT</version>
+    <name>Kronos - Modules - Engines - HDBTI</name>
+    <artifactId>kronos-modules-engines-hdbti</artifactId>
+    <version>0.2.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-modules-engines-core</artifactId>
-            <version>0.4.0-SNAPSHOT</version>
+            <artifactId>kronos-modules-engines-core</artifactId>
+            <version>0.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-modules-engines-hdb</artifactId>
-            <version>0.4.0-SNAPSHOT</version>
+            <artifactId>kronos-modules-engines-hdb</artifactId>
+            <version>0.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-modules-parsers-all</artifactId>
-            <version>0.4.0-SNAPSHOT</version>
+            <artifactId>kronos-modules-parsers-all</artifactId>
+            <version>0.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-modules-api-all</artifactId>
-            <version>0.4.0-SNAPSHOT</version>
+            <artifactId>kronos-modules-api-all</artifactId>
+            <version>0.2.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
-            <artifactId>dirigible-engine-javascript-graalium</artifactId>
+            <artifactId>dirigible-engine-javascript-graalvm</artifactId>
             <version>${dirigible.version}</version>
         </dependency>
         <dependency>
@@ -141,8 +141,8 @@
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-modules-parsers-hdbti</artifactId>
-            <version>0.4.0-SNAPSHOT</version>
+            <artifactId>kronos-modules-parsers-hdbti</artifactId>
+            <version>0.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -158,13 +158,13 @@
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-modules-parsers-hdbsequence</artifactId>
-            <version>0.4.0-SNAPSHOT</version>
+            <artifactId>kronos-modules-parsers-hdbsequence</artifactId>
+            <version>0.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-modules-parsers-hdbtable</artifactId>
-            <version>0.4.0-SNAPSHOT</version>
+            <artifactId>kronos-modules-parsers-hdbtable</artifactId>
+            <version>0.2.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

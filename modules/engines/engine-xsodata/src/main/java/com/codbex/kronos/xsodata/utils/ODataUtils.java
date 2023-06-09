@@ -59,9 +59,8 @@ public class ODataUtils {
   /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(ODataUtils.class);
   
-  private DataSource getDataSource() { 
-	  return (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
-  }
+  /** The data source. */
+  private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
 
   /** The metadata provider. */
   private TableMetadataProvider metadataProvider;
@@ -323,7 +322,7 @@ public class ODataUtils {
    * @throws SQLException the SQL exception
    */
   private void getParametersForCalcView(List<PersistenceTableColumnModel> allEntityParameters, String tableName) throws SQLException {
-    try (Connection connection = getDataSource().getConnection()) {
+    try (Connection connection = dataSource.getConnection()) {
       try (PreparedStatement statement = connection.prepareStatement(
           "SELECT DISTINCT VARIABLE_NAME, COLUMN_SQL_TYPE, MANDATORY, \"ORDER\" "
               + "FROM _SYS_BI.BIMC_VARIABLE_VIEW_HDI "

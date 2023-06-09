@@ -6,9 +6,9 @@ import { client as git } from "@dirigible/git";
 import { repository } from "@dirigible/platform";
 import { xml } from "@dirigible/utils";
 
-import { HanaRepository } from "../repository/hana-repository.mjs";
+import { HanaRepository } from "../repository/hana-repository";
 import { HanaVisitor } from "./hana-visitor.mjs";
-import { getHdiFilePlugins } from "../repository/hdi-plugins.mjs";
+import { getHdiFilePlugins } from "../repository/hdi-plugins";
 
 const HANA_USERNAME = "HANA_USERNAME";
 const TransformerFactory = Java.type("javax.xml.transform.TransformerFactory");
@@ -471,7 +471,7 @@ export class MigrationService {
         }
     }
 
-    _createXsSecurityJson(projectName, scopes, roleTemplates, roleCollections, workspaceCollection) {
+    _createXsSecurityJson(projectName, scopes, roleTemplates, roleCollections,workspaceCollection) {
         let xsappid = config.get("DIRIGIBLE_OAUTH_APPLICATION_NAME", "default-app-name"); //xsapp id
         let xsappname = "";
         const indexOfExclamation = xsappid.indexOf("!");
@@ -666,8 +666,8 @@ export class MigrationService {
         const workspace = workspaceManager.getWorkspace(workspaceName);
         const project = workspace.getProject(projectName);
 
-        const relativeSavePath = this._isFileOldExtensionCalculationView(relativePath) ?
-            relativePath.substr(0, relativePath.lastIndexOf('.')) + ".hdbcalculationview" :
+        const relativeSavePath = this._isFileOldExtensionCalculationView(relativePath) ? 
+            relativePath.substr(0, relativePath.lastIndexOf('.')) + ".hdbcalculationview" : 
             relativePath;
 
         if (project.existsFile(relativeSavePath)) {
@@ -810,7 +810,7 @@ export class MigrationService {
         this._addPathToHDI(hdiObject, rolePath, projectName)
 
         this._populateHdiFile(projectCollection, hdiFile, hdiObject, hdiPath);
-
+        
     }
 
     _populateHdiFile(projectCollection, hdiFile, hdiObject, hdiPath) {

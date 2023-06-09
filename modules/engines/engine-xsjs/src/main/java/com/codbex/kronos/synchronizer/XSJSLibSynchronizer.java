@@ -11,20 +11,20 @@
  */
 package com.codbex.kronos.synchronizer;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.eclipse.dirigible.commons.config.StaticObjects;
 import org.eclipse.dirigible.core.scheduler.api.AbstractSynchronizer;
 import org.eclipse.dirigible.core.scheduler.api.IOrderedSynchronizerContribution;
 import org.eclipse.dirigible.core.scheduler.api.SynchronizationException;
-import org.eclipse.dirigible.graalium.engine.GraaliumJavascriptEngineExecutor;
+import org.eclipse.dirigible.engine.js.graalvm.processor.GraalVMJavascriptEngineExecutor;
 import org.eclipse.dirigible.repository.api.IRepository;
 import org.eclipse.dirigible.repository.api.IResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.codbex.kronos.utils.CommonsConstants;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The Class XSJSLibSynchronizer.
@@ -43,6 +43,9 @@ public class XSJSLibSynchronizer extends AbstractSynchronizer implements IOrdere
   /** The Constant DONE_SYNCHRONIZING_LOG_MESSAGE. */
   private static final String DONE_SYNCHRONIZING_LOG_MESSAGE = "Done synchronizing XSJSLibs.";
 
+  /** The Constant repository. */
+  private static final IRepository repository = (IRepository) StaticObjects.get(StaticObjects.REPOSITORY);
+
   /** The synchronizer target. */
   private XSJSLibSynchronizerRegistryEntity synchronizerTarget = null;
 
@@ -59,7 +62,7 @@ public class XSJSLibSynchronizer extends AbstractSynchronizer implements IOrdere
    * @param targetRegistryPath the target registry path
    */
   public XSJSLibSynchronizer(String targetRegistryPath) {
-    synchronizerTarget = new XSJSLibSynchronizerRegistryEntity(targetRegistryPath, getRepository());
+    synchronizerTarget = new XSJSLibSynchronizerRegistryEntity(targetRegistryPath, repository);
   }
 
   /**
@@ -89,8 +92,8 @@ public class XSJSLibSynchronizer extends AbstractSynchronizer implements IOrdere
     }
 
     Map<Object, Object> context = buildContext();
-    GraaliumJavascriptEngineExecutor graaliumJavascriptEngineExecutor = new GraaliumJavascriptEngineExecutor();
-    graaliumJavascriptEngineExecutor.executeService(
+    GraalVMJavascriptEngineExecutor graalVMJavascriptEngineExecutor = new GraalVMJavascriptEngineExecutor();
+    graalVMJavascriptEngineExecutor.executeService(
         XSJSLIB_GENERATION_RUNNER_LOCATION,
         context,
         true,

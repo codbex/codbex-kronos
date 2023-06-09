@@ -14,12 +14,14 @@ package com.codbex.kronos.hdbti.module;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.eclipse.dirigible.commons.api.module.IDirigibleModule;
+import org.eclipse.dirigible.commons.api.module.AbstractDirigibleModule;
 import org.eclipse.dirigible.commons.config.StaticObjects;
+import org.eclipse.dirigible.repository.api.IRepository;
 
+import com.codbex.kronos.hdbti.module.HDBTIModule;
 import com.codbex.kronos.hdbti.repository.TestRepository;
 
-public class HDBTITestModule implements IDirigibleModule {
+public class HDBTITestModule extends AbstractDirigibleModule {
     @Override
 	public String getName() {
 		return "HDBTI Test Module";
@@ -27,7 +29,7 @@ public class HDBTITestModule implements IDirigibleModule {
 
 	@Override
 	public int getPriority() {
-		return getPriority();
+		return super.getPriority();
 	}
 
 	@Override

@@ -4,14 +4,14 @@
 
     <parent>
         <groupId>com.codbex.kronos</groupId>
-        <artifactId>codbex-kronos-modules-ide-parent</artifactId>
-        <version>0.4.0-SNAPSHOT</version>
+        <artifactId>kronos-modules-ide-parent</artifactId>
+        <version>0.2.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <name>kronos - modules - ide - hdbti</name>
-    <artifactId>codbex-kronos-modules-ide-hdbti</artifactId>
-    <version>0.4.0-SNAPSHOT</version>
+    <name>Kronos - Modules - IDE - HDBTI</name>
+    <artifactId>kronos-modules-ide-hdbti</artifactId>
+    <version>0.2.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>

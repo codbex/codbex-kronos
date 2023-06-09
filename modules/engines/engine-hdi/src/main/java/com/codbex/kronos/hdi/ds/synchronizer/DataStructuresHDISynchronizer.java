@@ -84,9 +84,7 @@ public class DataStructuresHDISynchronizer extends AbstractSynchronizer implemen
   private HDIContainerCreateProcessor hdiContainerCreateProcessor = new HDIContainerCreateProcessor();
   
   /** The data source. */
-  private DataSource getDataSource() { 
-	  return (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
-  }
+  private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
 
 
 
@@ -347,7 +345,7 @@ public class DataStructuresHDISynchronizer extends AbstractSynchronizer implemen
     try {
       Connection connection = null;
       try {
-        connection = getDataSource().getConnection();
+        connection = dataSource.getConnection();
 
         // HDI
         List<DataStructureHDIModel> hdiForDrop = new ArrayList<>();
@@ -388,7 +386,7 @@ public class DataStructuresHDISynchronizer extends AbstractSynchronizer implemen
     try {
       Connection connection = null;
       try {
-        connection = getDataSource().getConnection();
+        connection = dataSource.getConnection();
 
         List<String> sorted = new ArrayList<String>();
         if (sorted.isEmpty()) {

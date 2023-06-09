@@ -38,9 +38,7 @@ import com.codbex.kronos.hdb.ds.service.parser.CoreParserService;
 public class DataStructuresCoreService implements IDataStructuresCoreService {
 
   /** The data source. */
-  private DataSource getDataSource() {
-	  return (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
-  }
+  private DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
 
   /** The persistence manager. */
   private PersistenceManager<DataStructureModel> persistenceManager = new PersistenceManager<DataStructureModel>();
@@ -73,7 +71,7 @@ public class DataStructuresCoreService implements IDataStructuresCoreService {
     dataStructure.setCreatedBy(UserFacade.getName());
     dataStructure.setCreatedAt(new Timestamp(new java.util.Date().getTime()));
 
-    try (Connection connection = getDataSource().getConnection()) {
+    try (Connection connection = dataSource.getConnection()) {
       persistenceManager.insert(connection, dataStructure);
       return dataStructure;
     } catch (SQLException e) {
@@ -96,7 +94,7 @@ public class DataStructuresCoreService implements IDataStructuresCoreService {
    */
   @Override
   public <T extends DataStructureModel> T getDataStructure(String location, String type) throws DataStructuresException {
-    try (Connection connection = getDataSource().getConnection()) {
+    try (Connection connection = dataSource.getConnection()) {
       return (T) persistenceManager.find(connection, coreParserService.getDataStructureClass(type), location);
     } catch (SQLException e) {
       throw new DataStructuresException(e);
@@ -118,7 +116,7 @@ public class DataStructuresCoreService implements IDataStructuresCoreService {
    */
   @Override
   public <T extends DataStructureModel> T getDataStructureByName(String name, String type) throws DataStructuresException {
-    try (Connection connection = getDataSource().getConnection()) {
+    try (Connection connection = dataSource.getConnection()) {
       String sql = SqlFactory.getNative(connection).select().column("*").from("KRONOS_DATA_STRUCTURES")
           .where("DS_NAME = ? AND DS_TYPE = ?").toString();
       List<DataStructureModel> dataStructures = persistenceManager.query(connection, DataStructureModel.class, sql,
@@ -148,7 +146,7 @@ public class DataStructuresCoreService implements IDataStructuresCoreService {
    */
   @Override
   public void removeDataStructure(String location) throws DataStructuresException {
-    try (Connection connection = getDataSource().getConnection()) {
+    try (Connection connection = dataSource.getConnection()) {
       persistenceManager.delete(connection, DataStructureModel.class, location);
     } catch (SQLException e) {
       throw new DataStructuresException(e);
@@ -171,7 +169,7 @@ public class DataStructuresCoreService implements IDataStructuresCoreService {
    */
   @Override
   public void updateDataStructure(String location, String name, String hash, String type) throws DataStructuresException {
-    try (Connection connection = getDataSource().getConnection()) {
+    try (Connection connection = dataSource.getConnection()) {
       DataStructureModel dataStructure = getDataStructure(location, type);
       dataStructure.setName(name);
       dataStructure.setHash(hash);
@@ -195,7 +193,7 @@ public class DataStructuresCoreService implements IDataStructuresCoreService {
    */
   @Override
   public <T extends DataStructureModel> List<T> getDataStructuresByType(String type) throws DataStructuresException {
-    try (Connection connection = getDataSource().getConnection()) {
+    try (Connection connection = dataSource.getConnection()) {
       String sql = SqlFactory.getNative(connection).select().column("*").from("KRONOS_DATA_STRUCTURES").where("DS_TYPE = ?").toString();
       return (List<T>) persistenceManager.query(connection, coreParserService.getDataStructureClass(type), sql,
           Arrays.asList(type));
@@ -232,7 +230,7 @@ public class DataStructuresCoreService implements IDataStructuresCoreService {
    */
   @Override
   public boolean existsDataStructureByLocationAndHash(String location, String hash, String type) throws DataStructuresException {
-    try (Connection connection = getDataSource().getConnection()) {
+    try (Connection connection = dataSource.getConnection()) {
       String sql = SqlFactory.getNative(connection).select().column("*").from("KRONOS_DATA_STRUCTURES")
           .where("DS_LOCATION = ? AND DS_HASH = ?").toString();
       return !persistenceManager.query(connection, coreParserService.getDataStructureClass(type), sql,
