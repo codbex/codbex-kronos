@@ -47,13 +47,13 @@ public class HDBSchemaDropProcessor extends AbstractHDBProcessor<HDBSchema> {
     logger.info("Processing Drop Schema: " + schemaModel.getSchema());
 
     ISqlDialect dialect = SqlFactory.deriveDialect(connection);
-    if (!(dialect.getClass().equals(HanaSqlDialect.class))) {
-      String errorMessage = String.format("Schemas are not supported for %s", dialect.getDatabaseName(connection));
-      CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, schemaModel.getLocation(),
-          CommonsConstants.HDB_SCHEMA_PARSER);
-//      applyArtefactState(schemaModel.getName(), schemaModel.getLocation(), SCHEMA_ARTEFACT, ArtefactState.FAILED_DELETE, errorMessage);
-      throw new IllegalStateException(errorMessage);
-    } else {
+//    if (!(dialect.getClass().equals(HanaSqlDialect.class))) {
+//      String errorMessage = String.format("Schemas are not supported for %s", dialect.getDatabaseName(connection));
+//      CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, schemaModel.getLocation(),
+//          CommonsConstants.HDB_SCHEMA_PARSER);
+////      applyArtefactState(schemaModel.getName(), schemaModel.getLocation(), SCHEMA_ARTEFACT, ArtefactState.FAILED_DELETE, errorMessage);
+//      throw new IllegalStateException(errorMessage);
+//    } else {
       if (SqlFactory.getNative(connection).exists(connection, schemaModel.getSchema(), DatabaseArtifactTypes.SCHEMA)) {
         String schemaName = HDBUtils.escapeArtifactName(schemaModel.getSchema());
         String sql = SqlFactory.getNative(connection).drop().schema(schemaName).build();
@@ -75,6 +75,6 @@ public class HDBSchemaDropProcessor extends AbstractHDBProcessor<HDBSchema> {
 //        applyArtefactState(schemaModel.getName(), schemaModel.getLocation(), SCHEMA_ARTEFACT, ArtefactState.FAILED_DELETE, warningMessage);
         return true;
       }
-    }
+//    }
   }
 }
