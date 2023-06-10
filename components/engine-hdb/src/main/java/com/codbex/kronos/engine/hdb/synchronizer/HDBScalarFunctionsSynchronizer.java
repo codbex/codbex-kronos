@@ -197,7 +197,7 @@ public class HDBScalarFunctionsSynchronizer<A extends Artefact> implements Synch
 			
 			switch (flow) {
 			case CREATE:
-				if (scalarfunction.getLifecycle().equals(ArtefactLifecycle.NEW)) {
+				if (ArtefactLifecycle.NEW.equals(scalarfunction.getLifecycle())) {
 					if (!SqlFactory.getNative(connection).exists(connection, scalarfunction.getName())) {
 						try {
 							executeScalarFunctionCreate(connection, scalarfunction);
@@ -215,13 +215,13 @@ public class HDBScalarFunctionsSynchronizer<A extends Artefact> implements Synch
 				}
 				break;
 			case UPDATE:
-				if (scalarfunction.getLifecycle().equals(ArtefactLifecycle.MODIFIED)) {
+				if (ArtefactLifecycle.MODIFIED.equals(scalarfunction.getLifecycle())) {
 					executeScalarFunctionUpdate(connection, scalarfunction);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 				}
 				break;
 			case DELETE:
-				if (scalarfunction.getLifecycle().equals(ArtefactLifecycle.CREATED)) {
+				if (ArtefactLifecycle.CREATED.equals(scalarfunction.getLifecycle())) {
 					if (SqlFactory.getNative(connection).exists(connection, scalarfunction.getName())) {
 						executeScalarFunctionDrop(connection, scalarfunction);
 						callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");

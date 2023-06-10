@@ -216,7 +216,7 @@ public class HDBSynonymGroupsSynchronizer<A extends Artefact> implements Synchro
 			
 			switch (flow) {
 			case CREATE:
-				if (synonymGroup.getLifecycle().equals(ArtefactLifecycle.NEW)) {
+				if (ArtefactLifecycle.NEW.equals(synonymGroup.getLifecycle())) {
 					if (!SqlFactory.getNative(connection).exists(connection, synonymGroup.getName())) {
 						try {
 							executeSynonymGroupCreate(connection, synonymGroup);
@@ -234,13 +234,13 @@ public class HDBSynonymGroupsSynchronizer<A extends Artefact> implements Synchro
 				}
 				break;
 			case UPDATE:
-				if (synonymGroup.getLifecycle().equals(ArtefactLifecycle.MODIFIED)) {
+				if (ArtefactLifecycle.MODIFIED.equals(synonymGroup.getLifecycle())) {
 					executeSynonymGroupUpdate(connection, synonymGroup);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 				}
 				break;
 			case DELETE:
-				if (synonymGroup.getLifecycle().equals(ArtefactLifecycle.CREATED)) {
+				if (ArtefactLifecycle.CREATED.equals(synonymGroup.getLifecycle())) {
 					if (SqlFactory.getNative(connection).exists(connection, synonymGroup.getName())) {
 						executeSynonymGroupDrop(connection, synonymGroup);
 						callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");

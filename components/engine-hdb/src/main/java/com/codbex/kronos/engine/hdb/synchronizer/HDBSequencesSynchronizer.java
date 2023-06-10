@@ -197,7 +197,7 @@ public class HDBSequencesSynchronizer<A extends Artefact> implements Synchronize
 			
 			switch (flow) {
 			case CREATE:
-				if (sequence.getLifecycle().equals(ArtefactLifecycle.NEW)) {
+				if (ArtefactLifecycle.NEW.equals(sequence.getLifecycle())) {
 					if (!SqlFactory.getNative(connection).exists(connection, sequence.getName())) {
 						try {
 							executeSequenceCreate(connection, sequence);
@@ -215,13 +215,13 @@ public class HDBSequencesSynchronizer<A extends Artefact> implements Synchronize
 				}
 				break;
 			case UPDATE:
-				if (sequence.getLifecycle().equals(ArtefactLifecycle.MODIFIED)) {
+				if (ArtefactLifecycle.MODIFIED.equals(sequence.getLifecycle())) {
 					executeSequenceUpdate(connection, sequence);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 				}
 				break;
 			case DELETE:
-				if (sequence.getLifecycle().equals(ArtefactLifecycle.CREATED)) {
+				if (ArtefactLifecycle.CREATED.equals(sequence.getLifecycle())) {
 					if (SqlFactory.getNative(connection).exists(connection, sequence.getName())) {
 						executeSequenceDrop(connection, sequence);
 						callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");

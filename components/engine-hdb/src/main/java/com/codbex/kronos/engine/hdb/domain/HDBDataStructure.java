@@ -26,7 +26,7 @@ import com.google.gson.annotations.Expose;
 public class HDBDataStructure extends Artefact {
 
 	/** The schema. */
-	@Column(name = "HDB_SCHEMA", columnDefinition = "VARCHAR", nullable = false, length = 255)
+	@Column(name = "HDB_SCHEMA", columnDefinition = "VARCHAR", nullable = true, length = 255)
 	@Expose
 	private String schema;
 

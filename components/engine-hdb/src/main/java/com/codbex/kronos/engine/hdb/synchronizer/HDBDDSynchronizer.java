@@ -257,7 +257,7 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 			
 			switch (flow) {
 			case CREATE:
-				if (hdbdd.getLifecycle().equals(ArtefactLifecycle.NEW)) {
+				if (ArtefactLifecycle.NEW.equals(hdbdd.getLifecycle())) {
 					try {
 						executeHDBDDCreate(connection, hdbdd);
 						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
@@ -268,15 +268,17 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 				}
 				break;
 			case UPDATE:
-				if (hdbdd.getLifecycle().equals(ArtefactLifecycle.MODIFIED)) {
+				if (ArtefactLifecycle.MODIFIED.equals(hdbdd.getLifecycle())) {
 					executeHDBDDUpdate(connection, hdbdd);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 				}
 				break;
 			case DELETE:
-				executeHDBDDDrop(connection, hdbdd);
-				callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
-				break;
+				if (ArtefactLifecycle.CREATED.equals(hdbdd.getLifecycle())) {
+					executeHDBDDDrop(connection, hdbdd);
+					callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
+					break;
+				}
 			case START:
 			case STOP:
 			}

@@ -197,7 +197,7 @@ public class HDBViewsSynchronizer<A extends Artefact> implements Synchronizer<HD
 			
 			switch (flow) {
 			case CREATE:
-				if (view.getLifecycle().equals(ArtefactLifecycle.NEW)) {
+				if (ArtefactLifecycle.NEW.equals(view.getLifecycle())) {
 					if (!SqlFactory.getNative(connection).exists(connection, view.getName())) {
 						try {
 							executeViewCreate(connection, view);
@@ -215,13 +215,13 @@ public class HDBViewsSynchronizer<A extends Artefact> implements Synchronizer<HD
 				}
 				break;
 			case UPDATE:
-				if (view.getLifecycle().equals(ArtefactLifecycle.MODIFIED)) {
+				if (ArtefactLifecycle.MODIFIED.equals(view.getLifecycle())) {
 					executeViewUpdate(connection, view);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 				}
 				break;
 			case DELETE:
-				if (view.getLifecycle().equals(ArtefactLifecycle.CREATED)) {
+				if (ArtefactLifecycle.CREATED.equals(view.getLifecycle())) {
 					if (SqlFactory.getNative(connection).exists(connection, view.getName())) {
 						executeViewDrop(connection, view);
 						callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");

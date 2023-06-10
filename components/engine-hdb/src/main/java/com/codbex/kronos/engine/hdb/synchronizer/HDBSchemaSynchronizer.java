@@ -197,7 +197,7 @@ public class HDBSchemaSynchronizer<A extends Artefact> implements Synchronizer<H
 			
 			switch (flow) {
 			case CREATE:
-				if (schema.getLifecycle().equals(ArtefactLifecycle.NEW)) {
+				if (ArtefactLifecycle.NEW.equals(schema.getLifecycle())) {
 					if (!SqlFactory.getNative(connection).exists(connection, schema.getName())) {
 						try {
 							executeSchemaCreate(connection, schema);
@@ -215,13 +215,13 @@ public class HDBSchemaSynchronizer<A extends Artefact> implements Synchronizer<H
 				}
 				break;
 			case UPDATE:
-				if (schema.getLifecycle().equals(ArtefactLifecycle.MODIFIED)) {
+				if (ArtefactLifecycle.MODIFIED.equals(schema.getLifecycle())) {
 					executeSchemaUpdate(connection, schema);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 				}
 				break;
 			case DELETE:
-				if (schema.getLifecycle().equals(ArtefactLifecycle.CREATED)) {
+				if (ArtefactLifecycle.CREATED.equals(schema.getLifecycle())) {
 					if (SqlFactory.getNative(connection).exists(connection, schema.getName())) {
 						executeSchemaDrop(connection, schema);
 						callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");

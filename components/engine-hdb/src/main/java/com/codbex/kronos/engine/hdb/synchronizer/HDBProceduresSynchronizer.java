@@ -197,7 +197,7 @@ public class HDBProceduresSynchronizer<A extends Artefact> implements Synchroniz
 			
 			switch (flow) {
 			case CREATE:
-				if (procedure.getLifecycle().equals(ArtefactLifecycle.NEW)) {
+				if (ArtefactLifecycle.NEW.equals(procedure.getLifecycle())) {
 					if (!SqlFactory.getNative(connection).exists(connection, procedure.getName())) {
 						try {
 							executeProcedureCreate(connection, procedure);
@@ -215,13 +215,13 @@ public class HDBProceduresSynchronizer<A extends Artefact> implements Synchroniz
 				}
 				break;
 			case UPDATE:
-				if (procedure.getLifecycle().equals(ArtefactLifecycle.MODIFIED)) {
+				if (ArtefactLifecycle.MODIFIED.equals(procedure.getLifecycle())) {
 					executeProcedureUpdate(connection, procedure);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 				}
 				break;
 			case DELETE:
-				if (procedure.getLifecycle().equals(ArtefactLifecycle.CREATED)) {
+				if (ArtefactLifecycle.CREATED.equals(procedure.getLifecycle())) {
 					if (SqlFactory.getNative(connection).exists(connection, procedure.getName())) {
 						executeProcedureDrop(connection, procedure);
 						callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");

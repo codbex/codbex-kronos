@@ -197,7 +197,7 @@ public class HDBTableFunctionsSynchronizer<A extends Artefact> implements Synchr
 			
 			switch (flow) {
 			case CREATE:
-				if (tablefunction.getLifecycle().equals(ArtefactLifecycle.NEW)) {
+				if (ArtefactLifecycle.NEW.equals(tablefunction.getLifecycle())) {
 					if (!SqlFactory.getNative(connection).exists(connection, tablefunction.getName())) {
 						try {
 							executeTableFunctionCreate(connection, tablefunction);
@@ -215,13 +215,13 @@ public class HDBTableFunctionsSynchronizer<A extends Artefact> implements Synchr
 				}
 				break;
 			case UPDATE:
-				if (tablefunction.getLifecycle().equals(ArtefactLifecycle.MODIFIED)) {
+				if (ArtefactLifecycle.MODIFIED.equals(tablefunction.getLifecycle())) {
 					executeTableFunctionUpdate(connection, tablefunction);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 				}
 				break;
 			case DELETE:
-				if (tablefunction.getLifecycle().equals(ArtefactLifecycle.CREATED)) {
+				if (ArtefactLifecycle.CREATED.equals(tablefunction.getLifecycle())) {
 					if (SqlFactory.getNative(connection).exists(connection, tablefunction.getName())) {
 						executeTableFunctionDrop(connection, tablefunction);
 						callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");

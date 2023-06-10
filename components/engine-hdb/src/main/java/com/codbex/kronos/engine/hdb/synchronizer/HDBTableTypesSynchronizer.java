@@ -215,7 +215,7 @@ public class HDBTableTypesSynchronizer<A extends Artefact> implements Synchroniz
 			
 			switch (flow) {
 			case CREATE:
-				if (tableType.getLifecycle().equals(ArtefactLifecycle.NEW)) {
+				if (ArtefactLifecycle.NEW.equals(tableType.getLifecycle())) {
 					if (!SqlFactory.getNative(connection).exists(connection, tableType.getName())) {
 						try {
 							executeTableTypeCreate(connection, tableType);
@@ -237,14 +237,14 @@ public class HDBTableTypesSynchronizer<A extends Artefact> implements Synchroniz
 //						executeTableTypeForeignKeysCreate(connection, tableType);
 //					}
 //				}
-				if (tableType.getLifecycle().equals(ArtefactLifecycle.MODIFIED)) {
+				if (ArtefactLifecycle.MODIFIED.equals(tableType.getLifecycle())) {
 					executeTableTypeUpdate(connection, tableType);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 				}
 				break;
 			case DELETE:
-				if (tableType.getLifecycle().equals(ArtefactLifecycle.CREATED)
-						|| tableType.getLifecycle().equals(ArtefactLifecycle.UPDATED)) { 
+				if (ArtefactLifecycle.CREATED.equals(tableType.getLifecycle())
+						|| ArtefactLifecycle.UPDATED.equals(tableType.getLifecycle())) { 
 					if (SqlFactory.getNative(connection).exists(connection, tableType.getName())) {
 						if (SqlFactory.getNative(connection).count(connection, tableType.getName()) == 0) {
 							executeTableTypeDrop(connection, tableType);
