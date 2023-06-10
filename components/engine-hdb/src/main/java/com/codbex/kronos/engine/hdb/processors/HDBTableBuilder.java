@@ -11,6 +11,7 @@
  */
 package com.codbex.kronos.engine.hdb.processors;
 
+import java.sql.Connection;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -23,8 +24,7 @@ import org.eclipse.dirigible.database.sql.ISqlKeywords;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.eclipse.dirigible.database.sql.TableStatements;
 import org.eclipse.dirigible.database.sql.builders.table.AbstractTableBuilder;
-import org.eclipse.dirigible.database.sql.dialects.hana.HanaCreateTableBuilder;
-import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
+import org.eclipse.dirigible.database.sql.builders.table.CreateTableBuilder;
 
 import com.codbex.kronos.engine.hdb.domain.HDBTable;
 import com.codbex.kronos.engine.hdb.domain.HDBTableColumn;
@@ -50,10 +50,10 @@ public class HDBTableBuilder {
    * @param tableModel the model
    * @return the table
    */
-  public TableStatements build(HDBTable tableModel) {
+  public TableStatements build(Connection connection, HDBTable tableModel) {
     String tableName = HDBUtils.escapeArtifactName(tableModel.getName(), tableModel.getSchema());
 
-    HanaCreateTableBuilder sqlTableBuilder = createTableBuilder(tableName, tableModel.getTableType());
+    CreateTableBuilder sqlTableBuilder = createTableBuilder(connection, tableName, tableModel.getTableType());
 
     addTableColumnToBuilder(sqlTableBuilder, tableModel);
     addTableConstraintsToBuilder(sqlTableBuilder, tableModel);
@@ -69,12 +69,11 @@ public class HDBTableBuilder {
    * @param tableType the table type
    * @return the hana create table builder
    */
-  private HanaCreateTableBuilder createTableBuilder(String tableName, String tableType) {
-    HanaSqlDialect dialect = new HanaSqlDialect();
+  private CreateTableBuilder createTableBuilder(Connection connection, String tableName, String tableType) {
     if (null != tableType) {
-        return SqlFactory.getNative(dialect).create().table(tableName, tableType);
+        return SqlFactory.deriveDialect(connection).create().table(tableName, tableType);
     }
-    return SqlFactory.getNative(dialect).create().table(tableName);
+    return SqlFactory.deriveDialect(connection).create().table(tableName);
   }
 
   /**
@@ -83,7 +82,7 @@ public class HDBTableBuilder {
    * @param sqlTableBuilder the sql table builder
    * @param tableModel the table model
    */
-  private void addTableIndicesToBuilder(HanaCreateTableBuilder sqlTableBuilder, HDBTable tableModel) {
+  private void addTableIndicesToBuilder(CreateTableBuilder sqlTableBuilder, HDBTable tableModel) {
     List<HDBTableIndex> indexes = tableModel.getIndexes();
     for (HDBTableIndex indexModel : indexes) {
       String name = caseSensitive
@@ -91,7 +90,7 @@ public class HDBTableBuilder {
           : indexModel.getName();
 
       sqlTableBuilder
-          .index(name, indexModel.isUnique(), indexModel.getOrder(), indexModel.getType(), new HashSet<String>(Arrays.asList(indexModel.getColumns())));
+          .index(name, indexModel.isUnique(), /*indexModel.getOrder(),*/ indexModel.getType(), new HashSet<String>(Arrays.asList(indexModel.getColumns())));
     }
   }
 
@@ -101,7 +100,7 @@ public class HDBTableBuilder {
    * @param sqlTableBuilder the sql table builder
    * @param tableModel the table model
    */
-  private void addTableColumnToBuilder(HanaCreateTableBuilder sqlTableBuilder, HDBTable tableModel) {
+  private void addTableColumnToBuilder(CreateTableBuilder sqlTableBuilder, HDBTable tableModel) {
     List<HDBTableColumn> columns = tableModel.getColumns();
     for (HDBTableColumn columnModel : columns) {
       String name = caseSensitive
@@ -124,7 +123,7 @@ public class HDBTableBuilder {
    * @param sqlTableBuilder the sql table builder
    * @param tableModel the table model
    */
-  private void addTableConstraintsToBuilder(HanaCreateTableBuilder sqlTableBuilder, HDBTable tableModel) {
+  private void addTableConstraintsToBuilder(CreateTableBuilder sqlTableBuilder, HDBTable tableModel) {
     HDBTableConstraints constraintsModel = tableModel.getConstraints();
     if (Objects.nonNull(constraintsModel)) {
       if (Objects.nonNull(constraintsModel.getPrimaryKey())) {
@@ -215,7 +214,7 @@ public class HDBTableBuilder {
    * @param sqlTableBuilder the sql table builder
    * @param tableModel the table model
    */
-  private void addTableForeignKeysToBuilder(HanaCreateTableBuilder sqlTableBuilder, HDBTable tableModel) {
+  private void addTableForeignKeysToBuilder(CreateTableBuilder sqlTableBuilder, HDBTable tableModel) {
     List<HDBTableConstraintForeignKey> foreignKeys = tableModel.getConstraints().getForeignKeys();
     if (Objects.nonNull(foreignKeys)) {
       for (HDBTableConstraintForeignKey foreignKey : foreignKeys) {

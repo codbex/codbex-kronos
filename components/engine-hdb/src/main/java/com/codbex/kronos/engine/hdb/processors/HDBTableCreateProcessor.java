@@ -56,7 +56,7 @@ public class HDBTableCreateProcessor extends AbstractHDBProcessor<HDBTable> {
     String tableNameWithSchema = HDBUtils.escapeArtifactName(tableModel.getName(), tableModel.getSchema());
 
     if (tableModel.isClassic()) {
-        TableStatements tableStatements = new HDBTableBuilder().build(tableModel);
+        TableStatements tableStatements = new HDBTableBuilder().build(connection, tableModel);
         tableCreateStatement = tableStatements.getCreateTableStatement();
         indicesStatements.addAll(tableStatements.getCreateIndicesStatements());
     } else {
