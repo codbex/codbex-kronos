@@ -15,6 +15,7 @@ import java.util.Arrays;
 
 import javax.annotation.Nullable;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,6 +27,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
+import org.eclipse.dirigible.components.base.converters.ArrayOfStringsToCsvConverter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -54,16 +56,18 @@ public class HDBTableStructurePrimaryKey {
 	/** The modifiers. */
 	@Column(name = "PRIMARYKEY_MODIFIERS", columnDefinition = "VARCHAR", nullable = true, length = 2000)
 	@Nullable
-	@ElementCollection
-	@OrderColumn
+//	@ElementCollection
+//	@OrderColumn
+	@Convert(converter = ArrayOfStringsToCsvConverter.class)
 	@Expose
 	protected String[] modifiers;
 	
 	/** The columns. */
 	@Column(name = "PRIMARYKEY_COLUMNS", columnDefinition = "VARCHAR", nullable = true, length = 2000)
 	@Nullable
-	@ElementCollection
-	@OrderColumn
+//	@ElementCollection
+//	@OrderColumn
+	@Convert(converter = ArrayOfStringsToCsvConverter.class)
 	@Expose
 	protected String[] columns;
 	

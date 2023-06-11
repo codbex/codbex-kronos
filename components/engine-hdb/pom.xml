@@ -74,8 +74,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
-
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-components-group-database</artifactId>

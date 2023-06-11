@@ -11,17 +11,22 @@
  */
 package com.codbex.kronos.hdi.ds.parser;
 
-import com.codbex.kronos.hdb.ds.api.DataStructuresException;
-import com.codbex.kronos.hdb.ds.model.DataStructureParametersModel;
-import com.codbex.kronos.hdi.ds.model.DataStructureHDIModel;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonSyntaxException;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+
+import com.codbex.kronos.engine.hdb.api.DataStructuresException;
+import com.codbex.kronos.engine.hdb.parser.HDBParameters;
+import com.codbex.kronos.engine.hdi.domain.HDI;
+import com.codbex.kronos.engine.hdi.parser.HDIParser;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSyntaxException;
 
 public class HDIParserTest {
 
@@ -31,15 +36,15 @@ public class HDIParserTest {
     String content = org.apache.commons.io.IOUtils
         .toString(HDIParserTest.class.getResourceAsStream(location), StandardCharsets.UTF_8);
 
-    DataStructureParametersModel parametersModel =
-        new DataStructureParametersModel(null, location, content, null);
-    DataStructureHDIModel model = new HDIParser().parse(parametersModel);
+    HDBParameters parametersModel =
+        new HDBParameters(null, location, content, null);
+    HDI model = new HDIParser().parse(parametersModel);
     assertEquals("/hdi-ext/config.hdiconfig", model.getConfiguration());
-    assertEquals(new String[]{"DBADMIN"}, model.getUsers());
+    assertArrayEquals(new String[]{"DBADMIN"}, model.getUsers());
     assertEquals("/hdi-ext/config.hdiconfig", model.getConfiguration());
     assertEquals("KRONOS_HDI_EXT_GROUP", model.getGroup());
     assertEquals("KRONOS_HDI_EXT", model.getContainer());
-    assertEquals(new String[]{"/hdi-ext/Customers.hdbsynonym", "/hdi-ext/CustomersCalcView.hdbcalculationview"}, model.getDeploy());
+    assertArrayEquals(new String[]{"/hdi-ext/Customers.hdbsynonym", "/hdi-ext/CustomersCalcView.hdbcalculationview"}, model.getDeploy());
     assertTrue(model.getUndeploy().length == 0);
 
   }
@@ -49,8 +54,8 @@ public class HDIParserTest {
     String location = "/NonStringProperties.hdi";
     String content = org.apache.commons.io.IOUtils
         .toString(HDIParserTest.class.getResourceAsStream(location), StandardCharsets.UTF_8);
-    DataStructureParametersModel parametersModel =
-        new DataStructureParametersModel(null, location, content, null);
+    HDBParameters parametersModel =
+        new HDBParameters(null, location, content, null);
     assertThrows(JsonSyntaxException.class, () -> new HDIParser().parse(parametersModel));
   }
 
@@ -59,8 +64,8 @@ public class HDIParserTest {
     String location = "/MissingMandatoryProperty.hdi";
     String content = org.apache.commons.io.IOUtils
         .toString(HDIParserTest.class.getResourceAsStream(location), StandardCharsets.UTF_8);
-    DataStructureParametersModel parametersModel =
-        new DataStructureParametersModel(null, location, content, null);
+    HDBParameters parametersModel =
+        new HDBParameters(null, location, content, null);
     assertThrows(JsonParseException.class, () -> new HDIParser().parse(parametersModel));
   }
 
@@ -69,8 +74,8 @@ public class HDIParserTest {
     String location = "/SameDeploymentFile.hdi";
     String content = org.apache.commons.io.IOUtils
         .toString(HDIParserTest.class.getResourceAsStream(location), StandardCharsets.UTF_8);
-    DataStructureParametersModel parametersModel =
-        new DataStructureParametersModel(null, location, content, null);
+    HDBParameters parametersModel =
+        new HDBParameters(null, location, content, null);
     assertThrows(JsonParseException.class, () -> new HDIParser().parse(parametersModel));
   }
 
@@ -79,8 +84,8 @@ public class HDIParserTest {
     String location = "/NoDeploymentFiles.hdi";
     String content = org.apache.commons.io.IOUtils
         .toString(HDIParserTest.class.getResourceAsStream(location), StandardCharsets.UTF_8);
-    DataStructureParametersModel parametersModel =
-        new DataStructureParametersModel(null, location, content, null);
+    HDBParameters parametersModel =
+        new HDBParameters(null, location, content, null);
     assertThrows(JsonParseException.class, () -> new HDIParser().parse(parametersModel));
   }
 }

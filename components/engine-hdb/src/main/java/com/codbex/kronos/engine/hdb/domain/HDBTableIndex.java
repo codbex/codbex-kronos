@@ -12,7 +12,7 @@
 package com.codbex.kronos.engine.hdb.domain;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,8 +20,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OrderColumn;
 
+import org.eclipse.dirigible.components.base.converters.ArrayOfStringsToCsvConverter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -63,8 +63,9 @@ public class HDBTableIndex {
     
     /** The index columns. */
 	@Column(name = "INDEX_COLUMNS", columnDefinition = "VARCHAR", nullable = false, length = 2000)
-	@ElementCollection
-	@OrderColumn
+//	@ElementCollection
+//	@OrderColumn
+	@Convert(converter = ArrayOfStringsToCsvConverter.class)
 	@Expose
     private String[] columns;
 	

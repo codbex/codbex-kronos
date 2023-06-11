@@ -26,8 +26,20 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.codbex.kronos.hdb.ds.api.DataStructuresException;
-import com.codbex.kronos.hdi.ds.model.DataStructureHDIModel;
+import com.codbex.kronos.engine.hdb.api.DataStructuresException;
+import com.codbex.kronos.engine.hdi.domain.HDI;
+import com.codbex.kronos.engine.hdi.processors.ConfigureLibrariesProcessor;
+import com.codbex.kronos.engine.hdi.processors.CreateContainerGroupProcessor;
+import com.codbex.kronos.engine.hdi.processors.CreateContainerProcessor;
+import com.codbex.kronos.engine.hdi.processors.DeployContainerContentProcessor;
+import com.codbex.kronos.engine.hdi.processors.GrantPrivilegesContainerAPIProcessor;
+import com.codbex.kronos.engine.hdi.processors.GrantPrivilegesContainerGroupAPIProcessor;
+import com.codbex.kronos.engine.hdi.processors.GrantPrivilegesContainerGroupProcessor;
+import com.codbex.kronos.engine.hdi.processors.GrantPrivilegesContainerSchemaProcessor;
+import com.codbex.kronos.engine.hdi.processors.GrantPrivilegesDefaultRoleProcessor;
+import com.codbex.kronos.engine.hdi.processors.GrantPrivilegesExternalArtifactsSchemaProcessor;
+import com.codbex.kronos.engine.hdi.processors.HDIContainerCreateProcessor;
+import com.codbex.kronos.engine.hdi.processors.WriteContainerContentProcessor;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HDIContainerCreateProcessorTest {
@@ -62,7 +74,7 @@ public class HDIContainerCreateProcessorTest {
         grantPrivilegesExternalArtifactsSchemaProcessor,
         grantPrivilegesDefaultRoleProcessor
     );
-    DataStructureHDIModel hdiModel = new DataStructureHDIModel();
+    HDI hdiModel = new HDI();
 
     String container = "test-container";
     String[] files = new String[]{};

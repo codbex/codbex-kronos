@@ -27,6 +27,8 @@ import org.mockito.Answers;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.codbex.kronos.engine.hdi.processors.GrantPrivilegesDefaultRoleProcessor;
+
 @RunWith(MockitoJUnitRunner.class)
 public class GrantPrivilegesDefaultRoleProcessorTest {
 

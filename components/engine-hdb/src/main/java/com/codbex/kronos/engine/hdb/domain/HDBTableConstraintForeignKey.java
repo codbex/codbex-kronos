@@ -13,12 +13,13 @@ package com.codbex.kronos.engine.hdb.domain;
 
 import javax.annotation.Nullable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OrderColumn;
+
+import org.eclipse.dirigible.components.base.converters.ArrayOfStringsToCsvConverter;
 
 import com.google.gson.annotations.Expose;
 
@@ -50,8 +51,9 @@ public class HDBTableConstraintForeignKey extends HDBTableConstraint {
 	/** The referenced columns. */
 	@Column(name = "FOREIGNKEY_REF_COLUMNS", columnDefinition = "VARCHAR", nullable = true, length = 2000)
 	@Nullable
-	@ElementCollection
-	@OrderColumn
+//	@ElementCollection
+//	@OrderColumn
+	@Convert(converter = ArrayOfStringsToCsvConverter.class)
 	@Expose
 	private String[] referencedColumns;
 	

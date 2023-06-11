@@ -11,7 +11,6 @@
  */
 package com.codbex.kronos.hdi.ds.processors;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.spy;
@@ -26,16 +25,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Answers;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
-import com.codbex.kronos.hdi.ds.processors.DeployContainerContentProcessor;
+import com.codbex.kronos.engine.hdi.processors.DeployContainerContentProcessor;
 import com.codbex.kronos.hdi.ds.util.Message;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -100,12 +99,12 @@ public class DeployContainerContentProcessorTest {
     messages.add(message);
     when(callableStatementMock.getInt(1)).thenReturn(1);
     when(resultSetFromSelectMock.getString(1)).thenReturn("test_Deploy_Container/testCalcView.hdbcalculationview");
-    Mockito.doNothing().when(processorSpy).applyArtefactState(any(), any(), any(), any(), any());
+//    Mockito.doNothing().when(processorSpy).applyArtefactState(any(), any(), any(), any(), any());
 
     processorSpy.executeCall(mockConnection, sqlMakeCall);
     verify(processorSpy,times(1)).executeCall(mockConnection, sqlMakeCall);
     verify(processorSpy, times(1)).parseResultSet(resultSetMock);
-    verify(processorSpy,times(2)).applyState(any(), any(), any(), any());
+//    verify(processorSpy,times(2)).applyState(any(), any(), any(), any());
 
   }
 

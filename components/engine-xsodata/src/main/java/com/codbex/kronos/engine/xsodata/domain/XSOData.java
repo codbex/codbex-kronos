@@ -75,7 +75,7 @@ public class XSOData extends Artefact {
 	 * @param entities the entities
 	 * @param associations the associations
 	 */
-	public XSOData(String location, String name, String description, String dependencies,
+	public XSOData(String location, String name, String description, List<String> dependencies,
 			String namespace, List<ODataEntity> entities, List<ODataAssociation> associations) {
 		super(location, name, ARTEFACT_TYPE, description, dependencies);
 		this.namespace = namespace;

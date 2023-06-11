@@ -36,10 +36,11 @@ import org.mockito.Answers;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.codbex.kronos.hdb.ds.api.DataStructuresException;
-import com.codbex.kronos.hdb.ds.model.hdbsynonym.DataStructureHDBSynonymModel;
-import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDefinitionModel;
-import com.codbex.kronos.hdb.ds.model.hdbsynonym.HDBSynonymDefinitionModel.Target;
+import com.codbex.kronos.engine.hdb.api.DataStructuresException;
+import com.codbex.kronos.engine.hdb.domain.HDBSynonym;
+import com.codbex.kronos.engine.hdb.domain.HDBSynonymGroup;
+import com.codbex.kronos.engine.hdb.domain.HDBSynonymTarget;
+import com.codbex.kronos.engine.hdi.processors.GrantPrivilegesExternalArtifactsSchemaProcessor;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GrantPrivilegesExternalArtifactsSchemaProcessorTest {
@@ -152,7 +153,7 @@ interface ReThrowingBiConsumer<T, X, E extends Exception> {
 
 class HDISynonym {
   final String location;
-  final DataStructureHDBSynonymModel model;
+  final HDBSynonymGroup model;
 
   public HDISynonym(String location, SynonymDefinition... definitions){
     this.location = location;
@@ -163,14 +164,14 @@ class HDISynonym {
     return location;
   }
 
-  public DataStructureHDBSynonymModel getModel() {
+  public HDBSynonymGroup getModel() {
     return model;
   }
 
-  private DataStructureHDBSynonymModel createSynonymModel(SynonymDefinition... definitions){
-    DataStructureHDBSynonymModel synonymModel = new DataStructureHDBSynonymModel();
+  private HDBSynonymGroup createSynonymModel(SynonymDefinition... definitions){
+	  HDBSynonymGroup synonymModel = new HDBSynonymGroup();
 
-    Map<String, HDBSynonymDefinitionModel> models = Arrays.stream(definitions)
+    Map<String, HDBSynonym> models = Arrays.stream(definitions)
         .collect(Collectors.toMap(SynonymDefinition::getArtifactName, SynonymDefinition::getModel));
     synonymModel.setSynonymDefinitions(models);
 
@@ -180,16 +181,16 @@ class HDISynonym {
 
 class SynonymDefinition {
   final String artifactName;
-  final HDBSynonymDefinitionModel model;
+  final HDBSynonym model;
 
   public SynonymDefinition(String artifactName, String schemaName){
     this.artifactName = artifactName;
     this.model = createSynonymDefinition(artifactName, schemaName);
   }
 
-  private HDBSynonymDefinitionModel createSynonymDefinition(String artifactName, String schemaName){
-    HDBSynonymDefinitionModel synonymDefinitionModel = new HDBSynonymDefinitionModel();
-    synonymDefinitionModel.setTarget(new Target(artifactName, schemaName));
+  private HDBSynonym createSynonymDefinition(String artifactName, String schemaName){
+    HDBSynonym synonymDefinitionModel = new HDBSynonym();
+    synonymDefinitionModel.setTarget(new HDBSynonymTarget(synonymDefinitionModel, artifactName, schemaName));
     return synonymDefinitionModel;
   }
 
@@ -197,7 +198,7 @@ class SynonymDefinition {
     return artifactName;
   }
 
-  public HDBSynonymDefinitionModel getModel() {
+  public HDBSynonym getModel() {
     return model;
   }
 }

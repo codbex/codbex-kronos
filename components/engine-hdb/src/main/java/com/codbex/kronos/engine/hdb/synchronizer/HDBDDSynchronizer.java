@@ -35,13 +35,11 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.codbex.kronos.engine.hdb.api.DataStructuresException;
-import com.codbex.kronos.engine.hdb.api.IDataStructureModel;
 import com.codbex.kronos.engine.hdb.domain.HDBDD;
 import com.codbex.kronos.engine.hdb.domain.HDBTable;
 import com.codbex.kronos.engine.hdb.domain.HDBTableConstraints;
 import com.codbex.kronos.engine.hdb.domain.HDBView;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
-import com.codbex.kronos.engine.hdb.parser.HDBParameters;
 import com.codbex.kronos.engine.hdb.parser.HDBUtils;
 import com.codbex.kronos.engine.hdb.processors.HDBTableAlterProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBTableCreateProcessor;
@@ -50,7 +48,6 @@ import com.codbex.kronos.engine.hdb.processors.HDBViewDropProcessor;
 import com.codbex.kronos.engine.hdb.service.HDBDDService;
 import com.codbex.kronos.engine.hdb.service.HDBTableService;
 import com.codbex.kronos.engine.hdb.service.HDBViewService;
-import com.codbex.kronos.utils.CommonsConstants;
 
 /**
  * The Class HDBDDSynchronizer.
@@ -274,7 +271,8 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 				}
 				break;
 			case DELETE:
-				if (ArtefactLifecycle.CREATED.equals(hdbdd.getLifecycle())) {
+				if (ArtefactLifecycle.CREATED.equals(hdbdd.getLifecycle())
+						|| ArtefactLifecycle.UPDATED.equals(hdbdd.getLifecycle())) {
 					executeHDBDDDrop(connection, hdbdd);
 					callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
 					break;

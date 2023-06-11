@@ -90,7 +90,7 @@ public class HDBTableBuilder {
           : indexModel.getName();
 
       sqlTableBuilder
-          .index(name, indexModel.isUnique(), /*indexModel.getOrder(),*/ indexModel.getType(), new HashSet<String>(Arrays.asList(indexModel.getColumns())));
+          .index(name, indexModel.isUnique(), indexModel.getOrder(), indexModel.getType(), new HashSet<String>(Arrays.asList(indexModel.getColumns())));
     }
   }
 

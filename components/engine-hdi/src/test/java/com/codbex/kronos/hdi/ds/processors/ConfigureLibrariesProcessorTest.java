@@ -20,6 +20,8 @@ import java.util.Set;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import com.codbex.kronos.engine.hdi.processors.ConfigureLibrariesProcessor;
+
 public class ConfigureLibrariesProcessorTest {
 
   private static final String CONFIGURE_DEFAULT_LIBRARIES_SQL_PATTERN = "CALL %s#DI.CONFIGURE_LIBRARIES(_SYS_DI.T_DEFAULT_LIBRARIES, _SYS_DI.T_NO_PARAMETERS, ?, ?, ?);";
