@@ -11,9 +11,9 @@
  */
 package com.codbex.kronos.xsjob.ds.transformer;
 
+import com.codbex.kronos.engine.xsjob.exceptions.CronExpressionException;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
-import com.codbex.kronos.xsjob.ds.api.CronExpressionException;
 
 import java.text.ParseException;
 import java.util.List;

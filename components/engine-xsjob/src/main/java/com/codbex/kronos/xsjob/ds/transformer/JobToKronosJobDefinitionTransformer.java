@@ -11,10 +11,10 @@
  */
 package com.codbex.kronos.xsjob.ds.transformer;
 
+import com.codbex.kronos.engine.xsjob.domain.XSJob;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.codbex.kronos.xsjob.ds.model.JobArtifact;
-import com.codbex.kronos.xsjob.ds.model.JobDefinition;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -36,8 +36,8 @@ public class JobToKronosJobDefinitionTransformer {
    * @return the array list
    * @throws ParseException the parse exception
    */
-  public ArrayList<JobDefinition> transform(JobArtifact jobArtifact) throws ParseException {
-    ArrayList<JobDefinition> jobDefinitions = new ArrayList<>();
+  public ArrayList<XSJob> transform(JobArtifact jobArtifact) throws ParseException {
+    ArrayList<XSJob> jobDefinitions = new ArrayList<>();
     String[] parseAction = jobArtifact.getAction().split("::");
     final int PARTS_OF_ACTION_PROPERTY = 2;
 
@@ -47,7 +47,7 @@ public class JobToKronosJobDefinitionTransformer {
       filePath = kronosPathToDirigiblePath(filePath);
 
       for (int i = 0; i < jobArtifact.getSchedules().size(); i++) {
-        JobDefinition jobDefinition = new JobDefinition();
+        XSJob jobDefinition = new XSJob();
         String jobDefinitionName = jobArtifact.getAction() + "-" + i;
         String cronExpression = jobArtifact.getSchedules().get(i).getXscron();
         String quartzCronExpression = cronToQuartzCronTransformer.transform(cronExpression);

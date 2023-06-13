@@ -28,6 +28,7 @@ import org.eclipse.dirigible.components.base.synchronizer.Synchronizer;
 import org.eclipse.dirigible.components.base.synchronizer.SynchronizerCallback;
 import org.eclipse.dirigible.components.data.sources.manager.DataSourcesManager;
 import org.eclipse.dirigible.database.sql.SqlFactory;
+import org.eclipse.dirigible.repository.api.IRepositoryStructure;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,6 @@ import com.codbex.kronos.engine.hdi.parser.HDIParser;
 import com.codbex.kronos.engine.hdi.processors.HDIContainerCreateProcessor;
 import com.codbex.kronos.engine.hdi.processors.HDIContainerDropProcessor;
 import com.codbex.kronos.engine.hdi.service.HDIService;
-import com.codbex.kronos.utils.CommonsConstants;
 
 /**
  * The Class HDISynchronizer.
@@ -129,7 +129,7 @@ public class HDISynchronizer<A extends Artefact> implements Synchronizer<HDI> {
 	@Override
 	public List<HDI> parse(String location, byte[] content) throws ParseException {
 		HDBParameters parametersModel =
-	              new HDBParameters(TYPE_HDI, location, content, CommonsConstants.REGISTRY_PUBLIC);
+	              new HDBParameters(TYPE_HDI, location, content, IRepositoryStructure.PATH_REGISTRY_PUBLIC + IRepositoryStructure.SEPARATOR);
 		HDI hdi = new HDIParser().parse(parametersModel);
 		
 //		Configuration.configureObject(hdi);

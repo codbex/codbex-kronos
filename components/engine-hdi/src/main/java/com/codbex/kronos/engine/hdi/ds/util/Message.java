@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos.hdi.ds.util;
+package com.codbex.kronos.engine.hdi.ds.util;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

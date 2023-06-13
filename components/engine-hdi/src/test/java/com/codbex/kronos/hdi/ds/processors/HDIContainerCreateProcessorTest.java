@@ -19,12 +19,12 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.eclipse.dirigible.commons.config.Configuration;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Answers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdi.domain.HDI;
@@ -41,7 +41,7 @@ import com.codbex.kronos.engine.hdi.processors.GrantPrivilegesExternalArtifactsS
 import com.codbex.kronos.engine.hdi.processors.HDIContainerCreateProcessor;
 import com.codbex.kronos.engine.hdi.processors.WriteContainerContentProcessor;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class HDIContainerCreateProcessorTest {
 
   @Mock(answer = Answers.RETURNS_DEEP_STUBS)

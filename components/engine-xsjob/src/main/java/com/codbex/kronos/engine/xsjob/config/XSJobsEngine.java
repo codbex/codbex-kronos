@@ -9,14 +9,22 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos.xsjob.ds.api;
+package com.codbex.kronos.engine.xsjob.config;
 
-/**
- * The Interface IJobModel.
- */
-public interface IJobModel {
+import org.eclipse.dirigible.components.base.artefact.Engine;
+import org.springframework.stereotype.Component;
 
-  /** The kronos job file extension. */
-  String KRONOS_JOB_FILE_EXTENSION = ".xsjob";
+@Component
+public class XSJobsEngine implements Engine {
+	
+	@Override
+	public String getName() {
+		return "XSJobs";
+	}
+
+	@Override
+	public String getProvider() {
+		return "codbex Kronos";
+	}
 
 }

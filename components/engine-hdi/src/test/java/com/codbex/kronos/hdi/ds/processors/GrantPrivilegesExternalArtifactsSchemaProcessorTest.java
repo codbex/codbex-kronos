@@ -29,12 +29,12 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Answers;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdb.domain.HDBSynonym;
@@ -42,7 +42,7 @@ import com.codbex.kronos.engine.hdb.domain.HDBSynonymGroup;
 import com.codbex.kronos.engine.hdb.domain.HDBSynonymTarget;
 import com.codbex.kronos.engine.hdi.processors.GrantPrivilegesExternalArtifactsSchemaProcessor;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class GrantPrivilegesExternalArtifactsSchemaProcessorTest {
 
   @Mock(answer = Answers.RETURNS_DEEP_STUBS)
@@ -125,7 +125,7 @@ public class GrantPrivilegesExternalArtifactsSchemaProcessorTest {
       try {
         throwingConsumer.accept(i);
       } catch (Exception ex) {
-        Assert.fail("Unexpected exception occur! - " + ex.getMessage());
+        Assertions.fail("Unexpected exception occur! - " + ex.getMessage());
       }
     };
   }
@@ -135,7 +135,7 @@ public class GrantPrivilegesExternalArtifactsSchemaProcessorTest {
       try {
         throwingConsumer.accept(i, y);
       } catch (Exception ex) {
-        Assert.fail("Unexpected exception occur! - " + ex.getMessage());
+        Assertions.fail("Unexpected exception occur! - " + ex.getMessage());
       }
     };
   }

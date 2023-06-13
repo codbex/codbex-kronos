@@ -170,8 +170,4 @@ public final class CommonsConstants {
    */
   public static final String HDB_ANALYTIC_PRIVILEGE = "HDB Analytic Privilege";
 
-  /**
-   * The Constant REGISTRY_PUBLIC.
-   */
-  public static final String REGISTRY_PUBLIC = "/registry/public/";
 }

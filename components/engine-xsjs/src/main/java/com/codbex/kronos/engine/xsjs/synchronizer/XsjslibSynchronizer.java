@@ -11,8 +11,6 @@
  */
 package com.codbex.kronos.engine.xsjs.synchronizer;
 
-import static java.text.MessageFormat.format;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -29,8 +27,8 @@ import org.eclipse.dirigible.components.base.artefact.topology.TopologyWrapper;
 import org.eclipse.dirigible.components.base.synchronizer.Synchronizer;
 import org.eclipse.dirigible.components.base.synchronizer.SynchronizerCallback;
 import org.eclipse.dirigible.components.engine.javascript.service.JavascriptService;
-import org.eclipse.dirigible.components.repository.service.RepositoryService;
 import org.eclipse.dirigible.repository.api.IRepository;
+import org.eclipse.dirigible.repository.api.IRepositoryStructure;
 import org.eclipse.dirigible.repository.api.IResource;
 import org.eclipse.dirigible.repository.api.RepositoryPath;
 import org.slf4j.Logger;
@@ -41,7 +39,6 @@ import org.springframework.stereotype.Component;
 
 import com.codbex.kronos.engine.xsjs.domain.Xsjslib;
 import com.codbex.kronos.engine.xsjs.service.XsjslibService;
-import com.codbex.kronos.utils.CommonsConstants;
 
 /**
  * The Class XsjslibSynchronizer.
@@ -245,7 +242,7 @@ public class XsjslibSynchronizer<A extends Artefact> implements Synchronizer<Xsj
 	@Override
 	public void cleanup(Xsjslib xsjslib) {
 		try {
-			IResource resource = repository.getResource(CommonsConstants.REGISTRY_PUBLIC + xsjslib.getLocation() + "_generated_exports.js");
+			IResource resource = repository.getResource(IRepositoryStructure.PATH_REGISTRY_PUBLIC + xsjslib.getLocation() + "_generated_exports.js");
 		    if(resource.exists()) {
 		      resource.delete();
 		    }
@@ -309,7 +306,7 @@ public class XsjslibSynchronizer<A extends Artefact> implements Synchronizer<Xsj
 	 */
 	private Map<Object, Object> buildContext(Xsjslib xsjslib) {
 		Map<Object, Object> context = new HashMap<>();
-		XsjslibSynchronizerRegistryEntity synchronizerTarget = new XsjslibSynchronizerRegistryEntity(CommonsConstants.REGISTRY_PUBLIC + xsjslib.getLocation(), repository);
+		XsjslibSynchronizerRegistryEntity synchronizerTarget = new XsjslibSynchronizerRegistryEntity(IRepositoryStructure.PATH_REGISTRY_PUBLIC + xsjslib.getLocation(), repository);
 		context.put("synchronizerTarget", synchronizerTarget);
 		context.put("stateTableName", XSJSLIB_SYNCHRONIZER_STATE_TABLE_NAME);
 		return context;

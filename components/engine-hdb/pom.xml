@@ -47,23 +47,6 @@
 
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
-			<artifactId>dirigible-engine-graalium-execution-core</artifactId>
-			<version>${dirigible.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>jcl-over-slf4j</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.dirigible</groupId>
-			<artifactId>dirigible-odata-core</artifactId>
-			<version>${dirigible.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-components-group-core</artifactId>
 			<version>${dirigible.version}</version>
 			<type>pom</type>

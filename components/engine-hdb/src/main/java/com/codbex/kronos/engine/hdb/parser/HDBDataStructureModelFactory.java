@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.dirigible.repository.api.IRepositoryStructure;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,7 +33,6 @@ import com.codbex.kronos.engine.hdb.domain.HDBTableStructure;
 import com.codbex.kronos.engine.hdb.domain.HDBTableType;
 import com.codbex.kronos.engine.hdb.domain.HDBView;
 import com.codbex.kronos.exceptions.ArtifactParserException;
-import com.codbex.kronos.utils.CommonsConstants;
 
 /**
  * The factory for creation of the data structure models from source content.
@@ -324,7 +324,7 @@ public class HDBDataStructureModelFactory implements InitializingBean {
    */
   public static HDBDD parseHdbdd(String location, String content) throws DataStructuresException, IOException {
     HDBParameters parametersModel =
-        new HDBParameters(null, location, content, CommonsConstants.REGISTRY_PUBLIC);
+        new HDBParameters(null, location, content, IRepositoryStructure.PATH_REGISTRY_PUBLIC + IRepositoryStructure.SEPARATOR);
     return get().hdbddDataStructureParser.parse(parametersModel);
   }
   

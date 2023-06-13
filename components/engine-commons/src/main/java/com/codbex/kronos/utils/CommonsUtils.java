@@ -11,16 +11,16 @@
  */
 package com.codbex.kronos.utils;
 
-import com.codbex.kronos.exceptions.ArtifactParserException;
-import com.codbex.kronos.parser.models.BaseParserErrorsModel;
-
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import org.apache.commons.io.FilenameUtils;
-import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.codbex.kronos.exceptions.ArtifactParserException;
+import com.codbex.kronos.parser.models.BaseParserErrorsModel;
 
 /**
  * The Class CommonsUtils.
@@ -139,10 +139,10 @@ public class CommonsUtils {
 				try {
 					logger.error("Parser error at file: {}, line: {}, position: {}, symbol: {}", location, errorModel.getLine(), errorModel.getCharPositionInLine(), errorModel.getOffendingSymbol());
 					logger.error(errorModel.getMsg());
-					ProblemsFacade.save(location, errorType, Integer.toString(errorModel.getLine()),
-							Integer.toString(errorModel.getCharPositionInLine()), errorModel.getOffendingSymbol(),
-							errorModel.getMsg(), artifactType, CommonsConstants.MODULE_PARSERS,
-							CommonsConstants.SOURCE_PUBLISH_REQUEST, CommonsConstants.PROGRAM_KRONOS);
+//					ProblemsFacade.save(location, errorType, Integer.toString(errorModel.getLine()),
+//							Integer.toString(errorModel.getCharPositionInLine()), errorModel.getOffendingSymbol(),
+//							errorModel.getMsg(), artifactType, CommonsConstants.MODULE_PARSERS,
+//							CommonsConstants.SOURCE_PUBLISH_REQUEST, CommonsConstants.PROGRAM_KRONOS);
 				} catch (Exception e) {
 					logger.error("There is an issue with logging of the Errors.");
 					logger.error(e.getMessage());
@@ -171,8 +171,10 @@ public class CommonsUtils {
 	public static void logCustomErrors(String location, String errorType, String line, String column,
 			String errorMessage, String expected, String category, String module, String source, String program) {
 		try {
-			ProblemsFacade.save(location, errorType, line, column, errorMessage, expected, category, module, source,
-					program);
+			logger.error("Parser error at file: {}, type: {}, line: {}, column: {}, module: {}", 
+					location, errorType, line, column, module);
+			logger.error(errorMessage);
+//			ProblemsFacade.save(location, errorType, line, column, errorMessage, expected, category, module, source, program);
 		} catch (Exception e) {
 			logger.error("There is an issue with logging of the Errors.");
 			logger.error(e.getMessage());
@@ -189,9 +191,12 @@ public class CommonsUtils {
 	 */
 	public static void logProcessorErrors(String errorMessage, String errorType, String location, String artifactType) {
 		try {
-			ProblemsFacade.save(location, errorType, "", "", errorMessage, "", artifactType,
-					CommonsConstants.MODULE_PROCESSORS, CommonsConstants.SOURCE_PUBLISH_REQUEST,
-					CommonsConstants.PROGRAM_KRONOS);
+			logger.error("Parser error at file: {}, type: {}, artefacts: {}", 
+					location, errorType, artifactType);
+			logger.error(errorMessage);
+//			ProblemsFacade.save(location, errorType, "", "", errorMessage, "", artifactType,
+//					CommonsConstants.MODULE_PROCESSORS, CommonsConstants.SOURCE_PUBLISH_REQUEST,
+//					CommonsConstants.PROGRAM_KRONOS);
 		} catch (Exception e) {
 			logger.error("There is an issue with logging of the Errors.");
 			logger.error(e.getMessage());
