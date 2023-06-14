@@ -206,6 +206,9 @@ function Module (id, parent) {
  Module.prototype.loadScript = function (filename) {
        var self = this;
        let content = SourceProvider.loadSource(filename);
+       if (content === null) {
+	         console.error('Error on loading source file: ' + filename);
+       }
        content = content.replace(/^\#\!.*/, '');
 
        function require (url) {

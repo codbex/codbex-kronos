@@ -15,7 +15,7 @@ connection.prepareCall(createTable).execute();
 var statement = connection.prepareStatement(insert);
 var parameterMetaData = statement.getParameterMetaData();
 var count = parameterMetaData.getParameterCount();
-var assertTrue = require('utils/assert').assertTrue;
+var assertTrue = require('test/assert').assertTrue;
 
 var assertions = [];
 for (var i = 1; i <= count; i++) {

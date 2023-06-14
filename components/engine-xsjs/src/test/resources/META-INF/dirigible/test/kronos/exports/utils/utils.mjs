@@ -1,6 +1,6 @@
 import { query } from '@dirigible/db'
 
-var assert = require('utils/assert');
+var assert = require('test/assert');
 
 export function assertEquals(expected, actual, message) {
   assert.assertEquals(expected, actual, message

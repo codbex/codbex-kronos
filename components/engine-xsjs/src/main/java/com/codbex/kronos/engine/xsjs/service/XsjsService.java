@@ -13,7 +13,6 @@ package com.codbex.kronos.engine.xsjs.service;
 
 import java.util.Map;
 
-import org.eclipse.dirigible.components.engine.javascript.service.JavascriptService;
 import org.eclipse.dirigible.graalium.core.JavascriptSourceProvider;
 import org.eclipse.dirigible.repository.api.IRepository;
 import org.slf4j.Logger;
@@ -31,7 +30,7 @@ public class XsjsService implements InitializingBean {
     private static final Logger logger = LoggerFactory.getLogger(XsjsService.class);
 
     /** The dirigible source provider. */
-    private JavascriptSourceProvider sourceProvider;
+    private KronosSourceProvider sourceProvider;
     
     /** The instance. */
     private static XsjsService INSTANCE;
@@ -46,7 +45,7 @@ public class XsjsService implements InitializingBean {
 	public XsjsService(IRepository repository) {
 		this.repository = repository;
 		this.sourceProvider = new KronosSourceProvider();
-    	this.handler = new XsjsHandler(getRepository(), getSourceProvider());
+    	this.handler = new XsjsHandler(getRepository(), this.sourceProvider);
 	}
     
     /**

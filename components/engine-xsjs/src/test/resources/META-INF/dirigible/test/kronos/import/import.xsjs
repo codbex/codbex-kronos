@@ -1,6 +1,6 @@
 // Importing xsjs lib and adding the module to the $ object.
 $.import("test.kronos.import.sap.test.lib", "basic");
-var assertTrue = require('utils/assert').assertTrue;
+var assertTrue = require('test/assert').assertTrue;
 // Assigning the module to a variable from the $ object.
 var mathbasic = $.test.kronos.import.sap.test.lib.basic;
 

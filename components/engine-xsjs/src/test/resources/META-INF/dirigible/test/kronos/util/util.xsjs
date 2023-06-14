@@ -1,4 +1,4 @@
-var assertTrue = require('utils/assert').assertTrue;
+var assertTrue = require('test/assert').assertTrue;
 var util = $.util;
 var response = require('http/response');
 var random1 = util.createUuid();

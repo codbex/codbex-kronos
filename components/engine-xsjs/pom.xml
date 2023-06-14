@@ -23,14 +23,26 @@
 			<version>${dirigible.version}</version>
 		</dependency>
 		<dependency>
-      <groupId>org.eclipse.dirigible</groupId>
-      <artifactId>dirigible-components-core-database</artifactId>
-      <version>${dirigible.version}</version>
-    </dependency>
+			<groupId>org.eclipse.dirigible</groupId>
+			<artifactId>dirigible-components-core-database</artifactId>
+			<version>${dirigible.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-components-engine-javascript</artifactId>
 			<version>${dirigible.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.dirigible</groupId>
+			<artifactId>dirigible-components-group-api-core</artifactId>
+			<version>${dirigible.version}</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.dirigible</groupId>
+			<artifactId>dirigible-components-group-api-platform</artifactId>
+			<version>${dirigible.version}</version>
+			<type>pom</type>
 		</dependency>
 
 		<!-- Repository -->
@@ -46,11 +58,38 @@
 			<artifactId>dirigible-engine-graalium-execution-core</artifactId>
 			<version>${dirigible.version}</version>
 		</dependency>
-
+		
+		<!-- XSJS API -->
 		<dependency>
 			<groupId>com.codbex.kronos</groupId>
 			<artifactId>codbex-kronos-components-api-xsjs</artifactId>
 			<version>2.0.0-SNAPSHOT</version>
+		</dependency>
+
+    <!-- Test -->
+		<dependency>
+			<groupId>org.eclipse.dirigible</groupId>
+			<artifactId>dirigible-database-h2</artifactId>
+			<version>${dirigible.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.dirigible</groupId>
+			<artifactId>dirigible-repository-local</artifactId>
+			<version>${dirigible.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.dirigible</groupId>
+			<artifactId>dirigible-components-data-sources</artifactId>
+			<version>${dirigible.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.dirigible</groupId>
+			<artifactId>dirigible-components-data-management</artifactId>
+			<version>${dirigible.version}</version>
+			<scope>test</scope>
 		</dependency>
 
 		<!--

@@ -1,5 +1,5 @@
 let net = $.net;
-var assertTrue = require('utils/assert').assertTrue;
+var assertTrue = require('test/assert').assertTrue;
 let mail = new net.Mail({
   sender: {address: "sender@sap.com"},
   to: [{name: "John Doe", address: "john.doe@sap.com", nameEncoding: "US-ASCII"}, {name: "Jane Doe", address: "jane.doe@sap.com"}],

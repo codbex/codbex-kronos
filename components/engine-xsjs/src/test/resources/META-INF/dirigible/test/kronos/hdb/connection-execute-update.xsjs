@@ -1,4 +1,4 @@
- let assertTrue = require('utils/assert').assertTrue;
+ let assertTrue = require('test/assert').assertTrue;
  let connection;
  try{
   connection = $.hdb.getConnection();

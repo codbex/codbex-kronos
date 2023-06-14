@@ -1,5 +1,5 @@
 var db = $.db;
-var assertTrue = require('utils/assert').assertTrue;
+var assertTrue = require('test/assert').assertTrue;
 
 var connection;
 try {

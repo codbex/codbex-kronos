@@ -1,4 +1,4 @@
-var assertTrue = require('utils/assert').assertTrue;
+var assertTrue = require('test/assert').assertTrue;
 let username = $.session.getUsername()
 let appPrivileges = $.session.hasAppPrivilege("Developer")
 if (appPrivileges) {

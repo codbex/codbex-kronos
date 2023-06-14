@@ -1,6 +1,6 @@
 var database = $.hdb;
 var response = require('http/response');
-var assertTrue = require('utils/assert').assertTrue;
+var assertTrue = require('test/assert').assertTrue;
 
 try {
 	var connection = database.getConnection();

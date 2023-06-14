@@ -1,6 +1,6 @@
 var hdb = $.hdb;
 var response = require('http/response');
-var assertTrue = require('utils/assert').assertTrue;
+var assertTrue = require('test/assert').assertTrue;
 
 var conn = hdb.getConnection();
 conn.executeUpdate('CREATE SCHEMA EXAMPLE');

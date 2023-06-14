@@ -1,6 +1,6 @@
 var db = $.hdb;
 var response = require('http/response');
-var assertTrue = require('utils/assert').assertTrue;
+var assertTrue = require('test/assert').assertTrue;
 
 var connection = db.getConnection();
 var result = connection.executeQuery('SELECT * FROM EXAMPLE.TEST_USERS');

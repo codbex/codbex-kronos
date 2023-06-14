@@ -1,5 +1,5 @@
 let http = $.net.http;
-var assertTrue = require('utils/assert').assertTrue;
+var assertTrue = require('test/assert').assertTrue;
 let client = new http.Client();
 let request = new http.Request(http.GET, "/");
 let destination = http.readDestination("test", "test-destination");

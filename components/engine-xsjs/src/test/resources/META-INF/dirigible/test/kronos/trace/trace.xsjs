@@ -1,4 +1,4 @@
-var assertTrue = require('utils/assert').assertTrue;
+var assertTrue = require('test/assert').assertTrue;
 let trace = $.trace;
 
 let debugBool = trace.isDebugEnabled();

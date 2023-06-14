@@ -33,6 +33,7 @@ import org.graalvm.polyglot.Value;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.codbex.kronos.engine.KronosSourceProvider;
 import com.codbex.kronos.engine.Require;
 
 public class XsjsHandler extends JavascriptHandler {
@@ -59,9 +60,9 @@ public class XsjsHandler extends JavascriptHandler {
 	// TODO remove local vars once the corresponding getters are implemented
     private IRepository repository;
     
-    private JavascriptSourceProvider sourceProvider;
+    private KronosSourceProvider sourceProvider;
 
-	public XsjsHandler(IRepository repository, JavascriptSourceProvider sourceProvider) {
+	public XsjsHandler(IRepository repository, KronosSourceProvider sourceProvider) {
 		super(repository, sourceProvider);
 		this.repository = repository;
 		this.sourceProvider = sourceProvider;
