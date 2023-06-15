@@ -46,7 +46,7 @@ public class TableMetadataProvider implements org.eclipse.dirigible.components.o
 
   /** The Constant METADATA_ENTITY_TYPES. */
   private static final List<String> METADATA_ENTITY_TYPES = List.of(ISqlKeywords.METADATA_TABLE, ISqlKeywords.METADATA_CALC_VIEW,
-      ISqlKeywords.METADATA_VIEW);
+      ISqlKeywords.METADATA_VIEW, ISqlKeywords.METADATA_BASE_TABLE);
   
   /** The Constant PUBLIC_SCHEMA. */
   private static final String PUBLIC_SCHEMA = "PUBLIC";

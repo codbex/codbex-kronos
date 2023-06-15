@@ -67,11 +67,12 @@ public class HDBTableFunctionCreateProcessor extends AbstractHDBProcessor<HDBTab
         try {
           executeSql(sql, connection);
           String message = String.format("Create table function [%s] successfully", functionModel.getName());
+          logger.info(message);
 //          applyArtefactState(functionModel.getName(), functionModel.getLocation(), functionArtefact, ArtefactState.SUCCESSFUL_CREATE, message);
           return true;
         } catch (SQLException ex) {
-          String errorMessage = String.format("Create table function [%s] skipped due to an error: %s", functionModel.getName(),
-              ex.getMessage());
+          String errorMessage = String.format("Create table function [%s] skipped due to an error: %s", functionModel.getName(), ex.getMessage());
+          logger.error(errorMessage);
           CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, functionModel.getLocation(), functionParser);
 //          applyArtefactState(functionModel.getName(), functionModel.getLocation(), functionArtefact, ArtefactState.FAILED_CREATE, errorMessage);
           return false;

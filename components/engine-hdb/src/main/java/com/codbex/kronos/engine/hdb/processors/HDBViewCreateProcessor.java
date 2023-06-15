@@ -71,10 +71,12 @@ public class HDBViewCreateProcessor extends AbstractHDBProcessor<HDBView> {
       try {
         executeSql(sql, connection);
         String message = String.format("Create view [%s] successfully", viewModel.getName());
+        logger.info(message);
 //        applyArtefactState(viewModel.getName(), viewModel.getLocation(), VIEW_ARTEFACT, ArtefactState.SUCCESSFUL_CREATE, message);
         success = true;
       } catch (SQLException ex) {
         String errorMessage = String.format("Create view [%s] skipped due to an error: %s", viewModel.getName(), ex.getMessage());
+        logger.error(errorMessage);
         CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, viewModel.getLocation(), CommonsConstants.HDB_VIEW_PARSER);
 //        applyArtefactState(viewModel.getName(), viewModel.getLocation(), VIEW_ARTEFACT, ArtefactState.FAILED_CREATE, errorMessage);
       }

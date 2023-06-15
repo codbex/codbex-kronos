@@ -19,7 +19,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
-import org.apache.commons.io.FilenameUtils;
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.components.base.artefact.Artefact;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
@@ -67,7 +66,7 @@ public class XSODataSynchronizer<A extends Artefact> implements Synchronizer<XSO
     private static final Logger logger = LoggerFactory.getLogger(XSODataSynchronizer.class);
 
     /** The Constant FILE_EXTENSION_LISTENER. */
-    private static final String FILE_EXTENSION_ODATA = ".xsodata";
+    private static final String FILE_EXTENSION_XSODATA = ".xsodata";
 
     /** The callback. */
     private SynchronizerCallback callback;
@@ -101,7 +100,7 @@ public class XSODataSynchronizer<A extends Artefact> implements Synchronizer<XSO
      */
     @Override
     public boolean isAccepted(Path file, BasicFileAttributes attrs) {
-        return file.toString().endsWith(FILE_EXTENSION_ODATA);
+        return file.toString().endsWith(FILE_EXTENSION_XSODATA);
     }
 
     /**
@@ -112,7 +111,7 @@ public class XSODataSynchronizer<A extends Artefact> implements Synchronizer<XSO
      */
     @Override
     public boolean isAccepted(String type) {
-        return OData.ARTEFACT_TYPE.equals(type);
+        return XSOData.ARTEFACT_TYPE.equals(type);
     }
 
     /**
@@ -126,13 +125,14 @@ public class XSODataSynchronizer<A extends Artefact> implements Synchronizer<XSO
     @Override
     public List<XSOData> parse(String location, byte[] content) throws ParseException {
         try {
-        	XSOData odata = parseOData(location, content);
-        	XSOData maybe = getService().findByKey(odata.getKey());
+        	XSOData xsodata = new XSOData();
+        	xsodata = parseOData(location, new String(content, StandardCharsets.UTF_8), xsodata);
+        	XSOData maybe = getService().findByKey(xsodata.getKey());
 			if (maybe != null) {
-				odata.setId(maybe.getId());
+				xsodata.setId(maybe.getId());
 			}
-			odata = getService().save(odata);
-			return List.of(odata);
+			getService().save(xsodata);
+			return List.of(xsodata);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
             if (logger.isErrorEnabled()) {logger.error("odata: {}", location);}
@@ -149,7 +149,15 @@ public class XSODataSynchronizer<A extends Artefact> implements Synchronizer<XSO
 	 */
 	@Override
 	public List<XSOData> retrieve(String location) {
-		return getService().getAll();
+		List<XSOData> list = getService().getAll();
+		for (XSOData xsodata : list) {
+			try {
+				parseOData(location, xsodata.getContent(), xsodata);
+			} catch (IOException | SQLException | ArtifactParserException e) {
+				if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
+			}
+		}
+		return list;
 	}
 	
 	/**
@@ -176,12 +184,13 @@ public class XSODataSynchronizer<A extends Artefact> implements Synchronizer<XSO
 	 * @throws SQLException 
 	 * @throws IOException 
 	 */
-	public static XSOData parseOData(String location, byte[] content) throws IOException, SQLException, ArtifactParserException {
-		XSOData odata = XSODataArtefactParser.get().parseXSOData(location, new String(content, StandardCharsets.UTF_8));
+	public static XSOData parseOData(String location, String content, XSOData odata) throws IOException, SQLException, ArtifactParserException {
+		XSODataArtefactParser.get().parseXSOData(location, content, odata);
         Configuration.configureObject(odata);
         odata.setLocation(location);
-        odata.setType(OData.ARTEFACT_TYPE);
-        odata.setName(FilenameUtils.getBaseName(location));
+        odata.setType(XSOData.ARTEFACT_TYPE);
+        odata.setNamespace(odata.getService().getNamespace());
+        odata.setContent(content);
         odata.updateKey();
         odata.getAssociations().forEach(association -> {
 			if (association.getFrom().getProperty() != null) {
@@ -216,7 +225,7 @@ public class XSODataSynchronizer<A extends Artefact> implements Synchronizer<XSO
         
         try {
 			XSOData odata = null;
-			if (wrapper.getArtefact() instanceof OData) {
+			if (wrapper.getArtefact() instanceof XSOData) {
 				odata = (XSOData) wrapper.getArtefact();
 			} else {
 				throw new UnsupportedOperationException(String.format("Trying to process %s as XSOData", wrapper.getArtefact().getClass()));
@@ -346,7 +355,7 @@ public class XSODataSynchronizer<A extends Artefact> implements Synchronizer<XSO
      */
     @Override
 	public String getFileExtension() {
-		return FILE_EXTENSION_ODATA;
+		return FILE_EXTENSION_XSODATA;
 	}
 
 	/**
@@ -356,7 +365,7 @@ public class XSODataSynchronizer<A extends Artefact> implements Synchronizer<XSO
 	 */
 	@Override
 	public String getArtefactType() {
-		return OData.ARTEFACT_TYPE;
+		return XSOData.ARTEFACT_TYPE;
 	}
 	
 	/** The odata to odata mappings transformer. */

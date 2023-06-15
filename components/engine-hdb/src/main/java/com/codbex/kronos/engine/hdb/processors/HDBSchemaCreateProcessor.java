@@ -59,12 +59,13 @@ public class HDBSchemaCreateProcessor extends AbstractHDBProcessor<HDBSchema> {
         try {
           executeSql(sql, connection);
           String message = String.format("Create schema [%s] successfully", schemaModel.getName());
+          logger.info(message);
 //          applyArtefactState(schemaModel.getName(), schemaModel.getLocation(), SCHEMA_ARTEFACT, ArtefactState.SUCCESSFUL_CREATE, message);
           return true;
         } catch (SQLException ex) {
           String errorMessage = String.format("Create schema [%s] skipped due to an error: %s", schemaModel, ex.getMessage());
-          CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, schemaModel.getLocation(),
-              CommonsConstants.HDB_SCHEMA_PARSER);
+          logger.error(errorMessage);
+          CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, schemaModel.getLocation(), CommonsConstants.HDB_SCHEMA_PARSER);
 //          applyArtefactState(schemaModel.getName(), schemaModel.getLocation(), SCHEMA_ARTEFACT, ArtefactState.FAILED_CREATE, errorMessage);
           return false;
         }

@@ -59,11 +59,13 @@ public class HDBProcedureCreateProcessor extends AbstractHDBProcessor<HDBProcedu
         String sql = Constants.HDBPROCEDURE_CREATE + procedureModel.getContent();
         try {
           String message = String.format("Create procedure [%s] successfully", procedureModel.getName());
+          logger.info(message);
           executeSql(sql, connection);
 //          applyArtefactState(procedureModel.getName(), procedureModel.getLocation(), PROCEDURE_ARTEFACT, ArtefactState.SUCCESSFUL_CREATE, message);
           return true;
         } catch (SQLException ex) {
-          String message = String.format("Create procedure[%s] skipped due to an error: %s", procedureModel, ex.getMessage());
+          String errorMessage = String.format("Create procedure[%s] skipped due to an error: %s", procedureModel, ex.getMessage());
+          logger.error(errorMessage);
           CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, procedureModel.getLocation(), CommonsConstants.HDB_PROCEDURE_PARSER);
 //          applyArtefactState(procedureModel.getName(), procedureModel.getLocation(), PROCEDURE_ARTEFACT, ArtefactState.FAILED_CREATE, message);
           return false;

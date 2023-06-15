@@ -46,8 +46,6 @@ public abstract class HDBTableConstraint {
 	/** The modifiers. */
 	@Column(name = "CONSTRAINT_MODIFIERS", columnDefinition = "VARCHAR", nullable = true, length = 2000)
 	@Nullable
-//	@ElementCollection
-//	@OrderColumn
 	@Convert(converter = ArrayOfStringsToCsvConverter.class)
 	@Expose
 	protected String[] modifiers;
@@ -55,8 +53,6 @@ public abstract class HDBTableConstraint {
 	/** The columns. */
 	@Column(name = "CONSTRAINT_COLUMNS", columnDefinition = "VARCHAR", nullable = true, length = 2000)
 	@Nullable
-//	@ElementCollection
-//	@OrderColumn
 	@Convert(converter = ArrayOfStringsToCsvConverter.class)
 	@Expose
 	protected String[] columns;

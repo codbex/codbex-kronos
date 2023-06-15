@@ -67,12 +67,13 @@ public class HDBSequenceCreateProcessor extends AbstractHDBProcessor<HDBSequence
     try {
       executeSql(sql, connection);
       String message = String.format("Create sequence [%s] successfully", sequenceModel.getName());
+      logger.info(message);
 //      applyArtefactState(sequenceModel.getName(), sequenceModel.getLocation(), SEQUENCE_ARTEFACT, ArtefactState.SUCCESSFUL_CREATE, message);
       return true;
     } catch (SQLException ex) {
-      String message = String.format("Create sequence [%s] skipped due to an error: %s", sequenceModel.getName(), ex.getMessage());
-      CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, sequenceModel.getLocation(),
-          CommonsConstants.HDB_SEQUENCE_PARSER);
+      String errorMessage = String.format("Create sequence [%s] skipped due to an error: %s", sequenceModel.getName(), ex.getMessage());
+      logger.error(errorMessage);
+      CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, sequenceModel.getLocation(), CommonsConstants.HDB_SEQUENCE_PARSER);
 //      applyArtefactState(sequenceModel.getName(), sequenceModel.getLocation(), SEQUENCE_ARTEFACT, ArtefactState.FAILED_CREATE, message);
       return false;
     }

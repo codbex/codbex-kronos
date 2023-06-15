@@ -63,26 +63,27 @@ public class HDBSynonymCreateProcessor extends AbstractHDBProcessor<HDBSynonymGr
 	        String synonymSchema = null != entry.getValue().getSchema() ? entry.getValue().getSchema() : connection.getMetaData().getUserName();
 	        if (!SqlFactory.getNative(connection).exists(connection, synonymSchema, entry.getKey(), DatabaseArtifactTypes.SYNONYM)) {
 	          ISqlDialect dialect = SqlFactory.deriveDialect(connection);
-	          if (!(dialect.getClass().equals(HanaSqlDialect.class))) {
-	            String errorMessage = String.format("Synonyms are not supported for %s", dialect.getDatabaseName(connection));
-	            CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, synonymModel.getLocation(),
-	                CommonsConstants.HDB_SYNONYM_PARSER);
-//	            applyArtefactState(synonymName, synonymModel.getLocation(), SYNONYM_ARTEFACT, ArtefactState.FAILED_CREATE, errorMessage);
-	            throw new IllegalStateException(errorMessage);
-	          } else {
+//	          if (!(dialect.getClass().equals(HanaSqlDialect.class))) {
+//	            String errorMessage = String.format("Synonyms are not supported for %s", dialect.getDatabaseName(connection));
+//	            CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, synonymModel.getLocation(),
+//	                CommonsConstants.HDB_SYNONYM_PARSER);
+////	            applyArtefactState(synonymName, synonymModel.getLocation(), SYNONYM_ARTEFACT, ArtefactState.FAILED_CREATE, errorMessage);
+//	            throw new IllegalStateException(errorMessage);
+//	          } else {
 	            String sql = SqlFactory.getNative(connection).create().synonym(synonymName).forSource(targetObjectName).build();
 	            try {
 	              executeSql(sql, connection);
 	              String message = String.format("Create synonym [%s] successfully", synonymName);
+	              logger.info(message);
 //	              applyArtefactState(synonymName, synonymModel.getLocation(), SYNONYM_ARTEFACT, ArtefactState.SUCCESSFUL_CREATE, message);
 	            } catch (SQLException ex) {
 	              String errorMessage = String.format("Create synonym [%s] skipped due to an error: %s", synonymName, ex.getMessage());
-	              CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, synonymModel.getLocation(),
-	                  CommonsConstants.HDB_SYNONYM_PARSER);
+	              logger.error(errorMessage);
+	              CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, synonymModel.getLocation(), CommonsConstants.HDB_SYNONYM_PARSER);
 //	              applyArtefactState(synonymName, synonymModel.getLocation(), SYNONYM_ARTEFACT, ArtefactState.FAILED_CREATE, errorMessage);
 	              return false;
 	            }
-	          }
+//	          }
 	        } else {
 	          String warningMessage = String.format("Synonym [%s] already exists during the create process", synonymName);
 	          logger.warn(warningMessage);
@@ -91,6 +92,7 @@ public class HDBSynonymCreateProcessor extends AbstractHDBProcessor<HDBSynonymGr
 	        }
 	      } catch (SQLException exception) {
 	        String errorMessage = String.format("Create synonym [%s] skipped due to an error: %s", synonymName, exception.getMessage());
+	        logger.error(errorMessage);
 	        logger.error(exception.getMessage(), exception);
 //	        applyArtefactState(synonymName, synonymModel.getLocation(), SYNONYM_ARTEFACT, ArtefactState.FAILED_CREATE, errorMessage);
 	        return false;

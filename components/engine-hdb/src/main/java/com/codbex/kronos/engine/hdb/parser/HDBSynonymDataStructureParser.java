@@ -61,7 +61,7 @@ public class HDBSynonymDataStructureParser implements HDBDataStructureParser {
     Map<String, HDBSynonym> synonymDefinitions = new HashMap<>();
     for (Entry<String, JsonElement> entry : jsonObject.entrySet()) {
       HDBSynonym definitionModel = gson.fromJson(entry.getValue(), HDBSynonym.class);
-
+      definitionModel.setName(entry.getKey());
       try {
         definitionModel.checkForAllMandatoryFieldsPresence();
         synonymDefinitions.put(entry.getKey(), definitionModel);

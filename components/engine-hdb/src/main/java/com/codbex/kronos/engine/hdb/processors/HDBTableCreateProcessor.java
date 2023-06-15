@@ -104,12 +104,14 @@ public class HDBTableCreateProcessor extends AbstractHDBProcessor<HDBTable> {
         executeBatch(indicesStatements, connection);
       }
       String message = String.format("Create table [%s] successfully", tableModel.getName());
+      logger.info(message);
 //      applyArtefactState(tableModel.getName(), tableModel.getLocation(), TABLE_ARTEFACT, ArtefactState.SUCCESSFUL_CREATE, message);
       return true;
     } catch (SQLException ex) {
       logger.error("Creation of table failed. Used SQL - create table {}, indices {}", tableCreateStatement, String.join("; ", indicesStatements), ex);
       CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, tableModel.getLocation(), CommonsConstants.HDB_TABLE_PARSER);
-      String message = String.format("Create table [%s] failed due to an error: %s", tableModel, ex.getMessage());
+      String errorMessage = String.format("Create table [%s] failed due to an error: %s", tableModel, ex.getMessage());
+      logger.error(errorMessage);
 //      applyArtefactState(tableModel.getName(), tableModel.getLocation(), TABLE_ARTEFACT, ArtefactState.FAILED_CREATE, message);
       return false;
     }

@@ -48,7 +48,7 @@ import com.codbex.kronos.exceptions.ArtifactParserException;
  * @param <A> the generic type
  */
 @Component
-@Order(220)
+@Order(200)
 public class HDBSchemaSynchronizer<A extends Artefact> implements Synchronizer<HDBSchema> {
 	
 	/** The Constant logger. */

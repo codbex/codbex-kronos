@@ -12,6 +12,7 @@
 package com.codbex.kronos.engine.hdb.domain;
 
 import javax.persistence.Column;
+import javax.persistence.Lob;
 import javax.persistence.MappedSuperclass;
 
 import org.eclipse.dirigible.components.base.artefact.Artefact;
@@ -32,6 +33,7 @@ public class HDBDataStructure extends Artefact {
 
 	/** The raw content. */
 	@Column(name = "HDB_CONTENT", columnDefinition = "CLOB")
+	@Lob
 	private String content;
 
 	/** The db content type. */

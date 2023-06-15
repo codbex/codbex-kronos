@@ -19,6 +19,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -35,61 +36,66 @@ import com.google.gson.annotations.Expose;
 @Entity
 @Table(name = "KRONOS_XSODATA")
 public class XSOData extends Artefact {
-	
+
 	/** The Constant ARTEFACT_TYPE. */
 	public static final String ARTEFACT_TYPE = "xsodata";
-	
+
 	/** The id. */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "XSODATA_ID", nullable = false)
-    private Long id;
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "XSODATA_ID", nullable = false)
+	private Long id;
+
 	/** The namespace. */
 	@Column(name = "XSODATA_NAMESPACE", columnDefinition = "VARCHAR", nullable = false, length = 255)
 	@Expose
 	private String namespace;
-	
+
 	/** The entities. */
 	@Transient
 	@Expose
 	private List<ODataEntity> entities = new ArrayList<ODataEntity>();
-	
+
 	/** The associations. */
 	@Transient
 	@Expose
 	private List<ODataAssociation> associations = new ArrayList<ODataAssociation>();
-	
+
+	/** The raw content. */
+	@Column(name = "HDB_CONTENT", columnDefinition = "CLOB")
+	@Lob
+	private String content;
+
 	/** The service. */
-	  @Transient
-	  private XSODataService service;
+	@Transient
+	private XSODataService service;
 
 	/**
 	 * Instantiates a new XSOData.
 	 *
-	 * @param location the location
-	 * @param name the name
-	 * @param description the description
+	 * @param location     the location
+	 * @param name         the name
+	 * @param description  the description
 	 * @param dependencies the dependencies
-	 * @param namespace the namespace
-	 * @param entities the entities
+	 * @param namespace    the namespace
+	 * @param entities     the entities
 	 * @param associations the associations
 	 */
-	public XSOData(String location, String name, String description, List<String> dependencies,
-			String namespace, List<ODataEntity> entities, List<ODataAssociation> associations) {
+	public XSOData(String location, String name, String description, List<String> dependencies, String namespace,
+			List<ODataEntity> entities, List<ODataAssociation> associations) {
 		super(location, name, ARTEFACT_TYPE, description, dependencies);
 		this.namespace = namespace;
 		this.entities = entities;
 		this.associations = associations;
 	}
-	
+
 	/**
 	 * Instantiates a new XSOData.
 	 */
 	public XSOData() {
 		super();
 	}
-	
+
 	/**
 	 * Gets the id.
 	 *
@@ -98,7 +104,7 @@ public class XSOData extends Artefact {
 	public Long getId() {
 		return id;
 	}
-	
+
 	/**
 	 * Sets the id.
 	 *
@@ -107,7 +113,7 @@ public class XSOData extends Artefact {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	/**
 	 * Gets the namesapce.
 	 *
@@ -134,7 +140,7 @@ public class XSOData extends Artefact {
 	public List<ODataEntity> getEntities() {
 		return entities;
 	}
-	
+
 	/**
 	 * Gets the associations.
 	 *
@@ -143,23 +149,41 @@ public class XSOData extends Artefact {
 	public List<ODataAssociation> getAssociations() {
 		return associations;
 	}
-	
-	/**
-	   * Gets the service.
-	   *
-	   * @return the service
-	   */
-	  public XSODataService getService() {
-	    return service;
-	  }
 
-	  /**
-	   * Sets the service.
-	   *
-	   * @param service the new service
-	   */
-	  public void setService(XSODataService service) {
-	    this.service = service;
-	  }
+	/**
+	 * Gets the service.
+	 *
+	 * @return the service
+	 */
+	public XSODataService getService() {
+		return service;
+	}
+
+	/**
+	 * Sets the service.
+	 *
+	 * @param service the new service
+	 */
+	public void setService(XSODataService service) {
+		this.service = service;
+	}
+
+	/**
+	 * Gets the content.
+	 *
+	 * @return the content
+	 */
+	public String getContent() {
+		return content;
+	}
+
+	/**
+	 * Sets the content.
+	 *
+	 * @param content the new content
+	 */
+	public void setContent(String content) {
+		this.content = content;
+	}
 
 }

@@ -1,0 +1,9 @@
+{
+  "xsodata-simple::student": {
+    "target": {
+      "object": "xsodata-simple::student",
+      "schema": "SAMPLES_XSODATA_SIMPLE"
+    },
+     "schema": "PUBLIC"
+  }
+}

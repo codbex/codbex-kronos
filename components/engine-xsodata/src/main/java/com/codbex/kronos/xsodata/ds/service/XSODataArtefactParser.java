@@ -113,7 +113,7 @@ public class XSODataArtefactParser implements InitializingBean {
 	public DataSource getDatasource() {
 		return datasource;
 	}
-
+	
 	/**
 	 * Creates a odata model from the raw content.
 	 *
@@ -126,8 +126,24 @@ public class XSODataArtefactParser implements InitializingBean {
 	 */
 	public XSOData parseXSOData(String location, String content)
 			throws IOException, SQLException, ArtifactParserException {
-		logger.debug("Parsing xsodata.");
 		XSOData odataModel = new XSOData();
+		return parseXSOData(location, content, odataModel);
+	}
+
+	/**
+	 * Creates a odata model from the raw content.
+	 *
+	 * @param location the location
+	 * @param content  the odata definition
+	 * @return the odata model instance
+	 * @throws IOException             exception during parsing
+	 * @throws SQLException            the SQL exception
+	 * @throws ArtifactParserException the artifact parser exception
+	 */
+	public XSOData parseXSOData(String location, String content, XSOData odataModel)
+			throws IOException, SQLException, ArtifactParserException {
+		logger.debug("Parsing xsodata.");
+		
 		odataModel.setName(new File(location).getName());
 		odataModel.setLocation(location);
 

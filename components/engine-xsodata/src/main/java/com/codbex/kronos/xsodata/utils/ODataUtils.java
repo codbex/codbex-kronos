@@ -98,6 +98,7 @@ public class ODataUtils {
 
     String namespace = oDataModel.getService().getNamespace() != null ? oDataModel.getService().getNamespace() : "Default";
     oDataDefinitionModel.setNamespace(namespace);
+    oDataDefinitionModel.setName(oDataModel.getName());
 
     for (XSODataEntity entity : oDataModel.getService().getEntities()) {
       List<PersistenceTableColumnModel> allEntityParameters = new ArrayList<>();

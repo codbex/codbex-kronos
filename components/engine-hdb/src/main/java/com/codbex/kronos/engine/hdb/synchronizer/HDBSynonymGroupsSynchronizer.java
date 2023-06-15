@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
+import org.apache.commons.io.FilenameUtils;
 import org.eclipse.dirigible.components.base.artefact.Artefact;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
 import org.eclipse.dirigible.components.base.artefact.ArtefactPhase;
@@ -133,9 +134,10 @@ public class HDBSynonymGroupsSynchronizer<A extends Artefact> implements Synchro
 		
 //		Configuration.configureObject(synonymGroup);
 		synonymGroup.setLocation(location);
+		synonymGroup.setName(FilenameUtils.getBaseName(location) + "_group");
 		synonymGroup.setType(HDBSynonymGroup.ARTEFACT_TYPE);
 		synonymGroup.updateKey();
-		assignParent(synonymGroup);
+		assignParenAndLocation(synonymGroup, location);
 		
 		try {
 			HDBSynonymGroup maybe = getService().findByKey(synonymGroup.getKey());
@@ -153,10 +155,13 @@ public class HDBSynonymGroupsSynchronizer<A extends Artefact> implements Synchro
 		return List.of(synonymGroup);
 	}
 	
-	static void assignParent(HDBSynonymGroup synonymGroup) {
+	static void assignParenAndLocation(HDBSynonymGroup synonymGroup, String location) {
 		synonymGroup.getSynonymDefinitions().values().forEach(s -> {
 			s.setGroup(synonymGroup);
 			s.getTarget().setSynonym(s);
+			s.setLocation(location);
+			s.setType(HDBSynonym.ARTEFACT_TYPE);
+			s.updateKey();
 		});
 	}
 	
