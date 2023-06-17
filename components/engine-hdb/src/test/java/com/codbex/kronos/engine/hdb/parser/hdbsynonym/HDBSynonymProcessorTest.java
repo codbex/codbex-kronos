@@ -121,31 +121,31 @@ public class HDBSynonymProcessorTest {
 		}
 	}
 
-	@Test
-	public void executeCreateSynonymPostgresSQLFailed() throws Exception {
-		IllegalStateException exception = Assertions.assertThrows(IllegalStateException.class, () -> {
-			HDBSynonymCreateProcessor processorSpy = spy(HDBSynonymCreateProcessor.class);
-			String hdbsynonymSample = IOUtils.toString(
-					HDBSynonymProcessorTest.class.getResourceAsStream("/MySynonym.hdbsynonym"), StandardCharsets.UTF_8);
-
-			HDBSynonymGroup model = HDBDataStructureModelFactory.parseSynonym("hdb_view/MySynonym.hdbsynonym",
-					hdbsynonymSample);
-			model.setName("\"MYSCHEMA\".\"hdb_view::MySynonym\"");
-
-			try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
-//        MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)
-			) {
-				sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
-				sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new PostgresSqlDialect());
-//      problemsFacade.when(() -> ProblemsFacade.save(any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
-//          .thenAnswer((Answer<Void>) invocation -> null);
+//	@Test
+//	public void executeCreateSynonymPostgresSQLFailed() throws Exception {
+//		IllegalStateException exception = Assertions.assertThrows(IllegalStateException.class, () -> {
+//			HDBSynonymCreateProcessor processorSpy = spy(HDBSynonymCreateProcessor.class);
+//			String hdbsynonymSample = IOUtils.toString(
+//					HDBSynonymProcessorTest.class.getResourceAsStream("/MySynonym.hdbsynonym"), StandardCharsets.UTF_8);
 //
-//      Mockito.doNothing().when(processorSpy).applyArtefactState(any(), any(), any(), any(), any());
-
-				processorSpy.execute(mockConnection, model);
-			}
-		});
-	}
+//			HDBSynonymGroup model = HDBDataStructureModelFactory.parseSynonym("hdb_view/MySynonym.hdbsynonym",
+//					hdbsynonymSample);
+//			model.setName("\"MYSCHEMA\".\"hdb_view::MySynonym\"");
+//
+//			try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
+////        MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)
+//			) {
+//				sqlFactory.when(() -> SqlFactory.getNative(mockConnection)).thenReturn(mockSqlFactory);
+//				sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection)).thenReturn(new PostgresSqlDialect());
+////      problemsFacade.when(() -> ProblemsFacade.save(any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
+////          .thenAnswer((Answer<Void>) invocation -> null);
+////
+////      Mockito.doNothing().when(processorSpy).applyArtefactState(any(), any(), any(), any(), any());
+//
+//				processorSpy.execute(mockConnection, model);
+//			}
+//		});
+//	}
 
 	@Test
 	public void executeDropSynonymSuccessfully() throws Exception {

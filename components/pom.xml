@@ -24,12 +24,13 @@
         
         <module>engine-hdi</module>
         <module>engine-xsjob</module>
+        <module>engine-xssecurity</module>
         
         
         <!--
         
         
-        <module>engine-xssecurity</module>
+        
         
         <module>engine-hdbti</module>
         

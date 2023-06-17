@@ -9,26 +9,22 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos.xsaccess.ds.api;
+package com.codbex.kronos.engine.xssecurity.config;
 
-/**
- * The Class AccessException.
- */
-public class AccessException extends Exception {
+import org.eclipse.dirigible.components.base.artefact.Engine;
+import org.springframework.stereotype.Component;
 
-  /**
-   * Instantiates a new access exception.
-   */
-  public AccessException() {
-    super();
-  }
+@Component
+public class XSSecurityEngine implements Engine {
+	
+	@Override
+	public String getName() {
+		return "XSSecurity";
+	}
 
-  /**
-   * Instantiates a new access exception.
-   *
-   * @param cause the cause
-   */
-  public AccessException(Throwable cause) {
-    super(cause);
-  }
+	@Override
+	public String getProvider() {
+		return "codbex Kronos";
+	}
+
 }

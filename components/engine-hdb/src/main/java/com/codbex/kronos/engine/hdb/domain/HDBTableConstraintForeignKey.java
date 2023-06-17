@@ -51,8 +51,6 @@ public class HDBTableConstraintForeignKey extends HDBTableConstraint {
 	/** The referenced columns. */
 	@Column(name = "FOREIGNKEY_REF_COLUMNS", columnDefinition = "VARCHAR", nullable = true, length = 2000)
 	@Nullable
-//	@ElementCollection
-//	@OrderColumn
 	@Convert(converter = ArrayOfStringsToCsvConverter.class)
 	@Expose
 	private String[] referencedColumns;

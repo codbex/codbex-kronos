@@ -77,7 +77,7 @@ public class XSJob extends Artefact {
 	private Timestamp endAt;
 
 	/** The parameters. */
-	@Column(name = "PARAMETERS")
+	@Column(name = "JOB_PARAMETERS")
 	@Nullable
 	@Lob
 	private byte[] parameters;

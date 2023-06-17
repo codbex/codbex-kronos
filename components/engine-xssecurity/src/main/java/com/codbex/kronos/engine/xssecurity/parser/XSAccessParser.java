@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos.xsaccess.ds.model.access;
+package com.codbex.kronos.engine.xssecurity.parser;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
@@ -19,13 +19,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.codbex.kronos.engine.xssecurity.domain.XSAccess;
+import com.codbex.kronos.engine.xssecurity.domain.XSAuthentication;
 import com.google.gson.internal.LinkedTreeMap;
 import org.eclipse.dirigible.commons.api.helpers.GsonHelper;
 
 /**
  * The Class AccessArtifact.
  */
-public class AccessArtifact {
+public class XSAccessParser {
 
   /** The exposed. */
   private boolean exposed;
@@ -34,12 +37,12 @@ public class AccessArtifact {
   private List<String> authorization;
   
   /** The authentication. */
-  private List<Authentication> authentication;
+  private List<XSAuthentication> authentication;
 
   /**
    * Instantiates a new access artifact.
    */
-  public AccessArtifact() {
+  public XSAccessParser() {
   }
 
   /**
@@ -48,22 +51,22 @@ public class AccessArtifact {
    * @param json the json
    * @return the access artifact
    */
-  public static AccessArtifact parse(byte[] json) {
+  public static XSAccessParser parse(byte[] json) {
     LinkedTreeMap artifactAsObject = (LinkedTreeMap) GsonHelper.fromJson(new InputStreamReader(new ByteArrayInputStream(json), StandardCharsets.UTF_8), Object.class);
     if(artifactAsObject.get("authentication") instanceof LinkedTreeMap) {
-      AccessArtifact artifact = new AccessArtifact();
+      XSAccessParser artifact = new XSAccessParser();
       artifact.setExposed(Boolean.TRUE.equals(artifactAsObject.get("exposed")));
       artifact.setAuthorization((ArrayList) artifactAsObject.get("authorization"));
       LinkedTreeMap authenticationAsObject = (LinkedTreeMap) artifactAsObject.get("authentication");
-      Authentication authentication = new Authentication();
+      XSAuthentication authentication = new XSAuthentication();
       authentication.setMethod(String.valueOf(authenticationAsObject.get("method")));
-      ArrayList<Authentication> authenticationAsList = new ArrayList(Arrays.asList(authentication));
+      ArrayList<XSAuthentication> authenticationAsList = new ArrayList(Arrays.asList(authentication));
       artifact.setAuthentication(authenticationAsList);
 
       return artifact;
     } else {
       return GsonHelper.fromJson(new InputStreamReader(new ByteArrayInputStream(json), StandardCharsets.UTF_8),
-          AccessArtifact.class);
+          XSAccessParser.class);
     }
   }
 
@@ -73,8 +76,8 @@ public class AccessArtifact {
    * @param json the json
    * @return the access artifact
    */
-  public static AccessArtifact parse(String json) {
-    return GsonHelper.fromJson(json, AccessArtifact.class);
+  public static XSAccessParser parse(String json) {
+    return GsonHelper.fromJson(json, XSAccessParser.class);
   }
 
   /**
@@ -118,7 +121,7 @@ public class AccessArtifact {
    *
    * @return the authentication
    */
-  public List<Authentication> getAuthentication() {
+  public List<XSAuthentication> getAuthentication() {
     return authentication;
   }
 
@@ -127,7 +130,7 @@ public class AccessArtifact {
    *
    * @param authentication the new authentication
    */
-  public void setAuthentication(List<Authentication> authentication) {
+  public void setAuthentication(List<XSAuthentication> authentication) {
     this.authentication = authentication;
   }
 
@@ -136,11 +139,11 @@ public class AccessArtifact {
    *
    * @return the access definition
    */
-  public AccessDefinition toAccessDefinition() {
-    AccessDefinition accessDefinition = new AccessDefinition();
-    accessDefinition.setAuthorizationRolesAsList(getAuthorization());
+  public XSAccess toAccessDefinition() {
+    XSAccess accessDefinition = new XSAccess();
+    accessDefinition.setAuthorizationRoles(getAuthorization());
     if (getAuthentication() != null) {
-      accessDefinition.setAuthenticationMethodsAsList(getAuthentication().stream().map(auth -> auth.getMethod()).collect(Collectors.toList()));
+      accessDefinition.setAuthenticationMethods(getAuthentication().stream().map(auth -> auth.getMethod()).collect(Collectors.toList()));
     }
     accessDefinition.setExposed(isExposed());
 

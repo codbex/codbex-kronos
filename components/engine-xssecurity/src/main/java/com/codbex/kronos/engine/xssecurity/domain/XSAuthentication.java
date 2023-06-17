@@ -9,35 +9,37 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos.xsaccess.ds.api;
+package com.codbex.kronos.engine.xssecurity.domain;
 
 /**
- * The Class PrivilegeException.
+ * The Class Authentication.
  */
-public class PrivilegeException extends Exception {
+public class XSAuthentication {
+
+  /** The method. */
+  private String method;
 
   /**
-   * Instantiates a new privilege exception.
+   * Instantiates a new authentication.
    */
-  public PrivilegeException() {
-    super();
+  public XSAuthentication() {
   }
 
   /**
-   * Instantiates a new privilege exception.
+   * Gets the method.
    *
-   * @param message the message
+   * @return the method
    */
-  public PrivilegeException(String message) {
-    super(message);
+  public String getMethod() {
+    return method;
   }
 
   /**
-   * Instantiates a new privilege exception.
+   * Sets the method.
    *
-   * @param cause the cause
+   * @param method the new method
    */
-  public PrivilegeException(Throwable cause) {
-    super(cause);
+  public void setMethod(String method) {
+    this.method = method;
   }
 }

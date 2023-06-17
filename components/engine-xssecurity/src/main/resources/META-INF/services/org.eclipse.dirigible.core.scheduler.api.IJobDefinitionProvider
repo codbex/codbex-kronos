@@ -1,2 +1,0 @@
-com.codbex.kronos.xssecurestore.ds.synchronizer.SecureStoreSynchronizerJobDefinitionProvider  # Secure createSecureStoreValue Synchronizer Job Definition Provider
-com.codbex.kronos.xsaccess.ds.synchronizer.SecuritySynchronizerJobDefinitionProvider # Access Synchronizer Job Definition Provider

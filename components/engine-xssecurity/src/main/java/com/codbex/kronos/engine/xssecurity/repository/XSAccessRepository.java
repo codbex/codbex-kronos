@@ -9,26 +9,17 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos.xssecurestore.ds.api;
+package com.codbex.kronos.engine.xssecurity.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.codbex.kronos.engine.xssecurity.domain.XSAccess;
 
 /**
- * The Interface ISecureStoreEncryptor.
+ * The Interface XSAccessRepository.
  */
-public interface ISecureStoreEncryptor {
+@Repository("xsaccessRepository")
+public interface XSAccessRepository extends JpaRepository<XSAccess, Long> {
 
-  /**
-   * Encode.
-   *
-   * @param input the input
-   * @return the byte[]
-   */
-  byte[] encode(byte[] input);
-
-  /**
-   * Decode.
-   *
-   * @param input the input
-   * @return the byte[]
-   */
-  byte[] decode(byte[] input);
 }
