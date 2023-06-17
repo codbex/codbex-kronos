@@ -45,13 +45,13 @@ import org.springframework.stereotype.Component;
 
 import com.codbex.kronos.engine.xsodata.domain.XSOData;
 import com.codbex.kronos.engine.xsodata.service.XSODataService;
+import com.codbex.kronos.engine.xsodata.transformers.TableMetadataProvider;
+import com.codbex.kronos.engine.xsodata.transformers.XSOData2ODataHTransformer;
+import com.codbex.kronos.engine.xsodata.transformers.XSOData2ODataMTransformer;
+import com.codbex.kronos.engine.xsodata.transformers.XSOData2ODataXTransformer;
+import com.codbex.kronos.engine.xsodata.transformers.XSODataArtefactParser;
+import com.codbex.kronos.engine.xsodata.utils.ODataUtils;
 import com.codbex.kronos.exceptions.ArtifactParserException;
-import com.codbex.kronos.xsodata.ds.service.TableMetadataProvider;
-import com.codbex.kronos.xsodata.ds.service.XSOData2ODataHTransformer;
-import com.codbex.kronos.xsodata.ds.service.XSOData2ODataMTransformer;
-import com.codbex.kronos.xsodata.ds.service.XSOData2ODataXTransformer;
-import com.codbex.kronos.xsodata.ds.service.XSODataArtefactParser;
-import com.codbex.kronos.xsodata.utils.ODataUtils;
 
 /**
  * The Class XSODataSynchronizer.
