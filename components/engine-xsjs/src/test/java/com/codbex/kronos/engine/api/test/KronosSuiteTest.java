@@ -32,31 +32,121 @@ import com.codbex.kronos.engine.xsjs.service.XsjsService;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-@ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
-@EntityScan(value = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
+@ComponentScan(basePackages = {"org.eclipse.dirigible.components", "com.codbex.kronos"})
+@EntityScan(value = {"org.eclipse.dirigible.components", "com.codbex.kronos"})
 public class KronosSuiteTest {
-	
-	@Autowired
-	private XsjsService xsjsService;
-	
-	@Autowired
-    private MockMvc mockMvc;
 
-    @Autowired
-    protected WebApplicationContext wac;
-    
-    @Test
-	public void executeDatabaseTest() throws Exception {
-		xsjsService.handleRequest("test", "kronos/db/api/db.xsjs", null, null, false);
-	}
-	
-	/**
-	 * The Class TestConfiguration.
-	 */
-	@EnableJpaRepositories(basePackages = "com.codbex.kronos")
-	@SpringBootApplication(scanBasePackages = { "com.codbex.kronos", "org.eclipse.dirigible.components" })
-	@EnableScheduling
-	static class TestConfiguration {
-	}
+  @Autowired
+  private XsjsService xsjsService;
 
+  @Autowired
+  private MockMvc mockMvc;
+
+  @Autowired
+  protected WebApplicationContext wac;
+
+  @Test
+  public void executeDatabaseTest() throws Exception {
+    xsjsService.handleRequest("test", "kronos/db/api/db.xsjs", null, null, false);
+  }
+
+  @Test
+  public void executeConnectionTest() throws Exception {
+    xsjsService.handleRequest("test", "kronos/db/api/connection.xsjs", null, null, false);
+  }
+
+  @Test
+  public void executeParameterMetadataTest() throws Exception {
+    xsjsService.handleRequest("test", "kronos/db/api/parameter-metadata.xsjs", null, null, false);
+  }
+
+  @Test
+  public void executeCallableStatementTest() throws Exception {
+    xsjsService.handleRequest("test", "kronos/db/api/callable-statement.xsjs", null, null, false);
+  }
+
+  @Test
+  public void executePreparedStatementTest() throws Exception {
+    xsjsService.handleRequest("test", "kronos/db/api/prepared-statement.xsjs", null, null, false);
+  }
+
+  @Test
+  public void executeResultSetTest() throws Exception {
+    xsjsService.handleRequest("test", "kronos/db/api/result-set.xsjs", null, null, false);
+  }
+
+  @Test
+  public void executeResultSetMetadataTest() throws Exception {
+    xsjsService.handleRequest("test", "kronos/db/api/resultset-metadata.xsjs", null, null, false);
+  }
+
+  @Test
+  public void executeResponseTest() throws Exception {
+    xsjsService.handleRequest("test", "kronos/response/api/response.xsjs", null, null, false);
+  }
+
+  @Test
+  public void executeSessionTest() throws Exception {
+    xsjsService.handleRequest("test", "kronos/session/api/session.xsjs", null, null, false);
+  }
+
+  @Test
+  public void executeTraceTest() throws Exception {
+    xsjsService.handleRequest("test", "kronos/trace/api/trace.xsjs", null, null, false);
+  }
+
+  @Test
+  public void executeUtilTest() throws Exception {
+    xsjsService.handleRequest("test", "kronos/util/api/util.xsjs", null, null, false);
+  }
+
+  @Test
+  public void executeUtilCodecTest() throws Exception {
+    xsjsService.handleRequest("test", "kronos/util/codec/api/codec.xsjs", null, null, false);
+  }
+
+  @Test
+  public void executeHttpTest() throws Exception {
+    xsjsService.handleRequest("test", "kronos/http/api/http.xsjs", null, null, false);
+  }
+
+  @Test
+  public void executeNetTest() throws Exception {
+    xsjsService.handleRequest("test", "kronos/net/api/net.xsjs", null, null, false);
+  }
+
+  @Test
+  public void executeHDBColumnMetadataTest() throws Exception {
+    xsjsService.handleRequest("test", "kronos/hdb/api/column-metadata.xsjs", null, null, false);
+  }
+
+  @Test
+  public void executeHDBConnectionExecuteQueryTest() throws Exception {
+    xsjsService.handleRequest("test", "kronos/hdb/api/connection-execute-query.xsjs", null, null, false);
+  }
+
+  @Test
+  public void executeHDBConnectionExecuteUpdateTest() throws Exception {
+    xsjsService.handleRequest("test", "kronos/hdb/api/connection-execute-update.xsjs", null, null, false);
+  }
+
+  @Test
+  public void executeHDBResultSetTest() throws Exception {
+    xsjsService.handleRequest("test", "kronos/hdb/api/result-set.xsjs", null, null, false);
+  }
+
+  @Test
+  public void executeHDBResultSetMetadataTest() throws Exception {
+    xsjsService.handleRequest("test", "kronos/hdb/api/resultset-metadata.xsjs", null, null, false);
+  }
+
+  /**
+   * The Class TestConfiguration.
+   */
+  @EnableJpaRepositories(basePackages = "com.codbex.kronos")
+  @SpringBootApplication(scanBasePackages = {"com.codbex.kronos", "org.eclipse.dirigible.components"})
+  @EnableScheduling
+  static class TestConfiguration {
+
+  }
 }
