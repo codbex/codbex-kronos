@@ -42,6 +42,7 @@ _**To learn more go to: https://www.xsk.io**_
 
 ## Requirements
 
+- Java 20 or later
 - Maven 3.6.2 or later
 - Access to SAP BTP account or another Kubernetes based environment
 - Access to SAP HANA Cloud instance
