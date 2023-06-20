@@ -20,8 +20,6 @@ Compatible environment for [SAP HANA Extended Application Services](https://help
 _Project documentation is available at: https://www.xsk.io_
 
 - [Project Kronos](#background)
-  - [Setup](#setup)
-  - [Readiness](#readiness)
 - [Support](#how-to-obtain-support)
 - [Contributing](#contributing)
 
@@ -48,21 +46,44 @@ _**To learn more go to: https://www.xsk.io**_
 - Access to SAP BTP account or another Kubernetes based environment
 - Access to SAP HANA Cloud instance
 
-## Download and Installation
+#### Docker
 
 ```
-git clone https://github.com/codbex/codbex-kronos
-cd codbex-kronos
+docker pull ghcr.io/codbex/codbex-kronos:latest
+docker run --name codbex-kronos --rm -p 8080:8080 ghcr.io/codbex/codbex-kronos:latest
+```
+
+- For Apple's M1: provide `--platform=linux/arm64` for better performance		
+
+#### Build
+
+```
 mvn clean install
 ```
+	
+#### Run
 
-## Setup
+```
+java --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED -jar application/target/codbex-kronos-application-1.0.0-SNAPSHOT.jar
+```
 
-- [Local](https://www.xsk.io/setup/)
-- [Cloud Foundry](https://www.xsk.io/setup/cloud-foundry/)
-- [Kyma](https://www.xsk.io/setup/kyma/)
-- [Helm](https://www.xsk.io/setup/helm/)
-- [Environment Variables](https://www.xsk.io/setup/environment-variables/)
+#### Debug
+
+```
+java --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000 -jar application/target/codbex-kronos-application-1.0.0-SNAPSHOT.jar
+```
+	
+#### Web
+
+```
+http://localhost:8080
+```
+
+#### REST API
+
+```
+http://localhost:8080/swagger-ui/index.html
+```
 
 ## FAQ
 
