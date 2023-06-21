@@ -38,6 +38,8 @@ import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdb.domain.HDBDD;
 import com.codbex.kronos.engine.hdb.domain.HDBTable;
 import com.codbex.kronos.engine.hdb.domain.HDBTableConstraints;
+import com.codbex.kronos.engine.hdb.domain.HDBTableType;
+import com.codbex.kronos.engine.hdb.domain.HDBTableTypePrimaryKey;
 import com.codbex.kronos.engine.hdb.domain.HDBView;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.parser.HDBUtils;
@@ -47,6 +49,7 @@ import com.codbex.kronos.engine.hdb.processors.HDBViewCreateProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBViewDropProcessor;
 import com.codbex.kronos.engine.hdb.service.HDBDDService;
 import com.codbex.kronos.engine.hdb.service.HDBTableService;
+import com.codbex.kronos.engine.hdb.service.HDBTableTypeService;
 import com.codbex.kronos.engine.hdb.service.HDBViewService;
 
 /**
@@ -72,6 +75,9 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 	
 	/** The view service. */
 	private HDBViewService viewService;
+	
+	/** The table type service. */
+	private HDBTableTypeService tableTypeService;
 	
 	/** The datasources manager. */
 	private DataSourcesManager datasourcesManager;
@@ -121,6 +127,15 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 	 */
 	public HDBViewService getViewService() {
 		return viewService;
+	}
+	
+	/**
+	 * Gets the table type service.
+	 *
+	 * @return the table type service
+	 */
+	public HDBTableTypeService getTableTypeService() {
+		return tableTypeService;
 	}
 
 	/**
@@ -175,10 +190,35 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 		
 		hdbdd.getTables().forEach(t -> {
 				t.setHdbdd(hdbdd);
+				t.setLocation(location);
+				if (t.getName() == null) {
+					t.setName("PUBLIC");
+				}
+				t.setType(HDBTable.ARTEFACT_TYPE);
+				t.updateKey();
 				t.setConstraints(new HDBTableConstraints(t));
 				HDBTablesSynchronizer.assignParent(t);
 			});
-		hdbdd.getViews().forEach(v -> v.setHdbdd(hdbdd));
+		hdbdd.getViews().forEach(v -> {
+				v.setHdbdd(hdbdd);
+				v.setLocation(location);
+				if (v.getName() == null) {
+					v.setName("PUBLIC");
+				}
+				v.setType(HDBView.ARTEFACT_TYPE);
+				v.updateKey();
+			});
+		hdbdd.getTableTypes().forEach(tt -> {
+			tt.setHdbdd(hdbdd);
+			tt.setLocation(location);
+			if (tt.getName() == null) {
+				tt.setName("PUBLIC");
+			}
+			tt.setType(HDBTableType.ARTEFACT_TYPE);
+			tt.updateKey();
+			tt.setPrimaryKey(new HDBTableTypePrimaryKey(tt));
+			HDBTableTypesSynchronizer.assignParent(tt);
+		});
 		
 		try {
 			HDBDD maybe = getService().findByKey(hdbdd.getKey());
@@ -195,6 +235,12 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 					HDBView m = getViewService().findByKey(hdbdd.constructKey(HDBView.ARTEFACT_TYPE, location, v.getName()));
 					if (m != null) {
 						v.setId(m.getId());
+					}
+				});
+				hdbdd.getTableTypes().forEach(tt -> {
+					HDBTableType m = getTableTypeService().findByKey(hdbdd.constructKey(HDBTableType.ARTEFACT_TYPE, location, tt.getName()));
+					if (m != null) {
+						tt.setId(m.getId());
 					}
 				});
 			}

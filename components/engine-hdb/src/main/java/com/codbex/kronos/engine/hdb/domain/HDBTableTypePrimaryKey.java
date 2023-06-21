@@ -90,6 +90,17 @@ public class HDBTableTypePrimaryKey {
 		this.tableType = tableType;
 		this.tableType.setPrimaryKey(this);
 	}
+	
+	/**
+	 * Instantiates a new table constraints.
+	 *
+	 * @param table the table
+	 */
+	public HDBTableTypePrimaryKey(HDBTableType tableType) {
+		this();
+		this.tableType = tableType;
+		this.tableType.setPrimaryKey(this);
+	}
 
 	/**
 	 * Instantiates a new table constraint primary key.
