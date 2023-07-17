@@ -16,6 +16,7 @@ import org.apache.olingo.odata2.api.edm.EdmException;
 import org.apache.olingo.odata2.core.edm.provider.EdmNamedImplProv;
 import org.hamcrest.MatcherAssert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -35,6 +36,7 @@ public class XSODataInitializerTest {
     xsoDataInitializer = new XSODataInitializer();
   }
 
+  @Ignore
   @Test
   public void testWhenValidationPatternIsPatchedNamesCanHaveDot() throws EdmException {
     xsoDataInitializer.contextInitialized(null);

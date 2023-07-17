@@ -32,8 +32,10 @@ import static java.text.MessageFormat.format;
  */
 public class ODataArtifactDao implements IODataArtifactDao {
 
-    /** The data source. */
-    private final DataSource dataSource = (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
+	/** The data source. */
+    public DataSource getDataSource() {
+    	return (DataSource) StaticObjects.get(StaticObjects.SYSTEM_DATASOURCE);
+    }
 
     /** The persistence manager. */
     private final PersistenceManager<ODataModel> persistenceManager = new PersistenceManager<>();
@@ -47,7 +49,7 @@ public class ODataArtifactDao implements IODataArtifactDao {
      */
     @Override
     public ODataModel createODataArtifact(ODataModel tableModel) throws ODataException {
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = getDataSource().getConnection()) {
             persistenceManager.insert(connection, tableModel);
             return tableModel;
         } catch (SQLException e) {
@@ -64,7 +66,7 @@ public class ODataArtifactDao implements IODataArtifactDao {
      */
     @Override
     public ODataModel getODataArtifact(String location) throws ODataException {
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = getDataSource().getConnection()) {
             return persistenceManager.find(connection, ODataModel.class, location);
         } catch (SQLException e) {
             throw new ODataException(e);
@@ -80,7 +82,7 @@ public class ODataArtifactDao implements IODataArtifactDao {
      */
     @Override
     public ODataModel getODataArtifactByName(String name) throws ODataException {
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = getDataSource().getConnection()) {
             String sql = SqlFactory.getNative(connection).select().column("*").from("KRONOS_ODATA")
                     .where("OD_NAME = ?").toString();
             List<ODataModel> tableModels = persistenceManager.query(connection, ODataModel.class, sql,
@@ -106,7 +108,7 @@ public class ODataArtifactDao implements IODataArtifactDao {
      */
     @Override
     public void removeODataArtifact(String location) throws ODataException {
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = getDataSource().getConnection()) {
             persistenceManager.delete(connection, ODataModel.class, location);
         } catch (SQLException e) {
             throw new ODataException(e);
@@ -123,7 +125,7 @@ public class ODataArtifactDao implements IODataArtifactDao {
      */
     @Override
     public void updateODataArtifact(String location, String name, String hash) throws ODataException {
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = getDataSource().getConnection()) {
             ODataModel tableModel = getODataArtifact(location);
             tableModel.setName(name);
             tableModel.setHash(hash);
@@ -141,7 +143,7 @@ public class ODataArtifactDao implements IODataArtifactDao {
      */
     @Override
     public List<ODataModel> getAllODataArtifacts() throws ODataException {
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = getDataSource().getConnection()) {
             String sql = SqlFactory.getNative(connection).select().column("*").from("KRONOS_ODATA").toString();
             return persistenceManager.query(connection, ODataModel.class, sql);
         } catch (SQLException e) {

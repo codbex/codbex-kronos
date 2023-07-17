@@ -53,7 +53,7 @@ public class ODataCoreService implements IODataCoreService {
             }
         }
         throw new IllegalArgumentException(
-                String.format("There is no entity with ODataUtilsname: %s, referenced by the navigation: %s", alias, navigation));
+                String.format("There is no entity with name: %s, referenced by the navigation: %s", alias, navigation));
     }
 
     /**
