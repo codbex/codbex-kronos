@@ -11,15 +11,16 @@
  */
 package com.codbex.kronos.xsodata.ds.model;
 
-import org.eclipse.dirigible.commons.api.helpers.GsonHelper;
-
-import com.codbex.kronos.parser.xsodata.model.XSODataService;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import java.sql.Timestamp;
+
+import org.eclipse.dirigible.commons.api.helpers.GsonHelper;
+
+import com.codbex.kronos.parser.xsodata.model.XSODataService;
 
 /**
  * The XS OData Model.
