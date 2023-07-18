@@ -1,1 +1,1 @@
-com.codbex.kronos.xsodata.ds.handler.KronosOData2EventHandler #Kronos OData Event Handler
+com.codbex.kronos.engine.xsodata.handler.KronosOData2EventHandler # OData Event Handler

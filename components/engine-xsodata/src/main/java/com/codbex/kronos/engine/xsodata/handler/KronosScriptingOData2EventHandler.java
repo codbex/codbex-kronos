@@ -58,22 +58,21 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
     SQLContext sqlContext = (SQLContext) context.get(SQL_CONTEXT_CONTEXT_KEY);
     DataSource dataSource = (DataSource) context.get(DATASOURCE_CONTEXT_KEY);
 
-    Connection connectionParam = null;
+    Connection connection = null;
     try {
       String afterTableName = generateTemporaryTableName(uriInfo.getTargetType().getName());
-      connectionParam = createTempTableAndReturnConnectionForBeforeAndOnCreateEntity(queryBuilder, uriInfo, entry, oDataContext, sqlContext,
-          dataSource,
-          afterTableName);
+      createTempTableBeforeAndOnCreateEntity(queryBuilder, uriInfo, entry, oDataContext, sqlContext, dataSource, afterTableName);
+      connection = dataSource.getConnection();
 
-      context.put(CONNECTION_CONTEXT_KEY, connectionParam);
+      context.put(CONNECTION_CONTEXT_KEY, connection);
       context.put(AFTER_TABLE_NAME_CONTEXT_KEY, afterTableName);
 
       callSuperBeforeCreateEntity(uriInfo, requestContentType, contentType, entry, context);
     } catch (ODataException | SQLException e) {
       throw new KronosScriptingOData2EventHandlerException(UNABLE_TO_HANDLE_BEFORE_CREATE_ENTITY_EVENT_ERROR, e);
     } finally {
-      batchDropTemporaryTables(connectionParam, (String) context.get(AFTER_TABLE_NAME_CONTEXT_KEY));
-      closeConnection(connectionParam);
+      batchDropTemporaryTables(connection, (String) context.get(AFTER_TABLE_NAME_CONTEXT_KEY));
+      closeConnection(connection);
     }
 
     return null;
@@ -97,21 +96,21 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
     SQLContext sqlContext = (SQLContext) context.get(SQL_CONTEXT_CONTEXT_KEY);
     DataSource dataSource = (DataSource) context.get(DATASOURCE_CONTEXT_KEY);
 
-    Connection connectionParam = null;
+    Connection connection = null;
     try {
       String afterTableName = generateTemporaryTableName(uriInfo.getTargetType().getName());
-      connectionParam = createTempTableAndReturnConnectionForAfterCreateEntity(queryBuilder, uriInfo, oDataContext, sqlContext, dataSource,
-          afterTableName);
+      createTempTableAfterCreateEntity(queryBuilder, uriInfo, oDataContext, sqlContext, dataSource, afterTableName);
+      connection = dataSource.getConnection();
 
-      context.put(CONNECTION_CONTEXT_KEY, connectionParam);
+      context.put(CONNECTION_CONTEXT_KEY, connection);
       context.put(AFTER_TABLE_NAME_CONTEXT_KEY, afterTableName);
 
       callSuperAfterCreateEntity(uriInfo, requestContentType, contentType, entry, context);
     } catch (ODataException | SQLException e) {
       throw new KronosScriptingOData2EventHandlerException(UNABLE_TO_HANDLE_AFTER_CREATE_ENTITY_EVENT_ERROR, e);
     } finally {
-      batchDropTemporaryTables(connectionParam, (String) context.get(AFTER_TABLE_NAME_CONTEXT_KEY));
-      closeConnection(connectionParam);
+      batchDropTemporaryTables(connection, (String) context.get(AFTER_TABLE_NAME_CONTEXT_KEY));
+      closeConnection(connection);
     }
     return null;
   }
@@ -135,16 +134,15 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
     DataSource dataSource = (DataSource) context.get(DATASOURCE_CONTEXT_KEY);
     ODataEntry entry = (ODataEntry) context.get(ENTRY_CONTEXT_KEY);
 
-    Connection connectionParam = null;
+    Connection connection = null;
     try {
       String afterTableName = generateTemporaryTableName(uriInfo.getTargetType().getName());
-      connectionParam = createTempTableAndReturnConnectionForBeforeAndOnCreateEntity(queryBuilder, uriInfo, entry, oDataContext, sqlContext,
-          dataSource,
-          afterTableName);
+      createTempTableBeforeAndOnCreateEntity(queryBuilder, uriInfo, entry, oDataContext, sqlContext, dataSource, afterTableName);
+      connection = dataSource.getConnection();
 
-      Map<String, Object> entryMap = readEntryMap(connectionParam, afterTableName);
+      Map<String, Object> entryMap = readEntryMap(connection, afterTableName);
 
-      context.put(CONNECTION_CONTEXT_KEY, connectionParam);
+      context.put(CONNECTION_CONTEXT_KEY, connection);
       context.put(AFTER_TABLE_NAME_CONTEXT_KEY, afterTableName);
 
       callSuperOnCreateEntity(uriInfo, content, requestContentType, contentType, context);
@@ -152,8 +150,8 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
     } catch (ODataException | SQLException e) {
       throw new KronosScriptingOData2EventHandlerException(UNABLE_TO_HANDLE_ON_CREATE_ENTITY_EVENT_ERROR, e);
     } finally {
-      batchDropTemporaryTables(connectionParam, (String) context.get(AFTER_TABLE_NAME_CONTEXT_KEY));
-      closeConnection(connectionParam);
+      batchDropTemporaryTables(connection, (String) context.get(AFTER_TABLE_NAME_CONTEXT_KEY));
+      closeConnection(connection);
     }
   }
 
@@ -167,11 +165,10 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
 	 * @param sqlContext     the sql context
 	 * @param dataSource     the data source
 	 * @param afterTableName the after table name
-	 * @return the connection
 	 * @throws ODataException the o data exception
 	 * @throws SQLException   the SQL exception
 	 */
-  private Connection createTempTableAndReturnConnectionForBeforeAndOnCreateEntity(SQLQueryBuilder queryBuilder, PostUriInfo uriInfo,
+  private void createTempTableBeforeAndOnCreateEntity(SQLQueryBuilder queryBuilder, PostUriInfo uriInfo,
       ODataEntry entry,
       ODataContext oDataContext, SQLContext sqlContext, DataSource dataSource, String afterTableName)
       throws ODataException, SQLException {
@@ -181,7 +178,6 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
       String targetTableName = getSQLInsertBuilderTargetTable(dummyBuilder, sqlContext);
       createTemporaryTableLikeTable(connectionParam, afterTableName, targetTableName);
       insertIntoTemporaryTable(connectionParam, insertBuilder, afterTableName, sqlContext);
-      return connectionParam;
     }
   }
 
@@ -194,17 +190,15 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
 	 * @param sqlContext     the sql context
 	 * @param dataSource     the data source
 	 * @param afterTableName the after table name
-	 * @return the connection
 	 * @throws ODataException the o data exception
 	 * @throws SQLException   the SQL exception
 	 */
-  private Connection createTempTableAndReturnConnectionForAfterCreateEntity(SQLQueryBuilder queryBuilder, PostUriInfo uriInfo,
+  private void createTempTableAfterCreateEntity(SQLQueryBuilder queryBuilder, PostUriInfo uriInfo,
       ODataContext oDataContext, SQLContext sqlContext, DataSource dataSource, String afterTableName)
       throws ODataException, SQLException {
     try ( Connection connectionParam = dataSource.getConnection() ) {
       SQLSelectBuilder selectBuilder = queryBuilder.buildSelectEntityQuery((UriInfo) uriInfo, oDataContext);
       createTemporaryTableAsSelect(connectionParam, afterTableName, selectBuilder, sqlContext);
-      return connectionParam;
     }
   }
 
@@ -228,17 +222,16 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
     DataSource dataSource = (DataSource) context.get(DATASOURCE_CONTEXT_KEY);
     Map<String, Object> mappedKeys = (Map<String, Object>) context.get(MAPPED_KEYS_CONTEXT_KEY);
 
-    Connection connectionParam = null;
+    Connection connection = null;
     try {
       String afterTableName = generateTemporaryTableName(uriInfo.getTargetType().getName());
       String beforeTableName = generateTemporaryTableName(uriInfo.getTargetType().getName());
-      connectionParam = createTempTableAndReturnConnectionForBeforeAndOnUpdateEntity(queryBuilder, uriInfo, entry, oDataContext, sqlContext,
-          dataSource,
-          mappedKeys, afterTableName, beforeTableName);
+      createTempTableBeforeAndOnUpdateEntity(queryBuilder, uriInfo, entry, oDataContext, sqlContext, dataSource, mappedKeys, afterTableName, beforeTableName);
+      connection = dataSource.getConnection();
 
-      String beforeUpdateEntryJSON = GsonHelper.toJson(readEntryMap(connectionParam, beforeTableName));
+      String beforeUpdateEntryJSON = GsonHelper.toJson(readEntryMap(connection, beforeTableName));
 
-      context.put(CONNECTION_CONTEXT_KEY, connectionParam);
+      context.put(CONNECTION_CONTEXT_KEY, connection);
       context.put(BEFORE_TABLE_NAME_CONTEXT_KEY, beforeTableName);
       context.put(AFTER_TABLE_NAME_CONTEXT_KEY, afterTableName);
       context.put(ENTRY_JSON_CONTEXT_KEY, beforeUpdateEntryJSON);
@@ -247,9 +240,9 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
     } catch (ODataException | SQLException e) {
       throw new KronosScriptingOData2EventHandlerException(UNABLE_TO_HANDLE_BEFORE_UPDATE_ENTITY_EVENT_ERROR, e);
     } finally {
-      batchDropTemporaryTables(connectionParam, (String) context.get(BEFORE_TABLE_NAME_CONTEXT_KEY), (String) context.get(
+      batchDropTemporaryTables(connection, (String) context.get(BEFORE_TABLE_NAME_CONTEXT_KEY), (String) context.get(
           AFTER_TABLE_NAME_CONTEXT_KEY));
-      closeConnection(connectionParam);
+      closeConnection(connection);
     }
     return null;
   }
@@ -275,15 +268,14 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
     ODataEntry entryBeforeUpdate = (ODataEntry) context.get(ENTRY_CONTEXT_KEY);
     Map<String, Object> mappedKeys = (Map<String, Object>) context.get(MAPPED_KEYS_CONTEXT_KEY);
 
-    Connection connectionParam = null;
+    Connection connection = null;
     try {
       String beforeTableName = generateTemporaryTableName(uriInfo.getTargetType().getName());
       String afterTableName = generateTemporaryTableName(uriInfo.getTargetType().getName());
-      connectionParam = createTempTableAndReturnConnectionForAfterUpdateEntity(queryBuilder, uriInfo, entry, oDataContext, sqlContext,
-          dataSource, entryBeforeUpdate,
-          mappedKeys, afterTableName, beforeTableName);
+      createTempTableAfterUpdateEntity(queryBuilder, uriInfo, entry, oDataContext, sqlContext, dataSource, entryBeforeUpdate, mappedKeys, afterTableName, beforeTableName);
+      connection = dataSource.getConnection();
 
-      context.put(CONNECTION_CONTEXT_KEY, connectionParam);
+      context.put(CONNECTION_CONTEXT_KEY, connection);
       context.put(BEFORE_TABLE_NAME_CONTEXT_KEY, beforeTableName);
       context.put(AFTER_TABLE_NAME_CONTEXT_KEY, afterTableName);
 
@@ -291,9 +283,9 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
     } catch (ODataException | SQLException e) {
       throw new KronosScriptingOData2EventHandlerException(UNABLE_TO_HANDLE_AFTER_UPDATE_ENTITY_EVENT_ERROR, e);
     } finally {
-      batchDropTemporaryTables(connectionParam, (String) context.get(BEFORE_TABLE_NAME_CONTEXT_KEY), (String) context.get(
+      batchDropTemporaryTables(connection, (String) context.get(BEFORE_TABLE_NAME_CONTEXT_KEY), (String) context.get(
           AFTER_TABLE_NAME_CONTEXT_KEY));
-      closeConnection(connectionParam);
+      closeConnection(connection);
     }
     return null;
   }
@@ -319,15 +311,14 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
     Map<String, Object> mappedKeys = (Map<String, Object>) context.get(MAPPED_KEYS_CONTEXT_KEY);
     ODataEntry entry = (ODataEntry) context.get(ENTRY_CONTEXT_KEY);
 
-    Connection connectionParam = null;
+    Connection connection = null;
     try {
       String afterTableName = generateTemporaryTableName(uriInfo.getTargetType().getName());
       String beforeTableName = generateTemporaryTableName(uriInfo.getTargetType().getName());
-      connectionParam = createTempTableAndReturnConnectionForBeforeAndOnUpdateEntity(queryBuilder, uriInfo, entry, oDataContext, sqlContext,
-          dataSource,
-          mappedKeys, afterTableName, beforeTableName);
+      createTempTableBeforeAndOnUpdateEntity(queryBuilder, uriInfo, entry, oDataContext, sqlContext, dataSource, mappedKeys, afterTableName, beforeTableName);
+      connection = dataSource.getConnection();
 
-      context.put(CONNECTION_CONTEXT_KEY, connectionParam);
+      context.put(CONNECTION_CONTEXT_KEY, connection);
       context.put(BEFORE_TABLE_NAME_CONTEXT_KEY, beforeTableName);
       context.put(AFTER_TABLE_NAME_CONTEXT_KEY, afterTableName);
 
@@ -335,9 +326,9 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
     } catch (ODataException | SQLException e) {
       throw new KronosScriptingOData2EventHandlerException(UNABLE_TO_HANDLE_ON_UPDATE_ENTITY_EVENT_ERROR, e);
     } finally {
-      batchDropTemporaryTables(connectionParam, (String) context.get(BEFORE_TABLE_NAME_CONTEXT_KEY), (String) context.get(
+      batchDropTemporaryTables(connection, (String) context.get(BEFORE_TABLE_NAME_CONTEXT_KEY), (String) context.get(
           AFTER_TABLE_NAME_CONTEXT_KEY));
-      closeConnection(connectionParam);
+      closeConnection(connection);
     }
     return null;
   }
@@ -354,11 +345,10 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
 	 * @param mappedKeys      the mapped keys
 	 * @param afterTableName  the after table name
 	 * @param beforeTableName the before table name
-	 * @return the connection
 	 * @throws ODataException the o data exception
 	 * @throws SQLException   the SQL exception
 	 */
-  private Connection createTempTableAndReturnConnectionForBeforeAndOnUpdateEntity(SQLQueryBuilder queryBuilder,
+  private void createTempTableBeforeAndOnUpdateEntity(SQLQueryBuilder queryBuilder,
       PutMergePatchUriInfo uriInfo,
       ODataEntry entry,
       ODataContext oDataContext, SQLContext sqlContext, DataSource dataSource, Map<String, Object> mappedKeys, String afterTableName,
@@ -370,7 +360,6 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
       createTemporaryTableAsSelect(connectionParam, beforeTableName, selectBuilder, sqlContext);
       createTemporaryTableAsSelect(connectionParam, afterTableName, selectBuilder, sqlContext);
       updateTemporaryTable(connectionParam, updateBuilder, afterTableName, sqlContext);
-      return connectionParam;
     }
   }
 
@@ -387,11 +376,10 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
 	 * @param mappedKeys        the mapped keys
 	 * @param afterTableName    the after table name
 	 * @param beforeTableName   the before table name
-	 * @return the connection
 	 * @throws ODataException the o data exception
 	 * @throws SQLException   the SQL exception
 	 */
-  private Connection createTempTableAndReturnConnectionForAfterUpdateEntity(SQLQueryBuilder queryBuilder, PutMergePatchUriInfo uriInfo,
+  private void createTempTableAfterUpdateEntity(SQLQueryBuilder queryBuilder, PutMergePatchUriInfo uriInfo,
       ODataEntry entry,
       ODataContext oDataContext, SQLContext sqlContext, DataSource dataSource, ODataEntry entryBeforeUpdate, Map<String, Object> mappedKeys,
       String afterTableName,
@@ -406,7 +394,6 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
       createTemporaryTableLikeTable(connectionParam, beforeTableName, targetTableName);
       insertIntoTemporaryTable(connectionParam, insertBuilder, beforeTableName, sqlContext);
       createTemporaryTableAsSelect(connectionParam, afterTableName, selectBuilder, sqlContext);
-      return connectionParam;
     }
   }
 
@@ -425,26 +412,26 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
     SQLContext sqlContext = (SQLContext) context.get(SQL_CONTEXT_CONTEXT_KEY);
     DataSource dataSource = (DataSource) context.get(DATASOURCE_CONTEXT_KEY);
 
-    Connection connectionParam = null;
+    Connection connection = null;
     try {
       SQLSelectBuilder selectBuilder = queryBuilder.buildSelectEntityQuery((UriInfo) uriInfo, oDataContext);
 
       String beforeTableName = generateTemporaryTableName(uriInfo.getTargetType().getName());
 
-      connectionParam = dataSource.getConnection();
-      createTemporaryTableAsSelect(connectionParam, beforeTableName, selectBuilder, sqlContext);
+      connection = dataSource.getConnection();
+      createTemporaryTableAsSelect(connection, beforeTableName, selectBuilder, sqlContext);
 
-      context.put(CONNECTION_CONTEXT_KEY, connectionParam);
+      context.put(CONNECTION_CONTEXT_KEY, connection);
       context.put(BEFORE_TABLE_NAME_CONTEXT_KEY, beforeTableName);
-      String beforeDeleteEntryJSON = GsonHelper.toJson(readEntryMap(connectionParam, beforeTableName));
+      String beforeDeleteEntryJSON = GsonHelper.toJson(readEntryMap(connection, beforeTableName));
       context.put(ENTRY_JSON_CONTEXT_KEY, beforeDeleteEntryJSON);
 
       callSuperBeforeDeleteEntity(uriInfo, contentType, context);
     } catch (ODataException | SQLException e) {
       throw new KronosScriptingOData2EventHandlerException(UNABLE_TO_HANDLE_BEFORE_DELETE_ENTITY_EVENT_ERROR, e);
     } finally {
-      batchDropTemporaryTables(connectionParam, (String) context.get(BEFORE_TABLE_NAME_CONTEXT_KEY));
-      closeConnection(connectionParam);
+      batchDropTemporaryTables(connection, (String) context.get(BEFORE_TABLE_NAME_CONTEXT_KEY));
+      closeConnection(connection);
     }
     return null;
   }
@@ -466,20 +453,21 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
     Map<String, Object> mappedKeys = (Map<String, Object>) context.get(MAPPED_KEYS_CONTEXT_KEY);
     ODataEntry entryBeforeDelete = (ODataEntry) context.get(ENTRY_CONTEXT_KEY);
 
-    Connection connectionParam = null;
+    Connection connection = null;
     try {
       String beforeTableName = generateTemporaryTableName(uriInfo.getTargetType().getName());
-      connectionParam = createTempTableAndReturnConnectionForAfterDeleteEntity(queryBuilder, uriInfo, oDataContext, sqlContext, dataSource, entryBeforeDelete, mappedKeys, beforeTableName);
+      createTempTableAfterDeleteEntity(queryBuilder, uriInfo, oDataContext, sqlContext, dataSource, entryBeforeDelete, mappedKeys, beforeTableName);
+      connection = dataSource.getConnection();
 
-      context.put(CONNECTION_CONTEXT_KEY, connectionParam);
+      context.put(CONNECTION_CONTEXT_KEY, connection);
       context.put(BEFORE_TABLE_NAME_CONTEXT_KEY, beforeTableName);
 
       callSuperAfterDeleteEntity(uriInfo, contentType, context);
     } catch (ODataException | SQLException e) {
       throw new KronosScriptingOData2EventHandlerException(UNABLE_TO_HANDLE_AFTER_DELETE_ENTITY_EVENT_ERROR, e);
     } finally {
-      batchDropTemporaryTables(connectionParam, (String) context.get(BEFORE_TABLE_NAME_CONTEXT_KEY));
-      closeConnection(connectionParam);
+      batchDropTemporaryTables(connection, (String) context.get(BEFORE_TABLE_NAME_CONTEXT_KEY));
+      closeConnection(connection);
     }
     return null;
   }
@@ -499,20 +487,21 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
     SQLContext sqlContext = (SQLContext) context.get(SQL_CONTEXT_CONTEXT_KEY);
     DataSource dataSource = (DataSource) context.get(DATASOURCE_CONTEXT_KEY);
 
-    Connection connectionParam = null;
+    Connection connection = null;
     try {
       String beforeTableName = generateTemporaryTableName(uriInfo.getTargetType().getName());
-      connectionParam = createTempTableAndReturnConnectionForBeforeAndOnDeleteEntity(queryBuilder, uriInfo, oDataContext, sqlContext, dataSource, beforeTableName);
+      createTempTableBeforeAndOnDeleteEntity(queryBuilder, uriInfo, oDataContext, sqlContext, dataSource, beforeTableName);
+      connection = dataSource.getConnection();
 
-      context.put(CONNECTION_CONTEXT_KEY, connectionParam);
+      context.put(CONNECTION_CONTEXT_KEY, connection);
       context.put(BEFORE_TABLE_NAME_CONTEXT_KEY, beforeTableName);
 
       callSuperOnDeleteEntity(uriInfo, contentType, context);
     } catch (ODataException | SQLException e) {
       throw new KronosScriptingOData2EventHandlerException(UNABLE_TO_HANDLE_ON_DELETE_ENTITY_EVENT_ERROR, e);
     } finally {
-      batchDropTemporaryTables(connectionParam, (String) context.get(BEFORE_TABLE_NAME_CONTEXT_KEY));
-      closeConnection(connectionParam);
+      batchDropTemporaryTables(connection, (String) context.get(BEFORE_TABLE_NAME_CONTEXT_KEY));
+      closeConnection(connection);
     }
     return null;
   }
@@ -526,16 +515,14 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
 	 * @param sqlContext      the sql context
 	 * @param dataSource      the data source
 	 * @param beforeTableName the before table name
-	 * @return the connection
 	 * @throws ODataException the o data exception
 	 * @throws SQLException   the SQL exception
 	 */
-  private Connection createTempTableAndReturnConnectionForBeforeAndOnDeleteEntity(SQLQueryBuilder queryBuilder, DeleteUriInfo uriInfo, ODataContext oDataContext, SQLContext sqlContext, DataSource dataSource, String beforeTableName)
+  private void createTempTableBeforeAndOnDeleteEntity(SQLQueryBuilder queryBuilder, DeleteUriInfo uriInfo, ODataContext oDataContext, SQLContext sqlContext, DataSource dataSource, String beforeTableName)
       throws ODataException, SQLException {
     try (Connection connectionParam = dataSource.getConnection()) {
       SQLSelectBuilder selectBuilder = queryBuilder.buildSelectEntityQuery((UriInfo) uriInfo, oDataContext);
       createTemporaryTableAsSelect(connectionParam, beforeTableName, selectBuilder, sqlContext);
-      return connectionParam;
     }
   }
 
@@ -550,11 +537,10 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
 	 * @param entryBeforeDelete the entry before delete
 	 * @param mappedKeys        the mapped keys
 	 * @param beforeTableName   the before table name
-	 * @return the connection
 	 * @throws ODataException the o data exception
 	 * @throws SQLException   the SQL exception
 	 */
-  private Connection createTempTableAndReturnConnectionForAfterDeleteEntity(SQLQueryBuilder queryBuilder, DeleteUriInfo uriInfo, ODataContext oDataContext, SQLContext sqlContext, DataSource dataSource, ODataEntry entryBeforeDelete, Map<String, Object> mappedKeys, String beforeTableName)
+  private void createTempTableAfterDeleteEntity(SQLQueryBuilder queryBuilder, DeleteUriInfo uriInfo, ODataContext oDataContext, SQLContext sqlContext, DataSource dataSource, ODataEntry entryBeforeDelete, Map<String, Object> mappedKeys, String beforeTableName)
       throws ODataException, SQLException {
     try (Connection connectionParam = dataSource.getConnection()) {
       SQLDeleteBuilder dummyBuilder = queryBuilder.buildDeleteEntityQuery((UriInfo) uriInfo, mappedKeys, oDataContext);
@@ -562,7 +548,6 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
       String targetTableName = getSQLDeleteBuilderTargetTable(dummyBuilder, sqlContext);
       createTemporaryTableLikeTable(connectionParam, beforeTableName, targetTableName);
       insertIntoTemporaryTable(connectionParam, insertBuilder, beforeTableName, sqlContext);
-      return connectionParam;
     }
   }
 

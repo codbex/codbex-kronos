@@ -141,13 +141,14 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
       String method = ODataHandlerMethods.create.name();
       String type = ODataHandlerTypes.before.name();
       List<ODataHandler> handlers = ODataHandlerService.get().getByNamespaceNameMethodAndKind(namespace, name, method, type);
-      if (!handlers.isEmpty()) {
-        AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
-        context.put(HANDLER, handlers.get(0));
-        return eventHandler.beforeCreateEntity(uriInfo, requestContentType, contentType, entry, context);
-      } else {
+      if (handlers.isEmpty()) {
+        return null;
+      } else if (handlers.size() > 1) {
         throw new IllegalStateException(MORE_THAN_ONE_HANDLER_PRESENT_FOR_BEFORE_CREATE_ENTITY_EVENT_ERROR);
       }
+      AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
+      context.put(HANDLER, handlers.get(0));
+      return eventHandler.beforeCreateEntity(uriInfo, requestContentType, contentType, entry, context);
     } catch (EdmException e) {
       throw new ODataException(e);
     }
@@ -174,13 +175,14 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
       String method = ODataHandlerMethods.create.name();
       String type = ODataHandlerTypes.after.name();
       List<ODataHandler> handlers = ODataHandlerService.get().getByNamespaceNameMethodAndKind(namespace, name, method, type);
-      if (!handlers.isEmpty()) {
-        AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
-        context.put(HANDLER, handlers.get(0));
-        return eventHandler.afterCreateEntity(uriInfo, requestContentType, contentType, entry, context);
-      } else {
+      if (handlers.isEmpty()) {
+        return null;
+      } else if (handlers.size() > 1) {
         throw new IllegalStateException(MORE_THAN_ONE_HANDLER_PRESENT_FOR_AFTER_CREATE_ENTITY_EVENT_ERROR);
       }
+      AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
+      context.put(HANDLER, handlers.get(0));
+      return eventHandler.afterCreateEntity(uriInfo, requestContentType, contentType, entry, context);
     } catch (EdmException e) {
       throw new ODataException(e);
     }
@@ -207,13 +209,14 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
       String method = ODataHandlerMethods.create.name();
       String type = ODataHandlerTypes.on.name();
       List<ODataHandler> handlers = ODataHandlerService.get().getByNamespaceNameMethodAndKind(namespace, name, method, type);
-      if (!handlers.isEmpty()) {
-        AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
-        context.put(HANDLER, handlers.get(0));
-        return eventHandler.onCreateEntity(uriInfo, content, requestContentType, contentType, context);
-      } else {
+      if (handlers.isEmpty()) {
+        return null;
+      } else if (handlers.size() > 1) {
         throw new IllegalStateException(MORE_THAN_ONE_HANDLER_PRESENT_FOR_ON_CREATE_ENTITY_EVENT_ERROR);
       }
+      AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
+      context.put(HANDLER, handlers.get(0));
+      return eventHandler.onCreateEntity(uriInfo, content, requestContentType, contentType, context);
     } catch (EdmException e) {
       throw new ODataException(e);
     }
@@ -240,13 +243,14 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
       String method = ODataHandlerMethods.update.name();
       String type = ODataHandlerTypes.before.name();
       List<ODataHandler> handlers = ODataHandlerService.get().getByNamespaceNameMethodAndKind(namespace, name, method, type);
-      if (!handlers.isEmpty()) {
-        AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
-        context.put(HANDLER, handlers.get(0));
-        return eventHandler.beforeUpdateEntity(uriInfo, requestContentType, merge, contentType, entry, context);
-      } else {
+      if (handlers.isEmpty()) {
+        return null;
+      } else if (handlers.size() > 1) {
         throw new IllegalStateException(MORE_THAN_ONE_HANDLER_PRESENT_FOR_BEFORE_UPDATE_ENTITY_EVENT_ERROR);
       }
+      AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
+      context.put(HANDLER, handlers.get(0));
+      return eventHandler.beforeUpdateEntity(uriInfo, requestContentType, merge, contentType, entry, context);
     } catch (EdmException e) {
       throw new ODataException(e);
     }
@@ -273,13 +277,14 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
       String method = ODataHandlerMethods.update.name();
       String type = ODataHandlerTypes.after.name();
       List<ODataHandler> handlers = ODataHandlerService.get().getByNamespaceNameMethodAndKind(namespace, name, method, type);
-      if (!handlers.isEmpty()) {
-        AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
-        context.put(HANDLER, handlers.get(0));
-        return eventHandler.afterUpdateEntity(uriInfo, requestContentType, merge, contentType, entry, context);
-      } else {
+      if (handlers.isEmpty()) {
+        return null;
+      } else if (handlers.size() > 1) {
         throw new IllegalStateException(MORE_THAN_ONE_HANDLER_PRESENT_FOR_AFTER_UPDATE_ENTITY_EVENT_ERROR);
       }
+      AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
+      context.put(HANDLER, handlers.get(0));
+      return eventHandler.afterUpdateEntity(uriInfo, requestContentType, merge, contentType, entry, context);
     } catch (EdmException e) {
       throw new ODataException(e);
     }
@@ -306,13 +311,14 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
       String method = ODataHandlerMethods.update.name();
       String type = ODataHandlerTypes.on.name();
       List<ODataHandler> handlers = ODataHandlerService.get().getByNamespaceNameMethodAndKind(namespace, name, method, type);
-      if (!handlers.isEmpty()) {
-        AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
-        context.put(HANDLER, handlers.get(0));
-        return eventHandler.onUpdateEntity(uriInfo, content, requestContentType, merge, contentType, context);
-      } else {
-        throw new IllegalStateException(MORE_THAN_ONE_HANDLER_PRESENT_FOR_ON_UPDATE_ENTITY_EVENT_ERROR);
+      if (handlers.isEmpty()) {
+        return null;
+      } else if (handlers.size() > 1) {
+        throw new IllegalStateException(MORE_THAN_ONE_HANDLER_PRESENT_FOR_AFTER_UPDATE_ENTITY_EVENT_ERROR);
       }
+      AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
+      context.put(HANDLER, handlers.get(0));
+      return eventHandler.onUpdateEntity(uriInfo, content, requestContentType, merge, contentType, context);
     } catch (EdmException e) {
       throw new ODataException(e);
     }
@@ -335,13 +341,14 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
       String method = ODataHandlerMethods.delete.name();
       String type = ODataHandlerTypes.before.name();
       List<ODataHandler> handlers = ODataHandlerService.get().getByNamespaceNameMethodAndKind(namespace, name, method, type);
-      if (!handlers.isEmpty()) {
-        AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
-        context.put(HANDLER, handlers.get(0));
-        return eventHandler.beforeDeleteEntity(uriInfo, contentType, context);
-      } else {
-        throw new IllegalStateException(MORE_THAN_ONE_HANDLER_PRESENT_FOR_BEFORE_DELETE_ENTITY_EVENT_ERROR);
+      if (handlers.isEmpty()) {
+        return null;
+      } else if (handlers.size() > 1) {
+        throw new IllegalStateException(MORE_THAN_ONE_HANDLER_PRESENT_FOR_AFTER_UPDATE_ENTITY_EVENT_ERROR);
       }
+      AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
+      context.put(HANDLER, handlers.get(0));
+      return eventHandler.beforeDeleteEntity(uriInfo, contentType, context);
     } catch (EdmException e) {
       throw new ODataException(e);
     }
@@ -364,13 +371,14 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
       String method = ODataHandlerMethods.delete.name();
       String type = ODataHandlerTypes.after.name();
       List<ODataHandler> handlers = ODataHandlerService.get().getByNamespaceNameMethodAndKind(namespace, name, method, type);
-      if (!handlers.isEmpty()) {
-        AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
-        context.put(HANDLER, handlers.get(0));
-        return eventHandler.afterDeleteEntity(uriInfo, contentType, context);
-      } else {
-        throw new IllegalStateException(MORE_THAN_ONE_HANDLER_PRESENT_FOR_AFTER_DELETE_ENTITY_EVENT_ERROR);
+      if (handlers.isEmpty()) {
+        return null;
+      } else if (handlers.size() > 1) {
+        throw new IllegalStateException(MORE_THAN_ONE_HANDLER_PRESENT_FOR_AFTER_UPDATE_ENTITY_EVENT_ERROR);
       }
+      AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
+      context.put(HANDLER, handlers.get(0));
+      return eventHandler.afterDeleteEntity(uriInfo, contentType, context);
     } catch (EdmException e) {
       throw new ODataException(e);
     }
@@ -393,13 +401,14 @@ public class KronosOData2EventHandler extends ScriptingOData2EventHandler {
       String method = ODataHandlerMethods.delete.name();
       String type = ODataHandlerTypes.on.name();
       List<ODataHandler> handlers = ODataHandlerService.get().getByNamespaceNameMethodAndKind(namespace, name, method, type);
-      if (!handlers.isEmpty()) {
-        AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
-        context.put(HANDLER, handlers.get(0));
-        return eventHandler.onDeleteEntity(uriInfo, contentType, context);
-      } else {
+      if (handlers.isEmpty()) {
+        return null;
+      } else if (handlers.size() > 1) {
         throw new IllegalStateException(MORE_THAN_ONE_HANDLER_PRESENT_FOR_ON_DELETE_ENTITY_EVENT_ERROR);
       }
+      AbstractKronosOData2EventHandler eventHandler = determineEventHandler(handlers.get(0));
+      context.put(HANDLER, handlers.get(0));
+      return eventHandler.onDeleteEntity(uriInfo, contentType, context);
     } catch (EdmException e) {
       throw new ODataException(e);
     }
