@@ -2,7 +2,10 @@ name: Build
 
 on:
   push:
-    branches: [ main ]
+    branches: 
+    - main
+    - dg8
+
 jobs:
   build:
     runs-on: ubuntu-latest

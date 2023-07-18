@@ -5,7 +5,9 @@ concurrency:
 
 on:
   pull_request:
-    branches: [ main ]
+    branches:
+    - main
+    - dg8
 
 jobs:
   
