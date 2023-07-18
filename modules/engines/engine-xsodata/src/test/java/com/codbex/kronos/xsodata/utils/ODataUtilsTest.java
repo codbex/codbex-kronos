@@ -19,17 +19,6 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
-import com.codbex.kronos.exceptions.ArtifactParserException;
-import com.codbex.kronos.parser.xsodata.model.XSODataEntity;
-import com.codbex.kronos.parser.xsodata.model.XSODataEventType;
-import com.codbex.kronos.parser.xsodata.model.XSODataHandlerMethod;
-import com.codbex.kronos.utils.CommonsDBUtils;
-import com.codbex.kronos.xsodata.ds.model.DBArtifactModel;
-import com.codbex.kronos.xsodata.ds.model.ODataModel;
-import com.codbex.kronos.xsodata.ds.service.OData2TransformerException;
-import com.codbex.kronos.xsodata.ds.service.ODataParser;
-import com.codbex.kronos.xsodata.ds.service.TableMetadataProvider;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
@@ -39,7 +28,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import javax.sql.DataSource;
+
 import org.apache.commons.io.IOUtils;
 import org.eclipse.dirigible.core.test.AbstractDirigibleTest;
 import org.eclipse.dirigible.database.persistence.model.PersistenceTableColumnModel;
@@ -61,6 +52,17 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import com.codbex.kronos.exceptions.ArtifactParserException;
+import com.codbex.kronos.parser.xsodata.model.XSODataEntity;
+import com.codbex.kronos.parser.xsodata.model.XSODataEventType;
+import com.codbex.kronos.parser.xsodata.model.XSODataHandlerMethod;
+import com.codbex.kronos.utils.CommonsDBUtils;
+import com.codbex.kronos.xsodata.ds.model.DBArtifactModel;
+import com.codbex.kronos.xsodata.ds.model.ODataModel;
+import com.codbex.kronos.xsodata.ds.service.OData2TransformerException;
+import com.codbex.kronos.xsodata.ds.service.ODataParser;
+import com.codbex.kronos.xsodata.ds.service.TableMetadataProvider;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ODataUtilsTest extends AbstractDirigibleTest {
@@ -94,7 +96,7 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
 
   @Test
   public void testConvertMultiplicityOneToMany() throws Exception {
-    String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_multiplicity_one_to_many.xsodata"),
+    String content = IOUtils.toString(ODataUtilsTest.class.getResourceAsStream("/entity_multiplicity_one_to_many.xsodata"),
         StandardCharsets.UTF_8);
     ODataModel oDataModel = parser.parseODataArtifact("np/entity_multiplicity_one_to_many.xsodata", content);
 
@@ -106,7 +108,7 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
 
   @Test
   public void testConvertWithoutSetOfPropAndLimitedExposedNavigations() throws Exception {
-    String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_without_set_of_prop.xsodata"), StandardCharsets.UTF_8);
+    String content = IOUtils.toString(ODataUtilsTest.class.getResourceAsStream("/entity_without_set_of_prop.xsodata"), StandardCharsets.UTF_8);
     ODataModel oDataModel = parser.parseODataArtifact("np/entity_without_set_of_prop.xsodata", content);
 
     PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("COMPANY_ID", "Edm.Int32", false, true, 0, 0);
@@ -186,7 +188,7 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
 
   @Test
   public void testConvertWithSetOfPropAndLimitedExposedNavigations() throws Exception {
-    String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_set_of_prop.xsodata"), StandardCharsets.UTF_8);
+    String content = IOUtils.toString(ODataUtilsTest.class.getResourceAsStream("/entity_with_set_of_prop.xsodata"), StandardCharsets.UTF_8);
     ODataModel oDataModel = parser.parseODataArtifact("np/entity_with_set_of_prop.xsodata", content);
 
     PersistenceTableColumnModel column1 = new PersistenceTableColumnModel("COMPANY_ID", "Edm.Int32", false, true, 0, 0);
@@ -273,7 +275,7 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
 
   @Test
   public void testConvertOfEvents() throws Exception {
-    String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_events.xsodata"), StandardCharsets.UTF_8);
+    String content = IOUtils.toString(ODataUtilsTest.class.getResourceAsStream("/entity_with_events.xsodata"), StandardCharsets.UTF_8);
     ODataModel oDataModel = parser.parseODataArtifact("np/entity_with_events.xsodata", content);
 
     mockTableMetadataInvocations("sample.odata::table1");
@@ -480,7 +482,7 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
 
   @Test
   public void testProperNavigationConstruction() throws IOException, ArtifactParserException, SQLException {
-    String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_3_navigations.xsodata"), StandardCharsets.UTF_8);
+    String content = IOUtils.toString(ODataUtilsTest.class.getResourceAsStream("/entity_with_3_navigations.xsodata"), StandardCharsets.UTF_8);
     ODataModel oDataModel = parser.parseODataArtifact("np/entity_with_3_navigations.xsodata", content);
 
     ODataDefinition oDataDefinitionModel = new ODataDefinition();
@@ -497,7 +499,7 @@ public class ODataUtilsTest extends AbstractDirigibleTest {
   @Test
   public void testAggregationsConstruction() throws Exception {
     ODataParser parser = new ODataParser();
-    String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_aggregations_for_conversion.xsodata"),
+    String content = IOUtils.toString(ODataUtilsTest.class.getResourceAsStream("/entity_with_aggregations_for_conversion.xsodata"),
         StandardCharsets.UTF_8);
     ODataModel oDataModel = parser.parseODataArtifact("np/entity_with_aggregations_for_conversion.xsodata", content);
 
