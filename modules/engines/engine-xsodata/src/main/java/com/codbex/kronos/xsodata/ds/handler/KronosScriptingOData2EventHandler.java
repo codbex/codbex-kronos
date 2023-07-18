@@ -142,6 +142,11 @@ public class KronosScriptingOData2EventHandler extends AbstractKronosOData2Event
           dataSource,
           afterTableName);
 
+      if (connectionParam.isClosed()) {
+        connectionParam.close();
+        connectionParam = dataSource.getConnection();
+      }
+
       Map<String, Object> entryMap = readEntryMap(connectionParam, afterTableName);
 
       context.put(CONNECTION_CONTEXT_KEY, connectionParam);
