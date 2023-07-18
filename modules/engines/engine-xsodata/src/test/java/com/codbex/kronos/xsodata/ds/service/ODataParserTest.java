@@ -46,7 +46,6 @@ import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
-import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.parser.xsodata.model.XSODataAggregationType;
 import com.codbex.kronos.xsodata.ds.model.DBArtifactModel;
 import com.codbex.kronos.xsodata.ds.model.ODataModel;
@@ -93,7 +92,7 @@ public class ODataParserTest extends AbstractDirigibleTest {
 	@Test
 	public void parseXsodataFileSuccessfully() throws Exception {
 		mockGetTablesSuccessfully();
-		String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_all_set_of_navigations.xsodata"), StandardCharsets.UTF_8);
+		String content = IOUtils.toString(ODataParserTest.class.getResourceAsStream("/entity_with_all_set_of_navigations.xsodata"), StandardCharsets.UTF_8);
 		ODataModel oDataModel = parser.parseODataArtifact("np/entity_with_all_set_of_navigations.xsodata", content);
 		assertEquals("entity_with_all_set_of_navigations.xsodata", oDataModel.getName());
 		assertEquals("np/entity_with_all_set_of_navigations.xsodata", oDataModel.getLocation());
@@ -108,14 +107,14 @@ public class ODataParserTest extends AbstractDirigibleTest {
 	//@Test(expected = ArtifactParserException.class)
 	public void testValidateEdmMultiplicity() throws Exception {
 		mockGetTablesSuccessfully();
-		String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_wrong_syntax.xsodata"), StandardCharsets.UTF_8);
+		String content = IOUtils.toString(ODataParserTest.class.getResourceAsStream("/entity_wrong_syntax.xsodata"), StandardCharsets.UTF_8);
 		parser.parseODataArtifact("np/entity_wrong_syntax.xsodata", content);
 	}
 
 	@Test
 	public void testApplyEmptyNamespaceCondition() throws Exception {
 		mockGetTablesSuccessfully();
-		String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_no_namespace.xsodata"), StandardCharsets.UTF_8);
+		String content = IOUtils.toString(ODataParserTest.class.getResourceAsStream("/entity_with_no_namespace.xsodata"), StandardCharsets.UTF_8);
 		ODataModel oDataModel = parser.parseODataArtifact("/a_1/b-2/c/entity_with_no_namespace.xsodata", content);
 		assertEquals("a_1.b-2.c.entity_with_no_namespace", oDataModel.getService().getNamespace());
 	}
@@ -123,7 +122,7 @@ public class ODataParserTest extends AbstractDirigibleTest {
 	//@Test
 	public void testApplyKeysConditionSuccessfully() throws Exception {
 		mockGetTablesSuccessfully();
-		String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_keys.xsodata"), StandardCharsets.UTF_8);
+		String content = IOUtils.toString(ODataParserTest.class.getResourceAsStream("/entity_with_keys.xsodata"), StandardCharsets.UTF_8);
 		ODataModel model = parser.parseODataArtifact("/a_1/b-2/c/entity_with_no_namespace.xsodata", content);
 		assertNotNull("ODataModel should not be null after parsing", model);
 	}
@@ -131,7 +130,7 @@ public class ODataParserTest extends AbstractDirigibleTest {
 	//@Test
 	public void testApplyKeysConditionSuccessfullyWhenSynonym() throws Exception {
 		mockGetTablesSuccessfullyWhenSynonym();
-		String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_keys.xsodata"), StandardCharsets.UTF_8);
+		String content = IOUtils.toString(ODataParserTest.class.getResourceAsStream("/entity_with_keys.xsodata"), StandardCharsets.UTF_8);
 		ODataModel model = parser.parseODataArtifact("/a_1/b-2/c/entity_with_no_namespace.xsodata", content);
 		assertNotNull("ODataModel should not be null after parsing", model);
 	}
@@ -139,7 +138,7 @@ public class ODataParserTest extends AbstractDirigibleTest {
 	//@Test(expected = OData2TransformerException.class)
 	public void testApplyKeysConditionFail() throws Exception {
 		mockGetTablesFail();
-		String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_keys.xsodata"), StandardCharsets.UTF_8);
+		String content = IOUtils.toString(ODataParserTest.class.getResourceAsStream("/entity_with_keys.xsodata"), StandardCharsets.UTF_8);
 		parser.parseODataArtifact("/a_1/b-2/c/entity_with_no_namespace.xsodata", content);
 	}
 
@@ -147,14 +146,14 @@ public class ODataParserTest extends AbstractDirigibleTest {
 	public void testApplyKeysConditionFailWhenSynonym() throws Exception {
 		mockGetTablesFailWhenSynonym();
 		mockGetTable();
-		String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_keys.xsodata"), StandardCharsets.UTF_8);
+		String content = IOUtils.toString(ODataParserTest.class.getResourceAsStream("/entity_with_keys.xsodata"), StandardCharsets.UTF_8);
 		parser.parseODataArtifact("/a_1/b-2/c/entity_with_no_namespace.xsodata", content);
 	}
 
 	@Test
 	public void testApplyEntitySetCondition() throws Exception {
 		mockGetTablesSuccessfully();
-		String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_no_namespace.xsodata"), StandardCharsets.UTF_8);
+		String content = IOUtils.toString(ODataParserTest.class.getResourceAsStream("/entity_with_no_namespace.xsodata"), StandardCharsets.UTF_8);
 		ODataModel oDataModel = parser.parseODataArtifact("/entity_with_no_namespace.xsodata", content);
 		assertEquals(oDataModel.getService().getEntities().get(0).getAlias(), "MyView");
 		assertEquals(oDataModel.getService().getEntities().get(1).getAlias(), "view");
@@ -165,7 +164,7 @@ public class ODataParserTest extends AbstractDirigibleTest {
 	@Test
 	public void testApplyNavEntryFromEndConditionSuccessfully() throws Exception {
 		mockGetTablesSuccessfully();
-		String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_navigation.xsodata"), StandardCharsets.UTF_8);
+		String content = IOUtils.toString(ODataParserTest.class.getResourceAsStream("/entity_with_navigation.xsodata"), StandardCharsets.UTF_8);
 		ODataModel oDataModel = parser.parseODataArtifact("/entity_with_navigation.xsodata", content);
 		assertEquals(2, oDataModel.getService().getEntities().size());
 		assertEquals(1, oDataModel.getService().getAssociations().size());
@@ -174,28 +173,28 @@ public class ODataParserTest extends AbstractDirigibleTest {
 	//@Test(expected = OData2TransformerException.class)
 	public void testApplyNavEntryFromEndConditionFail() throws Exception {
 		mockGetTablesSuccessfully();
-		String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_navigation_error.xsodata"), StandardCharsets.UTF_8);
+		String content = IOUtils.toString(ODataParserTest.class.getResourceAsStream("/entity_with_navigation_error.xsodata"), StandardCharsets.UTF_8);
 		parser.parseODataArtifact("/entity_with_navigation_error.xsodata", content);
 	}
 
 	//@Test(expected = OData2TransformerException.class)
 	public void testApplyNumberOfJoinPropertiesConditionFail() throws Exception {
 		mockGetTablesSuccessfully();
-		String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_wrong_join_prop.xsodata"), StandardCharsets.UTF_8);
+		String content = IOUtils.toString(ODataParserTest.class.getResourceAsStream("/entity_with_wrong_join_prop.xsodata"), StandardCharsets.UTF_8);
 		parser.parseODataArtifact("/entity_with_wrong_join_prop.xsodata", content);
 	}
 
 	//@Test(expected = OData2TransformerException.class)
 	public void testApplyOrderOfJoinPropertiesCondition() throws Exception {
 		mockGetTablesSuccessfully();
-		String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_wrong_over_join_prop.xsodata"), StandardCharsets.UTF_8);
+		String content = IOUtils.toString(ODataParserTest.class.getResourceAsStream("/entity_with_wrong_over_join_prop.xsodata"), StandardCharsets.UTF_8);
 		parser.parseODataArtifact("/entity_with_wrong_over_join_prop.xsodata", content);
 	}
 
 	@Test
 	public void testImplicitAggregation() throws Exception {
 		mockGetTablesSuccessfully();
-		String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_implicit_aggregation.xsodata"), StandardCharsets.UTF_8);
+		String content = IOUtils.toString(ODataParserTest.class.getResourceAsStream("/entity_with_implicit_aggregation.xsodata"), StandardCharsets.UTF_8);
 		ODataModel oDataModel = parser.parseODataArtifact("/entity_with_implicit_aggregation.xsodata", content);
     assertEquals(0, oDataModel.getService().getEntities().get(0).getAggregations().size());
     assertEquals(XSODataAggregationType.IMPLICIT, oDataModel.getService().getEntities().get(0).getAggregationType());
@@ -204,7 +203,7 @@ public class ODataParserTest extends AbstractDirigibleTest {
 	@Test
 	public void testExplicitAggregation() throws Exception {
 		mockGetTablesSuccessfully();
-		String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_explicit_aggregation.xsodata"), StandardCharsets.UTF_8);
+		String content = IOUtils.toString(ODataParserTest.class.getResourceAsStream("/entity_with_explicit_aggregation.xsodata"), StandardCharsets.UTF_8);
     ODataModel oDataModel = parser.parseODataArtifact("/entity_with_explicit_aggregation.xsodata", content);
     assertEquals(3, oDataModel.getService().getEntities().get(0).getAggregations().size());
     assertEquals(XSODataAggregationType.EXPLICIT, oDataModel.getService().getEntities().get(0).getAggregationType());
@@ -213,21 +212,21 @@ public class ODataParserTest extends AbstractDirigibleTest {
 	//@Test(expected = OData2TransformerException.class)
 	public void testApplyParametersToViewsCondition() throws Exception {
 		mockGetTablesFail();
-		String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_params.xsodata"), StandardCharsets.UTF_8);
+		String content = IOUtils.toString(ODataParserTest.class.getResourceAsStream("/entity_with_params.xsodata"), StandardCharsets.UTF_8);
 		parser.parseODataArtifact("/entity_with_params.xsodata", content);
 	}
 
 	//@Test(expected = OData2TransformerException.class)
 	public void testApplyParametersToViewsConditionWhenSynonym() throws Exception {
 		mockGetTablesFailWhenSynonym();
-		String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_params.xsodata"), StandardCharsets.UTF_8);
+		String content = IOUtils.toString(ODataParserTest.class.getResourceAsStream("/entity_with_params.xsodata"), StandardCharsets.UTF_8);
 		parser.parseODataArtifact("/entity_with_params.xsodata", content);
 	}
 
 	//@Test
 	public void testApplyOmittedParamResultCondition() throws Exception {
 		mockGetTablesSuccessfully();
-		String content = IOUtils.toString(this.getClass().getResourceAsStream("/entity_with_params.xsodata"), StandardCharsets.UTF_8);
+		String content = IOUtils.toString(ODataParserTest.class.getResourceAsStream("/entity_with_params.xsodata"), StandardCharsets.UTF_8);
 		ODataModel oDataModel = parser.parseODataArtifact("/entity_with_params.xsodata", content);
 		assertEquals("CalcViewParameters", oDataModel.getService().getEntities().get(0).getParameterEntitySet().getParameterEntitySetName());
 		assertEquals("Results", oDataModel.getService().getEntities().get(0).getParameterEntitySet().getParameterResultsProperty());
