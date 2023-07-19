@@ -283,7 +283,7 @@
     <java.version>11</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <dirigible.version>6.3.16.4</dirigible.version>
+    <dirigible.version>6.3.16.5</dirigible.version>
 
     <!-- Sonar Cloud -->
     <sonar.organization>codbex</sonar.organization>

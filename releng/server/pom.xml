@@ -94,7 +94,7 @@
         <!-- Dirigible -->
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
-            <artifactId>dirigible-server-all</artifactId>
+            <artifactId>dirigible-server-all-base</artifactId>
             <version>${dirigible.version}</version>
             <exclusions>
                 <!-- Temporary disables the Wiki engine-->
