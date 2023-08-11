@@ -1,3 +1,8 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
 version: 2
 
 updates:
@@ -6,5 +11,41 @@ updates:
     schedule:
       interval: daily
     open-pull-requests-limit: 10
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: "/releng/sap-cf"
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "[Docker] "
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: "/releng/sap-kyma"
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "[Docker] "
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: "/releng/server"
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "[Docker] "
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: "/releng/sap-kyma-runtime"
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "[Docker] "
     labels:
       - dependencies
