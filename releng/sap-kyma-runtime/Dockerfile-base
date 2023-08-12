@@ -1,4 +1,4 @@
-FROM tomcat:9.0.56-jre11-openjdk AS base
+FROM tomcat:10.1.0-jre11-openjdk AS base
 
 RUN rm -R /usr/local/tomcat/webapps.dist
 COPY target/ROOT.war $CATALINA_HOME/webapps/
