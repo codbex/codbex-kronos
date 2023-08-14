@@ -199,19 +199,13 @@ public class HDBScalarFunctionsSynchronizer<A extends Artefact> implements Synch
 			case CREATE:
 				if (ArtefactLifecycle.NEW.equals(scalarfunction.getLifecycle())) {
 					if (!SqlFactory.getNative(connection).exists(connection, scalarfunction.getName())) {
-						try {
-							executeScalarFunctionCreate(connection, scalarfunction);
-							callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
-						} catch (Exception e) {
-							if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
-							callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, e.getMessage());
-						}
+						executeScalarFunctionCreate(connection, scalarfunction);
+						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 					} else {
 						if (logger.isWarnEnabled()) {logger.warn(String.format("HDBScalarFunction [%s] already exists during the update process", scalarfunction.getName()));}
 						executeScalarFunctionUpdate(connection, scalarfunction);
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 					}
-					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 				}
 				break;
 			case UPDATE:
@@ -251,10 +245,11 @@ public class HDBScalarFunctionsSynchronizer<A extends Artefact> implements Synch
 	public void cleanup(HDBScalarFunction scalarfunction) {
 		try (Connection connection = datasourcesManager.getDefaultDataSource().getConnection()) {
 			getService().delete(scalarfunction);
+			callback.registerState(this, scalarfunction, ArtefactLifecycle.DELETED, "");
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			callback.addError(e.getMessage());
-			callback.registerState(this, scalarfunction, ArtefactLifecycle.DELETED, e.getMessage());
+			callback.registerState(this, scalarfunction, ArtefactLifecycle.FAILED, e.getMessage());
 		}
 	}
 	

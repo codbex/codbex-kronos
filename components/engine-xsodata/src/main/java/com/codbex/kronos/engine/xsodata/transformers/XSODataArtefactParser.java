@@ -102,12 +102,12 @@ public class XSODataArtefactParser implements InitializingBean {
 		return INSTANCE;
 	}
 
-	/** The datasource. */
+	/** The SystemDB datasource. */
 	@Autowired
 	@Qualifier("SystemDB")
-	private DataSource datasource;
+	private DataSource systemDatasource;
 
-	/** The datasource. */
+	/** The DefaultDB datasource. */
 	@Autowired
 	private DataSource defaultDatasource;
 
@@ -117,7 +117,7 @@ public class XSODataArtefactParser implements InitializingBean {
 	 * @return the datasource
 	 */
 	public DataSource getSystemDatasource() {
-		return datasource;
+		return systemDatasource;
 	}
 
 	public DataSource getDefaultDatasource() {

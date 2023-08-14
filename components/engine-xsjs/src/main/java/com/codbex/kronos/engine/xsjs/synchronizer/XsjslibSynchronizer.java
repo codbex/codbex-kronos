@@ -247,12 +247,13 @@ public class XsjslibSynchronizer<A extends Artefact> implements Synchronizer<Xsj
 		      resource.delete();
 		    }
 			getService().delete(xsjslib);
+			callback.registerState(this, xsjslib, ArtefactLifecycle.DELETED, "");
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {
 				logger.error(e.getMessage(), e);
 			}
 			callback.addError(e.getMessage());
-			callback.registerState(this, xsjslib, ArtefactLifecycle.DELETED, e.getMessage());
+			callback.registerState(this, xsjslib, ArtefactLifecycle.FAILED, e.getMessage());
 		}
 	}
 

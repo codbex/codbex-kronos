@@ -58,7 +58,7 @@ import com.codbex.kronos.engine.hdb.service.HDBViewService;
  * @param <A> the generic type
  */
 @Component
-@Order(230)
+@Order(210)
 public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD> {
 	
 	/** The Constant logger. */
@@ -301,13 +301,8 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 			switch (flow) {
 			case CREATE:
 				if (ArtefactLifecycle.NEW.equals(hdbdd.getLifecycle())) {
-					try {
-						executeHDBDDCreate(connection, hdbdd);
-						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
-					} catch (Exception e) {
-						if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
-						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, e.getMessage());
-					}
+					executeHDBDDCreate(connection, hdbdd);
+					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 				}
 				break;
 			case UPDATE:
@@ -346,10 +341,11 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 	public void cleanup(HDBDD hdbdd) {
 		try {
 			getService().delete(hdbdd);
+			callback.registerState(this, hdbdd, ArtefactLifecycle.DELETED, "");
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			callback.addError(e.getMessage());
-			callback.registerState(this, hdbdd, ArtefactLifecycle.DELETED, e.getMessage());
+			callback.registerState(this, hdbdd, ArtefactLifecycle.FAILED, e.getMessage());
 		}
 	}
 	

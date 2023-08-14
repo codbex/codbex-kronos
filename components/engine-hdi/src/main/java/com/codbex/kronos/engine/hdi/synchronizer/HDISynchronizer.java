@@ -199,13 +199,8 @@ public class HDISynchronizer<A extends Artefact> implements Synchronizer<HDI> {
 			switch (flow) {
 			case CREATE:
 				if (ArtefactLifecycle.NEW.equals(hdi.getLifecycle())) {
-					try {
-						hdiContainerCreateProcessor.execute(connection, hdi);
-						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
-					} catch (Exception e) {
-						if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
-						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, e.getMessage());
-					}
+					hdiContainerCreateProcessor.execute(connection, hdi);
+					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 				}
 				break;
 			case UPDATE:
@@ -233,7 +228,7 @@ public class HDISynchronizer<A extends Artefact> implements Synchronizer<HDI> {
 			}
 			
 			return true;
-		} catch (SQLException e) {
+		} catch (SQLException | DataStructuresException e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			callback.addError(e.getMessage());
 			callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, e.getMessage());
@@ -251,10 +246,11 @@ public class HDISynchronizer<A extends Artefact> implements Synchronizer<HDI> {
 		try (Connection connection = datasourcesManager.getDefaultDataSource().getConnection()) {
 			HDIContainerDropProcessor.execute(connection, Arrays.asList(new HDI[] {hdi}));
 			getService().delete(hdi);
+			callback.registerState(this, hdi, ArtefactLifecycle.DELETED, "");
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			callback.addError(e.getMessage());
-			callback.registerState(this, hdi, ArtefactLifecycle.DELETED, e.getMessage());
+			callback.registerState(this, hdi, ArtefactLifecycle.FAILED, e.getMessage());
 		}
 	}
 	

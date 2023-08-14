@@ -223,19 +223,13 @@ public class HDBSynonymGroupsSynchronizer<A extends Artefact> implements Synchro
 			case CREATE:
 				if (ArtefactLifecycle.NEW.equals(synonymGroup.getLifecycle())) {
 					if (!SqlFactory.getNative(connection).exists(connection, synonymGroup.getName())) {
-						try {
-							executeSynonymGroupCreate(connection, synonymGroup);
-							callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
-						} catch (Exception e) {
-							if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
-							callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, e.getMessage());
-						}
+						executeSynonymGroupCreate(connection, synonymGroup);
+						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 					} else {
 						if (logger.isWarnEnabled()) {logger.warn(String.format("HDBSynonymGroup [%s] already exists during the update process", synonymGroup.getName()));}
 						executeSynonymGroupUpdate(connection, synonymGroup);
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 					}
-					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 				}
 				break;
 			case UPDATE:
@@ -275,10 +269,11 @@ public class HDBSynonymGroupsSynchronizer<A extends Artefact> implements Synchro
 	public void cleanup(HDBSynonymGroup synonymGroup) {
 		try (Connection connection = datasourcesManager.getDefaultDataSource().getConnection()) {
 			getService().delete(synonymGroup);
+			callback.registerState(this, synonymGroup, ArtefactLifecycle.DELETED, "");
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			callback.addError(e.getMessage());
-			callback.registerState(this, synonymGroup, ArtefactLifecycle.DELETED, e.getMessage());
+			callback.registerState(this, synonymGroup, ArtefactLifecycle.FAILED, e.getMessage());
 		}
 	}
 	

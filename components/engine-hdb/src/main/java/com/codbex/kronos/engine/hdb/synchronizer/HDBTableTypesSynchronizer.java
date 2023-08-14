@@ -217,18 +217,13 @@ public class HDBTableTypesSynchronizer<A extends Artefact> implements Synchroniz
 			case CREATE:
 				if (ArtefactLifecycle.NEW.equals(tableType.getLifecycle())) {
 					if (!SqlFactory.getNative(connection).exists(connection, tableType.getName())) {
-						try {
 							executeTableTypeCreate(connection, tableType);
-						} catch (Exception e) {
-							if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
-							callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, e.getMessage());
-						}
+							callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 					} else {
 						if (logger.isWarnEnabled()) {logger.warn(String.format("HDBTableType [%s] already exists during the update process", tableType.getName()));}
 						executeTableTypeAlter(connection, tableType);
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 					}
-					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 				}
 				break;
 			case UPDATE:
@@ -289,6 +284,7 @@ public class HDBTableTypesSynchronizer<A extends Artefact> implements Synchroniz
 				if (SqlFactory.getNative(connection).count(connection, tableType.getName()) == 0) {
 					executeTableTypeDrop(connection, tableType);
 					getService().delete(tableType);
+					callback.registerState(this, tableType, ArtefactLifecycle.DELETED, "");
 				} else {
 					String message = String.format("HDBTableType [%s] cannot be deleted during the update process, because it is not empty", tableType.getName());
 					if (logger.isWarnEnabled()) {logger.warn(message);}
@@ -297,7 +293,7 @@ public class HDBTableTypesSynchronizer<A extends Artefact> implements Synchroniz
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			callback.addError(e.getMessage());
-			callback.registerState(this, tableType, ArtefactLifecycle.DELETED, e.getMessage());
+			callback.registerState(this, tableType, ArtefactLifecycle.FAILED, e.getMessage());
 		}
 	}
 	
