@@ -40,6 +40,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.codbex.kronos.engine.xsodata.domain.XSOData;
@@ -103,15 +104,25 @@ public class XSODataArtefactParser implements InitializingBean {
 
 	/** The datasource. */
 	@Autowired
+	@Qualifier("SystemDB")
 	private DataSource datasource;
+
+	/** The datasource. */
+	@Autowired
+	@Qualifier("DefaultDB")
+	private DataSource defaultDatasource;
 
 	/**
 	 * Gets the datasource.
 	 *
 	 * @return the datasource
 	 */
-	public DataSource getDatasource() {
+	public DataSource getSystemDatasource() {
 		return datasource;
+	}
+
+	public DataSource getDefaultDatasource() {
+		return defaultDatasource;
 	}
 	
 	/**
@@ -503,7 +514,7 @@ public class XSODataArtefactParser implements InitializingBean {
 		String catalogObjectName;
 
 		if (checkIfEntityIsOfSynonymType(entity.getRepositoryObject().getCatalogObjectName())) {
-			targetObjectMetadata = getSynonymTargetObjectMetadata(getDatasource(),
+			targetObjectMetadata = getSynonymTargetObjectMetadata(getSystemDatasource(),
 					entity.getRepositoryObject().getCatalogObjectName(),
 					entity.getRepositoryObject().getCatalogObjectSchema());
 		}
@@ -546,7 +557,7 @@ public class XSODataArtefactParser implements InitializingBean {
 	 */
 	private DBArtifactModel getTargetObjectOfSynonymIfAny(String schemaName, String artifactName, List<String> dbTypes)
 			throws SQLException {
-		PersistenceTableModel targetObjectMetadata = getSynonymTargetObjectMetadata(getDatasource(), artifactName,
+		PersistenceTableModel targetObjectMetadata = getSynonymTargetObjectMetadata(getDefaultDatasource(), artifactName,
 				schemaName);
 
 		String type = targetObjectMetadata.getTableType();
@@ -567,7 +578,7 @@ public class XSODataArtefactParser implements InitializingBean {
 	 * @throws SQLException the SQL exception
 	 */
 	public List<DBArtifactModel> getDBArtifactsByName(String artifactName) throws SQLException {
-		try (Connection connection = getDatasource().getConnection()) {
+		try (Connection connection = getSystemDatasource().getConnection()) {
 			DatabaseMetaData databaseMetaData = connection.getMetaData();
 			ResultSet rs = databaseMetaData.getTables(connection.getCatalog(), Configuration.get("HANA_USERNAME"),
 					artifactName, null);
