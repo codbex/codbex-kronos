@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<!--
+  ~ Copyright (c) 2010-2023 SAP and others.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the Eclipse Public License v2.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.eclipse.org/legal/epl-v20.html
+  ~ Contributors:
+  ~ SAP - initial API and implementation
+  -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" ng-app="migration-app" ng-controller="MigrationViewController">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" sizes="any" href="data:;base64,iVBORw0KGgo=">
+        <title dg-view-title></title>
+        <script type="text/javascript" src="services/migration-view.js"></script>
+        <theme></theme>
+        <script type="text/javascript" src="/services/js/resources-core/services/loader.js?id=ide-view-js"></script>
+        <link type="text/css" rel="stylesheet" href="/services/js/resources-core/services/loader.js?id=ide-view-css" />
+        <script type="text/javascript" src="/services/js/resources-core/services/loader.js?id=file-upload-js"></script>
+        <script type="text/javascript" src="/services/web/ide-workspace-service/workspace.js"></script>
+        <script type="text/javascript" src="/services/web/ide-transport-service/transport.js"></script>
+        <script type="text/javascript" src="js/migration.js"></script>
+    </head>
+
+    <body class="dg-vbox">
+        <fd-busy-indicator-extended class="dg-fill-parent" ng-hide="state.error || !state.isBusy" dg-size="l">
+            {{state.busyText}}
+        </fd-busy-indicator-extended>
+        <fd-bar cozy="true" ng-show="!state.error && !state.isBusy">
+            <fd-bar-left>
+                <fd-bar-element ng-show="state.activePage === 'zip'">
+                    <fd-button compact="true" aria-label="go back" dg-type="transparent" glyph="sap-icon--nav-back"
+                        ng-click="showHistory()">
+                    </fd-button>
+                </fd-bar-element>
+                <fd-bar-element>
+                    <span fd-title header-size="4" dg-wrap="true" aria-label="title">{{headerLabel}}</span>
+                </fd-bar-element>
+            </fd-bar-left>
+            <fd-bar-right ng-if="!migrationFinished">
+                <fd-bar-element ng-show="state.activePage === 'zip'">
+                    Save files in:
+                </fd-bar-element>
+                <fd-bar-element ng-show="state.activePage === 'zip'">
+                    <fd-select dg-size="compact" selected-value="selectedWorkspace.name">
+                        <fd-option ng-repeat="option in workspaceNames" text="{{ option }}" value="option"></fd-option>
+                    </fd-select>
+                </fd-bar-element>
+                <fd-bar-element ng-show="state.activePage === 'history'">
+                    <fd-button compact="true" dg-label="Migrate" aria-label="Migrate" dg-type="emphasized"
+                        ng-click="showZipMigration()">
+                    </fd-button>
+                </fd-bar-element>
+                <fd-bar-element ng-show="state.activePage === 'zip'">
+                    <fd-button compact="true" dg-label="Start migration" aria-label="Start migration"
+                        dg-type="emphasized" ng-click="uploadAndMigrate()"
+                        state="{{ uploader.queue.length > 0 ? '' : 'disabled'  }}">
+                    </fd-button>
+                </fd-bar-element>
+                <fd-bar-element ng-show="state.activePage === 'zip'">
+                    <fd-button compact="true" dg-label="Add" glyph="sap-icon--add"
+                        state="{{ uploader.isUploading ? 'disabled' : '' }}" ng-click="addFiles()">
+                    </fd-button>
+                </fd-bar-element>
+            </fd-bar-right>
+        </fd-bar>
+        <div fd-scrollbar class="dg-fill-parent dg-page__content-card" ng-include="'partials/history.html'"
+            ng-show="!state.error && !state.isBusy && state.activePage === 'history'">
+        </div>
+        <div fd-scrollbar class="dg-fill-parent dg-page__content-card" ng-include="'partials/zip-migration.html'"
+            ng-show="!state.error && !state.isBusy && state.activePage === 'zip'"></div>
+        <div class="dg-fill-parent dg-scroll-hidden" ng-include="'partials/live-migration.html'"
+            ng-show="!state.error && !state.isBusy && state.activePage === 'live'"></div>
+        <fd-message-page glyph="sap-icon--error" ng-if="state.error">
+            <fd-message-page-title>Encounterd an error!</fd-message-page-title>
+            <fd-message-page-subtitle>{{errorMessage}}</fd-message-page-subtitle>
+        </fd-message-page>
+    </body>
+
+</html>

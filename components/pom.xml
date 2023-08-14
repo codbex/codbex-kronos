@@ -14,29 +14,27 @@
     <packaging>pom</packaging>
 
     <modules>
-    	  <module>api-xsjs</module>
+        <module>api-xsjs</module>
         <module>engine-commons</module>
         <module>engine-core</module>
         <module>engine-xsjs</module>
         <module>engine-xsodata</module>
         <module>engine-hdb</module>
-        
-        
+
+
         <module>engine-hdi</module>
         <module>engine-xsjob</module>
         <module>engine-xssecurity</module>
-        
-        
+
+
         <!--
-        
         <module>engine-mail-destination</module>
-        
-        <module>ide-migration</module>
         -->
+        <module>ide-migration</module>
         <module>ide-file-types</module>
         <module>ide-workspace-menu</module>
-        
-        
+
+
     </modules>
 
     <properties>

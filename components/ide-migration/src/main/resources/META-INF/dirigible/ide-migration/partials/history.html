@@ -1,0 +1,43 @@
+<fd-card card-type="table">
+    <fd-card-header interactive="false">
+        </fd-avatar>
+        <fd-card-title>History</fd-card-title>
+    </fd-card-header>
+    <fd-card-content>
+        <table fd-table inner-borders="top" outer-borders="none">
+            <thead fd-table-header>
+                <tr fd-table-row>
+                    <th fd-table-header-cell>Executed by</th>
+                    <th fd-table-header-cell>Started at</th>
+                    <th fd-table-header-cell>Updated at</th>
+                    <th fd-table-header-cell>Status</th>
+                    <th fd-table-header-cell></th>
+                </tr>
+            </thead>
+            <tbody fd-table-body>
+                <!-- <tr fd-table-row ng-repeat="migrationEntry in migrations track by $index"
+                    ng-init="status = getSimplifiedStatus(migrationEntry.STATUS)" hoverable="status === 'executing'"
+                    activable="status === 'executing'" ng-click="continueClicked(migrationEntry)"> -->
+                <tr fd-table-row ng-repeat="migrationEntry in migrations track by $index"
+                    ng-init="status = getSimplifiedStatus(migrationEntry.STATUS)">
+                    <td fd-table-cell>{{migrationEntry.EXECUTED_BY}}</td>
+                    <td fd-table-cell>{{migrationEntry.STARTED_ON |date : 'HH:mm:ss dd/MM/yyyy'}}</td>
+                    <td fd-table-cell>{{migrationEntry.LAST_UPDATED |date : 'HH:mm:ss dd/MM/yyyy'}}</td>
+                    <td fd-table-cell>
+                        <span ng-if="status === 'done'" fd-object-status status="positive" text="Executed"></span>
+                        <span ng-if="status === 'executing'" fd-object-status status="informative"
+                            text="Executing"></span>
+                        <span ng-if="status === 'fail'" fd-object-status status="negative" text="Failed"></span>
+                    </td>
+                    <!-- <td fd-table-cell fit-content="true">
+                        <i ng-if="status === 'executing'" fd-table-icon navigation="true"
+                            glyph="sap-icon--slim-arrow-right"></i>
+                    </td> -->
+                </tr>
+                <tr ng-if="migrations.length === 0" fd-table-row>
+                    <td fd-table-cell no-data="true">There are no previous migrations</td>
+                </tr>
+            </tbody>
+        </table>
+    </fd-card-content>
+</fd-card>
