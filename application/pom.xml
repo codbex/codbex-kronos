@@ -63,12 +63,6 @@
 			<artifactId>dirigible-components-group-engines</artifactId>
 			<version>${dirigible.version}</version>
 			<type>pom</type>
-			<exclusions>
-				<exclusion>
-					<groupId>org.eclipse.dirigible</groupId>
-					<artifactId>dirigible-components-engine-sftp</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<!-- IDE -->
