@@ -109,7 +109,6 @@ public class XSODataArtefactParser implements InitializingBean {
 
 	/** The datasource. */
 	@Autowired
-	@Qualifier("DefaultDB")
 	private DataSource defaultDatasource;
 
 	/**
