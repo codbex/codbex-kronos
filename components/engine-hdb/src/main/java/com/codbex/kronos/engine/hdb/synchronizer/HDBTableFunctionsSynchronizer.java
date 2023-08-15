@@ -199,19 +199,13 @@ public class HDBTableFunctionsSynchronizer<A extends Artefact> implements Synchr
 			case CREATE:
 				if (ArtefactLifecycle.NEW.equals(tablefunction.getLifecycle())) {
 					if (!SqlFactory.getNative(connection).exists(connection, tablefunction.getName())) {
-						try {
-							executeTableFunctionCreate(connection, tablefunction);
-							callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
-						} catch (Exception e) {
-							if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
-							callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, e.getMessage());
-						}
+						executeTableFunctionCreate(connection, tablefunction);
+						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 					} else {
 						if (logger.isWarnEnabled()) {logger.warn(String.format("HDBTableFunction [%s] already exists during the update process", tablefunction.getName()));}
 						executeTableFunctionUpdate(connection, tablefunction);
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 					}
-					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 				}
 				break;
 			case UPDATE:
@@ -251,10 +245,11 @@ public class HDBTableFunctionsSynchronizer<A extends Artefact> implements Synchr
 	public void cleanup(HDBTableFunction tablefunction) {
 		try (Connection connection = datasourcesManager.getDefaultDataSource().getConnection()) {
 			getService().delete(tablefunction);
+			callback.registerState(this, tablefunction, ArtefactLifecycle.DELETED, "");
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			callback.addError(e.getMessage());
-			callback.registerState(this, tablefunction, ArtefactLifecycle.DELETED, e.getMessage());
+			callback.registerState(this, tablefunction, ArtefactLifecycle.FAILED, e.getMessage());
 		}
 	}
 	

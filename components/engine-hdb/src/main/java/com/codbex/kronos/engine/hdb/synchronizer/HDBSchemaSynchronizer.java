@@ -199,19 +199,13 @@ public class HDBSchemaSynchronizer<A extends Artefact> implements Synchronizer<H
 			case CREATE:
 				if (ArtefactLifecycle.NEW.equals(schema.getLifecycle())) {
 					if (!SqlFactory.getNative(connection).exists(connection, schema.getName())) {
-						try {
-							executeSchemaCreate(connection, schema);
-							callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
-						} catch (Exception e) {
-							if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
-							callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, e.getMessage());
-						}
+						executeSchemaCreate(connection, schema);
+						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 					} else {
 						if (logger.isWarnEnabled()) {logger.warn(String.format("HDBSchema [%s] already exists during the update process", schema.getName()));}
 						executeSchemaUpdate(connection, schema);
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 					}
-					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 				}
 				break;
 			case UPDATE:
@@ -251,10 +245,11 @@ public class HDBSchemaSynchronizer<A extends Artefact> implements Synchronizer<H
 	public void cleanup(HDBSchema schema) {
 		try (Connection connection = datasourcesManager.getDefaultDataSource().getConnection()) {
 			getService().delete(schema);
+			callback.registerState(this, schema, ArtefactLifecycle.DELETED, "");
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			callback.addError(e.getMessage());
-			callback.registerState(this, schema, ArtefactLifecycle.DELETED, e.getMessage());
+			callback.registerState(this, schema, ArtefactLifecycle.FAILED, e.getMessage());
 		}
 	}
 	

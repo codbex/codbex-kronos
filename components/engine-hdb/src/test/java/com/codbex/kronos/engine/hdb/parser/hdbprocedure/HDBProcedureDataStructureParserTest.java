@@ -11,10 +11,8 @@
  */
 package com.codbex.kronos.engine.hdb.parser.hdbprocedure;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.io.IOException;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import javax.transaction.Transactional;
 
@@ -31,11 +29,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdb.domain.HDBProcedure;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.repository.TestRepositoryMigrator;
-import com.codbex.kronos.exceptions.ArtifactParserException;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -51,7 +47,7 @@ public class HDBProcedureDataStructureParserTest {
   private IRepository repository;
 
   @Test
-  public void checkModel() throws IOException, DataStructuresException, ArtifactParserException {
+  public void checkModel() throws Exception {
 	final String location = "procedure/OrderProcedure.hdbprocedure";
 	migrator.migrate(location);
 	IResource loadedResource = repository.getResource(IRepositoryStructure.PATH_REGISTRY_PUBLIC + IRepository.SEPARATOR + location);

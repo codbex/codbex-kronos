@@ -42,8 +42,7 @@ public class HDBProcedureDropProcessor extends AbstractHDBProcessor<HDBProcedure
    * @return true, if successful
    * @throws SQLException the SQL exception
    */
-  public boolean execute(Connection connection, HDBProcedure procedureModel)
-      throws SQLException {
+  public void execute(Connection connection, HDBProcedure procedureModel) throws SQLException {
     logger.info("Processing Drop Procedure: " + procedureModel.getName());
     String procedureNameWithoutSchema = CommonsUtils.extractArtifactNameWhenSchemaIsProvided(procedureModel.getName())[1];
     procedureModel.setSchema(CommonsUtils.extractArtifactNameWhenSchemaIsProvided(procedureModel.getName())[0]);
@@ -53,27 +52,22 @@ public class HDBProcedureDropProcessor extends AbstractHDBProcessor<HDBProcedure
       if (!(dialect.getClass().equals(HanaSqlDialect.class))) {
         String errorMessage = String.format("Procedures are not supported for %s", dialect.getDatabaseName(connection));
         CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, procedureModel.getLocation(), CommonsConstants.HDB_PROCEDURE_PARSER);
-//        applyArtefactState(procedureModel.getName(), procedureModel.getLocation(), PROCEDURE_ARTEFACT, ArtefactState.FAILED_DELETE, errorMessage);
         throw new IllegalStateException(errorMessage);
       } else {
         String sql = Constants.HDBPROCEDURE_DROP + procedureModel.getName();
         try {
           executeSql(sql, connection);
           String message = String.format("Drop procedure [%s] successfully", procedureModel.getName());
-//          applyArtefactState(procedureModel.getName(), procedureModel.getLocation(), PROCEDURE_ARTEFACT, ArtefactState.SUCCESSFUL_DELETE, message);
-          return true;
+          logger.info(message);
         } catch (SQLException ex) {
           String message = String.format("Drop procedure[%s] skipped due to an error: %s", procedureModel, ex.getMessage());
-          CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, procedureModel.getLocation(), CommonsConstants.HDB_PROCEDURE_PARSER);
-//          applyArtefactState(procedureModel.getName(), procedureModel.getLocation(), PROCEDURE_ARTEFACT, ArtefactState.FAILED_DELETE, message);
-          return false;
+          CommonsUtils.logProcessorErrors(message, CommonsConstants.PROCESSOR_ERROR, procedureModel.getLocation(), CommonsConstants.HDB_PROCEDURE_PARSER);
+          throw ex;
         }
       }
     } else {
       String warningMessage = String.format("Procedure [%s] does not exists during the drop process", procedureModel.getName());
       logger.warn(warningMessage);
-//      applyArtefactState(procedureModel.getName(), procedureModel.getLocation(), PROCEDURE_ARTEFACT, ArtefactState.FAILED_DELETE, warningMessage);
-      return true;
     }
   }
 }

@@ -331,10 +331,11 @@ public class XSODataSynchronizer<A extends Artefact> implements Synchronizer<XSO
 			odataMappingService.removeMappings(odata.getLocation());
 			odataHandlerService.removeHandlers(odata.getLocation());
 			getService().delete(odata);
+            callback.registerState(this, odata, ArtefactLifecycle.DELETED, "");
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
             callback.addError(e.getMessage());
-            callback.registerState(this, odata, ArtefactLifecycle.DELETED, "");
+            callback.registerState(this, odata, ArtefactLifecycle.FAILED, e.getMessage());
         }
     }
 

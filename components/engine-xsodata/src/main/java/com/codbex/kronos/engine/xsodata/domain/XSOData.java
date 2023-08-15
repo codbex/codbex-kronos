@@ -12,6 +12,7 @@
 package com.codbex.kronos.engine.xsodata.domain;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -83,7 +84,7 @@ public class XSOData extends Artefact {
 	 */
 	public XSOData(String location, String name, String description, List<String> dependencies, String namespace,
 			List<ODataEntity> entities, List<ODataAssociation> associations) {
-		super(location, name, ARTEFACT_TYPE, description, dependencies);
+		super(location, name, ARTEFACT_TYPE, description, new HashSet<>(dependencies));
 		this.namespace = namespace;
 		this.entities = entities;
 		this.associations = associations;

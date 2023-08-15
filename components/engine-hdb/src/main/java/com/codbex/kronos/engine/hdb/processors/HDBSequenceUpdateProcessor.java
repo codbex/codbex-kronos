@@ -44,7 +44,7 @@ public class HDBSequenceUpdateProcessor extends AbstractHDBProcessor<HDBSequence
    * @throws SQLException the SQL exception
    */
   @Override
-  public boolean execute(Connection connection, HDBSequence sequenceModel) throws SQLException {
+  public void execute(Connection connection, HDBSequence sequenceModel) throws SQLException {
     String hdbSequenceName = HDBUtils.escapeArtifactName(sequenceModel.getName(), sequenceModel.getSchema());
     logger.info("Processing Update Sequence: " + hdbSequenceName);
 
@@ -57,9 +57,7 @@ public class HDBSequenceUpdateProcessor extends AbstractHDBProcessor<HDBSequence
           sql = Constants.HDBSEQUENCE_ALTER + sequenceModel.getContent();
         } else {
           String errorMessage = String.format("Sequences are not supported for %s", dialect.getDatabaseName(connection));
-          CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, sequenceModel.getLocation(),
-              CommonsConstants.HDB_SEQUENCE_PARSER);
-//          applyArtefactState(sequenceModel.getName(), sequenceModel.getLocation(), SEQUENCE_ARTEFACT, ArtefactState.FAILED_UPDATE, errorMessage);
+          CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, sequenceModel.getLocation(), CommonsConstants.HDB_SEQUENCE_PARSER);
           throw new IllegalStateException(errorMessage);
         }
     }
@@ -67,14 +65,11 @@ public class HDBSequenceUpdateProcessor extends AbstractHDBProcessor<HDBSequence
     try {
       executeSql(sql, connection);
       String message = String.format("Update sequence [%s] successfully", sequenceModel.getName());
-//      applyArtefactState(sequenceModel.getName(), sequenceModel.getLocation(), SEQUENCE_ARTEFACT, ArtefactState.SUCCESSFUL_UPDATE, message);
-      return true;
+      logger.info(message);
     } catch (SQLException ex) {
-      String message = String.format("Update sequence [%s] skipped due to an error: %s", sequenceModel.getName(), ex.getMessage());
-      CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, sequenceModel.getLocation(),
-          CommonsConstants.HDB_SEQUENCE_PARSER);
-//      applyArtefactState(sequenceModel.getName(), sequenceModel.getLocation(), SEQUENCE_ARTEFACT, ArtefactState.FAILED_UPDATE, message);
-      return false;
+      String errorMessage = String.format("Update sequence [%s] skipped due to an error: %s", sequenceModel.getName(), ex.getMessage());
+      CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, sequenceModel.getLocation(), CommonsConstants.HDB_SEQUENCE_PARSER);
+      throw ex;
     }
   }
 

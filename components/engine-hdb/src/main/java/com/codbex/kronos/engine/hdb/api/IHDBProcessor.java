@@ -31,5 +31,5 @@ public interface IHDBProcessor<T extends HDBDataStructure> {
    * @return true, if successful
    * @throws SQLException the SQL exception
    */
-  boolean execute(Connection connection, T entityModel) throws SQLException;
+  void execute(Connection connection, T entityModel) throws SQLException;
 }

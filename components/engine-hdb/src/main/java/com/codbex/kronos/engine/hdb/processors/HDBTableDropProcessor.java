@@ -45,8 +45,7 @@ public class HDBTableDropProcessor extends AbstractHDBProcessor<HDBTable> {
    * @return true, if successful
    * @throws SQLException the SQL exception
    */
-  public boolean execute(Connection connection, HDBTable tableModel)
-      throws SQLException {
+  public void execute(Connection connection, HDBTable tableModel) throws SQLException {
     logger.info("Processing Drop Table: " + tableModel.getName());
 
     String tableName = HDBUtils.escapeArtifactName(tableModel.getName(), tableModel.getSchema());
@@ -63,11 +62,9 @@ public class HDBTableDropProcessor extends AbstractHDBProcessor<HDBTable> {
           ISqlDialect dialect = SqlFactory.deriveDialect(connection);
           if (dialect.getClass().equals(HanaSqlDialect.class)) {
             sql = Constants.HDBTABLE_DROP + tableModel.getContent();
-            //SqlFactory.getNative(connection).drop().table(tableName).build();
           } else {
             String errorMessage = String.format("Tables are not supported for %s !", dialect.getDatabaseName(connection));
             CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableModel.getLocation(), CommonsConstants.HDB_TABLE_PARSER);
-//            applyArtefactState(tableModel.getName(), tableModel.getLocation(), TABLE_ARTEFACT, ArtefactState.FAILED_DELETE, errorMessage);
             throw new IllegalStateException(errorMessage);
           }
       }
@@ -80,23 +77,16 @@ public class HDBTableDropProcessor extends AbstractHDBProcessor<HDBTable> {
         if (resultSet.next()) {
           int count = resultSet.getInt(1);
           if (count > 0) {
-            String errorMessage = String
-                .format("Drop operation for the non empty Table %s will not be executed. Delete all the records in the table first.", tableName);
-            CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableModel.getLocation(),
-                CommonsConstants.HDB_TABLE_PARSER);
+            String errorMessage = String.format("Drop operation for the non empty Table %s will not be executed. Delete all the records in the table first.", tableName);
+            CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableModel.getLocation(), CommonsConstants.HDB_TABLE_PARSER);
             logger.error(errorMessage);
-//            applyArtefactState(tableModel.getName(), tableModel.getLocation(), TABLE_ARTEFACT, ArtefactState.FAILED_DELETE, errorMessage);
-            return false;
+            throw new SQLException(errorMessage);
           }
         }
-      } catch (SQLException e) {
-        String errorMessage = String.format("Drop table[%s] skipped due to an error: {%s}", tableModel, e.getMessage());
-        CommonsUtils.logProcessorErrors(e.getMessage(), CommonsConstants.PROCESSOR_ERROR, tableModel.getLocation(),
-            CommonsConstants.HDB_TABLE_PARSER);
-        logger.error(sql);
-        logger.error(e.getMessage(), e);
-//        applyArtefactState(tableModel.getName(), tableModel.getLocation(), TABLE_ARTEFACT, ArtefactState.FAILED_DELETE, errorMessage);
-        return false;
+      } catch (SQLException ex) {
+        String errorMessage = String.format("Drop table[%s] skipped due to an error: {%s}", tableModel, ex.getMessage());
+        CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableModel.getLocation(), CommonsConstants.HDB_TABLE_PARSER);
+        throw ex;
       } finally {
         if (statement != null) {
           statement.close();
@@ -111,9 +101,8 @@ public class HDBTableDropProcessor extends AbstractHDBProcessor<HDBTable> {
       }
 
       sql = SqlFactory.getNative(connection).drop().table(tableName).build();
-      return executeUpdate(connection, sql, tableModel);
+      executeUpdate(connection, sql, tableModel);
     }
-    return true;
   }
 
   /**
@@ -125,23 +114,18 @@ public class HDBTableDropProcessor extends AbstractHDBProcessor<HDBTable> {
    * @return true, if successful
    * @throws SQLException the SQL exception
    */
-  private boolean executeUpdate(Connection connection, String sql, HDBTable tableModel)
-      throws SQLException {
+  private void executeUpdate(Connection connection, String sql, HDBTable tableModel) throws SQLException {
     PreparedStatement statement = null;
     try {
       statement = connection.prepareStatement(sql);
       logger.info(sql);
       statement.executeUpdate();
       String message = String.format("Drop table [%s] successfully", tableModel.getName());
-//      applyArtefactState(tableModel.getName(), tableModel.getLocation(), TABLE_ARTEFACT, ArtefactState.SUCCESSFUL_DELETE, message);
-      return true;
-    } catch (SQLException e) {
-      String message = String.format("Drop table[%s] skipped due to an error: {%s}", tableModel, e.getMessage());
-      CommonsUtils.logProcessorErrors(e.getMessage(), CommonsConstants.PROCESSOR_ERROR, tableModel.getLocation(), CommonsConstants.HDB_TABLE_PARSER);
-      logger.error(sql);
-      logger.error(e.getMessage(), e);
-//      applyArtefactState(tableModel.getName(), tableModel.getLocation(), TABLE_ARTEFACT, ArtefactState.FAILED_DELETE, message);
-      return false;
+      logger.info(message);
+    } catch (SQLException ex) {
+      String errorMessage = String.format("Drop table[%s] skipped due to an error: {%s}", tableModel, ex.getMessage());
+      CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableModel.getLocation(), CommonsConstants.HDB_TABLE_PARSER);
+      throw ex;
     } finally {
       if (statement != null) {
         statement.close();

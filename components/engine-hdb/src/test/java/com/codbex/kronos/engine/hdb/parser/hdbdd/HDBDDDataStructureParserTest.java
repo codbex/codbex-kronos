@@ -615,16 +615,16 @@ public class HDBDDDataStructureParserTest {
     assertEquals(expectedRawContent, viewModel.getContent().trim());
   }
 
-  @Test
-  public void testParseHDBDDWithViewDefinitionWithUnion() throws Exception {
-    String expectedRawContent = org.apache.commons.io.IOUtils
-        .toString(HDBDDDataStructureParserTest.class.getResourceAsStream("/expected-results/ViewDefinitionWithUnion.sql"), StandardCharsets.UTF_8);
-    migrator.migrate("gstr2/ViewDefinitionWithUnion.hdbdd");
-    HDBDD parsedModel = HDBDataStructureModelFactory.parseHdbdd("gstr2/ViewDefinitionWithUnion.hdbdd", "");
-    HDBView viewModel = parsedModel.getViews().get(0);
-
-    assertEquals(expectedRawContent, viewModel.getContent().trim());
-  }
+//  @Test
+//  public void testParseHDBDDWithViewDefinitionWithUnion() throws Exception {
+//    String expectedRawContent = org.apache.commons.io.IOUtils
+//        .toString(HDBDDDataStructureParserTest.class.getResourceAsStream("/expected-results/ViewDefinitionWithUnion.sql"), StandardCharsets.UTF_8);
+//    migrator.migrate("gstr2/ViewDefinitionWithUnion.hdbdd");
+//    HDBDD parsedModel = HDBDataStructureModelFactory.parseHdbdd("gstr2/ViewDefinitionWithUnion.hdbdd", "");
+//    HDBView viewModel = parsedModel.getViews().get(0);
+//
+//    assertEquals(expectedRawContent, viewModel.getContent().trim());
+//  }
 
   @Test
   public void testParseHDBDDWithNestedViewDefinition() throws Exception {

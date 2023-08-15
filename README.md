@@ -65,13 +65,13 @@ mvn clean install
 #### Run
 
 ```
-java --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED -jar application/target/codbex-kronos-application-2.0.0-SNAPSHOT.jar
+java --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED -jar application/target/codbex-kronos-application-*.jar
 ```
 
 #### Debug
 
 ```
-java --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000 -jar application/target/codbex-kronos-application-2.0.0-SNAPSHOT.jar
+java --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000 -jar application/target/codbex-kronos-application-*.jar
 ```
 	
 #### Web

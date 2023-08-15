@@ -16,9 +16,7 @@ import java.sql.SQLException;
 import java.util.Map;
 
 import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
-import org.eclipse.dirigible.database.sql.ISqlDialect;
 import org.eclipse.dirigible.database.sql.SqlFactory;
-import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,54 +48,28 @@ public class HDBSynonymCreateProcessor extends AbstractHDBProcessor<HDBSynonymGr
    * @see <a href="https://help.sap.com/viewer/4fe29514fd584807ac9f2a04f6754767/1.0.12/en-US/20d5412b75191014bc7ec7e133ce5bf5.html">CREATE SYNONYM Statement (Data Definition)</a>
    */
   @Override
-  public boolean execute(Connection connection, HDBSynonymGroup synonymModel) throws SQLException {
+  public void execute(Connection connection, HDBSynonymGroup synonymModel) throws SQLException {
 	  for (Map.Entry<String, HDBSynonym> entry : synonymModel.getSynonymDefinitions().entrySet()) {
 	      logger.info("Processing Create Synonym: " + entry.getKey());
 	
-	      String synonymName = (entry.getValue().getSchema() != null) ? (HDBUtils.escapeArtifactName(entry.getKey(), entry.getValue().getSchema()))
-	          : (HDBUtils.escapeArtifactName(entry.getKey()));
-	      String targetObjectName = HDBUtils
-	          .escapeArtifactName(entry.getValue().getTarget().getObject(),
-	        		  entry.getValue().getTarget().getSchema());
+	      String synonymName = (entry.getValue().getSchema() != null) ? (HDBUtils.escapeArtifactName(entry.getKey(), entry.getValue().getSchema())) : (HDBUtils.escapeArtifactName(entry.getKey()));
+	      String targetObjectName = HDBUtils.escapeArtifactName(entry.getValue().getTarget().getObject(), entry.getValue().getTarget().getSchema());
 	      try {
 	        String synonymSchema = null != entry.getValue().getSchema() ? entry.getValue().getSchema() : connection.getMetaData().getUserName();
 	        if (!SqlFactory.getNative(connection).exists(connection, synonymSchema, entry.getKey(), DatabaseArtifactTypes.SYNONYM)) {
-	          ISqlDialect dialect = SqlFactory.deriveDialect(connection);
-//	          if (!(dialect.getClass().equals(HanaSqlDialect.class))) {
-//	            String errorMessage = String.format("Synonyms are not supported for %s", dialect.getDatabaseName(connection));
-//	            CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, synonymModel.getLocation(),
-//	                CommonsConstants.HDB_SYNONYM_PARSER);
-////	            applyArtefactState(synonymName, synonymModel.getLocation(), SYNONYM_ARTEFACT, ArtefactState.FAILED_CREATE, errorMessage);
-//	            throw new IllegalStateException(errorMessage);
-//	          } else {
-	            String sql = SqlFactory.getNative(connection).create().synonym(synonymName).forSource(targetObjectName).build();
-	            try {
-	              executeSql(sql, connection);
-	              String message = String.format("Create synonym [%s] successfully", synonymName);
-	              logger.info(message);
-//	              applyArtefactState(synonymName, synonymModel.getLocation(), SYNONYM_ARTEFACT, ArtefactState.SUCCESSFUL_CREATE, message);
-	            } catch (SQLException ex) {
-	              String errorMessage = String.format("Create synonym [%s] skipped due to an error: %s", synonymName, ex.getMessage());
-	              logger.error(errorMessage);
-	              CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, synonymModel.getLocation(), CommonsConstants.HDB_SYNONYM_PARSER);
-//	              applyArtefactState(synonymName, synonymModel.getLocation(), SYNONYM_ARTEFACT, ArtefactState.FAILED_CREATE, errorMessage);
-	              return false;
-	            }
-//	          }
+	          String sql = SqlFactory.getNative(connection).create().synonym(synonymName).forSource(targetObjectName).build();
+	          executeSql(sql, connection);
+	          String message = String.format("Create synonym [%s] successfully", synonymName);
+	          logger.info(message);
 	        } else {
 	          String warningMessage = String.format("Synonym [%s] already exists during the create process", synonymName);
 	          logger.warn(warningMessage);
-//	          applyArtefactState(synonymName, synonymModel.getLocation(), SYNONYM_ARTEFACT, ArtefactState.FAILED_CREATE, warningMessage);
-	          return false;
 	        }
-	      } catch (SQLException exception) {
-	        String errorMessage = String.format("Create synonym [%s] skipped due to an error: %s", synonymName, exception.getMessage());
-	        logger.error(errorMessage);
-	        logger.error(exception.getMessage(), exception);
-//	        applyArtefactState(synonymName, synonymModel.getLocation(), SYNONYM_ARTEFACT, ArtefactState.FAILED_CREATE, errorMessage);
-	        return false;
+	      } catch (SQLException ex) {
+	        String errorMessage = String.format("Create synonym [%s] skipped due to an error: %s", synonymName, ex.getMessage());
+			CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, synonymModel.getLocation(), CommonsConstants.HDB_SYNONYM_PARSER);
+			throw ex;
 	      }
 	    };
-	    return true;
     }
 }

@@ -42,8 +42,7 @@ public class HDBProcedureCreateProcessor extends AbstractHDBProcessor<HDBProcedu
    * @return true, if successful
    * @throws SQLException the SQL exception
    */
-  public boolean execute(Connection connection, HDBProcedure procedureModel)
-      throws SQLException {
+  public void execute(Connection connection, HDBProcedure procedureModel) throws SQLException {
     logger.info("Processing Create Procedure: " + procedureModel.getName());
     String procedureNameWithoutSchema = CommonsUtils.extractArtifactNameWhenSchemaIsProvided(procedureModel.getName())[1];
     procedureModel.setSchema(CommonsUtils.extractArtifactNameWhenSchemaIsProvided(procedureModel.getName())[0]);
@@ -53,29 +52,22 @@ public class HDBProcedureCreateProcessor extends AbstractHDBProcessor<HDBProcedu
       if (!(dialect.getClass().equals(HanaSqlDialect.class))) {
         String errorMessage = String.format("Procedures are not supported for %s", dialect.getDatabaseName(connection));
         CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, procedureModel.getLocation(), CommonsConstants.HDB_PROCEDURE_PARSER);
-//        applyArtefactState(procedureModel.getName(), procedureModel.getLocation(), PROCEDURE_ARTEFACT, ArtefactState.FAILED_CREATE, errorMessage);
         throw new IllegalStateException(errorMessage);
       } else {
         String sql = Constants.HDBPROCEDURE_CREATE + procedureModel.getContent();
         try {
           String message = String.format("Create procedure [%s] successfully", procedureModel.getName());
-          logger.info(message);
           executeSql(sql, connection);
-//          applyArtefactState(procedureModel.getName(), procedureModel.getLocation(), PROCEDURE_ARTEFACT, ArtefactState.SUCCESSFUL_CREATE, message);
-          return true;
+          logger.info(message);
         } catch (SQLException ex) {
           String errorMessage = String.format("Create procedure[%s] skipped due to an error: %s", procedureModel, ex.getMessage());
-          logger.error(errorMessage);
-          CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, procedureModel.getLocation(), CommonsConstants.HDB_PROCEDURE_PARSER);
-//          applyArtefactState(procedureModel.getName(), procedureModel.getLocation(), PROCEDURE_ARTEFACT, ArtefactState.FAILED_CREATE, message);
-          return false;
+          CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, procedureModel.getLocation(), CommonsConstants.HDB_PROCEDURE_PARSER);
+          throw ex;
         }
       }
     } else {
       String warningMessage = String.format("Procedure [%s] already exists during the create process", procedureModel.getName());
       logger.warn(warningMessage);
-//      applyArtefactState(procedureModel.getName(), procedureModel.getLocation(), PROCEDURE_ARTEFACT, ArtefactState.FAILED_CREATE, warningMessage);
-      return false;
     }
   }
 }

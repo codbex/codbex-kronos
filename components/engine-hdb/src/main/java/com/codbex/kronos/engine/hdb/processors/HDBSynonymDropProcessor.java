@@ -48,39 +48,25 @@ public class HDBSynonymDropProcessor extends AbstractHDBProcessor<HDBSynonymGrou
    * @see <a href="https://help.sap.com/viewer/4fe29514fd584807ac9f2a04f6754767/1.0.12/en-US/20d7e172751910148bccb49de92d9859.html">DROP SYNONYM Statement (Data Definition)</a>
    */
   @Override
-  public boolean execute(Connection connection, HDBSynonymGroup synonymModel) {
+  public void execute(Connection connection, HDBSynonymGroup synonymModel) throws SQLException {
     for (Map.Entry<String, HDBSynonym> entry : synonymModel.getSynonymDefinitions().entrySet()) {
 
-      String synonymName =
-          (entry.getValue().getSchema() != null) ? HDBUtils.escapeArtifactName(entry.getKey(), entry.getValue().getSchema())
-              : HDBUtils.escapeArtifactName(entry.getKey());
+      String synonymName = (entry.getValue().getSchema() != null) ? HDBUtils.escapeArtifactName(entry.getKey(), entry.getValue().getSchema()) : HDBUtils.escapeArtifactName(entry.getKey());
       try {
-        if (SqlFactory.getNative(connection)
-            .exists(connection, entry.getValue().getSchema(), entry.getKey(), DatabaseArtifactTypes.SYNONYM)) {
+        if (SqlFactory.getNative(connection).exists(connection, entry.getValue().getSchema(), entry.getKey(), DatabaseArtifactTypes.SYNONYM)) {
           String sql = SqlFactory.getNative(connection).drop().synonym(synonymName).build();
-          try {
-            executeSql(sql, connection);
-            String message = String.format("Drop synonym [%s] successfully", synonymName);
-//            applyArtefactState(synonymName, synonymModel.getLocation(), SYNONYM_ARTEFACT, ArtefactState.SUCCESSFUL_DELETE, message);
-          } catch (SQLException ex) {
-            String message = String.format("Drop synonym [%s] skipped due to an error: %s", synonymModel.getName(), ex.getMessage());
-            CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, synonymModel.getLocation(),
-                CommonsConstants.HDB_SYNONYM_PARSER);
-//            applyArtefactState(synonymName, synonymModel.getLocation(), SYNONYM_ARTEFACT, ArtefactState.FAILED_DELETE, message);
-            return false;
-          }
+          executeSql(sql, connection);
+          String message = String.format("Drop synonym [%s] successfully", synonymName);
+          logger.info(message);
         } else {
           String message = String.format("Synonym [%s] does not exists during the drop process", synonymModel.getName());
           logger.warn(message);
-//          applyArtefactState(synonymName, synonymModel.getLocation(), SYNONYM_ARTEFACT, ArtefactState.SUCCESSFUL_DELETE, message);
         }
-      } catch (SQLException exception) {
-        String message = String.format("Drop synonym [%s] skipped due to an error: %s", synonymModel.getName(), exception.getMessage());
-        logger.error(message, exception);
-//        applyArtefactState(synonymName, synonymModel.getLocation(), SYNONYM_ARTEFACT, ArtefactState.FAILED_DELETE, message);
-        return false;
+      } catch (SQLException ex) {
+        String errorMessage = String.format("Drop synonym [%s] skipped due to an error: %s", synonymModel.getName(), ex.getMessage());
+        CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, synonymModel.getLocation(), CommonsConstants.HDB_SYNONYM_PARSER);
+        throw ex;
       }
     }
-    return true;
   }
 }

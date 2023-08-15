@@ -50,11 +50,8 @@ public class HDBStructureCreateProcessor extends AbstractHDBProcessor<HDBTableTy
    * @throws SQLException the SQL exception
    */
   @Override
-  public boolean execute(Connection connection, HDBTableType tableTypeModel)
-      throws SQLException {
+  public void execute(Connection connection, HDBTableType tableTypeModel) throws SQLException {
     logger.info("Processing Create Structure: " + tableTypeModel.getName());
-
-    boolean success = false;
 
     String tableTypeNameWithoutSchema = tableTypeModel.getName();
     String tableTypeNameWithSchema = HDBUtils.escapeArtifactName(tableTypeNameWithoutSchema, tableTypeModel.getSchema());
@@ -69,8 +66,7 @@ public class HDBStructureCreateProcessor extends AbstractHDBProcessor<HDBTableTy
       for (HDBTableTypeColumn columnModel : columns) {
         String name = HDBUtils.escapeArtifactName(columnModel.getName());
         DataType type = DataType.valueOf(columnModel.getType());
-        createTableTypeBuilder
-            .column(name, type, columnModel.isPrimaryKey(), columnModel.isNullable(), this.getColumnModelArgs(columnModel));
+        createTableTypeBuilder.column(name, type, columnModel.isPrimaryKey(), columnModel.isNullable(), this.getColumnModelArgs(columnModel));
       }
 
       String tableTypeParser = CommonsConstants.HDB_STRUCTURE_PARSER;
@@ -79,22 +75,22 @@ public class HDBStructureCreateProcessor extends AbstractHDBProcessor<HDBTableTy
 
       try {
         executeSql(sql, connection);
-        success = true;
+        String message = String.format("Create structure [%s] successfully", tableTypeModel.getName());
+        logger.info(message);
+      logger.info(message);
       } catch (SQLException ex) {
-        logger.error(format("Structure [{0}] failed during the create process", tableTypeNameWithoutSchema));
-        CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, tableTypeModel.getLocation(),
-            tableTypeParser);
+        String errorMessage = format("Structure [{0}] failed during the create process", tableTypeNameWithoutSchema);
+        CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableTypeModel.getLocation(), tableTypeParser);
+        throw ex;
       }
     } else {
       logger.warn(format("Structure [{0}] already exists during the create process", tableTypeNameWithoutSchema));
     }
 
     // Create public synonym only if the structure exist
-    if (SqlFactory.getNative(connection)
-        .exists(connection, tableTypeModel.getSchema(), tableTypeNameWithoutSchema, DatabaseArtifactTypes.TABLE_TYPE)) {
+    if (SqlFactory.getNative(connection).exists(connection, tableTypeModel.getSchema(), tableTypeNameWithoutSchema, DatabaseArtifactTypes.TABLE_TYPE)) {
       HDBUtils.createPublicSynonymForArtifact(tableTypeNameWithoutSchema, tableTypeModel.getSchema(), connection);
     }
-    return success;
   }
 
   /**

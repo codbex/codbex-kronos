@@ -199,19 +199,13 @@ public class HDBProceduresSynchronizer<A extends Artefact> implements Synchroniz
 			case CREATE:
 				if (ArtefactLifecycle.NEW.equals(procedure.getLifecycle())) {
 					if (!SqlFactory.getNative(connection).exists(connection, procedure.getName())) {
-						try {
-							executeProcedureCreate(connection, procedure);
-							callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
-						} catch (Exception e) {
-							if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
-							callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, e.getMessage());
-						}
+						executeProcedureCreate(connection, procedure);
+						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 					} else {
 						if (logger.isWarnEnabled()) {logger.warn(String.format("HDBProcedure [%s] already exists during the update process", procedure.getName()));}
 						executeProcedureUpdate(connection, procedure);
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 					}
-					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 				}
 				break;
 			case UPDATE:
@@ -251,10 +245,11 @@ public class HDBProceduresSynchronizer<A extends Artefact> implements Synchroniz
 	public void cleanup(HDBProcedure procedure) {
 		try (Connection connection = datasourcesManager.getDefaultDataSource().getConnection()) {
 			getService().delete(procedure);
+			callback.registerState(this, procedure, ArtefactLifecycle.DELETED, "");
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			callback.addError(e.getMessage());
-			callback.registerState(this, procedure, ArtefactLifecycle.DELETED, e.getMessage());
+			callback.registerState(this, procedure, ArtefactLifecycle.FAILED, e.getMessage());
 		}
 	}
 	

@@ -282,18 +282,13 @@ public class HDBTablesSynchronizer<A extends Artefact> implements Synchronizer<H
 			case CREATE:
 				if (ArtefactLifecycle.NEW.equals(table.getLifecycle())) {
 					if (!SqlFactory.getNative(connection).exists(connection, table.getName())) {
-						try {
-							executeTableCreate(connection, table);
-						} catch (Exception e) {
-							if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
-							callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, e.getMessage());
-						}
+						executeTableCreate(connection, table);
+						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 					} else {
 						if (logger.isWarnEnabled()) {logger.warn(String.format("HDBTable [%s] already exists during the update process", table.getName()));}
 						executeTableAlter(connection, table);
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 					}
-					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 				}
 				break;
 			case UPDATE:
@@ -354,6 +349,7 @@ public class HDBTablesSynchronizer<A extends Artefact> implements Synchronizer<H
 				if (SqlFactory.getNative(connection).count(connection, table.getName()) == 0) {
 					executeTableDrop(connection, table);
 					getService().delete(table);
+					callback.registerState(this, table, ArtefactLifecycle.DELETED, "");
 				} else {
 					String message = String.format("HDBTable [%s] cannot be deleted during the update process, because it is not empty", table.getName());
 					if (logger.isWarnEnabled()) {logger.warn(message);}
@@ -362,7 +358,7 @@ public class HDBTablesSynchronizer<A extends Artefact> implements Synchronizer<H
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			callback.addError(e.getMessage());
-			callback.registerState(this, table, ArtefactLifecycle.DELETED, e.getMessage());
+			callback.registerState(this, table, ArtefactLifecycle.FAILED, e.getMessage());
 		}
 	}
 	

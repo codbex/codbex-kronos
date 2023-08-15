@@ -17,7 +17,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -193,16 +192,10 @@ public class XSJobSynchronizer<A extends Artefact> implements Synchronizer<XSJob
 			switch (flow) {
 			case CREATE:
 				if (ArtefactLifecycle.NEW.equals(xsjob.getLifecycle())) {
-					try {
-						SchedulerManager.scheduleJob(xsjob);
-						xsjob.setRunning(true);
-						getService().save(xsjob);
-						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
-					} catch (Exception e) {
-						if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
-			            callback.addError(e.getMessage());
-						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
-					}
+					SchedulerManager.scheduleJob(xsjob);
+					xsjob.setRunning(true);
+					getService().save(xsjob);
+					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 				}
 				break;
 			case UPDATE:
@@ -266,7 +259,7 @@ public class XSJobSynchronizer<A extends Artefact> implements Synchronizer<XSJob
 			}
 			
 			return true;
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			callback.addError(e.getMessage());
 			callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, e.getMessage());
@@ -285,10 +278,11 @@ public class XSJobSynchronizer<A extends Artefact> implements Synchronizer<XSJob
 			SchedulerManager.unscheduleJob(xsjob.getName(), xsjob.getGroup());
     		xsjob.setRunning(false);
 			getService().delete(xsjob);
+			callback.registerState(this, xsjob, ArtefactLifecycle.DELETED, "");
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			callback.addError(e.getMessage());
-			callback.registerState(this, xsjob, ArtefactLifecycle.DELETED, e.getMessage());
+			callback.registerState(this, xsjob, ArtefactLifecycle.FAILED, e.getMessage());
 		}
 	}
 	

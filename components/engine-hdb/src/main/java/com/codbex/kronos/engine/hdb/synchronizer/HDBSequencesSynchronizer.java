@@ -48,7 +48,7 @@ import com.codbex.kronos.exceptions.ArtifactParserException;
  * @param <A> the generic type
  */
 @Component
-@Order(220)
+@Order(205)
 public class HDBSequencesSynchronizer<A extends Artefact> implements Synchronizer<HDBSequence> {
 	
 	/** The Constant logger. */
@@ -199,19 +199,13 @@ public class HDBSequencesSynchronizer<A extends Artefact> implements Synchronize
 			case CREATE:
 				if (ArtefactLifecycle.NEW.equals(sequence.getLifecycle())) {
 					if (!SqlFactory.getNative(connection).exists(connection, sequence.getName())) {
-						try {
-							executeSequenceCreate(connection, sequence);
-							callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
-						} catch (Exception e) {
-							if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
-							callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, e.getMessage());
-						}
+						executeSequenceCreate(connection, sequence);
+						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 					} else {
 						if (logger.isWarnEnabled()) {logger.warn(String.format("HDBSequence [%s] already exists during the update process", sequence.getName()));}
 						executeSequenceUpdate(connection, sequence);
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 					}
-					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 				}
 				break;
 			case UPDATE:
@@ -251,10 +245,11 @@ public class HDBSequencesSynchronizer<A extends Artefact> implements Synchronize
 	public void cleanup(HDBSequence sequence) {
 		try (Connection connection = datasourcesManager.getDefaultDataSource().getConnection()) {
 			getService().delete(sequence);
+			callback.registerState(this, sequence, ArtefactLifecycle.DELETED, "");
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			callback.addError(e.getMessage());
-			callback.registerState(this, sequence, ArtefactLifecycle.DELETED, e.getMessage());
+			callback.registerState(this, sequence, ArtefactLifecycle.FAILED, e.getMessage());
 		}
 	}
 	

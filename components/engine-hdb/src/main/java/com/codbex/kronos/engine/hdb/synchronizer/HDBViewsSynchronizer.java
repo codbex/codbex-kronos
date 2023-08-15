@@ -199,19 +199,13 @@ public class HDBViewsSynchronizer<A extends Artefact> implements Synchronizer<HD
 			case CREATE:
 				if (ArtefactLifecycle.NEW.equals(view.getLifecycle())) {
 					if (!SqlFactory.getNative(connection).exists(connection, view.getName())) {
-						try {
-							executeViewCreate(connection, view);
-							callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
-						} catch (Exception e) {
-							if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
-							callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, e.getMessage());
-						}
+						executeViewCreate(connection, view);
+						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 					} else {
 						if (logger.isWarnEnabled()) {logger.warn(String.format("HDBView [%s] already exists during the update process", view.getName()));}
 						executeViewUpdate(connection, view);
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 					}
-					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 				}
 				break;
 			case UPDATE:
@@ -251,10 +245,11 @@ public class HDBViewsSynchronizer<A extends Artefact> implements Synchronizer<HD
 	public void cleanup(HDBView view) {
 		try (Connection connection = datasourcesManager.getDefaultDataSource().getConnection()) {
 			getService().delete(view);
+			callback.registerState(this, view, ArtefactLifecycle.DELETED, "");
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			callback.addError(e.getMessage());
-			callback.registerState(this, view, ArtefactLifecycle.DELETED, e.getMessage());
+			callback.registerState(this, view, ArtefactLifecycle.FAILED, e.getMessage());
 		}
 	}
 	

@@ -44,43 +44,35 @@ public class HDBScalarFunctionDropProcessor extends AbstractHDBProcessor<HDBScal
    * @return true, if successful
    * @throws SQLException the SQL exception
    */
-  public boolean execute(Connection connection, HDBScalarFunction functionModel)
-      throws SQLException {
+  public void execute(Connection connection, HDBScalarFunction functionModel) throws SQLException {
     logger.info("Processing Drop Function: " + functionModel.getName());
 
     String funcNameWithoutSchema = CommonsUtils.extractArtifactNameWhenSchemaIsProvided(functionModel.getName())[1];
     functionModel.setSchema(CommonsUtils.extractArtifactNameWhenSchemaIsProvided(functionModel.getName())[0]);
 
-//    AbstractSynchronizationArtefactType functionArtefact = null;
     String functionParser = CommonsConstants.HDB_SCALAR_FUNCTION_PARSER;
 
-    if (SqlFactory.getNative(connection)
-        .exists(connection, functionModel.getSchema(), funcNameWithoutSchema, DatabaseArtifactTypes.FUNCTION)) {
+    if (SqlFactory.getNative(connection).exists(connection, functionModel.getSchema(), funcNameWithoutSchema, DatabaseArtifactTypes.FUNCTION)) {
       ISqlDialect dialect = SqlFactory.deriveDialect(connection);
       if (!(dialect.getClass().equals(HanaSqlDialect.class))) {
         String errorMessage = String.format("Functions are not supported for %s", dialect.getDatabaseName(connection));
         CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, functionModel.getLocation(), functionParser);
-//        applyArtefactState(functionModel.getName(), functionModel.getLocation(), functionArtefact, ArtefactState.FAILED_DELETE, errorMessage);
         throw new IllegalStateException(errorMessage);
       } else {
         String sql = Constants.HDBTABLEFUNCTION_DROP + functionModel.getName();
         try {
           executeSql(sql, connection);
           String message = String.format("Drop function [%s] successfully", functionModel.getName());
-//          applyArtefactState(functionModel.getName(), functionModel.getLocation(), functionArtefact, ArtefactState.SUCCESSFUL_DELETE, message);
-          return true;
+          logger.info(message);
         } catch (SQLException ex) {
           String errorMessage = String.format("Drop function [%s] skipped due to an error: %s", functionModel.getName(), ex.getMessage());
-          CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, functionModel.getLocation(), functionParser);
-//          applyArtefactState(functionModel.getName(), functionModel.getLocation(), functionArtefact, ArtefactState.FAILED_DELETE, errorMessage);
-          return false;
+          CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, functionModel.getLocation(), functionParser);
+          throw ex;
         }
       }
     } else {
       String warningMessage = String.format("Function [%s] does not exists during the drop process", functionModel.getName());
       logger.warn(warningMessage);
-//      applyArtefactState(functionModel.getName(), functionModel.getLocation(), functionArtefact, ArtefactState.FAILED_DELETE, warningMessage);
-      return true;
     }
   }
 
