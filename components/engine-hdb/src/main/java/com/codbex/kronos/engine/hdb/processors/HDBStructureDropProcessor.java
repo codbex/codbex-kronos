@@ -49,13 +49,12 @@ public class HDBStructureDropProcessor extends AbstractHDBProcessor<HDBTableType
    * @throws SQLException the SQL exception
    */
   @Override
-  public boolean execute(Connection connection, HDBTableType tableTypeModel) throws SQLException {
+  public void execute(Connection connection, HDBTableType tableTypeModel) throws SQLException {
     synonymRemover.removePublicSynonym(connection, tableTypeModel.getSchema(), tableTypeModel.getName());
 
     if (tableTypeDoesNotExist(connection, tableTypeModel)) {
-      logger.debug("Structure [{}] in schema [{}] does not exists during the drop process", tableTypeModel.getName(),
-          tableTypeModel.getSchema());
-      return true;
+      logger.debug("Structure [{}] in schema [{}] does not exists during the drop process", tableTypeModel.getName(), tableTypeModel.getSchema());
+      return;
     }
 
     String tableTypeParser = CommonsConstants.HDB_STRUCTURE_PARSER;
@@ -64,24 +63,15 @@ public class HDBStructureDropProcessor extends AbstractHDBProcessor<HDBTableType
     try {
       String sql = getDropTableTypeSQL(connection, tableTypeName);
       executeSql(sql, connection);
-      return true;
-    } catch (SQLException | IllegalStateException ex) {
-      processException(tableTypeModel, tableTypeParser, ex);
-      return false;
+      String message = String.format("Drop structure [%s] successfully", tableTypeModel.getName());
+      logger.info(message);
+    } catch (SQLException ex) {
+      String errorMessage = String.format("Failed to drop structure [%s] in schema [%s]", tableTypeModel.getName(), tableTypeModel.getSchema(), ex);
+      CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableTypeModel.getLocation(), tableTypeParser);
+      throw ex;
     }
   }
 
-  /**
-   * Process exception.
-   *
-   * @param tableTypeModel the structure model
-   * @param ex             the ex
-   */
-  void processException(HDBTableType tableTypeModel, String tableTypeParser, Exception ex) {
-    logger.error("Failed to drop structure [{}] in schema [{}]", tableTypeModel.getName(), tableTypeModel.getSchema(), ex);
-    CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, tableTypeModel.getLocation(),
-        tableTypeParser);
-  }
 
   /**
    * Escape structure name.

@@ -46,8 +46,7 @@ public class HDBTableCreateProcessor extends AbstractHDBProcessor<HDBTable> {
    * @return true, if successful
    * @throws SQLException the SQL exception
    */
-  public boolean execute(Connection connection, HDBTable tableModel)
-      throws SQLException {
+  public void execute(Connection connection, HDBTable tableModel) throws SQLException {
     logger.info("Processing Create Table: " + tableModel.getName());
 
     Collection<String> indicesStatements = new ArrayList<>();
@@ -62,11 +61,9 @@ public class HDBTableCreateProcessor extends AbstractHDBProcessor<HDBTable> {
     } else {
         tableCreateStatement = Constants.HDBTABLE_CREATE + tableModel.getContent();
     }
-    
 
-    boolean success = processStatements(connection, tableModel, indicesStatements, tableCreateStatement);
+    processStatements(connection, tableModel, indicesStatements, tableCreateStatement);
     processSynonym(connection, tableModel, tableNameWithoutSchema, tableNameWithSchema);
-    return success;
   }
 
   /**
@@ -78,10 +75,8 @@ public class HDBTableCreateProcessor extends AbstractHDBProcessor<HDBTable> {
    * @param tableNameWithSchema the table name with schema
    * @throws SQLException the SQL exception
    */
-  private void processSynonym(Connection connection, HDBTable tableModel, String tableNameWithoutSchema,
-      String tableNameWithSchema) throws SQLException {
-    boolean shouldCreatePublicSynonym = SqlFactory.getNative(connection)
-        .exists(connection, tableNameWithSchema, DatabaseArtifactTypes.TABLE);
+  private void processSynonym(Connection connection, HDBTable tableModel, String tableNameWithoutSchema, String tableNameWithSchema) throws SQLException {
+    boolean shouldCreatePublicSynonym = SqlFactory.getNative(connection).exists(connection, tableNameWithSchema, DatabaseArtifactTypes.TABLE);
     if (shouldCreatePublicSynonym) {
       HDBUtils.createPublicSynonymForArtifact(tableNameWithoutSchema, tableModel.getSchema(), connection);
     }
@@ -96,8 +91,7 @@ public class HDBTableCreateProcessor extends AbstractHDBProcessor<HDBTable> {
    * @param tableCreateStatement the table create statement
    * @return true, if successful
    */
-  private boolean processStatements(Connection connection, HDBTable tableModel, Collection<String> indicesStatements,
-      String tableCreateStatement) {
+  private void processStatements(Connection connection, HDBTable tableModel, Collection<String> indicesStatements, String tableCreateStatement) throws SQLException {
     try {
       executeSql(tableCreateStatement, connection);
       if (!indicesStatements.isEmpty()) {
@@ -105,15 +99,10 @@ public class HDBTableCreateProcessor extends AbstractHDBProcessor<HDBTable> {
       }
       String message = String.format("Create table [%s] successfully", tableModel.getName());
       logger.info(message);
-//      applyArtefactState(tableModel.getName(), tableModel.getLocation(), TABLE_ARTEFACT, ArtefactState.SUCCESSFUL_CREATE, message);
-      return true;
     } catch (SQLException ex) {
-      logger.error("Creation of table failed. Used SQL - create table {}, indices {}", tableCreateStatement, String.join("; ", indicesStatements), ex);
-      CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, tableModel.getLocation(), CommonsConstants.HDB_TABLE_PARSER);
-      String errorMessage = String.format("Create table [%s] failed due to an error: %s", tableModel, ex.getMessage());
-      logger.error(errorMessage);
-//      applyArtefactState(tableModel.getName(), tableModel.getLocation(), TABLE_ARTEFACT, ArtefactState.FAILED_CREATE, message);
-      return false;
+      String errorMessage = String.format("Create table [%s] failed due to an error. Used SQL - create table %s, indices %s", tableModel, tableCreateStatement, String.join("; ", indicesStatements), ex);
+      CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableModel.getLocation(), CommonsConstants.HDB_TABLE_PARSER);
+      throw ex;
     }
   }
 

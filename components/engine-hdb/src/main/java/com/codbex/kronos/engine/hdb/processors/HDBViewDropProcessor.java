@@ -40,8 +40,7 @@ public class HDBViewDropProcessor extends AbstractHDBProcessor<HDBView> {
    * @return true, if successful
    * @throws SQLException the SQL exception
    */
-  public boolean execute(Connection connection, HDBView viewModel)
-      throws SQLException {
+  public void execute(Connection connection, HDBView viewModel) throws SQLException {
     logger.info("Processing Drop View: " + viewModel.getName());
     String viewNameWithSchema = HDBUtils.escapeArtifactName(viewModel.getName(), viewModel.getSchema());
 
@@ -54,20 +53,15 @@ public class HDBViewDropProcessor extends AbstractHDBProcessor<HDBView> {
       try {
         executeSql(sql, connection);
         String message = String.format("Drop view [%s] successfully", viewModel.getName());
-//        applyArtefactState(viewModel.getName(), viewModel.getLocation(), VIEW_ARTEFACT, ArtefactState.SUCCESSFUL_DELETE, message);
-        return true;
+        logger.info(message);
       } catch (SQLException ex) {
         String errorMessage = String.format("Drop view [%s] skipped due to an error: %s", viewModel.getName(), ex.getMessage());
-        CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, viewModel.getLocation(),
-            CommonsConstants.HDB_VIEW_PARSER);
-//        applyArtefactState(viewModel.getName(), viewModel.getLocation(), VIEW_ARTEFACT, ArtefactState.FAILED_DELETE, errorMessage);
-        return false;
+        CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, viewModel.getLocation(), CommonsConstants.HDB_VIEW_PARSER);
+        throw ex;
       }
     } else {
       String warningMessage = String.format("View [%s] does not exist during the drop process", viewModel.getName());
       logger.warn(warningMessage);
-//      applyArtefactState(viewModel.getName(), viewModel.getLocation(), VIEW_ARTEFACT, ArtefactState.FAILED_DELETE, warningMessage);
-      return true;
     }
   }
 

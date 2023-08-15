@@ -43,12 +43,9 @@ public class HDBViewCreateProcessor extends AbstractHDBProcessor<HDBView> {
    * @return true, if successful
    * @throws SQLException the SQL exception
    */
-  public boolean execute(Connection connection, HDBView viewModel)
-      throws SQLException {
+  public void execute(Connection connection, HDBView viewModel) throws SQLException {
     logger.info("Processing Create View: " + viewModel.getName());
-    
-    boolean success = false;
-    
+
     String viewNameWithSchema = HDBUtils.escapeArtifactName(viewModel.getName(), viewModel.getSchema());
 
     if (!SqlFactory.getNative(connection).exists(connection, viewNameWithSchema, DatabaseArtifactTypes.VIEW)) {
@@ -61,9 +58,7 @@ public class HDBViewCreateProcessor extends AbstractHDBProcessor<HDBView> {
             sql = Constants.HDBVIEW_CREATE + viewModel.getContent();
           } else {
             String errorMessage = String.format("Views are not supported for %s", dialect.getDatabaseName(connection));
-            CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, viewModel.getLocation(),
-                CommonsConstants.HDB_VIEW_PARSER);
-//            applyArtefactState(viewModel.getName(), viewModel.getLocation(), VIEW_ARTEFACT, ArtefactState.FAILED_CREATE, errorMessage);
+            CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, viewModel.getLocation(), CommonsConstants.HDB_VIEW_PARSER);
             throw new IllegalStateException(errorMessage);
           }
       }
@@ -72,25 +67,19 @@ public class HDBViewCreateProcessor extends AbstractHDBProcessor<HDBView> {
         executeSql(sql, connection);
         String message = String.format("Create view [%s] successfully", viewModel.getName());
         logger.info(message);
-//        applyArtefactState(viewModel.getName(), viewModel.getLocation(), VIEW_ARTEFACT, ArtefactState.SUCCESSFUL_CREATE, message);
-        success = true;
       } catch (SQLException ex) {
         String errorMessage = String.format("Create view [%s] skipped due to an error: %s", viewModel.getName(), ex.getMessage());
-        logger.error(errorMessage);
-        CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, viewModel.getLocation(), CommonsConstants.HDB_VIEW_PARSER);
-//        applyArtefactState(viewModel.getName(), viewModel.getLocation(), VIEW_ARTEFACT, ArtefactState.FAILED_CREATE, errorMessage);
+        CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, viewModel.getLocation(), CommonsConstants.HDB_VIEW_PARSER);
+        throw ex;
       }
     } else {
       String warningMessage = String.format("View [%s] already exists during the create process", viewModel.getName());
       logger.warn(warningMessage);
-//      applyArtefactState(viewModel.getName(), viewModel.getLocation(), VIEW_ARTEFACT, ArtefactState.FAILED_CREATE, warningMessage);
     }
 
-    // Create public synonym
     if (SqlFactory.getNative(connection).exists(connection, viewNameWithSchema, DatabaseArtifactTypes.VIEW)) {
         HDBUtils.createPublicSynonymForArtifact(viewModel.getName(), viewModel.getSchema(), connection);
     }
-    return success;
   }
 
 }

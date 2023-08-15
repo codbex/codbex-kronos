@@ -44,7 +44,7 @@ public class HDBSequenceDropProcessor extends AbstractHDBProcessor<HDBSequence> 
    * @throws SQLException the SQL exception
    */
   @Override
-  public boolean execute(Connection connection, HDBSequence sequenceModel) throws SQLException {
+  public void execute(Connection connection, HDBSequence sequenceModel) throws SQLException {
     String hdbSequenceName = HDBUtils.escapeArtifactName(sequenceModel.getName(), sequenceModel.getSchema());
     logger.info("Processing Drop Sequence: " + hdbSequenceName);
 
@@ -58,9 +58,7 @@ public class HDBSequenceDropProcessor extends AbstractHDBProcessor<HDBSequence> 
             sql = Constants.HDBSEQUENCE_DROP + sequenceModel.getContent();
           } else {
             String errorMessage = String.format("Sequences are not supported for %s", dialect.getDatabaseName(connection));
-            CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, sequenceModel.getLocation(),
-                CommonsConstants.HDB_SEQUENCE_PARSER);
-//            applyArtefactState(sequenceModel.getName(), sequenceModel.getLocation(), SEQUENCE_ARTEFACT, ArtefactState.FAILED_DELETE, errorMessage);
+            CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, sequenceModel.getLocation(), CommonsConstants.HDB_SEQUENCE_PARSER);
             throw new IllegalStateException(errorMessage);
           }
       }
@@ -68,21 +66,16 @@ public class HDBSequenceDropProcessor extends AbstractHDBProcessor<HDBSequence> 
       try {
         executeSql(sql, connection);
         String message = String.format("Drop sequence [%s] successfully", sequenceModel.getName());
-//        applyArtefactState(sequenceModel.getName(), sequenceModel.getLocation(), SEQUENCE_ARTEFACT, ArtefactState.SUCCESSFUL_DELETE, message);
-        return true;
+        logger.info(message);
       } catch (SQLException ex) {
-        String message = String.format("Drop sequence [%s] skipped due to an error: %s", sequenceModel.getName(), ex.getMessage());
-        CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, sequenceModel.getLocation(),
-            CommonsConstants.HDB_SEQUENCE_PARSER);
-//        applyArtefactState(sequenceModel.getName(), sequenceModel.getLocation(), SEQUENCE_ARTEFACT, ArtefactState.FAILED_DELETE, message);
-        return false;
+        String errorMessage = String.format("Drop sequence [%s] skipped due to an error: %s", sequenceModel.getName(), ex.getMessage());
+        CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, sequenceModel.getLocation(), CommonsConstants.HDB_SEQUENCE_PARSER);
+        throw ex;
       }
       
     } else {
       String warningMessage = String.format("Sequence [%s] does not exists during the drop process", sequenceModel.getName());
       logger.warn(warningMessage);
-//      applyArtefactState(sequenceModel.getName(), sequenceModel.getLocation(), SEQUENCE_ARTEFACT, ArtefactState.FAILED_DELETE, warningMessage);
-      return true;
     }
   }
 

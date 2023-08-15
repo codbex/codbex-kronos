@@ -44,23 +44,19 @@ public class HDBScalarFunctionCreateProcessor extends AbstractHDBProcessor<HDBSc
    * @return true, if successful
    * @throws SQLException the SQL exception
    */
-  public boolean execute(Connection connection, HDBScalarFunction functionModel)
-      throws SQLException {
+  public void execute(Connection connection, HDBScalarFunction functionModel) throws SQLException {
     logger.info("Processing Create Function: " + functionModel.getName());
 
     String funcNameWithoutSchema = CommonsUtils.extractArtifactNameWhenSchemaIsProvided(functionModel.getName())[1];
     functionModel.setSchema(CommonsUtils.extractArtifactNameWhenSchemaIsProvided(functionModel.getName())[0]);
 
-//    AbstractSynchronizationArtefactType functionArtefact = null;
     String functionParser = CommonsConstants.HDB_SCALAR_FUNCTION_PARSER;
 
-    if (!SqlFactory.getNative(connection)
-        .exists(connection, functionModel.getSchema(), funcNameWithoutSchema, DatabaseArtifactTypes.FUNCTION)) {
+    if (!SqlFactory.getNative(connection).exists(connection, functionModel.getSchema(), funcNameWithoutSchema, DatabaseArtifactTypes.FUNCTION)) {
       ISqlDialect dialect = SqlFactory.deriveDialect(connection);
       if (!(dialect.getClass().equals(HanaSqlDialect.class))) {
         String errorMessage = String.format("Functions are not supported for %s", dialect.getDatabaseName(connection));
         CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, functionModel.getLocation(), functionParser);
-//        applyArtefactState(functionModel.getName(), functionModel.getLocation(), functionArtefact, ArtefactState.FAILED_CREATE, errorMessage);
         throw new IllegalStateException(errorMessage);
       } else {
         String sql = Constants.HDBTABLEFUNCTION_CREATE + functionModel.getContent();
@@ -68,21 +64,15 @@ public class HDBScalarFunctionCreateProcessor extends AbstractHDBProcessor<HDBSc
           executeSql(sql, connection);
           String message = String.format("Create table function [%s] successfully", functionModel.getName());
           logger.info(message);
-//          applyArtefactState(functionModel.getName(), functionModel.getLocation(), functionArtefact, ArtefactState.SUCCESSFUL_CREATE, message);
-          return true;
         } catch (SQLException ex) {
           String errorMessage = String.format("Create table function [%s] skipped due to an error: %s", functionModel.getName(), ex.getMessage());
-          logger.error(errorMessage);
-          CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, functionModel.getLocation(), functionParser);
-//          applyArtefactState(functionModel.getName(), functionModel.getLocation(), functionArtefact, ArtefactState.FAILED_CREATE, errorMessage);
-          return false;
+          CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, functionModel.getLocation(), functionParser);
+          throw ex;
         }
       }
     } else {
       String warningMessage = String.format("Function [%s] already exists during the create process.", functionModel.getName());
       logger.warn(warningMessage);
-//      applyArtefactState(functionModel.getName(), functionModel.getLocation(), functionArtefact, ArtefactState.FAILED_CREATE, warningMessage);
-      return false;
     }
   }
 }

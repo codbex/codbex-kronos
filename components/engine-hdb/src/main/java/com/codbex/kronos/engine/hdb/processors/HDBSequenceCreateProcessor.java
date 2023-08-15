@@ -44,7 +44,7 @@ public class HDBSequenceCreateProcessor extends AbstractHDBProcessor<HDBSequence
    * @throws SQLException the SQL exception
    */
   @Override
-  public boolean execute(Connection connection, HDBSequence sequenceModel) throws SQLException {
+  public void execute(Connection connection, HDBSequence sequenceModel) throws SQLException {
     String hdbSequenceName = HDBUtils.escapeArtifactName(sequenceModel.getName(), sequenceModel.getSchema());
     logger.info("Processing Create Sequence: " + hdbSequenceName);
     String sql = null;
@@ -57,9 +57,7 @@ public class HDBSequenceCreateProcessor extends AbstractHDBProcessor<HDBSequence
           sql = Constants.HDBSEQUENCE_CREATE + sequenceModel.getContent();
         } else {
           String errorMessage = String.format("Sequences are not supported for %s", dialect.getDatabaseName(connection));
-          CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, sequenceModel.getLocation(),
-              CommonsConstants.HDB_SEQUENCE_PARSER);
-//          applyArtefactState(sequenceModel.getName(), sequenceModel.getLocation(), SEQUENCE_ARTEFACT, ArtefactState.FAILED_CREATE, errorMessage);
+          CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, sequenceModel.getLocation(), CommonsConstants.HDB_SEQUENCE_PARSER);
           throw new IllegalStateException(errorMessage);
         }
     }
@@ -68,14 +66,10 @@ public class HDBSequenceCreateProcessor extends AbstractHDBProcessor<HDBSequence
       executeSql(sql, connection);
       String message = String.format("Create sequence [%s] successfully", sequenceModel.getName());
       logger.info(message);
-//      applyArtefactState(sequenceModel.getName(), sequenceModel.getLocation(), SEQUENCE_ARTEFACT, ArtefactState.SUCCESSFUL_CREATE, message);
-      return true;
     } catch (SQLException ex) {
       String errorMessage = String.format("Create sequence [%s] skipped due to an error: %s", sequenceModel.getName(), ex.getMessage());
-      logger.error(errorMessage);
-      CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PROCESSOR_ERROR, sequenceModel.getLocation(), CommonsConstants.HDB_SEQUENCE_PARSER);
-//      applyArtefactState(sequenceModel.getName(), sequenceModel.getLocation(), SEQUENCE_ARTEFACT, ArtefactState.FAILED_CREATE, message);
-      return false;
+      CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, sequenceModel.getLocation(), CommonsConstants.HDB_SEQUENCE_PARSER);
+      throw ex;
     }
   }
 

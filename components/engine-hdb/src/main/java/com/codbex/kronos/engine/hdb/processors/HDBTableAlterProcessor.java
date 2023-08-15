@@ -30,14 +30,13 @@ public class HDBTableAlterProcessor extends AbstractHDBProcessor<HDBTable> {
    * @throws SQLException the SQL exception
    */
   @Override
-  public boolean execute(Connection connection, HDBTable tableModel) throws SQLException {
+  public void execute(Connection connection, HDBTable tableModel) throws SQLException {
     HDBTableAlterHandler handler = createTableAlterHandler(connection, tableModel);
     handler.addColumns(connection);
     handler.removeColumns(connection);
     handler.updateColumns(connection);
     handler.rebuildIndeces(connection);
     handler.ensurePrimaryKeyIsUnchanged(connection);
-    return true;
   }
 
   /**
