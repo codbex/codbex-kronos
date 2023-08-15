@@ -65,13 +65,13 @@
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
-			<artifactId>dirigible-components-group-api</artifactId>
+			<artifactId>dirigible-components-group-api-platform</artifactId>
 			<version>${dirigible.version}</version>
 			<type>pom</type>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
-			<artifactId>dirigible-components-group-engines</artifactId>
+			<artifactId>dirigible-components-group-engines-core</artifactId>
 			<version>${dirigible.version}</version>
 			<type>pom</type>
 		</dependency>
