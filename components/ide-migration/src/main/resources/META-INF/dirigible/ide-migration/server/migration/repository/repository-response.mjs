@@ -1,7 +1,7 @@
 import { RepositoryHeader } from "./repository-header";
 import { ResponseAttachmentParser } from "./response-attachment-parser";
 
-let utf8 = org.eclipse.dirigible.components.api.utils.UTF8Facade;
+let utf8 = org.eclipse.dirigible.api.v3.utils.UTF8Facade;
 
 export class RepositoryResponse {
     constructor(responseBuffer) {

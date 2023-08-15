@@ -4,10 +4,10 @@ export class Utils {
     }
 
     static intToByteArray(int) {
-        return org.eclipse.dirigible.components.api.io.BytesFacade.intToByteArray(int, "LITTLE_ENDIAN");
+        return org.eclipse.dirigible.api.v3.io.BytesFacade.intToByteArray(int, "LITTLE_ENDIAN");
     }
 
     static byteArrayToInt(arr) {
-        return org.eclipse.dirigible.components.api.io.BytesFacade.byteArrayToInt(arr, "LITTLE_ENDIAN");
+        return org.eclipse.dirigible.api.v3.io.BytesFacade.byteArrayToInt(arr, "LITTLE_ENDIAN");
     }
 }

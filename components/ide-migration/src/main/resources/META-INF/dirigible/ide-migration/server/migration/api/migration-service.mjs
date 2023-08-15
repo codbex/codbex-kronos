@@ -17,20 +17,20 @@ const StreamResult = Java.type("javax.xml.transform.stream.StreamResult");
 const StringReader = Java.type("java.io.StringReader");
 const ByteArrayInputStream = Java.type("java.io.ByteArrayInputStream");
 const ByteArrayOutputStream = Java.type("java.io.ByteArrayOutputStream");
-const ProjectMigrationInterceptor = Java.type("com.codbex.kronos.modificators.ProjectMigrationInterceptor");
-const HDBCoreFacade = Java.type("com.codbex.kronos.hdb.ds.facade.HDBCoreSynchronizationFacade");
-const hdbDDModel = "com.codbex.kronos.hdb.ds.model.hdbdd.DataStructureCdsModel";
-const kronosModificator = new ProjectMigrationInterceptor();
-const streams = org.eclipse.dirigible.components.api.io.StreamsFacade;
+const XSKProjectMigrationInterceptor = Java.type("com.sap.xsk.modificators.XSKProjectMigrationInterceptor");
+const XSKHDBCoreFacade = Java.type("com.sap.xsk.hdb.ds.facade.XSKHDBCoreSynchronizationFacade");
+const hdbDDModel = "com.sap.xsk.hdb.ds.model.hdbdd.XSKDataStructureCdsModel";
+const xskModificator = new XSKProjectMigrationInterceptor();
+const streams = org.eclipse.dirigible.api.v3.io.StreamsFacade;
 
 export class MigrationService {
     repo = null;
     tableFunctionPaths = [];
 
-    kronosTechnicalPrivilegesFileName = "kronos_technical_privileges";
+    xskTechnicalPrivilegesFileName = "xsk_technical_privileges";
     synonymFileName = "hdi-synonyms.hdbsynonym";
     publicSynonymFileName = "hdi-public-synonyms.hdbpublicsynonym";
-    modelsWithoutSynonym = ["com.codbex.kronos.hdb.ds.model.hdbschema.DataStructureHDBSchemaModel", "com.codbex.kronos.hdb.ds.model.hdbsequence.DataStructureHDBSequenceModel"];
+    modelsWithoutSynonym = ["com.sap.xsk.hdb.ds.model.hdbschema.XSKDataStructureHDBSchemaModel", "com.sap.xsk.hdb.ds.model.hdbsequence.XSKDataStructureHDBSequenceModel"];
     fileExtsForHDI = [".hdbcalculationview", ".calculationview", ".analyticprivilege", ".hdbanalyticprivilege", ".hdbflowgraph", ".hdbtablefunction"];
 
     setupConnection(databaseName, databaseUser, databaseUserPassword, connectionUrl) {
@@ -123,7 +123,7 @@ export class MigrationService {
     copyFilesLocally(workspaceName, duName, lists) {
         const workspaceCollection = this._getOrCreateTemporaryWorkspaceCollection(workspaceName);
         const unmodifiedWorkspaceCollection = this._getOrCreateTemporaryWorkspaceCollection(workspaceName + "_unmodified");
-        const hdbFacade = new HDBCoreFacade();
+        const hdbFacade = new XSKHDBCoreFacade();
 
 
         const projectNames = [];
@@ -150,13 +150,13 @@ export class MigrationService {
             "scope-references": ["$XSAPPNAME.Operator"]
         }];
         let roleCollections = [{
-            "description": "Kronos Developer",
-            "name": "Kronos Developer",
+            "description": " XSK Developer",
+            "name": "XSK Developer",
             "role-template-references": ["$XSAPPNAME.Developer"]
         },
         {
-            "description": "Kronos Operator",
-            "name": "Kronos Operator",
+            "description": "XSK Operator",
+            "name": "XSK Operator",
             "role-template-references": ["$XSAPPNAME.Operator"]
         }];
         let lastProjectName = "";
@@ -165,14 +165,14 @@ export class MigrationService {
             let fileRunLocation = file.RunLocation;
 
             // each file's package id is based on its directory
-            // if we do not get only the first part of the package id, we would have several Kronos projects created for directories in the same XS app
+            // if we do not get only the first part of the package id, we would have several XSK projects created for directories in the same XS app
             const fileProjectName = file.packageId.split(".")[0];
             if (!projectNames.includes(fileProjectName)) {
                 projectNames.push(fileProjectName);
             }
 
             if (fileRunLocation.startsWith("/" + fileProjectName)) {
-                // remove package id from file location in order to remove Kronos project and folder nesting
+                // remove package id from file location in order to remove XSK project and folder nesting
                 fileRunLocation = fileRunLocation.slice(fileProjectName.length + 1);
             }
             let content = this.repo.getContentForObject(file._name, file._packageName, file._suffix);
@@ -224,7 +224,7 @@ export class MigrationService {
         const duRootCollection = repository.getCollection(repositoryPath);
         const workspaceCollection = repository.getCollection(workspacePath);
 
-        const hdbFacade = new HDBCoreFacade();
+        const hdbFacade = new XSKHDBCoreFacade();
 
         const synonyms = [];
         const calcViews = {};
@@ -459,12 +459,12 @@ export class MigrationService {
                 });
                 roleTemplates.push({
                     "name": "RoleTemplate" + privilegeName,
-                    "description": "Kronos role template for " + fullPrivilegeName,
+                    "description": "XSK role template for " + fullPrivilegeName,
                     "scope-references": [scopeName]
                 })
                 roleCollections.push({
                     "name": "Role" + privilegeName,
-                    "description": "Kronos role for " + fullPrivilegeName,
+                    "description": "XSK role for " + fullPrivilegeName,
                     "role-template-references": ["$XSAPPNAME.RoleTemplate" + privilegeName]
                 })
             }
@@ -678,7 +678,7 @@ export class MigrationService {
         const resource = repositoryManager.getResource(repositoryPath);
 
         if (this._isFileCalculationView(relativeSavePath) || this._isFileCalculationView(repositoryPath)) {
-            const modifiedContent = kronosModificator.modify(resource.getContent());
+            const modifiedContent = xskModificator.modify(resource.getContent());
             projectFile.setContent(modifiedContent);
         } else {
             projectFile.setContent(resource.getContent());
@@ -771,9 +771,9 @@ export class MigrationService {
         const apIds = [];
         this._visitCollection(project, projectCollection, ".", synonyms, projectName, workspaceName, apIds);
 
-        const hdbRoleContent = JSON.stringify(this._generateHdbRole(this.kronosTechnicalPrivilegesFileName, apIds));
+        const hdbRoleContent = JSON.stringify(this._generateHdbRole(this.xskTechnicalPrivilegesFileName, apIds));
 
-        const hdbRoleName = `${this.kronosTechnicalPrivilegesFileName}.hdbrole`;
+        const hdbRoleName = `${this.xskTechnicalPrivilegesFileName}.hdbrole`;
         const hdbRoleFile = project.createFile(hdbRoleName);
         hdbRoleFile.setText(hdbRoleContent);
 
@@ -853,12 +853,12 @@ export class MigrationService {
     modifyFiles(workspace, localFiles) {
         for (const localFile of localFiles) {
             const projectName = localFile.projectName;
-            kronosModificator.interceptProject(workspace, projectName);
+            xskModificator.interceptXSKProject(workspace, projectName);
         }
     }
 
     interceptProject(workspace, projectName) {
-        kronosModificator.interceptProject(workspace, projectName);
+        xskModificator.interceptXSKProject(workspace, projectName);
     }
 
     commitProjectModifications(workspace, projectName) {

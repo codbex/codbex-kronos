@@ -1,5 +1,5 @@
-const Parser = com.codbex.kronos.parser.hana.core.HanaParser;
-const HanaLexer = com.codbex.kronos.parser.hana.core.HanaLexer;
+const Parser = com.sap.xsk.parser.hana.core.HanaParser;
+const HanaLexer = com.sap.xsk.parser.hana.core.HanaLexer;
 const ByteArrayInputStream = java.io.ByteArrayInputStream;
 const ANTLRInputStream = org.antlr.v4.runtime.ANTLRInputStream;
 const CommonTokenStream = org.antlr.v4.runtime.CommonTokenStream;
@@ -25,7 +25,7 @@ export class HanaVisitor {
 
         this.parser = new Parser(tokenStream);
 
-        var HanaBaseVisitor = Java.extend(Java.type("com.codbex.kronos.parser.hana.core.HanaBaseVisitor"));
+        var HanaBaseVisitor = Java.extend(Java.type("com.sap.xsk.parser.hana.core.HanaBaseVisitor"));
         var that = this;
         this.impl = new HanaBaseVisitor({
             visitProc_name: function (ctx) {

@@ -94,7 +94,7 @@ function getJwtToken(host, username, password) {
 function continueProcess(ctx, req, res) {
     const userDataJson = req.getJSON();
 
-    const tasksJson = org.eclipse.dirigible.components.api.bpm.BpmFacade.getTasks();
+    const tasksJson = org.eclipse.dirigible.api.v3.bpm.BpmFacade.getTasks();
     const tasks = JSON.parse(tasksJson);
     for (const task of tasks) {
         if (task.processInstanceId === userDataJson.processInstanceId.toString()) {
@@ -148,7 +148,7 @@ function getMigrations(ctx, request, response) {
     const connection = database.getConnection("local", "SystemDB");
     let migrationsData = { migrations: "empty" };
     try {
-        let statement = connection.prepareStatement("SELECT * FROM KRONOS_MIGRATIONS");
+        let statement = connection.prepareStatement("SELECT * FROM XSK_MIGRATIONS");
         let resultSet = statement.executeQuery();
         migrationsData.migrations = resultSet.toJson();
         resultSet.close();

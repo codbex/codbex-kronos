@@ -1,0 +1,5 @@
+{
+    "module": "ide-migration/services/migration-view.js",
+    "extensionPoint": "ide-view",
+    "description": "HANA XS Classic Migration"
+}
