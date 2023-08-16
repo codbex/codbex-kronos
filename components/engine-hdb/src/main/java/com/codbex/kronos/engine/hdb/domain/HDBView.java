@@ -15,7 +15,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -23,10 +22,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
-import org.eclipse.dirigible.components.base.converters.ArrayOfStringsToCsvConverter;
+import org.eclipse.dirigible.components.base.converters.ListOfStringsToCsvConverter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -63,7 +61,7 @@ public class HDBView extends HDBDataStructure {
 	@Column(name = "HDBVIEW_DEPENDS_ON", columnDefinition = "VARCHAR", nullable = true, length = 2000)
 //	@OrderColumn
 //	@ElementCollection(targetClass=String.class)
-	@Convert(converter = ArrayOfStringsToCsvConverter.class)
+	@Convert(converter = ListOfStringsToCsvConverter.class)
 	@Expose
     private List<String> dependsOn;
     
@@ -71,7 +69,7 @@ public class HDBView extends HDBDataStructure {
 	@Column(name = "HDBVIEW_DEPENDS_ON_TABLE", columnDefinition = "VARCHAR", nullable = true, length = 2000)
 //	@OrderColumn
 //	@ElementCollection(targetClass=String.class)
-	@Convert(converter = ArrayOfStringsToCsvConverter.class)
+	@Convert(converter = ListOfStringsToCsvConverter.class)
 	@Expose
     private List<String> dependsOnTable;
     
@@ -79,7 +77,7 @@ public class HDBView extends HDBDataStructure {
 	@Column(name = "HDBVIEW_DEPENDS_ON_VIEW", columnDefinition = "VARCHAR", nullable = true, length = 2000)
 //	@OrderColumn
 //	@ElementCollection(targetClass=String.class)
-	@Convert(converter = ArrayOfStringsToCsvConverter.class)
+	@Convert(converter = ListOfStringsToCsvConverter.class)
 	@Expose
     private List<String> dependsOnView;
 	

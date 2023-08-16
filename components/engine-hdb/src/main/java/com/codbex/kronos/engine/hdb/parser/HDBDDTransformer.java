@@ -274,7 +274,7 @@ public class HDBDDTransformer {
 		viewModel.setClassic(false);
 		viewModel.setName(viewSymbol.getFullName());
 		viewModel.setSchema(viewSymbol.getSchema());
-		viewModel.setContent(finalViewSql);
+		viewModel.setQuery(finalViewSql);
 		viewModel.setLocation(location);
 		return viewModel;
 	}
@@ -516,6 +516,10 @@ public class HDBDDTransformer {
 				StructuredDataTypeSymbol structuredDataTypeSymbol = (StructuredDataTypeSymbol) dataType.getType();
 				transformStructuredDataTypeToHdbTableType(structuredDataTypeSymbol);
 			}
+		} else if (fieldSymbol.getType() instanceof StructuredDataTypeSymbol) {
+			throw new IllegalArgumentException("StructuredDataTypeSymbol not supported table type: " + fieldSymbol.getType());
+		} else {
+			throw new IllegalArgumentException("Unknown table type: " + fieldSymbol.getType());
 		}
 	}
 

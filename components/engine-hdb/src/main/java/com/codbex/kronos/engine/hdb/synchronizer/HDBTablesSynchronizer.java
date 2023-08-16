@@ -329,7 +329,7 @@ public class HDBTablesSynchronizer<A extends Artefact> implements Synchronizer<H
 			}
 			
 			return true;
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			callback.addError(e.getMessage());
 			callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, e.getMessage());

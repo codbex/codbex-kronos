@@ -11,9 +11,7 @@
  */
 package com.codbex.kronos.engine.xssecurity.domain;
 
-import java.sql.Timestamp;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Nullable;
 import javax.persistence.Column;
@@ -22,12 +20,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.eclipse.dirigible.components.base.artefact.Artefact;
-import org.eclipse.dirigible.components.base.converters.ArrayOfStringsToCsvConverter;
 import org.eclipse.dirigible.components.base.converters.ListOfStringsToCsvConverter;
 
 import com.google.gson.annotations.Expose;
