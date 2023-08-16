@@ -1,7 +1,7 @@
 # (Optional) JDK_TYPE could be `default-jdk` or `external-jdk`
 ARG JDK_TYPE=default-jdk
 
-FROM tomcat:10.1.11-jre17-temurin AS base
+FROM tomcat:10.1.12-jre17-temurin AS base
 
 FROM base AS kronos-external-jdk
 # If JDK_TYPE is set to `external-jdk`, then the JDK_HOME is required and it should point to the home directory of the jdk
