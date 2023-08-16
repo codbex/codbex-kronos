@@ -579,7 +579,7 @@ public class HDBDDDataStructureParserTest {
     HDBDD parsedModel = HDBDataStructureModelFactory.parseHdbdd("gstr2/ViewDefinitionSimple.hdbdd", "");
     HDBView viewModel = parsedModel.getViews().get(0);
 
-    assertEquals(expectedRawContent, viewModel.getContent().trim());
+    assertEquals(expectedRawContent, viewModel.getQuery().trim());
   }
 
   @Test
@@ -590,7 +590,7 @@ public class HDBDDDataStructureParserTest {
     HDBDD parsedModel = HDBDataStructureModelFactory.parseHdbdd("gstr2/ViewDefinitionWithJoin.hdbdd", "");
     HDBView viewModel = parsedModel.getViews().get(0);
 
-    assertEquals(expectedRawContent, viewModel.getContent().trim());
+    assertEquals(expectedRawContent, viewModel.getQuery().trim());
   }
 
   @Test
@@ -601,7 +601,7 @@ public class HDBDDDataStructureParserTest {
     HDBDD parsedModel = HDBDataStructureModelFactory.parseHdbdd("gstr2/ViewDefinitionWithWhere.hdbdd", "");
     HDBView viewModel = parsedModel.getViews().get(0);
 
-    assertEquals(expectedRawContent, viewModel.getContent().trim());
+    assertEquals(expectedRawContent, viewModel.getQuery().trim());
   }
   
   @Test
@@ -612,7 +612,7 @@ public class HDBDDDataStructureParserTest {
     HDBDD parsedModel = HDBDataStructureModelFactory.parseHdbdd("gstr2/ViewDefinitionWithCase.hdbdd", "");
     HDBView viewModel = parsedModel.getViews().get(0);
 
-    assertEquals(expectedRawContent, viewModel.getContent().trim());
+    assertEquals(expectedRawContent, viewModel.getQuery().trim());
   }
 
 //  @Test
@@ -634,7 +634,7 @@ public class HDBDDDataStructureParserTest {
     HDBDD parsedModel = HDBDataStructureModelFactory.parseHdbdd("gstr2/ViewDefinitionNested.hdbdd", "");
     HDBView viewModel = parsedModel.getViews().get(0);
 
-    assertEquals(expectedRawContent, viewModel.getContent().trim());
+    assertEquals(expectedRawContent, viewModel.getQuery().trim());
   }
 
   @Test
@@ -671,7 +671,7 @@ public class HDBDDDataStructureParserTest {
   public void testParseHDBDDWithSelectDistinct() throws Exception {
 	migrator.migrate("gstr2/SelectDistinct.hdbdd");
 	HDBDD parsedModel = HDBDataStructureModelFactory.parseHdbdd("gstr2/SelectDistinct.hdbdd", "");
-    assertTrue(parsedModel.getViews().get(0).getContent().contains("SELECT DISTINCT"), "Expected SELECT DISTINCT, but it is not found");
+    assertTrue(parsedModel.getViews().get(0).getQuery().contains("SELECT DISTINCT"), "Expected SELECT DISTINCT, but it is not found");
   }
 
   @Test
