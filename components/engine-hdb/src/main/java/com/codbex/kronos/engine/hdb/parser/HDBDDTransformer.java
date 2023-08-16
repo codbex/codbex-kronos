@@ -436,8 +436,6 @@ public class HDBDDTransformer {
 		hdbTableTypeModel.setClassic(true);
 		hdbTableTypeModel.setName(structuredDataTypeSymbol.getFullName());
 		hdbTableTypeModel.setSchema(structuredDataTypeSymbol.getSchema());
-		hdbTableTypeModel.setCreatedAt(new Timestamp(new java.util.Date().getTime()));
-		hdbTableTypeModel.setCreatedBy(UserFacade.getName());
 
 		return hdbTableTypeModel;
 	}
@@ -516,8 +514,6 @@ public class HDBDDTransformer {
 				StructuredDataTypeSymbol structuredDataTypeSymbol = (StructuredDataTypeSymbol) dataType.getType();
 				transformStructuredDataTypeToHdbTableType(structuredDataTypeSymbol);
 			}
-		} else if (fieldSymbol.getType() instanceof StructuredDataTypeSymbol) {
-			throw new IllegalArgumentException("StructuredDataTypeSymbol not supported table type: " + fieldSymbol.getType());
 		} else {
 			throw new IllegalArgumentException("Unknown table type: " + fieldSymbol.getType());
 		}
