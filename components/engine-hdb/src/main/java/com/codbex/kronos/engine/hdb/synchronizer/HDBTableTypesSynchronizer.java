@@ -144,8 +144,8 @@ public class HDBTableTypesSynchronizer<A extends Artefact> implements Synchroniz
 				tableType.setId(maybe.getId());
 				reassignIds(tableType, maybe);
 			}
-			HDBTableType result = getService().save(tableType);
-			return List.of(result);
+			getService().save(tableType);
+			return List.of(tableType);
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			if (logger.isErrorEnabled()) {logger.error("hdbtabletype: {}", tableType);}

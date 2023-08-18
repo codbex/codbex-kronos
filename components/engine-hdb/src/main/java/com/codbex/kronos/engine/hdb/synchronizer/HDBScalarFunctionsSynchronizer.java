@@ -141,7 +141,7 @@ public class HDBScalarFunctionsSynchronizer<A extends Artefact> implements Synch
 			if (maybe != null) {
 				scalarfunction.setId(maybe.getId());
 			}
-			scalarfunction = getService().save(scalarfunction);
+			getService().save(scalarfunction);
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			if (logger.isErrorEnabled()) {logger.error("scalarfunction: {}", scalarfunction);}

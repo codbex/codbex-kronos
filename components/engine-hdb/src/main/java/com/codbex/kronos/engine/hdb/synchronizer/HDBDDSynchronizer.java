@@ -244,8 +244,8 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 					}
 				});
 			}
-			HDBDD result = getService().save(hdbdd);
-			return List.of(result);
+			getService().save(hdbdd);
+			return List.of(hdbdd);
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			if (logger.isErrorEnabled()) {logger.error("hdbdd: {}", hdbdd);}

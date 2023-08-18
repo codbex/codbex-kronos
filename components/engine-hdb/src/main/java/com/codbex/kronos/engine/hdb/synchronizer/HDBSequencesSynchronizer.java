@@ -141,7 +141,7 @@ public class HDBSequencesSynchronizer<A extends Artefact> implements Synchronize
 			if (maybe != null) {
 				sequence.setId(maybe.getId());
 			}
-			sequence = getService().save(sequence);
+			getService().save(sequence);
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			if (logger.isErrorEnabled()) {logger.error("sequence: {}", sequence);}

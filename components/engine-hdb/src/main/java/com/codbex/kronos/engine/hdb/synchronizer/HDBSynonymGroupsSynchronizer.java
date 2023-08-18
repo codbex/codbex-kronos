@@ -145,7 +145,7 @@ public class HDBSynonymGroupsSynchronizer<A extends Artefact> implements Synchro
 				synonymGroup.setId(maybe.getId());
 				reassignIds(synonymGroup, maybe);
 			}
-			synonymGroup = getService().save(synonymGroup);
+			getService().save(synonymGroup);
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			if (logger.isErrorEnabled()) {logger.error("synonym: {}", synonymGroup);}

@@ -141,7 +141,7 @@ public class HDBViewsSynchronizer<A extends Artefact> implements Synchronizer<HD
 			if (maybe != null) {
 				view.setId(maybe.getId());
 			}
-			view = getService().save(view);
+			getService().save(view);
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			if (logger.isErrorEnabled()) {logger.error("view: {}", view);}

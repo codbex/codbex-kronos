@@ -141,7 +141,7 @@ public class HDBTableFunctionsSynchronizer<A extends Artefact> implements Synchr
 			if (maybe != null) {
 				tablefunction.setId(maybe.getId());
 			}
-			tablefunction = getService().save(tablefunction);
+			getService().save(tablefunction);
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			if (logger.isErrorEnabled()) {logger.error("tablefunction: {}", tablefunction);}

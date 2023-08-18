@@ -151,8 +151,8 @@ public class HDBTablesSynchronizer<A extends Artefact> implements Synchronizer<H
 				table.setId(maybe.getId());
 				reassignIds(table, maybe);
 			}
-			HDBTable result = getService().save(table);
-			return List.of(result);
+			getService().save(table);
+			return List.of(table);
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			if (logger.isErrorEnabled()) {logger.error("hdbtable: {}", table);}

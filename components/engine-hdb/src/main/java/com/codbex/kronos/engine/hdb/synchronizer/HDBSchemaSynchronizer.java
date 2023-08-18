@@ -141,7 +141,7 @@ public class HDBSchemaSynchronizer<A extends Artefact> implements Synchronizer<H
 			if (maybe != null) {
 				schema.setId(maybe.getId());
 			}
-			schema = getService().save(schema);
+			getService().save(schema);
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			if (logger.isErrorEnabled()) {logger.error("schema: {}", schema);}

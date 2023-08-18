@@ -141,7 +141,7 @@ public class HDBProceduresSynchronizer<A extends Artefact> implements Synchroniz
 			if (maybe != null) {
 				procedure.setId(maybe.getId());
 			}
-			procedure = getService().save(procedure);
+			getService().save(procedure);
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			if (logger.isErrorEnabled()) {logger.error("procedure: {}", procedure);}
