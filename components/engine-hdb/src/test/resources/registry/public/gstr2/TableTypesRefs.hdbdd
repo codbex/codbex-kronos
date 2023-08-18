@@ -1,0 +1,14 @@
+namespace gstr2;
+
+@Schema: 'ADMIN'
+context TableTypesRefs {
+
+	type TAaa : String(256);
+
+	type tt_FF {
+        P_AA: TAaa;
+        P_AB: TAaa;
+        P_AC: TAaa;
+        P_AD: TAaa;
+	};
+}

@@ -477,8 +477,7 @@ public class HDBDDTransformer {
 	 * @param bAssignPK   the b assign PK
 	 * @param columnModel the column model
 	 */
-	private void setTransformFieldSymbolToColumnModel(FieldSymbol fieldSymbol, boolean bAssignPK,
-			HDBColumn columnModel) {
+	private void setTransformFieldSymbolToColumnModel(FieldSymbol fieldSymbol, boolean bAssignPK, HDBColumn columnModel) {
 		columnModel.setAlias(fieldSymbol.getAlias());
 		columnModel.setName(fieldSymbol.getName());
 
@@ -515,7 +514,7 @@ public class HDBDDTransformer {
 				transformStructuredDataTypeToHdbTableType(structuredDataTypeSymbol);
 			}
 		} else {
-			throw new IllegalArgumentException("Unknown table type: " + fieldSymbol.getType());
+			throw new IllegalArgumentException(String.format("Unknown type: %s, for column: %", fieldSymbol.getType(), columnModel.getName()));
 		}
 	}
 

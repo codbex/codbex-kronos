@@ -698,6 +698,13 @@ public class HDBDDDataStructureParserTest {
         parsedModel.getTableTypes().get(0).getName());
     assertEquals("gstr2::StructuredDataTypeSymbol.newType", parsedModel.getTableTypes().get(1).getName());
   }
+  
+  @Test
+  public void testParseHDBDDWithTableTypesRefs() throws Exception {
+	migrator.migrate("gstr2/TableTypesRefs.hdbdd");
+	HDBDD parsedModel = HDBDataStructureModelFactory.parseHdbdd("gstr2/TableTypesRefs.hdbdd", "");
+    assertEquals("gstr2::TableTypesRefs.tt_FF", parsedModel.getTableTypes().get(0).getName());
+  }
 
   @Test
   public void testParseHDBDDWithUniqueCatalogIndex() throws Exception {
