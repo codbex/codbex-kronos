@@ -45,6 +45,7 @@ import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.parser.HDBUtils;
 import com.codbex.kronos.engine.hdb.processors.HDBTableAlterProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBTableCreateProcessor;
+import com.codbex.kronos.engine.hdb.processors.HDBTableTypeCreateProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBViewCreateProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBViewDropProcessor;
 import com.codbex.kronos.engine.hdb.service.HDBDDService;
@@ -385,7 +386,11 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 	 *             the SQL exception
 	 */
 	public void executeHDBDDCreate(Connection connection, HDBDD hdbddModel) throws SQLException {
-		
+
+		for (HDBTableType entityModel: hdbddModel.getTableTypes()) {
+			new HDBTableTypeCreateProcessor().execute(connection, entityModel);
+		}
+
 		for (HDBTable entityModel : hdbddModel.getTables()) {
 	        String tableName = HDBUtils.escapeArtifactName(entityModel.getName(), entityModel.getSchema());
 	        if (!SqlFactory.getNative(connection).exists(connection, tableName)) {

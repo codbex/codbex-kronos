@@ -28,7 +28,6 @@ import org.slf4j.LoggerFactory;
 
 import com.codbex.kronos.engine.hdb.domain.HDBTableType;
 import com.codbex.kronos.engine.hdb.domain.HDBTableTypeColumn;
-import com.codbex.kronos.engine.hdb.parser.Constants;
 import com.codbex.kronos.engine.hdb.parser.HDBUtils;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
@@ -75,7 +74,7 @@ public class HDBTableTypeCreateProcessor extends AbstractHDBProcessor<HDBTableTy
 
       ISqlDialect dialect = SqlFactory.deriveDialect(connection);
       if (dialect.getClass().equals(HanaSqlDialect.class)) {
-        sql = Constants.HDBTABLETYPE_CREATE + tableTypeModel.getContent();
+        sql = createTableTypeBuilder.build();
       } else {
         String errorMessage = String.format("Table Types are not supported for %s", dialect.getDatabaseName(connection));
         CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableTypeModel.getLocation(), tableTypeParser);
