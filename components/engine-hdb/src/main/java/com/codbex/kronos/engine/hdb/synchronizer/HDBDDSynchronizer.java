@@ -11,7 +11,6 @@
  */
 package com.codbex.kronos.engine.hdb.synchronizer;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.sql.Connection;
@@ -34,7 +33,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdb.domain.HDBDD;
 import com.codbex.kronos.engine.hdb.domain.HDBTable;
 import com.codbex.kronos.engine.hdb.domain.HDBTableConstraints;
@@ -175,7 +173,7 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 		HDBDD hdbdd;
 		try {
 			hdbdd = HDBDataStructureModelFactory.parseHdbdd(location, content);
-		} catch (DataStructuresException | IOException e) {
+		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			if (logger.isErrorEnabled()) {logger.error("hdbdd: {}", location);}
 			if (logger.isErrorEnabled()) {logger.error("content: {}", new String(content));}
@@ -326,8 +324,9 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 			return true;
 			
 		} catch (Exception e) {
-			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
-			callback.addError(e.getMessage());
+			String errorMessage = String.format("Error occurred while processing [%s]: %s", wrapper.getArtefact().getLocation(), e.getMessage());
+			if (logger.isErrorEnabled()) {logger.error(errorMessage, e);}
+			callback.addError(errorMessage);
 			callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, e.getMessage());
 			return false;
 		}

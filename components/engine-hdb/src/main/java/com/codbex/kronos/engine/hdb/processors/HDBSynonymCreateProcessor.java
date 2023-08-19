@@ -57,6 +57,10 @@ public class HDBSynonymCreateProcessor extends AbstractHDBProcessor<HDBSynonymGr
 	      try {
 	        String synonymSchema = null != entry.getValue().getSchema() ? entry.getValue().getSchema() : connection.getMetaData().getUserName();
 	        if (!SqlFactory.getNative(connection).exists(connection, synonymSchema, entry.getKey(), DatabaseArtifactTypes.SYNONYM)) {
+				// TODO: Add Support for public synonym creation
+				// "CREATE SYNONYM "PUBLIC"."com.codbex.test.data::Test.Table1234" FOR "SCHEMA_NAME"."com.codbex.test.data::Test.Table1234""
+				// ->
+				// "CREATE PUBLIC SYNONYM "com.codbex.test.data::Test.Table1234" FOR "SCHEMA_NAME"."com.codbex.test.data::Test.Table1234""
 	          String sql = SqlFactory.getNative(connection).create().synonym(synonymName).forSource(targetObjectName).build();
 	          executeSql(sql, connection);
 	          String message = String.format("Create synonym [%s] successfully", synonymName);
