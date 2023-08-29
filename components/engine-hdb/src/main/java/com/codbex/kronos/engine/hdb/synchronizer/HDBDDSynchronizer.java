@@ -302,6 +302,9 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 				if (ArtefactLifecycle.NEW.equals(hdbdd.getLifecycle())) {
 					executeHDBDDCreate(connection, hdbdd);
 					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+				} else if (ArtefactLifecycle.FAILED.equals(hdbdd.getLifecycle())) {
+					executeFailedHDBDDCreate(connection, hdbdd);
+					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 				}
 				break;
 			case UPDATE:
@@ -407,6 +410,49 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 	        	new HDBViewDropProcessor().execute(connection, entityModel);
 	        	new HDBViewCreateProcessor().execute(connection, entityModel);
 	        }
+	    }
+	}
+
+	/**
+	 * Execute HDBDD create of FAILED artefacts.
+	 *
+	 * @param connection
+	 *            the connection
+	 * @param hdbddModel
+	 *            the HDBDD model
+	 * @throws SQLException
+	 *             the SQL exception
+	 */
+	public void executeFailedHDBDDCreate(Connection connection, HDBDD hdbddModel) throws SQLException {
+
+		for (HDBTableType entityModel: hdbddModel.getTableTypes()) {
+			try {
+				new HDBTableTypeCreateProcessor().execute(connection, entityModel);
+			} catch(Exception e) {
+				// Do nothing
+			}
+		}
+
+		for (HDBTable entityModel : hdbddModel.getTables()) {
+			try {
+				String tableName = HDBUtils.escapeArtifactName(entityModel.getName(), entityModel.getSchema());
+				if (!SqlFactory.getNative(connection).exists(connection, tableName)) {
+					new HDBTableCreateProcessor().execute(connection, entityModel);
+				}
+			} catch (Exception e) {
+				// Do nothing
+			}
+	    }
+
+		for (HDBView entityModel : hdbddModel.getViews()) {
+			try {
+				String viewName = HDBUtils.escapeArtifactName(entityModel.getName(), entityModel.getSchema());
+				if (!SqlFactory.getNative(connection).exists(connection, viewName)) {
+					new HDBViewCreateProcessor().execute(connection, entityModel);
+				}
+			} catch (Exception e) {
+				// Do nothing
+			}
 	    }
 	}
 	

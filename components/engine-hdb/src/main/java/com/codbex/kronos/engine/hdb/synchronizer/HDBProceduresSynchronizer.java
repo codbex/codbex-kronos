@@ -197,7 +197,7 @@ public class HDBProceduresSynchronizer<A extends Artefact> implements Synchroniz
 			
 			switch (flow) {
 			case CREATE:
-				if (ArtefactLifecycle.NEW.equals(procedure.getLifecycle())) {
+				if (ArtefactLifecycle.NEW.equals(procedure.getLifecycle()) || ArtefactLifecycle.FAILED.equals(procedure.getLifecycle())) {
 					if (!SqlFactory.getNative(connection).exists(connection, procedure.getName())) {
 						executeProcedureCreate(connection, procedure);
 						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
