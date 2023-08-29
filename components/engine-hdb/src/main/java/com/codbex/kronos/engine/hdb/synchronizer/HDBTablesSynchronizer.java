@@ -280,7 +280,7 @@ public class HDBTablesSynchronizer<A extends Artefact> implements Synchronizer<H
 			
 			switch (flow) {
 			case CREATE:
-				if (ArtefactLifecycle.NEW.equals(table.getLifecycle())) {
+				if (ArtefactLifecycle.NEW.equals(table.getLifecycle()) || ArtefactLifecycle.FAILED.equals(table.getLifecycle())) {
 					if (!SqlFactory.getNative(connection).exists(connection, table.getName())) {
 						executeTableCreate(connection, table);
 						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
