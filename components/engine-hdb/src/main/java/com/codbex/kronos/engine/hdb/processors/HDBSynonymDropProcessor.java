@@ -54,6 +54,8 @@ public class HDBSynonymDropProcessor extends AbstractHDBProcessor<HDBSynonymGrou
       String synonymName = (entry.getValue().getSchema() != null) ? HDBUtils.escapeArtifactName(entry.getKey(), entry.getValue().getSchema()) : HDBUtils.escapeArtifactName(entry.getKey());
       try {
         if (SqlFactory.getNative(connection).exists(connection, entry.getValue().getSchema(), entry.getKey(), DatabaseArtifactTypes.SYNONYM)) {
+          // TODO: Fix https://github.com/codbex/codbex-kronos/issues/420
+          // TODO: [HDBDD] Public synonyms are not created #420
           String sql = SqlFactory.getNative(connection).drop().synonym(synonymName).build();
           executeSql(sql, connection);
           String message = String.format("Drop synonym [%s] successfully", synonymName);
@@ -65,7 +67,12 @@ public class HDBSynonymDropProcessor extends AbstractHDBProcessor<HDBSynonymGrou
       } catch (SQLException ex) {
         String errorMessage = String.format("Drop synonym [%s] skipped due to an error: %s", synonymModel.getName(), ex.getMessage());
         CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, synonymModel.getLocation(), CommonsConstants.HDB_SYNONYM_PARSER);
-        throw ex;
+
+        // TODO: Fix https://github.com/codbex/codbex-kronos/issues/420
+        // TODO: [HDBDD] Public synonyms are not created #420
+
+        // Temporary disabled -> To be uncommented when #420 [HDBDD] Public synonyms are not created is fixed
+        // throw ex;
       }
     }
   }

@@ -57,22 +57,25 @@ public class HDBSynonymCreateProcessor extends AbstractHDBProcessor<HDBSynonymGr
 	      try {
 	        String synonymSchema = null != entry.getValue().getSchema() ? entry.getValue().getSchema() : connection.getMetaData().getUserName();
 	        if (!SqlFactory.getNative(connection).exists(connection, synonymSchema, entry.getKey(), DatabaseArtifactTypes.SYNONYM)) {
-				// TODO: Add Support for public synonym creation
-				// "CREATE SYNONYM "PUBLIC"."com.codbex.test.data::Test.Table1234" FOR "SCHEMA_NAME"."com.codbex.test.data::Test.Table1234""
-				// ->
-				// "CREATE PUBLIC SYNONYM "com.codbex.test.data::Test.Table1234" FOR "SCHEMA_NAME"."com.codbex.test.data::Test.Table1234""
-	          String sql = SqlFactory.getNative(connection).create().synonym(synonymName).forSource(targetObjectName).build();
-	          executeSql(sql, connection);
-	          String message = String.format("Create synonym [%s] successfully", synonymName);
-	          logger.info(message);
+				// TODO: Fix https://github.com/codbex/codbex-kronos/issues/420
+				// TODO: [HDBDD] Public synonyms are not created #420
+				String sql = SqlFactory.getNative(connection).create().synonym(synonymName).forSource(targetObjectName).build();
+				executeSql(sql, connection);
+				String message = String.format("Create synonym [%s] successfully", synonymName);
+				logger.info(message);
 	        } else {
-	          String warningMessage = String.format("Synonym [%s] already exists during the create process", synonymName);
-	          logger.warn(warningMessage);
+				String warningMessage = String.format("Synonym [%s] already exists during the create process", synonymName);
+				logger.warn(warningMessage);
 	        }
-	      } catch (SQLException ex) {
-	        String errorMessage = String.format("Create synonym [%s] skipped due to an error: %s", synonymName, ex.getMessage());
+		} catch (SQLException ex) {
+			String errorMessage = String.format("Create synonym [%s] skipped due to an error: %s", synonymName, ex.getMessage());
 			CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, synonymModel.getLocation(), CommonsConstants.HDB_SYNONYM_PARSER);
-			throw ex;
+
+			// TODO: Fix https://github.com/codbex/codbex-kronos/issues/420
+			// TODO: [HDBDD] Public synonyms are not created #420
+
+			// Temporary disabled -> To be uncommented when #420 [HDBDD] Public synonyms are not created is fixed
+			// throw ex;
 	      }
 	    };
     }
