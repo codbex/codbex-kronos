@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
+import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.eclipse.dirigible.components.base.artefact.Artefact;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
 import org.eclipse.dirigible.components.base.artefact.ArtefactPhase;
@@ -205,6 +206,12 @@ public class HDBViewsSynchronizer<A extends Artefact> implements Synchronizer<HD
 						if (logger.isWarnEnabled()) {logger.warn(String.format("HDBView [%s] already exists during the update process", view.getName()));}
 						executeViewUpdate(connection, view);
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+					}
+				} else if (ArtefactLifecycle.FAILED.equals(view.getLifecycle())) {
+					if (!SqlFactory.getNative(connection).exists(connection, view.getName())) {
+						executeViewCreate(connection, view);
+						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+						ProblemsFacade.deleteArtefactSynchronizationProblem(view);
 					}
 				}
 				break;

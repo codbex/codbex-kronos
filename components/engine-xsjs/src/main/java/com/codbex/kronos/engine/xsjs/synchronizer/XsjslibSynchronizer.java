@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.eclipse.dirigible.components.base.artefact.Artefact;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
 import org.eclipse.dirigible.components.base.artefact.ArtefactPhase;
@@ -208,6 +209,10 @@ public class XsjslibSynchronizer<A extends Artefact> implements Synchronizer<Xsj
 				if (xsjslib.getLifecycle().equals(ArtefactLifecycle.NEW)) {
 					synchronizeXSJSLibs(xsjslib);
 					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+				} else if (xsjslib.getLifecycle().equals(ArtefactLifecycle.FAILED)) {
+					synchronizeXSJSLibs(xsjslib);
+					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+					ProblemsFacade.deleteArtefactSynchronizationProblem(xsjslib);
 				}
 				break;
 			case UPDATE:

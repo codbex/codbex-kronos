@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
+import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.eclipse.dirigible.components.base.artefact.Artefact;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
 import org.eclipse.dirigible.components.base.artefact.ArtefactPhase;
@@ -280,7 +281,7 @@ public class HDBTablesSynchronizer<A extends Artefact> implements Synchronizer<H
 			
 			switch (flow) {
 			case CREATE:
-				if (ArtefactLifecycle.NEW.equals(table.getLifecycle()) || ArtefactLifecycle.FAILED.equals(table.getLifecycle())) {
+				if (ArtefactLifecycle.NEW.equals(table.getLifecycle())) {
 					if (!SqlFactory.getNative(connection).exists(connection, table.getName())) {
 						executeTableCreate(connection, table);
 						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
@@ -288,6 +289,12 @@ public class HDBTablesSynchronizer<A extends Artefact> implements Synchronizer<H
 						if (logger.isWarnEnabled()) {logger.warn(String.format("HDBTable [%s] already exists during the update process", table.getName()));}
 						executeTableAlter(connection, table);
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+					}
+				} else if (ArtefactLifecycle.FAILED.equals(table.getLifecycle())) {
+					if (!SqlFactory.getNative(connection).exists(connection, table.getName())) {
+						executeTableCreate(connection, table);
+						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+						ProblemsFacade.deleteArtefactSynchronizationProblem(table);
 					}
 				}
 				break;

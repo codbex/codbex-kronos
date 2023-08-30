@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
+import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.eclipse.dirigible.components.base.artefact.Artefact;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
 import org.eclipse.dirigible.components.base.artefact.ArtefactPhase;
@@ -197,7 +198,7 @@ public class HDBProceduresSynchronizer<A extends Artefact> implements Synchroniz
 			
 			switch (flow) {
 			case CREATE:
-				if (ArtefactLifecycle.NEW.equals(procedure.getLifecycle()) || ArtefactLifecycle.FAILED.equals(procedure.getLifecycle())) {
+				if (ArtefactLifecycle.NEW.equals(procedure.getLifecycle())) {
 					if (!SqlFactory.getNative(connection).exists(connection, procedure.getName())) {
 						executeProcedureCreate(connection, procedure);
 						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
@@ -205,6 +206,12 @@ public class HDBProceduresSynchronizer<A extends Artefact> implements Synchroniz
 						if (logger.isWarnEnabled()) {logger.warn(String.format("HDBProcedure [%s] already exists during the update process", procedure.getName()));}
 						executeProcedureUpdate(connection, procedure);
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+					}
+				} else if (ArtefactLifecycle.FAILED.equals(procedure.getLifecycle())) {
+					if (!SqlFactory.getNative(connection).exists(connection, procedure.getName())) {
+						executeProcedureCreate(connection, procedure);
+						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+						ProblemsFacade.deleteArtefactSynchronizationProblem(procedure);
 					}
 				}
 				break;

@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
+import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.eclipse.dirigible.components.base.artefact.Artefact;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
 import org.eclipse.dirigible.components.base.artefact.ArtefactPhase;
@@ -305,6 +306,7 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 				} else if (ArtefactLifecycle.FAILED.equals(hdbdd.getLifecycle())) {
 					executeFailedHDBDDCreate(connection, hdbdd);
 					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+					ProblemsFacade.deleteArtefactSynchronizationProblem(hdbdd);
 				}
 				break;
 			case UPDATE:

@@ -20,6 +20,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import org.eclipse.dirigible.commons.config.Configuration;
+import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.eclipse.dirigible.components.base.artefact.Artefact;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
 import org.eclipse.dirigible.components.base.artefact.ArtefactPhase;
@@ -236,6 +237,10 @@ public class XSODataSynchronizer<A extends Artefact> implements Synchronizer<XSO
 				if (odata.getLifecycle().equals(ArtefactLifecycle.NEW)) {
 					generateOData(odata);
 					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+				} else if (odata.getLifecycle().equals(ArtefactLifecycle.FAILED)) {
+					generateOData(odata);
+					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+					ProblemsFacade.deleteArtefactSynchronizationProblem(odata);
 				}
 				break;
 			case UPDATE:

@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
+import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.eclipse.dirigible.components.base.artefact.Artefact;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
 import org.eclipse.dirigible.components.base.artefact.ArtefactPhase;
@@ -205,6 +206,12 @@ public class HDBTableFunctionsSynchronizer<A extends Artefact> implements Synchr
 						if (logger.isWarnEnabled()) {logger.warn(String.format("HDBTableFunction [%s] already exists during the update process", tablefunction.getName()));}
 						executeTableFunctionUpdate(connection, tablefunction);
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+					}
+				} else if (ArtefactLifecycle.FAILED.equals(tablefunction.getLifecycle())) {
+					if (!SqlFactory.getNative(connection).exists(connection, tablefunction.getName())) {
+						executeTableFunctionCreate(connection, tablefunction);
+						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+						ProblemsFacade.deleteArtefactSynchronizationProblem(tablefunction);
 					}
 				}
 				break;

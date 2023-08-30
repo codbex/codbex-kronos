@@ -19,6 +19,7 @@ import java.text.ParseException;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.eclipse.dirigible.components.base.artefact.Artefact;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
 import org.eclipse.dirigible.components.base.artefact.ArtefactPhase;
@@ -201,6 +202,10 @@ public class HDISynchronizer<A extends Artefact> implements Synchronizer<HDI> {
 				if (ArtefactLifecycle.NEW.equals(hdi.getLifecycle())) {
 					hdiContainerCreateProcessor.execute(connection, hdi);
 					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+				} else if (ArtefactLifecycle.FAILED.equals(hdi.getLifecycle())) {
+					hdiContainerCreateProcessor.execute(connection, hdi);
+					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+					ProblemsFacade.deleteArtefactSynchronizationProblem(hdi);
 				}
 				break;
 			case UPDATE:
