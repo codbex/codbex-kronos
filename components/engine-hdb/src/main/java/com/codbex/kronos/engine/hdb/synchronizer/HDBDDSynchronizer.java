@@ -333,6 +333,7 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 			if (logger.isErrorEnabled()) {logger.error(errorMessage, e);}
 			callback.addError(errorMessage);
 			callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, e.getMessage());
+			ProblemsFacade.upsertArtefactSynchronizationProblem(wrapper.getArtefact(), errorMessage);
 			return false;
 		}
 	}
