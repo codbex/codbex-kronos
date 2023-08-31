@@ -219,6 +219,7 @@ public class HDBScalarFunctionsSynchronizer<A extends Artefact> implements Synch
 				if (ArtefactLifecycle.MODIFIED.equals(scalarfunction.getLifecycle())) {
 					executeScalarFunctionUpdate(connection, scalarfunction);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+					ProblemsFacade.deleteArtefactSynchronizationProblem(scalarfunction);
 				}
 				break;
 			case DELETE:

@@ -219,6 +219,7 @@ public class HDBTableFunctionsSynchronizer<A extends Artefact> implements Synchr
 				if (ArtefactLifecycle.MODIFIED.equals(tablefunction.getLifecycle())) {
 					executeTableFunctionUpdate(connection, tablefunction);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+					ProblemsFacade.deleteArtefactSynchronizationProblem(tablefunction);
 				}
 				break;
 			case DELETE:

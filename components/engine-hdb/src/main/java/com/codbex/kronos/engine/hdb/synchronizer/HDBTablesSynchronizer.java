@@ -307,6 +307,7 @@ public class HDBTablesSynchronizer<A extends Artefact> implements Synchronizer<H
 				if (ArtefactLifecycle.MODIFIED.equals(table.getLifecycle())) {
 					executeTableUpdate(connection, table);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+					ProblemsFacade.deleteArtefactSynchronizationProblem(table);
 				}
 				break;
 			case DELETE:

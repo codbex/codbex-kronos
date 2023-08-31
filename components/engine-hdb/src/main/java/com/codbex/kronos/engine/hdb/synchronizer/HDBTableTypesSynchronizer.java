@@ -242,6 +242,7 @@ public class HDBTableTypesSynchronizer<A extends Artefact> implements Synchroniz
 				if (ArtefactLifecycle.MODIFIED.equals(tableType.getLifecycle())) {
 					executeTableTypeUpdate(connection, tableType);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+					ProblemsFacade.deleteArtefactSynchronizationProblem(tableType);
 				}
 				break;
 			case DELETE:

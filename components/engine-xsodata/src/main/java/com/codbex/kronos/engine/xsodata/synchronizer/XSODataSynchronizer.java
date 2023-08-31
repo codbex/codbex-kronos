@@ -241,7 +241,7 @@ public class XSODataSynchronizer<A extends Artefact> implements Synchronizer<XSO
 					cleanupOData(odata);
 					generateOData(odata);
 					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
-					ProblemsFacade.deleteArtefactSynchronizationProblem(odata);
+					ProblemsFacade.deleteArtefactSynchronizationProblem(wrapper.getArtefact());
 				}
 				break;
 			case UPDATE:
@@ -249,6 +249,7 @@ public class XSODataSynchronizer<A extends Artefact> implements Synchronizer<XSO
 					cleanupOData(odata);
 					generateOData(odata);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+					ProblemsFacade.deleteArtefactSynchronizationProblem(odata);
 				}
 				break;
 			case DELETE:

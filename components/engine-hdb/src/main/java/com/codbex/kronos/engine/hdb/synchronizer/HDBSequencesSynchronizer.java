@@ -219,6 +219,7 @@ public class HDBSequencesSynchronizer<A extends Artefact> implements Synchronize
 				if (ArtefactLifecycle.MODIFIED.equals(sequence.getLifecycle())) {
 					executeSequenceUpdate(connection, sequence);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+					ProblemsFacade.deleteArtefactSynchronizationProblem(sequence);
 				}
 				break;
 			case DELETE:

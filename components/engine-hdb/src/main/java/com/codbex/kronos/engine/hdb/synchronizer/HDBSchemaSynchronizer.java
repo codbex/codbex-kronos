@@ -219,6 +219,7 @@ public class HDBSchemaSynchronizer<A extends Artefact> implements Synchronizer<H
 				if (ArtefactLifecycle.MODIFIED.equals(schema.getLifecycle())) {
 					executeSchemaUpdate(connection, schema);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+					ProblemsFacade.deleteArtefactSynchronizationProblem(schema);
 				}
 				break;
 			case DELETE:

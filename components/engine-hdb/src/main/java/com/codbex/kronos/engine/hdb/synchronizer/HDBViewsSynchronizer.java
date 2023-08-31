@@ -219,6 +219,7 @@ public class HDBViewsSynchronizer<A extends Artefact> implements Synchronizer<HD
 				if (ArtefactLifecycle.MODIFIED.equals(view.getLifecycle())) {
 					executeViewUpdate(connection, view);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+					ProblemsFacade.deleteArtefactSynchronizationProblem(view);
 				}
 				break;
 			case DELETE:

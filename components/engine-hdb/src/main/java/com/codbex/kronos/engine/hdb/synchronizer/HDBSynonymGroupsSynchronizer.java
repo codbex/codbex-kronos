@@ -243,6 +243,7 @@ public class HDBSynonymGroupsSynchronizer<A extends Artefact> implements Synchro
 				if (ArtefactLifecycle.MODIFIED.equals(synonymGroup.getLifecycle())) {
 					executeSynonymGroupUpdate(connection, synonymGroup);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+					ProblemsFacade.deleteArtefactSynchronizationProblem(synonymGroup);
 				}
 				break;
 			case DELETE:

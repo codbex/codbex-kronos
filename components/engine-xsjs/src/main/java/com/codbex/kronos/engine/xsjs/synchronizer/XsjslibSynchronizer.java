@@ -219,6 +219,7 @@ public class XsjslibSynchronizer<A extends Artefact> implements Synchronizer<Xsj
 				if (xsjslib.getLifecycle().equals(ArtefactLifecycle.MODIFIED)) {
 					synchronizeXSJSLibs(xsjslib);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+					ProblemsFacade.deleteArtefactSynchronizationProblem(xsjslib);
 				}
 				break;
 			case DELETE:

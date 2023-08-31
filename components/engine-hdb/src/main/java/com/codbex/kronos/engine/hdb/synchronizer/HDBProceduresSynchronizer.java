@@ -219,6 +219,7 @@ public class HDBProceduresSynchronizer<A extends Artefact> implements Synchroniz
 				if (ArtefactLifecycle.MODIFIED.equals(procedure.getLifecycle())) {
 					executeProcedureUpdate(connection, procedure);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+					ProblemsFacade.deleteArtefactSynchronizationProblem(procedure);
 				}
 				break;
 			case DELETE:

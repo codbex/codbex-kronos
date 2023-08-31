@@ -215,10 +215,12 @@ public class XSJobSynchronizer<A extends Artefact> implements Synchronizer<XSJob
 						xsjob.setRunning(true);
 						getService().save(xsjob);
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+						ProblemsFacade.deleteArtefactSynchronizationProblem(xsjob);
 					} catch (Exception e) {
 						if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			            callback.addError(e.getMessage());
-						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, e.getMessage());
+						callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, e.getMessage());
+						ProblemsFacade.upsertArtefactSynchronizationProblem(xsjob, e.getMessage());
 					}
 				}
 				break;

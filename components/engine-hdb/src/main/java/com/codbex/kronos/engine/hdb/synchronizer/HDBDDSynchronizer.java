@@ -313,6 +313,7 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 				if (ArtefactLifecycle.MODIFIED.equals(hdbdd.getLifecycle())) {
 					executeHDBDDUpdate(connection, hdbdd);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+					ProblemsFacade.deleteArtefactSynchronizationProblem(hdbdd);
 				}
 				break;
 			case DELETE:

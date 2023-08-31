@@ -212,9 +212,10 @@ public class HDISynchronizer<A extends Artefact> implements Synchronizer<HDI> {
 					try {
 						hdiContainerCreateProcessor.execute(connection, hdi);
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+						ProblemsFacade.deleteArtefactSynchronizationProblem(hdi);
 					} catch (DataStructuresException e) {
 						if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
-						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, e.getMessage());
+						callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, e.getMessage());
 					}
 				}
 				break;
