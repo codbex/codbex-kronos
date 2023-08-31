@@ -34,13 +34,12 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.dirigible.commons.config.Configuration;
+import org.eclipse.dirigible.components.data.sources.manager.DataSourcesManager;
 import org.eclipse.dirigible.database.persistence.model.PersistenceTableModel;
 import org.eclipse.dirigible.database.sql.ISqlKeywords;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.codbex.kronos.engine.xsodata.domain.XSOData;
@@ -102,26 +101,17 @@ public class XSODataArtefactParser implements InitializingBean {
 		return INSTANCE;
 	}
 
-	/** The SystemDB datasource. */
-	@Autowired
-	@Qualifier("SystemDB")
-	private DataSource systemDatasource;
-
-	/** The DefaultDB datasource. */
-	@Autowired
-	private DataSource defaultDatasource;
-
 	/**
 	 * Gets the datasource.
 	 *
 	 * @return the datasource
 	 */
 	public DataSource getSystemDatasource() {
-		return systemDatasource;
+		return DataSourcesManager.get().getSystemDataSource();
 	}
 
 	public DataSource getDefaultDatasource() {
-		return defaultDatasource;
+		return DataSourcesManager.get().getDefaultDataSource();
 	}
 	
 	/**

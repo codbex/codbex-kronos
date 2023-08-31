@@ -19,7 +19,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.eclipse.dirigible.commons.config.Configuration;
-import org.eclipse.dirigible.commons.config.StaticObjects;
+import org.eclipse.dirigible.components.data.sources.manager.DataSourcesManager;
 import org.eclipse.dirigible.components.data.structures.domain.Table;
 import org.eclipse.dirigible.components.odata.api.ODataEntity;
 import org.eclipse.dirigible.components.odata.transformers.ODataDatabaseMetadataUtil;
@@ -35,7 +35,7 @@ public class TableMetadataProvider implements org.eclipse.dirigible.components.o
 
   /** The data source. */
   private DataSource getDataSource() { 
-	  return (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
+	  return DataSourcesManager.get().getDefaultDataSource();
   }
 
   /** The Constant logger. */

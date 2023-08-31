@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 import javax.sql.DataSource;
 
 import org.apache.olingo.odata2.api.edm.EdmMultiplicity;
-import org.eclipse.dirigible.commons.config.StaticObjects;
+import org.eclipse.dirigible.components.data.sources.manager.DataSourcesManager;
 import org.eclipse.dirigible.components.data.structures.domain.Table;
 import org.eclipse.dirigible.components.data.structures.domain.TableColumn;
 import org.eclipse.dirigible.components.odata.api.ODataAssociation;
@@ -67,7 +67,7 @@ public class ODataUtils {
 	 * @return the data source
 	 */
   private DataSource getDataSource() { 
-	  return (DataSource) StaticObjects.get(StaticObjects.DATASOURCE);
+	  return DataSourcesManager.get().getDefaultDataSource();
   }
 
   /** The metadata provider. */
