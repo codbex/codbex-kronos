@@ -14,7 +14,6 @@ package com.codbex.kronos.engine.hdi.synchronizer;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.List;
@@ -233,7 +232,7 @@ public class HDISynchronizer<A extends Artefact> implements Synchronizer<HDI> {
 			}
 			
 			return true;
-		} catch (SQLException | DataStructuresException e) {
+		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			callback.addError(e.getMessage());
 			callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, e.getMessage());

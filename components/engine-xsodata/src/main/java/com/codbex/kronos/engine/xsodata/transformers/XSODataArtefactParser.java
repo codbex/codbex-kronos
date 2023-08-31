@@ -174,11 +174,34 @@ public class XSODataArtefactParser implements InitializingBean {
 		XSODataService antlr4Model = coreListener.getServiceModel();
 		odataModel.setService(antlr4Model);
 
-		applyConditions(location, odataModel);
+		applyConditions(location, odataModel, false);
 
 		return odataModel;
 	}
 
+	public void checkArtefact(XSOData odataModel) throws SQLException {
+		XSOData odataModelCopy = new XSOData();
+		odataModelCopy.setContent(odataModel.getContent());
+		odataModelCopy.setCreatedAt(odataModel.getCreatedAt());
+		odataModelCopy.setCreatedBy(odataModel.getCreatedBy());
+		odataModelCopy.setDependencies(odataModel.getDependencies());
+		odataModelCopy.setDescription(odataModel.getDescription());
+		odataModelCopy.setError(odataModel.getError());
+		odataModelCopy.setId(odataModel.getId());
+		odataModelCopy.setKey(odataModel.getKey());
+		odataModelCopy.setLifecycle(odataModel.getLifecycle());
+		odataModelCopy.setLocation(odataModel.getLocation());
+		odataModelCopy.setName(odataModel.getName());
+		odataModelCopy.setNamespace(odataModel.getNamespace());
+		odataModelCopy.setPhase(odataModel.getPhase());
+		odataModelCopy.setRunning(odataModel.getRunning());
+		odataModelCopy.setService(odataModel.getService());
+		odataModelCopy.setType(odataModel.getType());
+		odataModelCopy.setUpdatedAt(odataModel.getUpdatedAt());
+		odataModelCopy.setUpdatedBy(odataModel.getUpdatedBy());
+
+		applyConditions(odataModel.getLocation(), odataModel, true);
+	}
 	/**
 	 * Apply conditions.
 	 *
@@ -186,18 +209,24 @@ public class XSODataArtefactParser implements InitializingBean {
 	 * @param odataModel the odata model
 	 * @throws SQLException the SQL exception
 	 */
-	private void applyConditions(String location, XSOData odataModel) throws SQLException {
+	private void applyConditions(String location, XSOData odataModel, boolean databaseCheck) throws SQLException {
 		try {
 			// the order of invocation matter, so do not change it
-			applyEmptyExistCondition(location, odataModel);
+			if (databaseCheck) {
+				applyEmptyExistCondition(location, odataModel);
+			}
 			applyEntitySetCondition(odataModel);
 
 			applyEmptyNamespaceCondition(location, odataModel);
-			applyKeysCondition(odataModel);
+			if (databaseCheck) {
+				applyKeysCondition(odataModel);
+			}
 			applyNavEntryFromEndCondition(odataModel);
 			applyNumberOfJoinPropertiesCondition(odataModel);
 			applyOrderOfJoinPropertiesCondition(odataModel);
-			applyParametersToViewsCondition(odataModel);
+			if (databaseCheck) {
+				applyParametersToViewsCondition(odataModel);
+			}
 			applyOmittedParamResultCondition(odataModel);
 		} catch (Exception ex) {
 			CommonsUtils.logProcessorErrors(ex.getMessage(), CommonsConstants.PARSER_ERROR, location,
@@ -567,7 +596,7 @@ public class XSODataArtefactParser implements InitializingBean {
 	 * @throws SQLException the SQL exception
 	 */
 	public List<DBArtifactModel> getDBArtifactsByName(String artifactName) throws SQLException {
-		try (Connection connection = getSystemDatasource().getConnection()) {
+		try (Connection connection = getDefaultDatasource().getConnection()) {
 			DatabaseMetaData databaseMetaData = connection.getMetaData();
 			ResultSet rs = databaseMetaData.getTables(connection.getCatalog(), Configuration.get("HANA_USERNAME"),
 					artifactName, null);

@@ -259,7 +259,7 @@ public class XSODataSynchronizer<A extends Artefact> implements Synchronizer<XSO
 				break;
 			}
 			return true;
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			callback.addError(e.getMessage());
 			callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, e.getMessage());
@@ -274,7 +274,7 @@ public class XSODataSynchronizer<A extends Artefact> implements Synchronizer<XSO
 	 * @throws SQLException the SQL exception
 	 */
 	public void generateOData(XSOData model) throws SQLException {
-		
+		XSODataArtefactParser.get().checkArtefact(model);
 		//The xs classic generate the odata properties without prettying them
         String oldValuePretty = Configuration.get(ODataDatabaseMetadataUtil.DIRIGIBLE_GENERATE_PRETTY_NAMES);
         Configuration.set(ODataDatabaseMetadataUtil.DIRIGIBLE_GENERATE_PRETTY_NAMES, "false");
@@ -300,9 +300,19 @@ public class XSODataSynchronizer<A extends Artefact> implements Synchronizer<XSO
 		
 		List<ODataHandler> odatahs = generateODataHandlers(oDataDefinition);
 		for (ODataHandler odatah : odatahs) {
-			ODataHandler odataHandler = new ODataHandler(oDataDefinition.getLocation(), odatah.getName() + "#" + i++, null, null, 
-					odatah.getNamespace(), odatah.getMethod(), odatah.getKind(), odatah.getHandler());
-			odataHandlerService.save(odataHandler);
+
+			/* Note: the "forbid" option is also treated by the parser as "handler" -> null
+			 * 
+			 *  "KRONOS"."com.codbex.kronos.model::test.Entity1" as "Entity1"
+			 *  create forbidden
+			 *  update forbidden
+			 *  delete forbidden;
+			 */
+			if (odatah.getHandler() != null) {
+				ODataHandler odataHandler = new ODataHandler(oDataDefinition.getLocation(), odatah.getName() + "#" + i++, null, null, 
+						odatah.getNamespace(), odatah.getMethod(), odatah.getKind(), odatah.getHandler());
+				odataHandlerService.save(odataHandler);
+			}
 		}
 		
 		if (oldValuePretty != null) {
