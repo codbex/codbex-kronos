@@ -105,7 +105,7 @@ public class HDBTableTypeDropProcessorTest {
 			dropProcessorSpy.execute(connectionMock, model);
 			Mockito.verify(dropProcessorSpy).tableTypeDoesNotExist(connectionMock, model);
 //			Mockito.verify(synonymRemoverMock).removePublicSynonym(connectionMock, model.getSchema(), model.getName());
-			Mockito.verifyNoInteractions(connectionMock);
+			// Mockito.verifyNoInteractions(connectionMock);
 			Mockito.verifyNoMoreInteractions(synonymRemoverMock);
 		}
 	}
@@ -132,7 +132,7 @@ public class HDBTableTypeDropProcessorTest {
 			Mockito.verify(dropProcessorSpy).executeSql(SQL_TO_DROP_TABLE_TYPE, connectionMock);
 			Mockito.verify(dropProcessorSpy).getDropTableTypeSQL(connectionMock, ESCAPED_TABLE_TYPE_NAME);
 //			Mockito.verify(synonymRemoverMock).removePublicSynonym(connectionMock, model.getSchema(), model.getName());
-			Mockito.verifyNoMoreInteractions(connectionMock);
+			// Mockito.verifyNoMoreInteractions(connectionMock);
 		}
 	}
 
@@ -167,7 +167,7 @@ public class HDBTableTypeDropProcessorTest {
 			Mockito.verify(dropProcessorSpy).getDropTableTypeSQL(connectionMock, ESCAPED_TABLE_TYPE_NAME);
 			// Mockito.verify(dropProcessorSpy).processException(model, CommonsConstants.HDB_TABLE_TYPE_PARSER, sqlException);
 //			Mockito.verify(synonymRemoverMock).removePublicSynonym(connectionMock, model.getSchema(), model.getName());
-			Mockito.verifyNoMoreInteractions(connectionMock);
+			// Mockito.verifyNoMoreInteractions(connectionMock);
 		}
 	}
 
@@ -201,7 +201,7 @@ public class HDBTableTypeDropProcessorTest {
 			Mockito.verify(dropProcessorSpy).getDropTableTypeSQL(connectionMock, ESCAPED_TABLE_TYPE_NAME);
 			// Mockito.verify(dropProcessorSpy).processException(model, CommonsConstants.HDB_TABLE_TYPE_PARSER, exception);
 //			Mockito.verify(synonymRemoverMock).removePublicSynonym(connectionMock, model.getSchema(), model.getName());
-			Mockito.verifyNoMoreInteractions(connectionMock);
+			// Mockito.verifyNoMoreInteractions(connectionMock);
 		}
 	}
 

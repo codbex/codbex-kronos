@@ -30,6 +30,7 @@ import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.eclipse.dirigible.database.sql.builders.CreateBranchingBuilder;
 import org.eclipse.dirigible.database.sql.builders.DropBranchingBuilder;
+import org.eclipse.dirigible.database.sql.builders.synonym.DropSynonymBuilder;
 import org.eclipse.dirigible.database.sql.builders.view.CreateViewBuilder;
 import org.eclipse.dirigible.database.sql.builders.view.DropViewBuilder;
 import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
@@ -88,6 +89,9 @@ public class HDBViewProcessorTest {
 	@Mock
 	private DropViewBuilder mockDropViewBuilder;
 
+	@Mock
+	private DropSynonymBuilder mockDropSynonymBuilder;
+
 	@InjectMocks
 	private HDBViewCreateProcessor processor = new HDBViewCreateProcessor();
 
@@ -136,8 +140,8 @@ public class HDBViewProcessorTest {
 				StandardCharsets.UTF_8);
 
 		HDBView model = HDBDataStructureModelFactory.parseView("hdb_view.db/ItemsByOrderHANAv2.hdbview", sample);
-		model.setContent(sample);
-		String sql = Constants.HDBVIEW_CREATE + model.getContent();
+		model.setQuery(sample);
+		String sql = Constants.HDBVIEW_CREATE + model.getQuery();
 
 		try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
 				MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)) {
@@ -198,6 +202,8 @@ public class HDBViewProcessorTest {
 			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).drop()).thenReturn(drop);
 			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).drop().view(any()))
 					.thenReturn(mockDropViewBuilder);
+			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).drop().publicSynonym(any()))
+					.thenReturn(mockDropSynonymBuilder);
 			sqlFactory.when(() -> SqlFactory.getNative(mockConnection).drop().view(any()).build()).thenReturn(mockSQL);
 			configuration.when(
 					() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
