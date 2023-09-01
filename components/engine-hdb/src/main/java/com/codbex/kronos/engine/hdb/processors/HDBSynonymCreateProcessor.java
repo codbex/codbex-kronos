@@ -34,7 +34,8 @@ public class HDBSynonymCreateProcessor extends AbstractHDBProcessor<HDBSynonymGr
 
   /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDBSynonymCreateProcessor.class);
-  
+
+  private static final int DUPLICATE_SYNONYM_NAME_ERROR_CODE = 330;
   /**
    * Execute :
    * <code>CREATE [PUBLIC] SYNONYM {synonym_name} FOR {synonym_source_object_name}
@@ -49,26 +50,38 @@ public class HDBSynonymCreateProcessor extends AbstractHDBProcessor<HDBSynonymGr
    */
   @Override
   public void execute(Connection connection, HDBSynonymGroup synonymModel) throws SQLException {
-	  for (Map.Entry<String, HDBSynonym> entry : synonymModel.getSynonymDefinitions().entrySet()) {
-	      logger.info("Processing Create Synonym: " + entry.getKey());
-	
-	      String synonymName = (entry.getValue().getSchema() != null) ? (HDBUtils.escapeArtifactName(entry.getKey(), entry.getValue().getSchema())) : (HDBUtils.escapeArtifactName(entry.getKey()));
-	      String targetObjectName = HDBUtils.escapeArtifactName(entry.getValue().getTarget().getObject(), entry.getValue().getTarget().getSchema());
-	      try {
-	        String synonymSchema = null != entry.getValue().getSchema() ? entry.getValue().getSchema() : connection.getMetaData().getUserName();
-	        if (!SqlFactory.getNative(connection).exists(connection, synonymSchema, entry.getKey(), DatabaseArtifactTypes.SYNONYM)) {
-	          String sql = SqlFactory.getNative(connection).create().synonym(synonymName).forSource(targetObjectName).build();
-	          executeSql(sql, connection);
-	          String message = String.format("Create synonym [%s] successfully", synonymName);
-	          logger.info(message);
-	        } else {
-	          String warningMessage = String.format("Synonym [%s] already exists during the create process", synonymName);
-	          logger.warn(warningMessage);
-	        }
-	      } catch (SQLException ex) {
-	        String errorMessage = String.format("Create synonym [%s] skipped due to an error: %s", synonymName, ex.getMessage());
-			CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, synonymModel.getLocation(), CommonsConstants.HDB_SYNONYM_PARSER);
-			throw ex;
+	for (Map.Entry<String, HDBSynonym> entry : synonymModel.getSynonymDefinitions().entrySet()) {
+		if (logger.isInfoEnabled()) { logger.info("Processing Create Synonym: " + entry.getKey()); }
+		
+		String synonymName = null;
+		boolean isPublicSynonym = "PUBLIC".equals(entry.getValue().getSchema());
+		String targetObjectName = HDBUtils.escapeArtifactName(entry.getValue().getTarget().getObject(), entry.getValue().getTarget().getSchema());
+
+		try {
+			if (isPublicSynonym) {
+				synonymName = entry.getKey();
+				String sql = SqlFactory.getNative(connection).create().publicSynonym(synonymName).forSource(targetObjectName).build();
+				executeSql(sql, connection);
+				if (logger.isInfoEnabled()) { logger.info(String.format("Create public synonym [%s] successfully", synonymName)); };
+			} else {
+				synonymName = (entry.getValue().getSchema() != null) ? (HDBUtils.escapeArtifactName(entry.getKey(), entry.getValue().getSchema())) : (HDBUtils.escapeArtifactName(entry.getKey()));
+				String synonymSchema = null != entry.getValue().getSchema() ? entry.getValue().getSchema() : connection.getMetaData().getUserName();
+				if (!SqlFactory.getNative(connection).exists(connection, synonymSchema, entry.getKey(), DatabaseArtifactTypes.SYNONYM)) {
+					String sql = SqlFactory.getNative(connection).create().synonym(synonymName).forSource(targetObjectName).build();
+					executeSql(sql, connection);
+					if (logger.isInfoEnabled()) { logger.info(String.format("Create synonym [%s] successfully", synonymName)); };
+				} else {
+					if (logger.isWarnEnabled()) { logger.warn(String.format("Synonym [%s] already exists during the create process", synonymName)); }
+				}
+			}
+		} catch (SQLException e) {
+			if (e.getErrorCode() == DUPLICATE_SYNONYM_NAME_ERROR_CODE) {
+				if (logger.isWarnEnabled()) { logger.warn(String.format("Synonym [%s] already exists during the create process", synonymName)); }
+			} else {
+				String errorMessage = String.format("Create synonym [%s] skipped due to an error: %s", synonymName, e.getMessage());
+				CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, synonymModel.getLocation(), CommonsConstants.HDB_SYNONYM_PARSER);
+				throw e;
+			}
 	      }
 	    };
     }

@@ -317,6 +317,7 @@ public class HDBDDDataStructureParser implements HDBDataStructureParser<HDBDD> {
     cdsModel.setCreatedBy(UserFacade.getName());
     cdsModel.setCreatedAt(new Timestamp(new java.util.Date().getTime()));
     cdsModel.setClassic(true);
+    cdsModel.updateKey();
 
     return cdsModel;
   }
@@ -384,7 +385,11 @@ public class HDBDDDataStructureParser implements HDBDataStructureParser<HDBDD> {
    * @throws DataStructuresException the data structures exception
    */
   private void synchronizeNodeMetadataFromRoot(String location, String content) throws DataStructuresException {
-    HDBDD nodeCdsModel = getCdsModelBaseData(location, content);
-    hdbddService.save(nodeCdsModel);
+    try {
+      HDBDD nodeCdsModel = getCdsModelBaseData(location, content);
+      hdbddService.save(nodeCdsModel);
+    } catch (Exception e) {
+      throw new DataStructuresException(e);
+    }
   }
 }

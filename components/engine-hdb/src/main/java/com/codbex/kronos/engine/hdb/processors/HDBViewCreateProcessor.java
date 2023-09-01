@@ -55,7 +55,7 @@ public class HDBViewCreateProcessor extends AbstractHDBProcessor<HDBView> {
       } else {
           ISqlDialect dialect = SqlFactory.deriveDialect(connection);
           if (dialect.getClass().equals(HanaSqlDialect.class)) {
-            sql = Constants.HDBVIEW_CREATE + viewModel.getContent();
+            sql = Constants.HDBVIEW_CREATE + viewModel.getQuery();
           } else {
             String errorMessage = String.format("Views are not supported for %s", dialect.getDatabaseName(connection));
             CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, viewModel.getLocation(), CommonsConstants.HDB_VIEW_PARSER);

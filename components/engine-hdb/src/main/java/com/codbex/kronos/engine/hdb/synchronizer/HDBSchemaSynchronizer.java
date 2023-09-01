@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
+import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.eclipse.dirigible.components.base.artefact.Artefact;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
 import org.eclipse.dirigible.components.base.artefact.ArtefactPhase;
@@ -206,12 +207,19 @@ public class HDBSchemaSynchronizer<A extends Artefact> implements Synchronizer<H
 						executeSchemaUpdate(connection, schema);
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 					}
+				} else if (ArtefactLifecycle.FAILED.equals(schema.getLifecycle())) {
+					if (!SqlFactory.getNative(connection).exists(connection, schema.getName())) {
+						executeSchemaCreate(connection, schema);
+						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+						ProblemsFacade.deleteArtefactSynchronizationProblem(schema);
+					}
 				}
 				break;
 			case UPDATE:
 				if (ArtefactLifecycle.MODIFIED.equals(schema.getLifecycle())) {
 					executeSchemaUpdate(connection, schema);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+					ProblemsFacade.deleteArtefactSynchronizationProblem(schema);
 				}
 				break;
 			case DELETE:
@@ -229,9 +237,11 @@ public class HDBSchemaSynchronizer<A extends Artefact> implements Synchronizer<H
 			
 			return true;
 		} catch (Exception e) {
-			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
-			callback.addError(e.getMessage());
-			callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, e.getMessage());
+			String errorMessage = String.format("Error occurred while processing [%s]: %s", wrapper.getArtefact().getLocation(), e.getMessage());
+			if (logger.isErrorEnabled()) {logger.error(errorMessage, e);}
+			callback.addError(errorMessage);
+			callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage);
+			ProblemsFacade.upsertArtefactSynchronizationProblem(wrapper.getArtefact(), errorMessage);
 			return false;
 		}
 	}

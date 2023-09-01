@@ -95,7 +95,11 @@ public class HDBTableCreateProcessor extends AbstractHDBProcessor<HDBTable> {
     try {
       executeSql(tableCreateStatement, connection);
       if (!indicesStatements.isEmpty()) {
-        executeBatch(indicesStatements, connection);
+        // TODO: Fix https://github.com/codbex/codbex-kronos/issues/421
+        // TODO: [HDBDD] Table indexes are not created #421
+
+        // Maybe comment for the moment?
+        // executeBatch(indicesStatements, connection);
       }
       String message = String.format("Create table [%s] successfully", tableModel.getName());
       logger.info(message);

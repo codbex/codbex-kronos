@@ -20,6 +20,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import org.eclipse.dirigible.commons.config.Configuration;
+import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.eclipse.dirigible.components.base.artefact.Artefact;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
 import org.eclipse.dirigible.components.base.artefact.ArtefactPhase;
@@ -236,6 +237,11 @@ public class XSODataSynchronizer<A extends Artefact> implements Synchronizer<XSO
 				if (odata.getLifecycle().equals(ArtefactLifecycle.NEW)) {
 					generateOData(odata);
 					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+				} else if (odata.getLifecycle().equals(ArtefactLifecycle.FAILED)) {
+					cleanupOData(odata);
+					generateOData(odata);
+					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+					ProblemsFacade.deleteArtefactSynchronizationProblem(wrapper.getArtefact());
 				}
 				break;
 			case UPDATE:
@@ -243,6 +249,7 @@ public class XSODataSynchronizer<A extends Artefact> implements Synchronizer<XSO
 					cleanupOData(odata);
 					generateOData(odata);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+					ProblemsFacade.deleteArtefactSynchronizationProblem(odata);
 				}
 				break;
 			case DELETE:
@@ -254,10 +261,12 @@ public class XSODataSynchronizer<A extends Artefact> implements Synchronizer<XSO
 				break;
 			}
 			return true;
-		} catch (SQLException e) {
-			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
-			callback.addError(e.getMessage());
-			callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, e.getMessage());
+		} catch (Exception e) {
+			String errorMessage = String.format("Error occurred while processing [%s]: %s", wrapper.getArtefact().getLocation(), e.getMessage());
+			if (logger.isErrorEnabled()) {logger.error(errorMessage, e);}
+			callback.addError(errorMessage);
+			callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage);
+			ProblemsFacade.upsertArtefactSynchronizationProblem(wrapper.getArtefact(), errorMessage);
 			return false;
 		}
     }
@@ -269,7 +278,7 @@ public class XSODataSynchronizer<A extends Artefact> implements Synchronizer<XSO
 	 * @throws SQLException the SQL exception
 	 */
 	public void generateOData(XSOData model) throws SQLException {
-		
+		XSODataArtefactParser.get().checkArtefact(model);
 		//The xs classic generate the odata properties without prettying them
         String oldValuePretty = Configuration.get(ODataDatabaseMetadataUtil.DIRIGIBLE_GENERATE_PRETTY_NAMES);
         Configuration.set(ODataDatabaseMetadataUtil.DIRIGIBLE_GENERATE_PRETTY_NAMES, "false");
@@ -295,9 +304,19 @@ public class XSODataSynchronizer<A extends Artefact> implements Synchronizer<XSO
 		
 		List<ODataHandler> odatahs = generateODataHandlers(oDataDefinition);
 		for (ODataHandler odatah : odatahs) {
-			ODataHandler odataHandler = new ODataHandler(oDataDefinition.getLocation(), odatah.getName() + "#" + i++, null, null, 
-					odatah.getNamespace(), odatah.getMethod(), odatah.getKind(), odatah.getHandler());
-			odataHandlerService.save(odataHandler);
+
+			/* Note: the "forbid" option is also treated by the parser as "handler" -> null
+			 * 
+			 *  "KRONOS"."com.codbex.kronos.model::test.Entity1" as "Entity1"
+			 *  create forbidden
+			 *  update forbidden
+			 *  delete forbidden;
+			 */
+			if (odatah.getHandler() != null) {
+				ODataHandler odataHandler = new ODataHandler(oDataDefinition.getLocation(), odatah.getName() + "#" + i++, null, null, 
+						odatah.getNamespace(), odatah.getMethod(), odatah.getKind(), odatah.getHandler());
+				odataHandlerService.save(odataHandler);
+			}
 		}
 		
 		if (oldValuePretty != null) {

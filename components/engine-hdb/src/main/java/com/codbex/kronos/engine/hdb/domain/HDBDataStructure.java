@@ -40,7 +40,7 @@ public class HDBDataStructure extends Artefact {
 	/** The primary key. */
 	@Column(name = "HDB_CLASSIC", columnDefinition = "BOOLEAN", nullable = true)
 	@Expose
-	private boolean classic;
+	private Boolean classic;
 
 	
 	/**
@@ -55,7 +55,7 @@ public class HDBDataStructure extends Artefact {
 	 * @param content      the content
 	 * @param classic      the classic
 	 */
-	protected HDBDataStructure(String location, String name, String type, String description, String dependencies, String schema, String content, boolean classic) {
+	protected HDBDataStructure(String location, String name, String type, String description, String dependencies, String schema, String content, Boolean classic) {
 		super(location, name, type, null, null);
 		this.schema = schema;
 		this.content = content;
@@ -124,7 +124,7 @@ public class HDBDataStructure extends Artefact {
 	 *
 	 * @return true, if is classic
 	 */
-	public boolean isClassic() {
+	public Boolean isClassic() {
 		return classic;
 	}
 
@@ -133,7 +133,7 @@ public class HDBDataStructure extends Artefact {
 	 *
 	 * @param classic the new classic
 	 */
-	public void setClassic(boolean classic) {
+	public void setClassic(Boolean classic) {
 		this.classic = classic;
 	}
 

@@ -14,11 +14,11 @@ package com.codbex.kronos.engine.hdi.synchronizer;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.eclipse.dirigible.components.base.artefact.Artefact;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
 import org.eclipse.dirigible.components.base.artefact.ArtefactPhase;
@@ -201,6 +201,10 @@ public class HDISynchronizer<A extends Artefact> implements Synchronizer<HDI> {
 				if (ArtefactLifecycle.NEW.equals(hdi.getLifecycle())) {
 					hdiContainerCreateProcessor.execute(connection, hdi);
 					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+				} else if (ArtefactLifecycle.FAILED.equals(hdi.getLifecycle())) {
+					hdiContainerCreateProcessor.execute(connection, hdi);
+					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+					ProblemsFacade.deleteArtefactSynchronizationProblem(hdi);
 				}
 				break;
 			case UPDATE:
@@ -208,9 +212,10 @@ public class HDISynchronizer<A extends Artefact> implements Synchronizer<HDI> {
 					try {
 						hdiContainerCreateProcessor.execute(connection, hdi);
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+						ProblemsFacade.deleteArtefactSynchronizationProblem(hdi);
 					} catch (DataStructuresException e) {
 						if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
-						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, e.getMessage());
+						callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, e.getMessage());
 					}
 				}
 				break;
@@ -228,10 +233,12 @@ public class HDISynchronizer<A extends Artefact> implements Synchronizer<HDI> {
 			}
 			
 			return true;
-		} catch (SQLException | DataStructuresException e) {
-			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
-			callback.addError(e.getMessage());
-			callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, e.getMessage());
+		} catch (Exception e) {
+			String errorMessage = String.format("Error occurred while processing [%s]: %s", wrapper.getArtefact().getLocation(), e.getMessage());
+			if (logger.isErrorEnabled()) {logger.error(errorMessage, e);}
+			callback.addError(errorMessage);
+			callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage);
+			ProblemsFacade.upsertArtefactSynchronizationProblem(wrapper.getArtefact(), errorMessage);
 			return false;
 		}
 	}

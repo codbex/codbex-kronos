@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
+import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.eclipse.dirigible.components.base.artefact.Artefact;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
 import org.eclipse.dirigible.components.base.artefact.ArtefactPhase;
@@ -289,6 +290,12 @@ public class HDBTablesSynchronizer<A extends Artefact> implements Synchronizer<H
 						executeTableAlter(connection, table);
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 					}
+				} else if (ArtefactLifecycle.FAILED.equals(table.getLifecycle())) {
+					if (!SqlFactory.getNative(connection).exists(connection, table.getName())) {
+						executeTableCreate(connection, table);
+						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+						ProblemsFacade.deleteArtefactSynchronizationProblem(table);
+					}
 				}
 				break;
 			case UPDATE:
@@ -300,6 +307,7 @@ public class HDBTablesSynchronizer<A extends Artefact> implements Synchronizer<H
 				if (ArtefactLifecycle.MODIFIED.equals(table.getLifecycle())) {
 					executeTableUpdate(connection, table);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+					ProblemsFacade.deleteArtefactSynchronizationProblem(table);
 				}
 				break;
 			case DELETE:
@@ -330,9 +338,11 @@ public class HDBTablesSynchronizer<A extends Artefact> implements Synchronizer<H
 			
 			return true;
 		} catch (Exception e) {
-			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
-			callback.addError(e.getMessage());
-			callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, e.getMessage());
+			String errorMessage = String.format("Error occurred while processing [%s]: %s", wrapper.getArtefact().getLocation(), e.getMessage());
+			if (logger.isErrorEnabled()) {logger.error(errorMessage, e);}
+			callback.addError(errorMessage);
+			callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage);
+			ProblemsFacade.upsertArtefactSynchronizationProblem(wrapper.getArtefact(), errorMessage);
 			return false;
 		}
 	}

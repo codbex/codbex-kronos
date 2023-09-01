@@ -11,7 +11,6 @@
  */
 package com.codbex.kronos.engine.hdb.synchronizer;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.sql.Connection;
@@ -19,6 +18,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
+import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.eclipse.dirigible.components.base.artefact.Artefact;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
 import org.eclipse.dirigible.components.base.artefact.ArtefactPhase;
@@ -34,7 +34,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdb.domain.HDBDD;
 import com.codbex.kronos.engine.hdb.domain.HDBTable;
 import com.codbex.kronos.engine.hdb.domain.HDBTableConstraints;
@@ -175,7 +174,7 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 		HDBDD hdbdd;
 		try {
 			hdbdd = HDBDataStructureModelFactory.parseHdbdd(location, content);
-		} catch (DataStructuresException | IOException e) {
+		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			if (logger.isErrorEnabled()) {logger.error("hdbdd: {}", location);}
 			if (logger.isErrorEnabled()) {logger.error("content: {}", new String(content));}
@@ -304,12 +303,17 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 				if (ArtefactLifecycle.NEW.equals(hdbdd.getLifecycle())) {
 					executeHDBDDCreate(connection, hdbdd);
 					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+				} else if (ArtefactLifecycle.FAILED.equals(hdbdd.getLifecycle())) {
+					executeFailedHDBDDCreate(connection, hdbdd);
+					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+					ProblemsFacade.deleteArtefactSynchronizationProblem(hdbdd);
 				}
 				break;
 			case UPDATE:
 				if (ArtefactLifecycle.MODIFIED.equals(hdbdd.getLifecycle())) {
 					executeHDBDDUpdate(connection, hdbdd);
 					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+					ProblemsFacade.deleteArtefactSynchronizationProblem(hdbdd);
 				}
 				break;
 			case DELETE:
@@ -326,9 +330,11 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 			return true;
 			
 		} catch (Exception e) {
-			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
-			callback.addError(e.getMessage());
+			String errorMessage = String.format("Error occurred while processing [%s]: %s", wrapper.getArtefact().getLocation(), e.getMessage());
+			if (logger.isErrorEnabled()) {logger.error(errorMessage, e);}
+			callback.addError(errorMessage);
 			callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, e.getMessage());
+			ProblemsFacade.upsertArtefactSynchronizationProblem(wrapper.getArtefact(), errorMessage);
 			return false;
 		}
 	}
@@ -408,6 +414,49 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 	        	new HDBViewDropProcessor().execute(connection, entityModel);
 	        	new HDBViewCreateProcessor().execute(connection, entityModel);
 	        }
+	    }
+	}
+
+	/**
+	 * Execute HDBDD create of FAILED artefacts.
+	 *
+	 * @param connection
+	 *            the connection
+	 * @param hdbddModel
+	 *            the HDBDD model
+	 * @throws SQLException
+	 *             the SQL exception
+	 */
+	public void executeFailedHDBDDCreate(Connection connection, HDBDD hdbddModel) throws SQLException {
+
+		for (HDBTableType entityModel: hdbddModel.getTableTypes()) {
+			try {
+				new HDBTableTypeCreateProcessor().execute(connection, entityModel);
+			} catch(Exception e) {
+				// Do nothing
+			}
+		}
+
+		for (HDBTable entityModel : hdbddModel.getTables()) {
+			try {
+				String tableName = HDBUtils.escapeArtifactName(entityModel.getName(), entityModel.getSchema());
+				if (!SqlFactory.getNative(connection).exists(connection, tableName)) {
+					new HDBTableCreateProcessor().execute(connection, entityModel);
+				}
+			} catch (Exception e) {
+				// Do nothing
+			}
+	    }
+
+		for (HDBView entityModel : hdbddModel.getViews()) {
+			try {
+				String viewName = HDBUtils.escapeArtifactName(entityModel.getName(), entityModel.getSchema());
+				if (!SqlFactory.getNative(connection).exists(connection, viewName)) {
+					new HDBViewCreateProcessor().execute(connection, entityModel);
+				}
+			} catch (Exception e) {
+				// Do nothing
+			}
 	    }
 	}
 	

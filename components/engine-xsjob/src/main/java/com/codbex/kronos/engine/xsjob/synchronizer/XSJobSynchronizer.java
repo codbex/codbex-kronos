@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.dirigible.commons.api.helpers.GsonHelper;
+import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.eclipse.dirigible.components.base.artefact.Artefact;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
 import org.eclipse.dirigible.components.base.artefact.ArtefactPhase;
@@ -196,6 +197,12 @@ public class XSJobSynchronizer<A extends Artefact> implements Synchronizer<XSJob
 					xsjob.setRunning(true);
 					getService().save(xsjob);
 					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+				} else if (ArtefactLifecycle.FAILED.equals(xsjob.getLifecycle())) {
+					SchedulerManager.scheduleJob(xsjob);
+					xsjob.setRunning(true);
+					getService().save(xsjob);
+					callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+					ProblemsFacade.deleteArtefactSynchronizationProblem(xsjob);
 				}
 				break;
 			case UPDATE:
@@ -208,10 +215,12 @@ public class XSJobSynchronizer<A extends Artefact> implements Synchronizer<XSJob
 						xsjob.setRunning(true);
 						getService().save(xsjob);
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+						ProblemsFacade.deleteArtefactSynchronizationProblem(xsjob);
 					} catch (Exception e) {
 						if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
 			            callback.addError(e.getMessage());
-						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, e.getMessage());
+						callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, e.getMessage());
+						ProblemsFacade.upsertArtefactSynchronizationProblem(xsjob, e.getMessage());
 					}
 				}
 				break;
@@ -260,9 +269,11 @@ public class XSJobSynchronizer<A extends Artefact> implements Synchronizer<XSJob
 			
 			return true;
 		} catch (Exception e) {
-			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
-			callback.addError(e.getMessage());
-			callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, e.getMessage());
+			String errorMessage = String.format("Error occurred while processing [%s]: %s", wrapper.getArtefact().getLocation(), e.getMessage());
+			if (logger.isErrorEnabled()) {logger.error(errorMessage, e);}
+			callback.addError(errorMessage);
+			callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage);
+			ProblemsFacade.upsertArtefactSynchronizationProblem(wrapper.getArtefact(), errorMessage);
 			return false;
 		}
 	}
