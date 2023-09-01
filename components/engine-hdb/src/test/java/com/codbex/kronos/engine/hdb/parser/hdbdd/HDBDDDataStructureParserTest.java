@@ -22,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 
 import javax.transaction.Transactional;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -50,6 +51,11 @@ public class HDBDDDataStructureParserTest {
 	
   @Autowired
   private TestRepositoryMigrator migrator;
+
+  @AfterEach
+  public void cleanUp() {
+    migrator.cleanUp();
+  }
 
   @Test
   public void testParseHanaXSClassicContentWithSyntaxErrorFail() {

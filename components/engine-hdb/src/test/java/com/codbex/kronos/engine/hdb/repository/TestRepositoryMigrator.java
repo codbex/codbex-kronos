@@ -28,13 +28,16 @@ public class TestRepositoryMigrator {
     @Autowired
     private IRepository repository;
 
-    public void migrate(String s) {
+    public void migrate(String source) {
         try {
-            byte[] content = TestRepositoryMigrator.class.getResourceAsStream(IRepositoryStructure.PATH_REGISTRY_PUBLIC + IRepositoryStructure.SEPARATOR + s).readAllBytes();
-            repository.createResource(IRepositoryStructure.PATH_REGISTRY_PUBLIC + IRepositoryStructure.SEPARATOR + s, content);
+            byte[] content = TestRepositoryMigrator.class.getResourceAsStream(IRepositoryStructure.PATH_REGISTRY_PUBLIC + IRepositoryStructure.SEPARATOR + source).readAllBytes();
+            repository.createResource(IRepositoryStructure.PATH_REGISTRY_PUBLIC + IRepositoryStructure.SEPARATOR + source, content);
         } catch (IOException e) {
             logger.error(e.getMessage(), e);
         }
     }
 
+    public void cleanUp() {
+        repository.removeCollection(IRepositoryStructure.PATH_REGISTRY_PUBLIC + IRepositoryStructure.SEPARATOR);
+    }
 }

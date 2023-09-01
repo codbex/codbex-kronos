@@ -19,6 +19,7 @@ import javax.transaction.Transactional;
 import org.eclipse.dirigible.repository.api.IRepository;
 import org.eclipse.dirigible.repository.api.IRepositoryStructure;
 import org.eclipse.dirigible.repository.api.IResource;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -45,6 +46,11 @@ public class HDBProcedureDataStructureParserTest {
   
   @Autowired
   private IRepository repository;
+
+  @AfterEach
+  public void cleanUp() {
+    migrator.cleanUp();
+  }
 
   @Test
   public void checkModel() throws Exception {
