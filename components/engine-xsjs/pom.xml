@@ -5,13 +5,13 @@
 	<parent>
 		<groupId>com.codbex.kronos</groupId>
 		<artifactId>codbex-kronos-components-parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>0.7.1</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<name>codbex - kronos - components - engine - xsjs</name>
 	<artifactId>codbex-kronos-components-engine-xsjs</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>0.7.1</version>
 	<packaging>jar</packaging>
 
 	<dependencies>
@@ -63,7 +63,7 @@
 		<dependency>
 			<groupId>com.codbex.kronos</groupId>
 			<artifactId>codbex-kronos-components-api-xsjs</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>0.7.1</version>
 		</dependency>
 
     <!-- Test -->
