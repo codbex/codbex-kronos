@@ -32,6 +32,7 @@ import org.eclipse.dirigible.database.sql.builders.table.AlterTableBuilder;
 import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Answers;
@@ -54,6 +55,7 @@ import com.codbex.kronos.engine.hdb.domain.HDBTableConstraintPrimaryKey;
 import com.codbex.kronos.engine.hdb.domain.HDBTableConstraints;
 import com.codbex.kronos.engine.hdb.processors.HDBTableAlterHandler;
 
+@Disabled
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos" })

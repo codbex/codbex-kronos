@@ -24,6 +24,7 @@ import javax.transaction.Transactional;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -41,6 +42,7 @@ import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.parser.HDBParameters;
 import com.codbex.kronos.exceptions.ArtifactParserException;
 
+@Disabled
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})

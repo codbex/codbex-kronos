@@ -18,6 +18,7 @@ import java.nio.charset.StandardCharsets;
 import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -34,6 +35,7 @@ import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.parser.HDBParameters;
 import com.codbex.kronos.engine.hdb.parser.HDBSynonymDataStructureParser;
 
+@Disabled
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})

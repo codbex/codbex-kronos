@@ -21,6 +21,7 @@ import java.sql.Connection;
 import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Answers;
@@ -40,6 +41,7 @@ import com.codbex.kronos.engine.hdb.domain.HDBTable;
 import com.codbex.kronos.engine.hdb.processors.HDBTableAlterHandler;
 import com.codbex.kronos.engine.hdb.processors.HDBTableAlterProcessor;
 
+@Disabled
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})

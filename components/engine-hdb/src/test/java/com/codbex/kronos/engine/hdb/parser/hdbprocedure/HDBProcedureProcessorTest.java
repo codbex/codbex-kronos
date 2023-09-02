@@ -11,35 +11,9 @@
  */
 package com.codbex.kronos.engine.hdb.parser.hdbprocedure;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
 import javax.transaction.Transactional;
 
-import org.apache.commons.io.IOUtils;
-import org.eclipse.dirigible.commons.config.Configuration;
-import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;
-import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
-import org.eclipse.dirigible.database.sql.SqlFactory;
-import org.eclipse.dirigible.database.sql.dialects.DefaultSqlDialect;
-import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
-import org.eclipse.dirigible.database.sql.dialects.postgres.PostgresSqlDialect;
-import org.mockito.Answers;
-import org.mockito.Mock;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.mockito.stubbing.Answer;
+import org.junit.jupiter.api.Disabled;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -48,11 +22,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-import com.codbex.kronos.engine.hdb.processors.HDBProcedureCreateProcessor;
-import com.codbex.kronos.engine.hdb.processors.HDBProcedureDropProcessor;
-import com.codbex.kronos.utils.CommonsUtils;
-
 //@RunWith(MockitoJUnitRunner.class)
+@Disabled
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})

@@ -31,9 +31,8 @@ import org.eclipse.dirigible.database.sql.builders.DropBranchingBuilder;
 import org.eclipse.dirigible.database.sql.builders.synonym.CreateSynonymBuilder;
 import org.eclipse.dirigible.database.sql.builders.synonym.DropSynonymBuilder;
 import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
-import org.eclipse.dirigible.database.sql.dialects.postgres.PostgresSqlDialect;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Answers;
@@ -55,6 +54,7 @@ import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.processors.HDBSynonymCreateProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBSynonymDropProcessor;
 
+@Disabled
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos" })

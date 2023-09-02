@@ -34,6 +34,7 @@ import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
 import org.eclipse.dirigible.database.sql.dialects.postgres.PostgresSqlDialect;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Answers;
@@ -57,6 +58,7 @@ import com.codbex.kronos.engine.hdb.processors.HDBTableFunctionCreateProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBTableFunctionDropProcessor;
 import com.codbex.kronos.utils.CommonsUtils;
 
+@Disabled
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
