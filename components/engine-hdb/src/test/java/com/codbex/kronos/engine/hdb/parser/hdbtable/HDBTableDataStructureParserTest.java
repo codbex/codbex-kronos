@@ -26,15 +26,11 @@ import javax.transaction.Transactional;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdb.domain.HDBTable;
@@ -46,7 +42,6 @@ import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableDuplicatePropertyException;
 import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableMissingPropertyException;
 
-@Disabled
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})
@@ -282,14 +277,5 @@ public class HDBTableDataStructureParserTest {
       assertNotNull(model.getIndexes(), "Unexpected table indexes is null");
       assertEquals(0, model.getIndexes().size(), "Unexpected table indexes count");
     }
-    
-    /**
-     * The Class TestConfiguration.
-     */
-    @EnableJpaRepositories(basePackages = "com.codbex.kronos")
-    @SpringBootApplication(scanBasePackages = {"com.codbex.kronos", "org.eclipse.dirigible.components"})
-    @EnableScheduling
-    static class TestConfiguration {
-    }
-	
+
 }
