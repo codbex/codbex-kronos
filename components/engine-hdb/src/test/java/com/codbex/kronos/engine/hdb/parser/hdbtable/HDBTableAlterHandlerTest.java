@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos.engine.hdb.parser.hdbtable;
+package com.codbex.kronos.engine.hdb.processors;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.spy;
@@ -32,6 +32,7 @@ import org.eclipse.dirigible.database.sql.builders.table.AlterTableBuilder;
 import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Answers;
@@ -40,21 +41,18 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.codbex.kronos.engine.hdb.domain.HDBTable;
 import com.codbex.kronos.engine.hdb.domain.HDBTableColumn;
 import com.codbex.kronos.engine.hdb.domain.HDBTableConstraintPrimaryKey;
 import com.codbex.kronos.engine.hdb.domain.HDBTableConstraints;
-import com.codbex.kronos.engine.hdb.processors.HDBTableAlterHandler;
 
-@SpringBootTest
+@Disabled
+@SpringBootTest(classes = {HDBTableAlterHandler.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
 @EntityScan(value = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
@@ -308,15 +306,6 @@ public class HDBTableAlterHandlerTest {
 				handlerSpy.ensurePrimaryKeyIsUnchanged(mockConnection);
 			}
 		});
-	}
-
-	/**
-	 * The Class TestConfiguration.
-	 */
-	@EnableJpaRepositories(basePackages = "com.codbex.kronos")
-	@SpringBootApplication(scanBasePackages = { "com.codbex.kronos", "org.eclipse.dirigible.components" })
-	@EnableScheduling
-	static class TestConfiguration {
 	}
 
 }

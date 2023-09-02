@@ -48,13 +48,10 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.codbex.kronos.engine.hdb.domain.HDBView;
 import com.codbex.kronos.engine.hdb.parser.Constants;
@@ -62,7 +59,7 @@ import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.processors.HDBViewCreateProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBViewDropProcessor;
 
-@SpringBootTest
+@SpringBootTest(classes = {HDBDataStructureModelFactory.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
 @EntityScan(value = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
@@ -214,15 +211,6 @@ public class HDBViewProcessorTest {
 			verify(processorSpy, times(1)).executeSql(mockSQL, mockConnection);
 //      verify(processorSpy, times(1)).applyArtefactState(any(), any(), any(), eq(ArtefactState.SUCCESSFUL_DELETE), any());
 		}
-	}
-
-	/**
-	 * The Class TestConfiguration.
-	 */
-	@EnableJpaRepositories(basePackages = "com.codbex.kronos")
-	@SpringBootApplication(scanBasePackages = { "com.codbex.kronos", "org.eclipse.dirigible.components" })
-	@EnableScheduling
-	static class TestConfiguration {
 	}
 
 }

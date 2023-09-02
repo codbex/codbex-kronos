@@ -33,19 +33,16 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.codbex.kronos.engine.hdb.domain.HDBTableType;
 import com.codbex.kronos.engine.hdb.parser.HDBSynonymRemover;
 import com.codbex.kronos.engine.hdb.processors.HDBTableTypeDropProcessor;
 
-@SpringBootTest
+@SpringBootTest(classes = {HDBTableTypeDropProcessor.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
 @EntityScan(value = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
@@ -203,15 +200,6 @@ public class HDBTableTypeDropProcessorTest {
 //			Mockito.verify(synonymRemoverMock).removePublicSynonym(connectionMock, model.getSchema(), model.getName());
 			// Mockito.verifyNoMoreInteractions(connectionMock);
 		}
-	}
-
-	/**
-	 * The Class TestConfiguration.
-	 */
-	@EnableJpaRepositories(basePackages = "com.codbex.kronos")
-	@SpringBootApplication(scanBasePackages = { "com.codbex.kronos", "org.eclipse.dirigible.components" })
-	@EnableScheduling
-	static class TestConfiguration {
 	}
 
 }

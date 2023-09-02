@@ -11,9 +11,7 @@
  */
 package com.codbex.kronos.engine.hdb.parser.hdbschema;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -33,8 +31,6 @@ import org.eclipse.dirigible.database.sql.builders.DropBranchingBuilder;
 import org.eclipse.dirigible.database.sql.builders.schema.CreateSchemaBuilder;
 import org.eclipse.dirigible.database.sql.builders.schema.DropSchemaBuilder;
 import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
-import org.eclipse.dirigible.database.sql.dialects.postgres.PostgresSqlDialect;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,25 +39,19 @@ import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.stubbing.Answer;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.codbex.kronos.engine.hdb.domain.HDBSchema;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.processors.HDBSchemaCreateProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBSchemaDropProcessor;
-import com.codbex.kronos.exceptions.ArtifactParserException;
 
 //@RunWith(MockitoJUnitRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = {HDBDataStructureModelFactory.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})
 @EntityScan(value = {"org.eclipse.dirigible.components", "com.codbex.kronos"})
@@ -187,14 +177,5 @@ public class HDBSchemaProcessorTest {
 //	    }
 //	  });
 //  }
-  
-  /**
-   * The Class TestConfiguration.
-   */
-  @EnableJpaRepositories(basePackages = "com.codbex.kronos")
-  @SpringBootApplication(scanBasePackages = {"com.codbex.kronos", "org.eclipse.dirigible.components"})
-  @EnableScheduling
-  static class TestConfiguration {
-  }
-	
+
 }

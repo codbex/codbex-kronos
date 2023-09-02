@@ -20,13 +20,10 @@ import javax.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.codbex.kronos.engine.hdb.domain.HDBSynonym;
 import com.codbex.kronos.engine.hdb.domain.HDBSynonymGroup;
@@ -34,7 +31,7 @@ import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.parser.HDBParameters;
 import com.codbex.kronos.engine.hdb.parser.HDBSynonymDataStructureParser;
 
-@SpringBootTest
+@SpringBootTest(classes = {HDBDataStructureModelFactory.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})
 @EntityScan(value = {"org.eclipse.dirigible.components", "com.codbex.kronos"})
@@ -78,15 +75,6 @@ public class HDBSynonymDataStructureParserTest {
         new HDBParameters(null, "hdb_view/MySynonym.hdbsynonym", content, null);
     parser.parse(parametersModel);
 //    assertTrue(ProblemsFacade.fetchAllProblems().contains(errorMessage));
-  }
-  
-  /**
-   * The Class TestConfiguration.
-   */
-  @EnableJpaRepositories(basePackages = "com.codbex.kronos")
-  @SpringBootApplication(scanBasePackages = {"com.codbex.kronos", "org.eclipse.dirigible.components"})
-  @EnableScheduling
-  static class TestConfiguration {
   }
 	
 }

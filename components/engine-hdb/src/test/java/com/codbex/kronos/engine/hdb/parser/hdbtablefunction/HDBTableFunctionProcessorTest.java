@@ -42,13 +42,10 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.codbex.kronos.engine.hdb.domain.HDBTableFunction;
 import com.codbex.kronos.engine.hdb.parser.Constants;
@@ -57,7 +54,7 @@ import com.codbex.kronos.engine.hdb.processors.HDBTableFunctionCreateProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBTableFunctionDropProcessor;
 import com.codbex.kronos.utils.CommonsUtils;
 
-@SpringBootTest
+@SpringBootTest(classes = {HDBTableFunctionCreateProcessor.class, HDBTableFunctionDropProcessor.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
 @EntityScan(value = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
@@ -202,14 +199,4 @@ public class HDBTableFunctionProcessorTest {
 //      processorSpy.execute(mockConnection, model);
 //    }
 //  }
-
-	/**
-	 * The Class TestConfiguration.
-	 */
-	@EnableJpaRepositories(basePackages = "com.codbex.kronos")
-	@SpringBootApplication(scanBasePackages = { "com.codbex.kronos", "org.eclipse.dirigible.components" })
-	@EnableScheduling
-	static class TestConfiguration {
-	}
-
 }

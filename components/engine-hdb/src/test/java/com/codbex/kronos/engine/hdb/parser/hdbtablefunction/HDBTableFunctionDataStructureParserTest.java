@@ -25,13 +25,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdb.domain.HDBTableFunction;
@@ -39,7 +36,7 @@ import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.repository.TestRepositoryMigrator;
 import com.codbex.kronos.exceptions.ArtifactParserException;
 
-@SpringBootTest
+@SpringBootTest(classes = {HDBDataStructureModelFactory.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})
 @EntityScan(value = {"org.eclipse.dirigible.components", "com.codbex.kronos"})
@@ -117,15 +114,6 @@ public class HDBTableFunctionDataStructureParserTest {
 //                ArtefactState.FAILED_CREATE,
 //                caughtExceptionCause.getMessage()
 //        );
-    }
-    
-    /**
-     * The Class TestConfiguration.
-     */
-    @EnableJpaRepositories(basePackages = "com.codbex.kronos")
-    @SpringBootApplication(scanBasePackages = {"com.codbex.kronos", "org.eclipse.dirigible.components"})
-    @EnableScheduling
-    static class TestConfiguration {
     }
 
 }
