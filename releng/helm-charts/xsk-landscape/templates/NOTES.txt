@@ -1,5 +1,0 @@
-{{- if .Release.Namespace }}
-1. Created namespace: {{ .Release.Namespace }}
-
-2. Created landscape with domain: https://{{ .Release.Name }}.apps.codbex.com
-{{- end }}

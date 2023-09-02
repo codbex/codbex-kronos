@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
+ * Copyright (c) 2022-2023 codbex or an codbex affiliate company and contributors
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-// Generated from com/codbex/kronos/parser/xsodata/core/XSOData.g4 by ANTLR 4.13.0
+// Generated from java-escape by ANTLR 4.11.1
 package com.codbex.kronos.parser.xsodata.core;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
 public class XSODataParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.13.0", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.11.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -151,7 +151,7 @@ public class XSODataParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "XSOData.g4"; }
+	public String getGrammarFileName() { return "java-escape"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -658,7 +658,7 @@ public class XSODataParser extends Parser {
 			setState(225);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 60129542144L) != 0)) {
+			if (((_la) & ~0x3f) == 0 && ((1L << _la) & 60129542144L) != 0) {
 				{
 				setState(224);
 				modificationBody();
@@ -2067,7 +2067,7 @@ public class XSODataParser extends Parser {
 			{
 			setState(338);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 251658240L) != 0)) ) {
+			if ( !(((_la) & ~0x3f) == 0 && ((1L << _la) & 251658240L) != 0) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -2347,7 +2347,7 @@ public class XSODataParser extends Parser {
 			setState(365);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 60129542144L) != 0)) {
+			while (((_la) & ~0x3f) == 0 && ((1L << _la) & 60129542144L) != 0) {
 				{
 				{
 				setState(362);
@@ -3005,7 +3005,7 @@ public class XSODataParser extends Parser {
 			{
 			setState(413);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 8246337208320L) != 0)) ) {
+			if ( !(((_la) & ~0x3f) == 0 && ((1L << _la) & 8246337208320L) != 0) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -3605,7 +3605,7 @@ public class XSODataParser extends Parser {
 			{
 			setState(455);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 2111062325329920L) != 0)) ) {
+			if ( !(((_la) & ~0x3f) == 0 && ((1L << _la) & 2111062325329920L) != 0) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -3677,7 +3677,7 @@ public class XSODataParser extends Parser {
 			setState(462);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 60129542144L) != 0)) {
+			if (((_la) & ~0x3f) == 0 && ((1L << _la) & 60129542144L) != 0) {
 				{
 				setState(461);
 				modificationBody();
@@ -3938,7 +3938,7 @@ public class XSODataParser extends Parser {
 				setState(477);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 60129542144L) != 0)) {
+				if (((_la) & ~0x3f) == 0 && ((1L << _la) & 60129542144L) != 0) {
 					{
 					setState(476);
 					modificationBody();
@@ -4318,7 +4318,7 @@ public class XSODataParser extends Parser {
 			setState(511);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((((_la - 59)) & ~0x3f) == 0 && ((1L << (_la - 59)) & 117L) != 0)) {
+			while ((((_la - 59)) & ~0x3f) == 0 && ((1L << (_la - 59)) & 117L) != 0) {
 				{
 				{
 				setState(508);

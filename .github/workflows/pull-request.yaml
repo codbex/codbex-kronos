@@ -1,114 +1,13 @@
-name: Pull Request
-
-concurrency:
-  group: ${{ github.workflow }}
+name: Pull Request - Platform
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: 
+      - main
 
 jobs:
-  
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Download sapmachine JDK 17
-        run: |
-          download_url="https://github.com/SAP/SapMachine/releases/download/sapmachine-17.0.2/sapmachine-jdk-17.0.2_linux-x64_bin.tar.gz"
-          wget -O "${RUNNER_TEMP}/sapmachine-jdk-17.tar.gz" "${download_url}"
-
-      - name: Setup sapmachine JDK 17
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'jdkfile'
-          jdkFile: ${{ runner.temp }}/sapmachine-jdk-17.tar.gz
-          java-version: '17.0.2'
-          architecture: x64
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v3
-        if: ${{ env.SONAR_TOKEN != '' }}
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-      - name: Maven Build and Analyze
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          [ "$SONAR_TOKEN" ] && SONAR_ARG="-B sonar:sonar -Dsonar.projectKey=codbex_codbex-kronos"
-          mvn clean install $SONAR_ARG
-      - name: Docker Build Kronos
-        run: |
-          cd releng/server
-          cp -r "${JAVA_HOME}" jdk
-          docker build -t ghcr.io/codbex/kronos --build-arg JDK_TYPE=external-jdk --build-arg JDK_HOME=jdk .
-          cd ../../
-      - name: Docker Build Kronos for SAP Cloud Foundry
-        run: |
-          cd releng/sap-cf
-          cp -r "${JAVA_HOME}" jdk
-          docker build -t ghcr.io/codbex/kronos-cf --build-arg JDK_TYPE=external-jdk --build-arg JDK_HOME=jdk .
-          cd ../../
-      - name: Docker Build Kronos for SAP Kyma
-        run: |
-          cd releng/sap-kyma
-          cp -r "${JAVA_HOME}" jdk
-          docker build -t ghcr.io/codbex/kronos-kyma --build-arg JDK_TYPE=external-jdk --build-arg JDK_HOME=jdk .
-          cd ../../
-      - name: Push Kronos for SAP Kyma Runtime
-        run: |
-          cd releng/sap-kyma-runtime
-          docker build -t ghcr.io/codbex/kronos-kyma-runtime-base -f Dockerfile-base .
-          docker build -t ghcr.io/codbex/kronos-kyma-runtime .
-          docker build -t ghcr.io/codbex/kronos-kyma-runtime-distro -f Dockerfile-distro .
-          cd ../../
-      # - uses: buildpacks/github-actions/setup-pack@v4.1.0
-      # - name: Kronos Buildpack
-      #   run: |
-      #     cd releng/buildpacks/kronos/
-      #     docker build -t ghcr.io/codbex/kronos-buildpacks-stack-base . --target base
-      #     docker build -t ghcr.io/codbex/kronos-buildpacks-stack-run . --target run
-      #     docker build -t ghcr.io/codbex/kronos-buildpacks-stack-build . --target build
-      #     cd buildpack/
-      #     find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/latest/g'' {} \;
-      #     pack buildpack package ghcr.io/codbex/kronos-buildpacks --config ./package.toml
-      #     pack builder create ghcr.io/codbex/kronos-buildpacks-builder --config ./builder.toml
-      #     cd ../../../../
-      # - name: Kronos Kyma Buildpack
-      #   run: |
-      #     cd releng/buildpacks/kronos-kyma/
-      #     docker build -t ghcr.io/codbex/kronos-buildpacks-stack-base-kyma . --target base
-      #     docker build -t ghcr.io/codbex/kronos-buildpacks-stack-run-kyma . --target run
-      #     docker build -t ghcr.io/codbex/kronos-buildpacks-stack-build-kyma . --target build
-      #     cd buildpack/
-      #     find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/latest/g'' {} \;
-      #     pack buildpack package ghcr.io/codbex/kronos-buildpacks-kyma --config ./package.toml
-      #     pack builder create ghcr.io/codbex/kronos-buildpacks-builder-kyma --config ./builder.toml
-      #     cd ../../../../
-      # - name: Kronos Kyma Runtime Buildpack
-      #   run: |
-      #     cd releng/buildpacks/kronos-kyma-runtime/
-      #     docker build -t ghcr.io/codbex/kronos-buildpacks-stack-base-kyma-runtime . --target base
-      #     docker build -t ghcr.io/codbex/kronos-buildpacks-stack-run-kyma-runtime . --target run
-      #     docker build -t ghcr.io/codbex/kronos-buildpacks-stack-build-kyma-runtime . --target build
-      #     cd buildpack/
-      #     find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/latest/g'' {} \;
-      #     pack buildpack package ghcr.io/codbex/kronos-buildpacks-kyma-runtime --config ./package.toml
-      #     pack builder create ghcr.io/codbex/kronos-buildpacks-builder-kyma-runtime --config ./builder.toml
-      #     cd ../../../../
-      # - name: Kronos Cloud Foundry Buildpack
-      #   run: |
-      #     cd releng/buildpacks/kronos-cf/
-      #     docker build -t ghcr.io/codbex/kronos-buildpacks-stack-base-cf . --target base
-      #     docker build -t ghcr.io/codbex/kronos-buildpacks-stack-run-cf . --target run
-      #     docker build -t ghcr.io/codbex/kronos-buildpacks-stack-build-cf . --target build
-      #     cd buildpack/
-      #     find *.toml -type f -exec sed -i ''s/#{KronosVersion}#/latest/g'' {} \;
-      #     pack buildpack package ghcr.io/codbex/kronos-buildpacks-cf --config ./package.toml
-      #     pack builder create ghcr.io/codbex/kronos-buildpacks-builder-cf --config ./builder.toml
-      #     cd ../../../../
+  main:
+    uses: codbex/codbex-infra/.github/workflows/platform-pull-request.yaml@main
+    with:
+      platform-name: codbex-kronos
+    secrets: inherit

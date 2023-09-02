@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
+ * Copyright (c) 2022-2023 codbex or an codbex affiliate company and contributors
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-// Generated from com/codbex/kronos/parser/hdbti/core/HDBTI.g4 by ANTLR 4.13.0
+// Generated from java-escape by ANTLR 4.11.1
 package com.codbex.kronos.parser.hdbti.core;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
 public class HDBTIParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.13.0", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.11.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -99,7 +99,7 @@ public class HDBTIParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "HDBTI.g4"; }
+	public String getGrammarFileName() { return "java-escape"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -240,7 +240,7 @@ public class HDBTIParser extends Parser {
 			setState(54);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 245696L) != 0)) {
+			while (((_la) & ~0x3f) == 0 && ((1L << _la) & 245696L) != 0) {
 				{
 				{
 				setState(51);
@@ -1103,7 +1103,7 @@ public class HDBTIParser extends Parser {
 			{
 			setState(136);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 229376L) != 0)) ) {
+			if ( !(((_la) & ~0x3f) == 0 && ((1L << _la) & 229376L) != 0) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {

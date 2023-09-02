@@ -1,0 +1,203 @@
+<fd-wizard dg-size="md" class="dg-vbox dg-fill-parent" current-step="migrationWizard.currentStep"
+    completed-steps="migrationWizard.completedSteps">
+    <header>
+        <fd-wizard-navigation></fd-wizard-navigation>
+    </header>
+    <fd-wizard-content dg-size="md" fd-scrollbar>
+        <fd-wizard-step dg-label="BTP Neo Credentials" indicator-label="1" indicator-glyph="{{ getIndicatorGlyph(1) }}"
+            step-click="gotoStep(step)">
+            <h4 fd-title header-size="4">Provide your BTP NEO Credentials</h4>
+            <fd-form-group class="fd-container fd-form-layout-grid-container">
+                <fd-form-item class="fd-row">
+                    <div class="fd-col fd-col-md--2">
+                        <fd-form-label for="region" dg-colon="true" dg-required="true">Region</fd-form-label>
+                    </div>
+                    <div class="fd-col fd-col-md--10">
+                        <fd-combobox-input id="region" class="dg-full-width" dropdown-items="comboboxItems"
+                            dg-placeholder="Find or enter region" dg-aria-label="regions">
+                        </fd-combobox-input>
+                    </div>
+                </fd-form-item>
+                <fd-form-item class="fd-row">
+                    <div class="fd-col fd-col-md--2">
+                        <fd-form-label for="satn" dg-colon="true" dg-required="true">Subaccount technical name
+                        </fd-form-label>
+                    </div>
+                    <div class="fd-col fd-col-md--10">
+                        <fd-form-input-message-group dg-inactive="true">
+                            <fd-input id="satn" type="email" state=""></fd-input>
+                            <fd-form-message dg-type="error"></fd-form-message>
+                        </fd-form-input-message-group>
+                    </div>
+                </fd-form-item>
+                <fd-form-item class="fd-row">
+                    <div class="fd-col fd-col-md--2">
+                        <fd-form-label for="neousername" dg-colon="true" dg-required="true">Username
+                        </fd-form-label>
+                    </div>
+                    <div class="fd-col fd-col-md--10">
+                        <fd-form-input-message-group dg-inactive="true">
+                            <fd-input id="neousername" type="email" state="" placeholder="email@example.com"></fd-input>
+                            <fd-form-message dg-type="error"></fd-form-message>
+                        </fd-form-input-message-group>
+                    </div>
+                </fd-form-item>
+                <fd-form-item class="fd-row">
+                    <div class="fd-col fd-col-md--2">
+                        <fd-form-label for="neopass" dg-colon="true" dg-required="true">Password
+                        </fd-form-label>
+                    </div>
+                    <div class="fd-col fd-col-md--10">
+                        <fd-input-group>
+                            <fd-input id="neopass" type="{{ pwVisible ? 'text' : 'password' }}" in-group="true">
+                            </fd-input>
+                            <fd-input-group-addon has-button="true">
+                                <fd-button glyph="{{pwVisible ? 'sap-icon--show' : 'sap-icon--hide'}}"
+                                    aria-label="Show/hide password" in-group="true" ng-click="pwVisibilityToggle()">
+                                </fd-button>
+                            </fd-input-group-addon>
+                        </fd-input-group>
+                    </div>
+                </fd-form-item>
+            </fd-form-group>
+        </fd-wizard-step>
+        <fd-wizard-step dg-label="HANA Credentials" indicator-label="2" indicator-glyph="{{ getIndicatorGlyph(2) }}"
+            step-click="gotoStep(step)" ng-hide="migrationWizard.hanaLoading">
+            <h4 fd-title header-size="4">Provide your HANA Credentials</h4>
+            <fd-form-group class="fd-container fd-form-layout-grid-container">
+                <fd-form-item class="fd-row">
+                    <div class="fd-col fd-col-md--2">
+                        <fd-form-label for="database" dg-colon="true" dg-required="true">Database</fd-form-label>
+                    </div>
+                    <div class="fd-col fd-col-md--10">
+                        <fd-combobox-input id="database" class="dg-full-width" dropdown-items="comboboxItems"
+                            dg-placeholder="Select a database system" dg-aria-label="regions">
+                        </fd-combobox-input>
+                    </div>
+                </fd-form-item>
+                <fd-form-item class="fd-row">
+                    <div class="fd-col fd-col-md--2">
+                        <fd-form-label for="hanausername" dg-colon="true" dg-required="true">Username
+                        </fd-form-label>
+                    </div>
+                    <div class="fd-col fd-col-md--10">
+                        <fd-form-input-message-group dg-inactive="true">
+                            <fd-input id="hanausername" type="email" state="" placeholder="email@example.com">
+                            </fd-input>
+                            <fd-form-message dg-type="error"></fd-form-message>
+                        </fd-form-input-message-group>
+                    </div>
+                </fd-form-item>
+                <fd-form-item class="fd-row">
+                    <div class="fd-col fd-col-md--2">
+                        <fd-form-label for="hanapass" dg-colon="true" dg-required="true">Password
+                        </fd-form-label>
+                    </div>
+                    <div class="fd-col fd-col-md--10">
+                        <fd-input-group>
+                            <fd-input id="hanapass" type="{{ pwVisible ? 'text' : 'password' }}" in-group="true">
+                            </fd-input>
+                            <fd-input-group-addon has-button="true">
+                                <fd-button glyph="{{pwVisible ? 'sap-icon--show' : 'sap-icon--hide'}}"
+                                    aria-label="Show/hide password" in-group="true" ng-click="pwVisibilityToggle()">
+                                </fd-button>
+                            </fd-input-group-addon>
+                        </fd-input-group>
+                    </div>
+                </fd-form-item>
+            </fd-form-group>
+        </fd-wizard-step>
+        <fd-wizard-step dg-label="Delivery Units" indicator-label="3" indicator-glyph="{{ getIndicatorGlyph(3) }}"
+            step-click="gotoStep(step)">
+            <h4 fd-title header-size="4">Select the target workspace and delivery unit(s)</h4>
+            <fd-form-group class="fd-container fd-form-layout-grid-container">
+                <fd-form-item class="fd-row">
+                    <div class="fd-col fd-col-md--2">
+                        <fd-form-label for="workspace" dg-colon="true" dg-required="true">Workspace</fd-form-label>
+                    </div>
+                    <div class="fd-col fd-col-md--10 dg-center__horizontal">
+                        <fd-select id="workspace" selected-value="selectedWorkspace.name">
+                            <fd-option ng-repeat="option in workspaceNames" text="{{ option }}" value="option">
+                            </fd-option>
+                        </fd-select>
+                        <fd-button style="min-width:5.375rem;margin-left:.375rem" dg-label="Create"
+                            glyph="sap-icon--add" dg-type="emphasized" ng-click="createWorkspace()"></fd-button>
+                    </div>
+                </fd-form-item>
+                <fd-form-item class="fd-row">
+                    <div class="fd-col fd-col-md--2">
+                        <fd-form-label for="database" dg-colon="true" dg-required="true">Delivery</fd-form-label>
+                    </div>
+                    <div class="fd-col fd-col-md--10">
+                        <fd-combobox-input multi-select="true" ng-model="duCombobox.selectedModelValues"
+                            ng-change="duCombobox.onMCBChange()" dropdown-items="deliveryUnits"
+                            dg-placeholder="Select delivery units" dg-aria-label="select delivery units">
+                        </fd-combobox-input>
+                    </div>
+                </fd-form-item>
+                <fd-form-item class="fd-row">
+                    <div class="fd-col fd-col-md--2">
+                    </div>
+                    <div class="fd-col fd-col-md--10">
+                        <fd-checkbox id="duall" ng-model="duCombobox.allSelected" ng-change="duCombobox.selectAll()"
+                            ng-checked="duCombobox.selectedModelValues.length === deliveryUnits.length">
+                        </fd-checkbox>
+                        <fd-checkbox-label for="duall">All delivery units</fd-checkbox-label>
+                    </div>
+                </fd-form-item>
+            </fd-form-group>
+        </fd-wizard-step>
+        <fd-wizard-step dg-label="Changes" indicator-label="4" indicator-glyph="{{ getIndicatorGlyph(4) }}"
+            step-click="gotoStep(step)">
+            <fd-toolbar no-bottom-border="true">
+                <fd-toolbar-title>{{ changes.length }} file(s) will be changed</fd-toolbar-title>
+                <fd-toolbar-spacer></fd-toolbar-spacer>
+                <fd-segmented-button aria-label="View type group">
+                    <fd-button compact="true" dg-label="Split" dg-toggled="isDiffViewSplit ? true : false"
+                        ng-click="changeDiffViewType(true)">
+                    </fd-button>
+                    <fd-button compact="true" dg-label="Unified" dg-toggled="!isDiffViewSplit ? true : false"
+                        ng-click="changeDiffViewType(false)">
+                    </fd-button>
+                </fd-segmented-button>
+            </fd-toolbar>
+            <fd-panel expanded="true" ng-repeat="file in changes track by $index">
+                <fd-panel-header>
+                    <fd-panel-expand></fd-panel-expand>
+                    <h4 fd-panel-title>{{ file.path}}</h4>
+                </fd-panel-header>
+                <fd-panel-content aria-label="code difference view">
+                    <embedded-view style="min-height:30rem" view-id="diff" params="file"></embedded-view>
+                </fd-panel-content>
+            </fd-panel>
+        </fd-wizard-step>
+        <fd-wizard-summary class="dg-full-height">
+            <fd-busy-indicator-extended class="dg-fill-parent" dg-size="l" ng-show="migrationWizard.migrating">
+                <b>Migration in progress</b>
+                <p>Configuration progressing...</p>
+            </fd-busy-indicator-extended>
+        </fd-wizard-summary>
+        <fd-busy-indicator-extended class="dg-fill-parent" dg-size="l" ng-show="migrationWizard.hanaLoading">Loading...
+        </fd-busy-indicator-extended>
+    </fd-wizard-content>
+    <footer>
+        <fd-bar bar-design="footer" in-page="true" size="m_l">
+            <fd-bar-right>
+                <fd-bar-element>
+                    <fd-button ng-if="migrationWizard.currentStep > 1 && !allStepsCompleted()" dg-label="Previous"
+                        compact="true" ng-click="gotoPreviousStep()">
+                    </fd-button>
+                </fd-bar-element>
+                <fd-bar-element>
+                    <fd-button ng-if="!allStepsCompleted()" dg-label="{{ isLastStep() ? 'Finish' : 'Next' }}"
+                        dg-type="emphasized" compact="true" ng-click="gotoNextStep()"></fd-button>
+                </fd-bar-element>
+                <fd-bar-element>
+                    <fd-button ng-if="!allStepsCompleted()" dg-label="Cancel" dg-type="transparent" compact="true"
+                        ng-click="showHistory()">
+                    </fd-button>
+                </fd-bar-element>
+            </fd-bar-right>
+        </fd-bar>
+    </footer>
+</fd-wizard>

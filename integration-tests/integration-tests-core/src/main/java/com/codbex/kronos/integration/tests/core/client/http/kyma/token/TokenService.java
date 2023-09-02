@@ -42,7 +42,7 @@ public class TokenService {
             HttpResponse<String> response = client.send(request,
                     HttpResponse.BodyHandlers.ofString());
 
-            TokenServiceResponseBody responseBody = GsonHelper.GSON.fromJson(response.body(), TokenServiceResponseBody.class);
+            TokenServiceResponseBody responseBody = GsonHelper.fromJson(response.body(), TokenServiceResponseBody.class);
             return responseBody.getAccessToken();
         } catch (RuntimeException | IOException | InterruptedException | URISyntaxException e) {
             throw new TokenServiceException("Can't access JWT Token for kyma instance", e);

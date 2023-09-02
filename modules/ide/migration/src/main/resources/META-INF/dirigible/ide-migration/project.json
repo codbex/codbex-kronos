@@ -1,8 +1,0 @@
-{
-    "guid": "ide-migration",
-    "repository": {
-        "type": "git",
-        "branch": "main",
-        "url": "https://github.com/codbex/codbex-kronos.git"
-    }
-}

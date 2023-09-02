@@ -72,22 +72,4 @@ context ParseViews {
         {
             "EMP"."NAME as "EMPName"
         };
-
-    view testView as select from test {
-        lastmodifieddate,
-        CASE WHEN lastmodifieddate < '1980-01-01T01:00:00' THEN 0 ELSE 1 END as flag,
-        username,
-        averageHours / totalHours * 100 as percentage,
-        CASE WHEN signin IS NULL THEN 0 ELSE 1 END as flag_v,
-        CASE WHEN state = 'exited_ok' AND lastmodifieddate > '1980-01-01T01:00:00' AND signin IS NOT NULL AND signinStatus = 'DONE' THEN
-            'signedIn'
-           WHEN state = 'D' AND lastmodifieddate > '1980-01-01T01:00:00' AND sendToMFStatus IS NULL THEN
-            'signedOut'
-          WHEN state = 'exited_ok' AND signinStatus = 'ERROR' THEN
-            'signedOut'
-          WHEN state = 'exited_ok' AND signinStatus = 'SUCCESS' AND lastmodifieddate IS NULL THEN
-            'signedOut'
-          ELSE
-            state END as state
-    };
 }

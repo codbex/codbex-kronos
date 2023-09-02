@@ -1,0 +1,30 @@
+namespace gstr2;
+
+@Schema: 'DBADMIN'
+
+context ViewDefinitionWithCase {
+
+    define view employees_view_with_where as
+        select from "gstr2::ViewDefinitionWithCase.employees"
+            join employee_roles as ER
+                on "ER"."ID" = "gstr2::ViewDefinitionWithCase.employees"."ID"
+            join employee_salaries as ES
+                on "ES"."ID" = "gstr2::ViewDefinitionWithCase.employees"."ID"
+        {
+          "gstr2::ViewDefinitionWithCase.employees"."ID" as "EmployeeId",
+          "gstr2::ViewDefinitionWithCase.employees"."NAME" as "EmployeeName",
+          "ER"."TYPE" as "EmployeeRoleType",
+          "ES"."AMOUNT" as "EmployeeSalary",
+          CASE WHEN aTime < '1990-01-01T01:00:00' THEN 0 ELSE 1 END as aFlag,
+          cWork / tWork * 100 as percent
+        }
+        where "gstr2::employees"."NAME" = 'John';
+
+    entity employee_roles {
+        ID : String(32);
+    }
+
+    entity employee_salaries {
+        ID : String(32);
+    }
+}

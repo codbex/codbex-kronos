@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
+ * Copyright (c) 2022-2023 codbex or an codbex affiliate company and contributors
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
@@ -11,8 +11,8 @@
  */
 package com.codbex.kronos.parser.hdbdd.custom;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
@@ -24,7 +24,7 @@ import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.codbex.kronos.parser.hdbdd.exception.CDSRuntimeException;
 import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
@@ -672,7 +672,7 @@ public class HDBDDArtifactDefinitionListenerTest {
     List<ViewSymbol> parsedViews = this.symbolTable.getSortedViews();
 
     assertEquals(0, parsedFile.getNumberOfSyntaxErrors());
-    assertEquals(5, parsedViews.size());
+    assertEquals(4, parsedViews.size());
   }
 
   private CdsParser parseSampleFile(String sampleFileName, String location) throws Exception {

@@ -1,0 +1,24 @@
+<input id="input" style="display: none" type="file" nv-file-select="" uploader="uploader" multiple
+    accept="{{ inputAccept }}" />
+<fd-message-page glyph="{{zipMessagePanel.icon}}" ng-hide="uploader.queue.length > 0 && !migrationFinished">
+    <fd-message-page-title>{{zipMessagePanel.title}}</fd-message-page-title>
+    <fd-message-page-subtitle>{{zipMessagePanel.subtitle}}</fd-message-page-subtitle>
+    <fd-message-page-actions ng-if="state.activePage === 'zip' && migrationFinished">
+        <fd-button compact="true" dg-label="Go to Workbench" ng-click="goToWorkspace()"></fd-button>
+    </fd-message-page-actions>
+</fd-message-page>
+<fd-upload-collection class="dg-restrict-width dg-list-border" style="margin:auto;" selection="false"
+    ng-show="uploader.queue.length > 0 && !migrationFinished">
+    <fd-upload-collection-item ng-repeat="item in uploader.queue" file-name="{{item.file.name}}" extension=""
+        editable="false" delete-clicked="removeFileToUpload(item)">
+        <fd-list-thumbnail glyph="sap-icon--attachment-zip-file"></fd-list-thumbnail>
+        <fd-upload-collection-item-content>
+            <fd-upload-collection-title id="title{{$index}}"></fd-upload-collection-title>
+            <fd-upload-collection-form-item></fd-upload-collection-form-item>
+            <fd-upload-collection-description>
+                {{ item.file.size > 10240 ? (item.file.size/1024/1024|number:2) + ' MB' : (item.file.size/1024|number:1) + ' kB' }}
+            </fd-upload-collection-description>
+        </fd-upload-collection-item-content>
+        <fd-upload-collection-button-group></fd-upload-collection-button-group>
+    </fd-upload-collection-item>
+</fd-upload-collection>
