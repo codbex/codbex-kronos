@@ -19,6 +19,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -30,7 +31,7 @@ import com.google.gson.annotations.Expose;
  * The Class TableColumn.
  */
 @Entity
-@javax.persistence.Table(name = "KRONOS_TABLE_COLUMNS")
+@Table(name = "KRONOS_TABLE_COLUMNS")
 public class HDBTableColumn extends HDBColumn {
 
 	/** The id. */

@@ -21,7 +21,6 @@ import java.sql.Connection;
 import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Answers;
@@ -29,20 +28,16 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.codbex.kronos.engine.hdb.domain.HDBTable;
 import com.codbex.kronos.engine.hdb.processors.HDBTableAlterHandler;
 import com.codbex.kronos.engine.hdb.processors.HDBTableAlterProcessor;
 
-@Disabled
-@SpringBootTest
+@SpringBootTest(classes = {HDBTableAlterProcessor.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})
 @EntityScan(value = {"org.eclipse.dirigible.components", "com.codbex.kronos"})
@@ -83,15 +78,6 @@ public class HDBTableProcessorsTest {
     verify(mockHandler, times(1)).updateColumns(mockConnection);
     verify(mockHandler, times(1)).rebuildIndeces(mockConnection);
     verify(mockHandler, times(1)).ensurePrimaryKeyIsUnchanged(mockConnection);
-  }
-  
-  /**
-   * The Class TestConfiguration.
-   */
-  @EnableJpaRepositories(basePackages = "com.codbex.kronos")
-  @SpringBootApplication(scanBasePackages = {"com.codbex.kronos", "org.eclipse.dirigible.components"})
-  @EnableScheduling
-  static class TestConfiguration {
   }
 
 }
