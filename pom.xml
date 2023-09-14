@@ -465,7 +465,7 @@
 		<javax.servlet-api.version>4.0.1</javax.servlet-api.version>
 		<scp-cf.version>3.77.0</scp-cf.version>
 		<jetbrains.annotations.version>24.0.1</jetbrains.annotations.version>
-		<ngdbc.version>2.15.12</ngdbc.version>
+		<ngdbc.version>2.17.12</ngdbc.version>
 		
 		<!-- old dependencies - to be revised 
 
