@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.codbex.kronos</groupId>
 		<artifactId>codbex-kronos-parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>0.8.0</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -20,7 +20,7 @@
 		<dependency>
 			<groupId>com.codbex.kronos</groupId>
 			<artifactId>codbex-kronos-branding</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>0.8.0</version>
 		</dependency>
 
 		<!-- Core -->
@@ -109,44 +109,44 @@
 		<dependency>
 			<groupId>com.codbex.kronos</groupId>
 			<artifactId>codbex-kronos-components-api-xsjs</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>0.8.0</version>
 		</dependency>
 
 		<!-- Engines -->
 		<dependency>
 			<groupId>com.codbex.kronos</groupId>
 			<artifactId>codbex-kronos-components-engine-commons</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>0.8.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.codbex.kronos</groupId>
 			<artifactId>codbex-kronos-components-engine-core</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>0.8.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.codbex.kronos</groupId>
 			<artifactId>codbex-kronos-components-engine-xsjs</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>0.8.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.codbex.kronos</groupId>
 			<artifactId>codbex-kronos-components-engine-xsodata</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>0.8.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.codbex.kronos</groupId>
 			<artifactId>codbex-kronos-components-engine-hdb</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>0.8.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.codbex.kronos</groupId>
 			<artifactId>codbex-kronos-components-engine-hdi</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>0.8.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.codbex.kronos</groupId>
 			<artifactId>codbex-kronos-components-engine-xsjob</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>0.8.0</version>
 		</dependency>
 
 		<!--
@@ -182,17 +182,17 @@
 		<dependency>
 			<groupId>com.codbex.kronos</groupId>
 			<artifactId>codbex-kronos-components-ide-file-types</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>0.8.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.codbex.kronos</groupId>
 			<artifactId>codbex-kronos-components-ide-workspace-menu</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>0.8.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.codbex.kronos</groupId>
 			<artifactId>codbex-kronos-components-ide-migration</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>0.8.0</version>
 		</dependency>
 		<!-- Dialects -->
 		<dependency>
