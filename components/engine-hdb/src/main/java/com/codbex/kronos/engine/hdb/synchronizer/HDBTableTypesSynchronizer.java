@@ -28,6 +28,7 @@ import org.eclipse.dirigible.components.base.artefact.topology.TopologyWrapper;
 import org.eclipse.dirigible.components.base.synchronizer.Synchronizer;
 import org.eclipse.dirigible.components.base.synchronizer.SynchronizerCallback;
 import org.eclipse.dirigible.components.data.sources.manager.DataSourcesManager;
+import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -217,7 +218,7 @@ public class HDBTableTypesSynchronizer<A extends Artefact> implements Synchroniz
 			switch (flow) {
 			case CREATE:
 				if (ArtefactLifecycle.NEW.equals(tableType.getLifecycle())) {
-					if (!SqlFactory.getNative(connection).exists(connection, tableType.getName())) {
+					if (!SqlFactory.getNative(connection).exists(connection, tableType.getName(), DatabaseArtifactTypes.TABLE_TYPE)) {
 							executeTableTypeCreate(connection, tableType);
 							callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 					} else {
@@ -226,7 +227,7 @@ public class HDBTableTypesSynchronizer<A extends Artefact> implements Synchroniz
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 					}
 				} else if (ArtefactLifecycle.FAILED.equals(tableType.getLifecycle())) {
-					if (!SqlFactory.getNative(connection).exists(connection, tableType.getName())) {
+					if (!SqlFactory.getNative(connection).exists(connection, tableType.getName(), DatabaseArtifactTypes.TABLE_TYPE)) {
 						executeTableTypeCreate(connection, tableType);
 						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 						ProblemsFacade.deleteArtefactSynchronizationProblem(tableType);
@@ -248,8 +249,8 @@ public class HDBTableTypesSynchronizer<A extends Artefact> implements Synchroniz
 			case DELETE:
 				if (ArtefactLifecycle.CREATED.equals(tableType.getLifecycle())
 						|| ArtefactLifecycle.UPDATED.equals(tableType.getLifecycle())) { 
-					if (SqlFactory.getNative(connection).exists(connection, tableType.getName())) {
-						if (SqlFactory.getNative(connection).count(connection, tableType.getName()) == 0) {
+					if (SqlFactory.getNative(connection).exists(connection, tableType.getName(), DatabaseArtifactTypes.TABLE_TYPE)) {
+						if (SqlFactory.deriveDialect(connection).count(connection, tableType.getName()) == 0) {
 							executeTableTypeDrop(connection, tableType);
 							callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
 						} else {
@@ -290,8 +291,8 @@ public class HDBTableTypesSynchronizer<A extends Artefact> implements Synchroniz
 	@Override
 	public void cleanup(HDBTableType tableType) {
 		try (Connection connection = datasourcesManager.getDefaultDataSource().getConnection()){
-			if (SqlFactory.getNative(connection).exists(connection, tableType.getName())) {
-				if (SqlFactory.getNative(connection).count(connection, tableType.getName()) == 0) {
+			if (SqlFactory.getNative(connection).exists(connection, tableType.getName(), DatabaseArtifactTypes.TABLE_TYPE)) {
+				if (SqlFactory.deriveDialect(connection).count(connection, tableType.getName()) == 0) {
 					executeTableTypeDrop(connection, tableType);
 					getService().delete(tableType);
 					callback.registerState(this, tableType, ArtefactLifecycle.DELETED, "");
@@ -329,7 +330,7 @@ public class HDBTableTypesSynchronizer<A extends Artefact> implements Synchroniz
 	 */
 	public void executeTableTypeUpdate(Connection connection, HDBTableType tableTypeModel) throws SQLException {
 		if (logger.isInfoEnabled()) {logger.info("Processing Update HDBTableType: " + tableTypeModel.getName());}
-		if (SqlFactory.getNative(connection).exists(connection, tableTypeModel.getName())) {
+		if (SqlFactory.getNative(connection).exists(connection, tableTypeModel.getName(), DatabaseArtifactTypes.TABLE_TYPE)) {
 //			if (SqlFactory.getNative(connection).count(connection, tableTypeModel.getName()) == 0) {
 //				executeTableTypeDrop(connection, tableTypeModel);
 //				executeTableTypeCreate(connection, tableTypeModel);

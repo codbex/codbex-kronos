@@ -28,6 +28,7 @@ import org.eclipse.dirigible.components.base.artefact.topology.TopologyWrapper;
 import org.eclipse.dirigible.components.base.synchronizer.Synchronizer;
 import org.eclipse.dirigible.components.base.synchronizer.SynchronizerCallback;
 import org.eclipse.dirigible.components.data.sources.manager.DataSourcesManager;
+import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -199,7 +200,7 @@ public class HDBViewsSynchronizer<A extends Artefact> implements Synchronizer<HD
 			switch (flow) {
 			case CREATE:
 				if (ArtefactLifecycle.NEW.equals(view.getLifecycle())) {
-					if (!SqlFactory.getNative(connection).exists(connection, view.getName())) {
+					if (!SqlFactory.getNative(connection).exists(connection, view.getName(), DatabaseArtifactTypes.VIEW)) {
 						executeViewCreate(connection, view);
 						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 					} else {
@@ -208,7 +209,7 @@ public class HDBViewsSynchronizer<A extends Artefact> implements Synchronizer<HD
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 					}
 				} else if (ArtefactLifecycle.FAILED.equals(view.getLifecycle())) {
-					if (!SqlFactory.getNative(connection).exists(connection, view.getName())) {
+					if (!SqlFactory.getNative(connection).exists(connection, view.getName(), DatabaseArtifactTypes.VIEW)) {
 						executeViewCreate(connection, view);
 						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 						ProblemsFacade.deleteArtefactSynchronizationProblem(view);
@@ -224,7 +225,7 @@ public class HDBViewsSynchronizer<A extends Artefact> implements Synchronizer<HD
 				break;
 			case DELETE:
 				if (ArtefactLifecycle.CREATED.equals(view.getLifecycle())) {
-					if (SqlFactory.getNative(connection).exists(connection, view.getName())) {
+					if (SqlFactory.getNative(connection).exists(connection, view.getName(), DatabaseArtifactTypes.VIEW)) {
 						executeViewDrop(connection, view);
 						callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
 					}
@@ -285,7 +286,7 @@ public class HDBViewsSynchronizer<A extends Artefact> implements Synchronizer<HD
 	 */
 	public void executeViewUpdate(Connection connection, HDBView viewModel) throws SQLException {
 		if (logger.isInfoEnabled()) {logger.info("Processing Update View: " + viewModel.getName());}
-		if (SqlFactory.getNative(connection).exists(connection, viewModel.getName())) {
+		if (SqlFactory.getNative(connection).exists(connection, viewModel.getName(), DatabaseArtifactTypes.VIEW)) {
 			executeViewDrop(connection, viewModel);
 			executeViewCreate(connection, viewModel);
 		} else {

@@ -28,6 +28,7 @@ import org.eclipse.dirigible.components.base.artefact.topology.TopologyWrapper;
 import org.eclipse.dirigible.components.base.synchronizer.Synchronizer;
 import org.eclipse.dirigible.components.base.synchronizer.SynchronizerCallback;
 import org.eclipse.dirigible.components.data.sources.manager.DataSourcesManager;
+import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -199,7 +200,7 @@ public class HDBTableFunctionsSynchronizer<A extends Artefact> implements Synchr
 			switch (flow) {
 			case CREATE:
 				if (ArtefactLifecycle.NEW.equals(tablefunction.getLifecycle())) {
-					if (!SqlFactory.getNative(connection).exists(connection, tablefunction.getName())) {
+					if (!SqlFactory.getNative(connection).exists(connection, tablefunction.getName(), DatabaseArtifactTypes.FUNCTION)) {
 						executeTableFunctionCreate(connection, tablefunction);
 						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 					} else {
@@ -208,7 +209,7 @@ public class HDBTableFunctionsSynchronizer<A extends Artefact> implements Synchr
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 					}
 				} else if (ArtefactLifecycle.FAILED.equals(tablefunction.getLifecycle())) {
-					if (!SqlFactory.getNative(connection).exists(connection, tablefunction.getName())) {
+					if (!SqlFactory.getNative(connection).exists(connection, tablefunction.getName(), DatabaseArtifactTypes.FUNCTION)) {
 						executeTableFunctionCreate(connection, tablefunction);
 						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 						ProblemsFacade.deleteArtefactSynchronizationProblem(tablefunction);
@@ -224,7 +225,7 @@ public class HDBTableFunctionsSynchronizer<A extends Artefact> implements Synchr
 				break;
 			case DELETE:
 				if (ArtefactLifecycle.CREATED.equals(tablefunction.getLifecycle())) {
-					if (SqlFactory.getNative(connection).exists(connection, tablefunction.getName())) {
+					if (SqlFactory.getNative(connection).exists(connection, tablefunction.getName(), DatabaseArtifactTypes.FUNCTION)) {
 						executeTableFunctionDrop(connection, tablefunction);
 						callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
 					}
@@ -285,7 +286,7 @@ public class HDBTableFunctionsSynchronizer<A extends Artefact> implements Synchr
 	 */
 	public void executeTableFunctionUpdate(Connection connection, HDBTableFunction tablefunctionModel) throws SQLException {
 		if (logger.isInfoEnabled()) {logger.info("Processing Update TableFunction: " + tablefunctionModel.getName());}
-		if (SqlFactory.getNative(connection).exists(connection, tablefunctionModel.getName())) {
+		if (SqlFactory.getNative(connection).exists(connection, tablefunctionModel.getName(), DatabaseArtifactTypes.FUNCTION)) {
 			executeTableFunctionDrop(connection, tablefunctionModel);
 			executeTableFunctionCreate(connection, tablefunctionModel);
 		} else {

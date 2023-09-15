@@ -27,6 +27,7 @@ import org.eclipse.dirigible.components.base.artefact.topology.TopologyWrapper;
 import org.eclipse.dirigible.components.base.synchronizer.Synchronizer;
 import org.eclipse.dirigible.components.base.synchronizer.SynchronizerCallback;
 import org.eclipse.dirigible.components.data.sources.manager.DataSourcesManager;
+import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -399,7 +400,7 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 
 		for (HDBTable entityModel : hdbddModel.getTables()) {
 	        String tableName = HDBUtils.escapeArtifactName(entityModel.getName(), entityModel.getSchema());
-	        if (!SqlFactory.getNative(connection).exists(connection, tableName)) {
+	        if (!SqlFactory.getNative(connection).exists(connection, tableName, DatabaseArtifactTypes.TABLE)) {
 	            new HDBTableCreateProcessor().execute(connection, entityModel);
 	        } else {
 	            new HDBTableAlterProcessor().execute(connection, entityModel);
@@ -408,7 +409,7 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 		
 		for (HDBView entityModel : hdbddModel.getViews()) {
 	        String viewName = HDBUtils.escapeArtifactName(entityModel.getName(), entityModel.getSchema());
-	        if (!SqlFactory.getNative(connection).exists(connection, viewName)) {
+	        if (!SqlFactory.getNative(connection).exists(connection, viewName, DatabaseArtifactTypes.VIEW)) {
 	            new HDBViewCreateProcessor().execute(connection, entityModel);
 	        } else {
 	        	new HDBViewDropProcessor().execute(connection, entityModel);
@@ -440,7 +441,7 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 		for (HDBTable entityModel : hdbddModel.getTables()) {
 			try {
 				String tableName = HDBUtils.escapeArtifactName(entityModel.getName(), entityModel.getSchema());
-				if (!SqlFactory.getNative(connection).exists(connection, tableName)) {
+				if (!SqlFactory.getNative(connection).exists(connection, tableName, DatabaseArtifactTypes.TABLE)) {
 					new HDBTableCreateProcessor().execute(connection, entityModel);
 				}
 			} catch (Exception e) {
@@ -451,7 +452,7 @@ public class HDBDDSynchronizer<A extends Artefact> implements Synchronizer<HDBDD
 		for (HDBView entityModel : hdbddModel.getViews()) {
 			try {
 				String viewName = HDBUtils.escapeArtifactName(entityModel.getName(), entityModel.getSchema());
-				if (!SqlFactory.getNative(connection).exists(connection, viewName)) {
+				if (!SqlFactory.getNative(connection).exists(connection, viewName, DatabaseArtifactTypes.VIEW)) {
 					new HDBViewCreateProcessor().execute(connection, entityModel);
 				}
 			} catch (Exception e) {

@@ -28,6 +28,7 @@ import org.eclipse.dirigible.components.base.artefact.topology.TopologyWrapper;
 import org.eclipse.dirigible.components.base.synchronizer.Synchronizer;
 import org.eclipse.dirigible.components.base.synchronizer.SynchronizerCallback;
 import org.eclipse.dirigible.components.data.sources.manager.DataSourcesManager;
+import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -199,7 +200,7 @@ public class HDBProceduresSynchronizer<A extends Artefact> implements Synchroniz
 			switch (flow) {
 			case CREATE:
 				if (ArtefactLifecycle.NEW.equals(procedure.getLifecycle())) {
-					if (!SqlFactory.getNative(connection).exists(connection, procedure.getName())) {
+					if (!SqlFactory.getNative(connection).exists(connection, procedure.getName(), DatabaseArtifactTypes.PROCEDURE)) {
 						executeProcedureCreate(connection, procedure);
 						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 					} else {
@@ -208,7 +209,7 @@ public class HDBProceduresSynchronizer<A extends Artefact> implements Synchroniz
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 					}
 				} else if (ArtefactLifecycle.FAILED.equals(procedure.getLifecycle())) {
-					if (!SqlFactory.getNative(connection).exists(connection, procedure.getName())) {
+					if (!SqlFactory.getNative(connection).exists(connection, procedure.getName(), DatabaseArtifactTypes.PROCEDURE)) {
 						executeProcedureCreate(connection, procedure);
 						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 						ProblemsFacade.deleteArtefactSynchronizationProblem(procedure);
@@ -224,7 +225,7 @@ public class HDBProceduresSynchronizer<A extends Artefact> implements Synchroniz
 				break;
 			case DELETE:
 				if (ArtefactLifecycle.CREATED.equals(procedure.getLifecycle())) {
-					if (SqlFactory.getNative(connection).exists(connection, procedure.getName())) {
+					if (SqlFactory.getNative(connection).exists(connection, procedure.getName(), DatabaseArtifactTypes.PROCEDURE)) {
 						executeProcedureDrop(connection, procedure);
 						callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
 					}
@@ -285,7 +286,7 @@ public class HDBProceduresSynchronizer<A extends Artefact> implements Synchroniz
 	 */
 	public void executeProcedureUpdate(Connection connection, HDBProcedure procedureModel) throws SQLException {
 		if (logger.isInfoEnabled()) {logger.info("Processing Update Procedure: " + procedureModel.getName());}
-		if (SqlFactory.getNative(connection).exists(connection, procedureModel.getName())) {
+		if (SqlFactory.getNative(connection).exists(connection, procedureModel.getName(), DatabaseArtifactTypes.PROCEDURE)) {
 			executeProcedureDrop(connection, procedureModel);
 			executeProcedureCreate(connection, procedureModel);
 		} else {

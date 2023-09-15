@@ -28,6 +28,7 @@ import org.eclipse.dirigible.components.base.artefact.topology.TopologyWrapper;
 import org.eclipse.dirigible.components.base.synchronizer.Synchronizer;
 import org.eclipse.dirigible.components.base.synchronizer.SynchronizerCallback;
 import org.eclipse.dirigible.components.data.sources.manager.DataSourcesManager;
+import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -282,7 +283,7 @@ public class HDBTablesSynchronizer<A extends Artefact> implements Synchronizer<H
 			switch (flow) {
 			case CREATE:
 				if (ArtefactLifecycle.NEW.equals(table.getLifecycle())) {
-					if (!SqlFactory.getNative(connection).exists(connection, table.getName())) {
+					if (!SqlFactory.getNative(connection).exists(connection, table.getName(), DatabaseArtifactTypes.TABLE)) {
 						executeTableCreate(connection, table);
 						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 					} else {
@@ -291,7 +292,7 @@ public class HDBTablesSynchronizer<A extends Artefact> implements Synchronizer<H
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 					}
 				} else if (ArtefactLifecycle.FAILED.equals(table.getLifecycle())) {
-					if (!SqlFactory.getNative(connection).exists(connection, table.getName())) {
+					if (!SqlFactory.getNative(connection).exists(connection, table.getName(), DatabaseArtifactTypes.TABLE)) {
 						executeTableCreate(connection, table);
 						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 						ProblemsFacade.deleteArtefactSynchronizationProblem(table);
@@ -313,8 +314,8 @@ public class HDBTablesSynchronizer<A extends Artefact> implements Synchronizer<H
 			case DELETE:
 				if (ArtefactLifecycle.CREATED.equals(table.getLifecycle())
 						|| ArtefactLifecycle.UPDATED.equals(table.getLifecycle())) { 
-					if (SqlFactory.getNative(connection).exists(connection, table.getName())) {
-						if (SqlFactory.getNative(connection).count(connection, table.getName()) == 0) {
+					if (SqlFactory.getNative(connection).exists(connection, table.getName(), DatabaseArtifactTypes.TABLE)) {
+						if (SqlFactory.deriveDialect(connection).count(connection, table.getName()) == 0) {
 							executeTableDrop(connection, table);
 							callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
 						} else {
@@ -355,8 +356,8 @@ public class HDBTablesSynchronizer<A extends Artefact> implements Synchronizer<H
 	@Override
 	public void cleanup(HDBTable table) {
 		try (Connection connection = datasourcesManager.getDefaultDataSource().getConnection()){
-			if (SqlFactory.getNative(connection).exists(connection, table.getName())) {
-				if (SqlFactory.getNative(connection).count(connection, table.getName()) == 0) {
+			if (SqlFactory.getNative(connection).exists(connection, table.getName(), DatabaseArtifactTypes.TABLE)) {
+				if (SqlFactory.deriveDialect(connection).count(connection, table.getName()) == 0) {
 					executeTableDrop(connection, table);
 					getService().delete(table);
 					callback.registerState(this, table, ArtefactLifecycle.DELETED, "");
@@ -394,7 +395,7 @@ public class HDBTablesSynchronizer<A extends Artefact> implements Synchronizer<H
 	 */
 	public void executeTableUpdate(Connection connection, HDBTable tableModel) throws SQLException {
 		if (logger.isInfoEnabled()) {logger.info("Processing Update HDBTable: " + tableModel.getName());}
-		if (SqlFactory.getNative(connection).exists(connection, tableModel.getName())) {
+		if (SqlFactory.getNative(connection).exists(connection, tableModel.getName(), DatabaseArtifactTypes.TABLE)) {
 //			if (SqlFactory.getNative(connection).count(connection, tableModel.getName()) == 0) {
 //				executeTableDrop(connection, tableModel);
 //				executeTableCreate(connection, tableModel);
