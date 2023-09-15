@@ -321,7 +321,7 @@ public abstract class AbstractKronosOData2EventHandler extends ScriptingOData2Ev
     if (connection != null) {
       try (Statement statement = connection.createStatement()) {
         for (String temporaryTableName : temporaryTableNames) {
-          if (temporaryTableName != null && SqlFactory.getNative(connection).exists(connection, temporaryTableName)) {
+          if (temporaryTableName != null && SqlFactory.getNative(connection).existsTable(connection, temporaryTableName)) {
             String sql = SqlFactory.getNative(connection).drop().table(temporaryTableName).build();
             statement.addBatch(sql);
           }

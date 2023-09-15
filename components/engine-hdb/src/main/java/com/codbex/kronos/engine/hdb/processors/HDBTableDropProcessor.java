@@ -54,7 +54,7 @@ public class HDBTableDropProcessor extends AbstractHDBProcessor<HDBTable> {
     //Drop public synonym
     HDBUtils.dropPublicSynonymForArtifact(tableNameWithoutSchema, tableModel.getSchema(), connection);
 
-    if (SqlFactory.getNative(connection).exists(connection, tableName)) {
+    if (SqlFactory.getNative(connection).existsTable(connection, tableName)) {
       String sql = null;
       if (tableModel.isClassic()) {
           sql = SqlFactory.getNative(connection).select().column("COUNT(*)").from(tableName).build();

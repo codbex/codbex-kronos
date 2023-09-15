@@ -221,10 +221,8 @@ public class HDISynchronizer<A extends Artefact> implements Synchronizer<HDI> {
 				break;
 			case DELETE:
 				if (ArtefactLifecycle.CREATED.equals(hdi.getLifecycle())) {
-					if (SqlFactory.getNative(connection).exists(connection, hdi.getName())) {
-						HDIContainerDropProcessor.execute(connection, Arrays.asList(new HDI[] {hdi}));
-						callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
-					}
+					HDIContainerDropProcessor.execute(connection, Arrays.asList(new HDI[] {hdi}));
+					callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
 					callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
 				}
 				break;

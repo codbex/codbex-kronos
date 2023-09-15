@@ -28,6 +28,7 @@ import org.eclipse.dirigible.components.base.artefact.topology.TopologyWrapper;
 import org.eclipse.dirigible.components.base.synchronizer.Synchronizer;
 import org.eclipse.dirigible.components.base.synchronizer.SynchronizerCallback;
 import org.eclipse.dirigible.components.data.sources.manager.DataSourcesManager;
+import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -199,7 +200,7 @@ public class HDBSequencesSynchronizer<A extends Artefact> implements Synchronize
 			switch (flow) {
 			case CREATE:
 				if (ArtefactLifecycle.NEW.equals(sequence.getLifecycle())) {
-					if (!SqlFactory.getNative(connection).exists(connection, sequence.getName())) {
+					if (!SqlFactory.getNative(connection).exists(connection, sequence.getName(), DatabaseArtifactTypes.SEQUENCE)) {
 						executeSequenceCreate(connection, sequence);
 						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 					} else {
@@ -208,7 +209,7 @@ public class HDBSequencesSynchronizer<A extends Artefact> implements Synchronize
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 					}
 				} else if (ArtefactLifecycle.FAILED.equals(sequence.getLifecycle())) {
-					if (!SqlFactory.getNative(connection).exists(connection, sequence.getName())) {
+					if (!SqlFactory.getNative(connection).exists(connection, sequence.getName(), DatabaseArtifactTypes.SEQUENCE)) {
 						executeSequenceCreate(connection, sequence);
 						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 						ProblemsFacade.deleteArtefactSynchronizationProblem(sequence);
@@ -224,7 +225,7 @@ public class HDBSequencesSynchronizer<A extends Artefact> implements Synchronize
 				break;
 			case DELETE:
 				if (ArtefactLifecycle.CREATED.equals(sequence.getLifecycle())) {
-					if (SqlFactory.getNative(connection).exists(connection, sequence.getName())) {
+					if (SqlFactory.getNative(connection).exists(connection, sequence.getName(), DatabaseArtifactTypes.SEQUENCE)) {
 						executeSequenceDrop(connection, sequence);
 						callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
 					}
@@ -285,7 +286,7 @@ public class HDBSequencesSynchronizer<A extends Artefact> implements Synchronize
 	 */
 	public void executeSequenceUpdate(Connection connection, HDBSequence sequenceModel) throws SQLException {
 		if (logger.isInfoEnabled()) {logger.info("Processing Update Sequence: " + sequenceModel.getName());}
-		if (SqlFactory.getNative(connection).exists(connection, sequenceModel.getName())) {
+		if (SqlFactory.getNative(connection).exists(connection, sequenceModel.getName(), DatabaseArtifactTypes.SEQUENCE)) {
 			executeSequenceDrop(connection, sequenceModel);
 			executeSequenceCreate(connection, sequenceModel);
 		} else {

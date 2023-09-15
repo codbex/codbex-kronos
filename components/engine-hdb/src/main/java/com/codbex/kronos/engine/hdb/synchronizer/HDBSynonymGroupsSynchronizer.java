@@ -29,6 +29,7 @@ import org.eclipse.dirigible.components.base.artefact.topology.TopologyWrapper;
 import org.eclipse.dirigible.components.base.synchronizer.Synchronizer;
 import org.eclipse.dirigible.components.base.synchronizer.SynchronizerCallback;
 import org.eclipse.dirigible.components.data.sources.manager.DataSourcesManager;
+import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -223,7 +224,7 @@ public class HDBSynonymGroupsSynchronizer<A extends Artefact> implements Synchro
 			switch (flow) {
 			case CREATE:
 				if (ArtefactLifecycle.NEW.equals(synonymGroup.getLifecycle())) {
-					if (!SqlFactory.getNative(connection).exists(connection, synonymGroup.getName())) {
+					if (!SqlFactory.getNative(connection).exists(connection, synonymGroup.getName(), DatabaseArtifactTypes.SYNONYM)) {
 						executeSynonymGroupCreate(connection, synonymGroup);
 						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 					} else {
@@ -232,7 +233,7 @@ public class HDBSynonymGroupsSynchronizer<A extends Artefact> implements Synchro
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 					}
 				} else if (ArtefactLifecycle.FAILED.equals(synonymGroup.getLifecycle())) {
-					if (!SqlFactory.getNative(connection).exists(connection, synonymGroup.getName())) {
+					if (!SqlFactory.getNative(connection).exists(connection, synonymGroup.getName(), DatabaseArtifactTypes.SYNONYM)) {
 						executeSynonymGroupCreate(connection, synonymGroup);
 						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 						ProblemsFacade.deleteArtefactSynchronizationProblem(synonymGroup);
@@ -248,7 +249,7 @@ public class HDBSynonymGroupsSynchronizer<A extends Artefact> implements Synchro
 				break;
 			case DELETE:
 				if (ArtefactLifecycle.CREATED.equals(synonymGroup.getLifecycle())) {
-					if (SqlFactory.getNative(connection).exists(connection, synonymGroup.getName())) {
+					if (SqlFactory.getNative(connection).exists(connection, synonymGroup.getName(), DatabaseArtifactTypes.SYNONYM)) {
 						executeSynonymGroupDrop(connection, synonymGroup);
 						callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
 					}
@@ -309,7 +310,7 @@ public class HDBSynonymGroupsSynchronizer<A extends Artefact> implements Synchro
 	 */
 	public void executeSynonymGroupUpdate(Connection connection, HDBSynonymGroup synonymGroupModel) throws SQLException {
 		if (logger.isInfoEnabled()) {logger.info("Processing Update Synonym: " + synonymGroupModel.getName());}
-		if (SqlFactory.getNative(connection).exists(connection, synonymGroupModel.getName())) {
+		if (SqlFactory.getNative(connection).exists(connection, synonymGroupModel.getName(), DatabaseArtifactTypes.SYNONYM)) {
 			executeSynonymGroupDrop(connection, synonymGroupModel);
 			executeSynonymGroupCreate(connection, synonymGroupModel);
 		} else {

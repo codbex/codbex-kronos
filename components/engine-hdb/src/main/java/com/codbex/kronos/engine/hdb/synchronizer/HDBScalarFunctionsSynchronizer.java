@@ -28,6 +28,7 @@ import org.eclipse.dirigible.components.base.artefact.topology.TopologyWrapper;
 import org.eclipse.dirigible.components.base.synchronizer.Synchronizer;
 import org.eclipse.dirigible.components.base.synchronizer.SynchronizerCallback;
 import org.eclipse.dirigible.components.data.sources.manager.DataSourcesManager;
+import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -199,7 +200,7 @@ public class HDBScalarFunctionsSynchronizer<A extends Artefact> implements Synch
 			switch (flow) {
 			case CREATE:
 				if (ArtefactLifecycle.NEW.equals(scalarfunction.getLifecycle())) {
-					if (!SqlFactory.getNative(connection).exists(connection, scalarfunction.getName())) {
+					if (!SqlFactory.getNative(connection).exists(connection, scalarfunction.getName(), DatabaseArtifactTypes.FUNCTION)) {
 						executeScalarFunctionCreate(connection, scalarfunction);
 						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 					} else {
@@ -208,7 +209,7 @@ public class HDBScalarFunctionsSynchronizer<A extends Artefact> implements Synch
 						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 					}
 				} else if (ArtefactLifecycle.FAILED.equals(scalarfunction.getLifecycle())) {
-					if (!SqlFactory.getNative(connection).exists(connection, scalarfunction.getName())) {
+					if (!SqlFactory.getNative(connection).exists(connection, scalarfunction.getName(), DatabaseArtifactTypes.FUNCTION)) {
 						executeScalarFunctionCreate(connection, scalarfunction);
 						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
 						ProblemsFacade.deleteArtefactSynchronizationProblem(scalarfunction);
@@ -224,7 +225,7 @@ public class HDBScalarFunctionsSynchronizer<A extends Artefact> implements Synch
 				break;
 			case DELETE:
 				if (ArtefactLifecycle.CREATED.equals(scalarfunction.getLifecycle())) {
-					if (SqlFactory.getNative(connection).exists(connection, scalarfunction.getName())) {
+					if (SqlFactory.getNative(connection).exists(connection, scalarfunction.getName(), DatabaseArtifactTypes.FUNCTION)) {
 						executeScalarFunctionDrop(connection, scalarfunction);
 						callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
 					}
@@ -285,7 +286,7 @@ public class HDBScalarFunctionsSynchronizer<A extends Artefact> implements Synch
 	 */
 	public void executeScalarFunctionUpdate(Connection connection, HDBScalarFunction scalarfunctionModel) throws SQLException {
 		if (logger.isInfoEnabled()) {logger.info("Processing Update ScalarFunction: " + scalarfunctionModel.getName());}
-		if (SqlFactory.getNative(connection).exists(connection, scalarfunctionModel.getName())) {
+		if (SqlFactory.getNative(connection).exists(connection, scalarfunctionModel.getName(), DatabaseArtifactTypes.FUNCTION)) {
 			executeScalarFunctionDrop(connection, scalarfunctionModel);
 			executeScalarFunctionCreate(connection, scalarfunctionModel);
 		} else {
