@@ -28,6 +28,9 @@ package com.codbex.kronos.synchronizer;
 //import org.junit.runner.RunWith;
 //import org.mockito.junit.MockitoJUnitRunner;
 //
+/**
+ * The Class XSJSLibSynchronizerRegistryEntityTest.
+ */
 //@RunWith(MockitoJUnitRunner.class)
 public class XSJSLibSynchronizerRegistryEntityTest {
 

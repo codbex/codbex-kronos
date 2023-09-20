@@ -110,6 +110,11 @@ public class XSODataArtefactParser implements InitializingBean {
 		return DataSourcesManager.get().getSystemDataSource();
 	}
 
+	/**
+	 * Gets the default datasource.
+	 *
+	 * @return the default datasource
+	 */
 	public DataSource getDefaultDatasource() {
 		return DataSourcesManager.get().getDefaultDataSource();
 	}
@@ -179,6 +184,12 @@ public class XSODataArtefactParser implements InitializingBean {
 		return odataModel;
 	}
 
+	/**
+	 * Check artefact.
+	 *
+	 * @param odataModel the odata model
+	 * @throws SQLException the SQL exception
+	 */
 	public void checkArtefact(XSOData odataModel) throws SQLException {
 		XSOData odataModelCopy = new XSOData();
 		odataModelCopy.setContent(odataModel.getContent());

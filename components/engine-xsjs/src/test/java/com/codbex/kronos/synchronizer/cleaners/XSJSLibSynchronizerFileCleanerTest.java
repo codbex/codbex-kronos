@@ -25,6 +25,9 @@ package com.codbex.kronos.synchronizer.cleaners;
 //import static org.mockito.Mockito.mock;
 //import static org.mockito.Mockito.when;
 //
+/**
+ * The Class XSJSLibSynchronizerFileCleanerTest.
+ */
 //@RunWith(MockitoJUnitRunner.class)
 public class XSJSLibSynchronizerFileCleanerTest {
 //  @Test

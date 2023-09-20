@@ -71,6 +71,7 @@ public class XsjslibSynchronizer<A extends Artefact> implements Synchronizer<Xsj
 	/** The synchronization callback. */
 	private SynchronizerCallback callback;
 
+	/** The javascript service. */
 	private JavascriptService javascriptService;
 
 	/**
@@ -96,6 +97,11 @@ public class XsjslibSynchronizer<A extends Artefact> implements Synchronizer<Xsj
 		return xsjslibService;
 	}
 
+	/**
+	 * Gets the repository.
+	 *
+	 * @return the repository
+	 */
 	public IRepository getRepository() {
 		return repository;
 	}

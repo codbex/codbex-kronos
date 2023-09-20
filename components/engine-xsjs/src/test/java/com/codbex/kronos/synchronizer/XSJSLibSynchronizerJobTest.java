@@ -20,6 +20,9 @@ package com.codbex.kronos.synchronizer;
 //
 //import com.codbex.kronos.XSJSTest;
 
+/**
+ * The Class XSJSLibSynchronizerJobTest.
+ */
 public class XSJSLibSynchronizerJobTest { //extends XSJSTest {
 //  @Test
 //  public void synchronizerJobDefinitionTest() {

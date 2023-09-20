@@ -44,6 +44,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.codbex.kronos.engine.xsjs.service.XsjsService;
 
+/**
+ * The Class XSJSEndpoint.
+ */
 @RestController
 @RequestMapping({BaseEndpoint.PREFIX_ENDPOINT_SECURED + "xsjs", BaseEndpoint.PREFIX_ENDPOINT_PUBLIC + "xsjs"})
 public class XSJSEndpoint {

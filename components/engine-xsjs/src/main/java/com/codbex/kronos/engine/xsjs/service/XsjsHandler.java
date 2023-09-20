@@ -36,6 +36,9 @@ import org.slf4j.LoggerFactory;
 import com.codbex.kronos.engine.KronosSourceProvider;
 import com.codbex.kronos.engine.Require;
 
+/**
+ * The Class XsjsHandler.
+ */
 public class XsjsHandler extends JavascriptHandler {
 	
 	/** The Constant logger. */
@@ -60,19 +63,36 @@ public class XsjsHandler extends JavascriptHandler {
 	// TODO remove local vars once the corresponding getters are implemented
     private IRepository repository;
     
+    /** The source provider. */
     private KronosSourceProvider sourceProvider;
 
+	/**
+	 * Instantiates a new xsjs handler.
+	 *
+	 * @param repository     the repository
+	 * @param sourceProvider the source provider
+	 */
 	public XsjsHandler(IRepository repository, KronosSourceProvider sourceProvider) {
 		super(repository, sourceProvider);
 		this.repository = repository;
 		this.sourceProvider = sourceProvider;
 	}
 	
+	/**
+	 * Gets the repository.
+	 *
+	 * @return the repository
+	 */
 	// TODO remove this
 	public IRepository getRepository() {
 		return repository;
 	}
 	
+	/**
+	 * Gets the source provider.
+	 *
+	 * @return the source provider
+	 */
 	// TODO remove this
 	public JavascriptSourceProvider getSourceProvider() {
 		return sourceProvider;
@@ -118,7 +138,17 @@ public class XsjsHandler extends JavascriptHandler {
   		return KRONOS_API_CONTENT;
   	}
   	
-  	@Override
+  	/**
+		 * Handle request.
+		 *
+		 * @param projectName          the project name
+		 * @param projectFilePath      the project file path
+		 * @param projectFilePathParam the project file path param
+		 * @param parameters           the parameters
+		 * @param debug                the debug
+		 * @return the object
+		 */
+	  @Override
   	public Object handleRequest(String projectName, String projectFilePath, String projectFilePathParam, Map<Object, Object> parameters, boolean debug) {
         try {
             if (UserRequestVerifier.isValid()) {

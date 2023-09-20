@@ -42,6 +42,9 @@ import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableDuplicatePropertyException;
 import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableMissingPropertyException;
 
+/**
+ * The Class HDBTableDataStructureParserTest.
+ */
 @SpringBootTest(classes = {HDBDataStructureModelFactory.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})
@@ -49,6 +52,11 @@ import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableMissingPropertyExcep
 @Transactional
 public class HDBTableDataStructureParserTest {
 
+    /**
+	 * Parses the table.
+	 *
+	 * @throws Exception the exception
+	 */
     @Test
     public void parseTable() throws Exception {
         InputStream in = HDBTableDataStructureParserTest.class.getResourceAsStream("/teams.hdbtable");
@@ -117,6 +125,11 @@ public class HDBTableDataStructureParserTest {
         assertEquals(0, model.getConstraints().getChecks().size());
     }
 
+    /**
+	 * Fail if parsing repetitive properties.
+	 *
+	 * @throws Exception the exception
+	 */
     @Test
     public void failIfParsingRepetitiveProperties() throws Exception {
       InputStream in = HDBTableDataStructureParserTest.class.getResourceAsStream("/DuplicateTableProperties.hdbtable");
@@ -126,6 +139,11 @@ public class HDBTableDataStructureParserTest {
       assertThrows(HDBTableDuplicatePropertyException.class, () -> new HDBTableDataStructureParser().parse(parametersModel));
     }
 
+    /**
+	 * Fail if parsing missing mandatory properties.
+	 *
+	 * @throws Exception the exception
+	 */
     @Test
     public void failIfParsingMissingMandatoryProperties() throws Exception {
     	
@@ -139,6 +157,9 @@ public class HDBTableDataStructureParserTest {
       Assertions.assertEquals("Wrong format of table definition: [/MissingMandatoryTableProperties.hdbtable]. [Missing mandatory field columns!]", exception.getMessage());
     }
 
+    /**
+	 * Fail if parsing wrong PK definition.
+	 */
     @Test
     public void failIfParsingWrongPKDefinition() {
       String content = "table.schemaName = \"TEAMS\";\n" +
@@ -154,6 +175,9 @@ public class HDBTableDataStructureParserTest {
       assertThrows(IllegalStateException.class, () -> new HDBTableDataStructureParser().parse(parametersModel));
     }
 
+    /**
+	 * Fail if parsing wrong index definition.
+	 */
     @Test
     public void failIfParsingWrongIndexDefinition() {
       String content = "table.schemaName = \"TEAMS\";\n" +
@@ -170,6 +194,11 @@ public class HDBTableDataStructureParserTest {
       assertThrows(IllegalStateException.class, () -> new HDBTableDataStructureParser().parse(parametersModel));
     }
 
+    /**
+	 * Parses the hana XS advanced content with additional spaces.
+	 *
+	 * @throws Exception the exception
+	 */
     @Test
     public void parseHanaXSAdvancedContentWithAdditionalSpaces() throws Exception {
         String content = " COLUMN TABLE      KRONOS_HDI_SIMPLE_TABLE COLUMN1 INTEGER )";
@@ -178,6 +207,11 @@ public class HDBTableDataStructureParserTest {
         assertEquals(content, model.getContent());
     }
 
+    /**
+	 * Parses the hana XS advanced content with new lines.
+	 *
+	 * @throws Exception the exception
+	 */
     @Test
     public void parseHanaXSAdvancedContentWithNewLines() throws Exception {
         String content = "COLUMN TABLE \r\n KRONOS_HDI_SIMPLE_TABLE (COLUMN1 INTEGER)";
@@ -186,6 +220,11 @@ public class HDBTableDataStructureParserTest {
         assertEquals(content, model.getContent());
     }
 
+    /**
+	 * Parses the hana XS advanced content with lower case.
+	 *
+	 * @throws Exception the exception
+	 */
     @Test
     public void parseHanaXSAdvancedContentWithLowerCase() throws Exception {
 		String content = "column table KRONOS_HDI_SIMPLE_TABLE ( COLUMN1 INTEGER )";
@@ -194,6 +233,11 @@ public class HDBTableDataStructureParserTest {
         assertEquals(content, model.getContent());
     }
 
+    /**
+	 * Parses the table without PK.
+	 *
+	 * @throws Exception the exception
+	 */
     @Test
     public  void parseTableWithoutPK() throws Exception {
         String content = "table.schemaName  = \"SAP_DEMO\";\n" +
@@ -208,6 +252,11 @@ public class HDBTableDataStructureParserTest {
         assertEquals(content, model.getContent());
     }
 
+    /**
+	 * Parses the hana XS classic content with lexer error fail.
+	 *
+	 * @throws Exception the exception
+	 */
     @Test
     public void parseHanaXSClassicContentWithLexerErrorFail() throws Exception {
         String content = "table.schemaName = \"TEAMS\";\n" +
@@ -218,6 +267,11 @@ public class HDBTableDataStructureParserTest {
         assertThrows(ArtifactParserException.class, () -> HDBDataStructureModelFactory.parseTable("db/test.hdbtable", content));
     }
 
+    /**
+	 * Parses the hana XS classic content with syntax error fail.
+	 *
+	 * @throws Exception the exception
+	 */
     @Test
     public void parseHanaXSClassicContentWithSyntaxErrorFail() throws Exception {
         String content = "table.schemaName = \"TEAMS;\n" +
@@ -225,6 +279,11 @@ public class HDBTableDataStructureParserTest {
         assertThrows(ArtifactParserException.class, () -> HDBDataStructureModelFactory.parseTable("db/test.hdbtable", content));
     }
 
+    /**
+	 * Parses the row table with indexes.
+	 *
+	 * @throws Exception the exception
+	 */
     @Test
     public void parseRowTableWithIndexes() throws Exception {
       InputStream in = HDBTableDataStructureParserTest.class.getResourceAsStream("/ParsingTableWithUniqueAndNoUniqueIndexes.hdbtable");
@@ -255,18 +314,40 @@ public class HDBTableDataStructureParserTest {
       assertEquals(2, model.getIndexes().get(0).getColumns().length);
     }
 
+    /**
+	 * Test hdb table with empty indexes is parsed correctly.
+	 *
+	 * @throws IOException             Signals that an I/O exception has occurred.
+	 * @throws DataStructuresException the data structures exception
+	 * @throws ArtifactParserException the artifact parser exception
+	 */
     @Test
     public void testHdbTableWithEmptyIndexesIsParsedCorrectly() throws IOException, DataStructuresException, ArtifactParserException {
       String hdbTablePath = "/EmptyIndexesTable.hdbtable";
       assertEmptyOrNoIndexesTable(hdbTablePath);
     }
 
+    /**
+	 * Test hdb table with no indexes is parsed correctly.
+	 *
+	 * @throws DataStructuresException the data structures exception
+	 * @throws ArtifactParserException the artifact parser exception
+	 * @throws IOException             Signals that an I/O exception has occurred.
+	 */
     @Test
     public void testHdbTableWithNoIndexesIsParsedCorrectly() throws DataStructuresException, ArtifactParserException, IOException {
       String hdbTablePath = "/NoIndexesTable.hdbtable";
       assertEmptyOrNoIndexesTable(hdbTablePath);
     }
 
+    /**
+	 * Assert empty or no indexes table.
+	 *
+	 * @param hdbTablePath the hdb table path
+	 * @throws IOException             Signals that an I/O exception has occurred.
+	 * @throws DataStructuresException the data structures exception
+	 * @throws ArtifactParserException the artifact parser exception
+	 */
     private static void assertEmptyOrNoIndexesTable(String hdbTablePath) throws IOException, DataStructuresException, ArtifactParserException {
       InputStream in = HDBTableDataStructureParserTest.class.getResourceAsStream(hdbTablePath);
       String contents = IOUtils.toString(in, StandardCharsets.UTF_8);

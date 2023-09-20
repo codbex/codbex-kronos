@@ -17,6 +17,9 @@ package com.codbex.kronos.synchronizer.exceptions;
 //
 //import static org.junit.Assert.assertEquals;
 
+/**
+ * The Class XSJSLibSynchronizerDBCleanerSQLExceptionTest.
+ */
 public class XSJSLibSynchronizerDBCleanerSQLExceptionTest {
 //  @Test
 //  public void artefactCleanerSQLExceptionTest() {

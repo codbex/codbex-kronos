@@ -21,10 +21,25 @@ import com.codbex.kronos.engine.hdb.parser.HDBDataStructureParser;
 import com.codbex.kronos.engine.hdb.parser.HDBParameters;
 import com.codbex.kronos.exceptions.ArtifactParserException;
 
+/**
+ * The Class TestTableFunctionParser.
+ */
 public class TestTableFunctionParser {
 	
+    /** The test content provider. */
     TestContentProvider testContentProvider = new TestContentProvider();
     
+    /**
+	 * Parses the table function.
+	 *
+	 * @param parser   the parser
+	 * @param location the location
+	 * @param content  the content
+	 * @return the HDB table function
+	 * @throws DataStructuresException the data structures exception
+	 * @throws ArtifactParserException the artifact parser exception
+	 * @throws IOException             Signals that an I/O exception has occurred.
+	 */
     public HDBTableFunction parseTableFunction(@NotNull HDBDataStructureParser<HDBTableFunction> parser,
         String location, String content)
             throws DataStructuresException, ArtifactParserException, IOException {

@@ -30,6 +30,9 @@ package com.codbex.kronos.synchronizer.cleaners;
 //import com.codbex.kronos.synchronizer.XSJSLibSynchronizer;
 //import com.sap.db.jdbcext.wrapper.WrappedPreparedStatement;
 //
+/**
+ * The Class XSJSSynchronizerDBCleanerTest.
+ */
 //@RunWith(MockitoJUnitRunner.class)
 public class XSJSSynchronizerDBCleanerTest {
 

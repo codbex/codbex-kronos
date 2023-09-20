@@ -29,28 +29,50 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.codbex.kronos.engine.hdi.processors.GrantPrivilegesDefaultRoleProcessor;
 
+/**
+ * The Class GrantPrivilegesDefaultRoleProcessorTest.
+ */
 @ExtendWith(MockitoExtension.class)
 public class GrantPrivilegesDefaultRoleProcessorTest {
 
+  /** The mock connection. */
   @Mock(answer = Answers.RETURNS_DEEP_STUBS)
   private Connection mockConnection;
 
+  /** The hdb role path. */
   private String hdbRolePath = "/package/kronos_technical_privileges.hdbrole";
+  
+  /** The user. */
   private String user = "HANA_USER";
+  
+  /** The container. */
   private String container = "testContainer";
 
+  /**
+	 * Test deployed role.
+	 *
+	 * @throws SQLException the SQL exception
+	 */
   @Test
   public void testDeployedRole() throws SQLException {
     String[] deploys = { hdbRolePath };
     testGrantPrivilege(deploys, user, container);
   }
 
+  /**
+	 * Test no deployed role.
+	 *
+	 * @throws SQLException the SQL exception
+	 */
   @Test
   public void testNoDeployedRole() throws SQLException {
     String[] deploys = {};
     testGrantPrivilege(deploys, user, container);
   }
 
+  /**
+	 * Test no hana user provided.
+	 */
   @Test
   public void testNoHanaUserProvided() {
     Exception exception = assertThrows(IllegalStateException.class, () -> {
@@ -64,6 +86,14 @@ public class GrantPrivilegesDefaultRoleProcessorTest {
     assertTrue(actualMessage.contains(expectedMessage));
   }
 
+  /**
+	 * Test grant privilege.
+	 *
+	 * @param deploys   the deploys
+	 * @param user      the user
+	 * @param container the container
+	 * @throws SQLException the SQL exception
+	 */
   private void testGrantPrivilege(String[] deploys, String user, String container) throws SQLException {
     int expectedInvocations = Arrays.asList(deploys).contains(hdbRolePath) ? 1 : 0;
 

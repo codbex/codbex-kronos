@@ -38,6 +38,9 @@ package com.codbex.kronos.synchronizer;
 //import junitparams.JUnitParamsRunner;
 //import junitparams.Parameters;
 //
+/**
+ * The Class XSJSLibSynchronizerTest.
+ */
 //@RunWith(JUnitParamsRunner.class)
 public class XSJSLibSynchronizerTest { //extends XSJSTest {
 

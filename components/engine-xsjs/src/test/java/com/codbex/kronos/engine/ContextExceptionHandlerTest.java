@@ -19,6 +19,9 @@ package com.codbex.kronos.engine;
 //import org.eclipse.dirigible.commons.api.context.ContextException;
 //import org.junit.Test;
 
+/**
+ * The Class ContextExceptionHandlerTest.
+ */
 public class ContextExceptionHandlerTest {
 
 //  @Test

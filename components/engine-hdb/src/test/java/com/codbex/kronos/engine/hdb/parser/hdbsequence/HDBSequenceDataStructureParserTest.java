@@ -31,6 +31,9 @@ import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.parser.hdbsequence.exceptions.HDBSequenceDuplicatePropertyException;
 import com.codbex.kronos.parser.hdbsequence.exceptions.HDBSequenceMissingPropertyException;
 
+/**
+ * The Class HDBSequenceDataStructureParserTest.
+ */
 @SpringBootTest(classes = {HDBDataStructureModelFactory.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})
@@ -38,6 +41,11 @@ import com.codbex.kronos.parser.hdbsequence.exceptions.HDBSequenceMissingPropert
 @Transactional
 public class HDBSequenceDataStructureParserTest {
 
+  /**
+	 * Parses the hana XS classic content.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void parseHanaXSClassicContent() throws Exception {
     String content = org.apache.commons.io.IOUtils
@@ -53,6 +61,11 @@ public class HDBSequenceDataStructureParserTest {
     assertEquals(true, model.isClassic());
   }
 
+  /**
+	 * Parses the default values.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void parseDefaultValues() throws Exception {
     String content = org.apache.commons.io.IOUtils
@@ -64,6 +77,11 @@ public class HDBSequenceDataStructureParserTest {
     assertEquals(Integer.valueOf(1), model.getMinValue());
   }
 
+  /**
+	 * Parses the depends on content.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void parseDependsOnContent() throws Exception {
     String content = org.apache.commons.io.IOUtils
@@ -73,6 +91,11 @@ public class HDBSequenceDataStructureParserTest {
     assertEquals("sap.ino.db.iam::t_view", model.getDependsOnView());
   }
 
+  /**
+	 * Parses the hana XS advanced content.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void parseHanaXSAdvancedContent() throws Exception {
     String content = org.apache.commons.io.IOUtils
@@ -83,6 +106,11 @@ public class HDBSequenceDataStructureParserTest {
   }
 
 
+  /**
+	 * Parses the grammar unreadable content.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void parseGrammarUnreadableContent() throws Exception {
     String content = "Some invalid content.";
@@ -90,6 +118,11 @@ public class HDBSequenceDataStructureParserTest {
   }
 
 
+  /**
+	 * Parses the repetitive properties.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void parseRepetitiveProperties() throws Exception {
     String content = org.apache.commons.io.IOUtils
@@ -97,6 +130,11 @@ public class HDBSequenceDataStructureParserTest {
     assertThrows(HDBSequenceDuplicatePropertyException.class, () -> HDBDataStructureModelFactory.parseSequence("/test/com/codbex/kronos/RepetitivePropsSequence.hdbsequence", content));
   }
 
+  /**
+	 * Parses the randomly ordered content.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void parseRandomlyOrderedContent() throws Exception {
     String content = org.apache.commons.io.IOUtils
@@ -116,6 +154,11 @@ public class HDBSequenceDataStructureParserTest {
   }
 
 
+  /**
+	 * Parses the missing mandatory property.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void parseMissingMandatoryProperty() throws Exception {
     String content = org.apache.commons.io.IOUtils
@@ -125,6 +168,11 @@ public class HDBSequenceDataStructureParserTest {
     assertThrows(HDBSequenceMissingPropertyException.class, () -> HDBDataStructureModelFactory.parseSequence("/test/com/codbex/kronos/MissingPropSequence.hdbsequence", content));
   }
 
+  /**
+	 * Parses the non quoted seq.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void parseNonQuotedSeq() throws Exception {
     String content = "  SEQUENCE seq";
@@ -132,12 +180,22 @@ public class HDBSequenceDataStructureParserTest {
     assertEquals(false, model.isClassic());
   }
 
+  /**
+	 * Parses the hana XS classic content with lexer error fail.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void parseHanaXSClassicContentWithLexerErrorFail() throws Exception {
     String content = "start_with= 10;\n" + "nomaxvalue=dddddfalse;";
     assertThrows(ArtifactParserException.class, () -> HDBDataStructureModelFactory.parseSequence("db/test.hdbsequence", content));
   }
 
+  /**
+	 * Parses the hana XS classic content with syntax error fail.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void parseHanaXSClassicContentWithSyntaxErrorFail() throws Exception {
     String content = "start_with= 10;\n" + "nomaxvalue=";

@@ -27,6 +27,9 @@ import org.springframework.context.annotation.ComponentScan;
 import com.codbex.kronos.engine.hdb.domain.HDBProcedure;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 
+/**
+ * The Class HDBProcedureDataStructureParserTest.
+ */
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})
@@ -34,6 +37,11 @@ import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 @Transactional
 public class HDBProcedureDataStructureParserTest {
 
+  /**
+	 * Check model.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void checkModel() throws Exception {
     String fileContent = org.apache.commons.io.IOUtils

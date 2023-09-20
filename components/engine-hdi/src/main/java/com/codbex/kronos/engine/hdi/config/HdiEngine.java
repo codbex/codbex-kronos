@@ -14,14 +14,27 @@ package com.codbex.kronos.engine.hdi.config;
 import org.eclipse.dirigible.components.base.artefact.Engine;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class HdiEngine.
+ */
 @Component
 public class HdiEngine implements Engine {
 	
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	@Override
 	public String getName() {
 		return "HDI";
 	}
 
+	/**
+	 * Gets the provider.
+	 *
+	 * @return the provider
+	 */
 	@Override
 	public String getProvider() {
 		return "codbex Kronos";

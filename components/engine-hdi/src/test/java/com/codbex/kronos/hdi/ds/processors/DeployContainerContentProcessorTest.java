@@ -37,20 +37,37 @@ import org.mockito.stubbing.Answer;
 import com.codbex.kronos.engine.hdi.ds.util.Message;
 import com.codbex.kronos.engine.hdi.processors.DeployContainerContentProcessor;
 
+/**
+ * The Class DeployContainerContentProcessorTest.
+ */
 @ExtendWith(MockitoExtension.class)
 public class DeployContainerContentProcessorTest {
 
+  /** The mock connection. */
   @Mock(answer = Answers.RETURNS_DEEP_STUBS)
   private Connection mockConnection;
+  
+  /** The result set mock. */
   @Mock
   private ResultSet resultSetMock;
+  
+  /** The result set from select mock. */
   @Mock
   private ResultSet resultSetFromSelectMock;
+  
+  /** The prepared statement mock. */
   @Mock
   private PreparedStatement preparedStatementMock;
+  
+  /** The callable statement mock. */
   @Mock
   private CallableStatement callableStatementMock;
 
+  /**
+	 * Test execute call.
+	 *
+	 * @throws SQLException the SQL exception
+	 */
   @Test
   public void testExecuteCall() throws SQLException {
 
@@ -108,13 +125,29 @@ public class DeployContainerContentProcessorTest {
 
   }
 
+  /**
+	 * The Class MockRow.
+	 */
   static class MockRow {
+    
+    /** The row data. */
     String[] rowData;
 
+    /**
+	 * Sets the current row data.
+	 *
+	 * @param rowData the new current row data
+	 */
     public void setCurrentRowData(String[] rowData) {
       this.rowData = rowData;
     }
 
+    /**
+	 * Gets the column.
+	 *
+	 * @param idx the idx
+	 * @return the column
+	 */
     public String getColumn(int idx) {
       return rowData[idx - 1];
     }

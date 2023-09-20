@@ -41,12 +41,23 @@ import com.codbex.kronos.engine.hdi.processors.GrantPrivilegesExternalArtifactsS
 import com.codbex.kronos.engine.hdi.processors.HDIContainerCreateProcessor;
 import com.codbex.kronos.engine.hdi.processors.WriteContainerContentProcessor;
 
+/**
+ * The Class HDIContainerCreateProcessorTest.
+ */
 @ExtendWith(MockitoExtension.class)
 public class HDIContainerCreateProcessorTest {
 
+  /** The mock connection. */
   @Mock(answer = Answers.RETURNS_DEEP_STUBS)
   private Connection mockConnection;
 
+  /**
+	 * Test execute.
+	 *
+	 * @throws SQLException            the SQL exception
+	 * @throws IOException             Signals that an I/O exception has occurred.
+	 * @throws DataStructuresException the data structures exception
+	 */
   @Test
   public void testExecute() throws SQLException, IOException, DataStructuresException {
 

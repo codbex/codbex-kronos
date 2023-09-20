@@ -37,6 +37,9 @@ import com.codbex.kronos.engine.hdb.domain.HDBTable;
 import com.codbex.kronos.engine.hdb.processors.HDBTableAlterHandler;
 import com.codbex.kronos.engine.hdb.processors.HDBTableAlterProcessor;
 
+/**
+ * The Class HDBTableProcessorsTest.
+ */
 @SpringBootTest(classes = {HDBTableAlterProcessor.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})
@@ -45,22 +48,34 @@ import com.codbex.kronos.engine.hdb.processors.HDBTableAlterProcessor;
 @ExtendWith(MockitoExtension.class)
 public class HDBTableProcessorsTest {
 
+  /** The mock connection. */
   @Mock(answer = Answers.RETURNS_DEEP_STUBS)
   private Connection mockConnection;
 
+  /** The mock model. */
   @Mock
   private HDBTable mockModel;
 
+  /** The mock handler. */
   @Mock
   private HDBTableAlterHandler mockHandler;
 
+  /** The table alter processor. */
   private HDBTableAlterProcessor tableAlterProcessor = spy(new HDBTableAlterProcessor());
 
+  /**
+	 * Open mocks.
+	 */
   @BeforeEach
   public void openMocks() {
     MockitoAnnotations.openMocks(this);
   }
 
+  /**
+	 * Execute alter successfully.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void executeAlterSuccessfully() throws Exception {
     Mockito.doReturn(mockHandler).when(tableAlterProcessor).createTableAlterHandler(mockConnection, mockModel);

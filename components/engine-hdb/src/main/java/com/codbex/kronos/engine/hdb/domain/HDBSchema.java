@@ -74,6 +74,11 @@ public class HDBSchema extends HDBDataStructure {
 		this.id = id;
 	}
 
+	/**
+	 * To string.
+	 *
+	 * @return the string
+	 */
 	@Override
 	public String toString() {
 		return "HDBSchema [id=" + id + ", location=" + location + ", name=" + name + ", type=" + type + ", description="

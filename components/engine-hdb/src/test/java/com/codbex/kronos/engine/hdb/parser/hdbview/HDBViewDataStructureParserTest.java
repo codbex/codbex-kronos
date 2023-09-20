@@ -28,6 +28,9 @@ import com.codbex.kronos.engine.hdb.domain.HDBView;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.exceptions.ArtifactParserException;
 
+/**
+ * The Class HDBViewDataStructureParserTest.
+ */
 @SpringBootTest(classes = {HDBDataStructureModelFactory.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})
@@ -35,6 +38,11 @@ import com.codbex.kronos.exceptions.ArtifactParserException;
 @Transactional
 public class HDBViewDataStructureParserTest {
 
+  /**
+	 * Parses the hana XS classic content successfully.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void parseHanaXSClassicContentSuccessfully() throws Exception {
     String hdbviewSample = org.apache.commons.io.IOUtils
@@ -63,6 +71,11 @@ public class HDBViewDataStructureParserTest {
 //    assertEquals("VIEW", model.getDependencies().get(3).getType());
   }
 
+  /**
+	 * Parses the hana XS advanced content successfully.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void parseHanaXSAdvancedContentSuccessfully() throws Exception {
     String hdbviewSample = org.apache.commons.io.IOUtils
@@ -72,6 +85,11 @@ public class HDBViewDataStructureParserTest {
     assertEquals(hdbviewSample, model.getContent());
   }
 
+  /**
+	 * Parses the hana XS advanced content no quotes successfully.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void parseHanaXSAdvancedContentNoQuotesSuccessfully() throws Exception {
     String content = " view toni AS SELECT OD_NAME FROM KRONOS_ODATA";
@@ -80,6 +98,11 @@ public class HDBViewDataStructureParserTest {
     assertEquals(content, model.getContent());
   }
 
+  /**
+	 * Parses the hana XS classic content with lexer error fail.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void parseHanaXSClassicContentWithLexerErrorFail() throws Exception {
     String content = "schema = \"MY_SCHEMA\";\n" +
@@ -88,6 +111,11 @@ public class HDBViewDataStructureParserTest {
     assertThrows(ArtifactParserException.class, () -> HDBDataStructureModelFactory.parseView("hdb_view/db/test.hdbview", content));
   }
 
+  /**
+	 * Parses the hana XS classic content with syntax error fail.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void parseHanaXSClassicContentWithSyntaxErrorFail() throws Exception {
     String content = "schema = ;\n" +

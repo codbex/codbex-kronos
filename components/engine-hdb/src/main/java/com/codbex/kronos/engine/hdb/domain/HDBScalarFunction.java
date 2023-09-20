@@ -74,6 +74,11 @@ public class HDBScalarFunction extends HDBDataStructure {
 		this.id = id;
 	}
 
+	/**
+	 * To string.
+	 *
+	 * @return the string
+	 */
 	@Override
 	public String toString() {
 		return "HDBScalarFunction [id=" + id + ", location=" + location + ", name=" + name + ", type=" + type

@@ -127,38 +127,83 @@ public class HDBTableTypePrimaryKey {
 		this.id = id;
 	}
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Gets the modifiers.
+	 *
+	 * @return the modifiers
+	 */
 	public String[] getModifiers() {
 		return modifiers;
 	}
 
+	/**
+	 * Sets the modifiers.
+	 *
+	 * @param modifiers the new modifiers
+	 */
 	public void setModifiers(String[] modifiers) {
 		this.modifiers = modifiers;
 	}
 
+	/**
+	 * Gets the columns.
+	 *
+	 * @return the columns
+	 */
 	public String[] getColumns() {
 		return columns;
 	}
 
+	/**
+	 * Sets the columns.
+	 *
+	 * @param columns the new columns
+	 */
 	public void setColumns(String[] columns) {
 		this.columns = columns;
 	}
 
+	/**
+	 * Gets the table type.
+	 *
+	 * @return the table type
+	 */
 	public HDBTableType getTableType() {
 		return tableType;
 	}
 
+	/**
+	 * Sets the table type.
+	 *
+	 * @param tableType the new table type
+	 */
 	public void setTableType(HDBTableType tableType) {
 		this.tableType = tableType;
 	}
 
+	/**
+	 * To string.
+	 *
+	 * @return the string
+	 */
 	@Override
 	public String toString() {
 		return "HDBTableTypePrimaryKey [id=" + id + ", name=" + name + ", modifiers=" + Arrays.toString(modifiers)

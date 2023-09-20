@@ -19,6 +19,9 @@ package com.codbex.kronos.modificators;
 //
 //import org.junit.Test;
 
+/**
+ * The Class CalculationViewTransformationTest.
+ */
 public class CalculationViewTransformationTest {
 
 //  @Test

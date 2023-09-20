@@ -43,12 +43,24 @@ public enum CdsHanaTypeEnum {
   /** The st geometry. */
   ST_GEOMETRY("hana.ST_GEOMETRY");
 
+  /** The prefixed name. */
   public final String prefixedName;
 
+  /**
+	 * Instantiates a new cds hana type enum.
+	 *
+	 * @param prefixedName the prefixed name
+	 */
   private CdsHanaTypeEnum(String prefixedName) {
     this.prefixedName = prefixedName;
   }
 
+  /**
+	 * Gets the SQL name.
+	 *
+	 * @param prefixedName the prefixed name
+	 * @return the SQL name
+	 */
   public static CdsHanaTypeEnum getSQLName(String prefixedName) {
     for (CdsHanaTypeEnum e : values()) {
       if (e.prefixedName.equals(prefixedName)) {

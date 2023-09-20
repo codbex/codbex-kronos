@@ -88,6 +88,11 @@ public class SchedulerManager implements InitializingBean {
 		return INSTANCE;
 	}
 
+	/**
+	 * Gets the scheduler.
+	 *
+	 * @return the scheduler
+	 */
 	public Scheduler getScheduler() {
 		return scheduler;
 	}

@@ -156,11 +156,22 @@ public class HDBTableTypesSynchronizer<A extends Artefact> implements Synchroniz
 		}
 	}
 
+	/**
+	 * Assign parent.
+	 *
+	 * @param tableType the table type
+	 */
 	static void assignParent(HDBTableType tableType) {
 		tableType.getColumns().forEach(c -> c.setTableType(tableType));
 		tableType.getPrimaryKey().setTableType(tableType);
 	}
 
+	/**
+	 * Reassign ids.
+	 *
+	 * @param tableType the table type
+	 * @param maybe     the maybe
+	 */
 	static void reassignIds(HDBTableType tableType, HDBTableType maybe) {
 		tableType.getColumns().forEach(c -> {
 			HDBTableTypeColumn m = maybe.getColumn(c.getName());

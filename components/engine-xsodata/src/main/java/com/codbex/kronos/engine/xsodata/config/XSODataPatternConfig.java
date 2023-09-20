@@ -16,6 +16,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class XSODataPatternConfig.
+ */
 @Component
 public class XSODataPatternConfig {
 
@@ -23,6 +26,11 @@ public class XSODataPatternConfig {
     @Autowired
     private ApplicationContext applicationContext;
     
+    /**
+	 * Xsodata context aware.
+	 *
+	 * @return the XSO data context aware
+	 */
     @Bean
     public XSODataContextAware xsodataContextAware() {
     	XSODataContextAware xsodataContextAware = new XSODataContextAware();

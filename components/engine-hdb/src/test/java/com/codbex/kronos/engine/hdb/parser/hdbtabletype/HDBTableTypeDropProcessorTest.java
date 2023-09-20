@@ -42,6 +42,9 @@ import com.codbex.kronos.engine.hdb.domain.HDBTableType;
 import com.codbex.kronos.engine.hdb.parser.HDBSynonymRemover;
 import com.codbex.kronos.engine.hdb.processors.HDBTableTypeDropProcessor;
 
+/**
+ * The Class HDBTableTypeDropProcessorTest.
+ */
 @SpringBootTest(classes = {HDBTableTypeDropProcessor.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
@@ -50,32 +53,51 @@ import com.codbex.kronos.engine.hdb.processors.HDBTableTypeDropProcessor;
 @ExtendWith(MockitoExtension.class)
 public class HDBTableTypeDropProcessorTest {
 
+	/** The Constant TABLE_TYPE_NAME. */
 	private static final String TABLE_TYPE_NAME = "TableType";
+	
+	/** The Constant SCHEMA_NAME. */
 	private static final String SCHEMA_NAME = "SchemaName";
+	
+	/** The Constant ESCAPED_TABLE_TYPE_NAME. */
 	private static final String ESCAPED_TABLE_TYPE_NAME = "ESCAPED_TABLE_TYPE_NAME";
+	
+	/** The Constant SQL_TO_DROP_TABLE_TYPE. */
 	private static final String SQL_TO_DROP_TABLE_TYPE = "SQL TO DROP TABLE TYPE";
 	
+	/** The drop processor spy. */
 	private HDBTableTypeDropProcessor dropProcessorSpy;
 
+	/** The synonym remover mock. */
 	@Mock(answer = Answers.RETURNS_DEEP_STUBS)
 	private HDBSynonymRemover synonymRemoverMock;
 
+	/** The connection mock. */
 	@Mock(answer = Answers.RETURNS_DEEP_STUBS)
 	private Connection connectionMock;
 
+	/** The mock sql factory. */
 	@Mock(answer = Answers.RETURNS_DEEP_STUBS)
 	private SqlFactory mockSqlFactory;
 
+	/** The mock statement. */
 	@Mock
 	private PreparedStatement mockStatement;
 
+	/**
+	 * Open mocks.
+	 */
 	@BeforeEach
 	public void openMocks() {
 		MockitoAnnotations.openMocks(this);
 	}
 
+	/** The model. */
 	private HDBTableType model;
 
+	/**
+	 * Sets the up.
+	 */
 	@BeforeEach
 	public void setUp() {
 		dropProcessorSpy = Mockito.spy(new HDBTableTypeDropProcessor());
@@ -88,6 +110,11 @@ public class HDBTableTypeDropProcessorTest {
 		MockitoAnnotations.openMocks(this);
 	}
 
+	/**
+	 * Test execute table type does not exist.
+	 *
+	 * @throws SQLException the SQL exception
+	 */
 	@Test
 	public void testExecuteTableTypeDoesNotExist() throws SQLException {
 		try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
@@ -107,6 +134,11 @@ public class HDBTableTypeDropProcessorTest {
 		}
 	}
 
+	/**
+	 * Test execute table type.
+	 *
+	 * @throws SQLException the SQL exception
+	 */
 	@Test
 	public void testExecuteTableType() throws SQLException {
 		try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
@@ -133,6 +165,11 @@ public class HDBTableTypeDropProcessorTest {
 		}
 	}
 
+	/**
+	 * Test execute no table type support with SQL exception.
+	 *
+	 * @throws SQLException the SQL exception
+	 */
 	@Test
 	public void testExecuteNoTableTypeSupportWithSQLException() throws SQLException {
 		try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
@@ -168,6 +205,11 @@ public class HDBTableTypeDropProcessorTest {
 		}
 	}
 
+	/**
+	 * Test execute no table type support in DB.
+	 *
+	 * @throws SQLException the SQL exception
+	 */
 	@Test
 	public void testExecuteNoTableTypeSupportInDB() throws SQLException {
 		try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);

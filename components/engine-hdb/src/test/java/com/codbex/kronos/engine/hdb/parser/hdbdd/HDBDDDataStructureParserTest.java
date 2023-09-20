@@ -39,6 +39,9 @@ import com.codbex.kronos.engine.hdb.domain.HDBView;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.repository.TestRepositoryMigrator;
 
+/**
+ * The Class HDBDDDataStructureParserTest.
+ */
 @SpringBootTest(classes = {HDBDataStructureModelFactory.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})
@@ -46,14 +49,21 @@ import com.codbex.kronos.engine.hdb.repository.TestRepositoryMigrator;
 @Transactional
 public class HDBDDDataStructureParserTest {
 	
+  /** The migrator. */
   @Autowired
   private TestRepositoryMigrator migrator;
 
+  /**
+	 * Clean up.
+	 */
   @AfterEach
   public void cleanUp() {
     migrator.cleanUp();
   }
 
+  /**
+	 * Test parse hana XS classic content with syntax error fail.
+	 */
   @Test
   public void testParseHanaXSClassicContentWithSyntaxErrorFail() {
 	migrator.migrate("gstr2/ITC_EXPIRED_CONFIG.hdbdd");
@@ -66,6 +76,9 @@ public class HDBDDDataStructureParserTest {
         exception.getMessage());
   }
 
+  /**
+	 * Test parse hana XS classic content with lexer error fail.
+	 */
   @Test
   public void testParseHanaXSClassicContentWithLexerErrorFail() {
 	migrator.migrate("gstr2/ITC_EXPIRED_CONFIG1.hdbdd");
@@ -78,6 +91,11 @@ public class HDBDDDataStructureParserTest {
         exception.getMessage());
   }
 
+  /**
+	 * Test parse HDBDD with managed ass.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseHDBDDWithManagedAss() throws Exception {
 	migrator.migrate("gstr2/ProductsWithManagedAss.hdbdd");
@@ -196,6 +214,11 @@ public class HDBDDDataStructureParserTest {
 
   }
 
+  /**
+	 * Test parse HDBDD with managed ass and alias.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseHDBDDWithManagedAssAndAlias() throws Exception {
 	migrator.migrate("gstr2/ClientsWithManagedAssAndAlias.hdbdd");
@@ -395,6 +418,11 @@ public class HDBDDDataStructureParserTest {
     assertEquals(true, parsedModel.isClassic());
   }
 
+  /**
+	 * Test parse HDBDD with un managed ass.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseHDBDDWithUnManagedAss() throws Exception {
 	migrator.migrate("gstr2/ProductsWithUnManagedAss.hdbdd");
@@ -485,6 +513,11 @@ public class HDBDDDataStructureParserTest {
     assertEquals(true, parsedModel.isClassic());
   }
 
+  /**
+	 * Test parse HDBDD with no key annotation.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseHDBDDWithNoKeyAnnotation() throws Exception {
 	migrator.migrate("gstr2/NoKeyAnnSample.hdbdd");
@@ -498,6 +531,11 @@ public class HDBDDDataStructureParserTest {
         exception.getMessage());
   }
 
+  /**
+	 * Test parse HDBDD with generate table type annotation.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseHDBDDWithGenerateTableTypeAnnotation() throws Exception {
 	migrator.migrate("gstr2/GenerateTableTypeAnnotationSample.hdbdd");
@@ -517,6 +555,11 @@ public class HDBDDDataStructureParserTest {
     assertEquals("NVARCHAR", tableTypeModel.getColumns().get(3).getType());
   }
 
+  /**
+	 * Test parse HDBDD with date time function default value.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseHDBDDWithDateTimeFunctionDefaultValue() throws Exception {
 	migrator.migrate("gstr2/DefaultValueWithDateTimeFunction.hdbdd");
@@ -533,6 +576,11 @@ public class HDBDDDataStructureParserTest {
     assertTrue(tableModel.getColumns().get(1).isDefaultValueDateTimeFunction());
   }
 
+  /**
+	 * Test parse HDBDD with table type annotation column.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseHDBDDWithTableTypeAnnotationColumn() throws Exception {
 	migrator.migrate("gstr2/TableTypeColumn.hdbdd");
@@ -541,6 +589,11 @@ public class HDBDDDataStructureParserTest {
     assertEquals("COLUMN", parsedModel.getTables().get(1).getTableType());
   }
 
+  /**
+	 * Test parse HDBDD with table type annotation row.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseHDBDDWithTableTypeAnnotationRow() throws Exception {
 	migrator.migrate("gstr2/TableTypeRow.hdbdd");
@@ -549,6 +602,11 @@ public class HDBDDDataStructureParserTest {
     assertEquals("ROW", parsedModel.getTables().get(1).getTableType());
   }
 
+  /**
+	 * Test parse HDBDD with table type annotation global temporary.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseHDBDDWithTableTypeAnnotationGlobalTemporary() throws Exception {
 	migrator.migrate("gstr2/TableTypeGlobalTemporary.hdbdd");
@@ -556,6 +614,11 @@ public class HDBDDDataStructureParserTest {
     assertEquals("GLOBAL_TEMPORARY", parsedModel.getTables().get(0).getTableType());
   }
 
+  /**
+	 * Test parse HDBDD with table type annotation global temporary column.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseHDBDDWithTableTypeAnnotationGlobalTemporaryColumn() throws Exception {
 	migrator.migrate("gstr2/TableTypeGlobalTemporaryColumn.hdbdd");
@@ -574,6 +637,11 @@ public class HDBDDDataStructureParserTest {
     assertNull(tableType, "No table type should have been defined for this HDBDD, but table type is specified");
   }
 
+  /**
+	 * Test parse HDBDD with view definition simple.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseHDBDDWithViewDefinitionSimple() throws Exception {
     String expectedRawContent = org.apache.commons.io.IOUtils
@@ -585,6 +653,11 @@ public class HDBDDDataStructureParserTest {
     assertEquals(expectedRawContent, viewModel.getQuery().trim());
   }
 
+  /**
+	 * Test parse HDBDD with view definition with join.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseHDBDDWithViewDefinitionWithJoin() throws Exception {
     String expectedRawContent = org.apache.commons.io.IOUtils
@@ -596,6 +669,11 @@ public class HDBDDDataStructureParserTest {
     assertEquals(expectedRawContent, viewModel.getQuery().trim());
   }
 
+  /**
+	 * Test parse HDBDD with view definition with where.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseHDBDDWithViewDefinitionWithWhere() throws Exception {
     String expectedRawContent = org.apache.commons.io.IOUtils
@@ -607,6 +685,11 @@ public class HDBDDDataStructureParserTest {
     assertEquals(expectedRawContent, viewModel.getQuery().trim());
   }
   
+  /**
+	 * Test parse HDBDD with view definition with case.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseHDBDDWithViewDefinitionWithCase() throws Exception {
     String expectedRawContent = org.apache.commons.io.IOUtils
@@ -629,7 +712,12 @@ public class HDBDDDataStructureParserTest {
 //    assertEquals(expectedRawContent, viewModel.getContent().trim());
 //  }
 
-  @Test
+  /**
+ * Test parse HDBDD with nested view definition.
+ *
+ * @throws Exception the exception
+ */
+@Test
   public void testParseHDBDDWithNestedViewDefinition() throws Exception {
     String expectedRawContent = org.apache.commons.io.IOUtils
         .toString(HDBDDDataStructureParserTest.class.getResourceAsStream("/expected-results/ViewDefinitionNested.sql"), StandardCharsets.UTF_8);
@@ -640,6 +728,11 @@ public class HDBDDDataStructureParserTest {
     assertEquals(expectedRawContent, viewModel.getQuery().trim());
   }
 
+  /**
+	 * Test parse HDBDD with fuzzy search index.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseHDBDDWithFuzzySearchIndex() throws Exception {
 	migrator.migrate("gstr2/FuzzySearchIndexEnabled.hdbdd");
@@ -648,6 +741,11 @@ public class HDBDDDataStructureParserTest {
     assertTrue(parsedModel.getTables().get(1).getColumns().get(1).isFuzzySearchIndex(), "Fuzzy search index is expected to be true, but it is false");
   }
 
+  /**
+	 * Test parse HDBDD with fuzzy search index new syntax.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseHDBDDWithFuzzySearchIndexNewSyntax() throws Exception {
 	migrator.migrate("gstr2/FuzzySearchIndexEnabledNewSyntax.hdbdd");
@@ -656,6 +754,11 @@ public class HDBDDDataStructureParserTest {
     assertFalse(parsedModel.getTables().get(1).getColumns().get(1).isFuzzySearchIndex(), "Fuzzy search index (new syntax) is expected to be false, but it is true");
   }
 
+  /**
+	 * Test parse HDBDD with traverse select statement.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseHDBDDWithTraverseSelectStatement() throws Exception {
 	migrator.migrate("gstr2/TraverseSelectStatement.hdbdd");
@@ -670,13 +773,23 @@ public class HDBDDDataStructureParserTest {
 //    assertEquals("DUMMY", parsedModel).getViews().get(0).getDependsOnTable().get(0));
 //  }
 
-  @Test
+  /**
+ * Test parse HDBDD with select distinct.
+ *
+ * @throws Exception the exception
+ */
+@Test
   public void testParseHDBDDWithSelectDistinct() throws Exception {
 	migrator.migrate("gstr2/SelectDistinct.hdbdd");
 	HDBDD parsedModel = HDBDataStructureModelFactory.parseHdbdd("gstr2/SelectDistinct.hdbdd", "");
     assertTrue(parsedModel.getViews().get(0).getQuery().contains("SELECT DISTINCT"), "Expected SELECT DISTINCT, but it is not found");
   }
 
+  /**
+	 * Test parse HDBDD with set sql type.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseHDBDDWithSetSqlType() throws Exception {
 	migrator.migrate("gstr2/SetSqlType.hdbdd");
@@ -685,6 +798,11 @@ public class HDBDDDataStructureParserTest {
     assertEquals("DECIMAL", parsedModel.getTableTypes().get(0).getColumns().get(1).getType());
   }
 
+  /**
+	 * Test parse HDBDD with set hana type.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseHDBDDWithSetHanaType() throws Exception {
 	migrator.migrate("gstr2/SetHanaType.hdbdd");
@@ -693,6 +811,11 @@ public class HDBDDDataStructureParserTest {
     assertEquals("SMALLINT", parsedModel.getTableTypes().get(0).getColumns().get(1).getType());
   }
 
+  /**
+	 * Test parse HDBDD with structured data type symbol.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseHDBDDWithStructuredDataTypeSymbol() throws Exception {
 	migrator.migrate("gstr2/StructuredDataTypeSymbol.hdbdd");
@@ -702,6 +825,11 @@ public class HDBDDDataStructureParserTest {
     assertEquals("gstr2::StructuredDataTypeSymbol.newType", parsedModel.getTableTypes().get(1).getName());
   }
   
+  /**
+	 * Test parse HDBDD with table types refs.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseHDBDDWithTableTypesRefs() throws Exception {
 	migrator.migrate("gstr2/TableTypesRefs.hdbdd");
@@ -709,6 +837,11 @@ public class HDBDDDataStructureParserTest {
     assertEquals("gstr2::TableTypesRefs.tt_FF", parsedModel.getTableTypes().get(0).getName());
   }
 
+  /**
+	 * Test parse HDBDD with unique catalog index.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseHDBDDWithUniqueCatalogIndex() throws Exception {
 	migrator.migrate("gstr2/CatalogIndexUnique.hdbdd");
@@ -718,6 +851,11 @@ public class HDBDDDataStructureParserTest {
     assertFalse(hasUniqueIndices, "Expected value for catalog unique index to be true, but it is false");
   }
 
+  /**
+	 * Test parse HDBDD with no unique catalog index.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseHDBDDWithNoUniqueCatalogIndex() throws Exception {
 	migrator.migrate("gstr2/CatalogIndexNonUnique.hdbdd");
@@ -726,6 +864,11 @@ public class HDBDDDataStructureParserTest {
     assertFalse(hasNoUniqueIndices, "Expected value for catalog unique index to be false, but it is true");
   }
 
+  /**
+	 * Test parse HDBDD with calculated columns.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseHDBDDWithCalculatedColumns() throws Exception {
 	migrator.migrate("gstr2/CalculatedColumns.hdbdd");

@@ -14,14 +14,27 @@ package com.codbex.kronos.engine.xsjob.config;
 import org.eclipse.dirigible.components.base.artefact.Engine;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class XSJobsEngine.
+ */
 @Component
 public class XSJobsEngine implements Engine {
 	
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	@Override
 	public String getName() {
 		return "XSJobs";
 	}
 
+	/**
+	 * Gets the provider.
+	 *
+	 * @return the provider
+	 */
 	@Override
 	public String getProvider() {
 		return "codbex Kronos";

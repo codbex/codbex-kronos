@@ -25,6 +25,9 @@ package com.codbex.kronos.modificators;
 //import org.junit.Before;
 //import org.junit.Test;
 
+/**
+ * The Class ProjectFilesModificatorTest.
+ */
 public class ProjectFilesModificatorTest {
 
 //  private static Workspace workspace;

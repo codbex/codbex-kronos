@@ -23,6 +23,9 @@ import org.springframework.stereotype.Service;
 
 import com.codbex.kronos.engine.KronosSourceProvider;
 
+/**
+ * The Class XsjsService.
+ */
 @Service
 public class XsjsService implements InitializingBean {
 	
@@ -41,6 +44,11 @@ public class XsjsService implements InitializingBean {
 	/** The handler. */
     private XsjsHandler handler;
 	
+	/**
+	 * Instantiates a new xsjs service.
+	 *
+	 * @param repository the repository
+	 */
 	@Autowired
 	public XsjsService(IRepository repository) {
 		this.repository = repository;
@@ -67,6 +75,11 @@ public class XsjsService implements InitializingBean {
         return INSTANCE;
     }
     
+    /**
+	 * Gets the repository.
+	 *
+	 * @return the repository
+	 */
     public IRepository getRepository() {
 		return repository;
 	}

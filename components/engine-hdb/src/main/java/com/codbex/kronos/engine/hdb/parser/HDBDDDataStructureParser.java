@@ -70,9 +70,11 @@ public class HDBDDDataStructureParser implements HDBDataStructureParser<HDBDD> {
    */
   private HDBDDTransformer hdbddTransformer = new HDBDDTransformer();
 
+  /** The repository. */
   @Autowired
   private IRepository repository;
   
+  /** The hdbdd service. */
   @Autowired
   private HDBDDService hdbddService;
   

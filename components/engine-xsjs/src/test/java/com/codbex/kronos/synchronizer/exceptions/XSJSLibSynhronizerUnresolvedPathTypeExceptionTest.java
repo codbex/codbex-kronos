@@ -17,6 +17,9 @@ package com.codbex.kronos.synchronizer.exceptions;
 //
 //import static org.junit.Assert.assertEquals;
 
+/**
+ * The Class XSJSLibSynhronizerUnresolvedPathTypeExceptionTest.
+ */
 public class XSJSLibSynhronizerUnresolvedPathTypeExceptionTest {
 //  @Test
 //  public void unresolvedPathTypeExceptionTest() {

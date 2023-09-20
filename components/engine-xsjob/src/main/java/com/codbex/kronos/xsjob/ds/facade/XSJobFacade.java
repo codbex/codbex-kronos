@@ -34,6 +34,7 @@ import com.codbex.kronos.xsjob.ds.transformer.JobToKronosJobDefinitionTransforme
 public class XSJobFacade implements InitializingBean {
 	
 
+	/** The job service. */
 	@Autowired
 	private XSJobService jobService;
 	
@@ -59,6 +60,11 @@ public class XSJobFacade implements InitializingBean {
 		return INSTANCE;
 	}
 	
+	/**
+	 * Gets the job service.
+	 *
+	 * @return the job service
+	 */
 	public XSJobService getJobService() {
 		return jobService;
 	}

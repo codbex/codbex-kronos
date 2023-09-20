@@ -38,6 +38,9 @@ import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.parser.HDBParameters;
 import com.codbex.kronos.exceptions.ArtifactParserException;
 
+/**
+ * The Class HDBTableStructureDataStructureParserTest.
+ */
 @SpringBootTest(classes = {HDBDataStructureModelFactory.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})
@@ -45,6 +48,11 @@ import com.codbex.kronos.exceptions.ArtifactParserException;
 @Transactional
 public class HDBTableStructureDataStructureParserTest {
 
+  /**
+	 * Test parse when structure definition is correct test.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseWhenStructureDefinitionIsCorrectTest() throws Exception {
     InputStream in = HDBTableStructureDataStructureParserTest.class.getResourceAsStream("/ParsingHDBStructure.hdbstructure");
@@ -70,6 +78,13 @@ public class HDBTableStructureDataStructureParserTest {
     assertTrue(scenarioId.isPrimaryKey());
   }
 
+  /**
+	 * Test parse when structure PK is wrong should throw exception.
+	 *
+	 * @throws DataStructuresException the data structures exception
+	 * @throws ArtifactParserException the artifact parser exception
+	 * @throws IOException             Signals that an I/O exception has occurred.
+	 */
   @Test
   public void testParseWhenStructurePKIsWrongShouldThrowException()
       throws DataStructuresException, ArtifactParserException, IOException {

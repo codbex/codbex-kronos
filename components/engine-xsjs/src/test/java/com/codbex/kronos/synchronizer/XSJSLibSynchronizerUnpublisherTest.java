@@ -27,6 +27,9 @@ package com.codbex.kronos.synchronizer;
 //import static org.mockito.Mockito.verify;
 //import static org.mockito.Mockito.when;
 //
+/**
+ * The Class XSJSLibSynchronizerUnpublisherTest.
+ */
 //@RunWith(MockitoJUnitRunner.class)
 public class XSJSLibSynchronizerUnpublisherTest {
 //  @Test

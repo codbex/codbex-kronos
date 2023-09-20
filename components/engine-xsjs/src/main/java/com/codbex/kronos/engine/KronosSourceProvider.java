@@ -45,13 +45,38 @@ public class KronosSourceProvider implements JavascriptSourceProvider {
 	/** The Constant JS_EXTENSION. */
 	private static final String MJS_EXTENSION = ".mjs"; //$NON-NLS-1$
 
+	/** The dirigible source provider. */
 	private DirigibleSourceProvider dirigibleSourceProvider = new DirigibleSourceProvider();
 
+	/**
+	 * Gets the absolute source path.
+	 *
+	 * @param projectName     the project name
+	 * @param projectFileName the project file name
+	 * @return the absolute source path
+	 */
 	@Override
 	public Path getAbsoluteSourcePath(String projectName, String projectFileName) {
 		return dirigibleSourceProvider.getAbsoluteSourcePath(projectName, projectFileName);
 	}
+	
+	/**
+	 * Gets the absolute project path.
+	 *
+	 * @param projectName the project name
+	 * @return the absolute project path
+	 */
+	@Override
+	public Path getAbsoluteProjectPath(String projectName) {
+		return dirigibleSourceProvider.getAbsoluteProjectPath(projectName);
+	}
 
+	/**
+	 * Gets the source.
+	 *
+	 * @param sourceFilePath the source file path
+	 * @return the source
+	 */
 	@Override
 	public String getSource(String sourceFilePath) {
 		try {
@@ -62,6 +87,13 @@ public class KronosSourceProvider implements JavascriptSourceProvider {
 		return null;
 	}
 
+	/**
+	 * Unpacked to file system.
+	 *
+	 * @param pathToUnpack the path to unpack
+	 * @param pathToLookup the path to lookup
+	 * @return the path
+	 */
 	@Override
 	public Path unpackedToFileSystem(Path pathToUnpack, Path pathToLookup) {
 		return dirigibleSourceProvider.unpackedToFileSystem(pathToUnpack, pathToLookup);

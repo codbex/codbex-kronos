@@ -43,6 +43,9 @@ package com.codbex.kronos.engine;
 //import junitparams.JUnitParamsRunner;
 //import junitparams.Parameters;
 //
+/**
+ * The Class JavascriptEngineRestServiceTest.
+ */
 //@RunWith(JUnitParamsRunner.class)
 public class JavascriptEngineRestServiceTest {
 

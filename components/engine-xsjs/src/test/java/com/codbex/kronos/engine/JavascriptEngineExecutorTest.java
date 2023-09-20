@@ -24,6 +24,9 @@ package com.codbex.kronos.engine;
 //
 //import com.codbex.kronos.XSJSTest;
 
+/**
+ * The Class JavascriptEngineExecutorTest.
+ */
 public class JavascriptEngineExecutorTest { //extends XSJSTest {
 
 //  @Before

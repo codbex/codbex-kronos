@@ -59,6 +59,9 @@ import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.processors.HDBViewCreateProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBViewDropProcessor;
 
+/**
+ * The Class HDBViewProcessorTest.
+ */
 @SpringBootTest(classes = {HDBDataStructureModelFactory.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
@@ -68,35 +71,51 @@ import com.codbex.kronos.engine.hdb.processors.HDBViewDropProcessor;
 @MockitoSettings(strictness = Strictness.LENIENT)
 public class HDBViewProcessorTest {
 
+	/** The mock connection. */
 	@Mock(answer = Answers.RETURNS_DEEP_STUBS)
 	private Connection mockConnection;
 
+	/** The mock sql factory. */
 	@Mock(answer = Answers.RETURNS_DEEP_STUBS)
 	private SqlFactory mockSqlFactory;
 
+	/** The create. */
 	@Mock
 	private CreateBranchingBuilder create;
 
+	/** The mock create view builder. */
 	@Mock
 	private CreateViewBuilder mockCreateViewBuilder;
 
+	/** The drop. */
 	@Mock
 	private DropBranchingBuilder drop;
 
+	/** The mock drop view builder. */
 	@Mock
 	private DropViewBuilder mockDropViewBuilder;
 
+	/** The mock drop synonym builder. */
 	@Mock
 	private DropSynonymBuilder mockDropSynonymBuilder;
 
+	/** The processor. */
 	@InjectMocks
 	private HDBViewCreateProcessor processor = new HDBViewCreateProcessor();
 
+	/**
+	 * Open mocks.
+	 */
 	@BeforeEach
 	public void openMocks() {
 		MockitoAnnotations.openMocks(this);
 	}
 
+	/**
+	 * Execute create view HAN av 1 successfully.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void executeCreateViewHANAv1Successfully() throws Exception {
 		HDBViewCreateProcessor processorSpy = spy(HDBViewCreateProcessor.class);
@@ -130,6 +149,11 @@ public class HDBViewProcessorTest {
 		}
 	}
 
+	/**
+	 * Execute create view HAN av 2 successfully.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void executeCreateViewHANAv2Successfully() throws Exception {
 		HDBViewCreateProcessor processorSpy = spy(HDBViewCreateProcessor.class);
@@ -159,6 +183,11 @@ public class HDBViewProcessorTest {
 		}
 	}
 
+	/**
+	 * Execute create view postgre SQL failed.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void executeCreateViewPostgreSQLFailed() throws Exception {
 		IllegalStateException exception = Assertions.assertThrows(IllegalStateException.class, () -> {
@@ -182,6 +211,11 @@ public class HDBViewProcessorTest {
 		});
 	}
 
+	/**
+	 * Execute drop view successfully.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void executeDropViewSuccessfully() throws Exception {
 		HDBViewDropProcessor processorSpy = spy(HDBViewDropProcessor.class);

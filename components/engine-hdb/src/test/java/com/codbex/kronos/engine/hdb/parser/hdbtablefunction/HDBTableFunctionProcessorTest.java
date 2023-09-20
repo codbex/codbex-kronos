@@ -54,6 +54,9 @@ import com.codbex.kronos.engine.hdb.processors.HDBTableFunctionCreateProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBTableFunctionDropProcessor;
 import com.codbex.kronos.utils.CommonsUtils;
 
+/**
+ * The Class HDBTableFunctionProcessorTest.
+ */
 @SpringBootTest(classes = {HDBTableFunctionCreateProcessor.class, HDBTableFunctionDropProcessor.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
@@ -62,30 +65,56 @@ import com.codbex.kronos.utils.CommonsUtils;
 @ExtendWith(MockitoExtension.class)
 public class HDBTableFunctionProcessorTest {
 
+	/** The mock connection. */
 	@Mock(answer = Answers.RETURNS_DEEP_STUBS)
 	private Connection mockConnection;
 
+	/** The mock sql factory. */
 	@Mock(answer = Answers.RETURNS_DEEP_STUBS)
 	private SqlFactory mockSqlFactory;
 
+	/** The mock statement. */
 	@Mock
 	private PreparedStatement mockStatement;
 
+	/**
+	 * Open mocks.
+	 */
 	@BeforeEach
 	public void openMocks() {
 		MockitoAnnotations.openMocks(this);
 	}
 
+	/**
+	 * Execute create table function if do not exist.
+	 *
+	 * @throws IOException  Signals that an I/O exception has occurred.
+	 * @throws SQLException the SQL exception
+	 */
 	@Test
 	public void executeCreateTableFunctionIfDoNotExist() throws IOException, SQLException {
 		executeCreateTableFunctionSuccessfully(false, 1);
 	}
 
+	/**
+	 * Execute create table function if already exist.
+	 *
+	 * @throws IOException  Signals that an I/O exception has occurred.
+	 * @throws SQLException the SQL exception
+	 */
 	@Test
 	public void executeCreateTableFunctionIfAlreadyExist() throws IOException, SQLException {
 		executeCreateTableFunctionSuccessfully(true, 0);
 	}
 
+	/**
+	 * Execute create table function successfully.
+	 *
+	 * @param doExist                   the do exist
+	 * @param expectedTimesOfInvocation the expected times of invocation
+	 * @throws IOException  Signals that an I/O exception has occurred.
+	 * @throws SQLException the SQL exception
+	 */
 	public void executeCreateTableFunctionSuccessfully(boolean doExist, int expectedTimesOfInvocation)
 			throws IOException, SQLException {
 		try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
@@ -119,6 +148,11 @@ public class HDBTableFunctionProcessorTest {
 		}
 	}
 
+	/**
+	 * Execute create table function postgres SQL failed.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void executeCreateTableFunctionPostgresSQLFailed() throws Exception {
 		IllegalStateException exception = Assertions.assertThrows(IllegalStateException.class, () -> {
@@ -140,16 +174,35 @@ public class HDBTableFunctionProcessorTest {
 		});
 	}
 
+	/**
+	 * Execute drop table function if do not exist.
+	 *
+	 * @throws IOException  Signals that an I/O exception has occurred.
+	 * @throws SQLException the SQL exception
+	 */
 	@Test
 	public void executeDropTableFunctionIfDoNotExist() throws IOException, SQLException {
 		executeDropTableFunctionSuccessfully(false, 0);
 	}
 
+	/**
+	 * Execute drop table function if already exist.
+	 *
+	 * @throws IOException  Signals that an I/O exception has occurred.
+	 * @throws SQLException the SQL exception
+	 */
 	@Test
 	public void executeDropTableFunctionIfAlreadyExist() throws IOException, SQLException {
 		executeDropTableFunctionSuccessfully(true, 1);
 	}
 
+	/**
+	 * Execute drop table function successfully.
+	 *
+	 * @param doExist                   the do exist
+	 * @param expectedTimesOfInvocation the expected times of invocation
+	 * @throws SQLException the SQL exception
+	 */
 	public void executeDropTableFunctionSuccessfully(boolean doExist, int expectedTimesOfInvocation)
 			throws SQLException {
 		try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);

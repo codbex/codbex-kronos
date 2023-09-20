@@ -35,6 +35,7 @@ public class HDBSynonymCreateProcessor extends AbstractHDBProcessor<HDBSynonymGr
   /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(HDBSynonymCreateProcessor.class);
 
+  /** The Constant DUPLICATE_SYNONYM_NAME_ERROR_CODE. */
   private static final int DUPLICATE_SYNONYM_NAME_ERROR_CODE = 330;
   /**
    * Execute :

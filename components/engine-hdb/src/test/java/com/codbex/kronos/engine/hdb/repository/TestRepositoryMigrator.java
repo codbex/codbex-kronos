@@ -20,14 +20,24 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class TestRepositoryMigrator.
+ */
 @Component
 public class TestRepositoryMigrator {
 
+    /** The Constant logger. */
     private static final Logger logger = LoggerFactory.getLogger(TestRepositoryMigrator.class);
     
+    /** The repository. */
     @Autowired
     private IRepository repository;
 
+    /**
+	 * Migrate.
+	 *
+	 * @param source the source
+	 */
     public void migrate(String source) {
         try {
             byte[] content = TestRepositoryMigrator.class.getResourceAsStream(IRepositoryStructure.PATH_REGISTRY_PUBLIC + IRepositoryStructure.SEPARATOR + source).readAllBytes();
@@ -37,6 +47,9 @@ public class TestRepositoryMigrator {
         }
     }
 
+    /**
+	 * Clean up.
+	 */
     public void cleanUp() {
         repository.removeCollection(IRepositoryStructure.PATH_REGISTRY_PUBLIC + IRepositoryStructure.SEPARATOR);
     }

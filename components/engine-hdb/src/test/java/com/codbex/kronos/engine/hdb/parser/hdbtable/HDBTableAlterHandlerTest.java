@@ -51,6 +51,9 @@ import com.codbex.kronos.engine.hdb.domain.HDBTableColumn;
 import com.codbex.kronos.engine.hdb.domain.HDBTableConstraintPrimaryKey;
 import com.codbex.kronos.engine.hdb.domain.HDBTableConstraints;
 
+/**
+ * The Class HDBTableAlterHandlerTest.
+ */
 @Disabled
 @SpringBootTest(classes = {HDBTableAlterHandler.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -60,33 +63,52 @@ import com.codbex.kronos.engine.hdb.domain.HDBTableConstraints;
 @ExtendWith(MockitoExtension.class)
 public class HDBTableAlterHandlerTest {
 
+	/** The mock connection. */
 	@Mock(answer = Answers.RETURNS_DEEP_STUBS)
 	private Connection mockConnection;
 
+	/** The mock sql factory. */
 	@Mock(answer = Answers.RETURNS_DEEP_STUBS)
 	private SqlFactory mockSqlFactory;
 
+	/** The alter. */
 	@Mock
 	private AlterBranchingBuilder alter;
 
+	/** The alter table builder. */
 	@Mock
 	private AlterTableBuilder alterTableBuilder;
 
+	/** The database meta data. */
 	@Mock
 	private DatabaseMetaData databaseMetaData;
 
+	/** The result set. */
 	@Mock
 	private ResultSet resultSet;
 
+	/** The primary key. */
 	private HDBTableConstraintPrimaryKey primaryKey = new HDBTableConstraintPrimaryKey();
+	
+	/** The constraints model. */
 	private HDBTableConstraints constraintsModel = new HDBTableConstraints();
+	
+	/** The table model. */
 	private HDBTable tableModel = new HDBTable();
 
+	/**
+	 * Open mocks.
+	 */
 	@BeforeEach
 	public void openMocks() {
 		MockitoAnnotations.openMocks(this);
 	}
 
+/**
+ * Adds the columns successfully.
+ *
+ * @throws Exception the exception
+ */
 //  @Ignore("Missing verifyPrivate() in Mockito, test needs to be refactored")
 	@Test
 	public void addColumnsSuccessfully() throws Exception {
@@ -121,6 +143,11 @@ public class HDBTableAlterHandlerTest {
 		}
 	}
 
+	/**
+	 * Adds the columns failed when primary key.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void addColumnsFailedWhenPrimaryKey() throws Exception {
 		SQLException exception = Assertions.assertThrows(SQLException.class, () -> {
@@ -156,6 +183,11 @@ public class HDBTableAlterHandlerTest {
 		});
 	}
 
+/**
+ * Removes the columns successfully.
+ *
+ * @throws Exception the exception
+ */
 //  @Ignore("Missing verifyPrivate() in Mockito, test needs to be refactored")
 	@Test
 	public void removeColumnsSuccessfully() throws Exception {
@@ -199,6 +231,11 @@ public class HDBTableAlterHandlerTest {
 		}
 	}
 
+/**
+ * Update columns successfully.
+ *
+ * @throws Exception the exception
+ */
 //  @Ignore("Missing verifyPrivate() in Mockito, test needs to be refactored")
 	@Test
 	public void updateColumnsSuccessfully() throws Exception {
@@ -241,6 +278,11 @@ public class HDBTableAlterHandlerTest {
 		}
 	}
 
+/**
+ * Rebuild indeces successfully.
+ *
+ * @throws Exception the exception
+ */
 //  @Ignore("Missing verifyPrivate() in Mockito, test needs to be refactored")
 	@Test
 	public void rebuildIndecesSuccessfully() throws Exception {
@@ -274,6 +316,11 @@ public class HDBTableAlterHandlerTest {
 		}
 	}
 
+	/**
+	 * Ensure primary key is unchanged successfully.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void ensurePrimaryKeyIsUnchangedSuccessfully() throws Exception {
 		SQLException exception = Assertions.assertThrows(SQLException.class, () -> {

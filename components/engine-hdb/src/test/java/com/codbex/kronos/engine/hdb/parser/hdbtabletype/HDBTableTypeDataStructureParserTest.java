@@ -33,6 +33,9 @@ import com.codbex.kronos.engine.hdb.domain.HDBTableType;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.exceptions.ArtifactParserException;
 
+/**
+ * The Class HDBTableTypeDataStructureParserTest.
+ */
 @SpringBootTest(classes = {HDBDataStructureModelFactory.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})
@@ -40,6 +43,12 @@ import com.codbex.kronos.exceptions.ArtifactParserException;
 @Transactional
 public class HDBTableTypeDataStructureParserTest {
 
+  /**
+	 * Gets the table type content from resources.
+	 *
+	 * @param tableTypeFile the table type file
+	 * @return the table type content from resources
+	 */
   private static String getTableTypeContentFromResources(String tableTypeFile) {
     InputStream tableTypeFileInputStream = HDBTableTypeDataStructureParserTest.class.getResourceAsStream("/table-types/" + tableTypeFile);
     if (tableTypeFileInputStream == null) {
@@ -53,10 +62,23 @@ public class HDBTableTypeDataStructureParserTest {
     }
   }
 
+  /**
+	 * Table type file could not be read.
+	 *
+	 * @param tableTypeFile the table type file
+	 * @return the runtime exception
+	 */
   private static RuntimeException tableTypeFileCouldNotBeRead(String tableTypeFile) {
     return new RuntimeException("Table type file '" + tableTypeFile + "' could not be found.");
   }
 
+  /**
+	 * Test parsed XS advanced table type schema and name are extracted.
+	 *
+	 * @throws DataStructuresException the data structures exception
+	 * @throws ArtifactParserException the artifact parser exception
+	 * @throws IOException             Signals that an I/O exception has occurred.
+	 */
   @Test
   public void testParsedXSAdvancedTableTypeSchemaAndNameAreExtracted()
       throws DataStructuresException, ArtifactParserException, IOException {
@@ -68,6 +90,13 @@ public class HDBTableTypeDataStructureParserTest {
     assertEquals("customer_sample::publishers", parsedModel.getName(), "Unexpected name found");
   }
   
+  /**
+	 * Test parsed XS advanced table type schema and name are extracted 2.
+	 *
+	 * @throws DataStructuresException the data structures exception
+	 * @throws ArtifactParserException the artifact parser exception
+	 * @throws IOException             Signals that an I/O exception has occurred.
+	 */
   @Test
   public void testParsedXSAdvancedTableTypeSchemaAndNameAreExtracted2()
       throws DataStructuresException, ArtifactParserException, IOException {
@@ -79,6 +108,13 @@ public class HDBTableTypeDataStructureParserTest {
     assertEquals("customer_sample::publishers", parsedModel.getName(), "Unexpected name found");
   }
 
+  /**
+	 * Test parsed XS advanced table type name is extracted when no schema is set.
+	 *
+	 * @throws DataStructuresException the data structures exception
+	 * @throws ArtifactParserException the artifact parser exception
+	 * @throws IOException             Signals that an I/O exception has occurred.
+	 */
   @Test
   public void testParsedXSAdvancedTableTypeNameIsExtractedWhenNoSchemaIsSet()
       throws DataStructuresException, ArtifactParserException, IOException {
@@ -91,6 +127,13 @@ public class HDBTableTypeDataStructureParserTest {
     assertEquals("customer_sample::publishers", parsedModel.getName(), "Unexpected name found");
   }
   
+  /**
+	 * Test parsed XS advanced table type name is extracted when no schema is set 2.
+	 *
+	 * @throws DataStructuresException the data structures exception
+	 * @throws ArtifactParserException the artifact parser exception
+	 * @throws IOException             Signals that an I/O exception has occurred.
+	 */
   @Test
   public void testParsedXSAdvancedTableTypeNameIsExtractedWhenNoSchemaIsSet2()
       throws DataStructuresException, ArtifactParserException, IOException {
@@ -103,6 +146,11 @@ public class HDBTableTypeDataStructureParserTest {
     assertEquals("customer_sample::publishers", parsedModel.getName(), "Unexpected name found");
   }
 
+  /**
+	 * Test parse when table type definition is correct.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void testParseWhenTableTypeDefinitionIsCorrect() throws Exception {
     String tableTypeContent = getTableTypeContentFromResources("test.hdbtabletype");

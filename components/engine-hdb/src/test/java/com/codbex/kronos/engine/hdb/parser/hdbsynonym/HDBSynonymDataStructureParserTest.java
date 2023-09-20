@@ -31,6 +31,9 @@ import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.parser.HDBParameters;
 import com.codbex.kronos.engine.hdb.parser.HDBSynonymDataStructureParser;
 
+/**
+ * The Class HDBSynonymDataStructureParserTest.
+ */
 @SpringBootTest(classes = {HDBDataStructureModelFactory.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})
@@ -38,11 +41,19 @@ import com.codbex.kronos.engine.hdb.parser.HDBSynonymDataStructureParser;
 @Transactional
 public class HDBSynonymDataStructureParserTest {
 
+  /**
+	 * Open mocks.
+	 */
   @BeforeEach
   public void openMocks() {
     MockitoAnnotations.initMocks(this);
   }
 
+  /**
+	 * Parses the hdbsynonym file without errors successfully.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void parseHdbsynonymFileWithoutErrorsSuccessfully() throws Exception {
     String hdbsynonymSample = org.apache.commons.io.IOUtils
@@ -57,6 +68,11 @@ public class HDBSynonymDataStructureParserTest {
     assertEquals("DBADMIN", definitionModel.getTarget().getSchema());
   }
 
+/**
+ * Parses the hdbsynonym file missing target schema failed.
+ *
+ * @throws Exception the exception
+ */
 //  @Ignore
   @Test
   public void parseHdbsynonymFileMissingTargetSchemaFailed() throws Exception {

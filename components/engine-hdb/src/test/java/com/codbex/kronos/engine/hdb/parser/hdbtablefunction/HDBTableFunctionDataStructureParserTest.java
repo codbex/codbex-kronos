@@ -36,6 +36,9 @@ import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.repository.TestRepositoryMigrator;
 import com.codbex.kronos.exceptions.ArtifactParserException;
 
+/**
+ * The Class HDBTableFunctionDataStructureParserTest.
+ */
 @SpringBootTest(classes = {HDBDataStructureModelFactory.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})
@@ -43,17 +46,29 @@ import com.codbex.kronos.exceptions.ArtifactParserException;
 @Transactional
 public class HDBTableFunctionDataStructureParserTest {
 	
+	/** The migrator. */
 	@Autowired
 	private TestRepositoryMigrator migrator;
 	  
+	/** The repository. */
 	@Autowired
 	private IRepository repository;
 
+    /**
+	 * Clean up.
+	 */
     @AfterEach
     public void cleanUp() {
         migrator.cleanUp();
     }
 
+    /**
+	 * Parses the table function.
+	 *
+	 * @throws IOException             Signals that an I/O exception has occurred.
+	 * @throws DataStructuresException the data structures exception
+	 * @throws ArtifactParserException the artifact parser exception
+	 */
     @Test
     public void parseTableFunction() throws IOException, DataStructuresException, ArtifactParserException {
         String location = "tablefunction/OrderTableFunction.hdbtablefunction";
@@ -74,6 +89,13 @@ public class HDBTableFunctionDataStructureParserTest {
 //        assertEquals("class com.codbex.kronos.hdb.ds.model.hdbtablefunction.DataStructureHDBTableFunctionModel", parser.getDataStructureClass().toString(), "Cant access data structure model class");
     }
 
+    /**
+	 * Parses the no schema table function.
+	 *
+	 * @throws IOException             Signals that an I/O exception has occurred.
+	 * @throws DataStructuresException the data structures exception
+	 * @throws ArtifactParserException the artifact parser exception
+	 */
     @Test
     public void parseNoSchemaTableFunction() throws IOException, DataStructuresException, ArtifactParserException {
         String location = "tablefunction/OrderTableFunctionNoSchema.hdbtablefunction";
@@ -92,6 +114,11 @@ public class HDBTableFunctionDataStructureParserTest {
 //        assertNotNull("Null value for tablefunction createdBy", model.getCreatedBy());
     }
 
+    /**
+	 * Parses the no schema no name table function.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
     @Test
     public void parseNoSchemaNoNameTableFunction() throws IOException {
         String location = "tablefunction/OrderTableFunctionNoSchemaNoName.hdbtablefunction";

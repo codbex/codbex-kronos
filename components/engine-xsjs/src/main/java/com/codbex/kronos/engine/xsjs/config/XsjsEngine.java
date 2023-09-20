@@ -14,14 +14,27 @@ package com.codbex.kronos.engine.xsjs.config;
 import org.eclipse.dirigible.components.base.artefact.Engine;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class XsjsEngine.
+ */
 @Component
 public class XsjsEngine implements Engine {
 	
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	@Override
 	public String getName() {
 		return "XSJS (GraalJS)";
 	}
 
+	/**
+	 * Gets the provider.
+	 *
+	 * @return the provider
+	 */
 	@Override
 	public String getProvider() {
 		return "codbex Kronos";

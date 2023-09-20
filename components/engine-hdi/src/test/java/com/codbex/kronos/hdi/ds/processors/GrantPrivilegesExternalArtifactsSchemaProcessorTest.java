@@ -42,12 +42,23 @@ import com.codbex.kronos.engine.hdb.domain.HDBSynonymGroup;
 import com.codbex.kronos.engine.hdb.domain.HDBSynonymTarget;
 import com.codbex.kronos.engine.hdi.processors.GrantPrivilegesExternalArtifactsSchemaProcessor;
 
+/**
+ * The Class GrantPrivilegesExternalArtifactsSchemaProcessorTest.
+ */
 @ExtendWith(MockitoExtension.class)
 public class GrantPrivilegesExternalArtifactsSchemaProcessorTest {
 
+  /** The mock connection. */
   @Mock(answer = Answers.RETURNS_DEEP_STUBS)
   private Connection mockConnection;
 
+  /**
+	 * Test one synonym file.
+	 *
+	 * @throws DataStructuresException the data structures exception
+	 * @throws SQLException            the SQL exception
+	 * @throws IOException             Signals that an I/O exception has occurred.
+	 */
   @Test
   public void testOneSynonymFile() throws DataStructuresException, SQLException, IOException {
     SynonymDefinition definition = new SynonymDefinition("externalArtefact1", "schema");
@@ -56,6 +67,13 @@ public class GrantPrivilegesExternalArtifactsSchemaProcessorTest {
     testGrantPrivilege(synonym);
   }
 
+  /**
+	 * Test one synonym file with two definitions.
+	 *
+	 * @throws DataStructuresException the data structures exception
+	 * @throws SQLException            the SQL exception
+	 * @throws IOException             Signals that an I/O exception has occurred.
+	 */
   @Test
   public void testOneSynonymFileWithTwoDefinitions() throws DataStructuresException, SQLException, IOException {
     SynonymDefinition definition1 = new SynonymDefinition("externalArtefact1", "schema");
@@ -65,6 +83,13 @@ public class GrantPrivilegesExternalArtifactsSchemaProcessorTest {
     testGrantPrivilege(synonym);
   }
 
+  /**
+	 * Test two synonym file with two definitions.
+	 *
+	 * @throws DataStructuresException the data structures exception
+	 * @throws SQLException            the SQL exception
+	 * @throws IOException             Signals that an I/O exception has occurred.
+	 */
   @Test
   public void testTwoSynonymFileWithTwoDefinitions() throws DataStructuresException, SQLException, IOException {
     SynonymDefinition definition1 = new SynonymDefinition("externalArtefact1", "schema");
@@ -78,6 +103,14 @@ public class GrantPrivilegesExternalArtifactsSchemaProcessorTest {
     testGrantPrivilege(synonym, synonym2);
   }
 
+  /**
+	 * Test grant privilege.
+	 *
+	 * @param synonyms the synonyms
+	 * @throws SQLException            the SQL exception
+	 * @throws IOException             Signals that an I/O exception has occurred.
+	 * @throws DataStructuresException the data structures exception
+	 */
   public void testGrantPrivilege(HDISynonym... synonyms) throws SQLException, IOException, DataStructuresException {
     List<String> deploys = new ArrayList<>();
     List<String> synonymDeploys = Arrays.stream(synonyms).map(HDISynonym::getLocation).collect(Collectors.toList());
@@ -111,6 +144,12 @@ public class GrantPrivilegesExternalArtifactsSchemaProcessorTest {
 
   }
 
+  /**
+	 * Stub processor.
+	 *
+	 * @param synonyms the synonyms
+	 * @return the grant privileges external artifacts schema processor
+	 */
   private GrantPrivilegesExternalArtifactsSchemaProcessor stubProcessor(HDISynonym[] synonyms) {
     GrantPrivilegesExternalArtifactsSchemaProcessor processorSpy = spy(GrantPrivilegesExternalArtifactsSchemaProcessor.class);
     Arrays.stream(synonyms).forEach(bombBox(synonym -> {
@@ -120,6 +159,13 @@ public class GrantPrivilegesExternalArtifactsSchemaProcessorTest {
     return processorSpy;
   }
 
+  /**
+	 * Bomb box.
+	 *
+	 * @param <T>              the generic type
+	 * @param throwingConsumer the throwing consumer
+	 * @return the consumer
+	 */
   static <T> Consumer<T> bombBox(ReThrowingConsumer<T, Exception> throwingConsumer) {
     return i -> {
       try {
@@ -130,6 +176,14 @@ public class GrantPrivilegesExternalArtifactsSchemaProcessorTest {
     };
   }
 
+  /**
+	 * Bomb box.
+	 *
+	 * @param <T>              the generic type
+	 * @param <X>              the generic type
+	 * @param throwingConsumer the throwing consumer
+	 * @return the bi consumer
+	 */
   static <T, X> BiConsumer<T, X> bombBox(ReThrowingBiConsumer<T, X, Exception> throwingConsumer) {
     return (i, y) -> {
       try {

@@ -109,6 +109,11 @@ public class HDBSynonymGroup extends HDBDataStructure {
 	    this.synonymDefinitions = synonymDefinitions;
 	}
 
+	/**
+	 * To string.
+	 *
+	 * @return the string
+	 */
 	@Override
 	public String toString() {
 		return "HDBSynonymGroup [id=" + id + ", synonymDefinitions=" + synonymDefinitions + ", location=" + location

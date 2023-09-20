@@ -157,6 +157,12 @@ public class HDBSynonymGroupsSynchronizer<A extends Artefact> implements Synchro
 		return List.of(synonymGroup);
 	}
 	
+	/**
+	 * Assign paren and location.
+	 *
+	 * @param synonymGroup the synonym group
+	 * @param location     the location
+	 */
 	static void assignParenAndLocation(HDBSynonymGroup synonymGroup, String location) {
 		synonymGroup.getSynonymDefinitions().values().forEach(s -> {
 			s.setGroup(synonymGroup);
@@ -167,6 +173,12 @@ public class HDBSynonymGroupsSynchronizer<A extends Artefact> implements Synchro
 		});
 	}
 	
+	/**
+	 * Reassign ids.
+	 *
+	 * @param synonymGroup the synonym group
+	 * @param maybe        the maybe
+	 */
 	static void reassignIds(HDBSynonymGroup synonymGroup, HDBSynonymGroup maybe) {
 		synonymGroup.getSynonymDefinitions().values().forEach(s -> {
 			HDBSynonym m = maybe.getSynonymDefinitions().get(s.getName());

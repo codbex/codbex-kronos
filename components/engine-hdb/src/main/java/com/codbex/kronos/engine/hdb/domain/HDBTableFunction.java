@@ -85,6 +85,11 @@ public class HDBTableFunction extends HDBDataStructure {
 		this.id = id;
 	}
 
+	/**
+	 * To string.
+	 *
+	 * @return the string
+	 */
 	@Override
 	public String toString() {
 		return "HDBTableFunction [id=" + id + ", location=" + location + ", name=" + name + ", type=" + type

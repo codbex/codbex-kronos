@@ -48,17 +48,38 @@ import java.util.Collection;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+/**
+ * The Class CloudPlatformDestinationFacadeTest.
+ */
 @RunWith(Parameterized.class)
 public class CloudPlatformDestinationFacadeTest {
 
+  /** The http client. */
   private HttpClient httpClient;
+  
+  /** The destination name. */
   private String destinationName = "test-destination";
+  
+  /** The destination uri. */
   private String DESTINATION_URI = "http://test-destination.com:8080/destination";
+  
+  /** The destination accessor. */
   private MockedStatic<DestinationAccessor> destinationAccessor;
+  
+  /** The http client accessor. */
   private MockedStatic<HttpClientAccessor> httpClientAccessor;
+  
+  /** The cloud platform accessor. */
   private MockedStatic<CloudPlatformAccessor> cloudPlatformAccessor;
+  
+  /** The is kyma facade set. */
   private boolean isKymaFacadeSet = false;
 
+  /**
+	 * Data.
+	 *
+	 * @return the collection
+	 */
   @Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(new Object[][]{
@@ -66,16 +87,29 @@ public class CloudPlatformDestinationFacadeTest {
     });
   }
 
+  /**
+	 * Instantiates a new cloud platform destination facade test.
+	 *
+	 * @param isKymaFacadeSet the is kyma facade set
+	 */
   public CloudPlatformDestinationFacadeTest(boolean isKymaFacadeSet) {
     this.isKymaFacadeSet = isKymaFacadeSet;
   }
 
+  /**
+	 * Setup.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
   @Before
   public void setup() throws IOException {
     mockRequest();
     mockAccessors(isKymaFacadeSet);
   }
 
+  /**
+	 * Close.
+	 */
   @After
   public void close() {
     destinationAccessor.close();
@@ -85,6 +119,11 @@ public class CloudPlatformDestinationFacadeTest {
   }
 
 
+  /**
+	 * Mock accessors.
+	 *
+	 * @param isKymaFacadeSet the is kyma facade set
+	 */
   public void mockAccessors(Boolean isKymaFacadeSet) {
     destinationAccessor = Mockito.mockStatic(DestinationAccessor.class);
     httpClientAccessor = Mockito.mockStatic(HttpClientAccessor.class);
@@ -112,6 +151,11 @@ public class CloudPlatformDestinationFacadeTest {
   }
 
 
+  /**
+	 * Mock request.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
   public void mockRequest() throws IOException {
     httpClient = Mockito.mock(HttpClient.class);
     HttpResponse httpResponse = Mockito.mock(HttpResponse.class);
@@ -128,6 +172,12 @@ public class CloudPlatformDestinationFacadeTest {
     when(httpResponse.getEntity()).thenReturn(mockedEntity);
   }
 
+  /**
+	 * Gets the destination test.
+	 *
+	 * @return the destination test
+	 * @throws Exception the exception
+	 */
   @Test
   public void getDestinationTest() throws Exception {
     Destination dest = CloudPlatformDestinationFacade.getDestination(destinationName);
@@ -142,6 +192,11 @@ public class CloudPlatformDestinationFacadeTest {
     assertNull(dest2.getPathPrefix());
   }
 
+  /**
+	 * Execute destination request test.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void executeDestinationRequestTest() throws Exception {
     String request = "{\"method\": 1, \"queryPath\": \"test-destination.com\", \"headers\": []}";

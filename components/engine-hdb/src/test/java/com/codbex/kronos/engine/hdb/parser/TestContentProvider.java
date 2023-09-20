@@ -20,13 +20,32 @@ import org.apache.commons.io.IOUtils;
 
 import com.codbex.kronos.engine.hdb.parser.HDBParameters;
 
+/**
+ * The Class TestContentProvider.
+ */
 public class TestContentProvider {
 
+    /**
+	 * Gets the test content.
+	 *
+	 * @param location the location
+	 * @return the test content
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
     public String getTestContent(String location) throws IOException {
         InputStream in = TestContentProvider.class.getResourceAsStream(location);
         return IOUtils.toString(Objects.requireNonNull(in), StandardCharsets.UTF_8);
     }
 
+    /**
+	 * Gets the parameters model.
+	 *
+	 * @param type          the type
+	 * @param location      the location
+	 * @param content       the content
+	 * @param workspacePath the workspace path
+	 * @return the parameters model
+	 */
     HDBParameters getParametersModel(String type, String location, String content, String workspacePath) {
         return new HDBParameters(type, location, content, workspacePath);
     }

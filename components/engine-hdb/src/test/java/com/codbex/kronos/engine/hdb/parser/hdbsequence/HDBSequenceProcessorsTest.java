@@ -60,6 +60,9 @@ import com.codbex.kronos.engine.hdb.processors.HDBSequenceCreateProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBSequenceDropProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBSequenceUpdateProcessor;
 
+/**
+ * The Class HDBSequenceProcessorsTest.
+ */
 @SpringBootTest(classes = {HDBSequenceCreateProcessor.class, HDBSequenceDropProcessor.class, HDBSequenceUpdateProcessor.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
@@ -68,35 +71,51 @@ import com.codbex.kronos.engine.hdb.processors.HDBSequenceUpdateProcessor;
 @ExtendWith(MockitoExtension.class)
 public class HDBSequenceProcessorsTest {
 
+	/** The mock connection. */
 	@Mock(answer = Answers.RETURNS_DEEP_STUBS)
 	private Connection mockConnection;
 
+	/** The mock sql factory. */
 	@Mock(answer = Answers.RETURNS_DEEP_STUBS)
 	private SqlFactory mockSqlFactory;
 
+	/** The create. */
 	@Mock
 	private CreateBranchingBuilder create;
 
+	/** The alter. */
 	@Mock
 	private AlterBranchingBuilder alter;
 
+	/** The drop. */
 	@Mock
 	private DropBranchingBuilder drop;
 
+	/** The mock create sequence builder. */
 	@Mock
 	private CreateSequenceBuilder mockCreateSequenceBuilder;
 
+	/** The mock alter sequence builder. */
 	@Mock
 	private AlterSequenceBuilder mockAlterSequenceBuilder;
 
+	/** The mock drop sequence builder. */
 	@Mock
 	private DropSequenceBuilder mockDropSequenceBuilder;
 
+	/**
+	 * Open mocks.
+	 */
 	@BeforeEach
 	public void openMocks() {
 		MockitoAnnotations.openMocks(this);
 	}
 
+	/**
+	 * Execute create successfully.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void executeCreateSuccessfully() throws Exception {
 		HDBSequenceCreateProcessor spyProccessor = spy(HDBSequenceCreateProcessor.class);
@@ -140,6 +159,11 @@ public class HDBSequenceProcessorsTest {
 
 	}
 
+	/**
+	 * Execute update successfully.
+	 *
+	 * @throws SQLException the SQL exception
+	 */
 	@Test
 	public void executeUpdateSuccessfully() throws SQLException {
 		HDBSequenceUpdateProcessor spyProccessor = spy(HDBSequenceUpdateProcessor.class);
@@ -181,6 +205,11 @@ public class HDBSequenceProcessorsTest {
 		}
 	}
 
+	/**
+	 * Execute drop successfully.
+	 *
+	 * @throws SQLException the SQL exception
+	 */
 	@Test
 	public void executeDropSuccessfully() throws SQLException {
 		HDBSequenceDropProcessor spyProccessor = spy(HDBSequenceDropProcessor.class);
@@ -211,6 +240,11 @@ public class HDBSequenceProcessorsTest {
 
 	}
 
+	/**
+	 * Execute create failed.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void executeCreateFailed() throws Exception {
 		IllegalStateException exception = Assertions.assertThrows(IllegalStateException.class, () -> {
@@ -230,6 +264,11 @@ public class HDBSequenceProcessorsTest {
 		});
 	}
 
+	/**
+	 * Execute update failed.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void executeUpdateFailed() throws Exception {
 		IllegalStateException exception = Assertions.assertThrows(IllegalStateException.class, () -> {
@@ -248,6 +287,11 @@ public class HDBSequenceProcessorsTest {
 		});
 	}
 
+	/**
+	 * Execute drop failed.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void executeDropFailed() throws Exception {
 		IllegalStateException exception = Assertions.assertThrows(IllegalStateException.class, () -> {

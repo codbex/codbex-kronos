@@ -28,8 +28,17 @@ import com.codbex.kronos.engine.hdi.parser.HDIParser;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 
+/**
+ * The Class HDIParserTest.
+ */
 public class HDIParserTest {
 
+  /**
+	 * Parses the valid content.
+	 *
+	 * @throws IOException             Signals that an I/O exception has occurred.
+	 * @throws DataStructuresException the data structures exception
+	 */
   @Test
   public void parseValidContent() throws IOException, DataStructuresException {
     String location = "/ValidHDIContent.hdi";
@@ -49,6 +58,11 @@ public class HDIParserTest {
 
   }
 
+  /**
+	 * Parses the non string properties.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
   @Test
   public void parseNonStringProperties() throws IOException {
     String location = "/NonStringProperties.hdi";
@@ -59,6 +73,11 @@ public class HDIParserTest {
     assertThrows(JsonSyntaxException.class, () -> new HDIParser().parse(parametersModel));
   }
 
+  /**
+	 * Parses the missing mandatory properties.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
   @Test
   public void parseMissingMandatoryProperties() throws IOException {
     String location = "/MissingMandatoryProperty.hdi";
@@ -69,6 +88,11 @@ public class HDIParserTest {
     assertThrows(JsonParseException.class, () -> new HDIParser().parse(parametersModel));
   }
 
+  /**
+	 * Parses the same deployment file.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
   @Test
   public void parseSameDeploymentFile() throws IOException {
     String location = "/SameDeploymentFile.hdi";
@@ -79,6 +103,11 @@ public class HDIParserTest {
     assertThrows(JsonParseException.class, () -> new HDIParser().parse(parametersModel));
   }
 
+  /**
+	 * Parses the missing deployment file.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
   @Test
   public void parseMissingDeploymentFile() throws IOException {
     String location = "/NoDeploymentFiles.hdi";

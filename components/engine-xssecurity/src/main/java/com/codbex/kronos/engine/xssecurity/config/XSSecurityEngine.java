@@ -14,14 +14,27 @@ package com.codbex.kronos.engine.xssecurity.config;
 import org.eclipse.dirigible.components.base.artefact.Engine;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class XSSecurityEngine.
+ */
 @Component
 public class XSSecurityEngine implements Engine {
 	
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	@Override
 	public String getName() {
 		return "XSSecurity";
 	}
 
+	/**
+	 * Gets the provider.
+	 *
+	 * @return the provider
+	 */
 	@Override
 	public String getProvider() {
 		return "codbex Kronos";

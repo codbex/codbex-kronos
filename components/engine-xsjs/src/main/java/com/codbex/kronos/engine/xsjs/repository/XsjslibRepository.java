@@ -16,6 +16,9 @@ import org.springframework.stereotype.Repository;
 
 import com.codbex.kronos.engine.xsjs.domain.Xsjslib;
 
+/**
+ * The Interface XsjslibRepository.
+ */
 @Repository("xsjslibRepository")
 public interface XsjslibRepository extends JpaRepository<Xsjslib, Long> {
 

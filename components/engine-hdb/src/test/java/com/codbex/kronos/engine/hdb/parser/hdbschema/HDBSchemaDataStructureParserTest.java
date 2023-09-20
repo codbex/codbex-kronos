@@ -28,6 +28,9 @@ import com.codbex.kronos.engine.hdb.domain.HDBSchema;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.exceptions.ArtifactParserException;
 
+/**
+ * The Class HDBSchemaDataStructureParserTest.
+ */
 @SpringBootTest(classes = {HDBDataStructureModelFactory.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})
@@ -35,6 +38,11 @@ import com.codbex.kronos.exceptions.ArtifactParserException;
 @Transactional
 public class HDBSchemaDataStructureParserTest {
 
+  /**
+	 * Parses the hdbschema file successfully.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void parseHdbschemaFileSuccessfully() throws Exception {
     String hdbschemaSample = org.apache.commons.io.IOUtils
@@ -43,6 +51,11 @@ public class HDBSchemaDataStructureParserTest {
     assertEquals("MySchema", model.getSchema());
   }
 
+  /**
+	 * Parses the hana XS classic content with lexer error fail.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void parseHanaXSClassicContentWithLexerErrorFail() throws Exception { 
 	ArtifactParserException exception = Assertions.assertThrows(ArtifactParserException.class, () -> {
@@ -52,6 +65,11 @@ public class HDBSchemaDataStructureParserTest {
     Assertions.assertEquals("Wrong format of HDB HDB Schema: [db/test.hdbschema] during parsing. Ensure you are using the correct format for the correct compatibility version.", exception.getMessage());
   }
 
+  /**
+	 * Parses the hana XS classic content with syntax error fail.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void parseHanaXSClassicContentWithSyntaxErrorFail() throws Exception {
 	ArtifactParserException exception = Assertions.assertThrows(ArtifactParserException.class, () -> {

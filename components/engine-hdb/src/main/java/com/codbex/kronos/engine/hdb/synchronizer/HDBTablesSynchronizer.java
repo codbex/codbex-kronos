@@ -163,6 +163,11 @@ public class HDBTablesSynchronizer<A extends Artefact> implements Synchronizer<H
 		}
 	}
 
+	/**
+	 * Assign parent.
+	 *
+	 * @param table the table
+	 */
 	static void assignParent(HDBTable table) {
 		table.getColumns().forEach(c -> c.setTable(table));
 		if (table.getIndexes() != null) {
@@ -185,6 +190,12 @@ public class HDBTablesSynchronizer<A extends Artefact> implements Synchronizer<H
 		}
 	}
 
+	/**
+	 * Reassign ids.
+	 *
+	 * @param table the table
+	 * @param maybe the maybe
+	 */
 	static void reassignIds(HDBTable table, HDBTable maybe) {
 		table.getColumns().forEach(c -> {
 			HDBTableColumn m = maybe.getColumn(c.getName());

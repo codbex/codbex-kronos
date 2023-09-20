@@ -50,6 +50,9 @@ import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.processors.HDBSynonymCreateProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBSynonymDropProcessor;
 
+/**
+ * The Class HDBSynonymProcessorTest.
+ */
 @SpringBootTest(classes = {HDBDataStructureModelFactory.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
@@ -58,30 +61,44 @@ import com.codbex.kronos.engine.hdb.processors.HDBSynonymDropProcessor;
 @ExtendWith(MockitoExtension.class)
 public class HDBSynonymProcessorTest {
 
+	/** The mock connection. */
 	@Mock(answer = Answers.RETURNS_DEEP_STUBS)
 	private Connection mockConnection;
 
+	/** The mock sql factory. */
 	@Mock(answer = Answers.RETURNS_DEEP_STUBS)
 	private SqlFactory mockSqlFactory;
 
+	/** The create. */
 	@Mock
 	private CreateBranchingBuilder create;
 
+	/** The mock create synonym builder. */
 	@Mock
 	private CreateSynonymBuilder mockCreateSynonymBuilder;
 
+	/** The drop. */
 	@Mock
 	private DropBranchingBuilder drop;
 
+	/** The mock drop synonym builder. */
 	@Mock
 	private DropSynonymBuilder mockDropSynonymBuilder;
 
+	/**
+	 * Open mocks.
+	 */
 	@BeforeEach
 	public void openMocks() {
 		MockitoAnnotations.openMocks(this);
 		Configuration.set(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true");
 	}
 
+	/**
+	 * Execute create synonym HAN av 1 successfully.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void executeCreateSynonymHANAv1Successfully() throws Exception {
 		HDBSynonymCreateProcessor processorSpy = spy(HDBSynonymCreateProcessor.class);
@@ -142,7 +159,12 @@ public class HDBSynonymProcessorTest {
 //		});
 //	}
 
-	@Test
+	/**
+ * Execute drop synonym successfully.
+ *
+ * @throws Exception the exception
+ */
+@Test
 	public void executeDropSynonymSuccessfully() throws Exception {
 		HDBSynonymDropProcessor processorSpy = spy(HDBSynonymDropProcessor.class);
 		String hdsynonymSample = IOUtils.toString(

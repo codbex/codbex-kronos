@@ -22,6 +22,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+/**
+ * The Class HDBProcedureProcessorTest.
+ */
 //@RunWith(MockitoJUnitRunner.class)
 @Disabled
 @SpringBootTest

@@ -50,6 +50,9 @@ import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.processors.HDBSchemaCreateProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBSchemaDropProcessor;
 
+/**
+ * The Class HDBSchemaProcessorTest.
+ */
 //@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest(classes = {HDBDataStructureModelFactory.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -59,31 +62,45 @@ import com.codbex.kronos.engine.hdb.processors.HDBSchemaDropProcessor;
 @ExtendWith(MockitoExtension.class)
 public class HDBSchemaProcessorTest {
 
+  /** The mock connection. */
   @Mock(answer = Answers.RETURNS_DEEP_STUBS)
   private Connection mockConnection;
 
+  /** The mock sql factory. */
   @Mock(answer = Answers.RETURNS_DEEP_STUBS)
   private SqlFactory mockSqlFactory;
 
+  /** The create. */
   @Mock
   private CreateBranchingBuilder create;
 
+  /** The mock create schema builder. */
   @Mock
   private CreateSchemaBuilder mockCreateSchemaBuilder;
 
+  /** The mock drop schema builder. */
   @Mock
   private DropSchemaBuilder mockDropSchemaBuilder;
 
+  /** The drop. */
   @Mock
   private DropBranchingBuilder drop;
 
 
+  /**
+	 * Open mocks.
+	 */
   @BeforeEach
   public void openMocks() {
     MockitoAnnotations.openMocks(this);
     Configuration.set(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true");
   }
 
+  /**
+	 * Execute create schema successfully.
+	 *
+	 * @throws Exception the exception
+	 */
   @Test
   public void executeCreateSchemaSuccessfully() throws Exception {
     HDBSchemaCreateProcessor processorSpy = spy(HDBSchemaCreateProcessor.class);
@@ -131,7 +148,12 @@ public class HDBSchemaProcessorTest {
 //	    });
 //  }
 
-  @Test
+  /**
+ * Execute drop schema successfully.
+ *
+ * @throws Exception the exception
+ */
+@Test
   public void executeDropSchemaSuccessfully() throws Exception {
     HDBSchemaDropProcessor processorSpy = spy(HDBSchemaDropProcessor.class);
     String hdbschemaSample = IOUtils.toString(HDBSchemaProcessorTest.class.getResourceAsStream("/Myschema.hdbschema"), StandardCharsets.UTF_8);

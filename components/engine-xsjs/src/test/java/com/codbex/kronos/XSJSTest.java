@@ -20,6 +20,9 @@ package com.codbex.kronos;
 //import org.junit.After;
 //import org.junit.Before;
 
+/**
+ * The Class XSJSTest.
+ */
 public abstract class XSJSTest {//extends AbstractDirigibleTest {
 
 //  public XSJSTest() {

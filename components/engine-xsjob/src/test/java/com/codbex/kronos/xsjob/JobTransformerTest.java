@@ -36,6 +36,9 @@ import com.codbex.kronos.engine.xsjob.domain.XSJob;
 import com.codbex.kronos.xsjob.ds.model.JobArtifact;
 import com.codbex.kronos.xsjob.ds.transformer.JobToKronosJobDefinitionTransformer;
 
+/**
+ * The Class JobTransformerTest.
+ */
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
@@ -44,8 +47,14 @@ import com.codbex.kronos.xsjob.ds.transformer.JobToKronosJobDefinitionTransforme
 @ExtendWith(MockitoExtension.class)
 public class JobTransformerTest {
 
+	/** The job to kronos job definition transformer. */
 	private final JobToKronosJobDefinitionTransformer jobToKronosJobDefinitionTransformer = new JobToKronosJobDefinitionTransformer();
 
+	/**
+	 * Execute transform successfully.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void executeTransformSuccessfully() throws Exception {
 		String expectedCronExpressionEveryFiveSeconds = "*/5 * * * * ? *";
@@ -84,7 +93,12 @@ public class JobTransformerTest {
 //
 //	}
 
-	@Test
+	/**
+ * Execute transform with empty schedule.
+ *
+ * @throws Exception the exception
+ */
+@Test
 	public void executeTransformWithEmptySchedule() throws Exception {
 		String xsjobSample = IOUtils.toString(
 				JobTransformerTest.class.getResourceAsStream("/TestJobTransformWithEmptySchedule.xsjob"),
@@ -94,6 +108,11 @@ public class JobTransformerTest {
 		assertEquals(jobDefinitions.size(), 0);
 	}
 
+	/**
+	 * Test transform each day of week and month.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testTransformEachDayOfWeekAndMonth() throws Exception {
 		String expectedCronExpressionEveryWeekDay = "0 30 22 ? * MON,TUE,WED,THU,FRI *";
