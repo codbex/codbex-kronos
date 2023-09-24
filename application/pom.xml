@@ -60,9 +60,15 @@
 		<!-- Engine -->
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
-			<artifactId>dirigible-components-group-engines-core</artifactId>
+			<artifactId>dirigible-components-group-engines</artifactId>
 			<version>${dirigible.version}</version>
 			<type>pom</type>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.validation</groupId>
+					<artifactId>validation-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- IDE -->
@@ -82,7 +88,7 @@
 		<!-- API -->
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
-			<artifactId>dirigible-components-group-api-platform</artifactId>
+			<artifactId>dirigible-components-group-api</artifactId>
 			<version>${dirigible.version}</version>
 			<type>pom</type>
 		</dependency>
@@ -196,15 +202,24 @@
 		</dependency>
 		<!-- Dialects -->
 		<dependency>
-			<groupId>org.eclipse.dirigible</groupId>
-			<artifactId>dirigible-database-sql-postgres</artifactId>
-			<version>${dirigible.version}</version>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgresql.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
-			<artifactId>dirigible-database-sql-hana</artifactId>
+			<artifactId>dirigible-database-mongodb-jdbc</artifactId>
 			<version>${dirigible.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sap.cloud.db.jdbc</groupId>
+			<artifactId>ngdbc</artifactId>
+			<version>${ngdbc.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>net.snowflake</groupId>
+		    <artifactId>snowflake-jdbc</artifactId>
+		    <version>${snowflake.version}</version>
 		</dependency>
 
 	</dependencies>
