@@ -51,7 +51,7 @@ _**To learn more go to: https://www.xsk.io**_
 
 ```
 docker pull ghcr.io/codbex/codbex-kronos:latest
-docker run --name codbex-kronos --rm -p 8080:8080 ghcr.io/codbex/codbex-kronos:latest
+docker run --name codbex-kronos --rm -p 80:80 ghcr.io/codbex/codbex-kronos:latest
 ```
 
 - For Apple's M1: provide `--platform=linux/arm64` for better performance		
@@ -77,13 +77,13 @@ java --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang
 #### Web
 
 ```
-http://localhost:8080
+http://localhost
 ```
 
 #### REST API
 
 ```
-http://localhost:8080/swagger-ui/index.html
+http://localhost/swagger-ui/index.html
 ```
 
 ## FAQ
