@@ -32,11 +32,11 @@ jobs:
   
         ```
         docker run --name codbex-kronos \
-        --rm -p 8080:8080 -p 8081:8081 \
+        --rm -p 80:80 -p 8081:8081 \
         ghcr.io/codbex/codbex-kronos:${{ inputs.release-version }}
         ```
   
         ## Access points:
   
-        - [/services/web/ide/](http://localhost:8080/services/web/ide/) - Web IDE
+        - [/services/web/ide/](http://localhost/services/web/ide/) - Web IDE
     secrets: inherit
