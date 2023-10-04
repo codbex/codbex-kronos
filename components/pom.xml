@@ -34,6 +34,8 @@
         <module>ide-file-types</module>
         <module>ide-workspace-menu</module>
 
+        <module>template-hello-world</module>
+
 
     </modules>
 

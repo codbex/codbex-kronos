@@ -105,14 +105,6 @@
 			<type>pom</type>
 		</dependency>
 
-		<!-- Templates -->
-		<dependency>
-			<groupId>org.eclipse.dirigible</groupId>
-			<artifactId>dirigible-components-group-templates</artifactId>
-			<version>${dirigible.version}</version>
-			<type>pom</type>
-		</dependency>
-
 		<!-- Kronos -->
 
 		<!-- API -->
@@ -204,6 +196,14 @@
 			<artifactId>codbex-kronos-components-ide-migration</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
+
+		<!-- Templates -->
+		<dependency>
+			<groupId>com.codbex.kronos</groupId>
+			<artifactId>codbex-kronos-components-template-hello-world</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
 		<!-- Dialects -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
