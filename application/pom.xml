@@ -82,6 +82,10 @@
 					<groupId>org.eclipse.dirigible</groupId>
 					<artifactId>dirigible-components-ide-ui-branding</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.eclipse.dirigible</groupId>
+					<artifactId>dirigible-components-ide-ui-welcome</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 
