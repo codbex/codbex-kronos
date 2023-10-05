@@ -35,6 +35,7 @@
         <module>ide-workspace-menu</module>
 
         <module>template-hello-world</module>
+        <module>template-hdb-table</module>
 
 
     </modules>
