@@ -9,8 +9,8 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<name>codbex - kronos - components - hello world</name>
-	<artifactId>codbex-kronos-components-template-hello-world</artifactId>
+	<name>codbex - kronos - components - hdb table</name>
+	<artifactId>codbex-kronos-components-template-hdb-table</artifactId>
     <packaging>jar</packaging>
 
 	<properties>
