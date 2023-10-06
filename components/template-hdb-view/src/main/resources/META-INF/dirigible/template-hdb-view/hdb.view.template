@@ -1,0 +1,2 @@
+VIEW "{{schemaName}}"."{{projectName}}::{{viewName}}"
+AS SELECT T1."Col1", T1."Col2", T1."Col3" FROM "{{projectName}}::{{tableName}}" T1;

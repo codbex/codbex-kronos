@@ -36,6 +36,7 @@
 
         <module>template-hello-world</module>
         <module>template-hdb-table</module>
+        <module>template-hdb-view</module>
 
 
     </modules>
