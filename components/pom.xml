@@ -34,9 +34,10 @@
         <module>ide-file-types</module>
         <module>ide-workspace-menu</module>
 
-        <module>template-hello-world</module>
-        <module>template-hdb-table</module>
-        <module>template-hdb-view</module>
+        <module>template-xsjs</module>
+        <module>template-hdbtable</module>
+        <module>template-hdbview</module>
+        <module>template-hdbdd</module>
 
 
     </modules>

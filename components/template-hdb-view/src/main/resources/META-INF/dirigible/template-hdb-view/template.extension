@@ -1,5 +1,0 @@
-{
-    "extensionPoint": "ide-template",
-    "module": "template-hdb-view/template.js",
-    "description": "HDB View Template"
-}

@@ -200,19 +200,25 @@
 		<!-- Templates -->
 		<dependency>
 			<groupId>com.codbex.kronos</groupId>
-			<artifactId>codbex-kronos-components-template-hello-world</artifactId>
+			<artifactId>codbex-kronos-components-template-xsjs</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.codbex.kronos</groupId>
-			<artifactId>codbex-kronos-components-template-hdb-table</artifactId>
+			<artifactId>codbex-kronos-components-template-hdbtable</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.codbex.kronos</groupId>
-			<artifactId>codbex-kronos-components-template-hdb-view</artifactId>
+			<artifactId>codbex-kronos-components-template-hdbview</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>com.codbex.kronos</groupId>
+			<artifactId>codbex-kronos-components-template-hdbdd</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
 
 		<!-- Dialects -->
 		<dependency>

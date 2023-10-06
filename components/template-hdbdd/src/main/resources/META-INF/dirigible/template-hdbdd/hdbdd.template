@@ -1,0 +1,22 @@
+namespace {{projectName}};
+
+@Schema: '{{schemaName}}'
+
+context {{contextName}} {
+   entity  {{entityName}} {
+          key Id               : String(32);
+          Customer             : String(500);
+          Status               : String(100);
+          CreatedAt            : UTCTimestamp;
+          CreatedBy            : String(5000);
+          Description          : String(100);
+          Address              : AddressT;
+          Phone                : String(200);
+          Email                : String(200);
+   };
+
+   type AddressT {
+          postcode             :String(100);
+          city                 :String(100);
+   };
+};

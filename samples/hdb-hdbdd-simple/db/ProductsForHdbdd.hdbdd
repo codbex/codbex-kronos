@@ -14,7 +14,7 @@ context ProductsForHdbdd {
           CreatedAt            : UTCTimestamp;
           CreatedBy            : String(5000);
           Description          : String(100);
-          Address              : AdressT;
+          Address              : AddressT;
           Phone                : String(200);
           Email                : String(200);
           Country              : association to CountryContext.Country { Id };
@@ -32,7 +32,7 @@ context ProductsForHdbdd {
           Comment             : String(1000);
    };
 
-   type AdressT {
+   type AddressT {
           postcode            :String(100);
           city		            :String(100);
    };
