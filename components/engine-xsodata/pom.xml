@@ -5,30 +5,30 @@
     <parent>
         <groupId>com.codbex.kronos</groupId>
         <artifactId>codbex-kronos-components-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>0.11.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <name>codbex - kronos - components - engine - xsodata</name>
     <artifactId>codbex-kronos-components-engine-xsodata</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>0.11.0</version>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>codbex-kronos-modules-parsers-xsodata</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>0.11.0</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>codbex-kronos-components-api-xsjs</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>0.11.0</version>
         </dependency>
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>codbex-kronos-components-engine-commons</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>0.11.0</version>
         </dependency>
         
         <dependency>

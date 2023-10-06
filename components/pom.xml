@@ -4,13 +4,13 @@
     <parent>
         <groupId>com.codbex.kronos</groupId>
         <artifactId>codbex-kronos-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>0.11.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <name>codbex - kronos - components - parent</name>
     <artifactId>codbex-kronos-components-parent</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>0.11.0</version>
     <packaging>pom</packaging>
 
     <modules>
