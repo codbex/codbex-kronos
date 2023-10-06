@@ -38,6 +38,9 @@
         <module>template-hdbtable</module>
         <module>template-hdbview</module>
         <module>template-hdbdd</module>
+        <module>template-xsjs-db</module>
+        <module>template-xsjs-hdb</module>
+        <module>template-xsjs-import</module>
 
 
     </modules>

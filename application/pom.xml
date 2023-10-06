@@ -218,6 +218,21 @@
 			<artifactId>codbex-kronos-components-template-hdbdd</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>com.codbex.kronos</groupId>
+			<artifactId>codbex-kronos-components-template-xsjs-db</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.codbex.kronos</groupId>
+			<artifactId>codbex-kronos-components-template-xsjs-hdb</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.codbex.kronos</groupId>
+			<artifactId>codbex-kronos-components-template-xsjs-import</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
 
 
 		<!-- Dialects -->

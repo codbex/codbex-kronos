@@ -1,6 +1,6 @@
 // Import .xsjslib to our file using $.import api ("package","library")
 
-let mathlib = $.import("api-import.demo.lib","math");
+let mathlib = $.import("{{projectName}}.lib","math");
 
 let square = mathlib.square(6);
 let multiply = mathlib.multiply(4,9);
