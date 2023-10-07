@@ -23,6 +23,7 @@ import java.util.Objects;
 import org.apache.commons.io.IOUtils;
 import org.eclipse.dirigible.components.base.http.access.UserRequestVerifier;
 import org.eclipse.dirigible.components.engine.javascript.service.JavascriptHandler;
+import static org.eclipse.dirigible.graalium.core.graal.ValueTransformer.transformValue;
 import org.eclipse.dirigible.graalium.core.DirigibleJavascriptCodeRunner;
 import org.eclipse.dirigible.graalium.core.JavascriptSourceProvider;
 import org.eclipse.dirigible.repository.api.IRepository;
