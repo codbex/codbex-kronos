@@ -42,6 +42,8 @@
         <module>template-xsjs-hdb</module>
         <module>template-xsjs-import</module>
 
+        <module>template-abap</module>
+
 
     </modules>
 

@@ -1,0 +1,10 @@
+{
+    "guid": "{{projectName}}",
+    "actions": [
+        {
+            "name": "build",
+            "command": "sh build.sh",
+            "publish": true
+        }
+    ]
+}
