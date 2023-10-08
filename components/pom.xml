@@ -44,6 +44,8 @@
 
         <module>template-abap</module>
 
+        <module>template-python</module>
+
 
     </modules>
 

@@ -1,0 +1,3 @@
+from dirigible.http import response
+
+response.println("Hello World!")
