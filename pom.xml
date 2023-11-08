@@ -362,7 +362,7 @@
 		<slf4j.version>1.7.36</slf4j.version>
 		<slf4j.simple.version>1.7.12</slf4j.simple.version>
 		<logback.version>1.4.5</logback.version>
-		<commons-dbcp2.version>2.10.0</commons-dbcp2.version>
+		<commons-dbcp2.version>2.11.0</commons-dbcp2.version>
 		
     <h2database.version>2.2.224</h2database.version>
     <postgresql.version>42.6.0</postgresql.version>
