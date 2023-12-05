@@ -449,7 +449,7 @@
 		<jacoco.version>0.8.10</jacoco.version>
 
 		<jakarta.validation.version>3.0.2</jakarta.validation.version>
-		<org.springdoc.openapi.ui.version>1.6.14</org.springdoc.openapi.ui.version>
+		<org.springdoc.openapi.ui.version>1.7.0</org.springdoc.openapi.ui.version>
 		<swagger-annotations.version>1.6.9</swagger-annotations.version>
 
 		<antlr4-runtime.version>4.13.0</antlr4-runtime.version>
