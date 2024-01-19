@@ -163,7 +163,7 @@ public class XsjsHandler extends JavascriptHandler {
             }
 
             Path absoluteSourcePath = sourceProvider.getAbsoluteSourcePath(projectName, projectFilePath);
-            try (DirigibleJavascriptCodeRunner runner = new DirigibleJavascriptCodeRunner(parameters, debug, repository, sourceProvider)) {
+            try (DirigibleJavascriptCodeRunner runner = new DirigibleJavascriptCodeRunner(parameters, debug, sourceProvider)) {
             	Source source = runner.prepareSource(absoluteSourcePath);
             	
             	// Source Provider
