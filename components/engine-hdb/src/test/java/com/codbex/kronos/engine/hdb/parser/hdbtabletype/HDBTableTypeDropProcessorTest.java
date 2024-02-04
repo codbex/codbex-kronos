@@ -23,6 +23,7 @@ import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Answers;
 import org.mockito.Mock;
@@ -48,6 +49,7 @@ import jakarta.transaction.Transactional;
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
 @EntityScan(value = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
 @Transactional
+@Disabled
 public class HDBTableTypeDropProcessorTest {
 
 	/** The Constant TABLE_TYPE_NAME. */

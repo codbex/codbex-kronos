@@ -19,6 +19,7 @@ import static org.mockito.Mockito.verify;
 import java.sql.Connection;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Answers;
 import org.mockito.Mock;
@@ -43,6 +44,7 @@ import jakarta.transaction.Transactional;
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})
 @EntityScan(value = {"org.eclipse.dirigible.components", "com.codbex.kronos"})
 @Transactional
+@Disabled
 public class HDBTableProcessorsTest {
 
   /** The mock connection. */

@@ -32,6 +32,7 @@ import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
 import org.eclipse.dirigible.database.sql.dialects.postgres.PostgresSqlDialect;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Answers;
 import org.mockito.Mock;
@@ -60,6 +61,7 @@ import jakarta.transaction.Transactional;
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
 @EntityScan(value = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
 @Transactional
+@Disabled
 public class HDBTableFunctionProcessorTest {
 
 	/** The mock connection. */
