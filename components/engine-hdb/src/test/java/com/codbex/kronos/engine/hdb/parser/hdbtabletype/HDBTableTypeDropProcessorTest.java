@@ -18,7 +18,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;

@@ -19,7 +19,7 @@ import static org.mockito.Mockito.verify;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 
 import org.apache.commons.io.IOUtils;
 import org.eclipse.dirigible.commons.config.Configuration;

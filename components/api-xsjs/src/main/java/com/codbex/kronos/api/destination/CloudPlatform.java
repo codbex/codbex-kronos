@@ -15,8 +15,8 @@ import com.google.gson.JsonObject;
 import com.sap.cloud.sdk.cloudplatform.ScpCfCloudPlatform;
 import com.sap.cloud.sdk.cloudplatform.exception.CloudPlatformException;
 import org.eclipse.dirigible.commons.config.Configuration;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * The Class CloudPlatform.

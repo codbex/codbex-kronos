@@ -11,7 +11,7 @@
  */
 package com.codbex.kronos.engine.hdb.parser.hdbprocedure;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 
 import org.junit.jupiter.api.Disabled;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -11,7 +11,7 @@
  */
 package com.codbex.kronos.engine;
 
-//import javax.ws.rs.core.Response.Status;
+//import jakarta.ws.rs.core.Response.Status;
 //import org.eclipse.dirigible.commons.api.scripting.ScriptingDependencyException;
 //import org.eclipse.dirigible.commons.api.service.AbstractExceptionHandler;
 //import org.slf4j.Logger;

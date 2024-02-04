@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 
 import org.eclipse.dirigible.repository.api.IRepository;
 import org.eclipse.dirigible.repository.api.IRepositoryStructure;

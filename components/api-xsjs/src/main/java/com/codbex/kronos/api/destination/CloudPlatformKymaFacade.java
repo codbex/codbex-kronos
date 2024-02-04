@@ -13,7 +13,7 @@ package com.codbex.kronos.api.destination;
 
 import com.sap.cloud.sdk.cloudplatform.CloudPlatformFacade;
 import io.vavr.control.Try;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * The Class CloudPlatformKymaFacade.

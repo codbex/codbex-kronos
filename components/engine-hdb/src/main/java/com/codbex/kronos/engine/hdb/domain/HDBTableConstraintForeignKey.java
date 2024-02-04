@@ -11,13 +11,13 @@
  */
 package com.codbex.kronos.engine.hdb.domain;
 
-import javax.annotation.Nullable;
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jakarta.annotation.Nullable;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 import org.eclipse.dirigible.components.base.converters.ArrayOfStringsToCsvConverter;
 
@@ -27,7 +27,7 @@ import com.google.gson.annotations.Expose;
  * The Class TableConstraintForeignKey.
  */
 @Entity
-@javax.persistence.Table(name = "KRONOS_TABLE_FOREIGNKEYS")
+@jakarta.persistence.Table(name = "KRONOS_TABLE_FOREIGNKEYS")
 public class HDBTableConstraintForeignKey extends HDBTableConstraint {
 	
 	/** The id. */
