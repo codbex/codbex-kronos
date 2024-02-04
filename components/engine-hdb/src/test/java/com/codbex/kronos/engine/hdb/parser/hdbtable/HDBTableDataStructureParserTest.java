@@ -22,8 +22,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
-import jakarta.transaction.Transactional;
-
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -41,6 +39,8 @@ import com.codbex.kronos.engine.hdb.parser.HDBTableDataStructureParser;
 import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableDuplicatePropertyException;
 import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableMissingPropertyException;
+
+import jakarta.transaction.Transactional;
 
 /**
  * The Class HDBTableDataStructureParserTest.

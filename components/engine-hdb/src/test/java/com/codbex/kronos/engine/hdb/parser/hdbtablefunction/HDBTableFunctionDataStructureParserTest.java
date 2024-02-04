@@ -16,8 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
 
-import jakarta.transaction.Transactional;
-
 import org.eclipse.dirigible.repository.api.IRepository;
 import org.eclipse.dirigible.repository.api.IRepositoryStructure;
 import org.eclipse.dirigible.repository.api.IResource;
@@ -35,6 +33,8 @@ import com.codbex.kronos.engine.hdb.domain.HDBTableFunction;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.repository.TestRepositoryMigrator;
 import com.codbex.kronos.exceptions.ArtifactParserException;
+
+import jakarta.transaction.Transactional;
 
 /**
  * The Class HDBTableFunctionDataStructureParserTest.

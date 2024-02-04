@@ -63,10 +63,6 @@
 					<groupId>javax.validation</groupId>
 					<artifactId>validation-api</artifactId>
 				</exclusion>
-				<exclusion>
-					<groupId>org.eclipse.dirigible</groupId>
-					<artifactId>dirigible-components-engine-listeners</artifactId>
-				</exclusion>
 			</exclusions>
 		</dependency>
 

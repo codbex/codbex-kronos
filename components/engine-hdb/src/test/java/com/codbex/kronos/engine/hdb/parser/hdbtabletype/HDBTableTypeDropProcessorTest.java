@@ -18,21 +18,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import jakarta.transaction.Transactional;
-
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Answers;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,6 +38,8 @@ import com.codbex.kronos.engine.hdb.domain.HDBTableType;
 import com.codbex.kronos.engine.hdb.parser.HDBSynonymRemover;
 import com.codbex.kronos.engine.hdb.processors.HDBTableTypeDropProcessor;
 
+import jakarta.transaction.Transactional;
+
 /**
  * The Class HDBTableTypeDropProcessorTest.
  */
@@ -50,7 +48,6 @@ import com.codbex.kronos.engine.hdb.processors.HDBTableTypeDropProcessor;
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
 @EntityScan(value = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
 @Transactional
-@ExtendWith(MockitoExtension.class)
 public class HDBTableTypeDropProcessorTest {
 
 	/** The Constant TABLE_TYPE_NAME. */

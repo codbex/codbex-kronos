@@ -19,8 +19,6 @@ import static org.mockito.Mockito.verify;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 
-import jakarta.transaction.Transactional;
-
 import org.apache.commons.io.IOUtils;
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;
@@ -49,6 +47,8 @@ import com.codbex.kronos.engine.hdb.domain.HDBSynonymGroup;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.processors.HDBSynonymCreateProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBSynonymDropProcessor;
+
+import jakarta.transaction.Transactional;
 
 /**
  * The Class HDBSynonymProcessorTest.

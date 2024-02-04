@@ -17,8 +17,6 @@ import org.jetbrains.annotations.NotNull;
 
 import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdb.domain.HDBTableFunction;
-import com.codbex.kronos.engine.hdb.parser.HDBDataStructureParser;
-import com.codbex.kronos.engine.hdb.parser.HDBParameters;
 import com.codbex.kronos.exceptions.ArtifactParserException;
 
 /**

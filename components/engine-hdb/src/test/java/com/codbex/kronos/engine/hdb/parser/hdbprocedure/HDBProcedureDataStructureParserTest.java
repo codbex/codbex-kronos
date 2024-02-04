@@ -16,8 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.nio.charset.StandardCharsets;
 
-import jakarta.transaction.Transactional;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -26,6 +24,8 @@ import org.springframework.context.annotation.ComponentScan;
 
 import com.codbex.kronos.engine.hdb.domain.HDBProcedure;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
+
+import jakarta.transaction.Transactional;
 
 /**
  * The Class HDBProcedureDataStructureParserTest.

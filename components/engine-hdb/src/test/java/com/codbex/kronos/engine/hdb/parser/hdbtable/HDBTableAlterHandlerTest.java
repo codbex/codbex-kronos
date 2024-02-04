@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos.engine.hdb.processors;
+package com.codbex.kronos.engine.hdb.parser.hdbtable;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.spy;
@@ -21,8 +21,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import jakarta.transaction.Transactional;
 
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;
@@ -50,6 +48,9 @@ import com.codbex.kronos.engine.hdb.domain.HDBTable;
 import com.codbex.kronos.engine.hdb.domain.HDBTableColumn;
 import com.codbex.kronos.engine.hdb.domain.HDBTableConstraintPrimaryKey;
 import com.codbex.kronos.engine.hdb.domain.HDBTableConstraints;
+import com.codbex.kronos.engine.hdb.processors.HDBTableAlterHandler;
+
+import jakarta.transaction.Transactional;
 
 /**
  * The Class HDBTableAlterHandlerTest.

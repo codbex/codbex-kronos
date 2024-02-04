@@ -18,8 +18,6 @@ import java.util.Objects;
 
 import org.apache.commons.io.IOUtils;
 
-import com.codbex.kronos.engine.hdb.parser.HDBParameters;
-
 /**
  * The Class TestContentProvider.
  */
