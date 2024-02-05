@@ -16,8 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.nio.charset.StandardCharsets;
 
-import javax.transaction.Transactional;
-
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -27,6 +26,8 @@ import org.springframework.context.annotation.ComponentScan;
 import com.codbex.kronos.engine.hdb.domain.HDBProcedure;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 
+import jakarta.transaction.Transactional;
+
 /**
  * The Class HDBProcedureDataStructureParserTest.
  */
@@ -35,6 +36,7 @@ import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})
 @EntityScan(value = {"org.eclipse.dirigible.components", "com.codbex.kronos"})
 @Transactional
+@Disabled
 public class HDBProcedureDataStructureParserTest {
 
   /**

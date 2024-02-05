@@ -14,7 +14,7 @@ package com.codbex.kronos.engine;
 //import static junit.framework.TestCase.assertEquals;
 //import static junit.framework.TestCase.assertNotNull;
 //
-//import javax.ws.rs.core.Response.Status;
+//import jakarta.ws.rs.core.Response.Status;
 //
 //import org.eclipse.dirigible.commons.api.context.ContextException;
 //import org.junit.Test;

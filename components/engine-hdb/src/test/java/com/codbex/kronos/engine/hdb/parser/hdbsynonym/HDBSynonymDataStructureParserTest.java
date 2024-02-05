@@ -15,8 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.nio.charset.StandardCharsets;
 
-import javax.transaction.Transactional;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
@@ -30,6 +28,8 @@ import com.codbex.kronos.engine.hdb.domain.HDBSynonymGroup;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.parser.HDBParameters;
 import com.codbex.kronos.engine.hdb.parser.HDBSynonymDataStructureParser;
+
+import jakarta.transaction.Transactional;
 
 /**
  * The Class HDBSynonymDataStructureParserTest.

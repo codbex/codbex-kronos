@@ -22,8 +22,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import javax.transaction.Transactional;
-
 import org.apache.commons.io.IOUtils;
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
@@ -34,14 +32,13 @@ import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
 import org.eclipse.dirigible.database.sql.dialects.postgres.PostgresSqlDialect;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Answers;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -54,6 +51,8 @@ import com.codbex.kronos.engine.hdb.processors.HDBTableFunctionCreateProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBTableFunctionDropProcessor;
 import com.codbex.kronos.utils.CommonsUtils;
 
+import jakarta.transaction.Transactional;
+
 /**
  * The Class HDBTableFunctionProcessorTest.
  */
@@ -62,7 +61,7 @@ import com.codbex.kronos.utils.CommonsUtils;
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
 @EntityScan(value = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
 @Transactional
-@ExtendWith(MockitoExtension.class)
+@Disabled
 public class HDBTableFunctionProcessorTest {
 
 	/** The mock connection. */

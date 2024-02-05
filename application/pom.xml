@@ -27,7 +27,6 @@
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-components-group-core</artifactId>
-			<version>${dirigible.version}</version>
 			<type>pom</type>
 			<exclusions>
 				<exclusion>
@@ -41,19 +40,16 @@
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-components-security-basic</artifactId>
-			<version>${dirigible.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-components-security-keycloak</artifactId>
-			<version>${dirigible.version}</version>
 		</dependency>
 
 		<!-- Data -->
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-components-group-database</artifactId>
-			<version>${dirigible.version}</version>
 			<type>pom</type>
 		</dependency>
 
@@ -61,12 +57,15 @@
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-components-group-engines</artifactId>
-			<version>${dirigible.version}</version>
 			<type>pom</type>
 			<exclusions>
 				<exclusion>
 					<groupId>javax.validation</groupId>
 					<artifactId>validation-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.cxf</groupId>
+					<artifactId>cxf-rt-frontend-jaxrs</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -75,7 +74,6 @@
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-components-group-ide</artifactId>
-			<version>${dirigible.version}</version>
 			<type>pom</type>
 			<exclusions>
 				<exclusion>
@@ -93,7 +91,6 @@
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-components-group-api</artifactId>
-			<version>${dirigible.version}</version>
 			<type>pom</type>
 		</dependency>
 
@@ -101,7 +98,6 @@
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-components-group-resources</artifactId>
-			<version>${dirigible.version}</version>
 			<type>pom</type>
 		</dependency>
 
@@ -124,6 +120,12 @@
 			<groupId>com.codbex.kronos</groupId>
 			<artifactId>codbex-kronos-components-engine-core</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.cxf</groupId>
+					<artifactId>cxf-rt-frontend-jaxrs</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.codbex.kronos</groupId>
@@ -134,6 +136,14 @@
 			<groupId>com.codbex.kronos</groupId>
 			<artifactId>codbex-kronos-components-engine-xsodata</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.cxf</groupId>
+					<artifactId>
+						cxf-spring-boot-starter-jaxrs
+					</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.codbex.kronos</groupId>
@@ -251,12 +261,10 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>${postgresql.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-database-mongodb-jdbc</artifactId>
-			<version>${dirigible.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.sap.cloud.db.jdbc</groupId>
@@ -277,7 +285,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>${spring.boot.version}</version>
 				<configuration>
 					<mainClass>com.codbex.kronos.KronosApplication</mainClass>
 					<jvmArguments>

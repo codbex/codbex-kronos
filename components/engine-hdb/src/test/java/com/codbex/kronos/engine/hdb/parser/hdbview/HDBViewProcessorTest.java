@@ -20,8 +20,6 @@ import static org.mockito.Mockito.verify;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 
-import javax.transaction.Transactional;
-
 import org.apache.commons.io.IOUtils;
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
@@ -38,16 +36,12 @@ import org.eclipse.dirigible.database.sql.dialects.postgres.PostgresSqlDialect;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Answers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -59,6 +53,8 @@ import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.processors.HDBViewCreateProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBViewDropProcessor;
 
+import jakarta.transaction.Transactional;
+
 /**
  * The Class HDBViewProcessorTest.
  */
@@ -67,8 +63,6 @@ import com.codbex.kronos.engine.hdb.processors.HDBViewDropProcessor;
 @ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
 @EntityScan(value = { "org.eclipse.dirigible.components", "com.codbex.kronos" })
 @Transactional
-@ExtendWith(MockitoExtension.class)
-@MockitoSettings(strictness = Strictness.LENIENT)
 public class HDBViewProcessorTest {
 
 	/** The mock connection. */

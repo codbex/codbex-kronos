@@ -20,8 +20,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
-import javax.transaction.Transactional;
-
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -37,6 +35,8 @@ import com.codbex.kronos.engine.hdb.parser.HDBDataStructureDataStructureParser;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.parser.HDBParameters;
 import com.codbex.kronos.exceptions.ArtifactParserException;
+
+import jakarta.transaction.Transactional;
 
 /**
  * The Class HDBTableStructureDataStructureParserTest.

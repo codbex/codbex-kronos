@@ -20,8 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.charset.StandardCharsets;
 
-import javax.transaction.Transactional;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +36,8 @@ import com.codbex.kronos.engine.hdb.domain.HDBTableType;
 import com.codbex.kronos.engine.hdb.domain.HDBView;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.repository.TestRepositoryMigrator;
+
+import jakarta.transaction.Transactional;
 
 /**
  * The Class HDBDDDataStructureParserTest.

@@ -18,17 +18,14 @@
         <dependency>
 			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-commons-helpers</artifactId>
-			<version>${dirigible.version}</version>
 		</dependency>
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-components-api-http</artifactId>
-            <version>${dirigible.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>${gson.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -43,19 +40,17 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-inline</artifactId>
-            <version>${mockito.version}</version>
+            <version>5.2.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

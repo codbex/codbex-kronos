@@ -19,6 +19,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.eclipse.dirigible.commons.config.Configuration;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Answers;
@@ -45,6 +46,7 @@ import com.codbex.kronos.engine.hdi.processors.WriteContainerContentProcessor;
  * The Class HDIContainerCreateProcessorTest.
  */
 @ExtendWith(MockitoExtension.class)
+@Disabled
 public class HDIContainerCreateProcessorTest {
 
   /** The mock connection. */

@@ -19,7 +19,6 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
@@ -30,7 +29,6 @@
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-database-persistence</artifactId>
-            <version>${dirigible.version}</version>
         </dependency>
         
         <dependency>

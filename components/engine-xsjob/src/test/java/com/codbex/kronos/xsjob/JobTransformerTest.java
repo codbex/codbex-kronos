@@ -17,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Map;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 
 import org.apache.commons.io.IOUtils;
 import org.eclipse.dirigible.commons.api.helpers.GsonHelper;
