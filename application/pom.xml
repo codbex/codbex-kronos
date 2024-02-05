@@ -63,6 +63,10 @@
 					<groupId>javax.validation</groupId>
 					<artifactId>validation-api</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.apache.cxf</groupId>
+					<artifactId>cxf-rt-frontend-jaxrs</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 
@@ -116,6 +120,12 @@
 			<groupId>com.codbex.kronos</groupId>
 			<artifactId>codbex-kronos-components-engine-core</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.cxf</groupId>
+					<artifactId>cxf-rt-frontend-jaxrs</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.codbex.kronos</groupId>
@@ -126,6 +136,14 @@
 			<groupId>com.codbex.kronos</groupId>
 			<artifactId>codbex-kronos-components-engine-xsodata</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.cxf</groupId>
+					<artifactId>
+						cxf-spring-boot-starter-jaxrs
+					</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.codbex.kronos</groupId>
