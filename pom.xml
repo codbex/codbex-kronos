@@ -360,7 +360,7 @@
 		
     <h2database.version>2.2.224</h2database.version>
     <postgresql.version>42.7.1</postgresql.version>
-    <ngdbc.version>2.18.16</ngdbc.version>
+    <ngdbc.version>2.19.16</ngdbc.version>
     <snowflake.version>3.14.3</snowflake.version>
     <mongodb.version>3.12.14</mongodb.version>
 
