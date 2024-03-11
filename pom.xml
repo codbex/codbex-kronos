@@ -415,7 +415,7 @@
 		<jackson.databind.version>2.16.1</jackson.databind.version>
 
 		<spring-context-support.version>5.3.24</spring-context-support.version>
-		<webjars-locator>0.50</webjars-locator>
+		<webjars-locator>0.52</webjars-locator>
 
 		<keycloak-adapter-bom.version>20.0.2</keycloak-adapter-bom.version>
 		<hikaricp.version>5.0.1</hikaricp.version>
