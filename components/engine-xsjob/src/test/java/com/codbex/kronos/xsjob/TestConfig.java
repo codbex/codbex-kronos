@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos;
+package com.codbex.kronos.xsjob;
 
 import static org.mockito.Mockito.when;
 
