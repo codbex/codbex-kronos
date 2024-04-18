@@ -246,7 +246,7 @@ public class XSODataSynchronizer extends BaseSynchronizer<XSOData, Long> {
   protected boolean completeImpl(TopologyWrapper<XSOData> wrapper, ArtefactPhase flow) {
 
     try {
-      wrapper.getArtefact()
+      XSOData odata = wrapper.getArtefact();
       switch (flow) {
         case CREATE:
           if (odata.getLifecycle().equals(ArtefactLifecycle.NEW)) {
