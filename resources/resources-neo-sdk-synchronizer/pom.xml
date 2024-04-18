@@ -18,12 +18,10 @@
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-engine-javascript</artifactId>
-            <version>${dirigible.version}</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-core-scheduler</artifactId>
-            <version>${dirigible.version}</version>
         </dependency>
     </dependencies>
 

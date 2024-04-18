@@ -35,45 +35,33 @@
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-engine-graalium-execution-core</artifactId>
-            <version>${dirigible.version}</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-components-data-sources</artifactId>
-            <version>${dirigible.version}</version>
         </dependency>
         <dependency>
 					<groupId>org.eclipse.dirigible</groupId>
 					<artifactId>dirigible-components-data-management</artifactId>
-					<version>${dirigible.version}</version>
 				</dependency>
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-components-engine-jobs</artifactId>
-            <version>${dirigible.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-commons-helpers</artifactId>
-            <version>${dirigible.version}</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-database-persistence</artifactId>
-            <version>${dirigible.version}</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-repository-api</artifactId>
-            <version>${dirigible.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>${javax.servlet-api.version}</version>
-        </dependency>
         <dependency>
             <groupId>javax.websocket</groupId>
             <artifactId>javax.websocket-api</artifactId>
@@ -84,13 +72,11 @@
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-database-h2</artifactId>
-            <version>${dirigible.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-repository-local</artifactId>
-            <version>${dirigible.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

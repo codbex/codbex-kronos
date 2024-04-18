@@ -20,28 +20,23 @@
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-components-core-base</artifactId>
-			<version>${dirigible.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-components-core-database</artifactId>
-			<version>${dirigible.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-components-engine-javascript</artifactId>
-			<version>${dirigible.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-components-group-api-core</artifactId>
-			<version>${dirigible.version}</version>
 			<type>pom</type>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-components-group-api-platform</artifactId>
-			<version>${dirigible.version}</version>
 			<type>pom</type>
 		</dependency>
 
@@ -49,14 +44,12 @@
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-components-core-repository</artifactId>
-			<version>${dirigible.version}</version>
 		</dependency>
 
 		<!-- Graalium -->
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-engine-graalium-execution-core</artifactId>
-			<version>${dirigible.version}</version>
 		</dependency>
 		
 		<!-- XSJS API -->
@@ -70,25 +63,21 @@
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-database-h2</artifactId>
-			<version>${dirigible.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-repository-local</artifactId>
-			<version>${dirigible.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-components-data-sources</artifactId>
-			<version>${dirigible.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-components-data-management</artifactId>
-			<version>${dirigible.version}</version>
 			<scope>test</scope>
 		</dependency>
 

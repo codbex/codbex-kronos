@@ -150,7 +150,7 @@
 
 		<!-- Olingo -->
 		<dependency>
-			<groupId>org.apache.olingo</groupId>
+      <groupId>com.codbex.olingo</groupId>
 			<artifactId>olingo-odata2-lib</artifactId>
 			<version>${olingo.version}</version>
 			<type>pom</type>
@@ -166,6 +166,23 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons.io}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-inline</artifactId>
+        <version>5.2.0</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-all</artifactId>
+        <version>${hamcrest.all.version}</version>
+        <scope>test</scope>
+      </dependency>
       <dependency>
         <groupId>org.eclipse.dirigible</groupId>
         <artifactId>dirigible-dependencies</artifactId>
@@ -345,7 +362,7 @@
 		<maven.compiler.target>11</maven.compiler.target>
 		<maven.scm.plugin.version>1.13.0</maven.scm.plugin.version>
 		<scmVersionType>branch</scmVersionType>
-		<commons.io>2.15.1</commons.io>
+		<commons.io>2.16.1</commons.io>
 		<commons.codec>1.15</commons.codec>
 		<commons.lang3>3.14.0</commons.lang3>
 		<commons.exec>1.3</commons.exec>
@@ -379,7 +396,7 @@
 		<persistence.api.version>2.2.3</persistence.api.version>
 		<jgit.version>6.4.0.202211300538-r</jgit.version>
 		<javax.mail.api.version>1.6.4</javax.mail.api.version>
-		<olingo.version>2.0.13</olingo.version>
+		<olingo.version>3.1.3</olingo.version>
 		<kafka.version>3.3.1</kafka.version>
 		<git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
 		<caffeine.version>3.1.2</caffeine.version>

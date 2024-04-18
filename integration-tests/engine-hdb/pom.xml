@@ -41,7 +41,6 @@
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-all</artifactId>
-            <version>${hamcrest.all.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -91,7 +90,6 @@
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-core-scheduler</artifactId>
-            <version>${dirigible.version}</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>

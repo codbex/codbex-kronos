@@ -50,7 +50,6 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>${commons.io}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -61,13 +60,6 @@
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-database-h2</artifactId>
-            <version>${dirigible.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>${javax.servlet-api.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

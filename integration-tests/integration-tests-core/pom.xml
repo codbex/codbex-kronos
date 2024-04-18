@@ -23,27 +23,22 @@
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-commons-test</artifactId>
-            <version>${dirigible.version}</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-database-custom</artifactId>
-            <version>${dirigible.version}</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-database-h2</artifactId>
-            <version>${dirigible.version}</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-repository-local</artifactId>
-            <version>${dirigible.version}</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-commons-api</artifactId>
-            <version>${dirigible.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
