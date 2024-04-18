@@ -31,7 +31,6 @@ import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
 import org.eclipse.dirigible.components.base.artefact.ArtefactPhase;
-import org.eclipse.dirigible.components.base.artefact.ArtefactService;
 import org.eclipse.dirigible.components.base.artefact.topology.TopologyWrapper;
 import org.eclipse.dirigible.components.base.synchronizer.BaseSynchronizer;
 import org.eclipse.dirigible.components.base.synchronizer.SynchronizerCallback;
@@ -231,7 +230,7 @@ public class XSODataSynchronizer extends BaseSynchronizer<XSOData, Long> {
    * @return the service
    */
   @Override
-  public ArtefactService<XSOData, Long> getService() {
+  public XSODataService getService() {
     return odataService;
   }
 
