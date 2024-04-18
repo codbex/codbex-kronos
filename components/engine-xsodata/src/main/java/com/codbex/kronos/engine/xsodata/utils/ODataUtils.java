@@ -11,17 +11,6 @@
  */
 package com.codbex.kronos.engine.xsodata.utils;
 
-import com.codbex.kronos.engine.xsodata.domain.XSOData;
-import com.codbex.kronos.engine.xsodata.transformers.TableMetadataProvider;
-import com.codbex.kronos.engine.xsodata.transformers.XSOData2TransformerException;
-import com.codbex.kronos.parser.xsodata.model.XSODataAggregation;
-import com.codbex.kronos.parser.xsodata.model.XSODataAggregationType;
-import com.codbex.kronos.parser.xsodata.model.XSODataAssociation;
-import com.codbex.kronos.parser.xsodata.model.XSODataEntity;
-import com.codbex.kronos.parser.xsodata.model.XSODataEventType;
-import com.codbex.kronos.parser.xsodata.model.XSODataModification;
-import com.codbex.kronos.parser.xsodata.model.XSODataMultiplicityType;
-import com.codbex.kronos.parser.xsodata.model.XSODataNavigation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,7 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+
 import javax.sql.DataSource;
+
 import org.apache.olingo.odata2.api.edm.EdmMultiplicity;
 import org.eclipse.dirigible.components.base.spring.BeanProvider;
 import org.eclipse.dirigible.components.data.sources.manager.DataSourcesManager;
@@ -51,14 +42,24 @@ import org.eclipse.dirigible.database.sql.ISqlKeywords;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.codbex.kronos.engine.xsodata.domain.XSOData;
+import com.codbex.kronos.engine.xsodata.transformers.TableMetadataProvider;
+import com.codbex.kronos.engine.xsodata.transformers.XSOData2TransformerException;
+import com.codbex.kronos.parser.xsodata.model.XSODataAggregation;
+import com.codbex.kronos.parser.xsodata.model.XSODataAggregationType;
+import com.codbex.kronos.parser.xsodata.model.XSODataAssociation;
+import com.codbex.kronos.parser.xsodata.model.XSODataEntity;
+import com.codbex.kronos.parser.xsodata.model.XSODataEventType;
+import com.codbex.kronos.parser.xsodata.model.XSODataModification;
+import com.codbex.kronos.parser.xsodata.model.XSODataMultiplicityType;
+import com.codbex.kronos.parser.xsodata.model.XSODataNavigation;
+
 /**
  * The Class ODataUtils.
  */
 public class ODataUtils {
 
-  /**
-   * The Constant logger.
-   */
+  /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(ODataUtils.class);
 
   /**
@@ -71,15 +72,11 @@ public class ODataUtils {
     return dataSourcesManager.getDefaultDataSource();
   }
 
-  /**
-   * The metadata provider.
-   */
-  private final TableMetadataProvider metadataProvider;
+  /** The metadata provider. */
+  private TableMetadataProvider metadataProvider;
 
-  /**
-   * The db metadata util.
-   */
-  private final ODataDatabaseMetadataUtil dbMetadataUtil = new ODataDatabaseMetadataUtil();
+  /** The db metadata util. */
+  private ODataDatabaseMetadataUtil dbMetadataUtil = new ODataDatabaseMetadataUtil();
 
   /**
    * Instantiates a new o data utils.
@@ -206,7 +203,7 @@ public class ODataUtils {
    * Process modification.
    *
    * @param oDataEntityDefinition the o data entity definition
-   * @param handlers              the handlers
+   * @param handlers the handlers
    * @return the consumer
    */
   private Consumer<XSODataModification> processModification(ODataEntity oDataEntityDefinition,
@@ -241,8 +238,8 @@ public class ODataUtils {
   /**
    * Process navigation.
    *
-   * @param oDataModel            the o data model
-   * @param oDataDefinitionModel  the o data definition model
+   * @param oDataModel the o data model
+   * @param oDataDefinitionModel the o data definition model
    * @param oDataEntityDefinition the o data entity definition
    * @return the consumer
    */
@@ -301,7 +298,7 @@ public class ODataUtils {
    * Validate if provided multiplicity from xsodata can be mapped to olingo ones.
    *
    * @param actualValue the actual value
-   * @param assName     the ass name
+   * @param assName the ass name
    */
   void validateEdmMultiplicity(String actualValue, String assName) {
     try {
@@ -331,7 +328,7 @@ public class ODataUtils {
    * Get input parameters if entity data source is a calculation view.
    *
    * @param allEntityParameters the all entity parameters
-   * @param tableName           the table name
+   * @param tableName the table name
    * @return the parameters for calc view
    * @throws SQLException the SQL exception
    */
@@ -353,7 +350,11 @@ public class ODataUtils {
             String calcViewParamType = calcViewParameters.getString("COLUMN_SQL_TYPE");
             String calcViewParamMandatory = calcViewParameters.getString("MANDATORY");
 
-            boolean isNullable = calcViewParamMandatory.equals("0");
+            boolean isNullable = false;
+
+            if (calcViewParamMandatory.equals("0")) {
+              isNullable = true;
+            }
 
             Integer index = calcViewParamType.indexOf("(");
 
@@ -375,11 +376,11 @@ public class ODataUtils {
   /**
    * Create a second parameter entity.
    *
-   * @param oDataDefinitionModel  the o data definition model
+   * @param oDataDefinitionModel the o data definition model
    * @param oDataEntityDefinition the o data entity definition
-   * @param entity                the entity
-   * @param allEntityParameters   the all entity parameters
-   * @param tableName             the table name
+   * @param entity the entity
+   * @param allEntityParameters the all entity parameters
+   * @param tableName the table name
    */
   private void processParameters(OData oDataDefinitionModel, ODataEntity oDataEntityDefinition,
       XSODataEntity entity, List<PersistenceTableColumnModel> allEntityParameters, String tableName) {
@@ -428,8 +429,8 @@ public class ODataUtils {
   /**
    * Gets the association.
    *
-   * @param model      the model
-   * @param name       the name
+   * @param model the model
+   * @param name the name
    * @param navigation the navigation
    * @return the association
    */
