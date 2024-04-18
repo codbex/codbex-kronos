@@ -13,12 +13,22 @@ package com.codbex.kronos.engine.xsjob.repository;
 
 import com.codbex.kronos.engine.xsjob.domain.XSJob;
 import org.eclipse.dirigible.components.base.artefact.ArtefactRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * The Interface XSJobRepository.
  */
 @Repository("xsjobRepository")
 public interface XSJobRepository extends ArtefactRepository<XSJob, Long> {
+
+  @Override
+  @Modifying
+  @Transactional
+  @Query(value = "UPDATE XSJob SET running = :running")
+  void setRunningToAll(@Param("running") boolean running);
 
 }

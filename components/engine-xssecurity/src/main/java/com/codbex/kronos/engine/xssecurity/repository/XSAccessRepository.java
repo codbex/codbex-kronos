@@ -13,12 +13,22 @@ package com.codbex.kronos.engine.xssecurity.repository;
 
 import com.codbex.kronos.engine.xssecurity.domain.XSAccess;
 import org.eclipse.dirigible.components.base.artefact.ArtefactRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * The Interface XSAccessRepository.
  */
 @Repository("xsaccessRepository")
 public interface XSAccessRepository extends ArtefactRepository<XSAccess, Long> {
+
+  @Override
+  @Modifying
+  @Transactional
+  @Query(value = "UPDATE XSAccess SET running = :running")
+  void setRunningToAll(@Param("running") boolean running);
 
 }

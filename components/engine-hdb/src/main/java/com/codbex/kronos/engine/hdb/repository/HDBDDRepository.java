@@ -13,7 +13,11 @@ package com.codbex.kronos.engine.hdb.repository;
 
 import com.codbex.kronos.engine.hdb.domain.HDBDD;
 import org.eclipse.dirigible.components.base.artefact.ArtefactRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * The Interface HDBDDRepository.
@@ -21,4 +25,10 @@ import org.springframework.stereotype.Repository;
 @Repository("hdbddRepository")
 public interface HDBDDRepository extends ArtefactRepository<HDBDD, Long> {
 
+  @Override
+  @Modifying
+  @Transactional
+  @Query(value = "UPDATE HDBDD SET running = :running")
+  void setRunningToAll(@Param("running") boolean running);
+  
 }

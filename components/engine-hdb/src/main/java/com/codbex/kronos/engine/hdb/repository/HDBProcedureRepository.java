@@ -13,12 +13,22 @@ package com.codbex.kronos.engine.hdb.repository;
 
 import com.codbex.kronos.engine.hdb.domain.HDBProcedure;
 import org.eclipse.dirigible.components.base.artefact.ArtefactRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * The Interface HDBProcedureRepository.
  */
 @Repository("hdbprocedureRepository")
 public interface HDBProcedureRepository extends ArtefactRepository<HDBProcedure, Long> {
+
+  @Override
+  @Modifying
+  @Transactional
+  @Query(value = "UPDATE HDBProcedure SET running = :running")
+  void setRunningToAll(@Param("running") boolean running);
 
 }
