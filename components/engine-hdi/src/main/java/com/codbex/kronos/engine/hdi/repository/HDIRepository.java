@@ -11,15 +11,14 @@
  */
 package com.codbex.kronos.engine.hdi.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import com.codbex.kronos.engine.hdi.domain.HDI;
+import org.eclipse.dirigible.components.base.artefact.ArtefactRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * The Interface HDIRepository.
  */
 @Repository("hdiRepository")
-public interface HDIRepository extends JpaRepository<HDI, Long> {
+public interface HDIRepository extends ArtefactRepository<HDI, Long> {
 
 }

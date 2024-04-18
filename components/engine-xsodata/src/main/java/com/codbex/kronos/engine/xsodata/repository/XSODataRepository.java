@@ -11,15 +11,14 @@
  */
 package com.codbex.kronos.engine.xsodata.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import com.codbex.kronos.engine.xsodata.domain.XSOData;
+import org.eclipse.dirigible.components.base.artefact.ArtefactRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * The Interface XSODataRepository.
  */
 @Repository("xsodataRepository")
-public interface XSODataRepository extends JpaRepository<XSOData, Long> {
+public interface XSODataRepository extends ArtefactRepository<XSOData, Long> {
 
 }

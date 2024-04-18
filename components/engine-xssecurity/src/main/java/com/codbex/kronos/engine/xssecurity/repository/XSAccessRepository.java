@@ -11,15 +11,14 @@
  */
 package com.codbex.kronos.engine.xssecurity.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import com.codbex.kronos.engine.xssecurity.domain.XSAccess;
+import org.eclipse.dirigible.components.base.artefact.ArtefactRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * The Interface XSAccessRepository.
  */
 @Repository("xsaccessRepository")
-public interface XSAccessRepository extends JpaRepository<XSAccess, Long> {
+public interface XSAccessRepository extends ArtefactRepository<XSAccess, Long> {
 
 }

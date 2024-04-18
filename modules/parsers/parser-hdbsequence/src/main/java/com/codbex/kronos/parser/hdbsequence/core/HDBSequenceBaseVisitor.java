@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-// Generated from com/codbex/kronos/parser/hdbsequence/core/HDBSequence.g4 by ANTLR 4.13.0
+// Generated from com/codbex/kronos/parser/hdbsequence/core/HDBSequence.g4 by ANTLR 4.13.1
 package com.codbex.kronos.parser.hdbsequence.core;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 

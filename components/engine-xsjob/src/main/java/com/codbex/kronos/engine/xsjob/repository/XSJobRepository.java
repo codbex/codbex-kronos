@@ -11,15 +11,14 @@
  */
 package com.codbex.kronos.engine.xsjob.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import com.codbex.kronos.engine.xsjob.domain.XSJob;
+import org.eclipse.dirigible.components.base.artefact.ArtefactRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * The Interface XSJobRepository.
  */
 @Repository("xsjobRepository")
-public interface XSJobRepository extends JpaRepository<XSJob, Long> {
+public interface XSJobRepository extends ArtefactRepository<XSJob, Long> {
 
 }

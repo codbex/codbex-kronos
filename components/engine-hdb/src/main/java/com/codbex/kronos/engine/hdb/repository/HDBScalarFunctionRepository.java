@@ -11,15 +11,14 @@
  */
 package com.codbex.kronos.engine.hdb.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import com.codbex.kronos.engine.hdb.domain.HDBScalarFunction;
+import org.eclipse.dirigible.components.base.artefact.ArtefactRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * The Interface HDBScalarFunctionRepository.
  */
 @Repository("hdbscalarfunctionRepository")
-public interface HDBScalarFunctionRepository extends JpaRepository<HDBScalarFunction, Long> {
+public interface HDBScalarFunctionRepository extends ArtefactRepository<HDBScalarFunction, Long> {
 
 }

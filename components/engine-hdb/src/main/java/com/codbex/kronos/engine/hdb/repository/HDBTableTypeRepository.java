@@ -11,16 +11,15 @@
  */
 package com.codbex.kronos.engine.hdb.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import com.codbex.kronos.engine.hdb.domain.HDBTableType;
+import org.eclipse.dirigible.components.base.artefact.ArtefactRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * The Interface HDBTableTypeRepository.
  */
 @Repository("hdbtabletypeRepository")
-public interface HDBTableTypeRepository extends JpaRepository<HDBTableType, Long> {
+public interface HDBTableTypeRepository extends ArtefactRepository<HDBTableType, Long> {
 
 }
 
