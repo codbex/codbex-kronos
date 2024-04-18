@@ -14,7 +14,6 @@ package com.codbex.kronos.engine.hdi.service;
 import com.codbex.kronos.engine.hdi.domain.HDI;
 import com.codbex.kronos.engine.hdi.repository.HDIRepository;
 import org.eclipse.dirigible.components.base.artefact.BaseArtefactService;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,34 +22,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class HDIService extends BaseArtefactService<HDI, Long> implements InitializingBean {
+public class HDIService extends BaseArtefactService<HDI, Long> {
 
-  /**
-   * The instance.
-   */
-  private static HDIService INSTANCE;
 
   protected HDIService(HDIRepository repository) {
     super(repository);
-  }
-
-  /**
-   * After properties set.
-   *
-   * @throws Exception the exception
-   */
-  @Override
-  public void afterPropertiesSet() throws Exception {
-    INSTANCE = this;
-  }
-
-  /**
-   * Gets the.
-   *
-   * @return the HDI service
-   */
-  public static HDIService get() {
-    return INSTANCE;
   }
 
 }

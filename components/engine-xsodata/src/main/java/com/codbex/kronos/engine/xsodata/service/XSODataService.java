@@ -14,7 +14,6 @@ package com.codbex.kronos.engine.xsodata.service;
 import com.codbex.kronos.engine.xsodata.domain.XSOData;
 import com.codbex.kronos.engine.xsodata.repository.XSODataRepository;
 import org.eclipse.dirigible.components.base.artefact.BaseArtefactService;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,32 +22,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class XSODataService extends BaseArtefactService<XSOData, Long> implements InitializingBean {
+public class XSODataService extends BaseArtefactService<XSOData, Long> {
 
-  /**
-   * The instance.
-   */
-  private static XSODataService INSTANCE;
 
   protected XSODataService(XSODataRepository repository) {
     super(repository);
-  }
-
-  /**
-   * After properties set.
-   */
-  @Override
-  public void afterPropertiesSet() {
-    INSTANCE = this;
-  }
-
-  /**
-   * Gets the.
-   *
-   * @return the XSOData service
-   */
-  public static XSODataService get() {
-    return INSTANCE;
   }
 
 }

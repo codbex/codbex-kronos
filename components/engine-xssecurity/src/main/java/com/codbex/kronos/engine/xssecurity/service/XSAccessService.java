@@ -14,7 +14,6 @@ package com.codbex.kronos.engine.xssecurity.service;
 import com.codbex.kronos.engine.xssecurity.domain.XSAccess;
 import com.codbex.kronos.engine.xssecurity.repository.XSAccessRepository;
 import org.eclipse.dirigible.components.base.artefact.BaseArtefactService;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,34 +23,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class XSAccessService extends BaseArtefactService<XSAccess, Long> implements InitializingBean {
+public class XSAccessService extends BaseArtefactService<XSAccess, Long> {
 
-  /**
-   * The instance.
-   */
-  private static XSAccessService INSTANCE;
 
   protected XSAccessService(XSAccessRepository repository) {
     super(repository);
-  }
-
-  /**
-   * After properties set.
-   *
-   * @throws Exception the exception
-   */
-  @Override
-  public void afterPropertiesSet() throws Exception {
-    INSTANCE = this;
-  }
-
-  /**
-   * Gets the.
-   *
-   * @return the XSAccess service
-   */
-  public static XSAccessService get() {
-    return INSTANCE;
   }
 
 }

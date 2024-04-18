@@ -14,7 +14,6 @@ package com.codbex.kronos.engine.hdb.service;
 import com.codbex.kronos.engine.hdb.domain.HDBScalarFunction;
 import com.codbex.kronos.engine.hdb.repository.HDBScalarFunctionRepository;
 import org.eclipse.dirigible.components.base.artefact.BaseArtefactService;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,34 +22,10 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class HDBScalarFunctionService extends BaseArtefactService<HDBScalarFunction, Long> implements InitializingBean {
-
-  /**
-   * The instance.
-   */
-  private static HDBScalarFunctionService INSTANCE;
+public class HDBScalarFunctionService extends BaseArtefactService<HDBScalarFunction, Long> {
 
   protected HDBScalarFunctionService(HDBScalarFunctionRepository repository) {
     super(repository);
-  }
-
-  /**
-   * After properties set.
-   *
-   * @throws Exception the exception
-   */
-  @Override
-  public void afterPropertiesSet() throws Exception {
-    INSTANCE = this;
-  }
-
-  /**
-   * Gets the.
-   *
-   * @return the HDBScalarFunction service
-   */
-  public static HDBScalarFunctionService get() {
-    return INSTANCE;
   }
 
 }
