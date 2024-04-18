@@ -5,13 +5,13 @@
     <parent>
         <groupId>com.codbex.kronos</groupId>
         <artifactId>codbex-kronos-modules-parsers-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>2.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <name>codbex - kronos - modules - parsers - hdbsequence</name>
     <artifactId>codbex-kronos-modules-parsers-hdbsequence</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>2.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <build>
@@ -53,7 +53,7 @@
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>codbex-kronos-modules-parsers-commons</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>2.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
