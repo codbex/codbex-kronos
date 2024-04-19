@@ -29,11 +29,6 @@
       <groupId>org.eclipse.dirigible</groupId>
       <artifactId>dirigible-engine-graalium-execution-core</artifactId>
     </dependency>
-    <!-- <dependency> -->
-    <!--     <groupId>com.codbex.kronos</groupId> -->
-    <!--     <artifactId>codbex-kronos-components-engine-hdb</artifactId> -->
-    <!--     <version>3.0.0-SNAPSHOT</version> -->
-    <!-- </dependency> -->
   </dependencies>
 
   <properties>

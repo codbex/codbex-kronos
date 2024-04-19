@@ -15,13 +15,6 @@
 
   <modules>
     <module>parsers</module>
-
-    <!--
-    <module>api</module>
-    <module>all</module>
-    <module>engines</module>
-    <module>ide</module>
-    -->
   </modules>
 
   <properties>

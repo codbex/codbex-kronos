@@ -138,35 +138,6 @@
       <artifactId>codbex-kronos-components-engine-xsjob</artifactId>
     </dependency>
 
-    <!--
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-engine-hdb</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-engine-hdbti</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-engine-mail-destination</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
-    </dependency>
-
-    -->
-
-    <!--
-
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-engine-xssecurity</artifactId>
-      <version>0.4.0-SNAPSHOT</version>
-    </dependency>
-    -->
-
     <!-- IDE -->
     <dependency>
       <groupId>com.codbex.kronos</groupId>
