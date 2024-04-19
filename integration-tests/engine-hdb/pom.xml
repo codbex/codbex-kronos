@@ -44,7 +44,6 @@
     <dependency>
       <groupId>com.sap.cloud.db.jdbc</groupId>
       <artifactId>ngdbc</artifactId>
-      <version>${ngdbc.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -55,7 +54,6 @@
     <dependency>
       <groupId>io.github.hakky54</groupId>
       <artifactId>logcaptor</artifactId>
-      <version>${hakky.logcaptor.version}</version>
       <scope>test</scope>
     </dependency>
 

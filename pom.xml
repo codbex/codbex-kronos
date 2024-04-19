@@ -32,16 +32,61 @@
     <module>branding</module>
     <module>modules</module>
     <!--<module>integration-tests</module>-->
-
-    <!--
-      <module>releng</module>
-      <module>coverage-aggregate</module>
-      -->
   </modules>
 
-  <dependencies>
+  <properties>
+    <project.title>codbex kronos</project.title>
 
-    <!-- Platform -->
+    <java.version>11</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <dirigible.version>10.2.10</dirigible.version>
+    <dirigible.acorn.version>7.2.0</dirigible.acorn.version>
+
+    <java.version>11</java.version>
+    <scmVersionType>branch</scmVersionType>
+    <commons.io>2.16.1</commons.io>
+    <commons.lang3>3.14.0</commons.lang3>
+    <hamcrest.all.version>1.3</hamcrest.all.version>
+    <commons-dbcp2.version>2.12.0</commons-dbcp2.version>
+    <ngdbc.version>2.19.16</ngdbc.version>
+    <snowflake.version>3.14.3</snowflake.version>
+    <jaxb.version>2.3.1</jaxb.version>
+    <license-maven-plugin.version>4.3</license-maven-plugin.version>
+    <olingo.version>3.1.3</olingo.version>
+    <webjars-locator>0.50</webjars-locator>
+    <guava.version>33.0.0-jre</guava.version>
+    <javax.websocket-api.version>1.1</javax.websocket-api.version>
+    <jacoco.version>0.8.11</jacoco.version>
+    <org.springdoc.openapi.ui.version>1.7.0</org.springdoc.openapi.ui.version>
+    <antlr4-runtime.version>4.13.1</antlr4-runtime.version>
+    <antlr4-maven-plugin.version>4.13.1</antlr4-maven-plugin.version>
+    <junitparams.version>1.1.1</junitparams.version>
+    <hamcrest.all.version>1.3</hamcrest.all.version>
+    <javax.activation.version>1.2.0</javax.activation.version>
+    <hakky.logcaptor.version>2.7.10</hakky.logcaptor.version>
+    <scp-cf.version>4.24.0</scp-cf.version>
+    <httpmime.version>4.5.13</httpmime.version>
+    <com.h2database.version>2.1.214</com.h2database.version>
+    <httpasyncclient.version>4.1.5</httpasyncclient.version>
+    <jaxb.version>2.3.1</jaxb.version>
+    <selenium.version>4.5.0</selenium.version>
+    <selenium.webdriver.manager.version>5.3.1</selenium.webdriver.manager.version>
+    <jetbrains.annotations.version>24.1.0</jetbrains.annotations.version>
+    <maven.compiler.plugin.version>3.12.1</maven.compiler.plugin.version>
+    <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
+
+    <maven.clean.plugin.directory>src/main/resources/META-INF/dirigible</maven.clean.plugin.directory>
+    <maven.surefire.plugin.version>3.2.5</maven.surefire.plugin.version>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+
+    <profile.content.phase>none</profile.content.phase>
+
+    <license.header.location>licensing-header.txt</license.header.location>
+  </properties>
+
+  <dependencies>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
@@ -57,14 +102,10 @@
       <artifactId>logback-classic</artifactId>
       <scope>compile</scope>
     </dependency>
-
-    <!-- Commons -->
     <dependency>
       <groupId>org.eclipse.dirigible</groupId>
       <artifactId>dirigible-commons-config</artifactId>
     </dependency>
-
-    <!-- Spring Boot -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
@@ -99,12 +140,10 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-web</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -121,35 +160,22 @@
       <artifactId>spring-security-test</artifactId>
       <scope>test</scope>
     </dependency>
-
-    <!-- Date Type Utils -->
     <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-joda</artifactId>
     </dependency>
-
-
-    <!-- Swagger -->
     <dependency>
       <groupId>org.springdoc</groupId>
       <artifactId>springdoc-openapi-ui</artifactId>
-      <version>${org.springdoc.openapi.ui.version}</version>
     </dependency>
-
-    <!-- Data Access -->
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
     </dependency>
-
-    <!-- WebJars -->
     <dependency>
       <groupId>org.webjars</groupId>
       <artifactId>webjars-locator</artifactId>
-      <version>${webjars-locator}</version>
     </dependency>
-
-    <!-- Olingo -->
     <dependency>
       <groupId>com.codbex.olingo</groupId>
       <artifactId>olingo-odata2-lib</artifactId>
@@ -171,6 +197,17 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+
+      <dependency>
+        <groupId>org.webjars</groupId>
+        <artifactId>webjars-locator</artifactId>
+        <version>${webjars-locator}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-ui</artifactId>
+        <version>${org.springdoc.openapi.ui.version}</version>
+      </dependency>
       <dependency>
         <groupId>com.codbex.olingo</groupId>
         <artifactId>olingo-odata2-core</artifactId>
@@ -187,12 +224,74 @@
         <artifactId>commons-io</artifactId>
         <version>${commons.io}</version>
       </dependency>
-    <dependency>
+      <dependency>
         <groupId>javax.xml.bind</groupId>
         <artifactId>jaxb-api</artifactId>
         <version>${jaxb.version}</version>
       </dependency>
-      
+      <dependency>
+        <groupId>javax.websocket</groupId>
+        <artifactId>javax.websocket-api</artifactId>
+        <version>${javax.websocket-api.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>net.snowflake</groupId>
+        <artifactId>snowflake-jdbc</artifactId>
+        <version>${snowflake.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.antlr</groupId>
+        <artifactId>antlr4-runtime</artifactId>
+        <version>${antlr4-runtime.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.sun.activation</groupId>
+        <artifactId>javax.activation</artifactId>
+        <version>${javax.activation.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.dirigible</groupId>
+        <artifactId>dirigible-ext-acorn</artifactId>
+        <version>${dirigible.acorn.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${guava.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.sap.cloud.sdk.cloudplatform</groupId>
+        <artifactId>scp-cf</artifactId>
+        <version>${scp-cf.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpmime</artifactId>
+        <version>${httpmime.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpasyncclient</artifactId>
+        <version>${httpasyncclient.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.sap.cloud.db.jdbc</groupId>
+        <artifactId>ngdbc</artifactId>
+        <version>${ngdbc.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jetbrains</groupId>
+        <artifactId>annotations</artifactId>
+        <version>${jetbrains.annotations.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.github.hakky54</groupId>
+        <artifactId>logcaptor</artifactId>
+        <version>${hakky.logcaptor.version}</version>
+        <scope>test</scope>
+      </dependency>
       <dependency>
         <groupId>org.mockito</groupId>
         <artifactId>mockito-inline</artifactId>
@@ -203,6 +302,18 @@
         <groupId>org.hamcrest</groupId>
         <artifactId>hamcrest-all</artifactId>
         <version>${hamcrest.all.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>pl.pragmatists</groupId>
+        <artifactId>JUnitParams</artifactId>
+        <version>${junitparams.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.github.bonigarcia</groupId>
+        <artifactId>webdrivermanager</artifactId>
+        <version>${selenium.webdriver.manager.version}</version>
         <scope>test</scope>
       </dependency>
 
@@ -396,7 +507,6 @@
         <artifactId>codbex-kronos-components-template-xsjs-import</artifactId>
         <version>${project.version}</version>
       </dependency>
-
     </dependencies>
 
   </dependencyManagement>
@@ -526,55 +636,5 @@
 
   </profiles>
 
-  <properties>
-    <project.title>codbex kronos</project.title>
 
-    <java.version>11</java.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-    <dirigible.version>10.2.10</dirigible.version>
-    <dirigible.acorn.version>7.2.0</dirigible.acorn.version>
-
-    <java.version>11</java.version>
-    <scmVersionType>branch</scmVersionType>
-    <commons.io>2.16.1</commons.io>
-    <commons.lang3>3.14.0</commons.lang3>
-    <hamcrest.all.version>1.3</hamcrest.all.version>
-    <commons-dbcp2.version>2.12.0</commons-dbcp2.version>
-    <ngdbc.version>2.19.16</ngdbc.version>
-    <snowflake.version>3.14.3</snowflake.version>
-    <jaxb.version>2.3.1</jaxb.version>
-    <license-maven-plugin.version>4.3</license-maven-plugin.version>
-    <olingo.version>3.1.3</olingo.version>
-    <webjars-locator>0.50</webjars-locator>
-    <guava.version>33.0.0-jre</guava.version>
-    <javax.websocket-api.version>1.1</javax.websocket-api.version>
-    <jacoco.version>0.8.11</jacoco.version>
-    <org.springdoc.openapi.ui.version>1.7.0</org.springdoc.openapi.ui.version>
-    <antlr4-runtime.version>4.13.1</antlr4-runtime.version>
-    <antlr4-maven-plugin.version>4.13.1</antlr4-maven-plugin.version>
-    <junitparams.version>1.1.1</junitparams.version>
-    <hamcrest.all.version>1.3</hamcrest.all.version>
-    <javax.activation.version>1.2.0</javax.activation.version>
-    <hakky.logcaptor.version>2.7.10</hakky.logcaptor.version>
-    <scp-cf.version>4.24.0</scp-cf.version>
-    <httpmime.version>4.5.13</httpmime.version>
-    <com.h2database.version>2.1.214</com.h2database.version>
-    <httpasyncclient.version>4.1.5</httpasyncclient.version>
-    <jaxb.version>2.3.1</jaxb.version>
-    <selenium.version>4.5.0</selenium.version>
-    <selenium.webdriver.manager.version>5.3.1</selenium.webdriver.manager.version>
-    <jetbrains.annotations.version>24.1.0</jetbrains.annotations.version>
-    <maven.compiler.plugin.version>3.12.1</maven.compiler.plugin.version>
-    <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
-
-    <maven.clean.plugin.directory>src/main/resources/META-INF/dirigible</maven.clean.plugin.directory>
-    <maven.surefire.plugin.version>3.2.5</maven.surefire.plugin.version>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
-
-    <profile.content.phase>none</profile.content.phase>
-
-    <license.header.location>licensing-header.txt</license.header.location>
-  </properties>
 </project>

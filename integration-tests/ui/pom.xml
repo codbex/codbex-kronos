@@ -24,7 +24,6 @@
     <dependency>
       <groupId>io.github.bonigarcia</groupId>
       <artifactId>webdrivermanager</artifactId>
-      <version>${selenium.webdriver.manager.version}</version>
       <scope>test</scope>
     </dependency>
 
@@ -37,7 +36,6 @@
     <dependency>
       <groupId>pl.pragmatists</groupId>
       <artifactId>JUnitParams</artifactId>
-      <version>${junitparams.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>

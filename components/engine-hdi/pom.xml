@@ -44,10 +44,8 @@
     <dependency>
       <groupId>javax.websocket</groupId>
       <artifactId>javax.websocket-api</artifactId>
-      <version>${javax.websocket-api.version}</version>
       <scope>provided</scope>
     </dependency>
-
 
     <dependency>
       <groupId>org.eclipse.dirigible</groupId>
