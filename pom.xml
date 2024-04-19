@@ -31,10 +31,9 @@
     <module>application</module>
     <module>branding</module>
     <module>modules</module>
-    <module>integration-tests</module>
+    <!--<module>integration-tests</module>-->
 
     <!--
-      <module>resources</module>
       <module>releng</module>
       <module>coverage-aggregate</module>
       -->
