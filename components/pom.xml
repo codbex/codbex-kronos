@@ -1,56 +1,57 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>com.codbex.kronos</groupId>
-        <artifactId>codbex-kronos-parent</artifactId>
-        <version>2.0.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
-    </parent>
+  <parent>
+    <groupId>com.codbex.kronos</groupId>
+    <artifactId>codbex-kronos-parent</artifactId>
+    <version>3.0.0-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
 
-    <name>codbex - kronos - components - parent</name>
-    <artifactId>codbex-kronos-components-parent</artifactId>
-    <version>2.0.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
+  <name>codbex - kronos - components - parent</name>
+  <artifactId>codbex-kronos-components-parent</artifactId>
+  <version>3.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
-    <modules>
-        <module>api-xsjs</module>
-        <module>engine-commons</module>
-        <module>engine-core</module>
-        <module>engine-xsjs</module>
-        <module>engine-xsodata</module>
-        <module>engine-hdb</module>
-
-
-        <module>engine-hdi</module>
-        <module>engine-xsjob</module>
-        <module>engine-xssecurity</module>
+  <modules>
+    <module>api-xsjs</module>
+    <module>engine-commons</module>
+    <module>engine-core</module>
+    <module>engine-xsjs</module>
+    <module>engine-xsodata</module>
+    <module>engine-hdb</module>
 
 
-        <!--
-        <module>engine-mail-destination</module>
-        -->
-        <module>ide-migration</module>
-        <module>ide-file-types</module>
-        <module>ide-workspace-menu</module>
-
-        <module>template-xsjs</module>
-        <module>template-hdbtable</module>
-        <module>template-hdbview</module>
-        <module>template-hdbdd</module>
-        <module>template-xsjs-db</module>
-        <module>template-xsjs-hdb</module>
-        <module>template-xsjs-import</module>
-
-        <module>template-abap</module>
-
-        <module>template-python</module>
+    <module>engine-hdi</module>
+    <module>engine-xsjob</module>
+    <module>engine-xssecurity</module>
 
 
-    </modules>
+    <!--
+    <module>engine-mail-destination</module>
+    -->
+    <module>ide-migration</module>
+    <module>ide-file-types</module>
+    <module>ide-workspace-menu</module>
 
-    <properties>
-        <license.header.location>../licensing-header.txt</license.header.location>
-    </properties>
+    <module>template-xsjs</module>
+    <module>template-hdbtable</module>
+    <module>template-hdbview</module>
+    <module>template-hdbdd</module>
+    <module>template-xsjs-db</module>
+    <module>template-xsjs-hdb</module>
+    <module>template-xsjs-import</module>
+
+    <module>template-abap</module>
+
+    <module>template-python</module>
+
+
+  </modules>
+
+  <properties>
+    <license.header.location>../licensing-header.txt</license.header.location>
+  </properties>
 
 </project>
