@@ -431,7 +431,6 @@
 		<exec.maven.plugin>3.0.0</exec.maven.plugin>
 		<jackson.databind.version>2.16.1</jackson.databind.version>
 
-		<spring-context-support.version>5.3.24</spring-context-support.version>
 		<webjars-locator>0.50</webjars-locator>
 
 		<keycloak-adapter-bom.version>20.0.2</keycloak-adapter-bom.version>

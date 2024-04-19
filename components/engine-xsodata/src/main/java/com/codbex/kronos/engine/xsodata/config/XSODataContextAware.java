@@ -19,25 +19,26 @@ import org.springframework.context.ApplicationContextAware;
  * A factory for creating XSODataContextAware objects.
  */
 public class XSODataContextAware implements ApplicationContextAware {
-	
-	/** The odata names validation pattern patcher. */
-	private final ODataNamesValidationPatternPatcher odataNamesValidationPatternPatcher = new ODataNamesValidationPatternPatcher();
-	
-    /**
-     * Sets the application context.
-     *
-     * @param applicationContext the new application context
-     * @throws BeansException the beans exception
-     */
-	@Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		try {
-			odataNamesValidationPatternPatcher.patch();
-		} catch (Exception e) {
-			throw new IllegalStateException("Failed to replace default Olingo OData parameter name pattern.", e);
-		}
-    }
 
-    
+  /**
+   * The odata names validation pattern patcher.
+   */
+  private final ODataNamesValidationPatternPatcher odataNamesValidationPatternPatcher = new ODataNamesValidationPatternPatcher();
+
+  /**
+   * Sets the application context.
+   *
+   * @param applicationContext the new application context
+   * @throws BeansException the beans exception
+   */
+  @Override
+  public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    try {
+      odataNamesValidationPatternPatcher.patch();
+    } catch (Exception e) {
+      throw new IllegalStateException("Failed to replace default Olingo OData parameter name pattern.", e);
+    }
+  }
+
 
 }
