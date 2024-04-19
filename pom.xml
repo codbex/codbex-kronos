@@ -541,7 +541,7 @@
     <java.version>11</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <dirigible.version>10.3.0</dirigible.version>
+    <dirigible.version>10.2.10</dirigible.version>
     <dirigible.acorn.version>7.2.0</dirigible.acorn.version>
 
     <java.version>11</java.version>
@@ -559,7 +559,7 @@
     <snowflake.version>3.14.3</snowflake.version>
     <jaxb.version>2.3.1</jaxb.version>
     <license-maven-plugin.version>4.3</license-maven-plugin.version>
-    <olingo.version>4.0.0-SNAPSHOT</olingo.version>
+    <olingo.version>3.1.4</olingo.version>
     <webjars-locator>0.50</webjars-locator>
     <guava.version>33.0.0-jre</guava.version>
     <javax.websocket-api.version>1.1</javax.websocket-api.version>
