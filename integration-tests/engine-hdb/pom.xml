@@ -16,7 +16,7 @@
   <dependencies>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-modules-engines-hdb</artifactId>
+      <artifactId>codbex-kronos-components-engine-hdb</artifactId>
       <scope>test</scope>
     </dependency>
 
@@ -79,10 +79,6 @@
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-modules-parsers-hdbdd</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.dirigible</groupId>
-      <artifactId>dirigible-core-scheduler</artifactId>
     </dependency>
     <dependency>
       <groupId>com.h2database</groupId>

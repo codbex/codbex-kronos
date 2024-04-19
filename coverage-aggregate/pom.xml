@@ -31,7 +31,7 @@
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>codbex-kronos-modules-engines-hdb</artifactId>
+      <artifactId>codbex-kronos-components-engine-hdb</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>

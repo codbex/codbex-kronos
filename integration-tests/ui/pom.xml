@@ -41,18 +41,6 @@
       <version>${junitparams.version}</version>
       <scope>test</scope>
     </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.dirigible</groupId>
-      <artifactId>dirigible-commons-api</artifactId>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>com.google.code.gson</groupId>
-          <artifactId>gson</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-integration-tests-core</artifactId>
