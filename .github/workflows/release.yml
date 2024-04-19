@@ -6,11 +6,11 @@ on:
       release-version:
         description: Release Version
         required: true
-        default: 2.0.0
+        default: 3.0.0
       snapshot-version:
         description: Snapshot Version
         required: true
-        default: 2.0.0-SNAPSHOT
+        default: 3.0.0-SNAPSHOT
 
 run-name: 'version set to ${{ inputs.release-version }} for release'
 
@@ -25,18 +25,18 @@ jobs:
       buildx-enabled: false
       release-content: |
         ## codbex-kronos - ${{ inputs.release-version }}
-  
+        
         SAP HANA XS Classic Compatibility Platform
-  
+        
         ## Deployment
-  
+        
         ```
         docker run --name codbex-kronos \
         --rm -p 80:80 -p 8081:8081 \
         ghcr.io/codbex/codbex-kronos:${{ inputs.release-version }}
         ```
-  
+        
         ## Access points:
-  
+        
         - [/services/web/ide/](http://localhost/services/web/ide/) - Web IDE
     secrets: inherit

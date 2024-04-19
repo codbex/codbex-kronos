@@ -12,24 +12,20 @@
 
   <name>codbex - kronos - components - engine - xssecurity</name>
   <artifactId>codbex-kronos-components-engine-xssecurity</artifactId>
-  <version>3.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <dependencies>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-engine-core</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-modules-parsers-all</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-api-xsjs</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
 
     <dependency>
@@ -95,17 +91,14 @@
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-modules-parsers-hdbti</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-modules-parsers-hdbsequence</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-modules-parsers-hdbtable</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
   </dependencies>
 

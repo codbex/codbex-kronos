@@ -12,20 +12,17 @@
 
   <name>kronos - integration - tests - engines - hdb</name>
   <artifactId>codbex-kronos-integration-tests-engines-hdb</artifactId>
-  <version>3.0.0-SNAPSHOT</version>
 
   <dependencies>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-modules-engines-hdb</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-integration-tests-core</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -66,27 +63,22 @@
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-modules-parsers-hdbti</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-modules-parsers-hdbsequence</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-modules-parsers-hdbschema</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-modules-parsers-hdbtable</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-modules-parsers-hdbdd</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse.dirigible</groupId>

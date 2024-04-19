@@ -11,7 +11,6 @@
 
   <name>codbex - kronos - components - parent</name>
   <artifactId>codbex-kronos-components-parent</artifactId>
-  <version>3.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <modules>

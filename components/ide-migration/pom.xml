@@ -12,7 +12,6 @@
 
   <name>codbex - kronos - components - ide - migration</name>
   <artifactId>codbex-kronos-components-ide-migration</artifactId>
-  <version>3.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <dependencies>

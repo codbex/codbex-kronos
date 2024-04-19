@@ -12,7 +12,6 @@
 
   <name>codbex - kronos - modules - parsers - hdbtableimport</name>
   <artifactId>codbex-kronos-modules-parsers-hdbti</artifactId>
-  <version>3.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <build>
@@ -56,7 +55,6 @@
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-engine-commons</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse.dirigible</groupId>

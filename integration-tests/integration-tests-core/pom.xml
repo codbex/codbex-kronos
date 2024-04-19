@@ -12,14 +12,12 @@
 
   <name>kronos - integration - tests - core</name>
   <artifactId>codbex-kronos-integration-tests-core</artifactId>
-  <version>3.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <dependencies>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-modules-engines-hdb</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse.dirigible</groupId>

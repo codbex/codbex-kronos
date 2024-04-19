@@ -20,7 +20,6 @@
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-branding</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
 
     <!-- Core -->
@@ -107,58 +106,36 @@
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-api-xsjs</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
 
     <!-- Engines -->
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-engine-commons</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-engine-core</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.cxf</groupId>
-          <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-engine-xsjs</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-engine-xsodata</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.cxf</groupId>
-          <artifactId>
-            cxf-spring-boot-starter-jaxrs
-          </artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-engine-hdb</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-engine-hdi</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-engine-xsjob</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
 
     <!--
@@ -194,66 +171,54 @@
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-ide-file-types</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-ide-workspace-menu</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-ide-migration</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
 
     <!-- Templates -->
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-template-xsjs</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-template-hdbtable</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-template-hdbview</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-template-hdbdd</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-template-xsjs-db</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-template-xsjs-hdb</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-template-xsjs-import</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
 
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-template-abap</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
 
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-template-python</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
 
 

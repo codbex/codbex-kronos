@@ -12,7 +12,6 @@
 
   <name>codbex - kronos - components - engine - commons</name>
   <artifactId>codbex-kronos-components-engine-commons</artifactId>
-  <version>3.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <dependencies>
@@ -34,7 +33,6 @@
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-modules-parsers-commons</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
     </dependency>
   </dependencies>
 
