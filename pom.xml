@@ -46,7 +46,6 @@
     <java.version>11</java.version>
     <scmVersionType>branch</scmVersionType>
     <hamcrest.all.version>1.3</hamcrest.all.version>
-    <commons-dbcp2.version>2.12.0</commons-dbcp2.version>
     <ngdbc.version>2.19.16</ngdbc.version>
     <jaxb.version>2.3.1</jaxb.version>
     <webjars-locator>0.50</webjars-locator>
