@@ -44,7 +44,7 @@
     <license.header.location>licensing-header.txt</license.header.location>
 
     <antlr4-maven-plugin.version>4.13.1</antlr4-maven-plugin.version>
-    <maven.compiler.plugin.version>3.12.1</maven.compiler.plugin.version>
+    <maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
     <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
     <license-maven-plugin.version>4.3</license-maven-plugin.version>
     <maven.clean.plugin.directory>src/main/resources/META-INF/dirigible</maven.clean.plugin.directory>
