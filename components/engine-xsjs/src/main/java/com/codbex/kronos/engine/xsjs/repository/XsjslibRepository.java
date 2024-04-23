@@ -11,15 +11,24 @@
  */
 package com.codbex.kronos.engine.xsjs.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import com.codbex.kronos.engine.xsjs.domain.Xsjslib;
+import org.eclipse.dirigible.components.base.artefact.ArtefactRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * The Interface XsjslibRepository.
  */
 @Repository("xsjslibRepository")
-public interface XsjslibRepository extends JpaRepository<Xsjslib, Long> {
+public interface XsjslibRepository extends ArtefactRepository<Xsjslib, Long> {
+
+  @Override
+  @Modifying
+  @Transactional
+  @Query(value = "UPDATE Xsjslib SET running = :running")
+  void setRunningToAll(@Param("running") boolean running);
 
 }

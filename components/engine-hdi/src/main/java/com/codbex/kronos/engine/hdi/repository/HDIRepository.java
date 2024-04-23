@@ -11,15 +11,24 @@
  */
 package com.codbex.kronos.engine.hdi.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import com.codbex.kronos.engine.hdi.domain.HDI;
+import org.eclipse.dirigible.components.base.artefact.ArtefactRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * The Interface HDIRepository.
  */
 @Repository("hdiRepository")
-public interface HDIRepository extends JpaRepository<HDI, Long> {
+public interface HDIRepository extends ArtefactRepository<HDI, Long> {
+
+  @Override
+  @Modifying
+  @Transactional
+  @Query(value = "UPDATE HDI SET running = :running")
+  void setRunningToAll(@Param("running") boolean running);
 
 }

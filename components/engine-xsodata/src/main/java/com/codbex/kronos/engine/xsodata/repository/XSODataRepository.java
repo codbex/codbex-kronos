@@ -11,15 +11,24 @@
  */
 package com.codbex.kronos.engine.xsodata.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import com.codbex.kronos.engine.xsodata.domain.XSOData;
+import org.eclipse.dirigible.components.base.artefact.ArtefactRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * The Interface XSODataRepository.
  */
 @Repository("xsodataRepository")
-public interface XSODataRepository extends JpaRepository<XSOData, Long> {
+public interface XSODataRepository extends ArtefactRepository<XSOData, Long> {
+
+  @Override
+  @Modifying
+  @Transactional
+  @Query(value = "UPDATE XSOData SET running = :running")
+  void setRunningToAll(@Param("running") boolean running);
 
 }

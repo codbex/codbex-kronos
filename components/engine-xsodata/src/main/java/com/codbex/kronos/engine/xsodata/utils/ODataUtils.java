@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 import javax.sql.DataSource;
 
 import org.apache.olingo.odata2.api.edm.EdmMultiplicity;
+import org.eclipse.dirigible.components.base.spring.BeanProvider;
 import org.eclipse.dirigible.components.data.sources.manager.DataSourcesManager;
 import org.eclipse.dirigible.components.data.structures.domain.Table;
 import org.eclipse.dirigible.components.data.structures.domain.TableColumn;
@@ -60,19 +61,20 @@ public class ODataUtils {
 
   /** The Constant logger. */
   private static final Logger logger = LoggerFactory.getLogger(ODataUtils.class);
-  
+
   /**
-	 * Gets the data source.
-	 *
-	 * @return the data source
-	 */
-  private DataSource getDataSource() { 
-	  return DataSourcesManager.get().getDefaultDataSource();
+   * Gets the data source.
+   *
+   * @return the data source
+   */
+  private DataSource getDataSource() {
+    DataSourcesManager dataSourcesManager = BeanProvider.getBean(DataSourcesManager.class);
+    return dataSourcesManager.getDefaultDataSource();
   }
 
   /** The metadata provider. */
   private TableMetadataProvider metadataProvider;
-  
+
   /** The db metadata util. */
   private ODataDatabaseMetadataUtil dbMetadataUtil = new ODataDatabaseMetadataUtil();
 
@@ -252,7 +254,7 @@ public class ODataUtils {
       //set navigations
       ODataAssociation oDataAssociationDefinition = new ODataAssociation();
       oDataAssociationDefinition.setName(navigate.getAssociation());
-      XSODataAssociation xsOdataAssoc = 
+      XSODataAssociation xsOdataAssoc =
           getAssociation(oDataModel, navigate.getAssociation(), navigate.getAliasNavigation());
 
       ODataAssociationEnd fromDef = new ODataAssociationEnd();
@@ -423,7 +425,7 @@ public class ODataUtils {
 
     oDataDefinitionModel.getEntities().add(oDataEntityParametersDefinition);
   }
-  
+
   /**
    * Gets the association.
    *
@@ -433,14 +435,14 @@ public class ODataUtils {
    * @return the association
    */
   public static XSODataAssociation getAssociation(XSOData model, String name, String navigation) {
-      if (model != null && model.getService() != null) {
-          for (XSODataAssociation association : model.getService().getAssociations()) {
-              if (name != null && name.equals(association.getName())) {
-                  return association;
-              }
-          }
+    if (model != null && model.getService() != null) {
+      for (XSODataAssociation association : model.getService().getAssociations()) {
+        if (name != null && name.equals(association.getName())) {
+          return association;
+        }
       }
-      throw new IllegalArgumentException(
-              String.format("There is no association with name: %s, referenced by the navigation: %s", name, navigation));
+    }
+    throw new IllegalArgumentException(
+        String.format("There is no association with name: %s, referenced by the navigation: %s", name, navigation));
   }
 }

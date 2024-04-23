@@ -11,6 +11,15 @@
  */
 package com.codbex.kronos.engine.hdb.synchronizer;
 
+import com.codbex.kronos.engine.hdb.api.DataStructuresException;
+import com.codbex.kronos.engine.hdb.domain.HDBTable;
+import com.codbex.kronos.engine.hdb.domain.HDBTableType;
+import com.codbex.kronos.engine.hdb.domain.HDBTableTypeColumn;
+import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
+import com.codbex.kronos.engine.hdb.processors.HDBTableTypeCreateProcessor;
+import com.codbex.kronos.engine.hdb.processors.HDBTableTypeDropProcessor;
+import com.codbex.kronos.engine.hdb.service.HDBTableTypeService;
+import com.codbex.kronos.exceptions.ArtifactParserException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -18,14 +27,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
-
 import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
-import org.eclipse.dirigible.components.base.artefact.Artefact;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
 import org.eclipse.dirigible.components.base.artefact.ArtefactPhase;
-import org.eclipse.dirigible.components.base.artefact.ArtefactService;
 import org.eclipse.dirigible.components.base.artefact.topology.TopologyWrapper;
-import org.eclipse.dirigible.components.base.synchronizer.Synchronizer;
+import org.eclipse.dirigible.components.base.synchronizer.BaseSynchronizer;
 import org.eclipse.dirigible.components.base.synchronizer.SynchronizerCallback;
 import org.eclipse.dirigible.components.data.sources.manager.DataSourcesManager;
 import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
@@ -36,16 +42,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import com.codbex.kronos.engine.hdb.api.DataStructuresException;
-import com.codbex.kronos.engine.hdb.domain.HDBTable;
-import com.codbex.kronos.engine.hdb.domain.HDBTableType;
-import com.codbex.kronos.engine.hdb.domain.HDBTableTypeColumn;
-import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
-import com.codbex.kronos.engine.hdb.processors.HDBTableTypeCreateProcessor;
-import com.codbex.kronos.engine.hdb.processors.HDBTableTypeDropProcessor;
-import com.codbex.kronos.engine.hdb.service.HDBTableTypeService;
-import com.codbex.kronos.exceptions.ArtifactParserException;
-
 /**
  * The Class HDBTableTypesSynchronizer.
  *
@@ -53,225 +49,247 @@ import com.codbex.kronos.exceptions.ArtifactParserException;
  */
 @Component
 @Order(205)
-public class HDBTableTypesSynchronizer<A extends Artefact> implements Synchronizer<HDBTableType> {
-	
-	/** The Constant logger. */
-	private static final Logger logger = LoggerFactory.getLogger(HDBTableTypesSynchronizer.class);
-	
-	/** The Constant FILE_EXTENSION_TABLETYPE. */
-	private static final String FILE_EXTENSION_HDBTABLETYPE = ".hdbtabletype";
-	
-	/** The table type service. */
-	private HDBTableTypeService tableTypeService;
-	
-	/** The datasources manager. */
-	private DataSourcesManager datasourcesManager;
-	
-	/** The synchronization callback. */
-	private SynchronizerCallback callback;
-	
-	/**
-	 * Instantiates a new table type synchronizer.
-	 *
-	 * @param tableTypeService the table type service
-	 * @param datasourcesManager the datasources manager
-	 */
-	@Autowired
-	public HDBTableTypesSynchronizer(HDBTableTypeService tableTypeService, DataSourcesManager datasourcesManager) {
-		this.tableTypeService = tableTypeService;
-		this.datasourcesManager = datasourcesManager;
-	}
-	
-	/**
-	 * Gets the service.
-	 *
-	 * @return the service
-	 */
-	@Override
-	public ArtefactService<HDBTableType> getService() {
-		return tableTypeService;
-	}
+public class HDBTableTypesSynchronizer extends BaseSynchronizer<HDBTableType, Long> {
 
-	/**
-	 * Checks if is accepted.
-	 *
-	 * @param file the file
-	 * @param attrs the attrs
-	 * @return true, if is accepted
-	 */
-	@Override
-	public boolean isAccepted(Path file, BasicFileAttributes attrs) {
-		return file.toString().endsWith(getFileExtension());
-	}
+  /**
+   * The Constant logger.
+   */
+  private static final Logger logger = LoggerFactory.getLogger(HDBTableTypesSynchronizer.class);
 
-	/**
-	 * Checks if is accepted.
-	 *
-	 * @param type the type
-	 * @return true, if is accepted
-	 */
-	@Override
-	public boolean isAccepted(String type) {
-		return HDBTableType.ARTEFACT_TYPE.equals(type);
-	}
+  /**
+   * The Constant FILE_EXTENSION_TABLETYPE.
+   */
+  private static final String FILE_EXTENSION_HDBTABLETYPE = ".hdbtabletype";
 
-	/**
-	 * Load.
-	 *
-	 * @param location the location
-	 * @param content the content
-	 * @return the list
-	 * @throws ParseException 
-	 */
-	@Override
-	public List<HDBTableType> parse(String location, byte[] content) throws ParseException {
-		HDBTableType tableType;
-		try {
-			tableType = HDBDataStructureModelFactory.parseTableType(location, content);
-		} catch (DataStructuresException | IOException | ArtifactParserException e) {
-			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
-			if (logger.isErrorEnabled()) {logger.error("hdbtabletype: {}", location);}
-			if (logger.isErrorEnabled()) {logger.error("content: {}", new String(content));}
-			throw new ParseException(e.getMessage(), 0);
-		}
+  /**
+   * The table type service.
+   */
+  private final HDBTableTypeService tableTypeService;
+
+  /**
+   * The datasources manager.
+   */
+  private final DataSourcesManager datasourcesManager;
+
+  /**
+   * The synchronization callback.
+   */
+  private SynchronizerCallback callback;
+
+  /**
+   * Instantiates a new table type synchronizer.
+   *
+   * @param tableTypeService   the table type service
+   * @param datasourcesManager the datasources manager
+   */
+  @Autowired
+  public HDBTableTypesSynchronizer(HDBTableTypeService tableTypeService, DataSourcesManager datasourcesManager) {
+    this.tableTypeService = tableTypeService;
+    this.datasourcesManager = datasourcesManager;
+  }
+
+  /**
+   * Gets the service.
+   *
+   * @return the service
+   */
+  @Override
+  public HDBTableTypeService getService() {
+    return tableTypeService;
+  }
+
+  /**
+   * Checks if is accepted.
+   *
+   * @param file  the file
+   * @param attrs the attrs
+   * @return true, if is accepted
+   */
+  @Override
+  public boolean isAccepted(Path file, BasicFileAttributes attrs) {
+    return file.toString().endsWith(getFileExtension());
+  }
+
+  /**
+   * Checks if is accepted.
+   *
+   * @param type the type
+   * @return true, if is accepted
+   */
+  @Override
+  public boolean isAccepted(String type) {
+    return HDBTableType.ARTEFACT_TYPE.equals(type);
+  }
+
+  /**
+   * Load.
+   *
+   * @param location the location
+   * @param content  the content
+   * @return the list
+   * @throws ParseException
+   */
+  @Override
+  public List<HDBTableType> parse(String location, byte[] content) throws ParseException {
+    HDBTableType tableType;
+    try {
+      tableType = HDBDataStructureModelFactory.parseTableType(location, content);
+    } catch (DataStructuresException | IOException | ArtifactParserException e) {
+      if (logger.isErrorEnabled()) {
+        logger.error(e.getMessage(), e);
+      }
+      if (logger.isErrorEnabled()) {
+        logger.error("hdbtabletype: {}", location);
+      }
+      if (logger.isErrorEnabled()) {
+        logger.error("content: {}", new String(content));
+      }
+      throw new ParseException(e.getMessage(), 0);
+    }
 //		Configuration.configureObject(tableType);
-		tableType.setLocation(location);
-		tableType.setType(HDBTable.ARTEFACT_TYPE);
-		tableType.updateKey();
-		assignParent(tableType);
-		
-		try {
-			HDBTableType maybe = getService().findByKey(tableType.getKey());
-			if (maybe != null) {
-				tableType.setId(maybe.getId());
-				reassignIds(tableType, maybe);
-			}
-			getService().save(tableType);
-			return List.of(tableType);
-		} catch (Exception e) {
-			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
-			if (logger.isErrorEnabled()) {logger.error("hdbtabletype: {}", tableType);}
-			if (logger.isErrorEnabled()) {logger.error("content: {}", new String(content));}
-			throw new ParseException(e.getMessage(), 0);
-		}
-	}
+    tableType.setLocation(location);
+    tableType.setType(HDBTable.ARTEFACT_TYPE);
+    tableType.updateKey();
+    assignParent(tableType);
 
-	/**
-	 * Assign parent.
-	 *
-	 * @param tableType the table type
-	 */
-	static void assignParent(HDBTableType tableType) {
-		tableType.getColumns().forEach(c -> c.setTableType(tableType));
-		tableType.getPrimaryKey().setTableType(tableType);
-	}
+    try {
+      HDBTableType maybe = getService().findByKey(tableType.getKey());
+      if (maybe != null) {
+        tableType.setId(maybe.getId());
+        reassignIds(tableType, maybe);
+      }
+      getService().save(tableType);
+      return List.of(tableType);
+    } catch (Exception e) {
+      if (logger.isErrorEnabled()) {
+        logger.error(e.getMessage(), e);
+      }
+      if (logger.isErrorEnabled()) {
+        logger.error("hdbtabletype: {}", tableType);
+      }
+      if (logger.isErrorEnabled()) {
+        logger.error("content: {}", new String(content));
+      }
+      throw new ParseException(e.getMessage(), 0);
+    }
+  }
 
-	/**
-	 * Reassign ids.
-	 *
-	 * @param tableType the table type
-	 * @param maybe     the maybe
-	 */
-	static void reassignIds(HDBTableType tableType, HDBTableType maybe) {
-		tableType.getColumns().forEach(c -> {
-			HDBTableTypeColumn m = maybe.getColumn(c.getName());
-			if (m != null) {
-				c.setId(m.getId());
-			}
-		});
-		tableType.getPrimaryKey().setId(maybe.getPrimaryKey().getId());
-	}
-	
-	/**
-	 * Retrieve.
-	 *
-	 * @param location the location
-	 * @return the list
-	 */
-	@Override
-	public List<HDBTableType> retrieve(String location) {
-		return getService().getAll();
-	}
-	
-	/**
-	 * Sets the status.
-	 *
-	 * @param artefact the artefact
-	 * @param lifecycle the lifecycle
-	 * @param error the error
-	 */
-	@Override
-	public void setStatus(Artefact artefact, ArtefactLifecycle lifecycle, String error) {
-		artefact.setLifecycle(lifecycle);
-		artefact.setError(error);
-		getService().save((HDBTableType) artefact);
-	}
+  /**
+   * Assign parent.
+   *
+   * @param tableType the table type
+   */
+  static void assignParent(HDBTableType tableType) {
+    tableType.getColumns().forEach(c -> c.setTableType(tableType));
+    tableType.getPrimaryKey().setTableType(tableType);
+  }
 
-	/**
-	 * Complete.
-	 *
-	 * @param wrapper the wrapper
-	 * @param flow the flow
-	 * @return true, if successful
-	 */
-	@Override
-	public boolean complete(TopologyWrapper<Artefact> wrapper, ArtefactPhase flow) {
-		
-		try (Connection connection = datasourcesManager.getDefaultDataSource().getConnection()) {
-		
-			HDBTableType tableType = null;
-			if (wrapper.getArtefact() instanceof HDBTableType) {
-				tableType = (HDBTableType) wrapper.getArtefact();
-			} else {
-				throw new UnsupportedOperationException(String.format("Trying to process %s as HDBTableType", wrapper.getArtefact().getClass()));
-			}
-			
-			switch (flow) {
-			case CREATE:
-				if (ArtefactLifecycle.NEW.equals(tableType.getLifecycle())) {
-					if (!SqlFactory.getNative(connection).exists(connection, tableType.getName(), DatabaseArtifactTypes.TABLE_TYPE)) {
-							executeTableTypeCreate(connection, tableType);
-							callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
-					} else {
-						if (logger.isWarnEnabled()) {logger.warn(String.format("HDBTableType [%s] already exists during the update process", tableType.getName()));}
-						executeTableTypeAlter(connection, tableType);
-						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
-					}
-				} else if (ArtefactLifecycle.FAILED.equals(tableType.getLifecycle())) {
-					if (!SqlFactory.getNative(connection).exists(connection, tableType.getName(), DatabaseArtifactTypes.TABLE_TYPE)) {
-						executeTableTypeCreate(connection, tableType);
-						callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
-						ProblemsFacade.deleteArtefactSynchronizationProblem(tableType);
-					}
-				}
-				break;
-			case UPDATE:
+  /**
+   * Reassign ids.
+   *
+   * @param tableType the table type
+   * @param maybe     the maybe
+   */
+  static void reassignIds(HDBTableType tableType, HDBTableType maybe) {
+    tableType.getColumns().forEach(c -> {
+      HDBTableTypeColumn m = maybe.getColumn(c.getName());
+      if (m != null) {
+        c.setId(m.getId());
+      }
+    });
+    tableType.getPrimaryKey().setId(maybe.getPrimaryKey().getId());
+  }
+
+  /**
+   * Retrieve.
+   *
+   * @param location the location
+   * @return the list
+   */
+  @Override
+  public List<HDBTableType> retrieve(String location) {
+    return getService().getAll();
+  }
+
+  /**
+   * Sets the status.
+   *
+   * @param artefact  the artefact
+   * @param lifecycle the lifecycle
+   * @param error     the error
+   */
+  @Override
+  public void setStatus(HDBTableType artefact, ArtefactLifecycle lifecycle, String error) {
+    artefact.setLifecycle(lifecycle);
+    artefact.setError(error);
+    getService().save(artefact);
+  }
+
+  /**
+   * Complete.
+   *
+   * @param wrapper the wrapper
+   * @param flow    the flow
+   * @return true, if successful
+   */
+  @Override
+  public boolean completeImpl(TopologyWrapper<HDBTableType> wrapper, ArtefactPhase flow) {
+
+    try (Connection connection = datasourcesManager.getDefaultDataSource().getConnection()) {
+
+      HDBTableType tableType = wrapper.getArtefact();
+
+      switch (flow) {
+        case CREATE:
+          if (ArtefactLifecycle.NEW.equals(tableType.getLifecycle())) {
+            if (!SqlFactory.getNative(connection).exists(connection, tableType.getName(), DatabaseArtifactTypes.TABLE_TYPE)) {
+              executeTableTypeCreate(connection, tableType);
+              callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+            } else {
+              if (logger.isWarnEnabled()) {
+                logger.warn(String.format("HDBTableType [%s] already exists during the update process", tableType.getName()));
+              }
+              executeTableTypeAlter(connection, tableType);
+              callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+            }
+          } else if (ArtefactLifecycle.FAILED.equals(tableType.getLifecycle())) {
+            if (!SqlFactory.getNative(connection).exists(connection, tableType.getName(), DatabaseArtifactTypes.TABLE_TYPE)) {
+              executeTableTypeCreate(connection, tableType);
+              callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+              ProblemsFacade.deleteArtefactSynchronizationProblem(tableType);
+            }
+          }
+          break;
+        case UPDATE:
 //				if (tableType.getLifecycle().equals(ArtefactLifecycle.CREATED)) {
 //					if (SqlFactory.getNative(connection).exists(connection, tableType.getName())) {
 //						executeTableTypeForeignKeysCreate(connection, tableType);
 //					}
 //				}
-				if (ArtefactLifecycle.MODIFIED.equals(tableType.getLifecycle())) {
-					executeTableTypeUpdate(connection, tableType);
-					callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
-					ProblemsFacade.deleteArtefactSynchronizationProblem(tableType);
-				}
-				break;
-			case DELETE:
-				if (ArtefactLifecycle.CREATED.equals(tableType.getLifecycle())
-						|| ArtefactLifecycle.UPDATED.equals(tableType.getLifecycle())) { 
-					if (SqlFactory.getNative(connection).exists(connection, tableType.getName(), DatabaseArtifactTypes.TABLE_TYPE)) {
-						if (SqlFactory.deriveDialect(connection).count(connection, tableType.getName()) == 0) {
-							executeTableTypeDrop(connection, tableType);
-							callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
-						} else {
-							String message = String.format("HDBTableType [%s] cannot be deleted during the update process, because it is not empty", tableType.getName());
-							if (logger.isWarnEnabled()) {logger.warn(message);}
-							callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, message);
-						}
-					}
-				}
-				break;
+          if (ArtefactLifecycle.MODIFIED.equals(tableType.getLifecycle())) {
+            executeTableTypeUpdate(connection, tableType);
+            callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+            ProblemsFacade.deleteArtefactSynchronizationProblem(tableType);
+          }
+          break;
+        case DELETE:
+          if (ArtefactLifecycle.CREATED.equals(tableType.getLifecycle())
+              || ArtefactLifecycle.UPDATED.equals(tableType.getLifecycle())) {
+            if (SqlFactory.getNative(connection).exists(connection, tableType.getName(), DatabaseArtifactTypes.TABLE_TYPE)) {
+              if (SqlFactory.deriveDialect(connection).count(connection, tableType.getName()) == 0) {
+                executeTableTypeDrop(connection, tableType);
+                callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
+              } else {
+                String message = String.format("HDBTableType [%s] cannot be deleted during the update process, because it is not empty",
+                    tableType.getName());
+                if (logger.isWarnEnabled()) {
+                  logger.warn(message);
+                }
+                callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, message);
+              }
+            }
+          }
+          break;
 //			case POST_DELETE:
 //				if (tableType.getLifecycle().equals(ArtefactLifecycle.DELETED)) {
 //					if (SqlFactory.getNative(connection).exists(connection, tableType.getName())) {
@@ -279,138 +297,138 @@ public class HDBTableTypesSynchronizer<A extends Artefact> implements Synchroniz
 //						callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
 //					}
 //				}
-			case START:
-			case STOP:
-			}
-			
-			return true;
-		} catch (Exception e) {
-			String errorMessage = String.format("Error occurred while processing [%s]: %s", wrapper.getArtefact().getLocation(), e.getMessage());
-			if (logger.isErrorEnabled()) {logger.error(errorMessage, e);}
-			callback.addError(errorMessage);
-			callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage);
-			ProblemsFacade.upsertArtefactSynchronizationProblem(wrapper.getArtefact(), errorMessage);
-			return false;
-		}
-	}
+        case START:
+        case STOP:
+      }
 
-	/**
-	 * Cleanup.
-	 *
-	 * @param tableType the HDBTableType
-	 */
-	@Override
-	public void cleanup(HDBTableType tableType) {
-		try (Connection connection = datasourcesManager.getDefaultDataSource().getConnection()){
-			if (SqlFactory.getNative(connection).exists(connection, tableType.getName(), DatabaseArtifactTypes.TABLE_TYPE)) {
-				if (SqlFactory.deriveDialect(connection).count(connection, tableType.getName()) == 0) {
-					executeTableTypeDrop(connection, tableType);
-					getService().delete(tableType);
-					callback.registerState(this, tableType, ArtefactLifecycle.DELETED, "");
-				} else {
-					String message = String.format("HDBTableType [%s] cannot be deleted during the update process, because it is not empty", tableType.getName());
-					if (logger.isWarnEnabled()) {logger.warn(message);}
-				}
-			}
-		} catch (Exception e) {
-			if (logger.isErrorEnabled()) {logger.error(e.getMessage(), e);}
-			callback.addError(e.getMessage());
-			callback.registerState(this, tableType, ArtefactLifecycle.FAILED, e.getMessage());
-		}
-	}
-	
-	/**
-	 * Sets the callback.
-	 *
-	 * @param callback the new callback
-	 */
-	@Override
-	public void setCallback(SynchronizerCallback callback) {
-		this.callback = callback;
-	}
-	
-	/**
-	 * Execute tableType update.
-	 *
-	 * @param connection
-	 *            the connection
-	 * @param tableTypeModel
-	 *            the table type model
-	 * @throws SQLException
-	 *             the SQL exception
-	 */
-	public void executeTableTypeUpdate(Connection connection, HDBTableType tableTypeModel) throws SQLException {
-		if (logger.isInfoEnabled()) {logger.info("Processing Update HDBTableType: " + tableTypeModel.getName());}
-		if (SqlFactory.getNative(connection).exists(connection, tableTypeModel.getName(), DatabaseArtifactTypes.TABLE_TYPE)) {
+      return true;
+    } catch (Exception e) {
+      String errorMessage = String.format("Error occurred while processing [%s]: %s", wrapper.getArtefact().getLocation(), e.getMessage());
+      if (logger.isErrorEnabled()) {
+        logger.error(errorMessage, e);
+      }
+      callback.addError(errorMessage);
+      callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage);
+      ProblemsFacade.upsertArtefactSynchronizationProblem(wrapper.getArtefact(), errorMessage);
+      return false;
+    }
+  }
+
+  /**
+   * Cleanup.
+   *
+   * @param tableType the HDBTableType
+   */
+  @Override
+  public void cleanupImpl(HDBTableType tableType) {
+    try (Connection connection = datasourcesManager.getDefaultDataSource().getConnection()) {
+      if (SqlFactory.getNative(connection).exists(connection, tableType.getName(), DatabaseArtifactTypes.TABLE_TYPE)) {
+        if (SqlFactory.deriveDialect(connection).count(connection, tableType.getName()) == 0) {
+          executeTableTypeDrop(connection, tableType);
+          getService().delete(tableType);
+          callback.registerState(this, tableType, ArtefactLifecycle.DELETED, "");
+        } else {
+          String message = String.format("HDBTableType [%s] cannot be deleted during the update process, because it is not empty",
+              tableType.getName());
+          if (logger.isWarnEnabled()) {
+            logger.warn(message);
+          }
+        }
+      }
+    } catch (Exception e) {
+      if (logger.isErrorEnabled()) {
+        logger.error(e.getMessage(), e);
+      }
+      callback.addError(e.getMessage());
+      callback.registerState(this, tableType, ArtefactLifecycle.FAILED, e.getMessage());
+    }
+  }
+
+  /**
+   * Sets the callback.
+   *
+   * @param callback the new callback
+   */
+  @Override
+  public void setCallback(SynchronizerCallback callback) {
+    this.callback = callback;
+  }
+
+  /**
+   * Execute tableType update.
+   *
+   * @param connection     the connection
+   * @param tableTypeModel the table type model
+   * @throws SQLException the SQL exception
+   */
+  public void executeTableTypeUpdate(Connection connection, HDBTableType tableTypeModel) throws SQLException {
+    if (logger.isInfoEnabled()) {
+      logger.info("Processing Update HDBTableType: " + tableTypeModel.getName());
+    }
+    if (SqlFactory.getNative(connection).exists(connection, tableTypeModel.getName(), DatabaseArtifactTypes.TABLE_TYPE)) {
 //			if (SqlFactory.getNative(connection).count(connection, tableTypeModel.getName()) == 0) {
 //				executeTableTypeDrop(connection, tableTypeModel);
 //				executeTableTypeCreate(connection, tableTypeModel);
 //			} else {
-				executeTableTypeAlter(connection, tableTypeModel);
+      executeTableTypeAlter(connection, tableTypeModel);
 //			}
-		} else {
-			executeTableTypeCreate(connection, tableTypeModel);
-		}
-	}
+    } else {
+      executeTableTypeCreate(connection, tableTypeModel);
+    }
+  }
 
-	/**
-	 * Execute table type create.
-	 *
-	 * @param connection
-	 *            the connection
-	 * @param tableTypeModel
-	 *            the table type model
-	 * @throws SQLException
-	 *             the SQL exception
-	 */
-	public void executeTableTypeCreate(Connection connection, HDBTableType tableTypeModel) throws SQLException {
-		new HDBTableTypeCreateProcessor().execute(connection, tableTypeModel);
-	}
-	
-	/**
-	 * Execute table type alter.
-	 *
-	 * @param connection            the connection
-	 * @param tableTypeModel            the table type model
-	 * @throws SQLException the SQL exception
-	 */
-	public void executeTableTypeAlter(Connection connection, HDBTableType tableTypeModel) throws SQLException {
-		new HDBTableTypeDropProcessor().execute(connection, tableTypeModel);
-		new HDBTableTypeCreateProcessor().execute(connection, tableTypeModel);
-	}
+  /**
+   * Execute table type create.
+   *
+   * @param connection     the connection
+   * @param tableTypeModel the table type model
+   * @throws SQLException the SQL exception
+   */
+  public void executeTableTypeCreate(Connection connection, HDBTableType tableTypeModel) throws SQLException {
+    new HDBTableTypeCreateProcessor().execute(connection, tableTypeModel);
+  }
 
-	/**
-	 * Execute table type drop.
-	 *
-	 * @param connection
-	 *            the connection
-	 * @param tableTypeModel
-	 *            the table type model
-	 * @throws SQLException
-	 *             the SQL exception
-	 */
-	public void executeTableTypeDrop(Connection connection, HDBTableType tableTypeModel) throws SQLException {
-		new HDBTableTypeDropProcessor().execute(connection, tableTypeModel);
-	}
-	
-	/**
-	 * Gets the file extension.
-	 *
-	 * @return the file extension
-	 */
-	@Override
-	public String getFileExtension() {
-		return FILE_EXTENSION_HDBTABLETYPE;
-	}
+  /**
+   * Execute table type alter.
+   *
+   * @param connection     the connection
+   * @param tableTypeModel the table type model
+   * @throws SQLException the SQL exception
+   */
+  public void executeTableTypeAlter(Connection connection, HDBTableType tableTypeModel) throws SQLException {
+    new HDBTableTypeDropProcessor().execute(connection, tableTypeModel);
+    new HDBTableTypeCreateProcessor().execute(connection, tableTypeModel);
+  }
 
-	/**
-	 * Gets the artefact type.
-	 *
-	 * @return the artefact type
-	 */
-	@Override
-	public String getArtefactType() {
-		return HDBTableType.ARTEFACT_TYPE;
-	}
+  /**
+   * Execute table type drop.
+   *
+   * @param connection     the connection
+   * @param tableTypeModel the table type model
+   * @throws SQLException the SQL exception
+   */
+  public void executeTableTypeDrop(Connection connection, HDBTableType tableTypeModel) throws SQLException {
+    new HDBTableTypeDropProcessor().execute(connection, tableTypeModel);
+  }
+
+  /**
+   * Gets the file extension.
+   *
+   * @return the file extension
+   */
+  @Override
+  public String getFileExtension() {
+    return FILE_EXTENSION_HDBTABLETYPE;
+  }
+
+  /**
+   * Gets the artefact type.
+   *
+   * @return the artefact type
+   */
+  @Override
+  public String getArtefactType() {
+    return HDBTableType.ARTEFACT_TYPE;
+  }
 
 }

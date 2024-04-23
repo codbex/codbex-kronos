@@ -11,16 +11,25 @@
  */
 package com.codbex.kronos.engine.hdb.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import com.codbex.kronos.engine.hdb.domain.HDBTable;
+import org.eclipse.dirigible.components.base.artefact.ArtefactRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * The Interface HDBTableRepository.
  */
 @Repository("hdbtableRepository")
-public interface HDBTableRepository extends JpaRepository<HDBTable, Long> {
+public interface HDBTableRepository extends ArtefactRepository<HDBTable, Long> {
+
+  @Override
+  @Modifying
+  @Transactional
+  @Query(value = "UPDATE HDBTable SET running = :running")
+  void setRunningToAll(@Param("running") boolean running);
 
 }
 

@@ -1,80 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>com.codbex.kronos</groupId>
-        <artifactId>codbex-kronos-modules-parsers-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
-    </parent>
+  <parent>
+    <groupId>com.codbex.kronos</groupId>
+    <artifactId>codbex-kronos-modules-parsers-parent</artifactId>
+    <version>3.0.0-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
 
-    <name>codbex - kronos - modules - parsers - hdbtableimport</name>
-    <artifactId>codbex-kronos-modules-parsers-hdbti</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+  <name>codbex - kronos - modules - parsers - hdbtableimport</name>
+  <artifactId>codbex-kronos-modules-parsers-hdbti</artifactId>
+  <packaging>jar</packaging>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.antlr</groupId>
-                <artifactId>antlr4-maven-plugin</artifactId>
-                <version>${antlr4-maven-plugin.version}</version>
-                <configuration>
-                    <visitor>true</visitor>
-                    <outputDirectory>${basedir}/src/main/java</outputDirectory>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>antlr</id>
-                        <goals>
-                            <goal>antlr4</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.antlr</groupId>
+        <artifactId>antlr4-maven-plugin</artifactId>
+        <version>${antlr4-maven-plugin.version}</version>
+        <configuration>
+          <visitor>true</visitor>
+          <outputDirectory>${basedir}/src/main/java</outputDirectory>
+        </configuration>
+        <executions>
+          <execution>
+            <id>antlr</id>
+            <goals>
+              <goal>antlr4</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.antlr</groupId>
-            <artifactId>antlr4-runtime</artifactId>
-            <version>${antlr4-runtime.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${commons.io}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-components-engine-commons</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.dirigible</groupId>
-            <artifactId>dirigible-database-h2</artifactId>
-            <version>${dirigible.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>${javax.servlet-api.version}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+  <dependencies>
+    <dependency>
+      <groupId>org.antlr</groupId>
+      <artifactId>antlr4-runtime</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.codbex.kronos</groupId>
+      <artifactId>codbex-kronos-components-engine-commons</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.dirigible</groupId>
+      <artifactId>dirigible-database-h2</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
-    <properties>
-        <license.header.location>../../../licensing-header.txt</license.header.location>
-        <sonar.exclusions>src/main/java/com/codbex/kronos/parser/hdbti/core/**/*</sonar.exclusions>
-    </properties>
+  <properties>
+    <license.header.location>../../../licensing-header.txt</license.header.location>
+    <sonar.exclusions>src/main/java/com/codbex/kronos/parser/hdbti/core/**/*</sonar.exclusions>
+  </properties>
 
 </project>

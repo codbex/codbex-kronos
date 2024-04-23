@@ -15,10 +15,9 @@ import static com.codbex.kronos.utils.CommonsDBUtils.getSynonymTargetObjectMetad
 
 import java.sql.SQLException;
 import java.util.List;
-
 import javax.sql.DataSource;
-
 import org.eclipse.dirigible.commons.config.Configuration;
+import org.eclipse.dirigible.components.base.spring.BeanProvider;
 import org.eclipse.dirigible.components.data.sources.manager.DataSourcesManager;
 import org.eclipse.dirigible.components.data.structures.domain.Table;
 import org.eclipse.dirigible.components.odata.api.ODataEntity;
@@ -33,22 +32,33 @@ import org.slf4j.LoggerFactory;
  */
 public class TableMetadataProvider implements org.eclipse.dirigible.components.odata.api.TableMetadataProvider {
 
-  /** The data source. */
-  private DataSource getDataSource() { 
-	  return DataSourcesManager.get().getDefaultDataSource();
+  /**
+   * The data source.
+   */
+  private DataSource getDataSource() {
+    DataSourcesManager dataSourcesManager = BeanProvider.getBean(DataSourcesManager.class);
+    return dataSourcesManager.getDefaultDataSource();
   }
 
-  /** The Constant logger. */
+  /**
+   * The Constant logger.
+   */
   private static final Logger logger = LoggerFactory.getLogger(TableMetadataProvider.class);
 
-  /** The db metadata util. */
+  /**
+   * The db metadata util.
+   */
   private final ODataDatabaseMetadataUtil dbMetadataUtil = new ODataDatabaseMetadataUtil();
 
-  /** The Constant METADATA_ENTITY_TYPES. */
+  /**
+   * The Constant METADATA_ENTITY_TYPES.
+   */
   private static final List<String> METADATA_ENTITY_TYPES = List.of(ISqlKeywords.METADATA_TABLE, ISqlKeywords.METADATA_CALC_VIEW,
       ISqlKeywords.METADATA_VIEW, ISqlKeywords.METADATA_BASE_TABLE);
-  
-  /** The Constant PUBLIC_SCHEMA. */
+
+  /**
+   * The Constant PUBLIC_SCHEMA.
+   */
   private static final String PUBLIC_SCHEMA = "PUBLIC";
 
   /**

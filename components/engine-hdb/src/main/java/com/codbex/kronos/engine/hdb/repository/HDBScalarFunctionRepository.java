@@ -11,15 +11,25 @@
  */
 package com.codbex.kronos.engine.hdb.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import com.codbex.kronos.engine.hdb.domain.HDBScalarFunction;
+import org.eclipse.dirigible.components.base.artefact.ArtefactRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * The Interface HDBScalarFunctionRepository.
  */
 @Repository("hdbscalarfunctionRepository")
-public interface HDBScalarFunctionRepository extends JpaRepository<HDBScalarFunction, Long> {
+public interface HDBScalarFunctionRepository extends ArtefactRepository<HDBScalarFunction, Long> {
+
+  @Override
+  @Modifying
+  @Transactional
+  @Query(value = "UPDATE HDBScalarFunction SET running = :running")
+  void setRunningToAll(@Param("running") boolean running);
+
 
 }
