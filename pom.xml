@@ -57,7 +57,7 @@
 
     <jaxb.version>2.3.1</jaxb.version>
     <ngdbc.version>2.19.16</ngdbc.version>
-    <webjars-locator>0.50</webjars-locator>
+    <webjars-locator>0.52</webjars-locator>
     <guava.version>33.0.0-jre</guava.version>
     <javax.websocket-api.version>1.1</javax.websocket-api.version>
     <org.springdoc.openapi.ui.version>1.7.0</org.springdoc.openapi.ui.version>
