@@ -125,7 +125,6 @@ function Module (id, parent) {
      rest = [];
    }
 
-   debugger
    let modulePath = id;
    if (id.startsWith("sdk/")) {
     modulePath = id.replace("sdk/", "modules/dist/cjs/")
