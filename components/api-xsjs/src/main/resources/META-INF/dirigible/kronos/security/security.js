@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-var repositoryManager = require("platform/repository");
+var repositoryManager = require("sdk/platform/repository");
 
 exports.Store = function (filePath) {
     var REGISTRY_DIR_PREFIX = "/registry/public/";

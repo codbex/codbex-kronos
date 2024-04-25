@@ -10,7 +10,7 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 exports.http = require("kronos/http/http");
-var mail = require("mail/client");
+var mail = require("sdk/mail/client");
 
 exports.Mail = function (mailObject) {
   mailObject = mailObject || {};

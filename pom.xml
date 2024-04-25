@@ -37,8 +37,14 @@
   <properties>
     <project.title>codbex kronos</project.title>
 
-    <java.version>11</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <dirigible.version>10.3.0</dirigible.version>
+
+    <java.version>17</java.version>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+
     <scmVersionType>branch</scmVersionType>
     <profile.content.phase>none</profile.content.phase>
     <license.header.location>licensing-header.txt</license.header.location>
@@ -49,10 +55,7 @@
     <license-maven-plugin.version>4.3</license-maven-plugin.version>
     <maven.clean.plugin.directory>src/main/resources/META-INF/dirigible</maven.clean.plugin.directory>
     <maven.surefire.plugin.version>3.2.5</maven.surefire.plugin.version>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
 
-    <dirigible.version>10.2.10</dirigible.version>
     <dirigible.acorn.version>7.2.0</dirigible.acorn.version>
 
     <jaxb.version>2.3.1</jaxb.version>

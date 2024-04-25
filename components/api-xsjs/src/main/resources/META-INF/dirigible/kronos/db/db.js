@@ -12,7 +12,7 @@
 /*
  * HANA XS Classic Bridge for DB API
  */
-var database = require('db/database');
+var database = require('sdk/db/database');
 const TYPE_CONVERTER = require('kronos/db/sqlToXSCColumnTypeConverter');
 
 function getConnection() {

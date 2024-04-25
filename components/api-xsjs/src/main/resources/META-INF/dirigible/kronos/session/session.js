@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-var securityUser = require('security/user');
+var securityUser = require('sdk/security/user');
 
 exports.authType = securityUser.getAuthType();
 exports.language = securityUser.getLanguage();

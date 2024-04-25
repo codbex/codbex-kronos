@@ -9,9 +9,9 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-const dClient = require("http/client");
+const dClient = require("sdk/http/client");
 const web = require("kronos/web/web");
-const config = require("core/configurations");
+const config = require("sdk/core/configurations");
 
 exports.OPTIONS = 0;
 exports.GET = 1;
