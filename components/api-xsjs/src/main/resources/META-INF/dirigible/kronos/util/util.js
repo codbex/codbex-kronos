@@ -9,8 +9,8 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-var uuid = require("utils/uuid");
-var bytes = require("io/bytes");
+var uuid = require("sdk/utils/uuid");
+var bytes = require("sdk/io/bytes");
 
 exports.codec = require("kronos/util/codec/codec");
 

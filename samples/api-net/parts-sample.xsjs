@@ -1,4 +1,4 @@
-var files = require("io/v4/files");
+var files = require("sdk/io/files");
 
 // Getting the byte array of the attachment.
 var kronosLogo = files.readBytes('path-to-file/kronos-logo.png');

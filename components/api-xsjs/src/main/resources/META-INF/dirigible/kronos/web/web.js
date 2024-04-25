@@ -13,12 +13,12 @@
  * HANA XS Classic Bridge for Web API
  */
 
-var dRequest = require('http/request');
-var dResponse = require('http/response');
-var dUpload = require('http/upload');
+var dRequest = require('sdk/http/request');
+var dResponse = require('sdk/http/response');
+var dUpload = require('sdk/http/upload');
 var session = require('kronos/session/session');
-var zip = require('io/zip');
-var bytes = require("io/bytes");
+var zip = require('sdk/io/zip');
+var bytes = require("sdk/io/bytes");
 
 var WEB_UTILS = require('kronos/web/webUtils');
 

@@ -125,10 +125,16 @@ function Module (id, parent) {
      rest = [];
    }
 
+   debugger
+   let modulePath = id;
+   if (id.startsWith("sdk/")) {
+    modulePath = id.replace("sdk/", "modules/dist/cjs/")
+   }
+
    var locations = [
-     path.join(dir, id),
-     path.join(dir, id + ".js"),
-     path.join(dir, id, "index.js")
+     path.join(dir, modulePath),
+     path.join(dir, modulePath + ".js"),
+     path.join(dir, modulePath, "index.js")
    ];
 
 

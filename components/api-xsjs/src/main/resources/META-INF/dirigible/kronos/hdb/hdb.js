@@ -12,7 +12,7 @@
 /*
  * HANA XS Classic Bridge for HDB API
  */
-var database = require('db/database');
+var database = require('sdk/db/database');
 var PROCEDURE_UTILS = require('kronos/hdb/procedureUtils');
 var HDB_UTILS = require('kronos/hdb/hdbUtils');
 const TYPE_CONVERTER = require('kronos/db/sqlToXSCColumnTypeConverter');
