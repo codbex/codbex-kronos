@@ -76,7 +76,7 @@
     <httpasyncclient.version>4.1.5</httpasyncclient.version>
     <selenium.version>4.5.0</selenium.version>
     <selenium.webdriver.manager.version>5.8.0</selenium.webdriver.manager.version>
-    <jacoco.version>0.8.11</jacoco.version>
+    <jacoco.version>0.8.12</jacoco.version>
   </properties>
 
   <dependencies>
