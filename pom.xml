@@ -66,7 +66,7 @@
     <org.springdoc.openapi.ui.version>1.7.0</org.springdoc.openapi.ui.version>
     <antlr4-runtime.version>4.13.1</antlr4-runtime.version>
     <junitparams.version>1.1.1</junitparams.version>
-    <scp-cf.version>4.24.0</scp-cf.version>
+    <scp-cf.version>5.8.0</scp-cf.version>
     <httpmime.version>4.5.14</httpmime.version>
     <jetbrains.annotations.version>24.1.0</jetbrains.annotations.version>
     <olingo.version>3.1.4</olingo.version>
