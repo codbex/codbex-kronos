@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2022-2023 codbex or an codbex affiliate company and contributors
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
+ * All rights reserved. This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v2.0 which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
@@ -41,57 +40,64 @@ import jakarta.transaction.Transactional;
  */
 @SpringBootTest(classes = {HDBTableAlterProcessor.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})
+@ComponentScan(basePackages = {"org.eclipse.dirigible.components", "com.codbex.kronos"})
 @EntityScan(value = {"org.eclipse.dirigible.components", "com.codbex.kronos"})
 @Transactional
 @Disabled
 public class HDBTableProcessorsTest {
 
-  /** The mock connection. */
-  @Mock(answer = Answers.RETURNS_DEEP_STUBS)
-  private Connection mockConnection;
+    /** The mock connection. */
+    @Mock(answer = Answers.RETURNS_DEEP_STUBS)
+    private Connection mockConnection;
 
-  /** The mock model. */
-  @Mock
-  private HDBTable mockModel;
+    /** The mock model. */
+    @Mock
+    private HDBTable mockModel;
 
-  /** The mock handler. */
-  @Mock
-  private HDBTableAlterHandler mockHandler;
+    /** The mock handler. */
+    @Mock
+    private HDBTableAlterHandler mockHandler;
 
-  /** The table alter processor. */
-  private HDBTableAlterProcessor tableAlterProcessor = spy(new HDBTableAlterProcessor());
+    /** The table alter processor. */
+    private HDBTableAlterProcessor tableAlterProcessor = spy(new HDBTableAlterProcessor());
 
-  /**
-	 * Open mocks.
-	 */
-  @BeforeEach
-  public void openMocks() {
-    MockitoAnnotations.openMocks(this);
-  }
+    /**
+     * Open mocks.
+     */
+    @BeforeEach
+    public void openMocks() {
+        MockitoAnnotations.openMocks(this);
+    }
 
-  /**
-	 * Execute alter successfully.
-	 *
-	 * @throws Exception the exception
-	 */
-  @Test
-  public void executeAlterSuccessfully() throws Exception {
-    Mockito.doReturn(mockHandler).when(tableAlterProcessor).createTableAlterHandler(mockConnection, mockModel);
+    /**
+     * Execute alter successfully.
+     *
+     * @throws Exception the exception
+     */
+    @Test
+    public void executeAlterSuccessfully() throws Exception {
+        Mockito.doReturn(mockHandler)
+               .when(tableAlterProcessor)
+               .createTableAlterHandler(mockConnection, mockModel);
 
-    doNothing().when(mockHandler).addColumns(mockConnection);
-    doNothing().when(mockHandler).removeColumns(mockConnection);
-    doNothing().when(mockHandler).updateColumns(mockConnection);
-    doNothing().when(mockHandler).rebuildIndeces(mockConnection);
-    doNothing().when(mockHandler).ensurePrimaryKeyIsUnchanged(mockConnection);
+        doNothing().when(mockHandler)
+                   .addColumns(mockConnection);
+        doNothing().when(mockHandler)
+                   .removeColumns(mockConnection);
+        doNothing().when(mockHandler)
+                   .updateColumns(mockConnection);
+        doNothing().when(mockHandler)
+                   .rebuildIndeces(mockConnection);
+        doNothing().when(mockHandler)
+                   .ensurePrimaryKeyIsUnchanged(mockConnection);
 
-    tableAlterProcessor.execute(mockConnection, mockModel);
+        tableAlterProcessor.execute(mockConnection, mockModel);
 
-    verify(mockHandler, times(1)).addColumns(mockConnection);
-    verify(mockHandler, times(1)).removeColumns(mockConnection);
-    verify(mockHandler, times(1)).updateColumns(mockConnection);
-    verify(mockHandler, times(1)).rebuildIndeces(mockConnection);
-    verify(mockHandler, times(1)).ensurePrimaryKeyIsUnchanged(mockConnection);
-  }
+        verify(mockHandler, times(1)).addColumns(mockConnection);
+        verify(mockHandler, times(1)).removeColumns(mockConnection);
+        verify(mockHandler, times(1)).updateColumns(mockConnection);
+        verify(mockHandler, times(1)).rebuildIndeces(mockConnection);
+        verify(mockHandler, times(1)).ensurePrimaryKeyIsUnchanged(mockConnection);
+    }
 
 }

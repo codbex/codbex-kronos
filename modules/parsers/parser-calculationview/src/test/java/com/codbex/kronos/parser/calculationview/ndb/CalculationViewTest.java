@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2022-2023 codbex or an codbex affiliate company and contributors
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
+ * All rights reserved. This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v2.0 which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
@@ -33,49 +32,50 @@ import com.codbex.kronos.parser.calculationview.ndb.DataSources.DataSource;
 
 public class CalculationViewTest {
 
-  private static final Logger logger = LoggerFactory.getLogger(CalculationViewTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(CalculationViewTest.class);
 
-  @Test
-  public void serialize() throws JAXBException {
-    CalculationScenario calculationScenario = new CalculationScenario();
-    calculationScenario.setId("com.codbex.kronos.samples::KRONOS_SIMPLE_CALC_VIEW");
-    calculationScenario.setOutputViewType("Projection");
-    DataSource dataSource = new DataSource();
-    dataSource.setId("KRONOS_SIMPLE_TABLE");
-    dataSource.setResourceUri("KRONOS_SIMPLE_TABLE");
-    DataSources dataSources = new DataSources();
-    dataSources.getDataSource().add(dataSource);
-    calculationScenario.setDataSources(dataSources);
+    @Test
+    public void serialize() throws JAXBException {
+        CalculationScenario calculationScenario = new CalculationScenario();
+        calculationScenario.setId("com.codbex.kronos.samples::KRONOS_SIMPLE_CALC_VIEW");
+        calculationScenario.setOutputViewType("Projection");
+        DataSource dataSource = new DataSource();
+        dataSource.setId("KRONOS_SIMPLE_TABLE");
+        dataSource.setResourceUri("KRONOS_SIMPLE_TABLE");
+        DataSources dataSources = new DataSources();
+        dataSources.getDataSource()
+                   .add(dataSource);
+        calculationScenario.setDataSources(dataSources);
 
-    StringWriter writer = new StringWriter();
-    JAXBContext context = JAXBContext.newInstance(CalculationScenario.class);
-    Marshaller m = context.createMarshaller();
-    m.marshal(calculationScenario, writer);
+        StringWriter writer = new StringWriter();
+        JAXBContext context = JAXBContext.newInstance(CalculationScenario.class);
+        Marshaller m = context.createMarshaller();
+        m.marshal(calculationScenario, writer);
 
-    String serializedContent = writer.toString();
-	System.out.println(serializedContent);
-	assertNotNull("The serialized content should not be null", serializedContent);
+        String serializedContent = writer.toString();
+        System.out.println(serializedContent);
+        assertNotNull("The serialized content should not be null", serializedContent);
 
-  }
-
-  @Test
-  public void deserialize() throws JAXBException {
-    String xml = "";
-    try {
-      xml = org.apache.commons.io.IOUtils.toString(CalculationViewTest.class.getResourceAsStream("/test.calculationview"));
-    } catch (IOException e) {
-      fail("Parsing of calculation view failed.");
-      logger.error(e.getMessage(), e);
     }
 
-    xml = xml.replace("<Calculation:scenario", "<CalculationScenario");
-    xml = xml.replace("</Calculation:scenario>", "</CalculationScenario>");
+    @Test
+    public void deserialize() throws JAXBException {
+        String xml = "";
+        try {
+            xml = org.apache.commons.io.IOUtils.toString(CalculationViewTest.class.getResourceAsStream("/test.calculationview"));
+        } catch (IOException e) {
+            fail("Parsing of calculation view failed.");
+            logger.error(e.getMessage(), e);
+        }
 
-    JAXBContext context = JAXBContext.newInstance(CalculationScenario.class);
-    Unmarshaller um = context.createUnmarshaller();
-    CalculationScenario calculationScenario = (CalculationScenario) um.unmarshal(new StringReader(xml));
+        xml = xml.replace("<Calculation:scenario", "<CalculationScenario");
+        xml = xml.replace("</Calculation:scenario>", "</CalculationScenario>");
 
-    assertEquals(calculationScenario.getId(), "PO_HEADER");
-  }
+        JAXBContext context = JAXBContext.newInstance(CalculationScenario.class);
+        Unmarshaller um = context.createUnmarshaller();
+        CalculationScenario calculationScenario = (CalculationScenario) um.unmarshal(new StringReader(xml));
+
+        assertEquals(calculationScenario.getId(), "PO_HEADER");
+    }
 
 }

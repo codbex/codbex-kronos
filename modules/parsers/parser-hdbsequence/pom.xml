@@ -14,6 +14,10 @@
   <artifactId>codbex-kronos-modules-parsers-hdbsequence</artifactId>
   <packaging>jar</packaging>
 
+  <properties>
+    <sonar.exclusions>src/main/java/com/codbex/kronos/parser/xsodata/core/**/*</sonar.exclusions>
+  </properties>
+
   <build>
     <plugins>
       <plugin>
@@ -59,10 +63,5 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
-  <properties>
-    <license.header.location>../../../licensing-header.txt</license.header.location>
-    <sonar.exclusions>src/main/java/com/codbex/kronos/parser/xsodata/core/**/*</sonar.exclusions>
-  </properties>
 
 </project>

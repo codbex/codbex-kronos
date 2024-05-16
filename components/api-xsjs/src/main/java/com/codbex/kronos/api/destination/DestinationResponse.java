@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2022-2023 codbex or an codbex affiliate company and contributors
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
+ * All rights reserved. This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v2.0 which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
@@ -16,67 +15,67 @@ package com.codbex.kronos.api.destination;
  */
 public class DestinationResponse {
 
-  /** The headers. */
-  private Header[] headers;
-  
-  /** The status code. */
-  private int statusCode;
-  
-  /** The text. */
-  private String text;
+    /** The headers. */
+    private Header[] headers;
 
-  /**
-   * Gets the headers.
-   *
-   * @return the headers
-   */
-  public Header[] getHeaders() {
-    return headers;
-  }
+    /** The status code. */
+    private int statusCode;
 
-  /**
-   * Sets the headers.
-   *
-   * @param headers the new headers
-   */
-  public void setHeaders(Header[] headers) {
-    this.headers = headers;
-  }
+    /** The text. */
+    private String text;
 
-  /**
-   * Gets the status code.
-   *
-   * @return the status code
-   */
-  public int getStatusCode() {
-    return statusCode;
-  }
+    /**
+     * Gets the headers.
+     *
+     * @return the headers
+     */
+    public Header[] getHeaders() {
+        return headers;
+    }
 
-  /**
-   * Sets the status code.
-   *
-   * @param statusCode the new status code
-   */
-  public void setStatusCode(int statusCode) {
-    this.statusCode = statusCode;
-  }
+    /**
+     * Sets the headers.
+     *
+     * @param headers the new headers
+     */
+    public void setHeaders(Header[] headers) {
+        this.headers = headers;
+    }
 
-  /**
-   * Gets the text.
-   *
-   * @return the text
-   */
-  public String getText() {
-    return text;
-  }
+    /**
+     * Gets the status code.
+     *
+     * @return the status code
+     */
+    public int getStatusCode() {
+        return statusCode;
+    }
 
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(String text) {
-    this.text = text;
-  }
+    /**
+     * Sets the status code.
+     *
+     * @param statusCode the new status code
+     */
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
+    }
+
+    /**
+     * Gets the text.
+     *
+     * @return the text
+     */
+    public String getText() {
+        return text;
+    }
+
+    /**
+     * Sets the text.
+     *
+     * @param text the new text
+     */
+    public void setText(String text) {
+        this.text = text;
+    }
 
 }

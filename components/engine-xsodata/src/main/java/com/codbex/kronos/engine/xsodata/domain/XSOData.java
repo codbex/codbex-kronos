@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2022-2023 codbex or an codbex affiliate company and contributors
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
+ * All rights reserved. This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v2.0 which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
@@ -38,153 +37,153 @@ import com.google.gson.annotations.Expose;
 @Table(name = "KRONOS_XSODATA")
 public class XSOData extends Artefact {
 
-	/** The Constant ARTEFACT_TYPE. */
-	public static final String ARTEFACT_TYPE = "xsodata";
+    /** The Constant ARTEFACT_TYPE. */
+    public static final String ARTEFACT_TYPE = "xsodata";
 
-	/** The id. */
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "XSODATA_ID", nullable = false)
-	private Long id;
+    /** The id. */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "XSODATA_ID", nullable = false)
+    private Long id;
 
-	/** The namespace. */
-	@Column(name = "XSODATA_NAMESPACE", columnDefinition = "VARCHAR", nullable = false, length = 255)
-	@Expose
-	private String namespace;
+    /** The namespace. */
+    @Column(name = "XSODATA_NAMESPACE", columnDefinition = "VARCHAR", nullable = false, length = 255)
+    @Expose
+    private String namespace;
 
-	/** The entities. */
-	@Transient
-	@Expose
-	private List<ODataEntity> entities = new ArrayList<ODataEntity>();
+    /** The entities. */
+    @Transient
+    @Expose
+    private List<ODataEntity> entities = new ArrayList<ODataEntity>();
 
-	/** The associations. */
-	@Transient
-	@Expose
-	private List<ODataAssociation> associations = new ArrayList<ODataAssociation>();
+    /** The associations. */
+    @Transient
+    @Expose
+    private List<ODataAssociation> associations = new ArrayList<ODataAssociation>();
 
-	/** The raw content. */
-	@Column(name = "HDB_CONTENT", columnDefinition = "CLOB")
-	@Lob
-	private String content;
+    /** The raw content. */
+    @Column(name = "HDB_CONTENT", columnDefinition = "CLOB")
+    @Lob
+    private String content;
 
-	/** The service. */
-	@Transient
-	private XSODataService service;
+    /** The service. */
+    @Transient
+    private XSODataService service;
 
-	/**
-	 * Instantiates a new XSOData.
-	 *
-	 * @param location     the location
-	 * @param name         the name
-	 * @param description  the description
-	 * @param dependencies the dependencies
-	 * @param namespace    the namespace
-	 * @param entities     the entities
-	 * @param associations the associations
-	 */
-	public XSOData(String location, String name, String description, List<String> dependencies, String namespace,
-			List<ODataEntity> entities, List<ODataAssociation> associations) {
-		super(location, name, ARTEFACT_TYPE, description, new HashSet<>(dependencies));
-		this.namespace = namespace;
-		this.entities = entities;
-		this.associations = associations;
-	}
+    /**
+     * Instantiates a new XSOData.
+     *
+     * @param location the location
+     * @param name the name
+     * @param description the description
+     * @param dependencies the dependencies
+     * @param namespace the namespace
+     * @param entities the entities
+     * @param associations the associations
+     */
+    public XSOData(String location, String name, String description, List<String> dependencies, String namespace,
+            List<ODataEntity> entities, List<ODataAssociation> associations) {
+        super(location, name, ARTEFACT_TYPE, description, new HashSet<>(dependencies));
+        this.namespace = namespace;
+        this.entities = entities;
+        this.associations = associations;
+    }
 
-	/**
-	 * Instantiates a new XSOData.
-	 */
-	public XSOData() {
-		super();
-	}
+    /**
+     * Instantiates a new XSOData.
+     */
+    public XSOData() {
+        super();
+    }
 
-	/**
-	 * Gets the id.
-	 *
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
 
-	/**
-	 * Sets the id.
-	 *
-	 * @param id the new id
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
+    /**
+     * Sets the id.
+     *
+     * @param id the new id
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	/**
-	 * Gets the namesapce.
-	 *
-	 * @return the namespace
-	 */
-	public String getNamespace() {
-		return namespace;
-	}
+    /**
+     * Gets the namesapce.
+     *
+     * @return the namespace
+     */
+    public String getNamespace() {
+        return namespace;
+    }
 
-	/**
-	 * Sets the namespace.
-	 *
-	 * @param namespace the namespace to set
-	 */
-	public void setNamespace(String namespace) {
-		this.namespace = namespace;
-	}
+    /**
+     * Sets the namespace.
+     *
+     * @param namespace the namespace to set
+     */
+    public void setNamespace(String namespace) {
+        this.namespace = namespace;
+    }
 
-	/**
-	 * Gets the entities.
-	 *
-	 * @return the entities
-	 */
-	public List<ODataEntity> getEntities() {
-		return entities;
-	}
+    /**
+     * Gets the entities.
+     *
+     * @return the entities
+     */
+    public List<ODataEntity> getEntities() {
+        return entities;
+    }
 
-	/**
-	 * Gets the associations.
-	 *
-	 * @return the associations
-	 */
-	public List<ODataAssociation> getAssociations() {
-		return associations;
-	}
+    /**
+     * Gets the associations.
+     *
+     * @return the associations
+     */
+    public List<ODataAssociation> getAssociations() {
+        return associations;
+    }
 
-	/**
-	 * Gets the service.
-	 *
-	 * @return the service
-	 */
-	public XSODataService getService() {
-		return service;
-	}
+    /**
+     * Gets the service.
+     *
+     * @return the service
+     */
+    public XSODataService getService() {
+        return service;
+    }
 
-	/**
-	 * Sets the service.
-	 *
-	 * @param service the new service
-	 */
-	public void setService(XSODataService service) {
-		this.service = service;
-	}
+    /**
+     * Sets the service.
+     *
+     * @param service the new service
+     */
+    public void setService(XSODataService service) {
+        this.service = service;
+    }
 
-	/**
-	 * Gets the content.
-	 *
-	 * @return the content
-	 */
-	public String getContent() {
-		return content;
-	}
+    /**
+     * Gets the content.
+     *
+     * @return the content
+     */
+    public String getContent() {
+        return content;
+    }
 
-	/**
-	 * Sets the content.
-	 *
-	 * @param content the new content
-	 */
-	public void setContent(String content) {
-		this.content = content;
-	}
+    /**
+     * Sets the content.
+     *
+     * @param content the new content
+     */
+    public void setContent(String content) {
+        this.content = content;
+    }
 
 }

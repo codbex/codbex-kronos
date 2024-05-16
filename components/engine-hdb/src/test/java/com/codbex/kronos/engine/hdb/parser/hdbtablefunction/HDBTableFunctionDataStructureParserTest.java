@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2022-2023 codbex or an codbex affiliate company and contributors
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
+ * All rights reserved. This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v2.0 which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
@@ -41,39 +40,39 @@ import jakarta.transaction.Transactional;
  */
 @SpringBootTest(classes = {HDBDataStructureModelFactory.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ComponentScan(basePackages = { "org.eclipse.dirigible.components", "com.codbex.kronos"})
+@ComponentScan(basePackages = {"org.eclipse.dirigible.components", "com.codbex.kronos"})
 @EntityScan(value = {"org.eclipse.dirigible.components", "com.codbex.kronos"})
 @Transactional
 public class HDBTableFunctionDataStructureParserTest {
-	
-	/** The migrator. */
-	@Autowired
-	private TestRepositoryMigrator migrator;
-	  
-	/** The repository. */
-	@Autowired
-	private IRepository repository;
+
+    /** The migrator. */
+    @Autowired
+    private TestRepositoryMigrator migrator;
+
+    /** The repository. */
+    @Autowired
+    private IRepository repository;
 
     /**
-	 * Clean up.
-	 */
+     * Clean up.
+     */
     @AfterEach
     public void cleanUp() {
         migrator.cleanUp();
     }
 
     /**
-	 * Parses the table function.
-	 *
-	 * @throws IOException             Signals that an I/O exception has occurred.
-	 * @throws DataStructuresException the data structures exception
-	 * @throws ArtifactParserException the artifact parser exception
-	 */
+     * Parses the table function.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws DataStructuresException the data structures exception
+     * @throws ArtifactParserException the artifact parser exception
+     */
     @Test
     public void parseTableFunction() throws IOException, DataStructuresException, ArtifactParserException {
         String location = "tablefunction/OrderTableFunction.hdbtablefunction";
         migrator.migrate(location);
-    	IResource loadedResource = repository.getResource(IRepositoryStructure.PATH_REGISTRY_PUBLIC + IRepository.SEPARATOR + location);
+        IResource loadedResource = repository.getResource(IRepositoryStructure.PATH_REGISTRY_PUBLIC + IRepository.SEPARATOR + location);
         String content = new String(loadedResource.getContent());
 
         HDBTableFunction model = HDBDataStructureModelFactory.parseTableFunction(location, content);
@@ -83,24 +82,26 @@ public class HDBTableFunctionDataStructureParserTest {
         assertEquals(content, model.getContent(), "Unexpected tablefunction raw content.");
         assertEquals(location, model.getLocation(), "Unexpected tablefunction location.");
         assertEquals("HDBTABLEFUNCTION", model.getType(), "Unexpected tablefunction type : " + model.getType());
-//        assertEquals(0, model.getDependencies().size(), "Unexpected tablefunction dependencies.");
-//        assertNotNull(model.getCreatedAt(), "Null value for tablefunction createdAt");
-//        assertNotNull(model.getCreatedBy(), "Null value for tablefunction createdBy");
-//        assertEquals("class com.codbex.kronos.hdb.ds.model.hdbtablefunction.DataStructureHDBTableFunctionModel", parser.getDataStructureClass().toString(), "Cant access data structure model class");
+        // assertEquals(0, model.getDependencies().size(), "Unexpected tablefunction dependencies.");
+        // assertNotNull(model.getCreatedAt(), "Null value for tablefunction createdAt");
+        // assertNotNull(model.getCreatedBy(), "Null value for tablefunction createdBy");
+        // assertEquals("class
+        // com.codbex.kronos.hdb.ds.model.hdbtablefunction.DataStructureHDBTableFunctionModel",
+        // parser.getDataStructureClass().toString(), "Cant access data structure model class");
     }
 
     /**
-	 * Parses the no schema table function.
-	 *
-	 * @throws IOException             Signals that an I/O exception has occurred.
-	 * @throws DataStructuresException the data structures exception
-	 * @throws ArtifactParserException the artifact parser exception
-	 */
+     * Parses the no schema table function.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws DataStructuresException the data structures exception
+     * @throws ArtifactParserException the artifact parser exception
+     */
     @Test
     public void parseNoSchemaTableFunction() throws IOException, DataStructuresException, ArtifactParserException {
         String location = "tablefunction/OrderTableFunctionNoSchema.hdbtablefunction";
         migrator.migrate(location);
-    	IResource loadedResource = repository.getResource(IRepositoryStructure.PATH_REGISTRY_PUBLIC + IRepository.SEPARATOR + location);
+        IResource loadedResource = repository.getResource(IRepositoryStructure.PATH_REGISTRY_PUBLIC + IRepository.SEPARATOR + location);
         String content = new String(loadedResource.getContent());
 
         HDBTableFunction model = HDBDataStructureModelFactory.parseTableFunction(location, content);
@@ -109,38 +110,38 @@ public class HDBTableFunctionDataStructureParserTest {
         assertEquals(content, model.getContent(), "Unexpected tablefunction content.");
         assertEquals(location, model.getLocation(), "Unexpected tablefunction location.");
         assertEquals("HDBTABLEFUNCTION", model.getType(), "Unexpected tablefunction type: " + model.getType());
-//        assertEquals("Unexpected tablefunction dependencies.", 0, model.getDependencies().size());
-//        assertNotNull("Null value for tablefunction createdAt", model.getCreatedAt());
-//        assertNotNull("Null value for tablefunction createdBy", model.getCreatedBy());
+        // assertEquals("Unexpected tablefunction dependencies.", 0, model.getDependencies().size());
+        // assertNotNull("Null value for tablefunction createdAt", model.getCreatedAt());
+        // assertNotNull("Null value for tablefunction createdBy", model.getCreatedBy());
     }
 
     /**
-	 * Parses the no schema no name table function.
-	 *
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 */
+     * Parses the no schema no name table function.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Test
     public void parseNoSchemaNoNameTableFunction() throws IOException {
         String location = "tablefunction/OrderTableFunctionNoSchemaNoName.hdbtablefunction";
         migrator.migrate(location);
-    	IResource loadedResource = repository.getResource(IRepositoryStructure.PATH_REGISTRY_PUBLIC + IRepository.SEPARATOR + location);
-    	final String content = new String(loadedResource.getContent());
+        IResource loadedResource = repository.getResource(IRepositoryStructure.PATH_REGISTRY_PUBLIC + IRepository.SEPARATOR + location);
+        final String content = new String(loadedResource.getContent());
 
-    	DataStructuresException caughtException = Assertions.assertThrows(
-    			DataStructuresException.class,
+        DataStructuresException caughtException = Assertions.assertThrows(DataStructuresException.class,
                 () -> HDBDataStructureModelFactory.parseTableFunction(location, content));
         Throwable caughtExceptionCause = caughtException.getCause();
 
-        assertEquals("Wrong format of HDB Table Function: " + location + " during parsing. ",
-                caughtException.getMessage(), "Unexpected exception message");
-//        verify(tableFunctionLoggerMock).logError(location, CommonsConstants.EXPECTED_FIELDS, caughtExceptionCause.getMessage());
-//        verify(dataStructuresSynchronizerMock).applyArtefactState(
-//                CommonsUtils.getRepositoryBaseObjectName(location),
-//                location,
-//                tableFunctionSynchronizationArtefactType,
-//                ArtefactState.FAILED_CREATE,
-//                caughtExceptionCause.getMessage()
-//        );
+        assertEquals("Wrong format of HDB Table Function: " + location + " during parsing. ", caughtException.getMessage(),
+                "Unexpected exception message");
+        // verify(tableFunctionLoggerMock).logError(location, CommonsConstants.EXPECTED_FIELDS,
+        // caughtExceptionCause.getMessage());
+        // verify(dataStructuresSynchronizerMock).applyArtefactState(
+        // CommonsUtils.getRepositoryBaseObjectName(location),
+        // location,
+        // tableFunctionSynchronizationArtefactType,
+        // ArtefactState.FAILED_CREATE,
+        // caughtExceptionCause.getMessage()
+        // );
     }
 
 }

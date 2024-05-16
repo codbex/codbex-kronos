@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2022-2023 codbex or an codbex affiliate company and contributors
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
+ * All rights reserved. This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v2.0 which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
@@ -20,178 +19,179 @@ import java.util.Objects;
  */
 public class XSODataAssociation {
 
-  /** The name. */
-  private String name;
-  
-  /** The with referential constraint. */
-  private boolean withReferentialConstraint;
-  
-  /** The principal. */
-  private XSODataBinding principal;
-  
-  /** The dependent. */
-  private XSODataBinding dependent;
-  
-  /** The association table. */
-  private XSODataAssociationTable associationTable;
-  
-  /** The storage. */
-  private XSODataStorage storage;
-  
-  /** The modifications. */
-  private List<XSODataModification> modifications = new ArrayList<>();
+    /** The name. */
+    private String name;
 
-  /**
-   * Gets the name.
-   *
-   * @return the name
-   */
-  public String getName() {
-    return name;
-  }
+    /** The with referential constraint. */
+    private boolean withReferentialConstraint;
 
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
+    /** The principal. */
+    private XSODataBinding principal;
 
-  /**
-   * Checks if is with referential constraint.
-   *
-   * @return true, if is with referential constraint
-   */
-  public boolean isWithReferentialConstraint() {
-    return withReferentialConstraint;
-  }
+    /** The dependent. */
+    private XSODataBinding dependent;
 
-  /**
-   * Sets the with referential constraint.
-   *
-   * @param withReferentialConstraint the new with referential constraint
-   */
-  public void setWithReferentialConstraint(boolean withReferentialConstraint) {
-    this.withReferentialConstraint = withReferentialConstraint;
-  }
+    /** The association table. */
+    private XSODataAssociationTable associationTable;
 
-  /**
-   * Gets the principal.
-   *
-   * @return the principal
-   */
-  public XSODataBinding getPrincipal() {
-    return principal;
-  }
+    /** The storage. */
+    private XSODataStorage storage;
 
-  /**
-   * Sets the principal.
-   *
-   * @param principal the new principal
-   */
-  public void setPrincipal(XSODataBinding principal) {
-    this.principal = principal;
-  }
+    /** The modifications. */
+    private List<XSODataModification> modifications = new ArrayList<>();
 
-  /**
-   * Gets the dependent.
-   *
-   * @return the dependent
-   */
-  public XSODataBinding getDependent() {
-    return dependent;
-  }
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
 
-  /**
-   * Sets the dependent.
-   *
-   * @param dependent the new dependent
-   */
-  public void setDependent(XSODataBinding dependent) {
-    this.dependent = dependent;
-  }
+    /**
+     * Sets the name.
+     *
+     * @param name the new name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  /**
-   * Gets the association table.
-   *
-   * @return the association table
-   */
-  public XSODataAssociationTable getAssociationTable() {
-    return associationTable;
-  }
+    /**
+     * Checks if is with referential constraint.
+     *
+     * @return true, if is with referential constraint
+     */
+    public boolean isWithReferentialConstraint() {
+        return withReferentialConstraint;
+    }
 
-  /**
-   * Sets the association table.
-   *
-   * @param associationTable the new association table
-   */
-  public void setAssociationTable(XSODataAssociationTable associationTable) {
-    this.associationTable = associationTable;
-  }
+    /**
+     * Sets the with referential constraint.
+     *
+     * @param withReferentialConstraint the new with referential constraint
+     */
+    public void setWithReferentialConstraint(boolean withReferentialConstraint) {
+        this.withReferentialConstraint = withReferentialConstraint;
+    }
 
-  /**
-   * Gets the storage.
-   *
-   * @return the storage
-   */
-  public XSODataStorage getStorage() {
-    return storage;
-  }
+    /**
+     * Gets the principal.
+     *
+     * @return the principal
+     */
+    public XSODataBinding getPrincipal() {
+        return principal;
+    }
 
-  /**
-   * Sets the storage.
-   *
-   * @param storage the new storage
-   */
-  public void setStorage(XSODataStorage storage) {
-    this.storage = storage;
-  }
+    /**
+     * Sets the principal.
+     *
+     * @param principal the new principal
+     */
+    public void setPrincipal(XSODataBinding principal) {
+        this.principal = principal;
+    }
 
-  /**
-   * Gets the modifications.
-   *
-   * @return the modifications
-   */
-  public List<XSODataModification> getModifications() {
-    return modifications;
-  }
+    /**
+     * Gets the dependent.
+     *
+     * @return the dependent
+     */
+    public XSODataBinding getDependent() {
+        return dependent;
+    }
 
-  /**
-   * Sets the modifications.
-   *
-   * @param modifications the new modifications
-   */
-  public void setModifications(List<XSODataModification> modifications) {
-    this.modifications = modifications;
-  }
+    /**
+     * Sets the dependent.
+     *
+     * @param dependent the new dependent
+     */
+    public void setDependent(XSODataBinding dependent) {
+        this.dependent = dependent;
+    }
 
-  /**
-   * Equals.
-   *
-   * @param o the o
-   * @return true, if successful
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o)
-      return true;
-    if (o == null || getClass() != o.getClass())
-      return false;
-    XSODataAssociation that = (XSODataAssociation) o;
-    return withReferentialConstraint == that.withReferentialConstraint && Objects.equals(name, that.name) && Objects.equals(principal,
-        that.principal) && Objects.equals(dependent, that.dependent) && Objects.equals(associationTable, that.associationTable)
-        && Objects.equals(storage, that.storage) && Objects.equals(modifications, that.modifications);
-  }
+    /**
+     * Gets the association table.
+     *
+     * @return the association table
+     */
+    public XSODataAssociationTable getAssociationTable() {
+        return associationTable;
+    }
 
-  /**
-   * Hash code.
-   *
-   * @return the int
-   */
-  @Override
-  public int hashCode() {
-    return Objects.hash(name, withReferentialConstraint, principal, dependent, associationTable, storage, modifications);
-  }
+    /**
+     * Sets the association table.
+     *
+     * @param associationTable the new association table
+     */
+    public void setAssociationTable(XSODataAssociationTable associationTable) {
+        this.associationTable = associationTable;
+    }
+
+    /**
+     * Gets the storage.
+     *
+     * @return the storage
+     */
+    public XSODataStorage getStorage() {
+        return storage;
+    }
+
+    /**
+     * Sets the storage.
+     *
+     * @param storage the new storage
+     */
+    public void setStorage(XSODataStorage storage) {
+        this.storage = storage;
+    }
+
+    /**
+     * Gets the modifications.
+     *
+     * @return the modifications
+     */
+    public List<XSODataModification> getModifications() {
+        return modifications;
+    }
+
+    /**
+     * Sets the modifications.
+     *
+     * @param modifications the new modifications
+     */
+    public void setModifications(List<XSODataModification> modifications) {
+        this.modifications = modifications;
+    }
+
+    /**
+     * Equals.
+     *
+     * @param o the o
+     * @return true, if successful
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        XSODataAssociation that = (XSODataAssociation) o;
+        return withReferentialConstraint == that.withReferentialConstraint && Objects.equals(name, that.name)
+                && Objects.equals(principal, that.principal) && Objects.equals(dependent, that.dependent)
+                && Objects.equals(associationTable, that.associationTable) && Objects.equals(storage, that.storage)
+                && Objects.equals(modifications, that.modifications);
+    }
+
+    /**
+     * Hash code.
+     *
+     * @return the int
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, withReferentialConstraint, principal, dependent, associationTable, storage, modifications);
+    }
 }

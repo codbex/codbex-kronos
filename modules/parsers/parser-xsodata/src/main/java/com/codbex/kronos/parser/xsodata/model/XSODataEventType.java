@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2022-2023 codbex or an codbex affiliate company and contributors
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
+ * All rights reserved. This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v2.0 which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
@@ -13,26 +12,28 @@ package com.codbex.kronos.parser.xsodata.model;
 
 import java.util.Arrays;
 import java.util.Optional;
+
 /**
- * The text should reflect the values from org.eclipse.dirigible.engine.odata2.definition.ODataHandlerTypes
+ * The text should reflect the values from
+ * org.eclipse.dirigible.engine.odata2.definition.ODataHandlerTypes
  */
 public enum XSODataEventType {
-    
+
     /** The before. */
     BEFORE("before", "before"),
-    
+
     /** The after. */
     AFTER("after", "after"),
-    
+
     /** The precommit. */
     PRECOMMIT("precommit", ""),
-    
+
     /** The postcommit. */
     POSTCOMMIT("postcommit", "");
 
     /** The text. */
     private final String text;
-    
+
     /** The odata handler type. */
     private final String odataHandlerType;
 
@@ -73,8 +74,8 @@ public enum XSODataEventType {
      */
     public static Optional<XSODataEventType> fromValue(String text) {
         return Arrays.stream(values())
-                .filter(bl -> bl.text.equalsIgnoreCase(text))
-                .findFirst();
+                     .filter(bl -> bl.text.equalsIgnoreCase(text))
+                     .findFirst();
     }
 
     /**

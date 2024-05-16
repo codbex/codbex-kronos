@@ -13,8 +13,4 @@
   <artifactId>codbex-kronos-components-template-hdbtable</artifactId>
   <packaging>jar</packaging>
 
-  <properties>
-    <license.header.location>../../licensing-header.txt</license.header.location>
-  </properties>
-
 </project>

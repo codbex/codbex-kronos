@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2022-2023 codbex or an codbex affiliate company and contributors
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
+ * All rights reserved. This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v2.0 which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
@@ -20,99 +19,99 @@ import java.util.Objects;
  */
 public class XSODataModificationSpec {
 
-  /** The events. */
-  private List<XSODataEvent> events = new ArrayList<>();
-  
-  /** The modification action. */
-  private String modificationAction;
-  
-  /** The forbidden. */
-  private boolean forbidden = false;
+    /** The events. */
+    private List<XSODataEvent> events = new ArrayList<>();
 
-  /**
-   * Gets the events.
-   *
-   * @return the events
-   */
-  public List<XSODataEvent> getEvents() {
-    return events;
-  }
+    /** The modification action. */
+    private String modificationAction;
 
-  /**
-   * Sets the events.
-   *
-   * @param events the events
-   * @return the HDBXSO data modification spec
-   */
-  public XSODataModificationSpec setEvents(List<XSODataEvent> events) {
-    this.events = events;
-    return this;
-  }
+    /** The forbidden. */
+    private boolean forbidden = false;
 
-  /**
-   * Gets the modification action.
-   *
-   * @return the modification action
-   */
-  public String getModificationAction() {
-    return modificationAction;
-  }
+    /**
+     * Gets the events.
+     *
+     * @return the events
+     */
+    public List<XSODataEvent> getEvents() {
+        return events;
+    }
 
-  /**
-   * Sets the modification action.
-   *
-   * @param modificationAction the modification action
-   * @return the HDBXSO data modification spec
-   */
-  public XSODataModificationSpec setModificationAction(String modificationAction) {
-    this.modificationAction = modificationAction;
-    return this;
-  }
+    /**
+     * Sets the events.
+     *
+     * @param events the events
+     * @return the HDBXSO data modification spec
+     */
+    public XSODataModificationSpec setEvents(List<XSODataEvent> events) {
+        this.events = events;
+        return this;
+    }
 
-  /**
-   * Checks if is forbidden.
-   *
-   * @return true, if is forbidden
-   */
-  public boolean isForbidden() {
-    return forbidden;
-  }
+    /**
+     * Gets the modification action.
+     *
+     * @return the modification action
+     */
+    public String getModificationAction() {
+        return modificationAction;
+    }
 
-  /**
-   * Sets the forbidden.
-   *
-   * @param forbidden the forbidden
-   * @return the HDBXSO data modification spec
-   */
-  public XSODataModificationSpec setForbidden(boolean forbidden) {
-    this.forbidden = forbidden;
-    return this;
-  }
+    /**
+     * Sets the modification action.
+     *
+     * @param modificationAction the modification action
+     * @return the HDBXSO data modification spec
+     */
+    public XSODataModificationSpec setModificationAction(String modificationAction) {
+        this.modificationAction = modificationAction;
+        return this;
+    }
 
-  /**
-   * Equals.
-   *
-   * @param o the o
-   * @return true, if successful
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o)
-      return true;
-    if (o == null || getClass() != o.getClass())
-      return false;
-    XSODataModificationSpec that = (XSODataModificationSpec) o;
-    return forbidden == that.forbidden && Objects.equals(events, that.events) && Objects.equals(modificationAction,
-        that.modificationAction);
-  }
+    /**
+     * Checks if is forbidden.
+     *
+     * @return true, if is forbidden
+     */
+    public boolean isForbidden() {
+        return forbidden;
+    }
 
-  /**
-   * Hash code.
-   *
-   * @return the int
-   */
-  @Override
-  public int hashCode() {
-    return Objects.hash(events, modificationAction, forbidden);
-  }
+    /**
+     * Sets the forbidden.
+     *
+     * @param forbidden the forbidden
+     * @return the HDBXSO data modification spec
+     */
+    public XSODataModificationSpec setForbidden(boolean forbidden) {
+        this.forbidden = forbidden;
+        return this;
+    }
+
+    /**
+     * Equals.
+     *
+     * @param o the o
+     * @return true, if successful
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        XSODataModificationSpec that = (XSODataModificationSpec) o;
+        return forbidden == that.forbidden && Objects.equals(events, that.events)
+                && Objects.equals(modificationAction, that.modificationAction);
+    }
+
+    /**
+     * Hash code.
+     *
+     * @return the int
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(events, modificationAction, forbidden);
+    }
 }

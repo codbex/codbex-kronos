@@ -152,10 +152,4 @@
     </plugins>
   </build>
 
-
-  <properties>
-    <license.header.location>../../licensing-header.txt</license.header.location>
-    <maven.clean.plugin.directory>target/null</maven.clean.plugin.directory>
-  </properties>
-
 </project>

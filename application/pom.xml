@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
@@ -14,12 +14,10 @@
   <artifactId>codbex-kronos-application</artifactId>
   <packaging>jar</packaging>
 
-
   <dependencies>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-branding</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
     </dependency>
 
     <!-- Core -->
@@ -209,7 +207,6 @@
       <artifactId>codbex-kronos-components-template-python</artifactId>
     </dependency>
 
-
     <!-- Dialects -->
     <dependency>
       <groupId>org.postgresql</groupId>
@@ -223,69 +220,15 @@
       <groupId>com.sap.cloud.db.jdbc</groupId>
       <artifactId>ngdbc</artifactId>
     </dependency>
-
   </dependencies>
-
 
   <build>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <configuration>
-          <mainClass>com.codbex.kronos.KronosApplication</mainClass>
-          <jvmArguments>
-            <argument>--add-opens java.base/java.lang=ALL-UNNAMED</argument>
-            <argument>--add-opens java.base/java.lang.reflect=ALL-UNNAMED</argument>
-          </jvmArguments>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>repackage</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>${maven.surefire.plugin.version}</version>
-        <configuration>
-          <argLine>
-            @{argLine}
-            --add-opens java.base/java.lang=ALL-UNNAMED
-            --add-opens java.base/java.lang.reflect=ALL-UNNAMED
-          </argLine>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>pl.project13.maven</groupId>
-        <artifactId>git-commit-id-plugin</artifactId>
-        <version>${git-commit-id-plugin.version}</version>
-        <executions>
-          <execution>
-            <id>get-the-git-infos</id>
-            <goals>
-              <goal>revision</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <dotGitDirectory>../.git</dotGitDirectory>
-        </configuration>
       </plugin>
     </plugins>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>true</filtering>
-      </resource>
-    </resources>
   </build>
-
-  <properties>
-    <license.header.location>../licensing-header.txt</license.header.location>
-  </properties>
 
 </project>

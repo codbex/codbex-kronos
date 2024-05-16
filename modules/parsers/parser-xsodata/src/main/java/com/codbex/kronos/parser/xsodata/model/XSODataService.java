@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2022-2023 codbex or an codbex affiliate company and contributors
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
+ * All rights reserved. This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v2.0 which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
@@ -19,135 +18,136 @@ import java.util.Objects;
  */
 public class XSODataService {
 
-  /** The namespace. */
-  private String namespace;
-  
-  /** The enable O data 4 SAP annotations. */
-  private boolean enableOData4SAPAnnotations;
-  
-  /** The setting. */
-  private XSODataSetting setting;
-  
-  /** The entities. */
-  private ArrayList<XSODataEntity> entities = new ArrayList<>();
-  
-  /** The associations. */
-  private ArrayList<XSODataAssociation> associations = new ArrayList<>();
+    /** The namespace. */
+    private String namespace;
 
-  /**
-   * Gets the namespace.
-   *
-   * @return the namespace
-   */
-  public String getNamespace() {
-    return namespace;
-  }
+    /** The enable O data 4 SAP annotations. */
+    private boolean enableOData4SAPAnnotations;
 
-  /**
-   * Sets the namespace.
-   *
-   * @param namespace the new namespace
-   */
-  public void setNamespace(String namespace) {
-    this.namespace = namespace;
-  }
+    /** The setting. */
+    private XSODataSetting setting;
 
-  /**
-   * Checks if is enable O data 4 SAP annotations.
-   *
-   * @return true, if is enable O data 4 SAP annotations
-   */
-  public boolean isEnableOData4SAPAnnotations() {
-    return enableOData4SAPAnnotations;
-  }
+    /** The entities. */
+    private ArrayList<XSODataEntity> entities = new ArrayList<>();
 
-  /**
-   * Sets the enable O data 4 SAP annotations.
-   *
-   * @param enableOData4SAPAnnotations the new enable O data 4 SAP annotations
-   */
-  public void setEnableOData4SAPAnnotations(boolean enableOData4SAPAnnotations) {
-    this.enableOData4SAPAnnotations = enableOData4SAPAnnotations;
-  }
+    /** The associations. */
+    private ArrayList<XSODataAssociation> associations = new ArrayList<>();
 
-  /**
-   * Gets the setting.
-   *
-   * @return the setting
-   */
-  public XSODataSetting getSetting() {
-    return setting;
-  }
+    /**
+     * Gets the namespace.
+     *
+     * @return the namespace
+     */
+    public String getNamespace() {
+        return namespace;
+    }
 
-  /**
-   * Sets the setting.
-   *
-   * @param setting the new setting
-   */
-  public void setSetting(XSODataSetting setting) {
-    this.setting = setting;
-  }
+    /**
+     * Sets the namespace.
+     *
+     * @param namespace the new namespace
+     */
+    public void setNamespace(String namespace) {
+        this.namespace = namespace;
+    }
 
-  /**
-   * Gets the entities.
-   *
-   * @return the entities
-   */
-  public ArrayList<XSODataEntity> getEntities() {
-    return entities;
-  }
+    /**
+     * Checks if is enable O data 4 SAP annotations.
+     *
+     * @return true, if is enable O data 4 SAP annotations
+     */
+    public boolean isEnableOData4SAPAnnotations() {
+        return enableOData4SAPAnnotations;
+    }
 
-  /**
-   * Sets the entities.
-   *
-   * @param entities the new entities
-   */
-  public void setEntities(ArrayList<XSODataEntity> entities) {
-    this.entities = entities;
-  }
+    /**
+     * Sets the enable O data 4 SAP annotations.
+     *
+     * @param enableOData4SAPAnnotations the new enable O data 4 SAP annotations
+     */
+    public void setEnableOData4SAPAnnotations(boolean enableOData4SAPAnnotations) {
+        this.enableOData4SAPAnnotations = enableOData4SAPAnnotations;
+    }
 
-  /**
-   * Gets the associations.
-   *
-   * @return the associations
-   */
-  public ArrayList<XSODataAssociation> getAssociations() {
-    return associations;
-  }
+    /**
+     * Gets the setting.
+     *
+     * @return the setting
+     */
+    public XSODataSetting getSetting() {
+        return setting;
+    }
 
-  /**
-   * Sets the associations.
-   *
-   * @param associations the new associations
-   */
-  public void setAssociations(ArrayList<XSODataAssociation> associations) {
-    this.associations = associations;
-  }
+    /**
+     * Sets the setting.
+     *
+     * @param setting the new setting
+     */
+    public void setSetting(XSODataSetting setting) {
+        this.setting = setting;
+    }
 
-  /**
-   * Equals.
-   *
-   * @param o the o
-   * @return true, if successful
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o)
-      return true;
-    if (o == null || getClass() != o.getClass())
-      return false;
-    XSODataService that = (XSODataService) o;
-    return enableOData4SAPAnnotations == that.enableOData4SAPAnnotations && Objects.equals(namespace, that.namespace) && Objects.equals(
-        setting, that.setting) && Objects.equals(entities, that.entities) && Objects.equals(associations, that.associations);
-  }
+    /**
+     * Gets the entities.
+     *
+     * @return the entities
+     */
+    public ArrayList<XSODataEntity> getEntities() {
+        return entities;
+    }
 
-  /**
-   * Hash code.
-   *
-   * @return the int
-   */
-  @Override
-  public int hashCode() {
-    return Objects.hash(namespace, enableOData4SAPAnnotations, setting, entities, associations);
-  }
+    /**
+     * Sets the entities.
+     *
+     * @param entities the new entities
+     */
+    public void setEntities(ArrayList<XSODataEntity> entities) {
+        this.entities = entities;
+    }
+
+    /**
+     * Gets the associations.
+     *
+     * @return the associations
+     */
+    public ArrayList<XSODataAssociation> getAssociations() {
+        return associations;
+    }
+
+    /**
+     * Sets the associations.
+     *
+     * @param associations the new associations
+     */
+    public void setAssociations(ArrayList<XSODataAssociation> associations) {
+        this.associations = associations;
+    }
+
+    /**
+     * Equals.
+     *
+     * @param o the o
+     * @return true, if successful
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        XSODataService that = (XSODataService) o;
+        return enableOData4SAPAnnotations == that.enableOData4SAPAnnotations && Objects.equals(namespace, that.namespace)
+                && Objects.equals(setting, that.setting) && Objects.equals(entities, that.entities)
+                && Objects.equals(associations, that.associations);
+    }
+
+    /**
+     * Hash code.
+     *
+     * @return the int
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(namespace, enableOData4SAPAnnotations, setting, entities, associations);
+    }
 }

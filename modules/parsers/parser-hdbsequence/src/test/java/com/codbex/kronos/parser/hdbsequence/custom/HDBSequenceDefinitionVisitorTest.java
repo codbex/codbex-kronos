@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2022-2023 codbex or an codbex affiliate company and contributors
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
+ * All rights reserved. This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v2.0 which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
@@ -30,41 +29,42 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class HDBSequenceDefinitionVisitorTest {
-  @Test
-  public void testParseHDBSequenceFileSuccessfully() throws IOException {
-    String content = org.apache.commons.io.IOUtils
-        .toString(HDBSequenceDefinitionVisitorTest.class.getResourceAsStream("/SampleSequence.hdbsequence"), StandardCharsets.UTF_8);
-    HDBSequenceModel model = parseFileContent(content);
-    assertNotNull(model);
-  }
+    @Test
+    public void testParseHDBSequenceFileSuccessfully() throws IOException {
+        String content = org.apache.commons.io.IOUtils.toString(
+                HDBSequenceDefinitionVisitorTest.class.getResourceAsStream("/SampleSequence.hdbsequence"), StandardCharsets.UTF_8);
+        HDBSequenceModel model = parseFileContent(content);
+        assertNotNull(model);
+    }
 
-  private HDBSequenceModel parseFileContent(String content) throws IOException {
-    ByteArrayInputStream is = new ByteArrayInputStream(content.getBytes());
-    ANTLRInputStream inputStream = new ANTLRInputStream(is);
-    HDBSequenceLexer hdbSequenceLexer = new HDBSequenceLexer(inputStream);
-    HDBSequenceSyntaxErrorListener lexerErrorListener = new HDBSequenceSyntaxErrorListener();
-    hdbSequenceLexer.removeErrorListeners();
-    hdbSequenceLexer.addErrorListener(lexerErrorListener);
-    CommonTokenStream tokenStream = new CommonTokenStream(hdbSequenceLexer);
+    private HDBSequenceModel parseFileContent(String content) throws IOException {
+        ByteArrayInputStream is = new ByteArrayInputStream(content.getBytes());
+        ANTLRInputStream inputStream = new ANTLRInputStream(is);
+        HDBSequenceLexer hdbSequenceLexer = new HDBSequenceLexer(inputStream);
+        HDBSequenceSyntaxErrorListener lexerErrorListener = new HDBSequenceSyntaxErrorListener();
+        hdbSequenceLexer.removeErrorListeners();
+        hdbSequenceLexer.addErrorListener(lexerErrorListener);
+        CommonTokenStream tokenStream = new CommonTokenStream(hdbSequenceLexer);
 
-    HDBSequenceParser hdbSequenceParser = new HDBSequenceParser(tokenStream);
-    hdbSequenceParser.setBuildParseTree(true);
-    hdbSequenceParser.removeErrorListeners();
+        HDBSequenceParser hdbSequenceParser = new HDBSequenceParser(tokenStream);
+        hdbSequenceParser.setBuildParseTree(true);
+        hdbSequenceParser.removeErrorListeners();
 
-    HDBSequenceSyntaxErrorListener parserErrorListener = new HDBSequenceSyntaxErrorListener();
-    hdbSequenceParser.addErrorListener(parserErrorListener);
-    ParseTree parseTree = hdbSequenceParser.hdbSequenceDefinition();
-    HDBSequenceBaseVisitor<JsonElement> visitor = new HDBSequenceDefinitionVisitor();
+        HDBSequenceSyntaxErrorListener parserErrorListener = new HDBSequenceSyntaxErrorListener();
+        hdbSequenceParser.addErrorListener(parserErrorListener);
+        ParseTree parseTree = hdbSequenceParser.hdbSequenceDefinition();
+        HDBSequenceBaseVisitor<JsonElement> visitor = new HDBSequenceDefinitionVisitor();
 
-    JsonElement parsedResult = visitor.visit(parseTree);
-    Gson gson = new Gson();
-    HDBSequenceModel hdbSequenceModel = gson.fromJson(parsedResult, HDBSequenceModel.class);
+        JsonElement parsedResult = visitor.visit(parseTree);
+        Gson gson = new Gson();
+        HDBSequenceModel hdbSequenceModel = gson.fromJson(parsedResult, HDBSequenceModel.class);
 
-    assertEquals(0, parserErrorListener.getErrors().size());
-    assertEquals(0, lexerErrorListener.getErrors().size());
+        assertEquals(0, parserErrorListener.getErrors()
+                                           .size());
+        assertEquals(0, lexerErrorListener.getErrors()
+                                          .size());
 
-    return hdbSequenceModel;
-  }
-
+        return hdbSequenceModel;
+    }
 
 }

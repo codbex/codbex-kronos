@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2022-2023 codbex or an codbex affiliate company and contributors
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
+ * All rights reserved. This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v2.0 which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
@@ -40,318 +39,326 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class HDBSchemasSynchronizer.
- *
- * @param <A> the generic type
  */
 @Component
 @Order(200)
 public class HDBSchemaSynchronizer extends BaseSynchronizer<HDBSchema, Long> {
 
-  /**
-   * The Constant logger.
-   */
-  private static final Logger logger = LoggerFactory.getLogger(HDBSchemaSynchronizer.class);
+    /**
+     * The Constant logger.
+     */
+    private static final Logger logger = LoggerFactory.getLogger(HDBSchemaSynchronizer.class);
 
-  /**
-   * The Constant FILE_EXTENSION_HDBSCHEMA.
-   */
-  private static final String FILE_EXTENSION_HDBSCHEMA = ".hdbschema";
+    /**
+     * The Constant FILE_EXTENSION_HDBSCHEMA.
+     */
+    private static final String FILE_EXTENSION_HDBSCHEMA = ".hdbschema";
 
-  /**
-   * The schema service.
-   */
-  private final HDBSchemaService schemaService;
+    /**
+     * The schema service.
+     */
+    private final HDBSchemaService schemaService;
 
-  /**
-   * The datasources manager.
-   */
-  private final DataSourcesManager datasourcesManager;
+    /**
+     * The datasources manager.
+     */
+    private final DataSourcesManager datasourcesManager;
 
-  /**
-   * The synchronization callback.
-   */
-  private SynchronizerCallback callback;
+    /**
+     * The synchronization callback.
+     */
+    private SynchronizerCallback callback;
 
-  /**
-   * Instantiates a new schema synchronizer.
-   *
-   * @param schemaService      the schema service
-   * @param datasourcesManager the datasources manager
-   */
-  @Autowired
-  public HDBSchemaSynchronizer(HDBSchemaService schemaService, DataSourcesManager datasourcesManager) {
-    this.schemaService = schemaService;
-    this.datasourcesManager = datasourcesManager;
-  }
-
-  /**
-   * Gets the service.
-   *
-   * @return the service
-   */
-  @Override
-  public HDBSchemaService getService() {
-    return schemaService;
-  }
-
-  /**
-   * Checks if is accepted.
-   *
-   * @param file  the file
-   * @param attrs the attrs
-   * @return true, if is accepted
-   */
-  @Override
-  public boolean isAccepted(Path file, BasicFileAttributes attrs) {
-    return file.toString().endsWith(getFileExtension());
-  }
-
-  /**
-   * Checks if is accepted.
-   *
-   * @param type the type
-   * @return true, if is accepted
-   */
-  @Override
-  public boolean isAccepted(String type) {
-    return HDBSchema.ARTEFACT_TYPE.equals(type);
-  }
-
-  /**
-   * Load.
-   *
-   * @param location the location
-   * @param content  the content
-   * @return the list
-   * @throws ParseException
-   */
-  @Override
-  public List<HDBSchema> parse(String location, byte[] content) throws ParseException {
-    HDBSchema schema;
-    try {
-      schema = HDBDataStructureModelFactory.parseSchema(location, content);
-    } catch (DataStructuresException | IOException | ArtifactParserException e) {
-      if (logger.isErrorEnabled()) {
-        logger.error(e.getMessage(), e);
-      }
-      if (logger.isErrorEnabled()) {
-        logger.error("hdbtable: {}", location);
-      }
-      if (logger.isErrorEnabled()) {
-        logger.error("content: {}", new String(content));
-      }
-      throw new ParseException(e.getMessage(), 0);
+    /**
+     * Instantiates a new schema synchronizer.
+     *
+     * @param schemaService the schema service
+     * @param datasourcesManager the datasources manager
+     */
+    @Autowired
+    public HDBSchemaSynchronizer(HDBSchemaService schemaService, DataSourcesManager datasourcesManager) {
+        this.schemaService = schemaService;
+        this.datasourcesManager = datasourcesManager;
     }
 
-//		Configuration.configureObject(schema);
-    schema.setLocation(location);
-    schema.setType(HDBSchema.ARTEFACT_TYPE);
-    schema.updateKey();
-
-    try {
-      HDBSchema maybe = getService().findByKey(schema.getKey());
-      if (maybe != null) {
-        schema.setId(maybe.getId());
-      }
-      getService().save(schema);
-    } catch (Exception e) {
-      if (logger.isErrorEnabled()) {
-        logger.error(e.getMessage(), e);
-      }
-      if (logger.isErrorEnabled()) {
-        logger.error("schema: {}", schema);
-      }
-      if (logger.isErrorEnabled()) {
-        logger.error("content: {}", new String(content));
-      }
-      throw new ParseException(e.getMessage(), 0);
+    /**
+     * Gets the service.
+     *
+     * @return the service
+     */
+    @Override
+    public HDBSchemaService getService() {
+        return schemaService;
     }
-    return List.of(schema);
-  }
 
-  /**
-   * Retrieve.
-   *
-   * @param location the location
-   * @return the list
-   */
-  @Override
-  public List<HDBSchema> retrieve(String location) {
-    return getService().getAll();
-  }
+    /**
+     * Checks if is accepted.
+     *
+     * @param file the file
+     * @param attrs the attrs
+     * @return true, if is accepted
+     */
+    @Override
+    public boolean isAccepted(Path file, BasicFileAttributes attrs) {
+        return file.toString()
+                   .endsWith(getFileExtension());
+    }
 
-  /**
-   * Sets the status.
-   *
-   * @param artefact  the artefact
-   * @param lifecycle the lifecycle
-   * @param error     the error
-   */
-  @Override
-  public void setStatus(HDBSchema artefact, ArtefactLifecycle lifecycle, String error) {
-    artefact.setLifecycle(lifecycle);
-    artefact.setError(error);
-    getService().save(artefact);
-  }
+    /**
+     * Checks if is accepted.
+     *
+     * @param type the type
+     * @return true, if is accepted
+     */
+    @Override
+    public boolean isAccepted(String type) {
+        return HDBSchema.ARTEFACT_TYPE.equals(type);
+    }
 
-  /**
-   * Complete.
-   *
-   * @param wrapper the wrapper
-   * @param flow    the flow
-   * @return true, if successful
-   */
-  @Override
-  public boolean completeImpl(TopologyWrapper<HDBSchema> wrapper, ArtefactPhase flow) {
-
-    try (Connection connection = datasourcesManager.getDefaultDataSource().getConnection()) {
-
-      HDBSchema schema = wrapper.getArtefact();
-
-      switch (flow) {
-        case CREATE:
-          if (ArtefactLifecycle.NEW.equals(schema.getLifecycle())) {
-            if (!SqlFactory.getNative(connection).exists(connection, schema.getName(), DatabaseArtifactTypes.SCHEMA)) {
-              executeSchemaCreate(connection, schema);
-              callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
-            } else {
-              if (logger.isWarnEnabled()) {
-                logger.warn(String.format("HDBSchema [%s] already exists during the update process", schema.getName()));
-              }
-              executeSchemaUpdate(connection, schema);
-              callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+    /**
+     * Load.
+     *
+     * @param location the location
+     * @param content the content
+     * @return the list
+     * @throws ParseException the parse exception
+     */
+    @Override
+    public List<HDBSchema> parse(String location, byte[] content) throws ParseException {
+        HDBSchema schema;
+        try {
+            schema = HDBDataStructureModelFactory.parseSchema(location, content);
+        } catch (DataStructuresException | IOException | ArtifactParserException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
             }
-          } else if (ArtefactLifecycle.FAILED.equals(schema.getLifecycle())) {
-            if (!SqlFactory.getNative(connection).exists(connection, schema.getName(), DatabaseArtifactTypes.SCHEMA)) {
-              executeSchemaCreate(connection, schema);
-              callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
-              ProblemsFacade.deleteArtefactSynchronizationProblem(schema);
+            if (logger.isErrorEnabled()) {
+                logger.error("hdbtable: {}", location);
             }
-          }
-          break;
-        case UPDATE:
-          if (ArtefactLifecycle.MODIFIED.equals(schema.getLifecycle())) {
-            executeSchemaUpdate(connection, schema);
-            callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
-            ProblemsFacade.deleteArtefactSynchronizationProblem(schema);
-          }
-          break;
-        case DELETE:
-          if (ArtefactLifecycle.CREATED.equals(schema.getLifecycle())) {
-            if (SqlFactory.getNative(connection).exists(connection, schema.getName(), DatabaseArtifactTypes.SCHEMA)) {
-              executeSchemaDrop(connection, schema);
-              callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
+            if (logger.isErrorEnabled()) {
+                logger.error("content: {}", new String(content));
             }
-            callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
-          }
-          break;
-        case START:
-        case STOP:
-      }
+            throw new ParseException(e.getMessage(), 0);
+        }
 
-      return true;
-    } catch (Exception e) {
-      String errorMessage = String.format("Error occurred while processing [%s]: %s", wrapper.getArtefact().getLocation(), e.getMessage());
-      if (logger.isErrorEnabled()) {
-        logger.error(errorMessage, e);
-      }
-      callback.addError(errorMessage);
-      callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage);
-      ProblemsFacade.upsertArtefactSynchronizationProblem(wrapper.getArtefact(), errorMessage);
-      return false;
+        // Configuration.configureObject(schema);
+        schema.setLocation(location);
+        schema.setType(HDBSchema.ARTEFACT_TYPE);
+        schema.updateKey();
+
+        try {
+            HDBSchema maybe = getService().findByKey(schema.getKey());
+            if (maybe != null) {
+                schema.setId(maybe.getId());
+            }
+            getService().save(schema);
+        } catch (Exception e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            if (logger.isErrorEnabled()) {
+                logger.error("schema: {}", schema);
+            }
+            if (logger.isErrorEnabled()) {
+                logger.error("content: {}", new String(content));
+            }
+            throw new ParseException(e.getMessage(), 0);
+        }
+        return List.of(schema);
     }
-  }
 
-  /**
-   * Cleanup.
-   *
-   * @param schema the schema
-   */
-  @Override
-  public void cleanupImpl(HDBSchema schema) {
-    try (Connection connection = datasourcesManager.getDefaultDataSource().getConnection()) {
-      getService().delete(schema);
-      callback.registerState(this, schema, ArtefactLifecycle.DELETED, "");
-    } catch (Exception e) {
-      if (logger.isErrorEnabled()) {
-        logger.error(e.getMessage(), e);
-      }
-      callback.addError(e.getMessage());
-      callback.registerState(this, schema, ArtefactLifecycle.FAILED, e.getMessage());
+    /**
+     * Retrieve.
+     *
+     * @param location the location
+     * @return the list
+     */
+    @Override
+    public List<HDBSchema> retrieve(String location) {
+        return getService().getAll();
     }
-  }
 
-  /**
-   * Sets the callback.
-   *
-   * @param callback the new callback
-   */
-  @Override
-  public void setCallback(SynchronizerCallback callback) {
-    this.callback = callback;
-  }
-
-  /**
-   * Execute schema update.
-   *
-   * @param connection  the connection
-   * @param schemaModel the schema model
-   * @throws SQLException the SQL exception
-   */
-  public void executeSchemaUpdate(Connection connection, HDBSchema schemaModel) throws SQLException {
-    if (logger.isInfoEnabled()) {
-      logger.info("Processing Update Schema: " + schemaModel.getName());
+    /**
+     * Sets the status.
+     *
+     * @param artefact the artefact
+     * @param lifecycle the lifecycle
+     * @param error the error
+     */
+    @Override
+    public void setStatus(HDBSchema artefact, ArtefactLifecycle lifecycle, String error) {
+        artefact.setLifecycle(lifecycle);
+        artefact.setError(error);
+        getService().save(artefact);
     }
-    if (SqlFactory.getNative(connection).exists(connection, schemaModel.getName(), DatabaseArtifactTypes.SCHEMA)) {
-      executeSchemaDrop(connection, schemaModel);
-      executeSchemaCreate(connection, schemaModel);
-    } else {
-      executeSchemaCreate(connection, schemaModel);
+
+    /**
+     * Complete.
+     *
+     * @param wrapper the wrapper
+     * @param flow the flow
+     * @return true, if successful
+     */
+    @Override
+    public boolean completeImpl(TopologyWrapper<HDBSchema> wrapper, ArtefactPhase flow) {
+
+        try (Connection connection = datasourcesManager.getDefaultDataSource()
+                                                       .getConnection()) {
+
+            HDBSchema schema = wrapper.getArtefact();
+
+            switch (flow) {
+                case CREATE:
+                    if (ArtefactLifecycle.NEW.equals(schema.getLifecycle())) {
+                        if (!SqlFactory.getNative(connection)
+                                       .exists(connection, schema.getName(), DatabaseArtifactTypes.SCHEMA)) {
+                            executeSchemaCreate(connection, schema);
+                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                        } else {
+                            if (logger.isWarnEnabled()) {
+                                logger.warn(String.format("HDBSchema [%s] already exists during the update process", schema.getName()));
+                            }
+                            executeSchemaUpdate(connection, schema);
+                            callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+                        }
+                    } else if (ArtefactLifecycle.FAILED.equals(schema.getLifecycle())) {
+                        if (!SqlFactory.getNative(connection)
+                                       .exists(connection, schema.getName(), DatabaseArtifactTypes.SCHEMA)) {
+                            executeSchemaCreate(connection, schema);
+                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                            ProblemsFacade.deleteArtefactSynchronizationProblem(schema);
+                        }
+                    }
+                    break;
+                case UPDATE:
+                    if (ArtefactLifecycle.MODIFIED.equals(schema.getLifecycle())) {
+                        executeSchemaUpdate(connection, schema);
+                        callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+                        ProblemsFacade.deleteArtefactSynchronizationProblem(schema);
+                    }
+                    break;
+                case DELETE:
+                    if (ArtefactLifecycle.CREATED.equals(schema.getLifecycle())) {
+                        if (SqlFactory.getNative(connection)
+                                      .exists(connection, schema.getName(), DatabaseArtifactTypes.SCHEMA)) {
+                            executeSchemaDrop(connection, schema);
+                            callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
+                        }
+                        callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
+                    }
+                    break;
+                case START:
+                case STOP:
+            }
+
+            return true;
+        } catch (Exception e) {
+            String errorMessage = String.format("Error occurred while processing [%s]: %s", wrapper.getArtefact()
+                                                                                                   .getLocation(),
+                    e.getMessage());
+            if (logger.isErrorEnabled()) {
+                logger.error(errorMessage, e);
+            }
+            callback.addError(errorMessage);
+            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage);
+            ProblemsFacade.upsertArtefactSynchronizationProblem(wrapper.getArtefact(), errorMessage);
+            return false;
+        }
     }
-  }
 
-  /**
-   * Execute schema create.
-   *
-   * @param connection  the connection
-   * @param schemaModel the schema model
-   * @throws SQLException the SQL exception
-   */
-  public void executeSchemaCreate(Connection connection, HDBSchema schemaModel) throws SQLException {
-    new HDBSchemaCreateProcessor().execute(connection, schemaModel);
-  }
+    /**
+     * Cleanup.
+     *
+     * @param schema the schema
+     */
+    @Override
+    public void cleanupImpl(HDBSchema schema) {
+        try (Connection connection = datasourcesManager.getDefaultDataSource()
+                                                       .getConnection()) {
+            getService().delete(schema);
+            callback.registerState(this, schema, ArtefactLifecycle.DELETED, "");
+        } catch (Exception e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            callback.addError(e.getMessage());
+            callback.registerState(this, schema, ArtefactLifecycle.FAILED, e.getMessage());
+        }
+    }
 
-  /**
-   * Execute schema drop.
-   *
-   * @param connection  the connection
-   * @param schemaModel the schema model
-   * @throws SQLException the SQL exception
-   */
-  public void executeSchemaDrop(Connection connection, HDBSchema schemaModel) throws SQLException {
-    new HDBSchemaDropProcessor().execute(connection, schemaModel);
-  }
+    /**
+     * Sets the callback.
+     *
+     * @param callback the new callback
+     */
+    @Override
+    public void setCallback(SynchronizerCallback callback) {
+        this.callback = callback;
+    }
 
-  /**
-   * Gets the file extension.
-   *
-   * @return the file extension
-   */
-  @Override
-  public String getFileExtension() {
-    return FILE_EXTENSION_HDBSCHEMA;
-  }
+    /**
+     * Execute schema update.
+     *
+     * @param connection the connection
+     * @param schemaModel the schema model
+     * @throws SQLException the SQL exception
+     */
+    public void executeSchemaUpdate(Connection connection, HDBSchema schemaModel) throws SQLException {
+        if (logger.isInfoEnabled()) {
+            logger.info("Processing Update Schema: " + schemaModel.getName());
+        }
+        if (SqlFactory.getNative(connection)
+                      .exists(connection, schemaModel.getName(), DatabaseArtifactTypes.SCHEMA)) {
+            executeSchemaDrop(connection, schemaModel);
+            executeSchemaCreate(connection, schemaModel);
+        } else {
+            executeSchemaCreate(connection, schemaModel);
+        }
+    }
 
-  /**
-   * Gets the artefact type.
-   *
-   * @return the artefact type
-   */
-  @Override
-  public String getArtefactType() {
-    return HDBSchema.ARTEFACT_TYPE;
-  }
+    /**
+     * Execute schema create.
+     *
+     * @param connection the connection
+     * @param schemaModel the schema model
+     * @throws SQLException the SQL exception
+     */
+    public void executeSchemaCreate(Connection connection, HDBSchema schemaModel) throws SQLException {
+        new HDBSchemaCreateProcessor().execute(connection, schemaModel);
+    }
+
+    /**
+     * Execute schema drop.
+     *
+     * @param connection the connection
+     * @param schemaModel the schema model
+     * @throws SQLException the SQL exception
+     */
+    public void executeSchemaDrop(Connection connection, HDBSchema schemaModel) throws SQLException {
+        new HDBSchemaDropProcessor().execute(connection, schemaModel);
+    }
+
+    /**
+     * Gets the file extension.
+     *
+     * @return the file extension
+     */
+    @Override
+    public String getFileExtension() {
+        return FILE_EXTENSION_HDBSCHEMA;
+    }
+
+    /**
+     * Gets the artefact type.
+     *
+     * @return the artefact type
+     */
+    @Override
+    public String getArtefactType() {
+        return HDBSchema.ARTEFACT_TYPE;
+    }
 
 }
