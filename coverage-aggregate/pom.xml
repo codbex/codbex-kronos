@@ -6,7 +6,7 @@
   <parent>
     <artifactId>codbex-kronos-parent</artifactId>
     <groupId>com.codbex.kronos</groupId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
   </parent>
 
   <name>kronos - coverage - aggregate</name>
