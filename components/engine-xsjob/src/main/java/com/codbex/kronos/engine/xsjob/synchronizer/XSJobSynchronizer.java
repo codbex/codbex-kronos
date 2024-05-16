@@ -10,6 +10,11 @@
  */
 package com.codbex.kronos.engine.xsjob.synchronizer;
 
+import com.codbex.kronos.engine.xsjob.domain.XSJob;
+import com.codbex.kronos.engine.xsjob.service.XSJobService;
+import com.codbex.kronos.xsjob.ds.model.JobArtifact;
+import com.codbex.kronos.xsjob.ds.scheduler.SchedulerManager;
+import com.codbex.kronos.xsjob.ds.transformer.JobToKronosJobDefinitionTransformer;
 import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -32,13 +37,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import com.codbex.kronos.engine.xsjob.domain.XSJob;
-import com.codbex.kronos.engine.xsjob.service.XSJobService;
-import com.codbex.kronos.xsjob.ds.model.JobArtifact;
-import com.codbex.kronos.xsjob.ds.scheduler.SchedulerManager;
-import com.codbex.kronos.xsjob.ds.transformer.JobToKronosJobDefinitionTransformer;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class XSJobSynchronizer.
  */

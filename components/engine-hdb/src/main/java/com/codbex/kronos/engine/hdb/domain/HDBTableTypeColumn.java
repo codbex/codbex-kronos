@@ -10,8 +10,6 @@
  */
 package com.codbex.kronos.engine.hdb.domain;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
 import jakarta.persistence.Column;
@@ -22,8 +20,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TableColumn.
  */
@@ -31,14 +30,18 @@ import jakarta.persistence.ManyToOne;
 @jakarta.persistence.Table(name = "KRONOS_TABLETYPE_COLUMNS")
 public class HDBTableTypeColumn extends HDBColumn {
 
-    /** The id. */
+    /**
+     * The id.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "COLUMN_ID", nullable = false)
     @Expose
     private Long id;
 
-    /** The tabletype. */
+    /**
+     * The tabletype.
+     */
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "TABLETYPE_ID", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)

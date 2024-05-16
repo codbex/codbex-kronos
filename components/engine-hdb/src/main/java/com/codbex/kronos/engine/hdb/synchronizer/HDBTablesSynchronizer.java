@@ -10,6 +10,19 @@
  */
 package com.codbex.kronos.engine.hdb.synchronizer;
 
+import com.codbex.kronos.engine.hdb.api.DataStructuresException;
+import com.codbex.kronos.engine.hdb.domain.HDBTable;
+import com.codbex.kronos.engine.hdb.domain.HDBTableColumn;
+import com.codbex.kronos.engine.hdb.domain.HDBTableConstraintCheck;
+import com.codbex.kronos.engine.hdb.domain.HDBTableConstraintForeignKey;
+import com.codbex.kronos.engine.hdb.domain.HDBTableConstraintUnique;
+import com.codbex.kronos.engine.hdb.domain.HDBTableIndex;
+import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
+import com.codbex.kronos.engine.hdb.processors.HDBTableAlterProcessor;
+import com.codbex.kronos.engine.hdb.processors.HDBTableCreateProcessor;
+import com.codbex.kronos.engine.hdb.processors.HDBTableDropProcessor;
+import com.codbex.kronos.engine.hdb.service.HDBTableService;
+import com.codbex.kronos.exceptions.ArtifactParserException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -31,21 +44,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import com.codbex.kronos.engine.hdb.api.DataStructuresException;
-import com.codbex.kronos.engine.hdb.domain.HDBTable;
-import com.codbex.kronos.engine.hdb.domain.HDBTableColumn;
-import com.codbex.kronos.engine.hdb.domain.HDBTableConstraintCheck;
-import com.codbex.kronos.engine.hdb.domain.HDBTableConstraintForeignKey;
-import com.codbex.kronos.engine.hdb.domain.HDBTableConstraintUnique;
-import com.codbex.kronos.engine.hdb.domain.HDBTableIndex;
-import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
-import com.codbex.kronos.engine.hdb.processors.HDBTableAlterProcessor;
-import com.codbex.kronos.engine.hdb.processors.HDBTableCreateProcessor;
-import com.codbex.kronos.engine.hdb.processors.HDBTableDropProcessor;
-import com.codbex.kronos.engine.hdb.service.HDBTableService;
-import com.codbex.kronos.exceptions.ArtifactParserException;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class HDBTablesSynchronizer.
  */

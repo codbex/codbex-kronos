@@ -13,7 +13,6 @@ package com.codbex.kronos.xsodata.ds.synchronizer;
 import org.eclipse.dirigible.components.base.publisher.PublisherHandler;
 import org.springframework.stereotype.Component;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ODataSynchronizerPublisherHandler.
  */

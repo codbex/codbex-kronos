@@ -18,7 +18,6 @@ import java.util.TreeSet;
 import org.eclipse.dirigible.components.api.platform.RegistryFacade;
 import org.eclipse.dirigible.repository.api.RepositoryPath;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class WriteContainerContentProcessor.
  */
@@ -38,9 +37,7 @@ public class WriteContainerContentProcessor extends HDIAbstractProcessor {
             String[] segments = path.getSegments();
             for (int i = 0; i < segments.length - 1; i++) {
                 current += segments[i] + "/";
-                if (!folders.contains(current)) {
-                    folders.add(current);
-                }
+                folders.add(current);
             }
         }
         return folders.toArray(new String[] {});

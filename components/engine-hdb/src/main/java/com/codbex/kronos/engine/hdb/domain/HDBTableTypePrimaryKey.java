@@ -10,10 +10,6 @@
  */
 package com.codbex.kronos.engine.hdb.domain;
 
-import java.util.Arrays;
-import org.eclipse.dirigible.components.base.converters.ArrayOfStringsToCsvConverter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
 import jakarta.annotation.Nullable;
@@ -27,8 +23,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.util.Arrays;
+import org.eclipse.dirigible.components.base.converters.ArrayOfStringsToCsvConverter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class HDBTableTypePrimaryKey.
  */
@@ -36,19 +35,25 @@ import jakarta.persistence.Table;
 @Table(name = "KRONOS_TABLETYPE_PRIMARYKEYS")
 public class HDBTableTypePrimaryKey {
 
-    /** The id. */
+    /**
+     * The id.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PRIMARYKEY_ID", nullable = false)
     private Long id;
 
-    /** The name. */
+    /**
+     * The name.
+     */
     @Column(name = "PRIMARYKEY_NAME", columnDefinition = "VARCHAR", nullable = true, length = 255)
     @Nullable
     @Expose
     protected String name;
 
-    /** The modifiers. */
+    /**
+     * The modifiers.
+     */
     @Column(name = "PRIMARYKEY_MODIFIERS", columnDefinition = "VARCHAR", nullable = true, length = 2000)
     @Nullable
     // @ElementCollection
@@ -57,7 +62,9 @@ public class HDBTableTypePrimaryKey {
     @Expose
     protected String[] modifiers;
 
-    /** The columns. */
+    /**
+     * The columns.
+     */
     @Column(name = "PRIMARYKEY_COLUMNS", columnDefinition = "VARCHAR", nullable = true, length = 2000)
     @Nullable
     // @ElementCollection
@@ -66,7 +73,9 @@ public class HDBTableTypePrimaryKey {
     @Expose
     protected String[] columns;
 
-    /** The constraints. */
+    /**
+     * The constraints.
+     */
     @OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "TABLETYPE_ID", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)

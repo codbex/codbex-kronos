@@ -10,6 +10,9 @@
  */
 package com.codbex.kronos.engine.xssecurity.synchronizer;
 
+import com.codbex.kronos.engine.xssecurity.domain.XSAccess;
+import com.codbex.kronos.engine.xssecurity.parser.XSAccessParser;
+import com.codbex.kronos.engine.xssecurity.service.XSAccessService;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -28,11 +31,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import com.codbex.kronos.engine.xssecurity.domain.XSAccess;
-import com.codbex.kronos.engine.xssecurity.parser.XSAccessParser;
-import com.codbex.kronos.engine.xssecurity.service.XSAccessService;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class AccessSynchronizer.
  */

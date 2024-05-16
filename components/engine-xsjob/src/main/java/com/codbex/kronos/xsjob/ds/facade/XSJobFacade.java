@@ -10,6 +10,11 @@
  */
 package com.codbex.kronos.xsjob.ds.facade;
 
+import com.codbex.kronos.engine.xsjob.domain.XSJob;
+import com.codbex.kronos.engine.xsjob.service.XSJobService;
+import com.codbex.kronos.xsjob.ds.model.JobArtifact;
+import com.codbex.kronos.xsjob.ds.scheduler.SchedulerManager;
+import com.codbex.kronos.xsjob.ds.transformer.JobToKronosJobDefinitionTransformer;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -18,24 +23,22 @@ import org.quartz.SchedulerException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.codbex.kronos.engine.xsjob.domain.XSJob;
-import com.codbex.kronos.engine.xsjob.service.XSJobService;
-import com.codbex.kronos.xsjob.ds.model.JobArtifact;
-import com.codbex.kronos.xsjob.ds.scheduler.SchedulerManager;
-import com.codbex.kronos.xsjob.ds.transformer.JobToKronosJobDefinitionTransformer;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class JobFacade.
  */
 @Component
 public class XSJobFacade implements InitializingBean {
 
-    /** The job service. */
+    /**
+     * The job service.
+     */
     @Autowired
     private XSJobService jobService;
 
-    /** The instance. */
+    /**
+     * The instance.
+     */
     private static XSJobFacade INSTANCE;
 
     /**

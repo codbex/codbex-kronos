@@ -10,6 +10,23 @@
  */
 package com.codbex.kronos.engine.hdb.synchronizer;
 
+import com.codbex.kronos.engine.hdb.domain.HDBDD;
+import com.codbex.kronos.engine.hdb.domain.HDBTable;
+import com.codbex.kronos.engine.hdb.domain.HDBTableConstraints;
+import com.codbex.kronos.engine.hdb.domain.HDBTableType;
+import com.codbex.kronos.engine.hdb.domain.HDBTableTypePrimaryKey;
+import com.codbex.kronos.engine.hdb.domain.HDBView;
+import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
+import com.codbex.kronos.engine.hdb.parser.HDBUtils;
+import com.codbex.kronos.engine.hdb.processors.HDBTableAlterProcessor;
+import com.codbex.kronos.engine.hdb.processors.HDBTableCreateProcessor;
+import com.codbex.kronos.engine.hdb.processors.HDBTableTypeCreateProcessor;
+import com.codbex.kronos.engine.hdb.processors.HDBViewCreateProcessor;
+import com.codbex.kronos.engine.hdb.processors.HDBViewDropProcessor;
+import com.codbex.kronos.engine.hdb.service.HDBDDService;
+import com.codbex.kronos.engine.hdb.service.HDBTableService;
+import com.codbex.kronos.engine.hdb.service.HDBTableTypeService;
+import com.codbex.kronos.engine.hdb.service.HDBViewService;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.sql.Connection;
@@ -30,25 +47,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import com.codbex.kronos.engine.hdb.domain.HDBDD;
-import com.codbex.kronos.engine.hdb.domain.HDBTable;
-import com.codbex.kronos.engine.hdb.domain.HDBTableConstraints;
-import com.codbex.kronos.engine.hdb.domain.HDBTableType;
-import com.codbex.kronos.engine.hdb.domain.HDBTableTypePrimaryKey;
-import com.codbex.kronos.engine.hdb.domain.HDBView;
-import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
-import com.codbex.kronos.engine.hdb.parser.HDBUtils;
-import com.codbex.kronos.engine.hdb.processors.HDBTableAlterProcessor;
-import com.codbex.kronos.engine.hdb.processors.HDBTableCreateProcessor;
-import com.codbex.kronos.engine.hdb.processors.HDBTableTypeCreateProcessor;
-import com.codbex.kronos.engine.hdb.processors.HDBViewCreateProcessor;
-import com.codbex.kronos.engine.hdb.processors.HDBViewDropProcessor;
-import com.codbex.kronos.engine.hdb.service.HDBDDService;
-import com.codbex.kronos.engine.hdb.service.HDBTableService;
-import com.codbex.kronos.engine.hdb.service.HDBTableTypeService;
-import com.codbex.kronos.engine.hdb.service.HDBViewService;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class HDBDDSynchronizer.
  */

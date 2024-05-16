@@ -10,6 +10,13 @@
  */
 package com.codbex.kronos.engine.hdi.synchronizer;
 
+import com.codbex.kronos.engine.hdb.api.DataStructuresException;
+import com.codbex.kronos.engine.hdb.parser.HDBParameters;
+import com.codbex.kronos.engine.hdi.domain.HDI;
+import com.codbex.kronos.engine.hdi.parser.HDIParser;
+import com.codbex.kronos.engine.hdi.processors.HDIContainerCreateProcessor;
+import com.codbex.kronos.engine.hdi.processors.HDIContainerDropProcessor;
+import com.codbex.kronos.engine.hdi.service.HDIService;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.sql.Connection;
@@ -29,15 +36,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import com.codbex.kronos.engine.hdb.api.DataStructuresException;
-import com.codbex.kronos.engine.hdb.parser.HDBParameters;
-import com.codbex.kronos.engine.hdi.domain.HDI;
-import com.codbex.kronos.engine.hdi.parser.HDIParser;
-import com.codbex.kronos.engine.hdi.processors.HDIContainerCreateProcessor;
-import com.codbex.kronos.engine.hdi.processors.HDIContainerDropProcessor;
-import com.codbex.kronos.engine.hdi.service.HDIService;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class HDISynchronizer.
  */

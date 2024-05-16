@@ -10,12 +10,6 @@
  */
 package com.codbex.kronos.engine.hdb.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
 import jakarta.annotation.Nullable;
@@ -31,8 +25,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Table.
  */
@@ -40,55 +39,75 @@ import jakarta.persistence.Table;
 @Table(name = "KRONOS_TABLES")
 public class HDBTable extends HDBDataStructure {
 
-    /** The Constant ARTEFACT_TYPE. */
+    /**
+     * The Constant ARTEFACT_TYPE.
+     */
     public static final String ARTEFACT_TYPE = "hdbtable";
 
-    /** The id. */
+    /**
+     * The id.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "HDBTABLE_ID", nullable = false)
     private Long id;
 
-    /** The kind. */
+    /**
+     * The kind.
+     */
     @Column(name = "HDBTABLE_TYPE", columnDefinition = "VARCHAR", nullable = true, length = 255)
     @Expose
     protected String tableType;
 
-    /** The columns. */
+    /**
+     * The columns.
+     */
     @OneToMany(mappedBy = "table", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     @Expose
     private List<HDBTableColumn> columns = new ArrayList<HDBTableColumn>();
 
-    /** The indexes. */
+    /**
+     * The indexes.
+     */
     @OneToMany(mappedBy = "table", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     @Nullable
     @Expose
     private List<HDBTableIndex> indexes = new ArrayList<HDBTableIndex>();
 
-    /** The constraints. */
+    /**
+     * The constraints.
+     */
     @OneToOne(mappedBy = "table", fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = true, orphanRemoval = true)
     @Nullable
     @Expose
     private HDBTableConstraints constraints;
 
-    /** The public prop. */
+    /**
+     * The public prop.
+     */
     @Column(name = "HDBTABLE_IS_PUBLIC", columnDefinition = "BOOLEAN", nullable = true)
     @Expose
     private Boolean isPublic;
 
-    /** The logging type. */
+    /**
+     * The logging type.
+     */
     @Column(name = "HDBTABLE_LOGGING_TYPE", columnDefinition = "VARCHAR", nullable = true, length = 255)
     @Expose
     private String loggingType;
 
-    /** The temporary. */
+    /**
+     * The temporary.
+     */
     @Column(name = "HDBTABLE_IS_TEMPORARY", columnDefinition = "BOOLEAN", nullable = true)
     @Expose
     private Boolean isTemporary;
 
-    /** The schema reference. */
+    /**
+     * The schema reference.
+     */
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "HDBDD_ID", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)

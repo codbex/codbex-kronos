@@ -10,15 +10,14 @@
  */
 package com.codbex.kronos.engine.hdi.parser;
 
-import java.io.File;
 import com.codbex.kronos.engine.hdb.api.IDataStructureModel;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureParser;
 import com.codbex.kronos.engine.hdb.parser.HDBParameters;
 import com.codbex.kronos.engine.hdi.domain.HDI;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.io.File;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class HDIParser.
  */

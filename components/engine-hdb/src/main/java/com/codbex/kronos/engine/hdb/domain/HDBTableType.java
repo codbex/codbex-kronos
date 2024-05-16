@@ -10,12 +10,6 @@
  */
 package com.codbex.kronos.engine.hdb.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
 import jakarta.annotation.Nullable;
@@ -30,8 +24,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import java.util.ArrayList;
+import java.util.List;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class View.
  */
@@ -39,28 +38,38 @@ import jakarta.persistence.OneToOne;
 @jakarta.persistence.Table(name = "KRONOS_TABLETYPES")
 public class HDBTableType extends HDBDataStructure {
 
-    /** The Constant ARTEFACT_TYPE. */
+    /**
+     * The Constant ARTEFACT_TYPE.
+     */
     public static final String ARTEFACT_TYPE = "hdbtabletype";
 
-    /** The id. */
+    /**
+     * The id.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TABLETYPE_ID", nullable = false)
     private Long id;
 
-    /** The columns. */
+    /**
+     * The columns.
+     */
     @OneToMany(mappedBy = "tableType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     @Expose
     private List<HDBTableTypeColumn> columns = new ArrayList<HDBTableTypeColumn>();
 
-    /** The primary key. */
+    /**
+     * The primary key.
+     */
     @OneToOne(mappedBy = "tableType", fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = true)
     @Nullable
     @Expose
     private HDBTableTypePrimaryKey primaryKey;
 
-    /** The schema reference. */
+    /**
+     * The schema reference.
+     */
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "HDBDD_ID", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)

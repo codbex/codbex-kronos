@@ -15,17 +15,7 @@ import static com.codbex.kronos.utils.CommonsConstants.MODULE_PARSERS;
 import static com.codbex.kronos.utils.CommonsConstants.PARSER_ERROR;
 import static com.codbex.kronos.utils.CommonsConstants.PROGRAM_KRONOS;
 import static com.codbex.kronos.utils.CommonsConstants.SOURCE_PUBLISH_REQUEST;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.eclipse.dirigible.commons.config.Configuration;
-import org.eclipse.dirigible.components.api.security.UserFacade;
+
 import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdb.api.IDataStructureModel;
 import com.codbex.kronos.engine.hdb.domain.HDBDataStructure;
@@ -39,17 +29,31 @@ import com.codbex.kronos.parser.hana.core.HanaLexer;
 import com.codbex.kronos.parser.hana.core.HanaParser;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.eclipse.dirigible.commons.config.Configuration;
+import org.eclipse.dirigible.components.api.security.UserFacade;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class HDBUtils.
  */
 public class HDBUtils {
 
-    /** The Constant commentRegex. */
+    /**
+     * The Constant commentRegex.
+     */
     private static final String commentRegex = "(/\\*[^*]*\\*+(?:[^/*][^*]*\\*+)*/)|(--.*)";
 
-    /** The Constant ESCAPE_SYMBOL. */
+    /**
+     * The Constant ESCAPE_SYMBOL.
+     */
     private static final String ESCAPE_SYMBOL = "\"";
 
     /**

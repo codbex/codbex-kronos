@@ -39,7 +39,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class HDBSchemasSynchronizer.
  */

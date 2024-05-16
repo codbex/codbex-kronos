@@ -10,6 +10,13 @@
  */
 package com.codbex.kronos.engine.hdb.synchronizer;
 
+import com.codbex.kronos.engine.hdb.api.DataStructuresException;
+import com.codbex.kronos.engine.hdb.domain.HDBView;
+import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
+import com.codbex.kronos.engine.hdb.processors.HDBViewCreateProcessor;
+import com.codbex.kronos.engine.hdb.processors.HDBViewDropProcessor;
+import com.codbex.kronos.engine.hdb.service.HDBViewService;
+import com.codbex.kronos.exceptions.ArtifactParserException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -31,15 +38,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import com.codbex.kronos.engine.hdb.api.DataStructuresException;
-import com.codbex.kronos.engine.hdb.domain.HDBView;
-import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
-import com.codbex.kronos.engine.hdb.processors.HDBViewCreateProcessor;
-import com.codbex.kronos.engine.hdb.processors.HDBViewDropProcessor;
-import com.codbex.kronos.engine.hdb.service.HDBViewService;
-import com.codbex.kronos.exceptions.ArtifactParserException;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class HDBViewsSynchronizer.
  */
