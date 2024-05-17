@@ -39,7 +39,7 @@
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <dirigible.version>10.4.1</dirigible.version>
+    <dirigible.version>10.5.0</dirigible.version>
 
     <java.version>17</java.version>
     <maven.compiler.source>17</maven.compiler.source>
