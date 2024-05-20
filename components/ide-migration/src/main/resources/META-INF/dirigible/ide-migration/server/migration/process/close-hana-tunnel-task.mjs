@@ -1,4 +1,4 @@
-import { process } from "@dirigible/bpm";
+import { process } from "sdk/bpm";
 import { NeoTunnelService } from "../api/neo-tunnel-service.mjs";
 import { MigrationTask } from "./task.mjs";
 

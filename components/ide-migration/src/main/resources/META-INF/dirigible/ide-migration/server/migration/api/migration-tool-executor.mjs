@@ -1,4 +1,4 @@
-import { exec, configurations as config } from "@dirigible/core";
+import { exec, configurations as config } from "sdk/core";
 
 const DIRIGIBLE_EXEC_COMMAND_LOGGING_ENABLED = "DIRIGIBLE_EXEC_COMMAND_LOGGING_ENABLED";
 

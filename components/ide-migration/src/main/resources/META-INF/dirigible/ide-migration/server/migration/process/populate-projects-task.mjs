@@ -1,9 +1,9 @@
-import { process } from "@dirigible/bpm";
+import { process } from "sdk/bpm";
 import { MigrationService } from "../api/migration-service.mjs";
 import { MigrationTask } from "./task.mjs";
-import { configurations as config } from "@dirigible/core";
+import { configurations as config } from "sdk/core";
 import { DiffToolService } from "../api/diff-tool-executor.mjs";
-import { repository } from "@dirigible/platform";
+import { repository } from "sdk/platform";
 
 export class PopulateProjectsTask extends MigrationTask {
     execution = process.getExecutionContext();

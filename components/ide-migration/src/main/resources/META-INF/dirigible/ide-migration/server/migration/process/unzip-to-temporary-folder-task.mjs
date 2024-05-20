@@ -9,8 +9,8 @@
  * SPDX-FileCopyrightText: 2022 SAP SE or an SAP affiliate company and XSK contributors
  * SPDX-License-Identifier: Apache-2.0
  */
-import { process } from "@dirigible/bpm"
-import { repository as repositoryManager } from "@dirigible/platform"
+import { process } from "sdk/bpm"
+import { repository as repositoryManager } from "sdk/platform"
 import { MigrationTask } from "./task.mjs";
 import { MigrationService } from "../api/migration-service.mjs";
 

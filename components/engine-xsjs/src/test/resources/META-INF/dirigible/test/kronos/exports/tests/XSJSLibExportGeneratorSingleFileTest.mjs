@@ -2,8 +2,8 @@ import { assertEquals } from '../utils/utils.mjs'
 import { getParams } from '../utils/stateTableParamsProvider.mjs'
 import { fetchAllEntriesInTable } from '../utils/utils.mjs'
 import { XSJSLibExportsGenerator } from './XSJSLibExportsGenerator.mjs'
-import { repository } from '@dirigible/platform'
-import { digest } from '@dirigible/utils'
+import { repository } from 'sdk/platform'
+import { digest } from 'sdk/utils'
 const XSJSLibSynchronizerRegistryEntity = Java.type("com.codbex.kronos.synchronizer.XSJSLibSynchronizerRegistryEntity");
 
 function testSingleFileExportGeneration() {

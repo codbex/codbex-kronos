@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2022 SAP SE or an SAP affiliate company and XSK contributors
  * SPDX-License-Identifier: Apache-2.0
  */
-import { configurations as config } from "@dirigible/core";
+import { configurations as config } from "sdk/core";
 import { MigrationToolExecutor } from "./migration-tool-executor";
 
 const neoClientPath = config.get("user.dir") + "/target/dirigible/resources-neo-sdk/sdk/tools/neo.sh";

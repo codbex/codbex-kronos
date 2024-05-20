@@ -1,8 +1,8 @@
 import { assertEquals } from '../utils/utils.mjs'
 import { getParams } from '../utils/stateTableParamsProvider.mjs'
 import { XSJSLibExportsGenerator } from './XSJSLibExportsGenerator.mjs'
-import { digest } from '@dirigible/utils'
-import { repository } from '@dirigible/platform'
+import { digest } from 'sdk/utils'
+import { repository } from 'sdk/platform'
 
 function isContentChangedTest() {
   const stateTableParams = getParams();
