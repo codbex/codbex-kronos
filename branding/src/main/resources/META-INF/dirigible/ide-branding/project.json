@@ -4,5 +4,21 @@
 		"type": "git",
 		"branch": "main",
 		"url": "https://github.com/codbex/codbex-kronos.git"
-	}
+	},
+    "actions": [
+        {
+            "name": "Build TypeScript",
+            "commands": [
+                {
+                    "os": "unix",
+                    "command": "tsc"
+                },
+                {
+                    "os": "windows",
+                    "command": "cmd /c tsc"
+                }
+            ],
+            "registry": "true"
+        }
+    ]
 }
