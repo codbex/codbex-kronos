@@ -1,7 +1,7 @@
 import { XSJSLibCompiler } from './XSJSLibCompiler.mjs'
-import { digest } from '@dirigible/utils'
-import { repository } from '@dirigible/platform'
-import { bytes } from '@dirigible/io'
+import { digest } from 'sdk/utils'
+import { repository } from 'sdk/platform'
+import { bytes } from 'sdk/io'
 
 const ProblemsFacade = Java.type('org.eclipse.dirigible.components.api.platform.ProblemsFacade');
 

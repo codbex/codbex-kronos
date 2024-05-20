@@ -1,4 +1,4 @@
-import { bytes as bytesUtils } from "@dirigible/io";
+import { bytes as bytesUtils } from "sdk/io";
 import { RepositoryResponse } from "./repository-response";
 import { RepositoryObject } from "./repository-object";
 import { RepositoryPackage } from "./repository-package";

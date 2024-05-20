@@ -1,5 +1,5 @@
-import { process } from "@dirigible/bpm";
-import { workspace as workspaceManager } from "@dirigible/platform";
+import { process } from "sdk/bpm";
+import { workspace as workspaceManager } from "sdk/platform";
 import { MigrationTask } from "./task.mjs";
 
 export class ListWorkspacesTask extends MigrationTask {

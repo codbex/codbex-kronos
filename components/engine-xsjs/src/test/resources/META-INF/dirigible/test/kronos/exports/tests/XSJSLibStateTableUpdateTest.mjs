@@ -2,7 +2,7 @@ import { assertEquals } from '../utils/utils.mjs'
 import { getParams } from '../utils/stateTableParamsProvider.mjs'
 import { fetchAllEntriesInTable } from '../utils/utils.mjs'
 import { XSJSLibStateTable } from './XSJSLibStateTable.mjs'
-import { digest } from '@dirigible/utils'
+import { digest } from 'sdk/utils'
 
 function updateTableTest() {
   // create new state table

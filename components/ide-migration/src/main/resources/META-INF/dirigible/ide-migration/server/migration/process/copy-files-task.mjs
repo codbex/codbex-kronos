@@ -1,4 +1,4 @@
-import { process } from "@dirigible/bpm";
+import { process } from "sdk/bpm";
 import { MigrationService } from "../api/migration-service.mjs";
 import { MigrationTask } from "./task.mjs";
 

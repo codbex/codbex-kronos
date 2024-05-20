@@ -91,7 +91,7 @@ export class HanaVisitor {
 
 //usage:
 
-// import { workspace as workspaceManager } from "@dirigible/platform";
+// import { workspace as workspaceManager } from "sdk/platform";
 // var workspace = workspaceManager.getWorkspace('workspace');
 // let project = workspace.getProject('parser');
 // let file = project.getFile('func.hdbtablefunction');

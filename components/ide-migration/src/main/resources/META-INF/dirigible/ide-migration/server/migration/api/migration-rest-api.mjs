@@ -1,10 +1,10 @@
-import { tasks as tasksService, process as processService } from "@dirigible/bpm";
-import { client as httpClient, rs } from "@dirigible/http";
-import { database } from "@dirigible/db";
-import { url } from "@dirigible/utils";
+import { tasks as tasksService, process as processService } from "sdk/bpm";
+import { client as httpClient, rs } from "sdk/http";
+import { database } from "sdk/db";
+import { url } from "sdk/utils";
 import { NeoDatabasesService } from "./neo-databases-service.mjs"
 import { TrackService } from "./track-service.mjs";
-import { repository } from "@dirigible/platform";
+import { repository } from "sdk/platform";
 
 
 rs.service()

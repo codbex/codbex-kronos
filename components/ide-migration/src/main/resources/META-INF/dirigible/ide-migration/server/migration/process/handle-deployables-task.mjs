@@ -9,10 +9,10 @@
  * SPDX-FileCopyrightText: 2021 SAP SE or an SAP affiliate company and XSK contributors
  * SPDX-License-Identifier: Apache-2.0
  */
-import { process } from "@dirigible/bpm";
+import { process } from "sdk/bpm";
 import { MigrationService } from "../api/migration-service.mjs";
 import { MigrationTask } from "./task.mjs";
-import { repository } from "@dirigible/platform";
+import { repository } from "sdk/platform";
 
 export class HandleDeployablesTask extends MigrationTask {
     execution = process.getExecutionContext();

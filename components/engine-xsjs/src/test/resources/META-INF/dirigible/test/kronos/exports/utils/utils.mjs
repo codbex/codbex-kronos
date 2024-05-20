@@ -1,4 +1,4 @@
-import { query } from '@dirigible/db'
+import { query } from 'sdk/db'
 
 var assert = require('test/assert');
 

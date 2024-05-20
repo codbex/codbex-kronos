@@ -1,4 +1,4 @@
-import { process } from "@dirigible/bpm";
+import { process } from "sdk/bpm";
 import { NeoDatabasesService } from "../api/neo-databases-service.mjs";
 import { MigrationTask } from "./task.mjs";
 

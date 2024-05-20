@@ -1,4 +1,4 @@
-import { process } from "@dirigible/bpm";
+import { process } from "sdk/bpm";
 import { TrackService } from "../api/track-service.mjs";
 
 export class MigrationTask {
