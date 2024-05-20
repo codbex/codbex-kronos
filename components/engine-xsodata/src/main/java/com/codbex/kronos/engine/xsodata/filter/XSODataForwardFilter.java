@@ -11,8 +11,6 @@
  */
 package com.codbex.kronos.engine.xsodata.filter;
 
-import java.io.IOException;
-
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -21,7 +19,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
-
+import java.io.IOException;
 import org.springframework.stereotype.Component;
 
 /**
@@ -30,52 +28,53 @@ import org.springframework.stereotype.Component;
 @Component
 public class XSODataForwardFilter implements Filter {
 
-    /**
-     * Inits the.
-     *
-     * @param filterConfig the filter config
-     * @throws ServletException the servlet exception
-     */
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        //
-    }
+  /**
+   * Inits the.
+   *
+   * @param filterConfig the filter config
+   * @throws ServletException the servlet exception
+   */
+  @Override
+  public void init(FilterConfig filterConfig) throws ServletException {
+    //
+  }
 
-    /**
-     * Do filter.
-     *
-     * @param request the request
-     * @param response the response
-     * @param chain the chain
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ServletException the servlet exception
-     */
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-        throws IOException, ServletException {
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        //only on production case
-        if (httpServletRequest.getHeader("Dirigible-Editor") == null) {
-            String uri = httpServletRequest.getRequestURI();
-            int index = uri.indexOf(".xsodata");
-            if (index > 0) {
-                String parameters = "";
-                if (uri.length() > index + (".xsodata".length() - 1)) {
-                    parameters = uri.substring(index + ".xsodata".length());
-                }
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/odata/v2/" + parameters);
-                dispatcher.forward(request, response);
-            }
+  /**
+   * Do filter.
+   *
+   * @param request the request
+   * @param response the response
+   * @param chain the chain
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws ServletException the servlet exception
+   */
+  @Override
+  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+      throws IOException, ServletException {
+    HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+    //only on production case
+    if (httpServletRequest.getHeader("Dirigible-Editor") == null) {
+      String uri = httpServletRequest.getRequestURI();
+      int index = uri.indexOf(".xsodata");
+      if (index > 0) {
+        String parameters = "";
+        if (uri.length() > index + (".xsodata".length() - 1)) {
+          parameters = uri.substring(index + ".xsodata".length());
         }
-        chain.doFilter(request, response);
+        String path = "/odata/v2" + parameters;
+        RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+        dispatcher.forward(request, response);
+      }
     }
+    chain.doFilter(request, response);
+  }
 
-    /**
-     * Destroy.
-     */
-    @Override
-    public void destroy() {
-        //
-    }
+  /**
+   * Destroy.
+   */
+  @Override
+  public void destroy() {
+    //
+  }
 
 }
