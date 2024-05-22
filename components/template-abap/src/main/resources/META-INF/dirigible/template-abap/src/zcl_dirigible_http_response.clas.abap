@@ -7,7 +7,7 @@ ENDCLASS.
 
 CLASS zcl_dirigible_http_response IMPLEMENTATION.
   METHOD println.
-    WRITE '@KERNEL const http = await import("@dirigible/http");'.
+    WRITE '@KERNEL const http = await import("sdk/http");'.
     WRITE '@KERNEL http.response.println(message_in.get());'.
   ENDMETHOD.
 

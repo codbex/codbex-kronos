@@ -1,4 +1,4 @@
-declare module "@dirigible/db" {
+declare module "sdk/db" {
     module database {
         /**
          * Returns the list of the available databases in this instance

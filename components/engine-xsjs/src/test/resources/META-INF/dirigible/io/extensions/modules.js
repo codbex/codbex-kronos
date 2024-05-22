@@ -12,7 +12,7 @@
 exports.getContent = function() {
 	return [
 		{
-			"name": "@dirigible/io",
+			"name": "sdk/io",
 			"description": "Dirigible IO module",
 			"isPackageDescription": true,
 			"dtsPath": "io/extensions/io.d.ts"
