@@ -22,6 +22,8 @@ exports.DEL = 5;
 exports.TRACE = 6;
 exports.CONNECT = 7;
 exports.PATCH = 8;
+exports.DELETE = 9;
+exports.DEL = exports.DELETE;
 
 exports.CONTINUE = 100;
 exports.SWITCH_PROTOCOL = 101;
