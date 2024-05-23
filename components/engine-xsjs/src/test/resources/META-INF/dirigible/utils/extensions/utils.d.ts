@@ -2,7 +2,7 @@
 class byte {
 }
 
-declare module "@dirigible/utils" {
+declare module "sdk/utils" {
 
     module base64 {
         /**

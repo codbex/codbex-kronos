@@ -12,7 +12,7 @@
 exports.getContent = function() {
 	return [
 		{
-			"name": "@dirigible/http",
+			"name": "sdk/http",
 			"description": "Dirigible HTTP module",
 			"isPackageDescription": true,
 			"dtsPath": "http/extensions/http.d.ts"

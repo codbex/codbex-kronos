@@ -2,7 +2,7 @@
 class byte {
 }
 
-declare module "@dirigible/io" {
+declare module "sdk/io" {
     module bytes {
         /**
          * Convert the native JavaScript byte array to Java one, to be used internally by the API layer

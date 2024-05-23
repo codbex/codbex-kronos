@@ -1,4 +1,4 @@
-declare module "@dirigible/http" {
+declare module "sdk/http" {
 
     module clientAsync {
         /**

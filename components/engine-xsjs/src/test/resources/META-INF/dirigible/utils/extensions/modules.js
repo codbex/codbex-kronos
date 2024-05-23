@@ -12,7 +12,7 @@
 exports.getContent = function() {
 	return [
 		{
-			"name": "@dirigible/utils",
+			"name": "sdk/utils",
 			"description": "Dirigible Utils module",
 			"isPackageDescription": true,
 			"dtsPath": "utils/extensions/utils.d.ts"

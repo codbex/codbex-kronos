@@ -12,7 +12,7 @@
 exports.getContent = function () {
     return [
 	  {
-		"name": "@dirigible/db",
+		"name": "sdk/db",
 	    "description": "Dirigible DB module",
 	    "isPackageDescription": true,
 	    "dtsPath": "db/extensions/db.d.ts"
