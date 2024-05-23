@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2022-2023 codbex or an codbex affiliate company and contributors
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
+ * All rights reserved. This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v2.0 which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
@@ -18,13 +17,13 @@ import java.util.Optional;
  * The Enum HDBXSODataStorageType.
  */
 public enum XSODataStorageType {
-    
+
     /** The no storage. */
     NO_STORAGE("nostorage"),
-    
+
     /** The storage on principal. */
     STORAGE_ON_PRINCIPAL("storageonprincipal"),
-    
+
     /** The storage on dependent. */
     STORAGE_ON_DEPENDENT("storageondependent");
 
@@ -57,8 +56,8 @@ public enum XSODataStorageType {
      */
     public static Optional<XSODataStorageType> fromValue(String text) {
         return Arrays.stream(values())
-                .filter(bl -> bl.text.equalsIgnoreCase(text))
-                .findFirst();
+                     .filter(bl -> bl.text.equalsIgnoreCase(text))
+                     .findFirst();
     }
 
     /**

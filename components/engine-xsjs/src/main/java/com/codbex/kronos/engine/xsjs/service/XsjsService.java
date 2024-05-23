@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2022-2023 codbex or an codbex affiliate company and contributors
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
+ * All rights reserved. This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v2.0 which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
@@ -28,34 +27,34 @@ import com.codbex.kronos.engine.KronosSourceProvider;
  */
 @Service
 public class XsjsService implements InitializingBean {
-	
-	/** The Constant logger. */
+
+    /** The Constant logger. */
     private static final Logger logger = LoggerFactory.getLogger(XsjsService.class);
 
     /** The dirigible source provider. */
     private KronosSourceProvider sourceProvider;
-    
+
     /** The instance. */
     private static XsjsService INSTANCE;
-    
-	/** The repository. */
-	private final IRepository repository;
-	
-	/** The handler. */
+
+    /** The repository. */
+    private final IRepository repository;
+
+    /** The handler. */
     private XsjsHandler handler;
-	
-	/**
-	 * Instantiates a new xsjs service.
-	 *
-	 * @param repository the repository
-	 */
-	@Autowired
-	public XsjsService(IRepository repository) {
-		this.repository = repository;
-		this.sourceProvider = new KronosSourceProvider();
-    	this.handler = new XsjsHandler(getRepository(), this.sourceProvider);
-	}
-    
+
+    /**
+     * Instantiates a new xsjs service.
+     *
+     * @param repository the repository
+     */
+    @Autowired
+    public XsjsService(IRepository repository) {
+        this.repository = repository;
+        this.sourceProvider = new KronosSourceProvider();
+        this.handler = new XsjsHandler(getRepository(), this.sourceProvider);
+    }
+
     /**
      * After properties set.
      *
@@ -74,40 +73,41 @@ public class XsjsService implements InitializingBean {
     public static XsjsService get() {
         return INSTANCE;
     }
-    
-    /**
-	 * Gets the repository.
-	 *
-	 * @return the repository
-	 */
-    public IRepository getRepository() {
-		return repository;
-	}
-    
-	/**
-	 * Gets the source provider.
-	 *
-	 * @return the source provider
-	 */
-	public JavascriptSourceProvider getSourceProvider() {
-		return sourceProvider;
-	}
 
-	/**
-	 * Handle request.
-	 *
-	 * @param projectName the project name
-	 * @param projectFilePath the project file path
-	 * @param projectFilePathParam the project file path param
-	 * @param parameters the parameters
-	 * @param debug the debug
-	 * @return the object
-	 */
-	public Object handleRequest(String projectName, String projectFilePath, String projectFilePathParam, Map<Object, Object> parameters, boolean debug) {
-		return handler.handleRequest(projectName, projectFilePath, projectFilePathParam, parameters, debug);
-	}
-	
-	/**
+    /**
+     * Gets the repository.
+     *
+     * @return the repository
+     */
+    public IRepository getRepository() {
+        return repository;
+    }
+
+    /**
+     * Gets the source provider.
+     *
+     * @return the source provider
+     */
+    public JavascriptSourceProvider getSourceProvider() {
+        return sourceProvider;
+    }
+
+    /**
+     * Handle request.
+     *
+     * @param projectName the project name
+     * @param projectFilePath the project file path
+     * @param projectFilePathParam the project file path param
+     * @param parameters the parameters
+     * @param debug the debug
+     * @return the object
+     */
+    public Object handleRequest(String projectName, String projectFilePath, String projectFilePathParam, Map<Object, Object> parameters,
+            boolean debug) {
+        return handler.handleRequest(projectName, projectFilePath, projectFilePathParam, parameters, debug);
+    }
+
+    /**
      * Handle callback.
      *
      * @param filePath the file path
@@ -115,7 +115,7 @@ public class XsjsService implements InitializingBean {
      * @return the object
      */
     public Object handleCallback(String filePath, Map<Object, Object> parameters) {
-    	return handler.handleCallback(filePath, parameters);
+        return handler.handleCallback(filePath, parameters);
     }
-    
+
 }

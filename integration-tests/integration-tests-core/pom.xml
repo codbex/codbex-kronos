@@ -6,7 +6,7 @@
   <parent>
     <groupId>com.codbex.kronos</groupId>
     <artifactId>codbex-kronos-integration-tests-parent</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
@@ -36,9 +36,5 @@
       <artifactId>httpasyncclient</artifactId>
     </dependency>
   </dependencies>
-
-  <properties>
-    <license.header.location>../../licensing-header.txt</license.header.location>
-  </properties>
 
 </project>

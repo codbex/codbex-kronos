@@ -14,27 +14,9 @@
   <artifactId>codbex-kronos-modules-parsers-hdbsequence</artifactId>
   <packaging>jar</packaging>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.antlr</groupId>
-        <artifactId>antlr4-maven-plugin</artifactId>
-        <version>${antlr4-maven-plugin.version}</version>
-        <configuration>
-          <visitor>true</visitor>
-          <outputDirectory>${basedir}/src/main/java</outputDirectory>
-        </configuration>
-        <executions>
-          <execution>
-            <id>antlr</id>
-            <goals>
-              <goal>antlr4</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+  <properties>
+    <sonar.exclusions>src/main/java/com/codbex/kronos/parser/xsodata/core/**/*</sonar.exclusions>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -59,10 +41,5 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
-  <properties>
-    <license.header.location>../../../licensing-header.txt</license.header.location>
-    <sonar.exclusions>src/main/java/com/codbex/kronos/parser/xsodata/core/**/*</sonar.exclusions>
-  </properties>
 
 </project>

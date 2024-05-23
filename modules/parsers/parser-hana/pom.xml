@@ -14,28 +14,6 @@
   <artifactId>codbex-kronos-modules-parsers-hana</artifactId>
   <packaging>jar</packaging>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.antlr</groupId>
-        <artifactId>antlr4-maven-plugin</artifactId>
-        <version>${antlr4-maven-plugin.version}</version>
-        <configuration>
-          <visitor>true</visitor>
-          <outputDirectory>${basedir}/src/main/java</outputDirectory>
-        </configuration>
-        <executions>
-          <execution>
-            <id>antlr</id>
-            <goals>
-              <goal>antlr4</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
-
   <dependencies>
     <dependency>
       <groupId>org.antlr</groupId>
@@ -55,10 +33,5 @@
       <artifactId>commons-lang3</artifactId>
     </dependency>
   </dependencies>
-
-  <properties>
-    <license.header.location>../../../licensing-header.txt</license.header.location>
-    <sonar.exclusions>src/main/java/com/codbex/kronos/parser/hana/core/**/*</sonar.exclusions>
-  </properties>
 
 </project>

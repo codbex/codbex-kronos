@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2022-2023 codbex or an codbex affiliate company and contributors
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
+ * All rights reserved. This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v2.0 which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
@@ -18,87 +17,87 @@ import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
  */
 public class JoinSymbol extends Symbol {
 
-  /** The join type. */
-  String joinType = null;
-  
-  /** The join artifact name. */
-  String joinArtifactName = null;
-  
-  /** The join table alias. */
-  String joinTableAlias = null;
-  
-  /** The join fields. */
-  String joinFields = null;
+    /** The join type. */
+    String joinType = null;
 
-  /**
-   * Gets the join type.
-   *
-   * @return the join type
-   */
-  public String getJoinType() {
-    return joinType;
-  }
+    /** The join artifact name. */
+    String joinArtifactName = null;
 
-  /**
-   * Sets the join type.
-   *
-   * @param joinType the new join type
-   */
-  public void setJoinType(String joinType) {
-    this.joinType = joinType;
-  }
+    /** The join table alias. */
+    String joinTableAlias = null;
 
-  /**
-   * Gets the join artifact name.
-   *
-   * @return the join artifact name
-   */
-  public String getJoinArtifactName() {
-    return joinArtifactName;
-  }
+    /** The join fields. */
+    String joinFields = null;
 
-  /**
-   * Sets the join artifact name.
-   *
-   * @param joinArtifactName the new join artifact name
-   */
-  public void setJoinArtifactName(String joinArtifactName) {
-    this.joinArtifactName = joinArtifactName;
-  }
+    /**
+     * Gets the join type.
+     *
+     * @return the join type
+     */
+    public String getJoinType() {
+        return joinType;
+    }
 
-  /**
-   * Gets the join table alias.
-   *
-   * @return the join table alias
-   */
-  public String getJoinTableAlias() {
-    return joinTableAlias;
-  }
+    /**
+     * Sets the join type.
+     *
+     * @param joinType the new join type
+     */
+    public void setJoinType(String joinType) {
+        this.joinType = joinType;
+    }
 
-  /**
-   * Sets the join table alias.
-   *
-   * @param joinTableAlias the new join table alias
-   */
-  public void setJoinTableAlias(String joinTableAlias) {
-    this.joinTableAlias = joinTableAlias;
-  }
+    /**
+     * Gets the join artifact name.
+     *
+     * @return the join artifact name
+     */
+    public String getJoinArtifactName() {
+        return joinArtifactName;
+    }
 
-  /**
-   * Gets the join fields.
-   *
-   * @return the join fields
-   */
-  public String getJoinFields() {
-    return joinFields;
-  }
+    /**
+     * Sets the join artifact name.
+     *
+     * @param joinArtifactName the new join artifact name
+     */
+    public void setJoinArtifactName(String joinArtifactName) {
+        this.joinArtifactName = joinArtifactName;
+    }
 
-  /**
-   * Sets the join fields.
-   *
-   * @param joinFields the new join fields
-   */
-  public void setJoinFields(String joinFields) {
-    this.joinFields = joinFields;
-  }
+    /**
+     * Gets the join table alias.
+     *
+     * @return the join table alias
+     */
+    public String getJoinTableAlias() {
+        return joinTableAlias;
+    }
+
+    /**
+     * Sets the join table alias.
+     *
+     * @param joinTableAlias the new join table alias
+     */
+    public void setJoinTableAlias(String joinTableAlias) {
+        this.joinTableAlias = joinTableAlias;
+    }
+
+    /**
+     * Gets the join fields.
+     *
+     * @return the join fields
+     */
+    public String getJoinFields() {
+        return joinFields;
+    }
+
+    /**
+     * Sets the join fields.
+     *
+     * @param joinFields the new join fields
+     */
+    public void setJoinFields(String joinFields) {
+        this.joinFields = joinFields;
+    }
 }

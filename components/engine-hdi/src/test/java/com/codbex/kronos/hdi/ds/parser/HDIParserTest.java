@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2022-2023 codbex or an codbex affiliate company and contributors
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
+ * All rights reserved. This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v2.0 which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
@@ -33,88 +32,79 @@ import com.google.gson.JsonSyntaxException;
  */
 public class HDIParserTest {
 
-  /**
-	 * Parses the valid content.
-	 *
-	 * @throws IOException             Signals that an I/O exception has occurred.
-	 * @throws DataStructuresException the data structures exception
-	 */
-  @Test
-  public void parseValidContent() throws IOException, DataStructuresException {
-    String location = "/ValidHDIContent.hdi";
-    String content = org.apache.commons.io.IOUtils
-        .toString(HDIParserTest.class.getResourceAsStream(location), StandardCharsets.UTF_8);
+    /**
+     * Parses the valid content.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws DataStructuresException the data structures exception
+     */
+    @Test
+    public void parseValidContent() throws IOException, DataStructuresException {
+        String location = "/ValidHDIContent.hdi";
+        String content = org.apache.commons.io.IOUtils.toString(HDIParserTest.class.getResourceAsStream(location), StandardCharsets.UTF_8);
 
-    HDBParameters parametersModel =
-        new HDBParameters(null, location, content, null);
-    HDI model = new HDIParser().parse(parametersModel);
-    assertEquals("/hdi-ext/config.hdiconfig", model.getConfiguration());
-    assertArrayEquals(new String[]{"DBADMIN"}, model.getUsers());
-    assertEquals("/hdi-ext/config.hdiconfig", model.getConfiguration());
-    assertEquals("KRONOS_HDI_EXT_GROUP", model.getGroup());
-    assertEquals("KRONOS_HDI_EXT", model.getContainer());
-    assertArrayEquals(new String[]{"/hdi-ext/Customers.hdbsynonym", "/hdi-ext/CustomersCalcView.hdbcalculationview"}, model.getDeploy());
-    assertTrue(model.getUndeploy().length == 0);
+        HDBParameters parametersModel = new HDBParameters(null, location, content, null);
+        HDI model = new HDIParser().parse(parametersModel);
+        assertEquals("/hdi-ext/config.hdiconfig", model.getConfiguration());
+        assertArrayEquals(new String[] {"DBADMIN"}, model.getUsers());
+        assertEquals("/hdi-ext/config.hdiconfig", model.getConfiguration());
+        assertEquals("KRONOS_HDI_EXT_GROUP", model.getGroup());
+        assertEquals("KRONOS_HDI_EXT", model.getContainer());
+        assertArrayEquals(new String[] {"/hdi-ext/Customers.hdbsynonym", "/hdi-ext/CustomersCalcView.hdbcalculationview"},
+                model.getDeploy());
+        assertTrue(model.getUndeploy().length == 0);
 
-  }
+    }
 
-  /**
-	 * Parses the non string properties.
-	 *
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 */
-  @Test
-  public void parseNonStringProperties() throws IOException {
-    String location = "/NonStringProperties.hdi";
-    String content = org.apache.commons.io.IOUtils
-        .toString(HDIParserTest.class.getResourceAsStream(location), StandardCharsets.UTF_8);
-    HDBParameters parametersModel =
-        new HDBParameters(null, location, content, null);
-    assertThrows(JsonSyntaxException.class, () -> new HDIParser().parse(parametersModel));
-  }
+    /**
+     * Parses the non string properties.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    @Test
+    public void parseNonStringProperties() throws IOException {
+        String location = "/NonStringProperties.hdi";
+        String content = org.apache.commons.io.IOUtils.toString(HDIParserTest.class.getResourceAsStream(location), StandardCharsets.UTF_8);
+        HDBParameters parametersModel = new HDBParameters(null, location, content, null);
+        assertThrows(JsonSyntaxException.class, () -> new HDIParser().parse(parametersModel));
+    }
 
-  /**
-	 * Parses the missing mandatory properties.
-	 *
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 */
-  @Test
-  public void parseMissingMandatoryProperties() throws IOException {
-    String location = "/MissingMandatoryProperty.hdi";
-    String content = org.apache.commons.io.IOUtils
-        .toString(HDIParserTest.class.getResourceAsStream(location), StandardCharsets.UTF_8);
-    HDBParameters parametersModel =
-        new HDBParameters(null, location, content, null);
-    assertThrows(JsonParseException.class, () -> new HDIParser().parse(parametersModel));
-  }
+    /**
+     * Parses the missing mandatory properties.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    @Test
+    public void parseMissingMandatoryProperties() throws IOException {
+        String location = "/MissingMandatoryProperty.hdi";
+        String content = org.apache.commons.io.IOUtils.toString(HDIParserTest.class.getResourceAsStream(location), StandardCharsets.UTF_8);
+        HDBParameters parametersModel = new HDBParameters(null, location, content, null);
+        assertThrows(JsonParseException.class, () -> new HDIParser().parse(parametersModel));
+    }
 
-  /**
-	 * Parses the same deployment file.
-	 *
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 */
-  @Test
-  public void parseSameDeploymentFile() throws IOException {
-    String location = "/SameDeploymentFile.hdi";
-    String content = org.apache.commons.io.IOUtils
-        .toString(HDIParserTest.class.getResourceAsStream(location), StandardCharsets.UTF_8);
-    HDBParameters parametersModel =
-        new HDBParameters(null, location, content, null);
-    assertThrows(JsonParseException.class, () -> new HDIParser().parse(parametersModel));
-  }
+    /**
+     * Parses the same deployment file.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    @Test
+    public void parseSameDeploymentFile() throws IOException {
+        String location = "/SameDeploymentFile.hdi";
+        String content = org.apache.commons.io.IOUtils.toString(HDIParserTest.class.getResourceAsStream(location), StandardCharsets.UTF_8);
+        HDBParameters parametersModel = new HDBParameters(null, location, content, null);
+        assertThrows(JsonParseException.class, () -> new HDIParser().parse(parametersModel));
+    }
 
-  /**
-	 * Parses the missing deployment file.
-	 *
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 */
-  @Test
-  public void parseMissingDeploymentFile() throws IOException {
-    String location = "/NoDeploymentFiles.hdi";
-    String content = org.apache.commons.io.IOUtils
-        .toString(HDIParserTest.class.getResourceAsStream(location), StandardCharsets.UTF_8);
-    HDBParameters parametersModel =
-        new HDBParameters(null, location, content, null);
-    assertThrows(JsonParseException.class, () -> new HDIParser().parse(parametersModel));
-  }
+    /**
+     * Parses the missing deployment file.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    @Test
+    public void parseMissingDeploymentFile() throws IOException {
+        String location = "/NoDeploymentFiles.hdi";
+        String content = org.apache.commons.io.IOUtils.toString(HDIParserTest.class.getResourceAsStream(location), StandardCharsets.UTF_8);
+        HDBParameters parametersModel = new HDBParameters(null, location, content, null);
+        assertThrows(JsonParseException.class, () -> new HDIParser().parse(parametersModel));
+    }
 }

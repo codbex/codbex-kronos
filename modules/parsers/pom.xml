@@ -28,8 +28,26 @@
     <module>parser-hana</module>
   </modules>
 
-  <properties>
-    <license.header.location>../../licensing-header.txt</license.header.location>
-  </properties>
-
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.antlr</groupId>
+        <artifactId>antlr4-maven-plugin</artifactId>
+        <version>${antlr4-maven-plugin.version}</version>
+        <configuration>
+          <visitor>true</visitor>
+          <outputDirectory>${basedir}/src/main/java</outputDirectory>
+        </configuration>
+        <executions>
+          <execution>
+            <id>antlr</id>
+            <goals>
+              <goal>antlr4</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  
 </project>

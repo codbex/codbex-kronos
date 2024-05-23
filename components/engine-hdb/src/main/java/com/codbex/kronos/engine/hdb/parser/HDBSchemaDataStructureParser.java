@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2022-2023 codbex or an codbex affiliate company and contributors
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
+ * All rights reserved. This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v2.0 which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
@@ -40,80 +39,82 @@ import com.codbex.kronos.utils.CommonsUtils;
 @Component
 public class HDBSchemaDataStructureParser implements HDBDataStructureParser<HDBSchema> {
 
-  /** The Constant logger. */
-  private static final Logger logger = LoggerFactory.getLogger(HDBSchemaDataStructureParser.class);
-  
-  /**
-   * Gets the type.
-   *
-   * @return the type
-   */
-  @Override
-  public String getType() {
-    return IDataStructureModel.TYPE_HDB_SCHEMA;
-  }
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(HDBSchemaDataStructureParser.class);
 
-  /**
-   * Gets the data structure class.
-   *
-   * @return the data structure class
-   */
-  @Override
-  public Class<HDBSchema> getDataStructureClass() {
-    return HDBSchema.class;
-  }
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
+    @Override
+    public String getType() {
+        return IDataStructureModel.TYPE_HDB_SCHEMA;
+    }
 
-  /**
-   * Parses the hdbschema file.
-   *
-   * @param parametersModel the parameters model
-   * @return the data structure HDB schema model
-   * @throws DataStructuresException the data structures exception
-   * @throws IOException Signals that an I/O exception has occurred.
-   * @throws ArtifactParserException the artifact parser exception
-   */
-  @Override
-  public HDBSchema parse(HDBParameters parametersModel)
-      throws DataStructuresException, IOException, ArtifactParserException {
-    HDBSchema hdbSchemaModel = new HDBSchema();
-    HDBUtils.populateDataStructureModel(parametersModel.getLocation(), parametersModel.getContent(), hdbSchemaModel,
-        IDataStructureModel.TYPE_HDB_SCHEMA, true);
+    /**
+     * Gets the data structure class.
+     *
+     * @return the data structure class
+     */
+    @Override
+    public Class<HDBSchema> getDataStructureClass() {
+        return HDBSchema.class;
+    }
 
-    ByteArrayInputStream is = new ByteArrayInputStream(parametersModel.getContent().getBytes());
-    ANTLRInputStream inputStream = new ANTLRInputStream(is);
-    HDBSchemaLexer hdbSchemaLexer = new HDBSchemaLexer(inputStream);
-    HDBSchemaSyntaxErrorListener lexerErrorListener = new HDBSchemaSyntaxErrorListener();
-    hdbSchemaLexer.removeErrorListeners();
-    hdbSchemaLexer.addErrorListener(lexerErrorListener);
-    CommonTokenStream tokenStream = new CommonTokenStream(hdbSchemaLexer);
+    /**
+     * Parses the hdbschema file.
+     *
+     * @param parametersModel the parameters model
+     * @return the data structure HDB schema model
+     * @throws DataStructuresException the data structures exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ArtifactParserException the artifact parser exception
+     */
+    @Override
+    public HDBSchema parse(HDBParameters parametersModel) throws DataStructuresException, IOException, ArtifactParserException {
+        HDBSchema hdbSchemaModel = new HDBSchema();
+        HDBUtils.populateDataStructureModel(parametersModel.getLocation(), parametersModel.getContent(), hdbSchemaModel,
+                IDataStructureModel.TYPE_HDB_SCHEMA, true);
 
-    HDBSchemaParser hdbSchemaParser = new HDBSchemaParser(tokenStream);
-    hdbSchemaParser.setBuildParseTree(true);
-    HDBSchemaSyntaxErrorListener parserErrorListener = new HDBSchemaSyntaxErrorListener();
-    hdbSchemaParser.removeErrorListeners();
-    hdbSchemaParser.addErrorListener(parserErrorListener);
+        ByteArrayInputStream is = new ByteArrayInputStream(parametersModel.getContent()
+                                                                          .getBytes());
+        ANTLRInputStream inputStream = new ANTLRInputStream(is);
+        HDBSchemaLexer hdbSchemaLexer = new HDBSchemaLexer(inputStream);
+        HDBSchemaSyntaxErrorListener lexerErrorListener = new HDBSchemaSyntaxErrorListener();
+        hdbSchemaLexer.removeErrorListeners();
+        hdbSchemaLexer.addErrorListener(lexerErrorListener);
+        CommonTokenStream tokenStream = new CommonTokenStream(hdbSchemaLexer);
 
-    ParseTree parseTree = hdbSchemaParser.hdbSchemaDefinition();
-//    if(parserErrorListener.getErrors().size() !=0 ){
-//      dataStructuresSynchronizer.applyArtefactState(CommonsUtils.getRepositoryBaseObjectName(parametersModel.getLocation()),
-//          parametersModel.getLocation(),SCHEMA_ARTEFACT, ArtefactState.FAILED_CREATE, parserErrorListener.getErrors().get(0).getMsg());
-//    }
-//    if(lexerErrorListener.getErrors().size() != 0) {
-//      dataStructuresSynchronizer.applyArtefactState(CommonsUtils.getRepositoryBaseObjectName(parametersModel.getLocation()),
-//          parametersModel.getLocation(),SCHEMA_ARTEFACT, ArtefactState.FAILED_CREATE, lexerErrorListener.getErrors().get(0).getMsg());
-//    }
-    CommonsUtils.logParserErrors(parserErrorListener.getErrors(), CommonsConstants.PARSER_ERROR, parametersModel.getLocation(),
-        CommonsConstants.HDB_SCHEMA_PARSER);
-    CommonsUtils.logParserErrors(lexerErrorListener.getErrors(), CommonsConstants.LEXER_ERROR, parametersModel.getLocation(),
-        CommonsConstants.HDB_SCHEMA_PARSER);
+        HDBSchemaParser hdbSchemaParser = new HDBSchemaParser(tokenStream);
+        hdbSchemaParser.setBuildParseTree(true);
+        HDBSchemaSyntaxErrorListener parserErrorListener = new HDBSchemaSyntaxErrorListener();
+        hdbSchemaParser.removeErrorListeners();
+        hdbSchemaParser.addErrorListener(parserErrorListener);
 
-    HDBSchemaDefinitionListener hdbSchemaCoreListener = new HDBSchemaDefinitionListener();
-    ParseTreeWalker parseTreeWalker = new ParseTreeWalker();
-    parseTreeWalker.walk(hdbSchemaCoreListener, parseTree);
+        ParseTree parseTree = hdbSchemaParser.hdbSchemaDefinition();
+        // if(parserErrorListener.getErrors().size() !=0 ){
+        // dataStructuresSynchronizer.applyArtefactState(CommonsUtils.getRepositoryBaseObjectName(parametersModel.getLocation()),
+        // parametersModel.getLocation(),SCHEMA_ARTEFACT, ArtefactState.FAILED_CREATE,
+        // parserErrorListener.getErrors().get(0).getMsg());
+        // }
+        // if(lexerErrorListener.getErrors().size() != 0) {
+        // dataStructuresSynchronizer.applyArtefactState(CommonsUtils.getRepositoryBaseObjectName(parametersModel.getLocation()),
+        // parametersModel.getLocation(),SCHEMA_ARTEFACT, ArtefactState.FAILED_CREATE,
+        // lexerErrorListener.getErrors().get(0).getMsg());
+        // }
+        CommonsUtils.logParserErrors(parserErrorListener.getErrors(), CommonsConstants.PARSER_ERROR, parametersModel.getLocation(),
+                CommonsConstants.HDB_SCHEMA_PARSER);
+        CommonsUtils.logParserErrors(lexerErrorListener.getErrors(), CommonsConstants.LEXER_ERROR, parametersModel.getLocation(),
+                CommonsConstants.HDB_SCHEMA_PARSER);
 
-    HDBSchemaDefinitionModel antlr4Model = hdbSchemaCoreListener.getModel();
-    hdbSchemaModel.setSchema(antlr4Model.getSchemaName());
+        HDBSchemaDefinitionListener hdbSchemaCoreListener = new HDBSchemaDefinitionListener();
+        ParseTreeWalker parseTreeWalker = new ParseTreeWalker();
+        parseTreeWalker.walk(hdbSchemaCoreListener, parseTree);
 
-    return hdbSchemaModel;
-  }
+        HDBSchemaDefinitionModel antlr4Model = hdbSchemaCoreListener.getModel();
+        hdbSchemaModel.setSchema(antlr4Model.getSchemaName());
+
+        return hdbSchemaModel;
+    }
 }

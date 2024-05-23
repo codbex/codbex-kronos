@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2022-2023 codbex or an codbex affiliate company and contributors
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
+ * All rights reserved. This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v2.0 which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
@@ -28,19 +27,22 @@ public class TestRepositoryMigrator {
 
     /** The Constant logger. */
     private static final Logger logger = LoggerFactory.getLogger(TestRepositoryMigrator.class);
-    
+
     /** The repository. */
     @Autowired
     private IRepository repository;
 
     /**
-	 * Migrate.
-	 *
-	 * @param source the source
-	 */
+     * Migrate.
+     *
+     * @param source the source
+     */
     public void migrate(String source) {
         try {
-            byte[] content = TestRepositoryMigrator.class.getResourceAsStream(IRepositoryStructure.PATH_REGISTRY_PUBLIC + IRepositoryStructure.SEPARATOR + source).readAllBytes();
+            byte[] content = TestRepositoryMigrator.class
+                                                         .getResourceAsStream(IRepositoryStructure.PATH_REGISTRY_PUBLIC
+                                                                 + IRepositoryStructure.SEPARATOR + source)
+                                                         .readAllBytes();
             repository.createResource(IRepositoryStructure.PATH_REGISTRY_PUBLIC + IRepositoryStructure.SEPARATOR + source, content);
         } catch (IOException e) {
             logger.error(e.getMessage(), e);
@@ -48,8 +50,8 @@ public class TestRepositoryMigrator {
     }
 
     /**
-	 * Clean up.
-	 */
+     * Clean up.
+     */
     public void cleanUp() {
         repository.removeCollection(IRepositoryStructure.PATH_REGISTRY_PUBLIC + IRepositoryStructure.SEPARATOR);
     }

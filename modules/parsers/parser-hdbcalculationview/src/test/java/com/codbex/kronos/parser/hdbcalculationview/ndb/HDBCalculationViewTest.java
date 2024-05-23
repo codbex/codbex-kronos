@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2022-2023 codbex or an codbex affiliate company and contributors
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
+ * All rights reserved. This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v2.0 which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
@@ -34,51 +33,60 @@ import com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelcalculation.DataSo
 
 public class HDBCalculationViewTest {
 
-  private static final Logger logger = LoggerFactory.getLogger(HDBCalculationViewTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(HDBCalculationViewTest.class);
 
-  @Test
-  public void testSerialize() throws JAXBException {
-    CalculationScenario calculationScenario = new CalculationScenario();
-    calculationScenario.setId("com.codbex.kronos.samples::KRONOS_HDI_SIMPLE_CALC_VIEW");
-    calculationScenario.setOutputViewType(CalculationViewType.PROJECTION);
-    DataSource dataSource = new DataSource();
-    dataSource.setId("KRONOS_HDI_SIMPLE_TABLE");
-    dataSource.setResourceUri("KRONOS_HDI_SIMPLE_TABLE");
-    DataSources dataSources = new DataSources();
-    dataSources.getDataSource().add(dataSource);
-    calculationScenario.setDataSources(dataSources);
+    @Test
+    public void testSerialize() throws JAXBException {
+        CalculationScenario calculationScenario = new CalculationScenario();
+        calculationScenario.setId("com.codbex.kronos.samples::KRONOS_HDI_SIMPLE_CALC_VIEW");
+        calculationScenario.setOutputViewType(CalculationViewType.PROJECTION);
+        DataSource dataSource = new DataSource();
+        dataSource.setId("KRONOS_HDI_SIMPLE_TABLE");
+        dataSource.setResourceUri("KRONOS_HDI_SIMPLE_TABLE");
+        DataSources dataSources = new DataSources();
+        dataSources.getDataSource()
+                   .add(dataSource);
+        calculationScenario.setDataSources(dataSources);
 
-    StringWriter writer = new StringWriter();
-    JAXBContext context = JAXBContext.newInstance(CalculationScenario.class);
-    Marshaller m = context.createMarshaller();
-    m.marshal(calculationScenario, writer);
+        StringWriter writer = new StringWriter();
+        JAXBContext context = JAXBContext.newInstance(CalculationScenario.class);
+        Marshaller m = context.createMarshaller();
+        m.marshal(calculationScenario, writer);
 
-    String serializedContent = writer.toString();
-	System.out.println(serializedContent);
-	assertNotNull("The serialized content should not be null", serializedContent);
-  }
-
-  @Test
-  public void testDeserialize() throws JAXBException {
-//		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><ns2:calculationScenario outputViewType=\"Projection\" id=\"com.codbex.kronos.samples::KRONOS_HDI_SIMPLE_CALC_VIEW\" xmlns:ns2=\"http://www.sap.com/ndb/BiModelCalculation.ecore\"><dataSources><DataSource id=\"KRONOS_HDI_SIMPLE_TABLE\"><resourceUri>KRONOS_HDI_SIMPLE_TABLE</resourceUri></DataSource></dataSources></ns2:calculationScenario>";
-
-    String xml = "";
-    try {
-      xml = org.apache.commons.io.IOUtils.toString(HDBCalculationViewTest.class.getResourceAsStream("/test.hdbcalculationview"));
-    } catch (IOException e) {
-      fail("Parsing of calculation view failed.");
-      logger.error(e.getMessage(), e);
+        String serializedContent = writer.toString();
+        System.out.println(serializedContent);
+        assertNotNull("The serialized content should not be null", serializedContent);
     }
 
-    xml = xml.replace("<Calculation:scenario", "<Calculation:calculationScenario");
-    xml = xml.replace("</Calculation:scenario>", "</Calculation:calculationScenario>");
+    @Test
+    public void testDeserialize() throws JAXBException {
+        // String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"
+        // standalone=\"yes\"?><ns2:calculationScenario outputViewType=\"Projection\"
+        // id=\"com.codbex.kronos.samples::KRONOS_HDI_SIMPLE_CALC_VIEW\"
+        // xmlns:ns2=\"http://www.sap.com/ndb/BiModelCalculation.ecore\"><dataSources><DataSource
+        // id=\"KRONOS_HDI_SIMPLE_TABLE\"><resourceUri>KRONOS_HDI_SIMPLE_TABLE</resourceUri></DataSource></dataSources></ns2:calculationScenario>";
 
-    JAXBContext context = JAXBContext.newInstance(CalculationScenario.class);
-    Unmarshaller um = context.createUnmarshaller();
-    CalculationScenario calculationScenario = (CalculationScenario) um.unmarshal(new StringReader(xml));
+        String xml = "";
+        try {
+            xml = org.apache.commons.io.IOUtils.toString(HDBCalculationViewTest.class.getResourceAsStream("/test.hdbcalculationview"));
+        } catch (IOException e) {
+            fail("Parsing of calculation view failed.");
+            logger.error(e.getMessage(), e);
+        }
 
-    assertEquals(calculationScenario.getId(), "com.sap.hana.example::projection");
-    assertEquals(calculationScenario.getDataSources().getDataSource().get(0).getResourceUri(), "com.sap.hana.example::TAB1");
-  }
+        xml = xml.replace("<Calculation:scenario", "<Calculation:calculationScenario");
+        xml = xml.replace("</Calculation:scenario>", "</Calculation:calculationScenario>");
+
+        JAXBContext context = JAXBContext.newInstance(CalculationScenario.class);
+        Unmarshaller um = context.createUnmarshaller();
+        CalculationScenario calculationScenario = (CalculationScenario) um.unmarshal(new StringReader(xml));
+
+        assertEquals(calculationScenario.getId(), "com.sap.hana.example::projection");
+        assertEquals(calculationScenario.getDataSources()
+                                        .getDataSource()
+                                        .get(0)
+                                        .getResourceUri(),
+                "com.sap.hana.example::TAB1");
+    }
 
 }

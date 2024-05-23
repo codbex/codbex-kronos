@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2022-2023 codbex or an codbex affiliate company and contributors
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
+ * All rights reserved. This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v2.0 which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
@@ -20,75 +19,75 @@ import java.util.Objects;
  */
 public class XSODataStorage {
 
-  /** The storage type. */
-  private XSODataStorageType storageType;
-  
-  /** The modifications. */
-  private List<XSODataModification> modifications = new ArrayList<>();
+    /** The storage type. */
+    private XSODataStorageType storageType;
 
-  /**
-   * Gets the storage type.
-   *
-   * @return the storage type
-   */
-  public XSODataStorageType getStorageType() {
-    return storageType;
-  }
+    /** The modifications. */
+    private List<XSODataModification> modifications = new ArrayList<>();
 
-  /**
-   * Sets the storage type.
-   *
-   * @param storageType the storage type
-   * @return the HDBXSO data storage
-   */
-  public XSODataStorage setStorageType(XSODataStorageType storageType) {
-    this.storageType = storageType;
-    return this;
-  }
+    /**
+     * Gets the storage type.
+     *
+     * @return the storage type
+     */
+    public XSODataStorageType getStorageType() {
+        return storageType;
+    }
 
-  /**
-   * Gets the modifications.
-   *
-   * @return the modifications
-   */
-  public List<XSODataModification> getModifications() {
-    return modifications;
-  }
+    /**
+     * Sets the storage type.
+     *
+     * @param storageType the storage type
+     * @return the HDBXSO data storage
+     */
+    public XSODataStorage setStorageType(XSODataStorageType storageType) {
+        this.storageType = storageType;
+        return this;
+    }
 
-  /**
-   * Sets the modifications.
-   *
-   * @param modifications the modifications
-   * @return the HDBXSO data storage
-   */
-  public XSODataStorage setModifications(List<XSODataModification> modifications) {
-    this.modifications = modifications;
-    return this;
-  }
+    /**
+     * Gets the modifications.
+     *
+     * @return the modifications
+     */
+    public List<XSODataModification> getModifications() {
+        return modifications;
+    }
 
-  /**
-   * Equals.
-   *
-   * @param o the o
-   * @return true, if successful
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o)
-      return true;
-    if (o == null || getClass() != o.getClass())
-      return false;
-    XSODataStorage that = (XSODataStorage) o;
-    return storageType == that.storageType && Objects.equals(modifications, that.modifications);
-  }
+    /**
+     * Sets the modifications.
+     *
+     * @param modifications the modifications
+     * @return the HDBXSO data storage
+     */
+    public XSODataStorage setModifications(List<XSODataModification> modifications) {
+        this.modifications = modifications;
+        return this;
+    }
 
-  /**
-   * Hash code.
-   *
-   * @return the int
-   */
-  @Override
-  public int hashCode() {
-    return Objects.hash(storageType, modifications);
-  }
+    /**
+     * Equals.
+     *
+     * @param o the o
+     * @return true, if successful
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        XSODataStorage that = (XSODataStorage) o;
+        return storageType == that.storageType && Objects.equals(modifications, that.modifications);
+    }
+
+    /**
+     * Hash code.
+     *
+     * @return the int
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(storageType, modifications);
+    }
 }

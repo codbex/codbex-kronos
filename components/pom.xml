@@ -43,14 +43,7 @@
     <module>template-xsjs-import</module>
 
     <module>template-abap</module>
-
     <module>template-python</module>
-
-
   </modules>
-
-  <properties>
-    <license.header.location>../licensing-header.txt</license.header.location>
-  </properties>
 
 </project>

@@ -14,8 +14,4 @@
   <artifactId>codbex-kronos-components-ide-file-types</artifactId>
   <packaging>jar</packaging>
 
-  <properties>
-    <license.header.location>../../licensing-header.txt</license.header.location>
-  </properties>
-
 </project>

@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2022-2023 codbex or an codbex affiliate company and contributors
+ * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
+ * All rights reserved. This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v2.0 which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
@@ -43,169 +42,189 @@ import org.springframework.stereotype.Component;
 @Component
 public class SchedulerManager implements InitializingBean {
 
-	/** The kronos defined group. */
-	public static String KRONOS_DEFINED_GROUP = "kronos-defined";
+    /** The kronos defined group. */
+    public static String KRONOS_DEFINED_GROUP = "kronos-defined";
 
-	/** The kronos job parameters. */
-	public static String KRONOS_JOB_PARAMETERS = "kronos-job-parameters";
+    /** The kronos job parameters. */
+    public static String KRONOS_JOB_PARAMETERS = "kronos-job-parameters";
 
-	/** The kronos job function. */
-	public static String KRONOS_JOB_FUNCTION = "kronos-job-function";
+    /** The kronos job function. */
+    public static String KRONOS_JOB_FUNCTION = "kronos-job-function";
 
-	/** The kronos job module. */
-	public static String KRONOS_JOB_MODULE = "kronos-job-module";
+    /** The kronos job module. */
+    public static String KRONOS_JOB_MODULE = "kronos-job-module";
 
-	/** The kronos job description. */
-	public static String KRONOS_JOB_DESCRIPTION = "jobDescription";
+    /** The kronos job description. */
+    public static String KRONOS_JOB_DESCRIPTION = "jobDescription";
 
-	/** The Constant logger. */
-	private static final Logger logger = LoggerFactory.getLogger(SchedulerManager.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(SchedulerManager.class);
 
-	/** The scheduler. */
+    /** The scheduler. */
 
-	@Autowired
-	private Scheduler scheduler;
+    @Autowired
+    private Scheduler scheduler;
 
-	/** The instance. */
-	private static SchedulerManager INSTANCE;
+    /** The instance. */
+    private static SchedulerManager INSTANCE;
 
-	/**
-	 * After properties set.
-	 *
-	 * @throws Exception the exception
-	 */
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		INSTANCE = this;
-	}
+    /**
+     * After properties set.
+     *
+     * @throws Exception the exception
+     */
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        INSTANCE = this;
+    }
 
-	/**
-	 * Gets the.
-	 *
-	 * @return the HDI service
-	 */
-	public static SchedulerManager get() {
-		return INSTANCE;
-	}
+    /**
+     * Gets the.
+     *
+     * @return the HDI service
+     */
+    public static SchedulerManager get() {
+        return INSTANCE;
+    }
 
-	/**
-	 * Gets the scheduler.
-	 *
-	 * @return the scheduler
-	 */
-	public Scheduler getScheduler() {
-		return scheduler;
-	}
+    /**
+     * Gets the scheduler.
+     *
+     * @return the scheduler
+     */
+    public Scheduler getScheduler() {
+        return scheduler;
+    }
 
-	/**
-	 * Schedule job.
-	 *
-	 * @param jobDefinition the job definition
-	 * @throws Exception the scheduler exception
-	 */
-	public static void scheduleJob(XSJob jobDefinition) throws Exception {
-		try {
-			JobKey jobKey = new JobKey(jobDefinition.getName(), jobDefinition.getGroup());
-			TriggerKey triggerKey = new TriggerKey(jobDefinition.getName(), jobDefinition.getGroup());
-			if (!SchedulerManager.get().getScheduler().checkExists(jobKey)
-					&& (!SchedulerManager.get().getScheduler().checkExists(triggerKey))) {
-				JobDetail job;
-				if (KRONOS_DEFINED_GROUP.equals(jobDefinition.getGroup())) {
-					// user defined jobs
-					job = newJob(JobHandler.class).withIdentity(jobKey).withDescription(jobDefinition.getDescription())
-							.build();
-					job.getJobDataMap().put(KRONOS_JOB_PARAMETERS, jobDefinition.getParametersAsMap());
-					job.getJobDataMap().put(KRONOS_JOB_FUNCTION, jobDefinition.getFunction());
-					job.getJobDataMap().put(KRONOS_JOB_MODULE, jobDefinition.getModule());
-				} else {
-					return;
-				}
+    /**
+     * Schedule job.
+     *
+     * @param jobDefinition the job definition
+     * @throws Exception the scheduler exception
+     */
+    public static void scheduleJob(XSJob jobDefinition) throws Exception {
+        try {
+            JobKey jobKey = new JobKey(jobDefinition.getName(), jobDefinition.getGroup());
+            TriggerKey triggerKey = new TriggerKey(jobDefinition.getName(), jobDefinition.getGroup());
+            if (!SchedulerManager.get()
+                                 .getScheduler()
+                                 .checkExists(jobKey)
+                    && (!SchedulerManager.get()
+                                         .getScheduler()
+                                         .checkExists(triggerKey))) {
+                JobDetail job;
+                if (KRONOS_DEFINED_GROUP.equals(jobDefinition.getGroup())) {
+                    // user defined jobs
+                    job = newJob(JobHandler.class).withIdentity(jobKey)
+                                                  .withDescription(jobDefinition.getDescription())
+                                                  .build();
+                    job.getJobDataMap()
+                       .put(KRONOS_JOB_PARAMETERS, jobDefinition.getParametersAsMap());
+                    job.getJobDataMap()
+                       .put(KRONOS_JOB_FUNCTION, jobDefinition.getFunction());
+                    job.getJobDataMap()
+                       .put(KRONOS_JOB_MODULE, jobDefinition.getModule());
+                } else {
+                    return;
+                }
 
-				TriggerBuilder<CronTrigger> triggerBuilder = newTrigger().withIdentity(triggerKey).withSchedule(
-						cronSchedule(jobDefinition.getCronExpression()).withMisfireHandlingInstructionDoNothing());
+                TriggerBuilder<CronTrigger> triggerBuilder = newTrigger().withIdentity(triggerKey)
+                                                                         .withSchedule(cronSchedule(
+                                                                                 jobDefinition.getCronExpression()).withMisfireHandlingInstructionDoNothing());
 
-				if (jobDefinition.getStartAt() != null) {
-					triggerBuilder.startAt(new Date(jobDefinition.getStartAt().getTime()));
-				}
+                if (jobDefinition.getStartAt() != null) {
+                    triggerBuilder.startAt(new Date(jobDefinition.getStartAt()
+                                                                 .getTime()));
+                }
 
-				if (jobDefinition.getEndAt() != null) {
-					triggerBuilder.endAt(new Date(jobDefinition.getEndAt().getTime()));
-				}
+                if (jobDefinition.getEndAt() != null) {
+                    triggerBuilder.endAt(new Date(jobDefinition.getEndAt()
+                                                               .getTime()));
+                }
 
-				SchedulerManager.get().getScheduler().scheduleJob(job, triggerBuilder.build());
+                SchedulerManager.get()
+                                .getScheduler()
+                                .scheduleJob(job, triggerBuilder.build());
 
-				logger.info("Scheduled Job: [{}] of group: [{}] at: [{}]", jobDefinition.getName(),
-						jobDefinition.getGroup(), jobDefinition.getCronExpression());
-			}
-		} catch (ObjectAlreadyExistsException e) {
-			logger.warn(e.getMessage());
-		} catch (org.quartz.SchedulerException e) {
-			CommonsUtils.logProcessorErrors(e.getMessage(), CommonsConstants.SCHEDULER_ERROR, jobDefinition.getName(),
-					CommonsConstants.JOB_PARSER);
-			throw new Exception(e);
-		}
-	}
+                logger.info("Scheduled Job: [{}] of group: [{}] at: [{}]", jobDefinition.getName(), jobDefinition.getGroup(),
+                        jobDefinition.getCronExpression());
+            }
+        } catch (ObjectAlreadyExistsException e) {
+            logger.warn(e.getMessage());
+        } catch (org.quartz.SchedulerException e) {
+            CommonsUtils.logProcessorErrors(e.getMessage(), CommonsConstants.SCHEDULER_ERROR, jobDefinition.getName(),
+                    CommonsConstants.JOB_PARSER);
+            throw new Exception(e);
+        }
+    }
 
-	/**
-	 * Unschedule job.
-	 *
-	 * @param name  the name
-	 * @param group the group
-	 * @throws Exception the scheduler exception
-	 */
-	public static void unscheduleJob(String name, String group) throws Exception {
-		if (!KRONOS_DEFINED_GROUP.equals(group)) {
-			return;
-		}
-		try {
-			JobKey jobKey = new JobKey(name, group);
-			TriggerKey triggerKey = new TriggerKey(name, group);
-			if (SchedulerManager.get().getScheduler().checkExists(triggerKey)) {
-				SchedulerManager.get().getScheduler().unscheduleJob(triggerKey);
-				SchedulerManager.get().getScheduler().deleteJob(jobKey);
-				logger.info("Unscheduled Job: [{}] of group: [{}]", name, group);
-			}
-		} catch (ObjectAlreadyExistsException e) {
-			logger.warn(e.getMessage());
-		} catch (org.quartz.SchedulerException e) {
-			CommonsUtils.logProcessorErrors(e.getMessage(), CommonsConstants.SCHEDULER_ERROR, name,
-					CommonsConstants.JOB_PARSER);
-			throw new Exception(e);
-		}
-	}
+    /**
+     * Unschedule job.
+     *
+     * @param name the name
+     * @param group the group
+     * @throws Exception the scheduler exception
+     */
+    public static void unscheduleJob(String name, String group) throws Exception {
+        if (!KRONOS_DEFINED_GROUP.equals(group)) {
+            return;
+        }
+        try {
+            JobKey jobKey = new JobKey(name, group);
+            TriggerKey triggerKey = new TriggerKey(name, group);
+            if (SchedulerManager.get()
+                                .getScheduler()
+                                .checkExists(triggerKey)) {
+                SchedulerManager.get()
+                                .getScheduler()
+                                .unscheduleJob(triggerKey);
+                SchedulerManager.get()
+                                .getScheduler()
+                                .deleteJob(jobKey);
+                logger.info("Unscheduled Job: [{}] of group: [{}]", name, group);
+            }
+        } catch (ObjectAlreadyExistsException e) {
+            logger.warn(e.getMessage());
+        } catch (org.quartz.SchedulerException e) {
+            CommonsUtils.logProcessorErrors(e.getMessage(), CommonsConstants.SCHEDULER_ERROR, name, CommonsConstants.JOB_PARSER);
+            throw new Exception(e);
+        }
+    }
 
-	/**
-	 * List jobs.
-	 *
-	 * @return the sets the
-	 * @throws Exception the scheduler exception
-	 */
-	public static Set<TriggerKey> listJobs() throws Exception {
-		try {
-			Set<TriggerKey> triggerKeys = SchedulerManager.get().getScheduler().getTriggerKeys(GroupMatcher.anyTriggerGroup());
-			return triggerKeys;
-		} catch (org.quartz.SchedulerException e) {
-			CommonsUtils.logProcessorErrors(e.getMessage(), CommonsConstants.SCHEDULER_ERROR, "-",
-					CommonsConstants.JOB_PARSER);
-			throw new Exception(e);
-		}
-	}
+    /**
+     * List jobs.
+     *
+     * @return the sets the
+     * @throws Exception the scheduler exception
+     */
+    public static Set<TriggerKey> listJobs() throws Exception {
+        try {
+            Set<TriggerKey> triggerKeys = SchedulerManager.get()
+                                                          .getScheduler()
+                                                          .getTriggerKeys(GroupMatcher.anyTriggerGroup());
+            return triggerKeys;
+        } catch (org.quartz.SchedulerException e) {
+            CommonsUtils.logProcessorErrors(e.getMessage(), CommonsConstants.SCHEDULER_ERROR, "-", CommonsConstants.JOB_PARSER);
+            throw new Exception(e);
+        }
+    }
 
-	/**
-	 * Exists job.
-	 *
-	 * @param name the name
-	 * @return true, if successful
-	 * @throws Exception the scheduler exception
-	 */
-	public static boolean existsJob(String name) throws Exception {
-		Set<TriggerKey> triggerKeys = listJobs();
-		for (TriggerKey triggerKey : triggerKeys) {
-			if (triggerKey.getName().equals(name)
-					&& KRONOS_DEFINED_GROUP.equals(triggerKey.getGroup())) {
-				return true;
-			}
-		}
-		return false;
-	}
+    /**
+     * Exists job.
+     *
+     * @param name the name
+     * @return true, if successful
+     * @throws Exception the scheduler exception
+     */
+    public static boolean existsJob(String name) throws Exception {
+        Set<TriggerKey> triggerKeys = listJobs();
+        for (TriggerKey triggerKey : triggerKeys) {
+            if (triggerKey.getName()
+                          .equals(name)
+                    && KRONOS_DEFINED_GROUP.equals(triggerKey.getGroup())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
