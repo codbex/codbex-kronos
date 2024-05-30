@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
+ * Copyright (c) 2022-2023 codbex or an codbex affiliate company and contributors
  *
  * All rights reserved. This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v2.0 which accompanies this distribution, and is available at
@@ -10,6 +10,18 @@
  */
 package com.codbex.kronos.engine.xsodata.utils;
 
+import com.codbex.kronos.engine.xsodata.domain.XSOData;
+import com.codbex.kronos.engine.xsodata.transformers.TableMetadataProvider;
+import com.codbex.kronos.engine.xsodata.transformers.XSOData2TransformerException;
+import com.codbex.kronos.parser.xsodata.model.XSODataAggregation;
+import com.codbex.kronos.parser.xsodata.model.XSODataAggregationType;
+import com.codbex.kronos.parser.xsodata.model.XSODataAssociation;
+import com.codbex.kronos.parser.xsodata.model.XSODataEntity;
+import com.codbex.kronos.parser.xsodata.model.XSODataEventType;
+import com.codbex.kronos.parser.xsodata.model.XSODataModification;
+import com.codbex.kronos.parser.xsodata.model.XSODataMultiplicityType;
+import com.codbex.kronos.parser.xsodata.model.XSODataNavigation;
+import com.codbex.kronos.parser.xsodata.model.XSODataRepositoryObject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,9 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-
 import javax.sql.DataSource;
-
 import org.apache.olingo.odata2.api.edm.EdmMultiplicity;
 import org.eclipse.dirigible.components.base.spring.BeanProvider;
 import org.eclipse.dirigible.components.data.sources.manager.DataSourcesManager;
@@ -40,18 +50,6 @@ import org.eclipse.dirigible.database.persistence.model.PersistenceTableColumnMo
 import org.eclipse.dirigible.database.sql.ISqlKeywords;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.codbex.kronos.engine.xsodata.domain.XSOData;
-import com.codbex.kronos.engine.xsodata.transformers.TableMetadataProvider;
-import com.codbex.kronos.engine.xsodata.transformers.XSOData2TransformerException;
-import com.codbex.kronos.parser.xsodata.model.XSODataAggregation;
-import com.codbex.kronos.parser.xsodata.model.XSODataAggregationType;
-import com.codbex.kronos.parser.xsodata.model.XSODataAssociation;
-import com.codbex.kronos.parser.xsodata.model.XSODataEntity;
-import com.codbex.kronos.parser.xsodata.model.XSODataEventType;
-import com.codbex.kronos.parser.xsodata.model.XSODataModification;
-import com.codbex.kronos.parser.xsodata.model.XSODataMultiplicityType;
-import com.codbex.kronos.parser.xsodata.model.XSODataNavigation;
 
 /**
  * The Class ODataUtils.
@@ -108,8 +106,9 @@ public class ODataUtils {
                                               .getEntities()) {
             List<PersistenceTableColumnModel> allEntityParameters = new ArrayList<>();
 
-            String tableName = entity.getRepositoryObject()
-                                     .getCatalogObjectName();
+            XSODataRepositoryObject repositoryObject = entity.getRepositoryObject();
+            String tableName = repositoryObject.getCatalogObjectName();
+            String schema = repositoryObject.getCatalogObjectSchema();
 
             ODataEntity oDataEntityDefinition = new ODataEntity();
             oDataEntityDefinition.setName(entity.getAlias());
@@ -121,7 +120,7 @@ public class ODataUtils {
 
             // Set properties
             try {
-                Table tableMetadata = metadataProvider.getPersistenceTableModel(tableName);
+                Table tableMetadata = metadataProvider.getPersistenceTableModel(tableName, schema);
 
                 if (tableMetadata == null) {
                     logger.error("DB artifact {} not available for entity {}, so it will be skipped.", tableName, entity.getAlias());
@@ -212,6 +211,8 @@ public class ODataUtils {
                 oDataEntityDefinition.getAnnotationsEntityType()
                                      .put("sap:semantics", "aggregate");
             }
+
+            oDataEntityDefinition.setSchema(schema);
 
             oDataDefinitionModel.getEntities()
                                 .add(oDataEntityDefinition);
