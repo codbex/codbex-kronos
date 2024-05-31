@@ -10,12 +10,10 @@
  */
 package com.codbex.kronos.engine.xsodata.transformers;
 
-import java.sql.SQLException;
-
-import org.eclipse.dirigible.components.odata.domain.OData;
-
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
+import java.sql.SQLException;
+import org.eclipse.dirigible.components.odata.domain.OData;
 
 /**
  * The Class OData2ODataMTransformer.

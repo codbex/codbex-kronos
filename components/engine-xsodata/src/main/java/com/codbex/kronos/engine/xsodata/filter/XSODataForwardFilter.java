@@ -31,10 +31,9 @@ public class XSODataForwardFilter implements Filter {
      * Inits the.
      *
      * @param filterConfig the filter config
-     * @throws ServletException the servlet exception
      */
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         //
     }
 
@@ -62,6 +61,7 @@ public class XSODataForwardFilter implements Filter {
                 String path = "/odata/v2" + parameters;
                 RequestDispatcher dispatcher = request.getRequestDispatcher(path);
                 dispatcher.forward(request, response);
+                return;
             }
         }
         chain.doFilter(request, response);

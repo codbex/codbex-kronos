@@ -102,6 +102,21 @@ public class XSODataSynchronizer extends BaseSynchronizer<XSOData, Long> {
     private ODataSchemaService odataSchemaService;
 
     /**
+     * The odata to odata mappings transformer.
+     */
+    private final XSOData2ODataMTransformer odata2ODataMTransformer = new XSOData2ODataMTransformer();
+
+    /**
+     * The odata to odata schema transformer.
+     */
+    private final XSOData2ODataXTransformer odata2ODataXTransformer = new XSOData2ODataXTransformer();
+
+    /**
+     * The odata to odata handler transformer.
+     */
+    private final XSOData2ODataHTransformer odata2ODataHTransformer = new XSOData2ODataHTransformer();
+
+    /**
      * Checks if is accepted.
      *
      * @param file the file
@@ -145,15 +160,9 @@ public class XSODataSynchronizer extends BaseSynchronizer<XSOData, Long> {
             getService().save(xsodata);
             return List.of(xsodata);
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("odata: {}", location);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("content: {}", new String(content));
-            }
+            logger.error(e.getMessage(), e);
+            logger.error("odata: {}", location);
+            logger.error("content: {}", new String(content));
             throw new ParseException(e.getMessage(), 0);
         }
     }
@@ -171,9 +180,7 @@ public class XSODataSynchronizer extends BaseSynchronizer<XSOData, Long> {
             try {
                 parseOData(location, xsodata.getContent(), xsodata);
             } catch (IOException | SQLException | ArtifactParserException e) {
-                if (logger.isErrorEnabled()) {
-                    logger.error(e.getMessage(), e);
-                }
+                logger.error(e.getMessage(), e);
             }
         }
         return list;
@@ -294,9 +301,7 @@ public class XSODataSynchronizer extends BaseSynchronizer<XSOData, Long> {
             String errorMessage = String.format("Error occurred while processing [%s]: %s", wrapper.getArtefact()
                                                                                                    .getLocation(),
                     e.getMessage());
-            if (logger.isErrorEnabled()) {
-                logger.error(errorMessage, e);
-            }
+            logger.error(errorMessage, e);
             callback.addError(errorMessage);
             callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage);
             ProblemsFacade.upsertArtefactSynchronizationProblem(wrapper.getArtefact(), errorMessage);
@@ -321,7 +326,7 @@ public class XSODataSynchronizer extends BaseSynchronizer<XSOData, Long> {
         OData oDataDefinition = oDataUtils.convertODataModelToODataDefinition(model);
 
         // METADATA AND MAPPINGS GENERATION LOGIC
-        String[] odataxc = generateODataSchema(oDataDefinition);
+        String[] odataxc = odata2ODataXTransformer.transform(oDataDefinition);
         String odatax = odataxc[0];
         String odatac = odataxc[1];
         ODataSchema odataSchema = new ODataSchema(oDataDefinition.getLocation(), oDataDefinition.getName(), null, null, odatax.getBytes());
@@ -330,16 +335,16 @@ public class XSODataSynchronizer extends BaseSynchronizer<XSOData, Long> {
                 new ODataContainer(oDataDefinition.getLocation(), oDataDefinition.getName(), null, null, odatac.getBytes());
         odataContainerService.save(odataContainer);
 
-        String[] odatams = generateODataMappings(oDataDefinition);
+        String[] odataMappings = odata2ODataMTransformer.transform(oDataDefinition);
         int i = 1;
-        for (String odatam : odatams) {
+        for (String mapping : odataMappings) {
             ODataMapping odataMapping =
-                    new ODataMapping(oDataDefinition.getLocation(), oDataDefinition.getName() + "#" + i++, null, null, odatam.getBytes());
+                    new ODataMapping(oDataDefinition.getLocation(), oDataDefinition.getName() + "#" + i++, null, null, mapping.getBytes());
             odataMappingService.save(odataMapping);
         }
 
-        List<ODataHandler> odatahs = generateODataHandlers(oDataDefinition);
-        for (ODataHandler odatah : odatahs) {
+        List<ODataHandler> oDataHandlers = odata2ODataHTransformer.transform(oDataDefinition);
+        for (ODataHandler handler : oDataHandlers) {
 
             /*
              * Note: the "forbid" option is also treated by the parser as "handler" -> null
@@ -347,9 +352,9 @@ public class XSODataSynchronizer extends BaseSynchronizer<XSOData, Long> {
              * "KRONOS"."com.codbex.kronos.model::test.Entity1" as "Entity1" create forbidden update forbidden
              * delete forbidden;
              */
-            if (odatah.getHandler() != null) {
-                ODataHandler odataHandler = new ODataHandler(oDataDefinition.getLocation(), odatah.getName() + "#" + i++, null, null,
-                        odatah.getNamespace(), odatah.getMethod(), odatah.getKind(), odatah.getHandler());
+            if (handler.getHandler() != null) {
+                ODataHandler odataHandler = new ODataHandler(oDataDefinition.getLocation(), handler.getName() + "#" + i++, null, null,
+                        handler.getNamespace(), handler.getMethod(), handler.getKind(), handler.getHandler());
                 odataHandlerService.save(odataHandler);
             }
         }
@@ -387,9 +392,7 @@ public class XSODataSynchronizer extends BaseSynchronizer<XSOData, Long> {
             getService().delete(odata);
             callback.registerState(this, odata, ArtefactLifecycle.DELETED, "");
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
+            logger.error(e.getMessage(), e);
             callback.addError(e.getMessage());
             callback.registerState(this, odata, ArtefactLifecycle.FAILED, e.getMessage());
         }
@@ -423,54 +426,6 @@ public class XSODataSynchronizer extends BaseSynchronizer<XSOData, Long> {
     @Override
     public String getArtefactType() {
         return XSOData.ARTEFACT_TYPE;
-    }
-
-    /**
-     * The odata to odata mappings transformer.
-     */
-    private final XSOData2ODataMTransformer odata2ODataMTransformer = new XSOData2ODataMTransformer();
-
-    /**
-     * The odata to odata schema transformer.
-     */
-    private final XSOData2ODataXTransformer odata2ODataXTransformer = new XSOData2ODataXTransformer();
-
-    /**
-     * The odata to odata handler transformer.
-     */
-    private final XSOData2ODataHTransformer odata2ODataHTransformer = new XSOData2ODataHTransformer();
-
-    /**
-     * Generate OData Schema.
-     *
-     * @param model the model
-     * @return the string[]
-     * @throws SQLException the SQL exception
-     */
-    private String[] generateODataSchema(OData model) throws SQLException {
-        return odata2ODataXTransformer.transform(model);
-    }
-
-    /**
-     * Generate OData Mappings.
-     *
-     * @param model the model
-     * @return the string[]
-     * @throws SQLException the SQL exception
-     */
-    private String[] generateODataMappings(OData model) throws SQLException {
-        return odata2ODataMTransformer.transform(model);
-    }
-
-    /**
-     * Generate OData Handlers.
-     *
-     * @param model the model
-     * @return the list
-     * @throws SQLException the SQL exception
-     */
-    private List<ODataHandler> generateODataHandlers(OData model) throws SQLException {
-        return odata2ODataHTransformer.transform(model);
     }
 
 }

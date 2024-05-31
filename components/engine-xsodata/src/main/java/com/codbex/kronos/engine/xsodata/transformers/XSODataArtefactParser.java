@@ -22,6 +22,7 @@ import com.codbex.kronos.parser.xsodata.custom.XSODataSyntaxErrorListener;
 import com.codbex.kronos.parser.xsodata.model.XSODataBindingType;
 import com.codbex.kronos.parser.xsodata.model.XSODataEntity;
 import com.codbex.kronos.parser.xsodata.model.XSODataParameter;
+import com.codbex.kronos.parser.xsodata.model.XSODataRepositoryObject;
 import com.codbex.kronos.parser.xsodata.model.XSODataService;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
@@ -93,10 +94,9 @@ public class XSODataArtefactParser implements InitializingBean {
     /**
      * After properties set.
      *
-     * @throws Exception the exception
      */
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         INSTANCE = this;
     }
 
@@ -266,8 +266,7 @@ public class XSODataArtefactParser implements InitializingBean {
                                               .getEntities()) {
             if (entity.getKeyList()
                       .size() > 0) {
-                if (!checkIfEntityExist(entity.getRepositoryObject()
-                                              .getCatalogObjectName())) {
+                if (!checkIfEntityExist(entity.getRepositoryObject())) {
                     throw new XSOData2TransformerException(String.format(
                             "Entity: %s from %s don't exist. make sure the artifacts exist before processing the xsodata file",
                             entity.getRepositoryObject()
@@ -310,7 +309,7 @@ public class XSODataArtefactParser implements InitializingBean {
                       .size() > 0) {
                 String catalogObjectName = getCorrectCatalogObjectName(entity);
 
-                if (!checkIfEntityIsOfViewType(catalogObjectName)) {
+                if (!checkIfEntityIsOfViewType(entity.getRepositoryObject())) {
                     throw new XSOData2TransformerException("Artefact of type View with name " + entity.getRepositoryObject()
                                                                                                       .getCatalogObjectName()
                             + " is not found. Synonym with name " + entity.getRepositoryObject()
@@ -485,7 +484,7 @@ public class XSODataArtefactParser implements InitializingBean {
             if (entity.getParameterEntitySet() != null) {
                 String catalogObjectName = getCorrectCatalogObjectName(entity);
 
-                if (!checkIfEntityIsOfViewType(catalogObjectName)) {
+                if (!checkIfEntityIsOfViewType(entity.getRepositoryObject())) {
                     throw new XSOData2TransformerException(
                             String.format("Parameters are not allowed for entity %s as it is not a calculation or analytical view.",
                                     entity.getRepositoryObject()
@@ -536,15 +535,10 @@ public class XSODataArtefactParser implements InitializingBean {
         return checkIfEntityIsFromAGivenDBType(artifactName, METADATA_SYNONYM_TYPES);
     }
 
-    /**
-     * Check if entity is of view type.
-     *
-     * @param artifactName the artifact name
-     * @return true, if successful
-     * @throws SQLException the SQL exception
-     */
-    private boolean checkIfEntityIsOfViewType(String artifactName) throws SQLException {
-        return checkIfEntityIsFromAGivenDBType(artifactName, METADATA_VIEW_TYPES);
+    private boolean checkIfEntityIsOfViewType(XSODataRepositoryObject repoObject) throws SQLException {
+        String schema = repoObject.getCatalogObjectSchema();
+        return null == schema ? checkIfEntityIsFromAGivenDBType(repoObject.getCatalogObjectName(), METADATA_VIEW_TYPES)
+                : checkIfEntityIsFromAGivenDBType(repoObject.getCatalogObjectName(), schema, METADATA_VIEW_TYPES);
     }
 
     /**
@@ -556,7 +550,16 @@ public class XSODataArtefactParser implements InitializingBean {
      * @throws SQLException the SQL exception
      */
     private boolean checkIfEntityIsFromAGivenDBType(String artifactName, List<String> dbTypes) throws SQLException {
-        List<DBArtifactModel> artifacts = getDBArtifactsByName(artifactName);
+        String schema = getDefaultSchema();
+        return this.checkIfEntityIsFromAGivenDBType(artifactName, schema, dbTypes);
+    }
+
+    private String getDefaultSchema() {
+        return Configuration.get("HANA_USERNAME");
+    }
+
+    private boolean checkIfEntityIsFromAGivenDBType(String artifactName, String schema, List<String> dbTypes) throws SQLException {
+        List<DBArtifactModel> artifacts = getDBArtifactsByName(artifactName, schema);
         Optional<DBArtifactModel> filteredArtifact = artifacts.stream()
                                                               .parallel()
                                                               .filter(artifact -> dbTypes.contains(artifact.getType()))
@@ -568,15 +571,10 @@ public class XSODataArtefactParser implements InitializingBean {
         return null != dbArtifact;
     }
 
-    /**
-     * Check if entity exist.
-     *
-     * @param artifactName the artifact name
-     * @return true, if successful
-     * @throws SQLException the SQL exception
-     */
-    private boolean checkIfEntityExist(String artifactName) throws SQLException {
-        return checkIfEntityIsFromAGivenDBType(artifactName, METADATA_ENTITY_TYPES);
+    private boolean checkIfEntityExist(XSODataRepositoryObject repositoryObject) throws SQLException {
+        String schema = repositoryObject.getCatalogObjectSchema();
+        return null == schema ? checkIfEntityIsFromAGivenDBType(repositoryObject.getCatalogObjectName(), METADATA_ENTITY_TYPES)
+                : checkIfEntityIsFromAGivenDBType(repositoryObject.getCatalogObjectName(), schema, METADATA_ENTITY_TYPES);
     }
 
     /**
@@ -661,9 +659,14 @@ public class XSODataArtefactParser implements InitializingBean {
      * @throws SQLException the SQL exception
      */
     public List<DBArtifactModel> getDBArtifactsByName(String artifactName) throws SQLException {
+        String schema = getDefaultSchema();
+        return this.getDBArtifactsByName(artifactName, schema);
+    }
+
+    public List<DBArtifactModel> getDBArtifactsByName(String artifactName, String schema) throws SQLException {
         try (Connection connection = getDefaultDatasource().getConnection()) {
             DatabaseMetaData databaseMetaData = connection.getMetaData();
-            ResultSet rs = databaseMetaData.getTables(connection.getCatalog(), Configuration.get("HANA_USERNAME"), artifactName, null);
+            ResultSet rs = databaseMetaData.getTables(connection.getCatalog(), schema, artifactName, null);
             List<DBArtifactModel> artifacts = new ArrayList<>();
             while (rs.next()) {
                 artifacts.add(new DBArtifactModel(rs.getString("TABLE_NAME"), rs.getString("TABLE_TYPE"), rs.getString("TABLE_SCHEM")));

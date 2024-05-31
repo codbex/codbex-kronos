@@ -69,7 +69,7 @@ public class TableMetadataProvider implements org.eclipse.dirigible.components.o
      */
     @Override
     public Table getTableMetadata(ODataEntity oDataEntityDefinition) throws SQLException {
-        return getPersistenceTableModel(oDataEntityDefinition.getTable());
+        return getPersistenceTableModel(oDataEntityDefinition.getTable(), oDataEntityDefinition.getSchema());
     }
 
     /**
@@ -80,6 +80,26 @@ public class TableMetadataProvider implements org.eclipse.dirigible.components.o
      * @throws SQLException the SQL exception
      */
     public Table getPersistenceTableModel(String artifactName) throws SQLException {
+        return this.getPersistenceTableModel(artifactName, null);
+    }
+
+    /**
+     * Gets the persistence table model.
+     *
+     * @param artifactName the artifact name
+     * @param schema artifact schema
+     * @return the persistence table model
+     * @throws SQLException the SQL exception
+     */
+    public Table getPersistenceTableModel(String artifactName, String schema) throws SQLException {
+        if (null != schema) {
+            Table tableMetadata = dbMetadataUtil.getTableMetadata(artifactName, schema);
+
+            if (null != tableMetadata && METADATA_ENTITY_TYPES.contains(tableMetadata.getKind())) {
+                return tableMetadata;
+            }
+        }
+
         String currentUserSchema = Configuration.get("HANA_USERNAME");
         Table tableMetadata = dbMetadataUtil.getTableMetadata(artifactName, currentUserSchema);
 
@@ -95,9 +115,9 @@ public class TableMetadataProvider implements org.eclipse.dirigible.components.o
         }
 
         if (null == targetObjectMetadata || targetObjectMetadata.getTableName() == null) {
-            logger.error("We cannot find view/table/synonym with name " + artifactName + " in schema " + currentUserSchema
-                    + " and there is no public synonym with that name. Make sure that you are using view/table/synonym which is in your user default "
-                    + "schema or is a public synonym.");
+            logger.error("Cannot find view/table/synonym with name [{}] in schema [{}] and there is no public synonym with that name. "
+                    + "Make sure that you are using view/table/synonym which is in your user default schema or is a public synonym.",
+                    artifactName, currentUserSchema);
             return null;
         }
 
