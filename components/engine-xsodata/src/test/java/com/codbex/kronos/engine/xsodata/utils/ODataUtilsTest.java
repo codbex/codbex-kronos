@@ -142,7 +142,7 @@ public class ODataUtilsTest {
         column9.setNullable(true);
 
         model.setKind(ISqlKeywords.METADATA_TABLE);
-      when(metadataProvider.getPersistenceTableModel("kneo.test.helloodata.CompositeKey::employee", null)).thenReturn(model);
+        when(metadataProvider.getPersistenceTableModel("kneo.test.helloodata.CompositeKey::employee", null)).thenReturn(model);
 
         model = new Table("kneo.test.helloodata.CompositeKey::phones");
         TableColumn column3 = new TableColumn("NUMBER", "Edm.Int32", "0", false, true, model);
@@ -157,7 +157,7 @@ public class ODataUtilsTest {
                 "kneo.test.helloodata.CompositeKey::address", "FK_ADDRESS_ID", model.getConstraints());
 
         model.setKind(ISqlKeywords.METADATA_TABLE);
-      when(metadataProvider.getPersistenceTableModel("kneo.test.helloodata.CompositeKey::phones", null)).thenReturn(model);
+        when(metadataProvider.getPersistenceTableModel("kneo.test.helloodata.CompositeKey::phones", null)).thenReturn(model);
 
         OData oDataDefinition = oDataUtil.convertODataModelToODataDefinition(oDataModel);
 
@@ -304,7 +304,7 @@ public class ODataUtilsTest {
         column10.setNullable(true);
 
         model.setKind(ISqlKeywords.METADATA_TABLE);
-      when(metadataProvider.getPersistenceTableModel("kneo.test.helloodata.CompositeKey::employee", null)).thenReturn(model);
+        when(metadataProvider.getPersistenceTableModel("kneo.test.helloodata.CompositeKey::employee", null)).thenReturn(model);
 
         model = new Table("kneo.test.helloodata.CompositeKey::phones");
         TableColumn column3 = new TableColumn("NUMBER", "Edm.Int32", "0", false, true, model);
@@ -319,7 +319,7 @@ public class ODataUtilsTest {
                 "kneo.test.helloodata.CompositeKey::address", "FK_ADDRESS_ID", model.getConstraints());
 
         model.setKind(ISqlKeywords.METADATA_TABLE);
-      when(metadataProvider.getPersistenceTableModel("kneo.test.helloodata.CompositeKey::phones", null)).thenReturn(model);
+        when(metadataProvider.getPersistenceTableModel("kneo.test.helloodata.CompositeKey::phones", null)).thenReturn(model);
 
         OData oDataDefinition = oDataUtil.convertODataModelToODataDefinition(oDataModel);
         assertEquals(2, oDataDefinition.getEntities()
@@ -640,7 +640,7 @@ public class ODataUtilsTest {
      */
     private void mockTableMetadataInvocations(String tableName) throws SQLException {
         Table model = new Table(tableName);
-      when(metadataProvider.getPersistenceTableModel(tableName, null)).thenReturn(model);
+        when(metadataProvider.getPersistenceTableModel(tableName, null)).thenReturn(model);
     }
 
     // /**
@@ -698,7 +698,7 @@ public class ODataUtilsTest {
 
         model.setKind("CALC VIEW");
 
-      when(metadataProvider.getPersistenceTableModel("kneo.test.calcviews::calc", null)).thenReturn(model);
+        when(metadataProvider.getPersistenceTableModel("kneo.test.calcviews::calc", null)).thenReturn(model);
         when(mockDataSource.getConnection()).thenReturn(mockConnection);
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
         when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
@@ -749,7 +749,7 @@ public class ODataUtilsTest {
 
         model.setKind("CALC VIEW");
 
-      when(metadataProvider.getPersistenceTableModel("kneo.test.calcviews::calc", null)).thenReturn(model);
+        when(metadataProvider.getPersistenceTableModel("kneo.test.calcviews::calc", null)).thenReturn(model);
         when(mockDataSource.getConnection()).thenReturn(mockConnection);
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
         when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
@@ -832,7 +832,7 @@ public class ODataUtilsTest {
 
             calcViewModel.setKind(ISqlKeywords.METADATA_CALC_VIEW);
 
-          when(metadataProvider.getPersistenceTableModel("TestCalcView", null)).thenReturn(calcViewModel);
+            when(metadataProvider.getPersistenceTableModel("TestCalcView", null)).thenReturn(calcViewModel);
             when(mockDataSource.getConnection()).thenReturn(mockConnection);
             when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
             when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
@@ -904,7 +904,7 @@ public class ODataUtilsTest {
         TableColumn column3 = new TableColumn("ROLE_NUMBER", "Edm.Int32", "0", true, false, model);
 
         model.setKind("CALC VIEW");
-      when(metadataProvider.getPersistenceTableModel("TEST_VIEW", null)).thenReturn(model);
+        when(metadataProvider.getPersistenceTableModel("TEST_VIEW", null)).thenReturn(model);
 
         OData oDataDefinition = oDataUtil.convertODataModelToODataDefinition(oDataModel);
 
