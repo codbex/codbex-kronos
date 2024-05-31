@@ -1,13 +1,3 @@
-/*
- * Copyright (c) 2022 codbex or an codbex affiliate company and contributors
- *
- * All rights reserved. This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v2.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v20.html
- *
- * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
- * SPDX-License-Identifier: EPL-2.0
- */
 // Generated from com/codbex/kronos/parser/hdbdd/core/Cds.g4 by ANTLR 4.13.1
 package com.codbex.kronos.parser.hdbdd.core;
 
@@ -176,6 +166,14 @@ public class CdsParser extends Parser {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitCdsDefinition(this);
         }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitCdsDefinition(this);
+            else
+                return visitor.visitChildren(this);
+        }
     }
 
     public final CdsDefinitionContext cdsDefinition() throws RecognitionException {
@@ -254,6 +252,14 @@ public class CdsParser extends Parser {
         public void exitRule(ParseTreeListener listener) {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitNamespaceRule(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitNamespaceRule(this);
+            else
+                return visitor.visitChildren(this);
         }
     }
 
@@ -345,6 +351,14 @@ public class CdsParser extends Parser {
         public void exitRule(ParseTreeListener listener) {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitUsingRule(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitUsingRule(this);
+            else
+                return visitor.visitChildren(this);
         }
     }
 
@@ -469,6 +483,14 @@ public class CdsParser extends Parser {
         public void exitRule(ParseTreeListener listener) {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitTopLevelSymbol(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitTopLevelSymbol(this);
+            else
+                return visitor.visitChildren(this);
         }
     }
 
@@ -614,6 +636,14 @@ public class CdsParser extends Parser {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitDataTypeRule(this);
         }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitDataTypeRule(this);
+            else
+                return visitor.visitChildren(this);
+        }
     }
 
     public final DataTypeRuleContext dataTypeRule() throws RecognitionException {
@@ -742,6 +772,14 @@ public class CdsParser extends Parser {
         public void exitRule(ParseTreeListener listener) {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitContextRule(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitContextRule(this);
+            else
+                return visitor.visitChildren(this);
         }
     }
 
@@ -895,6 +933,14 @@ public class CdsParser extends Parser {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitStructuredTypeRule(this);
         }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitStructuredTypeRule(this);
+            else
+                return visitor.visitChildren(this);
+        }
     }
 
     public final StructuredTypeRuleContext structuredTypeRule() throws RecognitionException {
@@ -1040,6 +1086,14 @@ public class CdsParser extends Parser {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitEntityRule(this);
         }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitEntityRule(this);
+            else
+                return visitor.visitChildren(this);
+        }
     }
 
     public final EntityRuleContext entityRule() throws RecognitionException {
@@ -1178,6 +1232,14 @@ public class CdsParser extends Parser {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitViewRule(this);
         }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitViewRule(this);
+            else
+                return visitor.visitChildren(this);
+        }
     }
 
     public final ViewRuleContext viewRule() throws RecognitionException {
@@ -1275,6 +1337,14 @@ public class CdsParser extends Parser {
         public void exitRule(ParseTreeListener listener) {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitFieldDeclRule(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitFieldDeclRule(this);
+            else
+                return visitor.visitChildren(this);
         }
     }
 
@@ -1400,6 +1470,14 @@ public class CdsParser extends Parser {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitAssignTypeWithArgs(this);
         }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitAssignTypeWithArgs(this);
+            else
+                return visitor.visitChildren(this);
+        }
     }
     @SuppressWarnings("CheckReturnValue")
     public static class AssignTypeContext extends TypeAssignRuleContext {
@@ -1432,6 +1510,14 @@ public class CdsParser extends Parser {
         public void exitRule(ParseTreeListener listener) {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitAssignType(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitAssignType(this);
+            else
+                return visitor.visitChildren(this);
         }
     }
 
@@ -1606,6 +1692,14 @@ public class CdsParser extends Parser {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitElementDeclRule(this);
         }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitElementDeclRule(this);
+            else
+                return visitor.visitChildren(this);
+        }
     }
 
     public final ElementDeclRuleContext elementDeclRule() throws RecognitionException {
@@ -1739,6 +1833,14 @@ public class CdsParser extends Parser {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitElementDetails(this);
         }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitElementDetails(this);
+            else
+                return visitor.visitChildren(this);
+        }
     }
 
     public final ElementDetailsContext elementDetails() throws RecognitionException {
@@ -1802,6 +1904,14 @@ public class CdsParser extends Parser {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitElementConstraints(this);
         }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitElementConstraints(this);
+            else
+                return visitor.visitChildren(this);
+        }
     }
 
     public final ElementConstraintsContext elementConstraints() throws RecognitionException {
@@ -1849,6 +1959,14 @@ public class CdsParser extends Parser {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitAssociationConstraints(this);
         }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitAssociationConstraints(this);
+            else
+                return visitor.visitChildren(this);
+        }
     }
 
     public final AssociationConstraintsContext associationConstraints() throws RecognitionException {
@@ -1895,6 +2013,14 @@ public class CdsParser extends Parser {
         public void exitRule(ParseTreeListener listener) {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitConstraints(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitConstraints(this);
+            else
+                return visitor.visitChildren(this);
         }
     }
 
@@ -1998,6 +2124,14 @@ public class CdsParser extends Parser {
         public void exitRule(ParseTreeListener listener) {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitAssociation(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitAssociation(this);
+            else
+                return visitor.visitChildren(this);
         }
     }
 
@@ -2134,6 +2268,14 @@ public class CdsParser extends Parser {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitCalculatedAssociation(this);
         }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitCalculatedAssociation(this);
+            else
+                return visitor.visitChildren(this);
+        }
     }
 
     public final CalculatedAssociationContext calculatedAssociation() throws RecognitionException {
@@ -2201,6 +2343,14 @@ public class CdsParser extends Parser {
         public void exitRule(ParseTreeListener listener) {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitStatement(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitStatement(this);
+            else
+                return visitor.visitChildren(this);
         }
     }
 
@@ -2270,6 +2420,14 @@ public class CdsParser extends Parser {
         public void exitRule(ParseTreeListener listener) {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitAssociationTarget(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitAssociationTarget(this);
+            else
+                return visitor.visitChildren(this);
         }
     }
 
@@ -2349,6 +2507,14 @@ public class CdsParser extends Parser {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitUnmanagedForeignKey(this);
         }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitUnmanagedForeignKey(this);
+            else
+                return visitor.visitChildren(this);
+        }
     }
 
     public final UnmanagedForeignKeyContext unmanagedForeignKey() throws RecognitionException {
@@ -2425,6 +2591,14 @@ public class CdsParser extends Parser {
         public void exitRule(ParseTreeListener listener) {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitManagedForeignKeys(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitManagedForeignKeys(this);
+            else
+                return visitor.visitChildren(this);
         }
     }
 
@@ -2505,6 +2679,14 @@ public class CdsParser extends Parser {
         public void exitRule(ParseTreeListener listener) {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitForeignKey(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitForeignKey(this);
+            else
+                return visitor.visitChildren(this);
         }
     }
 
@@ -2592,6 +2774,14 @@ public class CdsParser extends Parser {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitNoCardinality(this);
         }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitNoCardinality(this);
+            else
+                return visitor.visitChildren(this);
+        }
     }
     @SuppressWarnings("CheckReturnValue")
     public static class MaxCardinalityContext extends CardinalityContext {
@@ -2616,6 +2806,14 @@ public class CdsParser extends Parser {
         public void exitRule(ParseTreeListener listener) {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitMaxCardinality(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitMaxCardinality(this);
+            else
+                return visitor.visitChildren(this);
         }
     }
     @SuppressWarnings("CheckReturnValue")
@@ -2645,6 +2843,14 @@ public class CdsParser extends Parser {
         public void exitRule(ParseTreeListener listener) {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitMinMaxCardinality(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitMinMaxCardinality(this);
+            else
+                return visitor.visitChildren(this);
         }
     }
 
@@ -2799,6 +3005,14 @@ public class CdsParser extends Parser {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitDefaultValue(this);
         }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitDefaultValue(this);
+            else
+                return visitor.visitChildren(this);
+        }
     }
 
     public final DefaultValueContext defaultValue() throws RecognitionException {
@@ -2881,6 +3095,14 @@ public class CdsParser extends Parser {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitAnnPropertyRule(this);
         }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitAnnPropertyRule(this);
+            else
+                return visitor.visitChildren(this);
+        }
     }
     @SuppressWarnings("CheckReturnValue")
     public static class AnnObjectRuleContext extends AnnotationRuleContext {
@@ -2907,6 +3129,14 @@ public class CdsParser extends Parser {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitAnnObjectRule(this);
         }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitAnnObjectRule(this);
+            else
+                return visitor.visitChildren(this);
+        }
     }
     @SuppressWarnings("CheckReturnValue")
     public static class AnnMarkerRuleContext extends AnnotationRuleContext {
@@ -2928,6 +3158,14 @@ public class CdsParser extends Parser {
         public void exitRule(ParseTreeListener listener) {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitAnnMarkerRule(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitAnnMarkerRule(this);
+            else
+                return visitor.visitChildren(this);
         }
     }
 
@@ -3045,6 +3283,14 @@ public class CdsParser extends Parser {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitAnnValue(this);
         }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitAnnValue(this);
+            else
+                return visitor.visitChildren(this);
+        }
     }
 
     public final AnnValueContext annValue() throws RecognitionException {
@@ -3128,6 +3374,14 @@ public class CdsParser extends Parser {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitEnumRule(this);
         }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitEnumRule(this);
+            else
+                return visitor.visitChildren(this);
+        }
     }
 
     public final EnumRuleContext enumRule() throws RecognitionException {
@@ -3180,6 +3434,14 @@ public class CdsParser extends Parser {
         public void exitRule(ParseTreeListener listener) {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitArrRule(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitArrRule(this);
+            else
+                return visitor.visitChildren(this);
         }
     }
 
@@ -3253,6 +3515,14 @@ public class CdsParser extends Parser {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitObj(this);
         }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitObj(this);
+            else
+                return visitor.visitChildren(this);
+        }
     }
 
     public final ObjContext obj() throws RecognitionException {
@@ -3324,6 +3594,14 @@ public class CdsParser extends Parser {
         public void exitRule(ParseTreeListener listener) {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitKeyValue(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitKeyValue(this);
+            else
+                return visitor.visitChildren(this);
         }
     }
 
@@ -3433,6 +3711,14 @@ public class CdsParser extends Parser {
         public void exitRule(ParseTreeListener listener) {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitSelectRule(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitSelectRule(this);
+            else
+                return visitor.visitChildren(this);
         }
     }
 
@@ -3614,6 +3900,14 @@ public class CdsParser extends Parser {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitJoinRule(this);
         }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitJoinRule(this);
+            else
+                return visitor.visitChildren(this);
+        }
     }
 
     public final JoinRuleContext joinRule() throws RecognitionException {
@@ -3678,6 +3972,14 @@ public class CdsParser extends Parser {
         public void exitRule(ParseTreeListener listener) {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitJoinFields(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitJoinFields(this);
+            else
+                return visitor.visitChildren(this);
         }
     }
 
@@ -3744,6 +4046,14 @@ public class CdsParser extends Parser {
         public void exitRule(ParseTreeListener listener) {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitSelectedColumnsRule(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitSelectedColumnsRule(this);
+            else
+                return visitor.visitChildren(this);
         }
     }
 
@@ -3821,6 +4131,14 @@ public class CdsParser extends Parser {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitWhereRule(this);
         }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitWhereRule(this);
+            else
+                return visitor.visitChildren(this);
+        }
     }
 
     public final WhereRuleContext whereRule() throws RecognitionException {
@@ -3878,6 +4196,14 @@ public class CdsParser extends Parser {
         public void exitRule(ParseTreeListener listener) {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitCharacters(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitCharacters(this);
+            else
+                return visitor.visitChildren(this);
         }
     }
 
@@ -4014,6 +4340,14 @@ public class CdsParser extends Parser {
         public void exitRule(ParseTreeListener listener) {
             if (listener instanceof CdsListener)
                 ((CdsListener) listener).exitIdentifier(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof CdsVisitor)
+                return ((CdsVisitor<? extends T>) visitor).visitIdentifier(this);
+            else
+                return visitor.visitChildren(this);
         }
     }
 
