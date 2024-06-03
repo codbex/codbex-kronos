@@ -10,6 +10,10 @@
  */
 package com.codbex.kronos.engine.xsjs.service;
 
+import static org.eclipse.dirigible.graalium.core.graal.ValueTransformer.transformValue;
+
+import com.codbex.kronos.engine.KronosSourceProvider;
+import com.codbex.kronos.engine.Require;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -18,11 +22,9 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
 import org.apache.commons.io.IOUtils;
 import org.eclipse.dirigible.components.base.http.access.UserRequestVerifier;
 import org.eclipse.dirigible.components.engine.javascript.service.JavascriptHandler;
-import static org.eclipse.dirigible.graalium.core.graal.ValueTransformer.transformValue;
 import org.eclipse.dirigible.graalium.core.DirigibleJavascriptCodeRunner;
 import org.eclipse.dirigible.graalium.core.JavascriptSourceProvider;
 import org.eclipse.dirigible.repository.api.IRepository;
@@ -32,9 +34,6 @@ import org.graalvm.polyglot.Source;
 import org.graalvm.polyglot.Value;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.codbex.kronos.engine.KronosSourceProvider;
-import com.codbex.kronos.engine.Require;
 
 /**
  * The Class XsjsHandler.
@@ -223,24 +222,17 @@ public class XsjsHandler extends JavascriptHandler {
                               value);
                 return transformValue(value);
             }
-        } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                if (e.getMessage() == null) {
-                    logger.error("Null object has been found");
-                    return e.getMessage();
-                } else if (e.getMessage()
-                            .contains("consider publish")) {
-                    logger.error(e.getMessage());
-                    return e.getMessage();
-                } else {
-                    logger.error("Error on processing JavaScript service: [/{}/{}], with parameters: [{}]", projectName, projectFilePath,
-                            projectFilePathParam);
-                    logger.error(e.getMessage(), e);
-                    throw new RuntimeException(e);
-                }
+        } catch (Exception ex) {
+            if (ex.getMessage()
+                  .contains("consider publish")) {
+                logger.error("File [/%s/%s] not published", projectName, projectFilePath, ex);
+                return ex.getMessage();
             }
+            String message = String.format("Error on processing JavaScript service: [/%s/%s], with parameters: [%s]", projectName,
+                    projectFilePath, projectFilePathParam);
+            logger.error(message, ex);
+            throw new RuntimeException(message, ex);
         }
-        return "";
     }
 
 }
