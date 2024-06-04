@@ -7,6 +7,7 @@
     <groupId>com.codbex.kronos</groupId>
     <artifactId>codbex-kronos-components-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
   </parent>
 
   <name>codbex - kronos - commons</name>
