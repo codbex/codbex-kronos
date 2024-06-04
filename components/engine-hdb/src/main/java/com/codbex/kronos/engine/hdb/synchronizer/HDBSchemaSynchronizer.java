@@ -10,6 +10,7 @@
  */
 package com.codbex.kronos.engine.hdb.synchronizer;
 
+import com.codbex.kronos.commons.StringUtils;
 import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdb.domain.HDBSchema;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
@@ -131,15 +132,7 @@ public class HDBSchemaSynchronizer extends BaseSynchronizer<HDBSchema, Long> {
         try {
             schema = HDBDataStructureModelFactory.parseSchema(location, content);
         } catch (DataStructuresException | IOException | ArtifactParserException e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("hdbtable: {}", location);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("content: {}", new String(content));
-            }
+            logger.error("Failed to parse [{}]. Content [{}]", location, StringUtils.toString(content), e);
             throw new ParseException(e.getMessage(), 0);
         }
 
@@ -155,15 +148,7 @@ public class HDBSchemaSynchronizer extends BaseSynchronizer<HDBSchema, Long> {
             }
             getService().save(schema);
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("schema: {}", schema);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("content: {}", new String(content));
-            }
+            logger.error("Failed to parse [{}]. Content [{}]", location, StringUtils.toString(content), e);
             throw new ParseException(e.getMessage(), 0);
         }
         return List.of(schema);
@@ -310,7 +295,7 @@ public class HDBSchemaSynchronizer extends BaseSynchronizer<HDBSchema, Long> {
             logger.info("Processing Update Schema: " + schemaModel.getName());
         }
         if (SqlFactory.getNative(connection)
-                      .exists(connection, schemaModel.getName(), DatabaseArtifactTypes.SCHEMA)) {
+                      .exists(connection, schemaModel.getSchema(), schemaModel.getName(), DatabaseArtifactTypes.SCHEMA)) {
             executeSchemaDrop(connection, schemaModel);
             executeSchemaCreate(connection, schemaModel);
         } else {

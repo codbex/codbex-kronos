@@ -10,6 +10,7 @@
  */
 package com.codbex.kronos.engine.hdb.synchronizer;
 
+import com.codbex.kronos.commons.StringUtils;
 import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdb.domain.HDBSequence;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
@@ -131,15 +132,7 @@ public class HDBSequencesSynchronizer extends BaseSynchronizer<HDBSequence, Long
         try {
             sequence = HDBDataStructureModelFactory.parseSequence(location, content);
         } catch (DataStructuresException | IOException | ArtifactParserException e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("hdbtable: {}", location);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("content: {}", new String(content));
-            }
+            logger.error("Failed to parse [{}]. Content [{}]", location, StringUtils.toString(content), e);
             throw new ParseException(e.getMessage(), 0);
         }
 
@@ -155,15 +148,7 @@ public class HDBSequencesSynchronizer extends BaseSynchronizer<HDBSequence, Long
             }
             getService().save(sequence);
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("sequence: {}", sequence);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("content: {}", new String(content));
-            }
+            logger.error("Failed to parse [{}]. Content [{}]", location, StringUtils.toString(content), e);
             throw new ParseException(e.getMessage(), 0);
         }
         return List.of(sequence);
@@ -218,7 +203,7 @@ public class HDBSequencesSynchronizer extends BaseSynchronizer<HDBSequence, Long
                 case CREATE:
                     if (ArtefactLifecycle.NEW.equals(sequence.getLifecycle())) {
                         if (!SqlFactory.getNative(connection)
-                                       .exists(connection, sequence.getName(), DatabaseArtifactTypes.SEQUENCE)) {
+                                       .exists(connection, sequence.getSchema(), sequence.getName(), DatabaseArtifactTypes.SEQUENCE)) {
                             executeSequenceCreate(connection, sequence);
                             callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
                         } else {
@@ -230,7 +215,7 @@ public class HDBSequencesSynchronizer extends BaseSynchronizer<HDBSequence, Long
                         }
                     } else if (ArtefactLifecycle.FAILED.equals(sequence.getLifecycle())) {
                         if (!SqlFactory.getNative(connection)
-                                       .exists(connection, sequence.getName(), DatabaseArtifactTypes.SEQUENCE)) {
+                                       .exists(connection, sequence.getSchema(), sequence.getName(), DatabaseArtifactTypes.SEQUENCE)) {
                             executeSequenceCreate(connection, sequence);
                             callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
                             ProblemsFacade.deleteArtefactSynchronizationProblem(sequence);
@@ -247,7 +232,7 @@ public class HDBSequencesSynchronizer extends BaseSynchronizer<HDBSequence, Long
                 case DELETE:
                     if (ArtefactLifecycle.CREATED.equals(sequence.getLifecycle())) {
                         if (SqlFactory.getNative(connection)
-                                      .exists(connection, sequence.getName(), DatabaseArtifactTypes.SEQUENCE)) {
+                                      .exists(connection, sequence.getSchema(), sequence.getName(), DatabaseArtifactTypes.SEQUENCE)) {
                             executeSequenceDrop(connection, sequence);
                             callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
                         }
@@ -311,11 +296,9 @@ public class HDBSequencesSynchronizer extends BaseSynchronizer<HDBSequence, Long
      * @throws SQLException the SQL exception
      */
     public void executeSequenceUpdate(Connection connection, HDBSequence sequenceModel) throws SQLException {
-        if (logger.isInfoEnabled()) {
-            logger.info("Processing Update Sequence: " + sequenceModel.getName());
-        }
+        logger.info("Processing Update Sequence: " + sequenceModel.getName());
         if (SqlFactory.getNative(connection)
-                      .exists(connection, sequenceModel.getName(), DatabaseArtifactTypes.SEQUENCE)) {
+                      .exists(connection, sequenceModel.getSchema(), sequenceModel.getName(), DatabaseArtifactTypes.SEQUENCE)) {
             executeSequenceDrop(connection, sequenceModel);
             executeSequenceCreate(connection, sequenceModel);
         } else {
@@ -331,7 +314,14 @@ public class HDBSequencesSynchronizer extends BaseSynchronizer<HDBSequence, Long
      * @throws SQLException the SQL exception
      */
     public void executeSequenceCreate(Connection connection, HDBSequence sequenceModel) throws SQLException {
-        new HDBSequenceCreateProcessor().execute(connection, sequenceModel);
+        String sequenceName = sequenceModel.getName();
+        String schema = sequenceModel.getSchema();
+        if (SqlFactory.getNative(connection)
+                      .exists(connection, schema, sequenceName, DatabaseArtifactTypes.SEQUENCE)) {
+            logger.info("Sequence [{}] in schema [{}] already exists and will NOT be created.", sequenceName, schema);
+        } else {
+            new HDBSequenceCreateProcessor().execute(connection, sequenceModel);
+        }
     }
 
     /**

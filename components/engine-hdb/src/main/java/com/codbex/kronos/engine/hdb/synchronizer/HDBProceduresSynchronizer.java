@@ -10,6 +10,7 @@
  */
 package com.codbex.kronos.engine.hdb.synchronizer;
 
+import com.codbex.kronos.commons.StringUtils;
 import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdb.domain.HDBProcedure;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
@@ -131,15 +132,7 @@ public class HDBProceduresSynchronizer extends BaseSynchronizer<HDBProcedure, Lo
         try {
             procedure = HDBDataStructureModelFactory.parseProcedure(location, content);
         } catch (DataStructuresException | ArtifactParserException | IOException e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("hdbtable: {}", location);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("content: {}", new String(content));
-            }
+            logger.error("Failed to parse [{}]. Content [{}]", location, StringUtils.toString(content), e);
             throw new ParseException(e.getMessage(), 0);
         }
 
@@ -155,15 +148,7 @@ public class HDBProceduresSynchronizer extends BaseSynchronizer<HDBProcedure, Lo
             }
             getService().save(procedure);
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("procedure: {}", procedure);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("content: {}", new String(content));
-            }
+            logger.error("Failed to parse [{}]. Content [{}]", location, StringUtils.toString(content), e);
             throw new ParseException(e.getMessage(), 0);
         }
         return List.of(procedure);
@@ -311,7 +296,7 @@ public class HDBProceduresSynchronizer extends BaseSynchronizer<HDBProcedure, Lo
             logger.info("Processing Update Procedure: " + procedureModel.getName());
         }
         if (SqlFactory.getNative(connection)
-                      .exists(connection, procedureModel.getName(), DatabaseArtifactTypes.PROCEDURE)) {
+                      .exists(connection, procedureModel.getSchema(), procedureModel.getName(), DatabaseArtifactTypes.PROCEDURE)) {
             executeProcedureDrop(connection, procedureModel);
             executeProcedureCreate(connection, procedureModel);
         } else {

@@ -10,6 +10,7 @@
  */
 package com.codbex.kronos.engine.xsodata.synchronizer;
 
+import com.codbex.kronos.commons.StringUtils;
 import com.codbex.kronos.engine.xsodata.domain.XSOData;
 import com.codbex.kronos.engine.xsodata.service.XSODataService;
 import com.codbex.kronos.engine.xsodata.transformers.TableMetadataProvider;
@@ -20,7 +21,6 @@ import com.codbex.kronos.engine.xsodata.transformers.XSODataArtefactParser;
 import com.codbex.kronos.engine.xsodata.utils.ODataUtils;
 import com.codbex.kronos.exceptions.ArtifactParserException;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.sql.SQLException;
@@ -152,7 +152,7 @@ public class XSODataSynchronizer extends BaseSynchronizer<XSOData, Long> {
     public List<XSOData> parse(String location, byte[] content) throws ParseException {
         try {
             XSOData xsodata = new XSOData();
-            xsodata = parseOData(location, new String(content, StandardCharsets.UTF_8), xsodata);
+            xsodata = parseOData(location, StringUtils.toString(content), xsodata);
             XSOData maybe = getService().findByKey(xsodata.getKey());
             if (maybe != null) {
                 xsodata.setId(maybe.getId());
@@ -160,9 +160,7 @@ public class XSODataSynchronizer extends BaseSynchronizer<XSOData, Long> {
             getService().save(xsodata);
             return List.of(xsodata);
         } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-            logger.error("odata: {}", location);
-            logger.error("content: {}", new String(content));
+            logger.error("Failed to parse [{}]. Content [{}]", location, StringUtils.toString(content), e);
             throw new ParseException(e.getMessage(), 0);
         }
     }

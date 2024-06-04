@@ -15,7 +15,10 @@
   <packaging>jar</packaging>
 
   <dependencies>
-
+    <dependency>
+      <groupId>com.codbex.kronos</groupId>
+      <artifactId>codbex-kronos-commons</artifactId>
+    </dependency>
     <!-- Base -->
     <dependency>
       <groupId>org.eclipse.dirigible</groupId>

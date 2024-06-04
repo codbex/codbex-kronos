@@ -10,7 +10,7 @@
  */
 package com.codbex.kronos.engine.hdb.parser;
 
-import java.nio.charset.StandardCharsets;
+import com.codbex.kronos.commons.StringUtils;
 
 /**
  * The Class HDBParameters.
@@ -60,7 +60,7 @@ public class HDBParameters {
     public HDBParameters(String type, String location, byte[] content, String workspacePath) {
         this.type = type;
         this.location = location;
-        this.content = new String(content, StandardCharsets.UTF_8);
+        this.content = StringUtils.toString(content);
         this.workspacePath = workspacePath;
     }
 

@@ -10,6 +10,7 @@
  */
 package com.codbex.kronos.engine.hdb.synchronizer;
 
+import com.codbex.kronos.commons.StringUtils;
 import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdb.domain.HDBTable;
 import com.codbex.kronos.engine.hdb.domain.HDBTableType;
@@ -133,15 +134,7 @@ public class HDBTableTypesSynchronizer extends BaseSynchronizer<HDBTableType, Lo
         try {
             tableType = HDBDataStructureModelFactory.parseTableType(location, content);
         } catch (DataStructuresException | IOException | ArtifactParserException e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("hdbtabletype: {}", location);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("content: {}", new String(content));
-            }
+            logger.error("Failed to parse [{}]. Content [{}]", location, StringUtils.toString(content), e);
             throw new ParseException(e.getMessage(), 0);
         }
         // Configuration.configureObject(tableType);
@@ -159,15 +152,7 @@ public class HDBTableTypesSynchronizer extends BaseSynchronizer<HDBTableType, Lo
             getService().save(tableType);
             return List.of(tableType);
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("hdbtabletype: {}", tableType);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("content: {}", new String(content));
-            }
+            logger.error("Failed to parse [{}]. Content [{}]", location, StringUtils.toString(content), e);
             throw new ParseException(e.getMessage(), 0);
         }
     }
@@ -381,7 +366,7 @@ public class HDBTableTypesSynchronizer extends BaseSynchronizer<HDBTableType, Lo
             logger.info("Processing Update HDBTableType: " + tableTypeModel.getName());
         }
         if (SqlFactory.getNative(connection)
-                      .exists(connection, tableTypeModel.getName(), DatabaseArtifactTypes.TABLE_TYPE)) {
+                      .exists(connection, tableTypeModel.getSchema(), tableTypeModel.getName(), DatabaseArtifactTypes.TABLE_TYPE)) {
             // if (SqlFactory.getNative(connection).count(connection, tableTypeModel.getName()) == 0) {
             // executeTableTypeDrop(connection, tableTypeModel);
             // executeTableTypeCreate(connection, tableTypeModel);

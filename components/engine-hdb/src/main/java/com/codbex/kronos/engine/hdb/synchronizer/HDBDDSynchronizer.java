@@ -10,6 +10,7 @@
  */
 package com.codbex.kronos.engine.hdb.synchronizer;
 
+import com.codbex.kronos.commons.StringUtils;
 import com.codbex.kronos.engine.hdb.domain.HDBDD;
 import com.codbex.kronos.engine.hdb.domain.HDBTable;
 import com.codbex.kronos.engine.hdb.domain.HDBTableConstraints;
@@ -187,15 +188,7 @@ public class HDBDDSynchronizer extends BaseSynchronizer<HDBDD, Long> {
         try {
             hdbdd = HDBDataStructureModelFactory.parseHdbdd(location, content);
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("hdbdd: {}", location);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("content: {}", new String(content));
-            }
+            logger.error("Failed to parse file [{}] with content [{}]", location, StringUtils.toString(content), e);
             throw new ParseException(e.getMessage(), 0);
         }
         // Configuration.configureObject(schema);
@@ -272,15 +265,7 @@ public class HDBDDSynchronizer extends BaseSynchronizer<HDBDD, Long> {
             getService().save(hdbdd);
             return List.of(hdbdd);
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("hdbdd: {}", hdbdd);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("content: {}", new String(content));
-            }
+            logger.error("Failed to parse [{}]. Content [{}]", location, StringUtils.toString(content), e);
             throw new ParseException(e.getMessage(), 0);
         }
     }
@@ -359,9 +344,7 @@ public class HDBDDSynchronizer extends BaseSynchronizer<HDBDD, Long> {
             String errorMessage = String.format("Error occurred while processing [%s]: %s", wrapper.getArtefact()
                                                                                                    .getLocation(),
                     e.getMessage());
-            if (logger.isErrorEnabled()) {
-                logger.error(errorMessage, e);
-            }
+            logger.error(errorMessage, e);
             callback.addError(errorMessage);
             callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, e.getMessage());
             ProblemsFacade.upsertArtefactSynchronizationProblem(wrapper.getArtefact(), errorMessage);
@@ -426,9 +409,10 @@ public class HDBDDSynchronizer extends BaseSynchronizer<HDBDD, Long> {
         }
 
         for (HDBTable entityModel : hdbddModel.getTables()) {
-            String tableName = HDBUtils.escapeArtifactName(entityModel.getName(), entityModel.getSchema());
+            String tableName = entityModel.getName();
+            String schema = entityModel.getSchema();
             if (!SqlFactory.getNative(connection)
-                           .exists(connection, tableName, DatabaseArtifactTypes.TABLE)) {
+                           .exists(connection, schema, tableName, DatabaseArtifactTypes.TABLE)) {
                 new HDBTableCreateProcessor().execute(connection, entityModel);
             } else {
                 new HDBTableAlterProcessor().execute(connection, entityModel);
@@ -438,7 +422,7 @@ public class HDBDDSynchronizer extends BaseSynchronizer<HDBDD, Long> {
         for (HDBView entityModel : hdbddModel.getViews()) {
             String viewName = HDBUtils.escapeArtifactName(entityModel.getName(), entityModel.getSchema());
             if (!SqlFactory.getNative(connection)
-                           .exists(connection, viewName, DatabaseArtifactTypes.VIEW)) {
+                           .exists(connection, entityModel.getSchema(), viewName, DatabaseArtifactTypes.VIEW)) {
                 new HDBViewCreateProcessor().execute(connection, entityModel);
             } else {
                 new HDBViewDropProcessor().execute(connection, entityModel);
@@ -452,9 +436,8 @@ public class HDBDDSynchronizer extends BaseSynchronizer<HDBDD, Long> {
      *
      * @param connection the connection
      * @param hdbddModel the HDBDD model
-     * @throws SQLException the SQL exception
      */
-    public void executeFailedHDBDDCreate(Connection connection, HDBDD hdbddModel) throws SQLException {
+    public void executeFailedHDBDDCreate(Connection connection, HDBDD hdbddModel) {
 
         for (HDBTableType entityModel : hdbddModel.getTableTypes()) {
             try {
@@ -466,9 +449,8 @@ public class HDBDDSynchronizer extends BaseSynchronizer<HDBDD, Long> {
 
         for (HDBTable entityModel : hdbddModel.getTables()) {
             try {
-                String tableName = HDBUtils.escapeArtifactName(entityModel.getName(), entityModel.getSchema());
                 if (!SqlFactory.getNative(connection)
-                               .exists(connection, tableName, DatabaseArtifactTypes.TABLE)) {
+                               .exists(connection, entityModel.getSchema(), entityModel.getName(), DatabaseArtifactTypes.TABLE)) {
                     new HDBTableCreateProcessor().execute(connection, entityModel);
                 }
             } catch (Exception e) {
@@ -478,9 +460,8 @@ public class HDBDDSynchronizer extends BaseSynchronizer<HDBDD, Long> {
 
         for (HDBView entityModel : hdbddModel.getViews()) {
             try {
-                String viewName = HDBUtils.escapeArtifactName(entityModel.getName(), entityModel.getSchema());
                 if (!SqlFactory.getNative(connection)
-                               .exists(connection, viewName, DatabaseArtifactTypes.VIEW)) {
+                               .exists(connection, entityModel.getSchema(), entityModel.getName(), DatabaseArtifactTypes.VIEW)) {
                     new HDBViewCreateProcessor().execute(connection, entityModel);
                 }
             } catch (Exception e) {
@@ -494,9 +475,8 @@ public class HDBDDSynchronizer extends BaseSynchronizer<HDBDD, Long> {
      *
      * @param connection the connection
      * @param hdbddModel the HDBDD model
-     * @throws SQLException the SQL exception
      */
-    public void executeHDBDDDrop(Connection connection, HDBDD hdbddModel) throws SQLException {
+    public void executeHDBDDDrop(Connection connection, HDBDD hdbddModel) {
         // HDBDDDropProcessor.execute(connection, hdbddModel);
     }
 

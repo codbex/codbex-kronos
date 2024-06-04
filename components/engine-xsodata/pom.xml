@@ -17,6 +17,10 @@
   <dependencies>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
+      <artifactId>codbex-kronos-commons</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-modules-parsers-xsodata</artifactId>
     </dependency>
     <dependency>

@@ -10,22 +10,6 @@
  */
 package com.codbex.kronos.engine.hdb.parser;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-
-import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-
 import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdb.api.IDataStructureModel;
 import com.codbex.kronos.engine.hdb.domain.HDBTable;
@@ -46,6 +30,21 @@ import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 /**
  * The Class HDBTableParser.
@@ -53,11 +52,17 @@ import com.google.gson.JsonElement;
 @Component
 public class HDBTableDataStructureParser implements HDBDataStructureParser<HDBTable> {
 
-    /** The Constant logger. */
+    /**
+     * The Constant logger.
+     */
     private static final Logger logger = LoggerFactory.getLogger(HDBTableDataStructureParser.class);
 
-    /** The column model transformer. */
-    private HDBTableColumnModelTransformer columnModelTransformer = new HDBTableColumnModelTransformer();
+    private static final Pattern SCHEMA_PATTERN = Pattern.compile(".+TABLE \"([^\"]+)\"\\.\"([^\"]+)\"", Pattern.CASE_INSENSITIVE);
+
+    /**
+     * The column model transformer.
+     */
+    private final HDBTableColumnModelTransformer columnModelTransformer = new HDBTableColumnModelTransformer();
 
     /**
      * Gets the type.
@@ -253,7 +258,18 @@ public class HDBTableDataStructureParser implements HDBDataStructureParser<HDBTa
         HDBTable dataStructureHDBTableModel = new HDBTable();
         HDBUtils.populateDataStructureModel(location, content, dataStructureHDBTableModel, IDataStructureModel.TYPE_HDB_TABLE, false);
         dataStructureHDBTableModel.setContent(content);
+
+        Optional<String> schema = extractSchema(content);
+        if (schema.isPresent()) {
+            dataStructureHDBTableModel.setSchema(schema.get());
+        }
+
         return dataStructureHDBTableModel;
+    }
+
+    private Optional<String> extractSchema(String content) {
+        Matcher matcher = SCHEMA_PATTERN.matcher(content);
+        return matcher.find() ? Optional.of(matcher.group(1)) : Optional.empty();
     }
 
     /**

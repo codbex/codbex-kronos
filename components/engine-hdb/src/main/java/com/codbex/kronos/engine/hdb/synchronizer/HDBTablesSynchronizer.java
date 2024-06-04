@@ -10,6 +10,7 @@
  */
 package com.codbex.kronos.engine.hdb.synchronizer;
 
+import com.codbex.kronos.commons.StringUtils;
 import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdb.domain.HDBTable;
 import com.codbex.kronos.engine.hdb.domain.HDBTableColumn;
@@ -137,15 +138,7 @@ public class HDBTablesSynchronizer extends BaseSynchronizer<HDBTable, Long> {
         try {
             table = HDBDataStructureModelFactory.parseTable(location, content);
         } catch (DataStructuresException | IOException | ArtifactParserException e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("hdbtable: {}", location);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("content: {}", new String(content));
-            }
+            logger.error("Failed to parse file [{}]. Content: [{}]", location, StringUtils.toString(content), e);
             throw new ParseException(e.getMessage(), 0);
         }
         // Configuration.configureObject(table);
@@ -166,15 +159,7 @@ public class HDBTablesSynchronizer extends BaseSynchronizer<HDBTable, Long> {
             getService().save(table);
             return List.of(table);
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("hdbtable: {}", table);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("content: {}", new String(content));
-            }
+            logger.error("Failed to parse [{}]. Content [{}]", location, StringUtils.toString(content), e);
             throw new ParseException(e.getMessage(), 0);
         }
     }
@@ -347,19 +332,18 @@ public class HDBTablesSynchronizer extends BaseSynchronizer<HDBTable, Long> {
                 case CREATE:
                     if (ArtefactLifecycle.NEW.equals(table.getLifecycle())) {
                         if (!SqlFactory.getNative(connection)
-                                       .exists(connection, table.getName(), DatabaseArtifactTypes.TABLE)) {
+                                       .exists(connection, table.getSchema(), table.getName(), DatabaseArtifactTypes.TABLE)) {
                             executeTableCreate(connection, table);
                             callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
                         } else {
-                            if (logger.isWarnEnabled()) {
-                                logger.warn(String.format("HDBTable [%s] already exists during the update process", table.getName()));
-                            }
+                            logger.warn("HDBTable [{}] in schema [{}] already exists during the update process", table.getName(),
+                                    table.getSchema());
                             executeTableAlter(connection, table);
                             callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
                         }
                     } else if (ArtefactLifecycle.FAILED.equals(table.getLifecycle())) {
                         if (!SqlFactory.getNative(connection)
-                                       .exists(connection, table.getName(), DatabaseArtifactTypes.TABLE)) {
+                                       .exists(connection, table.getSchema(), table.getName(), DatabaseArtifactTypes.TABLE)) {
                             executeTableCreate(connection, table);
                             callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
                             ProblemsFacade.deleteArtefactSynchronizationProblem(table);
@@ -381,7 +365,7 @@ public class HDBTablesSynchronizer extends BaseSynchronizer<HDBTable, Long> {
                 case DELETE:
                     if (ArtefactLifecycle.CREATED.equals(table.getLifecycle()) || ArtefactLifecycle.UPDATED.equals(table.getLifecycle())) {
                         if (SqlFactory.getNative(connection)
-                                      .exists(connection, table.getName(), DatabaseArtifactTypes.TABLE)) {
+                                      .exists(connection, table.getSchema(), table.getName(), DatabaseArtifactTypes.TABLE)) {
                             if (SqlFactory.deriveDialect(connection)
                                           .count(connection, table.getName()) == 0) {
                                 executeTableDrop(connection, table);
@@ -414,9 +398,7 @@ public class HDBTablesSynchronizer extends BaseSynchronizer<HDBTable, Long> {
             String errorMessage = String.format("Error occurred while processing [%s]: %s", wrapper.getArtefact()
                                                                                                    .getLocation(),
                     e.getMessage());
-            if (logger.isErrorEnabled()) {
-                logger.error(errorMessage, e);
-            }
+            logger.error(errorMessage, e);
             callback.addError(errorMessage);
             callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage);
             ProblemsFacade.upsertArtefactSynchronizationProblem(wrapper.getArtefact(), errorMessage);
@@ -434,7 +416,7 @@ public class HDBTablesSynchronizer extends BaseSynchronizer<HDBTable, Long> {
         try (Connection connection = datasourcesManager.getDefaultDataSource()
                                                        .getConnection()) {
             if (SqlFactory.getNative(connection)
-                          .exists(connection, table.getName(), DatabaseArtifactTypes.TABLE)) {
+                          .exists(connection, table.getSchema(), table.getName(), DatabaseArtifactTypes.TABLE)) {
                 if (SqlFactory.deriveDialect(connection)
                               .count(connection, table.getName()) == 0) {
                     executeTableDrop(connection, table);
@@ -479,7 +461,7 @@ public class HDBTablesSynchronizer extends BaseSynchronizer<HDBTable, Long> {
             logger.info("Processing Update HDBTable: " + tableModel.getName());
         }
         if (SqlFactory.getNative(connection)
-                      .exists(connection, tableModel.getName(), DatabaseArtifactTypes.TABLE)) {
+                      .exists(connection, tableModel.getSchema(), tableModel.getName(), DatabaseArtifactTypes.TABLE)) {
             // if (SqlFactory.getNative(connection).count(connection, tableModel.getName()) == 0) {
             // executeTableDrop(connection, tableModel);
             // executeTableCreate(connection, tableModel);
@@ -499,7 +481,14 @@ public class HDBTablesSynchronizer extends BaseSynchronizer<HDBTable, Long> {
      * @throws SQLException the SQL exception
      */
     public void executeTableCreate(Connection connection, HDBTable tableModel) throws SQLException {
-        new HDBTableCreateProcessor().execute(connection, tableModel);
+        String table = tableModel.getName();
+        String schema = tableModel.getSchema();
+        if (SqlFactory.getNative(connection)
+                      .exists(connection, schema, table, DatabaseArtifactTypes.TABLE)) {
+            logger.info("Table [{}] in schema [{}] already exists and will NOT be created.", table, schema);
+        } else {
+            new HDBTableCreateProcessor().execute(connection, tableModel);
+        }
     }
 
     // /**
