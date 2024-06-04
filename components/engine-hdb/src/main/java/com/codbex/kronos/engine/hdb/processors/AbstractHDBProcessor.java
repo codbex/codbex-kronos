@@ -10,15 +10,13 @@
  */
 package com.codbex.kronos.engine.hdb.processors;
 
+import com.codbex.kronos.engine.hdb.api.IHDBProcessor;
+import com.codbex.kronos.engine.hdb.domain.HDBDataStructure;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.codbex.kronos.engine.hdb.api.IHDBProcessor;
-import com.codbex.kronos.engine.hdb.domain.HDBDataStructure;
 
 /**
  * The Class AbstractHDBProcessor.
@@ -39,12 +37,8 @@ public abstract class AbstractHDBProcessor<T extends HDBDataStructure> implement
      */
     public void executeSql(String sql, Connection connection) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            logger.info(sql);
+            logger.info("Executing SQL: [{}]", sql);
             statement.executeUpdate();
-        } catch (SQLException e) {
-            logger.error(sql);
-            logger.error(e.getMessage(), e);
-            throw e;
         }
     }
 }

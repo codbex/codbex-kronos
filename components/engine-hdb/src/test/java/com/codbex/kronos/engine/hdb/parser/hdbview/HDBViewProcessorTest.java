@@ -16,9 +16,14 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import com.codbex.kronos.engine.hdb.domain.HDBView;
+import com.codbex.kronos.engine.hdb.parser.Constants;
+import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
+import com.codbex.kronos.engine.hdb.processors.HDBViewCreateProcessor;
+import com.codbex.kronos.engine.hdb.processors.HDBViewDropProcessor;
+import jakarta.transaction.Transactional;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
-
 import org.apache.commons.io.IOUtils;
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
@@ -45,14 +50,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
-
-import com.codbex.kronos.engine.hdb.domain.HDBView;
-import com.codbex.kronos.engine.hdb.parser.Constants;
-import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
-import com.codbex.kronos.engine.hdb.processors.HDBViewCreateProcessor;
-import com.codbex.kronos.engine.hdb.processors.HDBViewDropProcessor;
-
-import jakarta.transaction.Transactional;
 
 /**
  * The Class HDBViewProcessorTest.
@@ -241,7 +238,7 @@ public class HDBViewProcessorTest {
             sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection))
                       .thenReturn(new HanaSqlDialect());
             sqlFactory.when(() -> SqlFactory.getNative(mockConnection)
-                                            .exists(mockConnection, "MYSCHEMA.hdb_view::ItemsByOrderHANAv1", DatabaseArtifactTypes.VIEW))
+                                            .exists(mockConnection, "MYSCHEMA", "hdb_view::ItemsByOrderHANAv1", DatabaseArtifactTypes.VIEW))
                       .thenReturn(true);
             sqlFactory.when(() -> SqlFactory.getNative(mockConnection)
                                             .drop())

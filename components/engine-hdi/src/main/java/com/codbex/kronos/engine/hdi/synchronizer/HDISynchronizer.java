@@ -10,6 +10,7 @@
  */
 package com.codbex.kronos.engine.hdi.synchronizer;
 
+import com.codbex.kronos.commons.StringUtils;
 import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdb.parser.HDBParameters;
 import com.codbex.kronos.engine.hdi.domain.HDI;
@@ -151,15 +152,7 @@ public class HDISynchronizer extends BaseSynchronizer<HDI, Long> {
             }
             hdi = getService().save(hdi);
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("hdi: {}", hdi);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("content: {}", new String(content));
-            }
+            logger.error("Failed to parse [{}]. Content [{}]", location, StringUtils.toString(content), e);
             throw new ParseException(e.getMessage(), 0);
         }
         return List.of(hdi);

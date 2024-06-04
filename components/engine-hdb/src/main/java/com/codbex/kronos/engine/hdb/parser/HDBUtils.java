@@ -216,6 +216,7 @@ public class HDBUtils {
         if (indexOfBracket > -1 && indexOfEndOfProcKeyword > -1) {
             String procNameWithWhiteSymbols = content.substring(indexOfEndOfProcKeyword, indexOfBracket);
             return procNameWithWhiteSymbols.replace("\\s", "")
+                                           .replaceAll("\"", "")
                                            .trim();
         }
         String errMsg = "HDB Table Function file not correct";

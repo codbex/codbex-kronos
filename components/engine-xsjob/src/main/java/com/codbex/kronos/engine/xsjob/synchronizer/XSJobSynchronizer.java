@@ -10,6 +10,7 @@
  */
 package com.codbex.kronos.engine.xsjob.synchronizer;
 
+import com.codbex.kronos.commons.StringUtils;
 import com.codbex.kronos.engine.xsjob.domain.XSJob;
 import com.codbex.kronos.engine.xsjob.service.XSJobService;
 import com.codbex.kronos.xsjob.ds.model.JobArtifact;
@@ -142,15 +143,7 @@ public class XSJobSynchronizer extends BaseSynchronizer<XSJob, Long> {
                 }
                 xsjob = getService().save(xsjob);
             } catch (Exception e) {
-                if (logger.isErrorEnabled()) {
-                    logger.error(e.getMessage(), e);
-                }
-                if (logger.isErrorEnabled()) {
-                    logger.error("xsjob: {}", xsjob);
-                }
-                if (logger.isErrorEnabled()) {
-                    logger.error("content: {}", new String(content));
-                }
+                logger.error("Failed to parse [{}]. Content [{}]", location, StringUtils.toString(content), e);
                 throw new ParseException(e.getMessage(), 0);
             }
         }

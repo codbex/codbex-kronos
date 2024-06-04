@@ -10,6 +10,7 @@
  */
 package com.codbex.kronos.engine.hdb.synchronizer;
 
+import com.codbex.kronos.commons.StringUtils;
 import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdb.domain.HDBView;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
@@ -131,15 +132,7 @@ public class HDBViewsSynchronizer extends BaseSynchronizer<HDBView, Long> {
         try {
             view = HDBDataStructureModelFactory.parseView(location, content);
         } catch (DataStructuresException | IOException | ArtifactParserException e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("hdbtable: {}", location);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("content: {}", new String(content));
-            }
+            logger.error("Failed to parse [{}]. Content [{}]", location, StringUtils.toString(content), e);
             throw new ParseException(e.getMessage(), 0);
         }
 
@@ -155,15 +148,7 @@ public class HDBViewsSynchronizer extends BaseSynchronizer<HDBView, Long> {
             }
             getService().save(view);
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("view: {}", view);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("content: {}", new String(content));
-            }
+            logger.error("Failed to parse [{}]. Content [{}]", location, StringUtils.toString(content), e);
             throw new ParseException(e.getMessage(), 0);
         }
         return List.of(view);
@@ -213,7 +198,7 @@ public class HDBViewsSynchronizer extends BaseSynchronizer<HDBView, Long> {
                 case CREATE:
                     if (ArtefactLifecycle.NEW.equals(view.getLifecycle())) {
                         if (!SqlFactory.getNative(connection)
-                                       .exists(connection, view.getName(), DatabaseArtifactTypes.VIEW)) {
+                                       .exists(connection, view.getSchema(), view.getName(), DatabaseArtifactTypes.VIEW)) {
                             executeViewCreate(connection, view);
                             callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
                         } else {
@@ -225,7 +210,7 @@ public class HDBViewsSynchronizer extends BaseSynchronizer<HDBView, Long> {
                         }
                     } else if (ArtefactLifecycle.FAILED.equals(view.getLifecycle())) {
                         if (!SqlFactory.getNative(connection)
-                                       .exists(connection, view.getName(), DatabaseArtifactTypes.VIEW)) {
+                                       .exists(connection, view.getSchema(), view.getName(), DatabaseArtifactTypes.VIEW)) {
                             executeViewCreate(connection, view);
                             callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
                             ProblemsFacade.deleteArtefactSynchronizationProblem(view);
@@ -242,7 +227,7 @@ public class HDBViewsSynchronizer extends BaseSynchronizer<HDBView, Long> {
                 case DELETE:
                     if (ArtefactLifecycle.CREATED.equals(view.getLifecycle())) {
                         if (SqlFactory.getNative(connection)
-                                      .exists(connection, view.getName(), DatabaseArtifactTypes.VIEW)) {
+                                      .exists(connection, view.getSchema(), view.getName(), DatabaseArtifactTypes.VIEW)) {
                             executeViewDrop(connection, view);
                             callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
                         }
@@ -310,7 +295,7 @@ public class HDBViewsSynchronizer extends BaseSynchronizer<HDBView, Long> {
             logger.info("Processing Update View: " + viewModel.getName());
         }
         if (SqlFactory.getNative(connection)
-                      .exists(connection, viewModel.getName(), DatabaseArtifactTypes.VIEW)) {
+                      .exists(connection, viewModel.getSchema(), viewModel.getName(), DatabaseArtifactTypes.VIEW)) {
             executeViewDrop(connection, viewModel);
             executeViewCreate(connection, viewModel);
         } else {

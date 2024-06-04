@@ -10,6 +10,11 @@
  */
 package com.codbex.kronos.engine.hdb.processors;
 
+import com.codbex.kronos.engine.hdb.domain.HDBSynonym;
+import com.codbex.kronos.engine.hdb.domain.HDBSynonymGroup;
+import com.codbex.kronos.engine.hdb.parser.HDBUtils;
+import com.codbex.kronos.utils.CommonsConstants;
+import com.codbex.kronos.utils.CommonsUtils;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Map;
@@ -17,11 +22,6 @@ import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.codbex.kronos.engine.hdb.domain.HDBSynonym;
-import com.codbex.kronos.engine.hdb.domain.HDBSynonymGroup;
-import com.codbex.kronos.engine.hdb.parser.HDBUtils;
-import com.codbex.kronos.utils.CommonsConstants;
-import com.codbex.kronos.utils.CommonsUtils;
 
 /**
  * The Class HDBSynonymCreateProcessor.
@@ -105,14 +105,13 @@ public class HDBSynonymCreateProcessor extends AbstractHDBProcessor<HDBSynonymGr
                     }
                 }
             } catch (SQLException e) {
-                if (e.getErrorCode() != DUPLICATE_SYNONYM_NAME_ERROR_CODE) {
+                if (e.getErrorCode() == DUPLICATE_SYNONYM_NAME_ERROR_CODE) {
+                    logger.info("Synonym [{}] already exists during the create process and will NOT be created", synonymName);
+                } else {
                     String errorMessage = String.format("Create synonym [%s] skipped due to an error: %s", synonymName, e.getMessage());
                     CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, synonymModel.getLocation(),
                             CommonsConstants.HDB_SYNONYM_PARSER);
                     throw e;
-                }
-                if (logger.isWarnEnabled()) {
-                    logger.warn(String.format("Synonym [%s] already exists during the create process", synonymName));
                 }
             }
         }

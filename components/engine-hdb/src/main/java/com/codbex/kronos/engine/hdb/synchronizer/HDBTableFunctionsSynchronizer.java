@@ -10,6 +10,7 @@
  */
 package com.codbex.kronos.engine.hdb.synchronizer;
 
+import com.codbex.kronos.commons.StringUtils;
 import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdb.domain.HDBTableFunction;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
@@ -131,15 +132,7 @@ public class HDBTableFunctionsSynchronizer extends BaseSynchronizer<HDBTableFunc
         try {
             tablefunction = HDBDataStructureModelFactory.parseTableFunction(location, content);
         } catch (DataStructuresException | ArtifactParserException | IOException e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("hdbtable: {}", location);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("content: {}", new String(content));
-            }
+            logger.error("Failed to parse [{}]. Content [{}]", location, StringUtils.toString(content), e);
             throw new ParseException(e.getMessage(), 0);
         }
 
@@ -155,15 +148,7 @@ public class HDBTableFunctionsSynchronizer extends BaseSynchronizer<HDBTableFunc
             }
             getService().save(tablefunction);
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("tablefunction: {}", tablefunction);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("content: {}", new String(content));
-            }
+            logger.error("Failed to parse [{}]. Content [{}]", location, StringUtils.toString(content), e);
             throw new ParseException(e.getMessage(), 0);
         }
         return List.of(tablefunction);
@@ -311,7 +296,7 @@ public class HDBTableFunctionsSynchronizer extends BaseSynchronizer<HDBTableFunc
             logger.info("Processing Update TableFunction: " + tablefunctionModel.getName());
         }
         if (SqlFactory.getNative(connection)
-                      .exists(connection, tablefunctionModel.getName(), DatabaseArtifactTypes.FUNCTION)) {
+                      .exists(connection, tablefunctionModel.getSchema(), tablefunctionModel.getName(), DatabaseArtifactTypes.FUNCTION)) {
             executeTableFunctionDrop(connection, tablefunctionModel);
             executeTableFunctionCreate(connection, tablefunctionModel);
         } else {

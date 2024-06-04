@@ -15,7 +15,10 @@
   <packaging>jar</packaging>
 
   <dependencies>
-
+    <dependency>
+      <groupId>com.codbex.kronos</groupId>
+      <artifactId>codbex-kronos-commons</artifactId>
+    </dependency>
     <dependency>
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-engine-commons</artifactId>

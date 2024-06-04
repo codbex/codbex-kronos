@@ -10,6 +10,7 @@
  */
 package com.codbex.kronos.engine.hdb.synchronizer;
 
+import com.codbex.kronos.commons.StringUtils;
 import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdb.domain.HDBScalarFunction;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
@@ -131,15 +132,7 @@ public class HDBScalarFunctionsSynchronizer extends BaseSynchronizer<HDBScalarFu
         try {
             scalarfunction = HDBDataStructureModelFactory.parseScalarFunction(location, content);
         } catch (DataStructuresException | ArtifactParserException | IOException e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("hdbscalar: {}", location);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("content: {}", new String(content));
-            }
+            logger.error("Failed to parse [{}]. Content [{}]", location, StringUtils.toString(content), e);
             throw new ParseException(e.getMessage(), 0);
         }
 
@@ -155,15 +148,7 @@ public class HDBScalarFunctionsSynchronizer extends BaseSynchronizer<HDBScalarFu
             }
             getService().save(scalarfunction);
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("scalarfunction: {}", scalarfunction);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("content: {}", new String(content));
-            }
+            logger.error("Failed to parse [{}]. Content [{}]", location, StringUtils.toString(content), e);
             throw new ParseException(e.getMessage(), 0);
         }
         return List.of(scalarfunction);
@@ -311,7 +296,7 @@ public class HDBScalarFunctionsSynchronizer extends BaseSynchronizer<HDBScalarFu
             logger.info("Processing Update ScalarFunction: " + scalarfunctionModel.getName());
         }
         if (SqlFactory.getNative(connection)
-                      .exists(connection, scalarfunctionModel.getName(), DatabaseArtifactTypes.FUNCTION)) {
+                      .exists(connection, scalarfunctionModel.getSchema(), scalarfunctionModel.getName(), DatabaseArtifactTypes.FUNCTION)) {
             executeScalarFunctionDrop(connection, scalarfunctionModel);
             executeScalarFunctionCreate(connection, scalarfunctionModel);
         } else {

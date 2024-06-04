@@ -11,6 +11,12 @@
 package com.codbex.kronos.engine.hdb.processors;
 
 import static java.text.MessageFormat.format;
+
+import com.codbex.kronos.engine.hdb.domain.HDBTableType;
+import com.codbex.kronos.engine.hdb.domain.HDBTableTypeColumn;
+import com.codbex.kronos.engine.hdb.parser.HDBUtils;
+import com.codbex.kronos.utils.CommonsConstants;
+import com.codbex.kronos.utils.CommonsUtils;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -22,11 +28,6 @@ import org.eclipse.dirigible.database.sql.builders.tableType.CreateTableTypeBuil
 import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.codbex.kronos.engine.hdb.domain.HDBTableType;
-import com.codbex.kronos.engine.hdb.domain.HDBTableTypeColumn;
-import com.codbex.kronos.engine.hdb.parser.HDBUtils;
-import com.codbex.kronos.utils.CommonsConstants;
-import com.codbex.kronos.utils.CommonsUtils;
 
 /**
  * The Class HDBTableTypeCreateProcessor.
@@ -95,9 +96,12 @@ public class HDBTableTypeCreateProcessor extends AbstractHDBProcessor<HDBTableTy
         }
 
         // Create public synonym only if the table type exist
+        String schema = tableTypeModel.getSchema();
+        String table = tableTypeNameWithoutSchema;
         if (SqlFactory.getNative(connection)
-                      .exists(connection, tableTypeModel.getSchema(), tableTypeNameWithoutSchema, DatabaseArtifactTypes.TABLE_TYPE)) {
-            HDBUtils.createPublicSynonymForArtifact(tableTypeNameWithoutSchema, tableTypeModel.getSchema(), connection);
+                      .exists(connection, schema, tableTypeNameWithoutSchema, DatabaseArtifactTypes.TABLE_TYPE)) {
+
+            HDBUtils.createPublicSynonymForArtifact(table, schema, connection);
         }
     }
 

@@ -10,6 +10,7 @@
  */
 package com.codbex.kronos.engine.hdb.synchronizer;
 
+import com.codbex.kronos.commons.StringUtils;
 import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdb.domain.HDBSynonym;
 import com.codbex.kronos.engine.hdb.domain.HDBSynonymGroup;
@@ -132,15 +133,7 @@ public class HDBSynonymGroupsSynchronizer extends BaseSynchronizer<HDBSynonymGro
         try {
             synonymGroup = HDBDataStructureModelFactory.parseSynonym(location, content);
         } catch (DataStructuresException | IOException e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("hdbtable: {}", location);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("content: {}", new String(content));
-            }
+            logger.error("Failed to parse [{}]. Content [{}]", location, StringUtils.toString(content), e);
             throw new ParseException(e.getMessage(), 0);
         }
 
@@ -159,15 +152,7 @@ public class HDBSynonymGroupsSynchronizer extends BaseSynchronizer<HDBSynonymGro
             }
             getService().save(synonymGroup);
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("synonym: {}", synonymGroup);
-            }
-            if (logger.isErrorEnabled()) {
-                logger.error("content: {}", new String(content));
-            }
+            logger.error("Failed to parse [{}]. Content [{}]", location, StringUtils.toString(content), e);
             throw new ParseException(e.getMessage(), 0);
         }
         return List.of(synonymGroup);
@@ -355,7 +340,7 @@ public class HDBSynonymGroupsSynchronizer extends BaseSynchronizer<HDBSynonymGro
             logger.info("Processing Update Synonym: " + synonymGroupModel.getName());
         }
         if (SqlFactory.getNative(connection)
-                      .exists(connection, synonymGroupModel.getName(), DatabaseArtifactTypes.SYNONYM)) {
+                      .exists(connection, synonymGroupModel.getSchema(), synonymGroupModel.getName(), DatabaseArtifactTypes.SYNONYM)) {
             executeSynonymGroupDrop(connection, synonymGroupModel);
             executeSynonymGroupCreate(connection, synonymGroupModel);
         } else {
