@@ -10,10 +10,8 @@
  */
 package com.codbex.kronos.engine.hdb.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -26,14 +24,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-
+import java.util.ArrayList;
+import java.util.List;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.gson.annotations.Expose;
 
 /**
  * The Class TableConstraints.
@@ -261,17 +257,9 @@ public class HDBTableConstraints {
         this.table = table;
     }
 
-    /**
-     * To string.
-     *
-     * @return the string
-     */
     @Override
     public String toString() {
-        return "TableConstraints [id=" + id + ", primaryKey=" + primaryKey + ", foreignKeys="
-                + (foreignKeys != null ? Objects.toString(foreignKeys) : "null") + ", uniqueIndexes="
-                + (uniqueIndexes != null ? Objects.toString(uniqueIndexes) : "null") + ", checks="
-                + (checks != null ? Objects.toString(checks) : "null") + ", table=" + table.getName() + "]";
+        return "HDBTableConstraints{" + "id=" + id + ", primaryKey=" + primaryKey + ", foreignKeys=" + foreignKeys + ", uniqueIndexes="
+                + uniqueIndexes + ", checks=" + checks + ", table=" + (table == null ? null : table.getName()) + '}';
     }
-
 }

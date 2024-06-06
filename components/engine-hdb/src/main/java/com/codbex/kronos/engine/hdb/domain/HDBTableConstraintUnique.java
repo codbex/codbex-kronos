@@ -10,14 +10,13 @@
  */
 package com.codbex.kronos.engine.hdb.domain;
 
+import com.google.gson.annotations.Expose;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
-import com.google.gson.annotations.Expose;
 
 /**
  * The Class TableConstraintUnique.
@@ -124,17 +123,8 @@ public class HDBTableConstraintUnique extends HDBTableConstraint {
         this.order = order;
     }
 
-    /**
-     * To string.
-     *
-     * @return the string
-     */
     @Override
     public String toString() {
-        return "TableConstraintUnique [id=" + id + ", indexType=" + indexType + ", order=" + order + ", name=" + name + ", modifiers="
-                + modifiers + ", columns=" + columns + ", constraints.table=" + constraints.getTable()
-                                                                                           .getName()
-                + "]";
+        return "HDBTableConstraintUnique{" + "id=" + id + ", indexType='" + indexType + '\'' + ", order='" + order + '\'' + '}';
     }
-
 }

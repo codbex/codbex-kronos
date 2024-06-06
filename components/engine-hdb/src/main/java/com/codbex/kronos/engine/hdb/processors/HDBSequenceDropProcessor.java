@@ -32,6 +32,8 @@ public class HDBSequenceDropProcessor extends AbstractHDBProcessor<HDBSequence> 
     /** The Constant logger. */
     private static final Logger logger = LoggerFactory.getLogger(HDBSequenceDropProcessor.class);
 
+    private static final int ERR_SQL_CANT_DROP_WITH_RESTRICT = 419; // can't drop with RESTRICT specification
+
     /**
      * Execute.
      *
@@ -42,41 +44,58 @@ public class HDBSequenceDropProcessor extends AbstractHDBProcessor<HDBSequence> 
     @Override
     public void execute(Connection connection, HDBSequence sequenceModel) throws SQLException {
         String hdbSequenceName = HDBUtils.escapeArtifactName(sequenceModel.getName(), sequenceModel.getSchema());
-        logger.info("Processing Drop Sequence: " + hdbSequenceName);
+        logger.info("Processing Drop Sequence: [{}]", hdbSequenceName);
 
-        if (SqlFactory.getNative(connection)
-                      .exists(connection, sequenceModel.getSchema(), sequenceModel.getName(), DatabaseArtifactTypes.SEQUENCE)) {
-            String sql = null;
-            if (sequenceModel.isClassic()) {
-                sql = getDatabaseSpecificSQL(connection, hdbSequenceName);
-            } else {
-                ISqlDialect dialect = SqlFactory.deriveDialect(connection);
-                if (!dialect.getClass()
-                            .equals(HanaSqlDialect.class)) {
-                    String errorMessage = String.format("Sequences are not supported for %s", dialect.getDatabaseName(connection));
-                    CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, sequenceModel.getLocation(),
-                            CommonsConstants.HDB_SEQUENCE_PARSER);
-                    throw new IllegalStateException(errorMessage);
-                }
-                sql = Constants.HDBSEQUENCE_DROP + sequenceModel.getContent();
-            }
-
-            try {
-                executeSql(sql, connection);
-                String message = String.format("Drop sequence [%s] successfully", sequenceModel.getName());
-                logger.info(message);
-            } catch (SQLException ex) {
-                String errorMessage =
-                        String.format("Drop sequence [%s] skipped due to an error: %s", sequenceModel.getName(), ex.getMessage());
-                CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, sequenceModel.getLocation(),
-                        CommonsConstants.HDB_SEQUENCE_PARSER);
-                throw ex;
-            }
-
-        } else {
-            String warningMessage = String.format("Sequence [%s] does not exists during the drop process", sequenceModel.getName());
-            logger.warn(warningMessage);
+        if (!SqlFactory.getNative(connection)
+                       .exists(connection, sequenceModel.getSchema(), sequenceModel.getName(), DatabaseArtifactTypes.SEQUENCE)) {
+            logger.warn("Sequence [{}] does not exists during the drop process", sequenceModel.getName());
+            return;
         }
+        String sql = null;
+        if (sequenceModel.isClassic()) {
+            sql = getDatabaseSpecificSQL(connection, hdbSequenceName);
+        } else {
+            ISqlDialect dialect = SqlFactory.deriveDialect(connection);
+            if (!dialect.getClass()
+                        .equals(HanaSqlDialect.class)) {
+                String errorMessage = String.format("Sequences are not supported for %s", dialect.getDatabaseName(connection));
+                logDropError(errorMessage, sequenceModel);
+                throw new IllegalStateException(errorMessage);
+            }
+            sql = Constants.HDBSEQUENCE_DROP + sequenceModel.getContent();
+        }
+
+        try {
+            executeSql(sql, connection);
+            logger.info("Drop sequence [{}}] successfully", sequenceModel.getName());
+        } catch (SQLException ex) {
+            if (ERR_SQL_CANT_DROP_WITH_RESTRICT == ex.getErrorCode()) {
+                try {
+                    logger.warn("Sequence [{}] cannot be dropped with sql [{}]. Will try to drop it without drop option. ",
+                            sequenceModel.getName(), sql, ex);
+                    sql = SqlFactory.getNative(connection)
+                                    .drop()
+                                    .sequence(hdbSequenceName)
+                                    .unsetDropOption() // try without restrict
+                                    .build();
+                    executeSql(sql, connection);
+                    logger.info("Sequence [{}] has been dropped", sequenceModel.getName());
+                    return;
+                } catch (SQLException e) {
+                    logDropError(String.format("Drop sequence [%s] skipped due to an error: %s", sequenceModel.getName(), e.getMessage()),
+                            sequenceModel);
+                    throw e;
+                }
+            }
+            logDropError(String.format("Drop sequence [%s] skipped due to an error: %s", sequenceModel.getName(), ex.getMessage()),
+                    sequenceModel);
+            throw ex;
+        }
+    }
+
+    private void logDropError(String errorMessage, HDBSequence sequenceModel) {
+        CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, sequenceModel.getLocation(),
+                CommonsConstants.HDB_SEQUENCE_PARSER);
     }
 
     /**

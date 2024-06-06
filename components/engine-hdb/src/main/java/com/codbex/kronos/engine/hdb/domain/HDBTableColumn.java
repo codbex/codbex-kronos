@@ -10,6 +10,8 @@
  */
 package com.codbex.kronos.engine.hdb.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -19,12 +21,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.gson.annotations.Expose;
 
 /**
  * The Class TableColumn.
@@ -137,19 +135,8 @@ public class HDBTableColumn extends HDBColumn {
         this.table = table;
     }
 
-    /**
-     * To string.
-     *
-     * @return the string
-     */
     @Override
     public String toString() {
-        return "HDBTableColumn [id=" + id + ", getName()=" + getName() + ", getType()=" + getType() + ", getLength()=" + getLength()
-                + ", isNullable()=" + isNullable() + ", isPrimaryKey()=" + isPrimaryKey() + ", getDefaultValue()=" + getDefaultValue()
-                + ", getPrecision()=" + getPrecision() + ", getScale()=" + getScale() + ", isUnique()=" + isUnique()
-                + ", isDefaultValueDateTimeFunction()=" + isDefaultValueDateTimeFunction() + ", getComment()=" + getComment()
-                + ", getAlias()=" + getAlias() + ", isFuzzySearchIndex()=" + isFuzzySearchIndex() + ", getStatement()=" + getStatement()
-                + ", isCalculatedColumn()=" + isCalculatedColumn() + "]";
+        return "HDBTableColumn{" + "id=" + id + ", table=" + (table == null ? null : table.getName()) + '}';
     }
-
 }

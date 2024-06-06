@@ -10,6 +10,8 @@
  */
 package com.codbex.kronos.engine.hdb.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
@@ -19,13 +21,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-
+import java.util.Arrays;
 import org.eclipse.dirigible.components.base.converters.ArrayOfStringsToCsvConverter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.gson.annotations.Expose;
 
 /**
  * The Class TableIndex.
@@ -229,15 +228,9 @@ public class HDBTableIndex {
         this.table = table;
     }
 
-    /**
-     * To string.
-     *
-     * @return the string
-     */
     @Override
     public String toString() {
-        return "TableIndex [id=" + id + ", name=" + name + ", type=" + type + ", unique=" + unique + ", order=" + order + ", columns="
-                + columns + ", table=" + table.getName() + "]";
+        return "HDBTableIndex{" + "id=" + id + ", name='" + name + '\'' + ", type='" + type + '\'' + ", unique=" + unique + ", order='"
+                + order + '\'' + ", columns=" + Arrays.toString(columns) + ", table=" + (table == null ? null : table.getName()) + '}';
     }
-
 }

@@ -69,17 +69,8 @@ public class HDBTableConstraintPrimaryKey extends HDBTableConstraint {
         this.id = id;
     }
 
-    /**
-     * To string.
-     *
-     * @return the string
-     */
     @Override
     public String toString() {
-        return "TableConstraintPrimaryKey [id=" + id + ", name=" + name + ", modifiers=" + modifiers + ", columns=" + columns
-                + ", constraints.table=" + constraints.getTable()
-                                                      .getName()
-                + "]";
+        return "HDBTableConstraintPrimaryKey{" + "id=" + id + '}';
     }
-
 }
