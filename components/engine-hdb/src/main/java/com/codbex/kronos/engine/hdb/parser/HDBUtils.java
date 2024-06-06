@@ -22,6 +22,7 @@ import com.codbex.kronos.engine.hdb.domain.HDBDataStructure;
 import com.codbex.kronos.engine.hdb.domain.HDBSynonym;
 import com.codbex.kronos.engine.hdb.domain.HDBSynonymGroup;
 import com.codbex.kronos.engine.hdb.domain.HDBSynonymTarget;
+import com.codbex.kronos.engine.hdb.domain.HDBTableColumn;
 import com.codbex.kronos.engine.hdb.processors.HDBSynonymCreateProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBSynonymDropProcessor;
 import com.codbex.kronos.exceptions.ArtifactParserException;
@@ -34,6 +35,10 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -51,6 +56,12 @@ public class HDBUtils {
      */
     private static final String commentRegex = "(/\\*[^*]*\\*+(?:[^/*][^*]*\\*+)*/)|(--.*)";
 
+    private static final String SQL_TYPES =
+            "ARRAY|DATE|SECONDDATE|TIMESTAMP|TIME|TINYINT|SMALLINT|INTEGER|INT|BIGINT|SMALLDECIMAL|REAL|DOUBLE|TEXT|BINTEXT|VARCHAR|NVARCHAR|ALPHANUM|SHORTTEXT|VARBINARY|DECIMAL|FLOAT|BOOLEAN";
+    private static final String COLUMN_NAME_REGEX = "\"?(\\w+)\"?\\s+(" + SQL_TYPES + ")";
+    private static final Pattern COLUMN_NAME_PATTERN = Pattern.compile(COLUMN_NAME_REGEX, Pattern.CASE_INSENSITIVE);
+
+    private static final Pattern TABLE_CONTENT_SOURCE_PATTERN = Pattern.compile("\\((.*)\\)", Pattern.DOTALL);
     /**
      * The Constant ESCAPE_SYMBOL.
      */
@@ -119,6 +130,25 @@ public class HDBUtils {
         model.setCreatedBy(UserFacade.getName());
         model.setCreatedAt(new Timestamp(new java.util.Date().getTime()));
         model.setClassic(classic);
+    }
+
+    public static List<HDBTableColumn> extractColumns(String content) {
+        Matcher tableContentSourceMatcher = TABLE_CONTENT_SOURCE_PATTERN.matcher(content);
+        if (!tableContentSourceMatcher.find()) {
+            throw new IllegalArgumentException("Invalid content [" + content + "]. It doesn't match the pattern ["
+                    + TABLE_CONTENT_SOURCE_PATTERN + "]. Most probably this is invalid content.");
+        }
+        Pattern columnNamePattern = Pattern.compile(COLUMN_NAME_REGEX, Pattern.CASE_INSENSITIVE);
+        Matcher columnNameMatcher = columnNamePattern.matcher(tableContentSourceMatcher.group(1));
+
+        return columnNameMatcher.results()
+                                .map(matchResult -> {
+                                    HDBTableColumn column = new HDBTableColumn();
+                                    column.setName(matchResult.group(1));
+                                    column.setType(matchResult.group(2));
+                                    return column;
+                                })
+                                .collect(Collectors.toList());
     }
 
     /**

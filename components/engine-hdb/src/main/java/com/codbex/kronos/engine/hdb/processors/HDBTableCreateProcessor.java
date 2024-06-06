@@ -44,7 +44,7 @@ public class HDBTableCreateProcessor extends AbstractHDBProcessor<HDBTable> {
      */
     @Override
     public void execute(Connection connection, HDBTable tableModel) throws SQLException {
-        logger.info("Processing Create Table: " + tableModel.getName());
+        logger.info("Processing Create Table [{}] in schema [{}]", tableModel.getName(), tableModel.getSchema());
 
         Collection<String> indicesStatements = new ArrayList<>();
         String tableCreateStatement;
@@ -100,8 +100,7 @@ public class HDBTableCreateProcessor extends AbstractHDBProcessor<HDBTable> {
                 // Maybe comment for the moment?
                 // executeBatch(indicesStatements, connection);
             }
-            String message = String.format("Create table [%s] successfully", tableModel.getName());
-            logger.info(message);
+            logger.info("Create table [{}] in schema [{}] successfully", tableModel.getName(), tableModel.getSchema());
         } catch (SQLException ex) {
             String errorMessage = String.format("Create table [%s] failed due to an error. Used SQL - create table [%s], indices [%s]",
                     tableModel, tableCreateStatement, String.join("; ", indicesStatements), ex);

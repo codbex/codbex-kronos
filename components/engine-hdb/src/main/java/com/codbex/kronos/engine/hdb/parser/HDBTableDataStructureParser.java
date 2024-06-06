@@ -13,6 +13,7 @@ package com.codbex.kronos.engine.hdb.parser;
 import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdb.api.IDataStructureModel;
 import com.codbex.kronos.engine.hdb.domain.HDBTable;
+import com.codbex.kronos.engine.hdb.domain.HDBTableColumn;
 import com.codbex.kronos.engine.hdb.domain.HDBTableConstraintPrimaryKey;
 import com.codbex.kronos.engine.hdb.domain.HDBTableConstraintUnique;
 import com.codbex.kronos.engine.hdb.domain.HDBTableConstraints;
@@ -114,7 +115,7 @@ public class HDBTableDataStructureParser implements HDBDataStructureParser<HDBTa
      * @throws ArtifactParserException the artifact parser exception
      */
     private HDBTable parseHanaXSClassicContent(String location, String content) throws IOException, ArtifactParserException {
-        logger.debug("Parsing hdbtable as Hana XS Classic format");
+        logger.debug("Parsing hdbtable [{}] as Hana XS Classic format. Content: [{}]", location, content);
         ByteArrayInputStream is = new ByteArrayInputStream(content.getBytes());
         ANTLRInputStream inputStream = new ANTLRInputStream(is);
         HDBTableLexer hdbTableLexer = new HDBTableLexer(inputStream);
@@ -254,9 +255,20 @@ public class HDBTableDataStructureParser implements HDBDataStructureParser<HDBTa
      * @return the data structure HDB table model
      */
     private HDBTable parseHanaXSAdvancedContent(String location, String content) {
-        logger.debug("Parsing hdbtable as Hana XS Advanced format");
+        logger.debug("Parsing hdbtable [{}] as Hana XS Advanced format. Content: [{}]", location, content);
         HDBTable dataStructureHDBTableModel = new HDBTable();
         HDBUtils.populateDataStructureModel(location, content, dataStructureHDBTableModel, IDataStructureModel.TYPE_HDB_TABLE, false);
+
+        List<HDBTableColumn> columns = HDBUtils.extractColumns(content)
+                                               .stream()
+                                               .map(column -> {
+                                                   column.setTable(dataStructureHDBTableModel);
+                                                   return column;
+                                               })
+                                               .toList();
+
+        dataStructureHDBTableModel.setColumns(columns);
+
         dataStructureHDBTableModel.setContent(content);
 
         Optional<String> schema = extractSchema(content);

@@ -10,6 +10,7 @@
  */
 package com.codbex.kronos.engine.hdb.domain;
 
+import com.google.gson.annotations.Expose;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
@@ -17,10 +18,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
+import java.util.Arrays;
 import org.eclipse.dirigible.components.base.converters.ArrayOfStringsToCsvConverter;
-
-import com.google.gson.annotations.Expose;
 
 /**
  * The Class TableConstraintForeignKey.
@@ -169,17 +168,9 @@ public class HDBTableConstraintForeignKey extends HDBTableConstraint {
         this.referencedColumns = referencedColumns;
     }
 
-    /**
-     * To string.
-     *
-     * @return the string
-     */
     @Override
     public String toString() {
-        return "TableConstraintForeignKey [id=" + id + ", referencedTable=" + referencedTable + ", referencedColumns=" + referencedColumns
-                + ", name=" + name + ", modifiers=" + modifiers + ", columns=" + columns + ", constraints.table=" + constraints.getTable()
-                                                                                                                               .getName()
-                + "]";
+        return "HDBTableConstraintForeignKey{" + "id=" + id + ", referencedTable='" + referencedTable + '\'' + ", referencedSchema='"
+                + referencedSchema + '\'' + ", referencedColumns=" + Arrays.toString(referencedColumns) + '}';
     }
-
 }
