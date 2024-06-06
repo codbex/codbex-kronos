@@ -56,6 +56,12 @@ public class HDBUtils {
      */
     private static final String commentRegex = "(/\\*[^*]*\\*+(?:[^/*][^*]*\\*+)*/)|(--.*)";
 
+    private static final String SQL_TYPES =
+            "ARRAY|DATE|SECONDDATE|TIMESTAMP|TIME|TINYINT|SMALLINT|INTEGER|INT|BIGINT|SMALLDECIMAL|REAL|DOUBLE|TEXT|BINTEXT|VARCHAR|NVARCHAR|ALPHANUM|SHORTTEXT|VARBINARY|DECIMAL|FLOAT|BOOLEAN";
+    private static final String COLUMN_NAME_REGEX = "\"?(\\w+)\"?\\s+(" + SQL_TYPES + ")";
+    private static final Pattern COLUMN_NAME_PATTERN = Pattern.compile(COLUMN_NAME_REGEX, Pattern.CASE_INSENSITIVE);
+
+    private static final Pattern TABLE_CONTENT_SOURCE_PATTERN = Pattern.compile("\\((.*)\\)", Pattern.DOTALL);
     /**
      * The Constant ESCAPE_SYMBOL.
      */
@@ -127,16 +133,12 @@ public class HDBUtils {
     }
 
     public static List<HDBTableColumn> extractColumns(String content) {
-        Pattern tableContentSourcePattern = Pattern.compile("\\((.*)\\)", Pattern.DOTALL);
-        Matcher tableContentSourceMatcher = tableContentSourcePattern.matcher(content);
+        Matcher tableContentSourceMatcher = TABLE_CONTENT_SOURCE_PATTERN.matcher(content);
         if (!tableContentSourceMatcher.find()) {
             throw new IllegalArgumentException(
-                    "Invalid content [" + content + "]. It doesn't match the pattern " + tableContentSourcePattern);
+                    "Invalid content [" + content + "]. It doesn't match the pattern " + TABLE_CONTENT_SOURCE_PATTERN);
         }
-        String sqlTypes =
-                "ARRAY|DATE|SECONDDATE|TIMESTAMP|TIME|TINYINT|SMALLINT|INTEGER|INT|BIGINT|SMALLDECIMAL|REAL|DOUBLE|TEXT|BINTEXT|VARCHAR|NVARCHAR|ALPHANUM|SHORTTEXT|VARBINARY|DECIMAL|FLOAT|BOOLEAN";
-        String columnNameRegex = "\"?(\\w+)\"?\\s+(" + sqlTypes + ")";
-        Pattern columnNamePattern = Pattern.compile(columnNameRegex, Pattern.CASE_INSENSITIVE);
+        Pattern columnNamePattern = Pattern.compile(COLUMN_NAME_REGEX, Pattern.CASE_INSENSITIVE);
         Matcher columnNameMatcher = columnNamePattern.matcher(tableContentSourceMatcher.group(1));
 
         return columnNameMatcher.results()
