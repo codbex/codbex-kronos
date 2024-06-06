@@ -17,18 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-
-import org.apache.commons.io.IOUtils;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
-
 import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdb.domain.HDBTable;
 import com.codbex.kronos.engine.hdb.domain.HDBTableColumn;
@@ -38,8 +26,17 @@ import com.codbex.kronos.engine.hdb.parser.HDBTableDataStructureParser;
 import com.codbex.kronos.exceptions.ArtifactParserException;
 import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableDuplicatePropertyException;
 import com.codbex.kronos.parser.hdbtable.exceptions.HDBTableMissingPropertyException;
-
 import jakarta.transaction.Transactional;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import org.apache.commons.io.IOUtils;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * The Class HDBTableDataStructureParserTest.
@@ -220,7 +217,7 @@ public class HDBTableDataStructureParserTest {
      */
     @Test
     public void parseHanaXSAdvancedContentWithAdditionalSpaces() throws Exception {
-        String content = " COLUMN TABLE      KRONOS_HDI_SIMPLE_TABLE COLUMN1 INTEGER )";
+        String content = " COLUMN TABLE      KRONOS_HDI_SIMPLE_TABLE (COLUMN1 INTEGER)";
         HDBTable model = HDBDataStructureModelFactory.parseTable("/HdbtableHanaXSAdvancedContent.hdbtable", content);
         assertEquals(false, model.isClassic());
         assertEquals(content, model.getContent());

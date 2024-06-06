@@ -135,8 +135,8 @@ public class HDBUtils {
     public static List<HDBTableColumn> extractColumns(String content) {
         Matcher tableContentSourceMatcher = TABLE_CONTENT_SOURCE_PATTERN.matcher(content);
         if (!tableContentSourceMatcher.find()) {
-            throw new IllegalArgumentException(
-                    "Invalid content [" + content + "]. It doesn't match the pattern " + TABLE_CONTENT_SOURCE_PATTERN);
+            throw new IllegalArgumentException("Invalid content [" + content + "]. It doesn't match the pattern ["
+                    + TABLE_CONTENT_SOURCE_PATTERN + "]. Most probably this is invalid content.");
         }
         Pattern columnNamePattern = Pattern.compile(COLUMN_NAME_REGEX, Pattern.CASE_INSENSITIVE);
         Matcher columnNameMatcher = columnNamePattern.matcher(tableContentSourceMatcher.group(1));
