@@ -59,7 +59,7 @@ public class HDBUtils {
 
     private static final String SQL_TYPES =
             "ARRAY|DATE|SECONDDATE|TIMESTAMP|TIME|TINYINT|SMALLINT|INTEGER|INT|BIGINT|SMALLDECIMAL|REAL|DOUBLE|TEXT|BINTEXT|VARCHAR|NVARCHAR|ALPHANUM|SHORTTEXT|VARBINARY|DECIMAL|FLOAT|BOOLEAN";
-  private static final String COLUMN_NAME_REGEX = "\"?(\\w+)\"?\\s*(" + SQL_TYPES + ")\\s*(?:\\((\\d+)(?:,\\s*(\\d+))?\\))?";
+    private static final String COLUMN_NAME_REGEX = "\"?(\\w+)\"?\\s*(" + SQL_TYPES + ")\\s*(?:\\((\\d+)(?:,\\s*(\\d+))?\\))?";
     private static final Pattern COLUMN_NAME_PATTERN = Pattern.compile(COLUMN_NAME_REGEX, Pattern.CASE_INSENSITIVE);
 
     private static final Pattern TABLE_CONTENT_SOURCE_PATTERN = Pattern.compile("\\((.*)\\)", Pattern.DOTALL);
@@ -141,22 +141,22 @@ public class HDBUtils {
 
         }
         Pattern columnNamePattern = Pattern.compile(COLUMN_NAME_REGEX, Pattern.CASE_INSENSITIVE);
-      String tableContentSource = tableContentSourceMatcher.group(1);
-      Matcher columnNameMatcher = columnNamePattern.matcher(tableContentSource);
+        String tableContentSource = tableContentSourceMatcher.group(1);
+        Matcher columnNameMatcher = columnNamePattern.matcher(tableContentSource);
 
         return columnNameMatcher.results()
                                 .map(matchResult -> {
                                     HDBTableColumn column = new HDBTableColumn();
-                                  String name = matchResult.group(1);
-                                  column.setName(name);
-                                  String type = matchResult.group(2);
-                                  column.setType(type);
-                                  String precision = matchResult.group(3);
-                                  String scale = matchResult.group(4);
-                                  if (null != precision && null == scale && NumberUtils.isParsable(precision.trim())) {
-                                    String length = precision.trim();
-                                    column.setLength(length);
-                                  }
+                                    String name = matchResult.group(1);
+                                    column.setName(name);
+                                    String type = matchResult.group(2);
+                                    column.setType(type);
+                                    String precision = matchResult.group(3);
+                                    String scale = matchResult.group(4);
+                                    if (null != precision && null == scale && NumberUtils.isParsable(precision.trim())) {
+                                        String length = precision.trim();
+                                        column.setLength(length);
+                                    }
                                     return column;
                                 })
                                 .collect(Collectors.toList());
