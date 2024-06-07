@@ -234,20 +234,20 @@ public class HDBTableTypesSynchronizer extends BaseSynchronizer<HDBTableType, Lo
                         if (!SqlFactory.getNative(connection)
                                        .exists(connection, tableType.getName(), DatabaseArtifactTypes.TABLE_TYPE)) {
                             executeTableTypeCreate(connection, tableType);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                         } else {
                             if (logger.isWarnEnabled()) {
                                 logger.warn(
                                         String.format("HDBTableType [%s] already exists during the update process", tableType.getName()));
                             }
                             executeTableTypeAlter(connection, tableType);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                         }
                     } else if (ArtefactLifecycle.FAILED.equals(tableType.getLifecycle())) {
                         if (!SqlFactory.getNative(connection)
                                        .exists(connection, tableType.getName(), DatabaseArtifactTypes.TABLE_TYPE)) {
                             executeTableTypeCreate(connection, tableType);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                             ProblemsFacade.deleteArtefactSynchronizationProblem(tableType);
                         }
                     }
@@ -260,7 +260,7 @@ public class HDBTableTypesSynchronizer extends BaseSynchronizer<HDBTableType, Lo
                     // }
                     if (ArtefactLifecycle.MODIFIED.equals(tableType.getLifecycle())) {
                         executeTableTypeUpdate(connection, tableType);
-                        callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                         ProblemsFacade.deleteArtefactSynchronizationProblem(tableType);
                     }
                     break;
@@ -272,14 +272,11 @@ public class HDBTableTypesSynchronizer extends BaseSynchronizer<HDBTableType, Lo
                             if (SqlFactory.deriveDialect(connection)
                                           .count(connection, tableType.getName()) == 0) {
                                 executeTableTypeDrop(connection, tableType);
-                                callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
+                                callback.registerState(this, wrapper, ArtefactLifecycle.DELETED);
                             } else {
                                 String message = String.format(
                                         "HDBTableType [%s] cannot be deleted during the update process, because it is not empty",
                                         tableType.getName());
-                                if (logger.isWarnEnabled()) {
-                                    logger.warn(message);
-                                }
                                 callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, message);
                             }
                         }
@@ -289,7 +286,7 @@ public class HDBTableTypesSynchronizer extends BaseSynchronizer<HDBTableType, Lo
                 // if (tableType.getLifecycle().equals(ArtefactLifecycle.DELETED)) {
                 // if (SqlFactory.getNative(connection).exists(connection, tableType.getName())) {
                 // executeTableTypeForeignKeysDrop(connection, tableType);
-                // callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+                // callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                 // }
                 // }
                 case START:
@@ -301,11 +298,8 @@ public class HDBTableTypesSynchronizer extends BaseSynchronizer<HDBTableType, Lo
             String errorMessage = String.format("Error occurred while processing [%s]: %s", wrapper.getArtefact()
                                                                                                    .getLocation(),
                     e.getMessage());
-            if (logger.isErrorEnabled()) {
-                logger.error(errorMessage, e);
-            }
             callback.addError(errorMessage);
-            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage);
+            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage, e);
             ProblemsFacade.upsertArtefactSynchronizationProblem(wrapper.getArtefact(), errorMessage);
             return false;
         }
@@ -326,7 +320,7 @@ public class HDBTableTypesSynchronizer extends BaseSynchronizer<HDBTableType, Lo
                               .count(connection, tableType.getName()) == 0) {
                     executeTableTypeDrop(connection, tableType);
                     getService().delete(tableType);
-                    callback.registerState(this, tableType, ArtefactLifecycle.DELETED, "");
+                    callback.registerState(this, tableType, ArtefactLifecycle.DELETED);
                 } else {
                     String message = String.format("HDBTableType [%s] cannot be deleted during the update process, because it is not empty",
                             tableType.getName());
@@ -336,11 +330,8 @@ public class HDBTableTypesSynchronizer extends BaseSynchronizer<HDBTableType, Lo
                 }
             }
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
             callback.addError(e.getMessage());
-            callback.registerState(this, tableType, ArtefactLifecycle.FAILED, e.getMessage());
+            callback.registerState(this, tableType, ArtefactLifecycle.FAILED, e);
         }
     }
 

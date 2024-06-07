@@ -244,20 +244,21 @@ public class HDBSynonymGroupsSynchronizer extends BaseSynchronizer<HDBSynonymGro
                         if (!SqlFactory.getNative(connection)
                                        .exists(connection, synonymGroup.getName(), DatabaseArtifactTypes.SYNONYM)) {
                             executeSynonymGroupCreate(connection, synonymGroup);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                         } else {
                             if (logger.isWarnEnabled()) {
                                 logger.warn(String.format("HDBSynonymGroup [%s] already exists during the update process",
                                         synonymGroup.getName()));
                             }
                             executeSynonymGroupUpdate(connection, synonymGroup);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                         }
                     } else if (ArtefactLifecycle.FAILED.equals(synonymGroup.getLifecycle())) {
                         if (!SqlFactory.getNative(connection)
-                                       .exists(connection, synonymGroup.getName(), DatabaseArtifactTypes.SYNONYM)) {
+                                       .exists(connection, synonymGroup.getSchema(), synonymGroup.getName(),
+                                               DatabaseArtifactTypes.SYNONYM)) {
                             executeSynonymGroupCreate(connection, synonymGroup);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                             ProblemsFacade.deleteArtefactSynchronizationProblem(synonymGroup);
                         }
                     }
@@ -265,7 +266,7 @@ public class HDBSynonymGroupsSynchronizer extends BaseSynchronizer<HDBSynonymGro
                 case UPDATE:
                     if (ArtefactLifecycle.MODIFIED.equals(synonymGroup.getLifecycle())) {
                         executeSynonymGroupUpdate(connection, synonymGroup);
-                        callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                         ProblemsFacade.deleteArtefactSynchronizationProblem(synonymGroup);
                     }
                     break;
@@ -274,9 +275,9 @@ public class HDBSynonymGroupsSynchronizer extends BaseSynchronizer<HDBSynonymGro
                         if (SqlFactory.getNative(connection)
                                       .exists(connection, synonymGroup.getName(), DatabaseArtifactTypes.SYNONYM)) {
                             executeSynonymGroupDrop(connection, synonymGroup);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.DELETED);
                         }
-                        callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.DELETED);
                     }
                     break;
                 case START:
@@ -288,11 +289,8 @@ public class HDBSynonymGroupsSynchronizer extends BaseSynchronizer<HDBSynonymGro
             String errorMessage = String.format("Error occurred while processing [%s]: %s", wrapper.getArtefact()
                                                                                                    .getLocation(),
                     e.getMessage());
-            if (logger.isErrorEnabled()) {
-                logger.error(errorMessage, e);
-            }
             callback.addError(errorMessage);
-            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage);
+            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage, e);
             ProblemsFacade.upsertArtefactSynchronizationProblem(wrapper.getArtefact(), errorMessage);
             return false;
         }
@@ -308,13 +306,10 @@ public class HDBSynonymGroupsSynchronizer extends BaseSynchronizer<HDBSynonymGro
         try (Connection connection = datasourcesManager.getDefaultDataSource()
                                                        .getConnection()) {
             getService().delete(synonymGroup);
-            callback.registerState(this, synonymGroup, ArtefactLifecycle.DELETED, "");
+            callback.registerState(this, synonymGroup, ArtefactLifecycle.DELETED);
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
             callback.addError(e.getMessage());
-            callback.registerState(this, synonymGroup, ArtefactLifecycle.FAILED, e.getMessage());
+            callback.registerState(this, synonymGroup, ArtefactLifecycle.FAILED, e);
         }
     }
 

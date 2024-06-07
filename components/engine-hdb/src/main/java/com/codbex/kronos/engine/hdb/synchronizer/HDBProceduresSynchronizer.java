@@ -200,20 +200,20 @@ public class HDBProceduresSynchronizer extends BaseSynchronizer<HDBProcedure, Lo
                         if (!SqlFactory.getNative(connection)
                                        .exists(connection, procedure.getName(), DatabaseArtifactTypes.PROCEDURE)) {
                             executeProcedureCreate(connection, procedure);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                         } else {
                             if (logger.isWarnEnabled()) {
                                 logger.warn(
                                         String.format("HDBProcedure [%s] already exists during the update process", procedure.getName()));
                             }
                             executeProcedureUpdate(connection, procedure);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                         }
                     } else if (ArtefactLifecycle.FAILED.equals(procedure.getLifecycle())) {
                         if (!SqlFactory.getNative(connection)
                                        .exists(connection, procedure.getName(), DatabaseArtifactTypes.PROCEDURE)) {
                             executeProcedureCreate(connection, procedure);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                             ProblemsFacade.deleteArtefactSynchronizationProblem(procedure);
                         }
                     }
@@ -221,7 +221,7 @@ public class HDBProceduresSynchronizer extends BaseSynchronizer<HDBProcedure, Lo
                 case UPDATE:
                     if (ArtefactLifecycle.MODIFIED.equals(procedure.getLifecycle())) {
                         executeProcedureUpdate(connection, procedure);
-                        callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                         ProblemsFacade.deleteArtefactSynchronizationProblem(procedure);
                     }
                     break;
@@ -230,9 +230,8 @@ public class HDBProceduresSynchronizer extends BaseSynchronizer<HDBProcedure, Lo
                         if (SqlFactory.getNative(connection)
                                       .exists(connection, procedure.getName(), DatabaseArtifactTypes.PROCEDURE)) {
                             executeProcedureDrop(connection, procedure);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
                         }
-                        callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.DELETED);
                     }
                     break;
                 case START:
@@ -244,11 +243,8 @@ public class HDBProceduresSynchronizer extends BaseSynchronizer<HDBProcedure, Lo
             String errorMessage = String.format("Error occurred while processing [%s]: %s", wrapper.getArtefact()
                                                                                                    .getLocation(),
                     e.getMessage());
-            if (logger.isErrorEnabled()) {
-                logger.error(errorMessage, e);
-            }
             callback.addError(errorMessage);
-            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage);
+            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage, e);
             ProblemsFacade.upsertArtefactSynchronizationProblem(wrapper.getArtefact(), errorMessage);
             return false;
         }
@@ -264,13 +260,10 @@ public class HDBProceduresSynchronizer extends BaseSynchronizer<HDBProcedure, Lo
         try (Connection connection = datasourcesManager.getDefaultDataSource()
                                                        .getConnection()) {
             getService().delete(procedure);
-            callback.registerState(this, procedure, ArtefactLifecycle.DELETED, "");
+            callback.registerState(this, procedure, ArtefactLifecycle.DELETED);
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
             callback.addError(e.getMessage());
-            callback.registerState(this, procedure, ArtefactLifecycle.FAILED, e.getMessage());
+            callback.registerState(this, procedure, ArtefactLifecycle.FAILED, e);
         }
     }
 

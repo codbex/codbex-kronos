@@ -200,20 +200,20 @@ public class HDBTableFunctionsSynchronizer extends BaseSynchronizer<HDBTableFunc
                         if (!SqlFactory.getNative(connection)
                                        .exists(connection, tablefunction.getName(), DatabaseArtifactTypes.FUNCTION)) {
                             executeTableFunctionCreate(connection, tablefunction);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                         } else {
                             if (logger.isWarnEnabled()) {
                                 logger.warn(String.format("HDBTableFunction [%s] already exists during the update process",
                                         tablefunction.getName()));
                             }
                             executeTableFunctionUpdate(connection, tablefunction);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                         }
                     } else if (ArtefactLifecycle.FAILED.equals(tablefunction.getLifecycle())) {
                         if (!SqlFactory.getNative(connection)
                                        .exists(connection, tablefunction.getName(), DatabaseArtifactTypes.FUNCTION)) {
                             executeTableFunctionCreate(connection, tablefunction);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                             ProblemsFacade.deleteArtefactSynchronizationProblem(tablefunction);
                         }
                     }
@@ -221,7 +221,7 @@ public class HDBTableFunctionsSynchronizer extends BaseSynchronizer<HDBTableFunc
                 case UPDATE:
                     if (ArtefactLifecycle.MODIFIED.equals(tablefunction.getLifecycle())) {
                         executeTableFunctionUpdate(connection, tablefunction);
-                        callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                         ProblemsFacade.deleteArtefactSynchronizationProblem(tablefunction);
                     }
                     break;
@@ -230,9 +230,9 @@ public class HDBTableFunctionsSynchronizer extends BaseSynchronizer<HDBTableFunc
                         if (SqlFactory.getNative(connection)
                                       .exists(connection, tablefunction.getName(), DatabaseArtifactTypes.FUNCTION)) {
                             executeTableFunctionDrop(connection, tablefunction);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.DELETED);
                         }
-                        callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.DELETED);
                     }
                     break;
                 case START:
@@ -244,11 +244,8 @@ public class HDBTableFunctionsSynchronizer extends BaseSynchronizer<HDBTableFunc
             String errorMessage = String.format("Error occurred while processing [%s]: %s", wrapper.getArtefact()
                                                                                                    .getLocation(),
                     e.getMessage());
-            if (logger.isErrorEnabled()) {
-                logger.error(errorMessage, e);
-            }
             callback.addError(errorMessage);
-            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage);
+            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage, e);
             ProblemsFacade.upsertArtefactSynchronizationProblem(wrapper.getArtefact(), errorMessage);
             return false;
         }
@@ -264,13 +261,10 @@ public class HDBTableFunctionsSynchronizer extends BaseSynchronizer<HDBTableFunc
         try (Connection connection = datasourcesManager.getDefaultDataSource()
                                                        .getConnection()) {
             getService().delete(tablefunction);
-            callback.registerState(this, tablefunction, ArtefactLifecycle.DELETED, "");
+            callback.registerState(this, tablefunction, ArtefactLifecycle.DELETED);
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
             callback.addError(e.getMessage());
-            callback.registerState(this, tablefunction, ArtefactLifecycle.FAILED, e.getMessage());
+            callback.registerState(this, tablefunction, ArtefactLifecycle.FAILED, e);
         }
     }
 

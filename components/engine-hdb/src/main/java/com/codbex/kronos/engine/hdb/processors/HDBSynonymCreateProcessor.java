@@ -28,10 +28,14 @@ import org.slf4j.LoggerFactory;
  */
 public class HDBSynonymCreateProcessor extends AbstractHDBProcessor<HDBSynonymGroup> {
 
-    /** The Constant logger. */
+    /**
+     * The Constant logger.
+     */
     private static final Logger logger = LoggerFactory.getLogger(HDBSynonymCreateProcessor.class);
 
-    /** The Constant DUPLICATE_SYNONYM_NAME_ERROR_CODE. */
+    /**
+     * The Constant DUPLICATE_SYNONYM_NAME_ERROR_CODE.
+     */
     private static final int DUPLICATE_SYNONYM_NAME_ERROR_CODE = 330;
 
     /**
@@ -88,15 +92,20 @@ public class HDBSynonymCreateProcessor extends AbstractHDBProcessor<HDBSynonymGr
                                                                 : connection.getMetaData()
                                                                             .getUserName();
                     if (!SqlFactory.getNative(connection)
-                                   .exists(connection, synonymSchema, entry.getKey(), DatabaseArtifactTypes.SYNONYM)) {
+                                   .exists(connection, entry.getValue()
+                                                            .getSchema(),
+                                           entry.getValue()
+                                                .getName(),
+                                           DatabaseArtifactTypes.SYNONYM)) {
                         String sql = SqlFactory.getNative(connection)
                                                .create()
                                                .synonym(synonymName)
+
                                                .forSource(targetObjectName)
                                                .build();
                         executeSql(sql, connection);
                         if (logger.isInfoEnabled()) {
-                            logger.info(String.format("Create synonym [%s] successfully", synonymName));
+                            logger.info(String.format("Synonym [%s]  in schema [{}] created successfully", synonymName));
                         }
                     } else {
                         if (logger.isWarnEnabled()) {

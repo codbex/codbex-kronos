@@ -42,20 +42,30 @@ import org.slf4j.LoggerFactory;
  */
 public class HDBTableAlterHandler {
 
-    /** The Constant logger. */
+    /**
+     * The Constant logger.
+     */
     private static final Logger logger = LoggerFactory.getLogger(HDBTableAlterHandler.class);
 
-    /** The Constant INCOMPATIBLE_CHANGE_OF_TABLE. */
+    /**
+     * The Constant INCOMPATIBLE_CHANGE_OF_TABLE.
+     */
     private static final String INCOMPATIBLE_CHANGE_OF_TABLE = "Incompatible change of table [%s] by adding a column [%s] which is [%s]"; //$NON-NLS-1$
 
-    /** The table model. */
+    /**
+     * The table model.
+     */
     HDBTable tableModel;
 
-    /** The db column types. */
-    private Map<String, String> dbColumnTypes;
+    /**
+     * The db column types.
+     */
+    private final Map<String, String> dbColumnTypes;
 
-    /** The model column names. */
-    private List<String> modelColumnNames;
+    /**
+     * The model column names.
+     */
+    private final List<String> modelColumnNames;
 
     /**
      * Instantiates a new table alter handler.
@@ -269,7 +279,7 @@ public class HDBTableAlterHandler {
      */
     public void ensurePrimaryKeyIsUnchanged(Connection connection) throws SQLException {
         DatabaseMetaData dmd = connection.getMetaData();
-        ResultSet rsPrimaryKeys = dmd.getPrimaryKeys(null, null, this.tableModel.getName());
+        ResultSet rsPrimaryKeys = dmd.getPrimaryKeys(null, this.tableModel.getSchema(), this.tableModel.getName());
         Set<String> dbPrimaryKeys = new HashSet<>();
         Set<String> modelPrimaryKeys = new HashSet<>();
         if (this.tableModel.getConstraints()
@@ -282,10 +292,12 @@ public class HDBTableAlterHandler {
             dbPrimaryKeys.add(rsPrimaryKeys.getString("COLUMN_NAME"));
         }
         boolean isPKListUnchanged =
-                dbPrimaryKeys.size() == modelPrimaryKeys.size() && dbPrimaryKeys.removeAll(modelPrimaryKeys) && dbPrimaryKeys.isEmpty();
+                (modelPrimaryKeys.isEmpty() && dbPrimaryKeys.isEmpty()) || (dbPrimaryKeys.size() == modelPrimaryKeys.size()
+                        && dbPrimaryKeys.removeAll(modelPrimaryKeys) && dbPrimaryKeys.isEmpty());
         if (!isPKListUnchanged) {
-            String errorMessage =
-                    String.format("Incompatible change of table [%s] by trying to change its primary key list", this.tableModel.getName());
+            String errorMessage = String.format(
+                    "Incompatible change of table [%s] by trying to change its primary key list. Model primary keys [%s], db primary keys [%s]",
+                    this.tableModel.getName(), modelPrimaryKeys, dbPrimaryKeys);
             CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableModel.getLocation(),
                     CommonsConstants.HDB_TABLE_PARSER);
             throw new SQLException(errorMessage);

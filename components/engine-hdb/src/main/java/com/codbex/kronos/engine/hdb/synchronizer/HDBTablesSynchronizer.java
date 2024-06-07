@@ -334,18 +334,18 @@ public class HDBTablesSynchronizer extends BaseSynchronizer<HDBTable, Long> {
                         if (!SqlFactory.getNative(connection)
                                        .exists(connection, table.getSchema(), table.getName(), DatabaseArtifactTypes.TABLE)) {
                             executeTableCreate(connection, table);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                         } else {
                             logger.warn("HDBTable [{}] in schema [{}] already exists during the update process", table.getName(),
                                     table.getSchema());
                             executeTableAlter(connection, table);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                         }
                     } else if (ArtefactLifecycle.FAILED.equals(table.getLifecycle())) {
                         if (!SqlFactory.getNative(connection)
                                        .exists(connection, table.getSchema(), table.getName(), DatabaseArtifactTypes.TABLE)) {
                             executeTableCreate(connection, table);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                             ProblemsFacade.deleteArtefactSynchronizationProblem(table);
                         }
                     }
@@ -358,7 +358,7 @@ public class HDBTablesSynchronizer extends BaseSynchronizer<HDBTable, Long> {
                     // }
                     if (ArtefactLifecycle.MODIFIED.equals(table.getLifecycle())) {
                         executeTableUpdate(connection, table);
-                        callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                         ProblemsFacade.deleteArtefactSynchronizationProblem(table);
                     }
                     break;
@@ -369,14 +369,11 @@ public class HDBTablesSynchronizer extends BaseSynchronizer<HDBTable, Long> {
                             if (SqlFactory.deriveDialect(connection)
                                           .count(connection, table.getName()) == 0) {
                                 executeTableDrop(connection, table);
-                                callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
+                                callback.registerState(this, wrapper, ArtefactLifecycle.DELETED);
                             } else {
                                 String message =
                                         String.format("HDBTable [%s] cannot be deleted during the update process, because it is not empty",
                                                 table.getName());
-                                if (logger.isWarnEnabled()) {
-                                    logger.warn(message);
-                                }
                                 callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, message);
                             }
                         }
@@ -386,7 +383,7 @@ public class HDBTablesSynchronizer extends BaseSynchronizer<HDBTable, Long> {
                 // if (table.getLifecycle().equals(ArtefactLifecycle.DELETED)) {
                 // if (SqlFactory.getNative(connection).exists(connection, table.getName())) {
                 // executeTableForeignKeysDrop(connection, table);
-                // callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+                // callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                 // }
                 // }
                 case START:
@@ -398,9 +395,8 @@ public class HDBTablesSynchronizer extends BaseSynchronizer<HDBTable, Long> {
             String errorMessage = String.format("Error occurred while processing [%s]: %s", wrapper.getArtefact()
                                                                                                    .getLocation(),
                     e.getMessage());
-            logger.error(errorMessage, e);
             callback.addError(errorMessage);
-            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage);
+            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage, e);
             ProblemsFacade.upsertArtefactSynchronizationProblem(wrapper.getArtefact(), errorMessage);
             return false;
         }
@@ -421,7 +417,7 @@ public class HDBTablesSynchronizer extends BaseSynchronizer<HDBTable, Long> {
                               .count(connection, table.getName()) == 0) {
                     executeTableDrop(connection, table);
                     getService().delete(table);
-                    callback.registerState(this, table, ArtefactLifecycle.DELETED, "");
+                    callback.registerState(this, table, ArtefactLifecycle.DELETED);
                 } else {
                     String message = String.format("HDBTable [%s] cannot be deleted during the update process, because it is not empty",
                             table.getName());
@@ -431,11 +427,8 @@ public class HDBTablesSynchronizer extends BaseSynchronizer<HDBTable, Long> {
                 }
             }
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
             callback.addError(e.getMessage());
-            callback.registerState(this, table, ArtefactLifecycle.FAILED, e.getMessage());
+            callback.registerState(this, table, ArtefactLifecycle.FAILED, e);
         }
     }
 

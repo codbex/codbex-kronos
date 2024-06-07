@@ -271,6 +271,12 @@ public class HDBTableDataStructureParser implements HDBDataStructureParser<HDBTa
 
         dataStructureHDBTableModel.setContent(content);
 
+        HDBTableConstraintPrimaryKey primaryKey = HDBUtils.extractPrimayKeyColumns(content);
+        HDBTableConstraints constraints = new HDBTableConstraints(dataStructureHDBTableModel);
+        constraints.setPrimaryKey(primaryKey);
+
+        dataStructureHDBTableModel.setConstraints(constraints);
+
         Optional<String> schema = extractSchema(content);
         if (schema.isPresent()) {
             dataStructureHDBTableModel.setSchema(schema.get());

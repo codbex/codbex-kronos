@@ -208,7 +208,7 @@ public class XSAccessSynchronizer extends BaseSynchronizer<XSAccess, Long> {
      */
     @Override
     public boolean completeImpl(TopologyWrapper<XSAccess> wrapper, ArtefactPhase flow) {
-        callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+        callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
         return true;
     }
 
@@ -227,13 +227,10 @@ public class XSAccessSynchronizer extends BaseSynchronizer<XSAccess, Long> {
             access.setType(Access.ARTEFACT_TYPE);
             access.updateKey();
             getAccessService().delete(access);
-            callback.registerState(this, xsaccess, ArtefactLifecycle.DELETED, "");
+            callback.registerState(this, xsaccess, ArtefactLifecycle.DELETED);
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
             callback.addError(e.getMessage());
-            callback.registerState(this, xsaccess, ArtefactLifecycle.FAILED, e.getMessage());
+            callback.registerState(this, xsaccess, ArtefactLifecycle.FAILED, e);
         }
     }
 

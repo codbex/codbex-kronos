@@ -266,12 +266,12 @@ public class XSODataSynchronizer extends BaseSynchronizer<XSOData, Long> {
                     if (odata.getLifecycle()
                              .equals(ArtefactLifecycle.NEW)) {
                         generateOData(odata);
-                        callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                     } else if (odata.getLifecycle()
                                     .equals(ArtefactLifecycle.FAILED)) {
                         cleanupOData(odata);
                         generateOData(odata);
-                        callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                         ProblemsFacade.deleteArtefactSynchronizationProblem(wrapper.getArtefact());
                     }
                     break;
@@ -280,7 +280,7 @@ public class XSODataSynchronizer extends BaseSynchronizer<XSOData, Long> {
                              .equals(ArtefactLifecycle.MODIFIED)) {
                         cleanupOData(odata);
                         generateOData(odata);
-                        callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                         ProblemsFacade.deleteArtefactSynchronizationProblem(odata);
                     }
                     break;
@@ -290,7 +290,7 @@ public class XSODataSynchronizer extends BaseSynchronizer<XSOData, Long> {
                             || odata.getLifecycle()
                                     .equals(ArtefactLifecycle.UPDATED)) {
                         cleanupOData(odata);
-                        callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.DELETED);
                     }
                     break;
             }
@@ -299,9 +299,8 @@ public class XSODataSynchronizer extends BaseSynchronizer<XSOData, Long> {
             String errorMessage = String.format("Error occurred while processing [%s]: %s", wrapper.getArtefact()
                                                                                                    .getLocation(),
                     e.getMessage());
-            logger.error(errorMessage, e);
             callback.addError(errorMessage);
-            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage);
+            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage, e);
             ProblemsFacade.upsertArtefactSynchronizationProblem(wrapper.getArtefact(), errorMessage);
             return false;
         }
@@ -388,11 +387,10 @@ public class XSODataSynchronizer extends BaseSynchronizer<XSOData, Long> {
             odataMappingService.removeMappings(odata.getLocation());
             odataHandlerService.removeHandlers(odata.getLocation());
             getService().delete(odata);
-            callback.registerState(this, odata, ArtefactLifecycle.DELETED, "");
+            callback.registerState(this, odata, ArtefactLifecycle.DELETED);
         } catch (Exception e) {
-            logger.error(e.getMessage(), e);
             callback.addError(e.getMessage());
-            callback.registerState(this, odata, ArtefactLifecycle.FAILED, e.getMessage());
+            callback.registerState(this, odata, ArtefactLifecycle.FAILED, e);
         }
     }
 
