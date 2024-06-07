@@ -180,15 +180,12 @@ public class CommonsUtils {
      * @param artifactType the artifact type
      */
     public static void logProcessorErrors(String errorMessage, String errorType, String location, String artifactType) {
-        try {
-            logger.error("Parser error at file: [{}], type: [{}], artefacts: [{}]. Message: [{}]", location, errorType, artifactType,
-                    errorMessage);
-            // ProblemsFacade.save(location, errorType, "", "", errorMessage, "", artifactType,
-            // CommonsConstants.MODULE_PROCESSORS, CommonsConstants.SOURCE_PUBLISH_REQUEST,
-            // CommonsConstants.PROGRAM_KRONOS);
-        } catch (Exception ex) {
-            logger.error("There is an issue with logging of the Errors.", ex);
-        }
+        logProcessorErrors(errorMessage, errorType, location, artifactType, null);
+    }
+
+    public static void logProcessorErrors(String errorMessage, String errorType, String location, String artifactType, Throwable cause) {
+        logger.error("Parser error at file: [{}], type: [{}], artefacts: [{}]. Message: [{}]", location, errorType, artifactType,
+                errorMessage, cause);
     }
 
     /**

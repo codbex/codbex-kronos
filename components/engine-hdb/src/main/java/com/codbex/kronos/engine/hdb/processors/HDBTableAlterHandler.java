@@ -10,6 +10,11 @@
  */
 package com.codbex.kronos.engine.hdb.processors;
 
+import com.codbex.kronos.engine.hdb.domain.HDBTable;
+import com.codbex.kronos.engine.hdb.domain.HDBTableColumn;
+import com.codbex.kronos.engine.hdb.parser.HDBUtils;
+import com.codbex.kronos.utils.CommonsConstants;
+import com.codbex.kronos.utils.CommonsUtils;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
@@ -23,7 +28,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;
 import org.eclipse.dirigible.database.sql.DataType;
@@ -32,12 +36,6 @@ import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.eclipse.dirigible.database.sql.builders.table.AlterTableBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.codbex.kronos.engine.hdb.domain.HDBTable;
-import com.codbex.kronos.engine.hdb.domain.HDBTableColumn;
-import com.codbex.kronos.engine.hdb.parser.HDBUtils;
-import com.codbex.kronos.utils.CommonsConstants;
-import com.codbex.kronos.utils.CommonsUtils;
 
 /**
  * The Class HDBTableAlterHandler.
@@ -346,18 +344,17 @@ public class HDBTableAlterHandler {
             PreparedStatement statement = connection.prepareStatement(sql);
             try {
                 statement.executeUpdate();
-                String messageSuccess = String.format("Update table [%s] successfully", this.tableModel.getName());
+                // String messageSuccess = String.format("Update table [%s] successfully",
+                // this.tableModel.getName());
                 // dataStructuresSynchronizer.applyArtefactState(this.tableModel.getName(),
                 // this.tableModel.getLocation(), TABLE_ARTEFACT, ArtefactState.SUCCESSFUL_UPDATE, messageSuccess);
             } catch (SQLException e) {
-                logger.error(sql);
-                logger.error(e.getMessage(), e);
                 CommonsUtils.logProcessorErrors(e.getMessage(), CommonsConstants.PROCESSOR_ERROR, this.tableModel.getLocation(),
-                        CommonsConstants.HDB_TABLE_PARSER);
+                        CommonsConstants.HDB_TABLE_PARSER, e);
                 String messageFail = String.format("Update table [%s] skipped due to an error: {%s}", this.tableModel, e.getMessage());
                 // dataStructuresSynchronizer.applyArtefactState(this.tableModel.getName(),
                 // this.tableModel.getLocation(), TABLE_ARTEFACT, ArtefactState.FAILED_UPDATE, messageFail);
-                throw new SQLException(e.getMessage(), e);
+                throw new SQLException(messageFail, e);
             } finally {
                 if (statement != null) {
                     statement.close();
