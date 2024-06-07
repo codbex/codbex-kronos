@@ -43,6 +43,7 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.components.api.security.UserFacade;
 
@@ -58,7 +59,7 @@ public class HDBUtils {
 
     private static final String SQL_TYPES =
             "ARRAY|DATE|SECONDDATE|TIMESTAMP|TIME|TINYINT|SMALLINT|INTEGER|INT|BIGINT|SMALLDECIMAL|REAL|DOUBLE|TEXT|BINTEXT|VARCHAR|NVARCHAR|ALPHANUM|SHORTTEXT|VARBINARY|DECIMAL|FLOAT|BOOLEAN";
-    private static final String COLUMN_NAME_REGEX = "\"?(\\w+)\"?\\s+(" + SQL_TYPES + ")";
+  private static final String COLUMN_NAME_REGEX = "\"?(\\w+)\"?\\s*(" + SQL_TYPES + ")\\s*(?:\\((\\d+)(?:,\\s*(\\d+))?\\))?";
     private static final Pattern COLUMN_NAME_PATTERN = Pattern.compile(COLUMN_NAME_REGEX, Pattern.CASE_INSENSITIVE);
 
     private static final Pattern TABLE_CONTENT_SOURCE_PATTERN = Pattern.compile("\\((.*)\\)", Pattern.DOTALL);
@@ -137,15 +138,25 @@ public class HDBUtils {
         if (!tableContentSourceMatcher.find()) {
             throw new IllegalArgumentException("Invalid content [" + content + "]. It doesn't match the pattern ["
                     + TABLE_CONTENT_SOURCE_PATTERN + "]. Most probably this is invalid content.");
+
         }
         Pattern columnNamePattern = Pattern.compile(COLUMN_NAME_REGEX, Pattern.CASE_INSENSITIVE);
-        Matcher columnNameMatcher = columnNamePattern.matcher(tableContentSourceMatcher.group(1));
+      String tableContentSource = tableContentSourceMatcher.group(1);
+      Matcher columnNameMatcher = columnNamePattern.matcher(tableContentSource);
 
         return columnNameMatcher.results()
                                 .map(matchResult -> {
                                     HDBTableColumn column = new HDBTableColumn();
-                                    column.setName(matchResult.group(1));
-                                    column.setType(matchResult.group(2));
+                                  String name = matchResult.group(1);
+                                  column.setName(name);
+                                  String type = matchResult.group(2);
+                                  column.setType(type);
+                                  String precision = matchResult.group(3);
+                                  String scale = matchResult.group(4);
+                                  if (null != precision && null == scale && NumberUtils.isParsable(precision.trim())) {
+                                    String length = precision.trim();
+                                    column.setLength(length);
+                                  }
                                     return column;
                                 })
                                 .collect(Collectors.toList());
