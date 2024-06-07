@@ -10,6 +10,11 @@
  */
 package com.codbex.kronos.engine.hdb.processors;
 
+import com.codbex.kronos.engine.hdb.domain.HDBTableFunction;
+import com.codbex.kronos.engine.hdb.parser.Constants;
+import com.codbex.kronos.engine.hdb.parser.HDBUtils;
+import com.codbex.kronos.utils.CommonsConstants;
+import com.codbex.kronos.utils.CommonsUtils;
 import java.sql.Connection;
 import java.sql.SQLException;
 import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
@@ -18,10 +23,6 @@ import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.codbex.kronos.engine.hdb.domain.HDBTableFunction;
-import com.codbex.kronos.engine.hdb.parser.Constants;
-import com.codbex.kronos.utils.CommonsConstants;
-import com.codbex.kronos.utils.CommonsUtils;
 
 /**
  * The Class HDBTableFunctionDropProcessor.
@@ -59,14 +60,14 @@ public class HDBTableFunctionDropProcessor extends AbstractHDBProcessor<HDBTable
                         functionParser);
                 throw new IllegalStateException(errorMessage);
             }
-            String sql = Constants.HDBTABLEFUNCTION_DROP + functionModel.getName();
+            String sql = Constants.HDBTABLEFUNCTION_DROP + HDBUtils.escapeArtifactName(functionModel.getName(), functionModel.getSchema());
             try {
                 executeSql(sql, connection);
                 String message = String.format("Drop function [%s] successfully", functionModel.getName());
                 logger.info(message);
             } catch (SQLException ex) {
-                String errorMessage =
-                        String.format("Drop function [%s] skipped due to an error: %s", functionModel.getName(), ex.getMessage());
+                String errorMessage = String.format("Drop function [%s] skipped due to an error: [%s]. Used sql [%s]",
+                        functionModel.getName(), ex.getMessage(), sql);
                 CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, functionModel.getLocation(),
                         functionParser);
                 throw ex;
