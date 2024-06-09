@@ -25,7 +25,9 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractHDBProcessor<T extends HDBDataStructure> implements IHDBProcessor<T> {
 
-    /** The Constant logger. */
+    /**
+     * The Constant logger.
+     */
     private static final Logger logger = LoggerFactory.getLogger(AbstractHDBProcessor.class);
 
     /**
@@ -37,7 +39,7 @@ public abstract class AbstractHDBProcessor<T extends HDBDataStructure> implement
      */
     public void executeSql(String sql, Connection connection) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            logger.info("Executing SQL: [{}]", sql);
+            logger.debug("Executing SQL: [{}]", sql);
             statement.executeUpdate();
         }
     }
