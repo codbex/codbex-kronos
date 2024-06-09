@@ -117,10 +117,10 @@ public class HDBSynonymCreateProcessor extends AbstractHDBProcessor<HDBSynonymGr
                 if (e.getErrorCode() == DUPLICATE_SYNONYM_NAME_ERROR_CODE) {
                     logger.info("Synonym [{}] already exists during the create process and will NOT be created", synonymName);
                 } else {
-                    String errorMessage = String.format("Create synonym [%s] skipped due to an error: %s", synonymName, e.getMessage());
+                    String errorMessage = String.format("Create synonym [%s] skipped due to an error: [%s]", synonymName, e.getMessage());
                     CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, synonymModel.getLocation(),
                             CommonsConstants.HDB_SYNONYM_PARSER);
-                    throw e;
+                    throw new SQLException(errorMessage, e);
                 }
             }
         }

@@ -31,7 +31,9 @@ import org.slf4j.LoggerFactory;
  */
 public class HDBProcedureDropProcessor extends AbstractHDBProcessor<HDBProcedure> {
 
-    /** The Constant logger. */
+    /**
+     * The Constant logger.
+     */
     private static final Logger logger = LoggerFactory.getLogger(HDBProcedureDropProcessor.class);
 
     private static final Pattern SCHEMA_PATTERN = Pattern.compile(".*PROCEDURE \"([^\"]+)\"\\.\"([^\"]+)\".*", Pattern.CASE_INSENSITIVE);
@@ -71,10 +73,11 @@ public class HDBProcedureDropProcessor extends AbstractHDBProcessor<HDBProcedure
             executeSql(sql, connection);
             logger.info("Drop procedure [{}] in schema [{}] successfully", procedureModel.getName(), procedureModel.getSchema());
         } catch (SQLException ex) {
-            String message = String.format("Drop procedure[%s] skipped due to an error: %s", procedureModel, ex.getMessage());
+            String message =
+                    String.format("Drop procedure[%s] skipped due to an error: [%s]. Used sql: [%s]", procedureModel, ex.getMessage(), sql);
             CommonsUtils.logProcessorErrors(message, CommonsConstants.PROCESSOR_ERROR, procedureModel.getLocation(),
                     CommonsConstants.HDB_PROCEDURE_PARSER);
-            throw ex;
+            throw new SQLException(message, ex);
         }
     }
 

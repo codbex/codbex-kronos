@@ -85,9 +85,10 @@ public class HDBSequenceDropProcessor extends AbstractHDBProcessor<HDBSequence> 
                     logger.info("Sequence [{}] has been dropped", sequenceModel.getName());
                     return;
                 } catch (SQLException e) {
-                    logDropError(String.format("Drop sequence [%s] skipped due to an error: %s", sequenceModel.getName(), e.getMessage()),
-                            sequenceModel);
-                    throw e;
+                    String errorMessage = String.format("Drop sequence [%s] skipped due to an error: [%s]. Used sql: [%s]",
+                            sequenceModel.getName(), e.getMessage(), sql);
+                    logDropError(errorMessage, sequenceModel);
+                    throw new SQLException(errorMessage, ex);
                 }
             }
             logDropError(String.format("Drop sequence [%s] skipped due to an error: %s", sequenceModel.getName(), ex.getMessage()),

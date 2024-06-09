@@ -363,7 +363,8 @@ public class HDBTableAlterHandler {
             } catch (SQLException e) {
                 CommonsUtils.logProcessorErrors(e.getMessage(), CommonsConstants.PROCESSOR_ERROR, this.tableModel.getLocation(),
                         CommonsConstants.HDB_TABLE_PARSER, e);
-                String messageFail = String.format("Update table [%s] skipped due to an error: {%s}", this.tableModel, e.getMessage());
+                String messageFail = String.format("Update table [%s] skipped due to an error: [%s]. Used sql: [%s]", this.tableModel,
+                        e.getMessage(), sql);
                 // dataStructuresSynchronizer.applyArtefactState(this.tableModel.getName(),
                 // this.tableModel.getLocation(), TABLE_ARTEFACT, ArtefactState.FAILED_UPDATE, messageFail);
                 throw new SQLException(messageFail, e);

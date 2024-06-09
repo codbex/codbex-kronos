@@ -70,7 +70,7 @@ public class HDBTableFunctionDropProcessor extends AbstractHDBProcessor<HDBTable
                         functionModel.getName(), ex.getMessage(), sql);
                 CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, functionModel.getLocation(),
                         functionParser);
-                throw ex;
+                throw new SQLException(errorMessage, ex);
             }
         } else {
             String warningMessage = String.format("Function [%s] does not exists during the drop process", functionModel.getName());

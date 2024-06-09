@@ -29,7 +29,9 @@ import org.slf4j.LoggerFactory;
  */
 public class HDBViewCreateProcessor extends AbstractHDBProcessor<HDBView> {
 
-    /** The Constant logger. */
+    /**
+     * The Constant logger.
+     */
     private static final Logger logger = LoggerFactory.getLogger(HDBViewCreateProcessor.class);
 
     /**
@@ -70,10 +72,11 @@ public class HDBViewCreateProcessor extends AbstractHDBProcessor<HDBView> {
                 String message = String.format("Create view [%s] successfully", viewModel.getName());
                 logger.info(message);
             } catch (SQLException ex) {
-                String errorMessage = String.format("Create view [%s] skipped due to an error: %s", viewModel.getName(), ex.getMessage());
+                String errorMessage = String.format("Create view [%s] skipped due to an error: [%s]. Used sql: [%s]", viewModel.getName(),
+                        ex.getMessage(), sql);
                 CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, viewModel.getLocation(),
                         CommonsConstants.HDB_VIEW_PARSER);
-                throw ex;
+                throw new SQLException(errorMessage, ex);
             }
         } else {
             String warningMessage = String.format("View [%s] already exists during the create process", viewModel.getName());
