@@ -10,6 +10,10 @@
  */
 package com.codbex.kronos.engine.hdb.processors;
 
+import com.codbex.kronos.engine.hdb.domain.HDBProcedure;
+import com.codbex.kronos.engine.hdb.parser.Constants;
+import com.codbex.kronos.utils.CommonsConstants;
+import com.codbex.kronos.utils.CommonsUtils;
 import java.sql.Connection;
 import java.sql.SQLException;
 import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
@@ -18,17 +22,15 @@ import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.codbex.kronos.engine.hdb.domain.HDBProcedure;
-import com.codbex.kronos.engine.hdb.parser.Constants;
-import com.codbex.kronos.utils.CommonsConstants;
-import com.codbex.kronos.utils.CommonsUtils;
 
 /**
  * The Class HDBProcedureCreateProcessor.
  */
 public class HDBProcedureCreateProcessor extends AbstractHDBProcessor<HDBProcedure> {
 
-    /** The Constant logger. */
+    /**
+     * The Constant logger.
+     */
     private static final Logger logger = LoggerFactory.getLogger(HDBProcedureCreateProcessor.class);
 
     /**
@@ -60,10 +62,11 @@ public class HDBProcedureCreateProcessor extends AbstractHDBProcessor<HDBProcedu
                 executeSql(sql, connection);
                 logger.info(message);
             } catch (SQLException ex) {
-                String errorMessage = String.format("Create procedure[%s] skipped due to an error: %s", procedureModel, ex.getMessage());
+                String errorMessage = String.format("Create procedure [%s] skipped due to an error: [%s]. Used sql: [%s]", procedureModel,
+                        ex.getMessage(), sql);
                 CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, procedureModel.getLocation(),
                         CommonsConstants.HDB_PROCEDURE_PARSER);
-                throw ex;
+                throw new SQLException(errorMessage, ex);
             }
         } else {
             String warningMessage = String.format("Procedure [%s] already exists during the create process", procedureModel.getName());

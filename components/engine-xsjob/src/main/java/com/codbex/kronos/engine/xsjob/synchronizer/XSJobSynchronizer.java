@@ -196,12 +196,12 @@ public class XSJobSynchronizer extends BaseSynchronizer<XSJob, Long> {
                         SchedulerManager.scheduleJob(xsjob);
                         xsjob.setRunning(true);
                         getService().save(xsjob);
-                        callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                     } else if (ArtefactLifecycle.FAILED.equals(xsjob.getLifecycle())) {
                         SchedulerManager.scheduleJob(xsjob);
                         xsjob.setRunning(true);
                         getService().save(xsjob);
-                        callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                         ProblemsFacade.deleteArtefactSynchronizationProblem(xsjob);
                     }
                     break;
@@ -214,14 +214,11 @@ public class XSJobSynchronizer extends BaseSynchronizer<XSJob, Long> {
                             SchedulerManager.scheduleJob(xsjob);
                             xsjob.setRunning(true);
                             getService().save(xsjob);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                             ProblemsFacade.deleteArtefactSynchronizationProblem(xsjob);
                         } catch (Exception e) {
-                            if (logger.isErrorEnabled()) {
-                                logger.error(e.getMessage(), e);
-                            }
                             callback.addError(e.getMessage());
-                            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, e.getMessage());
+                            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, e);
                             ProblemsFacade.upsertArtefactSynchronizationProblem(xsjob, e.getMessage());
                         }
                     }
@@ -232,7 +229,7 @@ public class XSJobSynchronizer extends BaseSynchronizer<XSJob, Long> {
                             SchedulerManager.unscheduleJob(xsjob.getName(), xsjob.getGroup());
                             xsjob.setRunning(false);
                             getService().delete(xsjob);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.DELETED);
                         } catch (Exception e) {
                             if (logger.isErrorEnabled()) {
                                 logger.error(e.getMessage(), e);
@@ -249,11 +246,8 @@ public class XSJobSynchronizer extends BaseSynchronizer<XSJob, Long> {
                             xsjob.setRunning(true);
                             getService().save(xsjob);
                         } catch (Exception e) {
-                            if (logger.isErrorEnabled()) {
-                                logger.error(e.getMessage(), e);
-                            }
                             callback.addError(e.getMessage());
-                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, e);
                         }
                     }
                     break;
@@ -268,7 +262,7 @@ public class XSJobSynchronizer extends BaseSynchronizer<XSJob, Long> {
                                 logger.error(e.getMessage(), e);
                             }
                             callback.addError(e.getMessage());
-                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                         }
                     }
                     break;
@@ -301,13 +295,10 @@ public class XSJobSynchronizer extends BaseSynchronizer<XSJob, Long> {
             SchedulerManager.unscheduleJob(xsjob.getName(), xsjob.getGroup());
             xsjob.setRunning(false);
             getService().delete(xsjob);
-            callback.registerState(this, xsjob, ArtefactLifecycle.DELETED, "");
+            callback.registerState(this, xsjob, ArtefactLifecycle.DELETED);
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
             callback.addError(e.getMessage());
-            callback.registerState(this, xsjob, ArtefactLifecycle.FAILED, e.getMessage());
+            callback.registerState(this, xsjob, ArtefactLifecycle.FAILED, e);
         }
     }
 

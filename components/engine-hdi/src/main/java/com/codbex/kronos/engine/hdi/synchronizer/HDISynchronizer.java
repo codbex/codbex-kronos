@@ -202,10 +202,10 @@ public class HDISynchronizer extends BaseSynchronizer<HDI, Long> {
                 case CREATE:
                     if (ArtefactLifecycle.NEW.equals(hdi.getLifecycle())) {
                         hdiContainerCreateProcessor.execute(connection, hdi);
-                        callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                     } else if (ArtefactLifecycle.FAILED.equals(hdi.getLifecycle())) {
                         hdiContainerCreateProcessor.execute(connection, hdi);
-                        callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                         ProblemsFacade.deleteArtefactSynchronizationProblem(hdi);
                     }
                     break;
@@ -213,21 +213,18 @@ public class HDISynchronizer extends BaseSynchronizer<HDI, Long> {
                     if (ArtefactLifecycle.MODIFIED.equals(hdi.getLifecycle())) {
                         try {
                             hdiContainerCreateProcessor.execute(connection, hdi);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                             ProblemsFacade.deleteArtefactSynchronizationProblem(hdi);
                         } catch (DataStructuresException e) {
-                            if (logger.isErrorEnabled()) {
-                                logger.error(e.getMessage(), e);
-                            }
-                            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, e.getMessage());
+                            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, e);
                         }
                     }
                     break;
                 case DELETE:
                     if (ArtefactLifecycle.CREATED.equals(hdi.getLifecycle())) {
                         HDIContainerDropProcessor.execute(connection, List.of(hdi));
-                        callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
-                        callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.DELETED);
+                        callback.registerState(this, wrapper, ArtefactLifecycle.DELETED);
                     }
                     break;
                 case START:
@@ -239,11 +236,8 @@ public class HDISynchronizer extends BaseSynchronizer<HDI, Long> {
             String errorMessage = String.format("Error occurred while processing [%s]: %s", wrapper.getArtefact()
                                                                                                    .getLocation(),
                     e.getMessage());
-            if (logger.isErrorEnabled()) {
-                logger.error(errorMessage, e);
-            }
             callback.addError(errorMessage);
-            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage);
+            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage, e);
             ProblemsFacade.upsertArtefactSynchronizationProblem(wrapper.getArtefact(), errorMessage);
             return false;
         }
@@ -260,13 +254,10 @@ public class HDISynchronizer extends BaseSynchronizer<HDI, Long> {
                                                        .getConnection()) {
             HDIContainerDropProcessor.execute(connection, Collections.singletonList(hdi));
             getService().delete(hdi);
-            callback.registerState(this, hdi, ArtefactLifecycle.DELETED, "");
+            callback.registerState(this, hdi, ArtefactLifecycle.DELETED);
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
             callback.addError(e.getMessage());
-            callback.registerState(this, hdi, ArtefactLifecycle.FAILED, e.getMessage());
+            callback.registerState(this, hdi, ArtefactLifecycle.FAILED, e);
         }
     }
 

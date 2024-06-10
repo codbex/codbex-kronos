@@ -17,6 +17,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.codbex.kronos.engine.hdi.ds.util.Message;
+import com.codbex.kronos.engine.hdi.processors.DeployContainerContentProcessor;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,7 +26,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Answers;
@@ -33,32 +34,39 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 
-import com.codbex.kronos.engine.hdi.ds.util.Message;
-import com.codbex.kronos.engine.hdi.processors.DeployContainerContentProcessor;
-
 /**
  * The Class DeployContainerContentProcessorTest.
  */
 @ExtendWith(MockitoExtension.class)
 public class DeployContainerContentProcessorTest {
 
-    /** The mock connection. */
+    /**
+     * The mock connection.
+     */
     @Mock(answer = Answers.RETURNS_DEEP_STUBS)
     private Connection mockConnection;
 
-    /** The result set mock. */
+    /**
+     * The result set mock.
+     */
     @Mock
     private ResultSet resultSetMock;
 
-    /** The result set from select mock. */
+    /**
+     * The result set from select mock.
+     */
     @Mock
     private ResultSet resultSetFromSelectMock;
 
-    /** The prepared statement mock. */
+    /**
+     * The prepared statement mock.
+     */
     @Mock
     private PreparedStatement preparedStatementMock;
 
-    /** The callable statement mock. */
+    /**
+     * The callable statement mock.
+     */
     @Mock
     private CallableStatement callableStatementMock;
 
@@ -100,7 +108,8 @@ public class DeployContainerContentProcessorTest {
                 String[] current = result[index];
                 row.setCurrentRowData(current);
                 return true;
-            };
+            }
+
         }).when(resultSetMock)
           .next();
 
@@ -110,7 +119,8 @@ public class DeployContainerContentProcessorTest {
                 Object[] args = invocation.getArguments();
                 int idx = ((Integer) args[0]).intValue();
                 return row.getColumn(idx);
-            };
+            }
+
         }).when(resultSetMock)
           .getString(anyInt());
 
@@ -125,7 +135,7 @@ public class DeployContainerContentProcessorTest {
 
         processorSpy.executeCall(mockConnection, sqlMakeCall);
         verify(processorSpy, times(1)).executeCall(mockConnection, sqlMakeCall);
-        verify(processorSpy, times(1)).parseResultSet(resultSetMock);
+        verify(processorSpy, times(1)).parseResultSet(resultSetMock, sqlMakeCall);
         // verify(processorSpy,times(2)).applyState(any(), any(), any(), any());
 
     }
@@ -135,7 +145,9 @@ public class DeployContainerContentProcessorTest {
      */
     static class MockRow {
 
-        /** The row data. */
+        /**
+         * The row data.
+         */
         String[] rowData;
 
         /**

@@ -10,37 +10,45 @@
  */
 package com.codbex.kronos.engine.hdi.processors;
 
+import com.codbex.kronos.engine.hdi.ds.util.Constants;
+import com.codbex.kronos.utils.CommonsConstants;
+import com.codbex.kronos.utils.CommonsUtils;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.codbex.kronos.engine.hdi.ds.util.Constants;
-import com.codbex.kronos.utils.CommonsConstants;
-import com.codbex.kronos.utils.CommonsUtils;
 
 /**
  * The Class DeployContainerContentProcessor.
  */
 public class DeployContainerContentProcessor extends HDIAbstractProcessor {
 
-    /** The Constant LOGGER. */
+    /**
+     * The Constant LOGGER.
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(DeployContainerContentProcessor.class);
 
-    /** The Constant ERROR_LOCATION. */
+    /**
+     * The Constant ERROR_LOCATION.
+     */
     private static final String ERROR_LOCATION = "-";
 
-    /** The Constant SQL_SELECT_FROM_DEPLOY_PATHS. */
+    /**
+     * The Constant SQL_SELECT_FROM_DEPLOY_PATHS.
+     */
     private static final String SQL_SELECT_FROM_DEPLOY_PATHS = "SELECT * FROM #DEPLOY_PATHS";
 
-    /** The Constant SQL_SELECT_FROM_UNDEPLOY_PATHS. */
+    /**
+     * The Constant SQL_SELECT_FROM_UNDEPLOY_PATHS.
+     */
     private static final String SQL_SELECT_FROM_UNDEPLOY_PATHS = "SELECT * FROM #UNDEPLOY_PATHS";
 
-    /** The Constant FIRST_OUTPUT_PARAMETER_INDEX. */
+    /**
+     * The Constant FIRST_OUTPUT_PARAMETER_INDEX.
+     */
     private static final int FIRST_OUTPUT_PARAMETER_INDEX = 1;
 
     // /** The Constant CALCULATION_VIEW_SYNCHRONIZATION_ARTEFACT_TYPE. */
@@ -116,17 +124,18 @@ public class DeployContainerContentProcessor extends HDIAbstractProcessor {
      * @param sql the sql
      */
     public void executeCall(Connection connection, String sql) {
+        LOGGER.debug("Executing [{}]", sql);
         try (CallableStatement statement = connection.prepareCall(sql)) {
             statement.registerOutParameter(FIRST_OUTPUT_PARAMETER_INDEX, Types.INTEGER);
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 int returnCode = statement.getInt(FIRST_OUTPUT_PARAMETER_INDEX); // 1st output parameter (Return_Code)
-                parseResultSet(resultSet);
+                parseResultSet(resultSet, sql);
                 // checkPaths(connection, returnCode, SQL_SELECT_FROM_DEPLOY_PATHS);
                 // checkPaths(connection,returnCode, SQL_SELECT_FROM_UNDEPLOY_PATHS);
             }
         } catch (SQLException e) {
-            LOGGER.error("Failed to execute SQL statement - " + sql, e);
+            LOGGER.error("Failed to execute SQL statement - [{}]", sql, e);
             CommonsUtils.logProcessorErrors(e.getMessage(), CommonsConstants.PROCESSOR_ERROR, ERROR_LOCATION,
                     CommonsConstants.HDI_PROCESSOR);
         }

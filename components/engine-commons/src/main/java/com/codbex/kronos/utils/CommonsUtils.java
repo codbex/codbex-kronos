@@ -16,12 +16,14 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.io.FilenameUtils;
+import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * The Class CommonsUtils.
  */
+
 public class CommonsUtils {
 
     /**
@@ -29,8 +31,12 @@ public class CommonsUtils {
      */
     private CommonsUtils() {}
 
-    /** The Constant logger. */
+    /**
+     * The Constant logger.
+     */
     private static final Logger logger = LoggerFactory.getLogger(CommonsUtils.class);
+
+    private static ProblemsFacade problemsFacade;
 
     /**
      * Extract the object base name from catalog name. Catalog name includes the package path, the
@@ -67,10 +73,7 @@ public class CommonsUtils {
         String objBaseName = FilenameUtils.getBaseName(location);
         String namespace = getRepositoryNamespace(location);
         if (namespace.length() > 0) {
-            return new StringBuilder().append(namespace)
-                                      .append("::")
-                                      .append(objBaseName)
-                                      .toString();
+            return namespace + "::" + objBaseName;
         }
         return objBaseName;
     }
@@ -180,15 +183,13 @@ public class CommonsUtils {
      * @param artifactType the artifact type
      */
     public static void logProcessorErrors(String errorMessage, String errorType, String location, String artifactType) {
-        try {
-            logger.error("Parser error at file: [{}], type: [{}], artefacts: [{}]. Message: [{}]", location, errorType, artifactType,
-                    errorMessage);
-            // ProblemsFacade.save(location, errorType, "", "", errorMessage, "", artifactType,
-            // CommonsConstants.MODULE_PROCESSORS, CommonsConstants.SOURCE_PUBLISH_REQUEST,
-            // CommonsConstants.PROGRAM_KRONOS);
-        } catch (Exception ex) {
-            logger.error("There is an issue with logging of the Errors.", ex);
-        }
+        logProcessorErrors(errorMessage, errorType, location, artifactType, null);
+    }
+
+    public static void logProcessorErrors(String errorMessage, String errorType, String location, String artifactType, Throwable cause) {
+        String message = String.format("Parser error at file: [%s], error type: [%s], artifact type [%s]. Message: [%s]", location,
+                errorType, artifactType, errorMessage);
+        ProblemsFacade.save(location, errorType, "", "", message, "", "", "", "", "");
     }
 
     /**

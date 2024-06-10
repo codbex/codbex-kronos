@@ -200,19 +200,17 @@ public class HDBSchemaSynchronizer extends BaseSynchronizer<HDBSchema, Long> {
                         if (!SqlFactory.getNative(connection)
                                        .exists(connection, schema.getName(), DatabaseArtifactTypes.SCHEMA)) {
                             executeSchemaCreate(connection, schema);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                         } else {
-                            if (logger.isWarnEnabled()) {
-                                logger.warn(String.format("HDBSchema [%s] already exists during the update process", schema.getName()));
-                            }
+                            logger.warn("HDBSchema [{}] already exists during the update process", schema.getName());
                             executeSchemaUpdate(connection, schema);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                         }
                     } else if (ArtefactLifecycle.FAILED.equals(schema.getLifecycle())) {
                         if (!SqlFactory.getNative(connection)
                                        .exists(connection, schema.getName(), DatabaseArtifactTypes.SCHEMA)) {
                             executeSchemaCreate(connection, schema);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                             ProblemsFacade.deleteArtefactSynchronizationProblem(schema);
                         }
                     }
@@ -220,7 +218,7 @@ public class HDBSchemaSynchronizer extends BaseSynchronizer<HDBSchema, Long> {
                 case UPDATE:
                     if (ArtefactLifecycle.MODIFIED.equals(schema.getLifecycle())) {
                         executeSchemaUpdate(connection, schema);
-                        callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                         ProblemsFacade.deleteArtefactSynchronizationProblem(schema);
                     }
                     break;
@@ -229,9 +227,9 @@ public class HDBSchemaSynchronizer extends BaseSynchronizer<HDBSchema, Long> {
                         if (SqlFactory.getNative(connection)
                                       .exists(connection, schema.getName(), DatabaseArtifactTypes.SCHEMA)) {
                             executeSchemaDrop(connection, schema);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.DELETED);
                         }
-                        callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.DELETED);
                     }
                     break;
                 case START:
@@ -243,11 +241,8 @@ public class HDBSchemaSynchronizer extends BaseSynchronizer<HDBSchema, Long> {
             String errorMessage = String.format("Error occurred while processing [%s]: %s", wrapper.getArtefact()
                                                                                                    .getLocation(),
                     e.getMessage());
-            if (logger.isErrorEnabled()) {
-                logger.error(errorMessage, e);
-            }
             callback.addError(errorMessage);
-            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage);
+            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage, e);
             ProblemsFacade.upsertArtefactSynchronizationProblem(wrapper.getArtefact(), errorMessage);
             return false;
         }
@@ -263,13 +258,10 @@ public class HDBSchemaSynchronizer extends BaseSynchronizer<HDBSchema, Long> {
         try (Connection connection = datasourcesManager.getDefaultDataSource()
                                                        .getConnection()) {
             getService().delete(schema);
-            callback.registerState(this, schema, ArtefactLifecycle.DELETED, "");
+            callback.registerState(this, schema, ArtefactLifecycle.DELETED);
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
             callback.addError(e.getMessage());
-            callback.registerState(this, schema, ArtefactLifecycle.FAILED, e.getMessage());
+            callback.registerState(this, schema, ArtefactLifecycle.FAILED, e);
         }
     }
 

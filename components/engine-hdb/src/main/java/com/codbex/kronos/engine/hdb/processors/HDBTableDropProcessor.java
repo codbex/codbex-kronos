@@ -10,6 +10,12 @@
  */
 package com.codbex.kronos.engine.hdb.processors;
 
+import com.codbex.kronos.engine.hdb.domain.HDBTable;
+import com.codbex.kronos.engine.hdb.domain.HDBTableConstraintForeignKey;
+import com.codbex.kronos.engine.hdb.parser.Constants;
+import com.codbex.kronos.engine.hdb.parser.HDBUtils;
+import com.codbex.kronos.utils.CommonsConstants;
+import com.codbex.kronos.utils.CommonsUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,19 +25,15 @@ import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.codbex.kronos.engine.hdb.domain.HDBTable;
-import com.codbex.kronos.engine.hdb.domain.HDBTableConstraintForeignKey;
-import com.codbex.kronos.engine.hdb.parser.Constants;
-import com.codbex.kronos.engine.hdb.parser.HDBUtils;
-import com.codbex.kronos.utils.CommonsConstants;
-import com.codbex.kronos.utils.CommonsUtils;
 
 /**
  * The HDBTableDropProcessor.
  */
 public class HDBTableDropProcessor extends AbstractHDBProcessor<HDBTable> {
 
-    /** The Constant logger. */
+    /**
+     * The Constant logger.
+     */
     private static final Logger logger = LoggerFactory.getLogger(HDBTableDropProcessor.class);
 
     /**
@@ -90,10 +92,11 @@ public class HDBTableDropProcessor extends AbstractHDBProcessor<HDBTable> {
                     }
                 }
             } catch (SQLException ex) {
-                String errorMessage = String.format("Drop table[%s] skipped due to an error: {%s}", tableModel, ex.getMessage());
+                String errorMessage =
+                        String.format("Drop table[%s] skipped due to an error: [%s]. Used sql: [%s]", tableModel, ex.getMessage(), sql);
                 CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableModel.getLocation(),
                         CommonsConstants.HDB_TABLE_PARSER);
-                throw ex;
+                throw new SQLException(errorMessage, ex);
             } finally {
                 if (statement != null) {
                     statement.close();
@@ -138,10 +141,11 @@ public class HDBTableDropProcessor extends AbstractHDBProcessor<HDBTable> {
             String message = String.format("Drop table [%s] successfully", tableModel.getName());
             logger.info(message);
         } catch (SQLException ex) {
-            String errorMessage = String.format("Drop table[%s] skipped due to an error: {%s}", tableModel, ex.getMessage());
+            String errorMessage =
+                    String.format("Drop table [%s] skipped due to an error: [%s]. Used sql: [%s]", tableModel, ex.getMessage(), sql);
             CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableModel.getLocation(),
                     CommonsConstants.HDB_TABLE_PARSER);
-            throw ex;
+            throw new SQLException(errorMessage, ex);
         } finally {
             if (statement != null) {
                 statement.close();

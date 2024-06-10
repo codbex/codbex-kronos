@@ -75,5 +75,6 @@
   <logger name="org.eclipse.dirigible.components.tenants.tenant" level="INFO"/>
 
   <logger name="com.codbex.kronos.engine.hdb" level="INFO"/>
+  <logger name="com.codbex.kronos.engine.hdb.processors.AbstractHDBProcessor" level="INFO"/>
 
 </configuration>

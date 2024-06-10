@@ -200,19 +200,18 @@ public class HDBViewsSynchronizer extends BaseSynchronizer<HDBView, Long> {
                         if (!SqlFactory.getNative(connection)
                                        .exists(connection, view.getSchema(), view.getName(), DatabaseArtifactTypes.VIEW)) {
                             executeViewCreate(connection, view);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                         } else {
-                            if (logger.isWarnEnabled()) {
-                                logger.warn(String.format("HDBView [%s] already exists during the update process", view.getName()));
-                            }
+                            logger.warn("HDBView [{}] in schema [{}] already exists during the update process", view.getName(),
+                                    view.getSchema());
                             executeViewUpdate(connection, view);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                         }
                     } else if (ArtefactLifecycle.FAILED.equals(view.getLifecycle())) {
                         if (!SqlFactory.getNative(connection)
                                        .exists(connection, view.getSchema(), view.getName(), DatabaseArtifactTypes.VIEW)) {
                             executeViewCreate(connection, view);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                             ProblemsFacade.deleteArtefactSynchronizationProblem(view);
                         }
                     }
@@ -220,7 +219,7 @@ public class HDBViewsSynchronizer extends BaseSynchronizer<HDBView, Long> {
                 case UPDATE:
                     if (ArtefactLifecycle.MODIFIED.equals(view.getLifecycle())) {
                         executeViewUpdate(connection, view);
-                        callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                         ProblemsFacade.deleteArtefactSynchronizationProblem(view);
                     }
                     break;
@@ -229,9 +228,9 @@ public class HDBViewsSynchronizer extends BaseSynchronizer<HDBView, Long> {
                         if (SqlFactory.getNative(connection)
                                       .exists(connection, view.getSchema(), view.getName(), DatabaseArtifactTypes.VIEW)) {
                             executeViewDrop(connection, view);
-                            callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
+                            callback.registerState(this, wrapper, ArtefactLifecycle.DELETED);
                         }
-                        callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.DELETED);
                     }
                     break;
                 case START:
@@ -243,11 +242,8 @@ public class HDBViewsSynchronizer extends BaseSynchronizer<HDBView, Long> {
             String errorMessage = String.format("Error occurred while processing [%s]: %s", wrapper.getArtefact()
                                                                                                    .getLocation(),
                     e.getMessage());
-            if (logger.isErrorEnabled()) {
-                logger.error(errorMessage, e);
-            }
             callback.addError(errorMessage);
-            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage);
+            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage, e);
             ProblemsFacade.upsertArtefactSynchronizationProblem(wrapper.getArtefact(), errorMessage);
             return false;
         }
@@ -263,13 +259,10 @@ public class HDBViewsSynchronizer extends BaseSynchronizer<HDBView, Long> {
         try (Connection connection = datasourcesManager.getDefaultDataSource()
                                                        .getConnection()) {
             getService().delete(view);
-            callback.registerState(this, view, ArtefactLifecycle.DELETED, "");
+            callback.registerState(this, view, ArtefactLifecycle.DELETED);
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
             callback.addError(e.getMessage());
-            callback.registerState(this, view, ArtefactLifecycle.FAILED, e.getMessage());
+            callback.registerState(this, view, ArtefactLifecycle.FAILED, e);
         }
     }
 

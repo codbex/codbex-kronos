@@ -208,7 +208,12 @@ public class HDBDDSynchronizer extends BaseSynchronizer<HDBDD, Long> {
                  }
                  t.setType(HDBTable.ARTEFACT_TYPE);
                  t.updateKey();
-                 t.setConstraints(new HDBTableConstraints(t));
+                 if (t.getConstraints() != null) {
+                     t.getConstraints()
+                      .setTable(t);
+                 } else {
+                     t.setConstraints(new HDBTableConstraints(t));
+                 }
                  HDBTablesSynchronizer.assignParent(t);
              });
         hdbdd.getViews()
@@ -314,24 +319,24 @@ public class HDBDDSynchronizer extends BaseSynchronizer<HDBDD, Long> {
                 case CREATE:
                     if (ArtefactLifecycle.NEW.equals(hdbdd.getLifecycle())) {
                         executeHDBDDCreate(connection, hdbdd);
-                        callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                     } else if (ArtefactLifecycle.FAILED.equals(hdbdd.getLifecycle())) {
                         executeFailedHDBDDCreate(connection, hdbdd);
-                        callback.registerState(this, wrapper, ArtefactLifecycle.CREATED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                         ProblemsFacade.deleteArtefactSynchronizationProblem(hdbdd);
                     }
                     break;
                 case UPDATE:
                     if (ArtefactLifecycle.MODIFIED.equals(hdbdd.getLifecycle())) {
                         executeHDBDDUpdate(connection, hdbdd);
-                        callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                         ProblemsFacade.deleteArtefactSynchronizationProblem(hdbdd);
                     }
                     break;
                 case DELETE:
                     if (ArtefactLifecycle.CREATED.equals(hdbdd.getLifecycle()) || ArtefactLifecycle.UPDATED.equals(hdbdd.getLifecycle())) {
                         executeHDBDDDrop(connection, hdbdd);
-                        callback.registerState(this, wrapper, ArtefactLifecycle.DELETED, "");
+                        callback.registerState(this, wrapper, ArtefactLifecycle.DELETED);
                         break;
                     }
                 case START:
@@ -341,12 +346,11 @@ public class HDBDDSynchronizer extends BaseSynchronizer<HDBDD, Long> {
             return true;
 
         } catch (Exception e) {
-            String errorMessage = String.format("Error occurred while processing [%s]: %s", wrapper.getArtefact()
-                                                                                                   .getLocation(),
+            String errorMessage = String.format("Error occurred while processing [%s]: [%s]", wrapper.getArtefact()
+                                                                                                     .getLocation(),
                     e.getMessage());
-            logger.error(errorMessage, e);
             callback.addError(errorMessage);
-            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, e.getMessage());
+            callback.registerState(this, wrapper, ArtefactLifecycle.FAILED, errorMessage, e);
             ProblemsFacade.upsertArtefactSynchronizationProblem(wrapper.getArtefact(), errorMessage);
             return false;
         }
@@ -361,13 +365,10 @@ public class HDBDDSynchronizer extends BaseSynchronizer<HDBDD, Long> {
     public void cleanupImpl(HDBDD hdbdd) {
         try {
             getService().delete(hdbdd);
-            callback.registerState(this, hdbdd, ArtefactLifecycle.DELETED, "");
+            callback.registerState(this, hdbdd, ArtefactLifecycle.DELETED);
         } catch (Exception e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
             callback.addError(e.getMessage());
-            callback.registerState(this, hdbdd, ArtefactLifecycle.FAILED, e.getMessage());
+            callback.registerState(this, hdbdd, ArtefactLifecycle.FAILED, e);
         }
     }
 

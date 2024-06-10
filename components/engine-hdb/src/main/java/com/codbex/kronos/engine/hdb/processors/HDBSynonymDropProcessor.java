@@ -10,6 +10,11 @@
  */
 package com.codbex.kronos.engine.hdb.processors;
 
+import com.codbex.kronos.engine.hdb.domain.HDBSynonym;
+import com.codbex.kronos.engine.hdb.domain.HDBSynonymGroup;
+import com.codbex.kronos.engine.hdb.parser.HDBUtils;
+import com.codbex.kronos.utils.CommonsConstants;
+import com.codbex.kronos.utils.CommonsUtils;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Map;
@@ -17,11 +22,6 @@ import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.codbex.kronos.engine.hdb.domain.HDBSynonym;
-import com.codbex.kronos.engine.hdb.domain.HDBSynonymGroup;
-import com.codbex.kronos.engine.hdb.parser.HDBUtils;
-import com.codbex.kronos.utils.CommonsConstants;
-import com.codbex.kronos.utils.CommonsUtils;
 
 /**
  * The Class HDBSynonymDropProcessor.
@@ -97,10 +97,10 @@ public class HDBSynonymDropProcessor extends AbstractHDBProcessor<HDBSynonymGrou
                     }
                 }
             } catch (SQLException ex) {
-                String errorMessage = String.format("Drop synonym [%s] skipped due to an error: %s", synonymName, ex.getMessage());
+                String errorMessage = String.format("Drop synonym [%s] skipped due to an error: [%s]", synonymName, ex.getMessage());
                 CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, synonymModel.getLocation(),
                         CommonsConstants.HDB_SYNONYM_PARSER);
-                throw ex;
+                throw new SQLException(errorMessage, ex);
             }
         }
     }

@@ -10,34 +10,40 @@
  */
 package com.codbex.kronos.engine.hdi.processors;
 
+import com.codbex.kronos.engine.hdi.ds.util.Message;
+import com.codbex.kronos.utils.CommonsConstants;
+import com.codbex.kronos.utils.CommonsUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.codbex.kronos.engine.hdi.ds.util.Message;
-import com.codbex.kronos.utils.CommonsConstants;
-import com.codbex.kronos.utils.CommonsUtils;
 
 /**
  * The Class HDIAbstractProcessor.
  */
 public abstract class HDIAbstractProcessor {
 
-    /** The Constant ERROR_LOCATION. */
+    /**
+     * The Constant ERROR_LOCATION.
+     */
     private static final String ERROR_LOCATION = "-";
 
-    /** The Constant MESSAGE_SEVERITY_ERROR. */
+    /**
+     * The Constant MESSAGE_SEVERITY_ERROR.
+     */
     private static final String MESSAGE_SEVERITY_ERROR = "ERROR";
 
-    /** The Constant MESSAGE_SEVERITY_WARNING. */
+    /**
+     * The Constant MESSAGE_SEVERITY_WARNING.
+     */
     private static final String MESSAGE_SEVERITY_WARNING = "WARNING";
 
-    /** The Constant LOGGER. */
+    /**
+     * The Constant LOGGER.
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(HDIAbstractProcessor.class);
 
     // /** The Constant DATA_STRUCTURES_SYNCHRONIZER. */
@@ -57,7 +63,7 @@ public abstract class HDIAbstractProcessor {
             setStatementParams(statement, parameters);
             statement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error("Failed to execute SQL statement - " + sql, e);
+            LOGGER.error("Failed to execute SQL statement [{}]", sql, e);
             CommonsUtils.logProcessorErrors(e.getMessage(), CommonsConstants.PROCESSOR_ERROR, ERROR_LOCATION,
                     CommonsConstants.HDI_PROCESSOR);
         }
@@ -75,37 +81,52 @@ public abstract class HDIAbstractProcessor {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             setStatementParams(statement, parameters);
             try (ResultSet resultSet = statement.executeQuery()) {
-                parseResultSet(resultSet);
+                parseResultSet(resultSet, sql);
             }
         } catch (SQLException e) {
-            LOGGER.error("Failed to execute SQL statement - " + sql, e);
+            LOGGER.error("Failed to execute SQL statement - [{}]", sql, e);
             CommonsUtils.logProcessorErrors(e.getMessage(), CommonsConstants.PROCESSOR_ERROR, ERROR_LOCATION,
                     CommonsConstants.HDI_PROCESSOR);
         }
     }
 
-    /**
-     * Parses the result set.
-     *
-     * @param resultSet the result set
-     * @throws SQLException the SQL exception
-     */
-    public void parseResultSet(ResultSet resultSet) throws SQLException {
+    public void parseResultSet(ResultSet resultSet, String usedSql) throws SQLException {
         ArrayList<Message> messages = new ArrayList<>();
         while (resultSet.next()) {
             messages.add(new Message(resultSet));
         }
-        for (Message message : messages) {
-            if (message.severity.equals(MESSAGE_SEVERITY_ERROR)) {
-                LOGGER.error(message.message);
-                CommonsUtils.logProcessorErrors(message.message, CommonsConstants.PROCESSOR_ERROR, message.path,
-                        CommonsConstants.HDI_PROCESSOR);
-            } else if (message.severity.equals(MESSAGE_SEVERITY_WARNING)) {
-                LOGGER.warn(message.message);
-            } else {
-                LOGGER.info(message.message);
-            }
+
+        boolean containsError = messages.stream()
+                                        .filter(m -> MESSAGE_SEVERITY_ERROR.equals(m.severity))
+                                        .findFirst()
+                                        .isPresent();
+        boolean containsWarning = messages.stream()
+                                          .filter(m -> MESSAGE_SEVERITY_WARNING.equals(m.severity))
+                                          .findFirst()
+                                          .isPresent();
+
+        if (containsError) {
+            String concatenatedMessage = concatenatedMessages(messages);
+            LOGGER.error("Result of [{}] - ERROR:\n[{}]", usedSql, concatenatedMessage);
+            CommonsUtils.logProcessorErrors(concatenatedMessage, CommonsConstants.PROCESSOR_ERROR, "", CommonsConstants.HDI_PROCESSOR);
         }
+        if (!containsError && containsWarning) {
+            String concatenatedMessage = concatenatedMessages(messages);
+            LOGGER.warn("Result of [{}] - WARNING:\n[{}]", usedSql, concatenatedMessage);
+        } else {
+            String concatenatedMessage = concatenatedMessages(messages);
+            LOGGER.warn("Result of [{}] - INFO:\n[{}]", usedSql, concatenatedMessage);
+        }
+    }
+
+    private static String concatenatedMessages(ArrayList<Message> messages) {
+        StringBuilder sb = new StringBuilder();
+        messages.forEach(m -> sb.append("[")
+                                .append(m.severity)
+                                .append("]: ")
+                                .append(m.message)
+                                .append("\n"));
+        return sb.toString();
     }
 
     /**

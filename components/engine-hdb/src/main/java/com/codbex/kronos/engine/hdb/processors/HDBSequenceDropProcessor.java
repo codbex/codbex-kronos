@@ -29,7 +29,9 @@ import org.slf4j.LoggerFactory;
  */
 public class HDBSequenceDropProcessor extends AbstractHDBProcessor<HDBSequence> {
 
-    /** The Constant logger. */
+    /**
+     * The Constant logger.
+     */
     private static final Logger logger = LoggerFactory.getLogger(HDBSequenceDropProcessor.class);
 
     private static final int ERR_SQL_CANT_DROP_WITH_RESTRICT = 419; // can't drop with RESTRICT specification
@@ -71,8 +73,9 @@ public class HDBSequenceDropProcessor extends AbstractHDBProcessor<HDBSequence> 
         } catch (SQLException ex) {
             if (ERR_SQL_CANT_DROP_WITH_RESTRICT == ex.getErrorCode()) {
                 try {
-                    logger.warn("Sequence [{}] cannot be dropped with sql [{}]. Will try to drop it without drop option. ",
-                            sequenceModel.getName(), sql, ex);
+                    logger.warn(
+                            "Sequence [{}] cannot be dropped with sql [{}]. Will try to drop it without drop option. Error message: [{}]",
+                            sequenceModel.getName(), sql, ex.getMessage());
                     sql = SqlFactory.getNative(connection)
                                     .drop()
                                     .sequence(hdbSequenceName)
@@ -82,9 +85,10 @@ public class HDBSequenceDropProcessor extends AbstractHDBProcessor<HDBSequence> 
                     logger.info("Sequence [{}] has been dropped", sequenceModel.getName());
                     return;
                 } catch (SQLException e) {
-                    logDropError(String.format("Drop sequence [%s] skipped due to an error: %s", sequenceModel.getName(), e.getMessage()),
-                            sequenceModel);
-                    throw e;
+                    String errorMessage = String.format("Drop sequence [%s] skipped due to an error: [%s]. Used sql: [%s]",
+                            sequenceModel.getName(), e.getMessage(), sql);
+                    logDropError(errorMessage, sequenceModel);
+                    throw new SQLException(errorMessage, ex);
                 }
             }
             logDropError(String.format("Drop sequence [%s] skipped due to an error: %s", sequenceModel.getName(), ex.getMessage()),
