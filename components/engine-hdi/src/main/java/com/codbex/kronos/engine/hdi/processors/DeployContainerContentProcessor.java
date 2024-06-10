@@ -124,18 +124,18 @@ public class DeployContainerContentProcessor extends HDIAbstractProcessor {
      * @param sql the sql
      */
     public void executeCall(Connection connection, String sql) {
-        LOGGER.info("Executing [{}]", sql);
+        LOGGER.debug("Executing [{}]", sql);
         try (CallableStatement statement = connection.prepareCall(sql)) {
             statement.registerOutParameter(FIRST_OUTPUT_PARAMETER_INDEX, Types.INTEGER);
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 int returnCode = statement.getInt(FIRST_OUTPUT_PARAMETER_INDEX); // 1st output parameter (Return_Code)
-                parseResultSet(resultSet);
+                parseResultSet(resultSet, sql);
                 // checkPaths(connection, returnCode, SQL_SELECT_FROM_DEPLOY_PATHS);
                 // checkPaths(connection,returnCode, SQL_SELECT_FROM_UNDEPLOY_PATHS);
             }
         } catch (SQLException e) {
-            LOGGER.error("Failed to execute SQL statement - " + sql, e);
+            LOGGER.error("Failed to execute SQL statement - [{}]", sql, e);
             CommonsUtils.logProcessorErrors(e.getMessage(), CommonsConstants.PROCESSOR_ERROR, ERROR_LOCATION,
                     CommonsConstants.HDI_PROCESSOR);
         }

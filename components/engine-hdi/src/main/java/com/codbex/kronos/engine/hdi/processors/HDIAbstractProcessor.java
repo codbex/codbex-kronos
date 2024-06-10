@@ -81,7 +81,7 @@ public abstract class HDIAbstractProcessor {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             setStatementParams(statement, parameters);
             try (ResultSet resultSet = statement.executeQuery()) {
-                parseResultSet(resultSet);
+                parseResultSet(resultSet, sql);
             }
         } catch (SQLException e) {
             LOGGER.error("Failed to execute SQL statement - [{}]", sql, e);
@@ -90,28 +90,43 @@ public abstract class HDIAbstractProcessor {
         }
     }
 
-    /**
-     * Parses the result set.
-     *
-     * @param resultSet the result set
-     * @throws SQLException the SQL exception
-     */
-    public void parseResultSet(ResultSet resultSet) throws SQLException {
+    public void parseResultSet(ResultSet resultSet, String usedSql) throws SQLException {
         ArrayList<Message> messages = new ArrayList<>();
         while (resultSet.next()) {
             messages.add(new Message(resultSet));
         }
-        for (Message message : messages) {
-            if (message.severity.equals(MESSAGE_SEVERITY_ERROR)) {
-                LOGGER.error("Error: [{}]", message.message);
-                CommonsUtils.logProcessorErrors(message.message, CommonsConstants.PROCESSOR_ERROR, message.path,
-                        CommonsConstants.HDI_PROCESSOR);
-            } else if (message.severity.equals(MESSAGE_SEVERITY_WARNING)) {
-                LOGGER.warn("Warning: [{}]", message.message);
-            } else {
-                LOGGER.info("Info: [{}]", message.message);
-            }
+
+        boolean containsError = messages.stream()
+                                        .filter(m -> MESSAGE_SEVERITY_ERROR.equals(m.severity))
+                                        .findFirst()
+                                        .isPresent();
+        boolean containsWarning = messages.stream()
+                                          .filter(m -> MESSAGE_SEVERITY_WARNING.equals(m.severity))
+                                          .findFirst()
+                                          .isPresent();
+
+        if (containsError) {
+            String concatenatedMessage = concatenatedMessages(messages);
+            LOGGER.error("Result of [{}]. error: [{}]", usedSql, concatenatedMessage);
+            CommonsUtils.logProcessorErrors(concatenatedMessage, CommonsConstants.PROCESSOR_ERROR, "", CommonsConstants.HDI_PROCESSOR);
         }
+        if (!containsError && containsWarning) {
+            String concatenatedMessage = concatenatedMessages(messages);
+            LOGGER.warn("Result of [{}]. warning: [{}]", usedSql, concatenatedMessage);
+        } else {
+            String concatenatedMessage = concatenatedMessages(messages);
+            LOGGER.warn("Result of [{}] - info: [{}]", usedSql, concatenatedMessage);
+        }
+    }
+
+    private static String concatenatedMessages(ArrayList<Message> messages) {
+        StringBuilder sb = new StringBuilder();
+        messages.forEach(m -> sb.append("[")
+                                .append(m.severity)
+                                .append("]: ")
+                                .append(m.message)
+                                .append("\n"));
+        return sb.toString();
     }
 
     /**

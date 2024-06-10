@@ -353,8 +353,7 @@ public class HDBTableAlterHandler {
 
         for (String sql : sqlStatements) {
             logger.debug("Altering using [{}]", sql);
-            PreparedStatement statement = connection.prepareStatement(sql);
-            try {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.executeUpdate();
                 // String messageSuccess = String.format("Update table [%s] successfully",
                 // this.tableModel.getName());
@@ -368,10 +367,6 @@ public class HDBTableAlterHandler {
                 // dataStructuresSynchronizer.applyArtefactState(this.tableModel.getName(),
                 // this.tableModel.getLocation(), TABLE_ARTEFACT, ArtefactState.FAILED_UPDATE, messageFail);
                 throw new SQLException(messageFail, e);
-            } finally {
-                if (statement != null) {
-                    statement.close();
-                }
             }
         }
 
