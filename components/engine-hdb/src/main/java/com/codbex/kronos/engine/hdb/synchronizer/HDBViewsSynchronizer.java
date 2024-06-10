@@ -202,9 +202,8 @@ public class HDBViewsSynchronizer extends BaseSynchronizer<HDBView, Long> {
                             executeViewCreate(connection, view);
                             callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                         } else {
-                            if (logger.isWarnEnabled()) {
-                                logger.warn(String.format("HDBView [%s] already exists during the update process", view.getName()));
-                            }
+                            logger.warn("HDBView [{}] in schema [{}] already exists during the update process", view.getName(),
+                                    view.getSchema());
                             executeViewUpdate(connection, view);
                             callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                         }

@@ -202,10 +202,7 @@ public class HDBTableFunctionsSynchronizer extends BaseSynchronizer<HDBTableFunc
                             executeTableFunctionCreate(connection, tablefunction);
                             callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                         } else {
-                            if (logger.isWarnEnabled()) {
-                                logger.warn(String.format("HDBTableFunction [%s] already exists during the update process",
-                                        tablefunction.getName()));
-                            }
+                            logger.warn("HDBTableFunction [{}] already exists during the update process", tablefunction.getName());
                             executeTableFunctionUpdate(connection, tablefunction);
                             callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                         }

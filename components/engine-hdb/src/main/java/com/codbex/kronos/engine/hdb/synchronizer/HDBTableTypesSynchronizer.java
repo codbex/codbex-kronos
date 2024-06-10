@@ -236,10 +236,7 @@ public class HDBTableTypesSynchronizer extends BaseSynchronizer<HDBTableType, Lo
                             executeTableTypeCreate(connection, tableType);
                             callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                         } else {
-                            if (logger.isWarnEnabled()) {
-                                logger.warn(
-                                        String.format("HDBTableType [%s] already exists during the update process", tableType.getName()));
-                            }
+                            logger.warn("HDBTableType [{}] already exists during the update process", tableType.getName());
                             executeTableTypeAlter(connection, tableType);
                             callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                         }

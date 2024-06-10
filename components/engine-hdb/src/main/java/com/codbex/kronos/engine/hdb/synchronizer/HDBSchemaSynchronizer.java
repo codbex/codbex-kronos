@@ -202,9 +202,7 @@ public class HDBSchemaSynchronizer extends BaseSynchronizer<HDBSchema, Long> {
                             executeSchemaCreate(connection, schema);
                             callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                         } else {
-                            if (logger.isWarnEnabled()) {
-                                logger.warn(String.format("HDBSchema [%s] already exists during the update process", schema.getName()));
-                            }
+                            logger.warn("HDBSchema [{}] already exists during the update process", schema.getName());
                             executeSchemaUpdate(connection, schema);
                             callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                         }

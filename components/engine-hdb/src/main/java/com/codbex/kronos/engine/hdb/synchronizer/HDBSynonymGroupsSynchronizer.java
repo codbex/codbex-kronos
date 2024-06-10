@@ -246,10 +246,7 @@ public class HDBSynonymGroupsSynchronizer extends BaseSynchronizer<HDBSynonymGro
                             executeSynonymGroupCreate(connection, synonymGroup);
                             callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                         } else {
-                            if (logger.isWarnEnabled()) {
-                                logger.warn(String.format("HDBSynonymGroup [%s] already exists during the update process",
-                                        synonymGroup.getName()));
-                            }
+                            logger.warn("HDBSynonymGroup [{}] already exists during the update process", synonymGroup.getName());
                             executeSynonymGroupUpdate(connection, synonymGroup);
                             callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                         }

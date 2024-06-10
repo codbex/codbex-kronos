@@ -202,10 +202,7 @@ public class HDBScalarFunctionsSynchronizer extends BaseSynchronizer<HDBScalarFu
                             executeScalarFunctionCreate(connection, scalarfunction);
                             callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                         } else {
-                            if (logger.isWarnEnabled()) {
-                                logger.warn(String.format("HDBScalarFunction [%s] already exists during the update process",
-                                        scalarfunction.getName()));
-                            }
+                            logger.warn("HDBScalarFunction [{}] already exists during the update process", scalarfunction.getName());
                             executeScalarFunctionUpdate(connection, scalarfunction);
                             callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                         }

@@ -207,9 +207,8 @@ public class HDBSequencesSynchronizer extends BaseSynchronizer<HDBSequence, Long
                             executeSequenceCreate(connection, sequence);
                             callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                         } else {
-                            if (logger.isWarnEnabled()) {
-                                logger.warn(String.format("HDBSequence [%s] already exists during the update process", sequence.getName()));
-                            }
+                            logger.warn("HDBSequence [{}] in schema [{}] already exists during the update process", sequence.getName(),
+                                    sequence.getSchema());
                             executeSequenceUpdate(connection, sequence);
                             callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                         }

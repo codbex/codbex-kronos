@@ -202,10 +202,7 @@ public class HDBProceduresSynchronizer extends BaseSynchronizer<HDBProcedure, Lo
                             executeProcedureCreate(connection, procedure);
                             callback.registerState(this, wrapper, ArtefactLifecycle.CREATED);
                         } else {
-                            if (logger.isWarnEnabled()) {
-                                logger.warn(
-                                        String.format("HDBProcedure [%s] already exists during the update process", procedure.getName()));
-                            }
+                            logger.warn("HDBProcedure [{}] already exists during the update process", procedure.getName());
                             executeProcedureUpdate(connection, procedure);
                             callback.registerState(this, wrapper, ArtefactLifecycle.UPDATED);
                         }
