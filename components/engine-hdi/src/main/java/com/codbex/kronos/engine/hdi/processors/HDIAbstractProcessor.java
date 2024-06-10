@@ -107,15 +107,15 @@ public abstract class HDIAbstractProcessor {
 
         if (containsError) {
             String concatenatedMessage = concatenatedMessages(messages);
-            LOGGER.error("Result of [{}]. error: [{}]", usedSql, concatenatedMessage);
+            LOGGER.error("Result of [{}]. ERROR:\n[{}]", usedSql, concatenatedMessage);
             CommonsUtils.logProcessorErrors(concatenatedMessage, CommonsConstants.PROCESSOR_ERROR, "", CommonsConstants.HDI_PROCESSOR);
         }
         if (!containsError && containsWarning) {
             String concatenatedMessage = concatenatedMessages(messages);
-            LOGGER.warn("Result of [{}]. warning: [{}]", usedSql, concatenatedMessage);
+            LOGGER.warn("Result of [{}]. WARNING:\n[{}]", usedSql, concatenatedMessage);
         } else {
             String concatenatedMessage = concatenatedMessages(messages);
-            LOGGER.warn("Result of [{}] - info: [{}]", usedSql, concatenatedMessage);
+            LOGGER.warn("Result of [{}] - INFO:\n[{}]", usedSql, concatenatedMessage);
         }
     }
 
