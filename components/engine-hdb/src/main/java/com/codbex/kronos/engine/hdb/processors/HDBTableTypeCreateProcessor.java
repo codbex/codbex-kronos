@@ -92,7 +92,7 @@ public class HDBTableTypeCreateProcessor extends AbstractHDBProcessor<HDBTableTy
                         tableTypeParser);
             }
         } else {
-            logger.warn(format("Table Type [{0}] already exists during the create process", tableTypeNameWithoutSchema));
+            logger.info(format("Table Type [{0}] already exists during the create process", tableTypeNameWithoutSchema));
         }
 
         // Create public synonym only if the table type exist

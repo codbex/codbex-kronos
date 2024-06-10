@@ -334,7 +334,7 @@ public class HDBTableAlterHandler {
 
             String sql = String.format("DROP INDEX %s.%s", HDBUtils.escapeArtifactName(this.tableModel.getSchema()),
                     HDBUtils.escapeArtifactName(rsIndeces.getString("INDEX_NAME")));
-            logger.info(sql);
+            logger.debug("Dropping index using [{}]", sql);
             stmt.executeUpdate(sql);
             droppedIndices.add(rsIndeces.getString("INDEX_NAME"));
         }
@@ -352,7 +352,7 @@ public class HDBTableAlterHandler {
         String[] sqlStatements = multiSQL.split(ISqlKeywords.SEMICOLON);
 
         for (String sql : sqlStatements) {
-            logger.info(sql);
+            logger.debug("Altering using [{}]", sql);
             PreparedStatement statement = connection.prepareStatement(sql);
             try {
                 statement.executeUpdate();

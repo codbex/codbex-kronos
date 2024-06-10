@@ -30,6 +30,11 @@
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-modules-parsers-commons</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.dirigible</groupId>
+      <artifactId>dirigible-components-api-platform</artifactId>
+    </dependency>
   </dependencies>
 
 </project>
