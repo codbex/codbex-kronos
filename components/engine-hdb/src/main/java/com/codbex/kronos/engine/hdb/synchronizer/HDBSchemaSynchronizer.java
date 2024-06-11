@@ -255,8 +255,7 @@ public class HDBSchemaSynchronizer extends BaseSynchronizer<HDBSchema, Long> {
      */
     @Override
     public void cleanupImpl(HDBSchema schema) {
-        try (Connection connection = datasourcesManager.getDefaultDataSource()
-                                                       .getConnection()) {
+        try {
             getService().delete(schema);
             callback.registerState(this, schema, ArtefactLifecycle.DELETED);
         } catch (Exception e) {
