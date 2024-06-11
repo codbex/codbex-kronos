@@ -261,8 +261,7 @@ public class HDBSequencesSynchronizer extends BaseSynchronizer<HDBSequence, Long
      */
     @Override
     public void cleanupImpl(HDBSequence sequence) {
-        try (Connection connection = datasourcesManager.getDefaultDataSource()
-                                                       .getConnection()) {
+        try {
             getService().delete(sequence);
             callback.registerState(this, sequence, ArtefactLifecycle.DELETED);
         } catch (Exception e) {

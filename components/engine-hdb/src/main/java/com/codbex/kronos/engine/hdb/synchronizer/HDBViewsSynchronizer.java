@@ -256,8 +256,7 @@ public class HDBViewsSynchronizer extends BaseSynchronizer<HDBView, Long> {
      */
     @Override
     public void cleanupImpl(HDBView view) {
-        try (Connection connection = datasourcesManager.getDefaultDataSource()
-                                                       .getConnection()) {
+        try {
             getService().delete(view);
             callback.registerState(this, view, ArtefactLifecycle.DELETED);
         } catch (Exception e) {

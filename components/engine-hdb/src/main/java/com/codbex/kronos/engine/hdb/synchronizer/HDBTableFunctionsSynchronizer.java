@@ -255,8 +255,7 @@ public class HDBTableFunctionsSynchronizer extends BaseSynchronizer<HDBTableFunc
      */
     @Override
     public void cleanupImpl(HDBTableFunction tablefunction) {
-        try (Connection connection = datasourcesManager.getDefaultDataSource()
-                                                       .getConnection()) {
+        try {
             getService().delete(tablefunction);
             callback.registerState(this, tablefunction, ArtefactLifecycle.DELETED);
         } catch (Exception e) {

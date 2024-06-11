@@ -300,8 +300,7 @@ public class HDBSynonymGroupsSynchronizer extends BaseSynchronizer<HDBSynonymGro
      */
     @Override
     public void cleanupImpl(HDBSynonymGroup synonymGroup) {
-        try (Connection connection = datasourcesManager.getDefaultDataSource()
-                                                       .getConnection()) {
+        try {
             getService().delete(synonymGroup);
             callback.registerState(this, synonymGroup, ArtefactLifecycle.DELETED);
         } catch (Exception e) {

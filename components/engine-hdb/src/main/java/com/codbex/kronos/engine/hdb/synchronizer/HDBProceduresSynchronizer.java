@@ -254,8 +254,7 @@ public class HDBProceduresSynchronizer extends BaseSynchronizer<HDBProcedure, Lo
      */
     @Override
     public void cleanupImpl(HDBProcedure procedure) {
-        try (Connection connection = datasourcesManager.getDefaultDataSource()
-                                                       .getConnection()) {
+        try {
             getService().delete(procedure);
             callback.registerState(this, procedure, ArtefactLifecycle.DELETED);
         } catch (Exception e) {

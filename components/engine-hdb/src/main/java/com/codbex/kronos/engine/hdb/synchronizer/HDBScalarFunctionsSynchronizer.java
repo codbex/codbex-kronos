@@ -255,8 +255,7 @@ public class HDBScalarFunctionsSynchronizer extends BaseSynchronizer<HDBScalarFu
      */
     @Override
     public void cleanupImpl(HDBScalarFunction scalarfunction) {
-        try (Connection connection = datasourcesManager.getDefaultDataSource()
-                                                       .getConnection()) {
+        try {
             getService().delete(scalarfunction);
             callback.registerState(this, scalarfunction, ArtefactLifecycle.DELETED);
         } catch (Exception e) {

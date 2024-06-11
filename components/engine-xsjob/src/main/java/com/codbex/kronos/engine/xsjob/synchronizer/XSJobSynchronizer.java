@@ -290,8 +290,7 @@ public class XSJobSynchronizer extends BaseSynchronizer<XSJob, Long> {
      */
     @Override
     public void cleanupImpl(XSJob xsjob) {
-        try (Connection connection = datasourcesManager.getDefaultDataSource()
-                                                       .getConnection()) {
+        try {
             SchedulerManager.unscheduleJob(xsjob.getName(), xsjob.getGroup());
             xsjob.setRunning(false);
             getService().delete(xsjob);
