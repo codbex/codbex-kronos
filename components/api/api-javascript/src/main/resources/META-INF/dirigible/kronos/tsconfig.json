@@ -4,7 +4,6 @@
     "target" : "es6",
     "esModuleInterop" : true,
     "moduleResolution" : "node",
-    "baseUrl" : ".",
     "sourceMap" : true,
     "lib" : [
       "ES2022",
@@ -21,9 +20,6 @@
       ],
       "@abaplint/runtime" : [
         "./node_modules/@abaplint/runtime/build/src/*"
-      ],
-      "/*" : [
-        "../*"
       ]
     }
   },
