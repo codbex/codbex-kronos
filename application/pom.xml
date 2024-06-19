@@ -122,6 +122,10 @@
       <groupId>com.codbex.kronos</groupId>
       <artifactId>codbex-kronos-components-api-xsjs</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.codbex.kronos</groupId>
+      <artifactId>codbex-kronos-components-api-javascript</artifactId>
+    </dependency>
 
     <!-- Engines -->
     <dependency>
