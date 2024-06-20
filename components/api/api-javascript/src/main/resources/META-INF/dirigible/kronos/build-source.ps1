@@ -1,6 +1,10 @@
 # clean
 rm dist -r -force
 
+# install node modules
+rm -rf ./node_modules
+npm install
+
 # build esm and cjs
 Get-ChildItem -Recurse -Include *.ts -Exclude *.d.ts | ForEach-Object {
     $relativePath = $_.FullName.Substring((Get-Location).Path.Length + 1)
