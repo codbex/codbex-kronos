@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.codbex.platform</groupId>
     <artifactId>codbex-platform-parent</artifactId>
-    <version>1.0.15</version>
+    <version>1.0.16</version>
   </parent>
 
   <name>codbex - kronos - parent</name>
@@ -35,7 +35,6 @@
   </modules>
 
   <properties>
-    <dirigible.version>11.0.0-SNAPSHOT</dirigible.version>
     <project.title>codbex kronos</project.title>
 
     <scmVersionType>branch</scmVersionType>
