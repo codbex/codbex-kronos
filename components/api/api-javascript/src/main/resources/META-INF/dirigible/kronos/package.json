@@ -1,12 +1,12 @@
 {
-  "name" : "kronos-api-abap",
+  "name" : "kronos-api",
   "private" : true,
   "version" : "1.0.0",
   "scripts" : {},
   "dependencies" : {
+    "@abaplint/runtime" : "^2.7.97"
   },
   "devDependencies" : {
-    "@abaplint/runtime" : "^2.7.97"
   },
   "author" : "",
   "license" : "EPL"
