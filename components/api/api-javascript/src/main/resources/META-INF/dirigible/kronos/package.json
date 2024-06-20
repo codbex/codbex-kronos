@@ -4,10 +4,10 @@
   "version" : "1.0.0",
   "scripts" : {},
   "dependencies" : {
-    "@abaplint/runtime" : "^2.7.97"
+    "@abaplint/runtime" : "^2.8.27"
   },
   "devDependencies" : {
   },
-  "author" : "",
+  "author" : "codbex",
   "license" : "EPL"
 }
