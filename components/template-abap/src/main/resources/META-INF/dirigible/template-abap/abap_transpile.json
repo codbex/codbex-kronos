@@ -1,5 +1,5 @@
 {
-  "input_folder" : "{src/abap,test/src}",
+  "input_folder" : "src/abap",
   "input_filter" : [],
   "output_folder" : "dist/abap",
   "libs" : [

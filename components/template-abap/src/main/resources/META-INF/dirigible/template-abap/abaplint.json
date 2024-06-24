@@ -1,6 +1,6 @@
 {
   "global" : {
-    "files" : "/{src/abap,test/src}/**/*.*",
+    "files" : "/src/abap/**/*.*",
     "skipGeneratedFunctionGroups" : true,
     "skipGeneratedGatewayClasses" : true,
     "skipGeneratedPersistentClasses" : true
