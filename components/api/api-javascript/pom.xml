@@ -47,7 +47,7 @@
             </goals>
             <configuration>
               <executable>
-                ${basedir}/src/main/resources/META-INF/dirigible/kronos/build-source${script.extension}
+                ${basedir}/src/main/resources/META-INF/dirigible/kronos/${build.source.script}
               </executable>
               <workingDirectory>src/main/resources/META-INF/dirigible/kronos</workingDirectory>
             </configuration>
@@ -100,16 +100,32 @@
         </os>
       </activation>
       <properties>
-        <script.extension>.bat</script.extension>
+        <build.source.script>build-source-windows.bat</build.source.script>
       </properties>
     </profile>
+
     <profile>
-      <id>unix</id>
+      <id>mac-profile</id>
       <activation>
-        <activeByDefault>true</activeByDefault>
+        <os>
+          <name>Mac OS X</name>
+        </os>
       </activation>
       <properties>
-        <script.extension>.sh</script.extension>
+        <build.source.script>build-source-mac.sh</build.source.script>
+      </properties>
+      <!-- macS-specific configuration -->
+    </profile>
+
+    <profile>
+      <id>linux-profile</id>
+      <activation>
+        <os>
+          <name>Linux</name>
+        </os>
+      </activation>
+      <properties>
+        <build.source.script>build-source-linux.sh</build.source.script>
       </properties>
     </profile>
   </profiles>
