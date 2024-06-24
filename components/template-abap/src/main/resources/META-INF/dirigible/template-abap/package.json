@@ -1,23 +1,20 @@
 {
-  "name": "{{projectName}}",
-  "private": true,
-  "version": "1.0.0",
-  "scripts": {
-    "transpile": "rm -rf output && abap_transpile",
-    "unit": "npm run transpile && echo RUNNING && node output/index.mjs && echo OK",
-    "lint": "abaplint",
-    "test": "npm run lint && npm run unit",
-    "run": "node run.mjs"
+  "name" : "{{projectName}}",
+  "private" : true,
+  "version" : "1.0.0",
+  "scripts" : {
+    "transpile" : "rm -rf output && abap_transpile abap_transpile.json",
+    "lint" : "abaplint --config abaplint.json",
+    "unit" : "npm run transpile && echo RUNNING && node dist/abap/index.mjs && echo OK",
+    "test" : "npm run lint && npm run unit",
+    "run" : "node run.mjs"
   },
-  "dependencies": {
-    "buffer": "^6.0.3"
+  "dependencies" : {
+    "buffer" : "^6.0.3",
+    "@abaplint/runtime" : "^2.8.27",
+    "@abaplint/cli" : "^2.110.1",
+    "@abaplint/transpiler-cli" : "^2.8.27"
   },
-  "devDependencies": {
-    "@abaplint/cli": "^2.102.42",
-    "@abaplint/runtime": "^2.7.97",
-    "@abaplint/transpiler-cli": "^2.7.97",
-    "dotenv": "^16.3.1"
-  },
-  "author": "",
-  "license": "EPL"
+  "author" : "",
+  "license" : "EPL"
 }

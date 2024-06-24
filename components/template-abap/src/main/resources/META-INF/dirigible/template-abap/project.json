@@ -1,10 +1,19 @@
 {
-    "guid": "{{projectName}}",
-    "actions": [
+  "guid" : "{{projectName}}",
+  "actions" : [
+    {
+      "name" : "build",
+      "commands" : [
         {
-            "name": "build",
-            "command": "sh build.sh",
-            "publish": true
+          "os" : "mac",
+          "command" : "sh build-mac.sh"
+        },
+        {
+          "os" : "linux",
+          "command" : "sh build-linux.sh"
         }
-    ]
+      ],
+      "publish" : "true"
+    }
+  ]
 }

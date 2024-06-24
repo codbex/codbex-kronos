@@ -12,9 +12,14 @@ mkdir dist
 
 npm install
 
+# Check whether the ABAP API can be transpiled correctly
 npm run transpile
 
 npm run lint
+
+# Remove transpiled ABAP lib since it is not needed.
+# It will be transpiled by the ABAP projects
+rm -rf dist/abap
 
 # Find all .mjs files in the current directory and its subdirectories,
 # and replaces all occurrences of %23 with # in those files.
