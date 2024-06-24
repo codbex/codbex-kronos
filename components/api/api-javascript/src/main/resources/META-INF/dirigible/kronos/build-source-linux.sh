@@ -1,7 +1,7 @@
 # fail the whole script if any command bellow fails
 set -e
 
-echo 'Building API sources...'
+echo 'Building API sources using Linux script...'
 
 # clean
 echo 'Cleaning folders...'
@@ -42,4 +42,4 @@ esbuild $(find ./src/js -iname '*.ts' -not -iname '*.d.ts') --sourcemap=inline -
 echo 'Building dts files...'
 tsc --emitDeclarationOnly --outDir dist/dts
 
-echo 'Mac script completed!'
+echo 'Linux script completed!'

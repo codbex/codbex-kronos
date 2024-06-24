@@ -1,7 +1,7 @@
 # fail the whole script if any command bellow fails
 set -e
 
-echo 'Building API sources...'
+echo 'Building API sources using Mac script...'
 
 # clean
 echo 'Cleaning folders...'
