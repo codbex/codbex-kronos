@@ -108,13 +108,12 @@
       <id>mac-profile</id>
       <activation>
         <os>
-          <name>Mac OS X</name>
+          <family>unix</family>
         </os>
       </activation>
       <properties>
         <build.source.script>build-source-mac.sh</build.source.script>
       </properties>
-      <!-- macS-specific configuration -->
     </profile>
 
     <profile>
@@ -128,6 +127,7 @@
         <build.source.script>build-source-linux.sh</build.source.script>
       </properties>
     </profile>
+
   </profiles>
 
 </project>
