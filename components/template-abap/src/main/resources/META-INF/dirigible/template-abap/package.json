@@ -7,7 +7,7 @@
     "lint" : "abaplint --config abaplint.json",
     "unit" : "npm run transpile && echo RUNNING && node dist/abap/index.mjs && echo OK",
     "test" : "npm run lint && npm run unit",
-    "run" : "node run.mjs"
+    "run" : "node dist/run.mjs"
   },
   "dependencies" : {
     "buffer" : "^6.0.3",
