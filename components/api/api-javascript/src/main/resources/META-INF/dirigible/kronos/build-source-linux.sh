@@ -21,14 +21,14 @@ npm run transpile
 echo 'Executing lint...'
 npm run lint
 
-# Remove transpiled ABAP lib since it is not needed.
-# It will be transpiled by the ABAP projects
-rm -rf dist/abap
-
 # Find all .mjs files in the current directory and its subdirectories,
 # and replaces all occurrences of %23 with # in those files.
 echo 'Replacing...'
 find . -name '*.mjs' -print | xargs sed -i 's/%23/#/g'
+
+# Remove transpiled ABAP lib since it is not needed.
+# It will be transpiled by the ABAP projects
+rm -rf dist/abap
 
 # build esm
 echo 'Building esm files...'
