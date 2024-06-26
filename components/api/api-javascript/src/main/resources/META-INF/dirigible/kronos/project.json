@@ -1,0 +1,28 @@
+{
+  "guid" : "kronos-api-abap",
+  "repository" : {
+    "type" : "git",
+    "branch" : "main",
+    "url" : "https://github.com/codbex/codbex-kronos.git"
+  },
+  "actions" : [
+    {
+      "name" : "Build sources",
+      "commands" : [
+        {
+          "os" : "mac",
+          "command" : "sh ./build-source-mac.sh"
+        },
+        {
+          "os" : "linux",
+          "command" : "sh ./build-source-linux.sh"
+        },
+        {
+          "os" : "windows",
+          "command" : "cmd /c build-source.bat"
+        }
+      ],
+      "publish" : true
+    }
+  ]
+}

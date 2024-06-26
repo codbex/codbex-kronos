@@ -16,46 +16,54 @@
  */
 exports.getTemplate = function() {
 	return {
-		"name": "ABAP Hello World",
-		"description": "ABAP Hello World Template",
-		"sources": [{
-			"location": "/template-abap/abaplint.jsonc", 
-			"action": "generate",
-			"rename": "abaplint.jsonc"
+		name: "ABAP Starter",
+		description: "ABAP Starter Template",
+		sources: [{
+			location: "/template-abap/abap_transpile.json",
+			action: "generate",
+			rename: "abap_transpile.json"
 		},{
-			"location": "/template-abap/build.sh", 
-			"action": "generate",
-			"rename": "build.sh"
+			location: "/template-abap/abaplint.json",
+			action: "generate",
+			rename: "abaplint.json"
 		},{
-			"location": "/template-abap/package.json", 
-			"action": "generate",
-			"rename": "package.json"
+			location: "/template-abap/build-linux.sh",
+			action: "generate",
+			rename: "build-linux.sh"
 		},{
-			"location": "/template-abap/polyfills/buffer.js", 
-			"action": "generate",
-			"rename": "polyfills/buffer.js"
+			location: "/template-abap/build-mac.sh",
+			action: "generate",
+			rename: "build-mac.sh"
 		},{
-			"location": "/template-abap/polyfills/process.js", 
-			"action": "generate",
-			"rename": "polyfills/process.js"
+			location: "/template-abap/package.json",
+			action: "generate",
+			rename: "package.json"
 		},{
-			"location": "/template-abap/project.json", 
-			"action": "generate",
-			"rename": "project.json"
+			location: "/template-abap/project.json",
+			action: "generate",
+			rename: "project.json"
 		},{
-			"location": "/template-abap/run.mjs",
-			"action": "generate",
-			"rename": "run.mjs"
+			location: "/template-abap/tsconfig.json",
+			action: "generate",
+			rename: "tsconfig.json"
 		},{
-			"location": "/template-abap/src/zcl_dirigible_http_response.clas.abap", 
-			"action": "generate",
-			"rename": "src/zcl_dirigible_http_response.clas.abap"
+			location: "/template-abap/src/abap/zcl_abap_app.clas.abap",
+			action: "generate",
+			rename: "src/abap/zcl_abap_app.clas.abap"
 		},{
-			"location": "/template-abap/src/zcl_hello_world.clas.abap", 
-			"action": "generate",
-			"rename": "src/zcl_hello_world.clas.abap"
-		}],
-		"parameters": [],
-		"order": 30
+			location: "/template-abap/src/lib/polyfills/buffer.js",
+			action: "generate",
+			rename: "src/lib/polyfills/buffer.js"
+		},{
+			location: "/template-abap/src/lib/polyfills/process.js",
+			action: "generate",
+			rename: "src/lib/polyfills/process.js"
+		},{
+      location: "/template-abap/src/run.mjs",
+      action: "generate",
+      rename: "src/run.mjs"
+    }],
+		parameters: [],
+		order: 30
 	};
 };

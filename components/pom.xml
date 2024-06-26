@@ -14,19 +14,18 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>api-xsjs</module>
+    <module>api</module>
+
     <module>engine-commons</module>
     <module>engine-core</module>
     <module>engine-xsjs</module>
     <module>engine-xsodata</module>
     <module>engine-hdb</module>
-
-
     <module>engine-hdi</module>
     <module>engine-xsjob</module>
     <module>engine-xssecurity</module>
-    <module>kronos-commons</module>
 
+    <module>kronos-commons</module>
 
     <!--
     <module>engine-mail-destination</module>

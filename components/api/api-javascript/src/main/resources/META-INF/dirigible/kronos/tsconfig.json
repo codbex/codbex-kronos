@@ -1,0 +1,29 @@
+{
+  "compilerOptions" : {
+    "module" : "ES2022",
+    "target" : "es6",
+    "esModuleInterop" : true,
+    "moduleResolution" : "node",
+    "sourceMap" : true,
+    "lib" : [
+      "ES2022",
+      "DOM"
+    ],
+    "declaration" : true,
+    "types" : [
+      "../../../../../../target/unpacked-dependencies/META-INF/dirigible/modules/types",
+      "./types"
+    ],
+    "paths" : {
+      "sdk/*" : [
+        "../../../../../../target/unpacked-dependencies/META-INF/dirigible/modules/src/*"
+      ],
+      "@abaplint/runtime" : [
+        "./node_modules/@abaplint/runtime/build/src/*"
+      ]
+    }
+  },
+  "include" : [
+    "src/**/*"
+  ]
+}

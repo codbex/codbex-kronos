@@ -1,13 +1,10 @@
 {
-  "name" : "{{projectName}}",
+  "name" : "kronos-api",
   "private" : true,
   "version" : "1.0.0",
   "scripts" : {
     "transpile" : "rm -rf output && abap_transpile abap_transpile.json",
-    "lint" : "abaplint --config abaplint.json",
-    "unit" : "npm run transpile && echo RUNNING && node dist/abap/index.mjs && echo OK",
-    "test" : "npm run lint && npm run unit",
-    "run" : "node dist/run.mjs"
+    "lint" : "abaplint --config abaplint.json"
   },
   "dependencies" : {
     "buffer" : "^6.0.3",
@@ -15,6 +12,6 @@
     "@abaplint/cli" : "^2.110.1",
     "@abaplint/transpiler-cli" : "^2.8.27"
   },
-  "author" : "",
+  "author" : "codbex",
   "license" : "EPL"
 }

@@ -1,0 +1,15 @@
+{
+  "compilerOptions" : {
+    "module" : "ESNext",
+    "target" : "ES6",
+    "moduleResolution" : "Node",
+    "baseUrl" : "../",
+    "lib" : [
+      "ESNext",
+      "DOM"
+    ],
+    "types" : [
+      "../modules/types"
+    ]
+  }
+}
