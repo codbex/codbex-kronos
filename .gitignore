@@ -9,6 +9,7 @@ dirigible_local/
 bin/
 dist/
 node_modules/
+**/build/reports
 
 # files
 .DS_Store
