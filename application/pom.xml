@@ -1,238 +1,248 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns="http://maven.apache.org/POM/4.0.0"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>com.codbex.kronos</groupId>
-    <artifactId>codbex-kronos-parent</artifactId>
-    <version>2.0.0-SNAPSHOT</version>
-    <relativePath>../pom.xml</relativePath>
-  </parent>
+    <parent>
+        <groupId>com.codbex.kronos</groupId>
+        <artifactId>codbex-kronos-parent</artifactId>
+        <version>2.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
 
-  <name>codbex - kronos - application</name>
-  <artifactId>codbex-kronos-application</artifactId>
-  <packaging>jar</packaging>
+    <name>codbex - kronos - application</name>
+    <artifactId>codbex-kronos-application</artifactId>
+    <packaging>jar</packaging>
 
-  <dependencies>
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-branding</artifactId>
-    </dependency>
+    <dependencies>
+        <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>codbex-kronos-branding</artifactId>
+        </dependency>
 
-    <!-- Core -->
-    <dependency>
-      <groupId>org.eclipse.dirigible</groupId>
-      <artifactId>dirigible-components-group-core</artifactId>
-      <type>pom</type>
-      <exclusions>
-        <exclusion>
-          <groupId>com.zaxxer</groupId>
-          <artifactId>HikariCP-java7</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
+        <!-- Core -->
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-components-group-core</artifactId>
+            <type>pom</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.zaxxer</groupId>
+                    <artifactId>HikariCP-java7</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
-    <!-- Security -->
-    <dependency>
-      <groupId>org.eclipse.dirigible</groupId>
-      <artifactId>dirigible-components-security-basic</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.dirigible</groupId>
-      <artifactId>dirigible-components-security-keycloak</artifactId>
-    </dependency>
+        <!-- Security -->
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-components-security-basic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-components-security-keycloak</artifactId>
+        </dependency>
 
-    <!-- Data -->
-    <dependency>
-      <groupId>org.eclipse.dirigible</groupId>
-      <artifactId>dirigible-components-group-database</artifactId>
-      <type>pom</type>
-    </dependency>
+        <!-- Data -->
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-components-group-database</artifactId>
+            <type>pom</type>
+        </dependency>
 
-    <!-- Engine -->
-    <dependency>
-      <groupId>org.eclipse.dirigible</groupId>
-      <artifactId>dirigible-components-group-engines</artifactId>
-      <type>pom</type>
-      <exclusions>
-        <exclusion>
-          <groupId>javax.validation</groupId>
-          <artifactId>validation-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>javax.servlet-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.cxf</groupId>
-          <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.cxf</groupId>
-          <artifactId>cxf-spring-boot-starter-jaxrs</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.dirigible</groupId>
-      <artifactId>dirigible-components-engine-command</artifactId>
-    </dependency>
+        <!-- Engine -->
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-components-group-engines</artifactId>
+            <type>pom</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.validation</groupId>
+                    <artifactId>validation-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>javax.servlet-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.cxf</groupId>
+                    <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.cxf</groupId>
+                    <artifactId>cxf-spring-boot-starter-jaxrs</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-components-engine-command</artifactId>
+        </dependency>
 
-    <!-- IDE -->
-    <dependency>
-      <groupId>org.eclipse.dirigible</groupId>
-      <artifactId>dirigible-components-group-ide</artifactId>
-      <type>pom</type>
-      <exclusions>
-        <exclusion>
-          <groupId>org.eclipse.dirigible</groupId>
-          <artifactId>dirigible-components-ide-ui-branding</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.eclipse.dirigible</groupId>
-          <artifactId>dirigible-components-ide-ui-welcome</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
+        <!-- IDE -->
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-components-group-ide</artifactId>
+            <type>pom</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.eclipse.dirigible</groupId>
+                    <artifactId>dirigible-components-ide-ui-branding</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.dirigible</groupId>
+                    <artifactId>dirigible-components-ide-ui-welcome</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
-    <!-- API -->
-    <dependency>
-      <groupId>org.eclipse.dirigible</groupId>
-      <artifactId>dirigible-components-group-api</artifactId>
-      <type>pom</type>
-    </dependency>
+        <!-- API -->
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-components-group-api</artifactId>
+            <type>pom</type>
+        </dependency>
 
-    <!-- Resources -->
-    <dependency>
-      <groupId>org.eclipse.dirigible</groupId>
-      <artifactId>dirigible-components-group-resources</artifactId>
-      <type>pom</type>
-    </dependency>
+        <!-- Resources -->
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-components-group-resources</artifactId>
+            <type>pom</type>
+        </dependency>
 
-    <dependency>
-      <groupId>org.eclipse.dirigible</groupId>
-      <artifactId>dirigible-components-security-oauth2</artifactId>
-    </dependency>
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-components-security-oauth2</artifactId>
+        </dependency>
 
-    <!-- Kronos -->
+        <!-- Kronos -->
 
-    <!-- API -->
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-api-xsjs</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-api-javascript</artifactId>
-    </dependency>
+        <!-- API -->
+        <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>codbex-kronos-components-api-xsjs</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>codbex-kronos-components-api-javascript</artifactId>
+        </dependency>
 
-    <!-- Engines -->
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-engine-commons</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-engine-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-engine-xsjs</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-engine-xsodata</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-engine-hdb</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-engine-hdi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-engine-xsjob</artifactId>
-    </dependency>
+        <!-- Engines -->
+        <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>codbex-kronos-components-engine-commons</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>codbex-kronos-components-engine-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>codbex-kronos-components-engine-xsjs</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>codbex-kronos-components-engine-xsodata</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>codbex-kronos-components-engine-hdb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>codbex-kronos-components-engine-hdi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>codbex-kronos-components-engine-xsjob</artifactId>
+        </dependency>
 
-    <!-- IDE -->
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-ide-file-types</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-ide-workspace-menu</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-ide-migration</artifactId>
-    </dependency>
+        <!-- IDE -->
+        <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>codbex-kronos-components-ide-file-types</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>codbex-kronos-components-ide-workspace-menu</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>codbex-kronos-components-ide-migration</artifactId>
+        </dependency>
 
-    <!-- Templates -->
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-template-xsjs</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-template-hdbtable</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-template-hdbview</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-template-hdbdd</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-template-xsjs-db</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-template-xsjs-hdb</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-template-xsjs-import</artifactId>
-    </dependency>
+        <!-- Templates -->
+        <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>codbex-kronos-components-template-xsjs</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>codbex-kronos-components-template-hdbtable</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>codbex-kronos-components-template-hdbview</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>codbex-kronos-components-template-hdbdd</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>codbex-kronos-components-template-xsjs-db</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>codbex-kronos-components-template-xsjs-hdb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>codbex-kronos-components-template-xsjs-import</artifactId>
+        </dependency>
 
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-template-abap</artifactId>
-    </dependency>
+        <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>codbex-kronos-components-template-abap</artifactId>
+        </dependency>
 
-    <dependency>
-      <groupId>com.codbex.kronos</groupId>
-      <artifactId>codbex-kronos-components-template-python</artifactId>
-    </dependency>
+        <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>codbex-kronos-components-template-python</artifactId>
+        </dependency>
 
-    <!-- Dialects -->
-    <dependency>
-      <groupId>org.postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.dirigible</groupId>
-      <artifactId>dirigible-database-mongodb-jdbc</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.sap.cloud.db.jdbc</groupId>
-      <artifactId>ngdbc</artifactId>
-    </dependency>
-  </dependencies>
+        <!-- Dialects -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-database-mongodb-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sap.cloud.db.jdbc</groupId>
+            <artifactId>ngdbc</artifactId>
+        </dependency>
+    </dependencies>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>executable</classifier>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
