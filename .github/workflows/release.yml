@@ -21,8 +21,6 @@ jobs:
       platform-name: codbex-kronos
       release-version: ${{ inputs.release-version }}
       snapshot-version: ${{ inputs.snapshot-version }}
-      # maven-release: true
-      buildx-enabled: false
       docker-release: true
       release-content: |
         ## codbex-kronos - ${{ inputs.release-version }}
