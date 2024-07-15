@@ -23,7 +23,7 @@ jobs:
       snapshot-version: ${{ inputs.snapshot-version }}
       # maven-release: true
       buildx-enabled: false
-      docker-build: true
+      docker-release: true
       release-content: |
         ## codbex-kronos - ${{ inputs.release-version }}
         
