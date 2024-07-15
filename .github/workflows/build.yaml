@@ -10,4 +10,5 @@ jobs:
     uses: codbex/codbex-infra/.github/workflows/platform-build.yaml@main
     with:
       platform-name: codbex-kronos
+      docker-build: true
     secrets: inherit
