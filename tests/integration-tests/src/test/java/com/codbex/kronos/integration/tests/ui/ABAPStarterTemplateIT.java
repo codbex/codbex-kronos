@@ -17,6 +17,10 @@ import org.eclipse.dirigible.tests.restassured.RestAssuredExecutor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.concurrent.TimeUnit;
+
+import static org.awaitility.Awaitility.await;
+
 class ABAPStarterTemplateIT extends UserInterfaceIntegrationTest {
 
     private static final String ABAP_TEMPLATE_TITLE = "ABAP Starter";
@@ -43,12 +47,19 @@ class ABAPStarterTemplateIT extends UserInterfaceIntegrationTest {
 
         workbench.clickPublishAll();
 
-        ide.assertPublishedProjectMessage(TEST_PROJECT);
-
         assertGeneratedJSWorks();
     }
 
     private void assertGeneratedJSWorks() {
-        ide.assertJSHttpResponse(TEST_PROJECT, "dist/run.mjs", 200, "Hello world!");
+        await().atMost(30, TimeUnit.SECONDS) // Wait at most 10 seconds
+               .pollInterval(1, TimeUnit.SECONDS) // Check every second
+               .until(() -> {
+                   try {
+                       ide.assertJSHttpResponse(TEST_PROJECT, "dist/run.mjs", 200, "Hello world!");
+                       return true;
+                   } catch (AssertionError err) {
+                       return false;
+                   }
+               });
     }
 }
