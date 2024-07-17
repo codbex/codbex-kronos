@@ -42,8 +42,7 @@ class ABAPStarterTemplateIT extends UserInterfaceIntegrationTest {
         welcomeView.confirmTemplate();
 
         workbench.clickPublishAll();
-
-        ide.assertPublishedProjectMessage(TEST_PROJECT);
+        ide.assertPublishedAllProjectsMessage();
 
         assertGeneratedJSWorks();
     }
