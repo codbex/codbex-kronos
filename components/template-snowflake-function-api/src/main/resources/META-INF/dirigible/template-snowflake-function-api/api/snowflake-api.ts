@@ -10,10 +10,10 @@ class SnowflakeService {
 
         dto.data.forEach((rowData) => {
             const rowIndex: number = rowData[0];
-            const params: any[] = rowData.slice(1);
 
-            console.log(`Row index: [${rowIndex}], params: ${JSON.stringify(params)}`);
+            const params: any[] = rowData.slice(1);
             const functionReturnValue = params.join("|");
+
             const resultRow: [number, any] = [rowIndex, functionReturnValue];
 
             resultRows.push(resultRow);
