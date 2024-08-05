@@ -205,6 +205,11 @@
             <groupId>com.codbex.kronos</groupId>
             <artifactId>codbex-kronos-components-template-abap</artifactId>
         </dependency>
+        
+        <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>codbex-kronos-components-template-snowflake-function-api</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.codbex.kronos</groupId>

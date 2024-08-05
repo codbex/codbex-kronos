@@ -37,6 +37,7 @@
     </modules>
 
     <properties>
+        <dirigible.version>11.0.0-SNAPSHOT</dirigible.version>
         <project.title>codbex kronos</project.title>
 
         <scmVersionType>branch</scmVersionType>
@@ -305,6 +306,11 @@
             <dependency>
                 <groupId>com.codbex.kronos</groupId>
                 <artifactId>codbex-kronos-components-template-abap</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.codbex.kronos</groupId>
+                <artifactId>codbex-kronos-components-template-snowflake-function-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
