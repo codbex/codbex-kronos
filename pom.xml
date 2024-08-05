@@ -42,7 +42,7 @@
         <scmVersionType>branch</scmVersionType>
         <profile.content.phase>none</profile.content.phase>
 
-        <antlr4-maven-plugin.version>4.13.1</antlr4-maven-plugin.version>
+        <antlr4-maven-plugin.version>4.13.2</antlr4-maven-plugin.version>
 
         <dirigible.acorn.version>7.2.0</dirigible.acorn.version>
 
