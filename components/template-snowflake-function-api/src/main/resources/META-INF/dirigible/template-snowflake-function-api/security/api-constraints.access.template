@@ -1,0 +1,12 @@
+{
+    "constraints": [
+        {
+            "path": "/ts/${projectName}/api/${fileName}.ts",
+            "method": "POST",
+            "scope": "HTTP",
+            "roles": [
+                "PUBLIC"
+            ]
+        }
+    ]
+}
