@@ -10,36 +10,15 @@
  */
 package com.codbex.kronos.engine.xsodata.handler;
 
-import static org.eclipse.dirigible.engine.odata2.sql.builder.SQLContext.DatabaseProduct.HANA;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doReturn;
-
-import java.io.IOException;
-import java.io.StringReader;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.olingo.odata2.api.edm.EdmType;
 import org.apache.olingo.odata2.api.exception.ODataException;
+import org.eclipse.dirigible.components.database.DatabaseSystem;
 import org.eclipse.dirigible.database.sql.ISqlKeywords;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
 import org.eclipse.dirigible.engine.odata2.sql.api.SQLStatement;
 import org.eclipse.dirigible.engine.odata2.sql.api.SQLStatementParam;
-import org.eclipse.dirigible.engine.odata2.sql.builder.SQLContext;
-import org.eclipse.dirigible.engine.odata2.sql.builder.SQLDeleteBuilder;
-import org.eclipse.dirigible.engine.odata2.sql.builder.SQLInsertBuilder;
-import org.eclipse.dirigible.engine.odata2.sql.builder.SQLSelectBuilder;
-import org.eclipse.dirigible.engine.odata2.sql.builder.SQLUpdateBuilder;
+import org.eclipse.dirigible.engine.odata2.sql.builder.*;
 import org.h2.tools.Csv;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,8 +27,16 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.codbex.kronos.engine.xsodata.handler.AbstractKronosOData2EventHandler;
-import com.codbex.kronos.engine.xsodata.handler.KronosProcedureOData2EventHandler;
+import java.io.IOException;
+import java.io.StringReader;
+import java.sql.*;
+import java.util.List;
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doReturn;
 
 /**
  * The Class AbstractKronosOData2EventHandlerTest.
@@ -66,10 +53,10 @@ public class AbstractKronosOData2EventHandlerTest {
     private EdmType edmType;
 
     /** The sql factory. */
-    private static MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class, Mockito.CALLS_REAL_METHODS);
+    private static final MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class, Mockito.CALLS_REAL_METHODS);
 
     /** The handler. */
-    private KronosProcedureOData2EventHandler handler = new KronosProcedureOData2EventHandler();
+    private final KronosProcedureOData2EventHandler handler = new KronosProcedureOData2EventHandler();
 
     /**
      * Test build create temporary table like table sql.
@@ -109,7 +96,7 @@ public class AbstractKronosOData2EventHandlerTest {
      */
     @Test
     public void testGetSQLInsertBuilderTargetTable() throws ODataException {
-        SQLContext sqlContext = new SQLContext(HANA);
+        SQLContext sqlContext = new SQLContext(DatabaseSystem.HANA);
         SQLInsertBuilder insertBuilder = Mockito.mock(SQLInsertBuilder.class, Mockito.CALLS_REAL_METHODS);
         SQLStatement sqlStatement = Mockito.mock(SQLStatement.class);
         Mockito.doReturn(sqlStatement)
@@ -131,7 +118,7 @@ public class AbstractKronosOData2EventHandlerTest {
      */
     @Test
     public void testGetSQLUpdateBuilderTargetTable() throws ODataException {
-        SQLContext sqlContext = new SQLContext(HANA);
+        SQLContext sqlContext = new SQLContext(DatabaseSystem.HANA);
         SQLUpdateBuilder updateBuilder = Mockito.mock(SQLUpdateBuilder.class, Mockito.CALLS_REAL_METHODS);
         SQLStatement sqlStatement = Mockito.mock(SQLStatement.class);
         Mockito.doReturn(sqlStatement)
@@ -153,7 +140,7 @@ public class AbstractKronosOData2EventHandlerTest {
      */
     @Test
     public void testGetSQLDeleteBuilderTargetTable() throws ODataException {
-        SQLContext sqlContext = new SQLContext(HANA);
+        SQLContext sqlContext = new SQLContext(DatabaseSystem.HANA);
         SQLDeleteBuilder deleteBuilder = Mockito.mock(SQLDeleteBuilder.class, Mockito.CALLS_REAL_METHODS);
         SQLStatement sqlStatement = Mockito.mock(SQLStatement.class);
         Mockito.doReturn(sqlStatement)
@@ -176,12 +163,12 @@ public class AbstractKronosOData2EventHandlerTest {
      */
     @Test
     public void testCreateTemporaryTableAsSelect() throws ODataException, SQLException {
-        SQLContext sqlContext = new SQLContext(HANA);
+        SQLContext sqlContext = new SQLContext(DatabaseSystem.HANA);
         SQLSelectBuilder selectBuilder = Mockito.mock(SQLSelectBuilder.class, Mockito.CALLS_REAL_METHODS);
         Mockito.doReturn("")
                .when(selectBuilder)
                .buildSelect(sqlContext);
-        Mockito.doReturn(Arrays.asList())
+        Mockito.doReturn(List.of())
                .when(selectBuilder)
                .getStatementParams();
         PreparedStatement preparedStatement = Mockito.mock(PreparedStatement.class);
@@ -246,7 +233,7 @@ public class AbstractKronosOData2EventHandlerTest {
      */
     @Test
     public void testInsertIntoTemporaryTable() throws SQLException, ODataException {
-        SQLContext sqlContext = new SQLContext(HANA);
+        SQLContext sqlContext = new SQLContext(DatabaseSystem.HANA);
         String temporaryTableName = "#TEMP_TEST_TABLE";
         SQLInsertBuilder insertBuilder = Mockito.mock(SQLInsertBuilder.class, Mockito.CALLS_REAL_METHODS);
         SQLStatement sqlStatement = Mockito.mock(SQLStatement.class);
@@ -271,7 +258,7 @@ public class AbstractKronosOData2EventHandlerTest {
      */
     @Test
     public void testUpdateIntoTemporaryTable() throws SQLException, ODataException {
-        SQLContext sqlContext = new SQLContext(HANA);
+        SQLContext sqlContext = new SQLContext(DatabaseSystem.HANA);
         String temporaryTableName = "#TEMP_TEST_TABLE";
         SQLUpdateBuilder updateBuilder = Mockito.mock(SQLUpdateBuilder.class, Mockito.CALLS_REAL_METHODS);
         SQLStatement sqlStatement = Mockito.mock(SQLStatement.class);
@@ -329,7 +316,7 @@ public class AbstractKronosOData2EventHandlerTest {
         AbstractKronosOData2EventHandler abstractKronosOData2EventHandler =
                 Mockito.mock(AbstractKronosOData2EventHandler.class, Mockito.CALLS_REAL_METHODS);
         Map<String, Object> entryMap = abstractKronosOData2EventHandler.readEntryMap(connection, tableName);
-        assertTrue(!entryMap.isEmpty());
+        assertFalse(entryMap.isEmpty());
     }
 
 }
