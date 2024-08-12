@@ -10,7 +10,7 @@ on:
       snapshot-version:
         description: Snapshot Version
         required: true
-        default: 1.0.0-SNAPSHOT
+        default: 2.0.0-SNAPSHOT
 
 run-name: 'version set to ${{ inputs.release-version }} for release'
 
