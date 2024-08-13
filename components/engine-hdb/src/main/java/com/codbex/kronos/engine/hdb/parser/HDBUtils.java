@@ -10,20 +10,9 @@
  */
 package com.codbex.kronos.engine.hdb.parser;
 
-import static com.codbex.kronos.utils.CommonsConstants.HDB_PROCEDURE_PARSER;
-import static com.codbex.kronos.utils.CommonsConstants.MODULE_PARSERS;
-import static com.codbex.kronos.utils.CommonsConstants.PARSER_ERROR;
-import static com.codbex.kronos.utils.CommonsConstants.PROGRAM_KRONOS;
-import static com.codbex.kronos.utils.CommonsConstants.SOURCE_PUBLISH_REQUEST;
-
 import com.codbex.kronos.engine.hdb.api.DataStructuresException;
 import com.codbex.kronos.engine.hdb.api.IDataStructureModel;
-import com.codbex.kronos.engine.hdb.domain.HDBDataStructure;
-import com.codbex.kronos.engine.hdb.domain.HDBSynonym;
-import com.codbex.kronos.engine.hdb.domain.HDBSynonymGroup;
-import com.codbex.kronos.engine.hdb.domain.HDBSynonymTarget;
-import com.codbex.kronos.engine.hdb.domain.HDBTableColumn;
-import com.codbex.kronos.engine.hdb.domain.HDBTableConstraintPrimaryKey;
+import com.codbex.kronos.engine.hdb.domain.*;
 import com.codbex.kronos.engine.hdb.processors.HDBSynonymCreateProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBSynonymDropProcessor;
 import com.codbex.kronos.exceptions.ArtifactParserException;
@@ -31,6 +20,13 @@ import com.codbex.kronos.parser.hana.core.HanaLexer;
 import com.codbex.kronos.parser.hana.core.HanaParser;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.eclipse.dirigible.components.api.security.UserFacade;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -41,13 +37,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.apache.commons.lang3.math.NumberUtils;
-import org.eclipse.dirigible.commons.config.Configuration;
-import org.eclipse.dirigible.components.api.security.UserFacade;
+
+import static com.codbex.kronos.utils.CommonsConstants.*;
 
 /**
  * The Class HDBUtils.
@@ -76,28 +67,21 @@ public class HDBUtils {
     private HDBUtils() {}
 
     /**
-     * Escape artifact name if DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE is activated.
+     * Escape artifact name
      *
      * @param artifactName name of the artifact
      * @param schemaName name of the schema that will be assembled to the artifact name
      * @return escaped in quotes artifact name
      */
     public static String escapeArtifactName(String artifactName, String schemaName) {
-        boolean caseSensitive = Boolean.parseBoolean(Configuration.get("DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE", "true"));
         if (!artifactName.startsWith(ESCAPE_SYMBOL)) {
-            if (caseSensitive) {
-                artifactName = ESCAPE_SYMBOL + artifactName + ESCAPE_SYMBOL;
-            }
+            artifactName = ESCAPE_SYMBOL + artifactName + ESCAPE_SYMBOL;
         }
 
         if (schemaName != null && !schemaName.trim()
                                              .isEmpty()) {
             if (!schemaName.startsWith(ESCAPE_SYMBOL)) {
-                if (caseSensitive) {
-                    schemaName = ESCAPE_SYMBOL + schemaName + ESCAPE_SYMBOL + ".";
-                } else {
-                    schemaName = schemaName + ".";
-                }
+                schemaName = ESCAPE_SYMBOL + schemaName + ESCAPE_SYMBOL + ".";
             }
         } else {
             schemaName = "";

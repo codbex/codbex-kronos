@@ -33,9 +33,8 @@ public class HDBTableFunctionHanaITest extends AbstractHDBITest {
     @Before
     public void setUpBeforeTest() throws SQLException {
         HanaITestUtils.clearDataFromDataStructure(systemDatasource, Arrays.asList( //
-            "'/hdbtablefunction-itest/SampleHanaTableFunction.hdbtablefunction'" //
+                "'/hdbtablefunction-itest/SampleHanaTableFunction.hdbtablefunction'" //
         ));
-        Configuration.set(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true");
         facade.clearCache();
     }
 
@@ -47,9 +46,9 @@ public class HDBTableFunctionHanaITest extends AbstractHDBITest {
             HanaITestUtils.createEmptyTable(stmt, "hdbtablefunction-itest::SampleHanaTable", TEST_SCHEMA);
 
             LocalResource resource = HDBTestModule.getResources( //
-                "/usr/local/target/dirigible/repository/root", //
-                "/registry/public/hdbtablefunction-itest/SampleHanaTableFunction.hdbtablefunction", //
-                "/registry/public/hdbtablefunction-itest/SampleHanaTableFunction.hdbtablefunction" //
+                    "/usr/local/target/dirigible/repository/root", //
+                    "/registry/public/hdbtablefunction-itest/SampleHanaTableFunction.hdbtablefunction", //
+                    "/registry/public/hdbtablefunction-itest/SampleHanaTableFunction.hdbtablefunction" //
             );
 
             try {

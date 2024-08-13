@@ -10,22 +10,13 @@
  */
 package com.codbex.kronos.engine.hdb.parser.hdbsequence;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyBoolean;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.sql.Connection;
-import java.sql.SQLException;
-
+import com.codbex.kronos.engine.hdb.domain.HDBSequence;
+import com.codbex.kronos.engine.hdb.processors.HDBSequenceCreateProcessor;
+import com.codbex.kronos.engine.hdb.processors.HDBSequenceDropProcessor;
+import com.codbex.kronos.engine.hdb.processors.HDBSequenceUpdateProcessor;
+import jakarta.transaction.Transactional;
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
-import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;
 import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.eclipse.dirigible.database.sql.builders.AlterBranchingBuilder;
@@ -40,23 +31,18 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.mockito.Answers;
-import org.mockito.Mock;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.mockito.stubbing.Answer;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 
-import com.codbex.kronos.engine.hdb.domain.HDBSequence;
-import com.codbex.kronos.engine.hdb.processors.HDBSequenceCreateProcessor;
-import com.codbex.kronos.engine.hdb.processors.HDBSequenceDropProcessor;
-import com.codbex.kronos.engine.hdb.processors.HDBSequenceUpdateProcessor;
+import java.sql.Connection;
+import java.sql.SQLException;
 
-import jakarta.transaction.Transactional;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 /**
  * The Class HDBSequenceProcessorsTest.
@@ -278,8 +264,7 @@ public class HDBSequenceProcessorsTest {
                 MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)) {
             HDBSequence mockModel = mock(HDBSequence.class);
             String sql = "TestExecuteDropSuccessfully";
-            configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
-                         .thenReturn("false");
+
             sqlFactory.when(() -> SqlFactory.getNative(mockConnection))
                       .thenReturn(mockSqlFactory);
 
@@ -374,8 +359,6 @@ public class HDBSequenceProcessorsTest {
 
                 HDBSequence mockModel = mock(HDBSequence.class);
                 when(mockModel.getName()).thenReturn("\"MYSCHEMA\".\"hdb_sequence::SampleSequence_HanaXSClassic\"");
-                configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
-                             .thenReturn("false");
                 sqlFactory.when(() -> SqlFactory.getNative(mockConnection))
                           .thenReturn(mockSqlFactory);
                 sqlFactory.when(() -> SqlFactory.getNative(mockConnection)

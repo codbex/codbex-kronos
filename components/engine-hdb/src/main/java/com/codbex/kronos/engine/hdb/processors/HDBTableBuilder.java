@@ -10,14 +10,8 @@
  */
 package com.codbex.kronos.engine.hdb.processors;
 
-import java.sql.Connection;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-
-import org.eclipse.dirigible.commons.config.Configuration;
-import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;
+import com.codbex.kronos.engine.hdb.domain.*;
+import com.codbex.kronos.engine.hdb.parser.HDBUtils;
 import org.eclipse.dirigible.database.sql.DataType;
 import org.eclipse.dirigible.database.sql.ISqlKeywords;
 import org.eclipse.dirigible.database.sql.SqlFactory;
@@ -25,23 +19,16 @@ import org.eclipse.dirigible.database.sql.TableStatements;
 import org.eclipse.dirigible.database.sql.builders.table.AbstractTableBuilder;
 import org.eclipse.dirigible.database.sql.builders.table.CreateTableBuilder;
 
-import com.codbex.kronos.engine.hdb.domain.HDBTable;
-import com.codbex.kronos.engine.hdb.domain.HDBTableColumn;
-import com.codbex.kronos.engine.hdb.domain.HDBTableConstraintCheck;
-import com.codbex.kronos.engine.hdb.domain.HDBTableConstraintForeignKey;
-import com.codbex.kronos.engine.hdb.domain.HDBTableConstraintUnique;
-import com.codbex.kronos.engine.hdb.domain.HDBTableConstraints;
-import com.codbex.kronos.engine.hdb.domain.HDBTableIndex;
-import com.codbex.kronos.engine.hdb.parser.HDBUtils;
+import java.sql.Connection;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * The Class HDBTableBuilder.
  */
 public class HDBTableBuilder {
-
-    /** The case sensitive. */
-    private boolean caseSensitive =
-            Boolean.parseBoolean(Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true"));
 
     /**
      * Builds the.
@@ -88,7 +75,7 @@ public class HDBTableBuilder {
     private void addTableIndicesToBuilder(CreateTableBuilder sqlTableBuilder, HDBTable tableModel) {
         List<HDBTableIndex> indexes = tableModel.getIndexes();
         for (HDBTableIndex indexModel : indexes) {
-            String name = caseSensitive ? HDBUtils.escapeArtifactName(indexModel.getName()) : indexModel.getName();
+            String name = HDBUtils.escapeArtifactName(indexModel.getName());
 
             sqlTableBuilder.index(name, indexModel.isUnique(), indexModel.getOrder(), indexModel.getType(),
                     new HashSet<String>(Arrays.asList(indexModel.getColumns())));
@@ -104,7 +91,7 @@ public class HDBTableBuilder {
     private void addTableColumnToBuilder(CreateTableBuilder sqlTableBuilder, HDBTable tableModel) {
         List<HDBTableColumn> columns = tableModel.getColumns();
         for (HDBTableColumn columnModel : columns) {
-            String name = caseSensitive ? HDBUtils.escapeArtifactName(columnModel.getName()) : columnModel.getName();
+            String name = HDBUtils.escapeArtifactName(columnModel.getName());
             DataType type = DataType.valueOf(columnModel.getType());
 
             if (!columnModel.isFuzzySearchIndex()) {
@@ -137,10 +124,8 @@ public class HDBTableBuilder {
             List<HDBTableConstraintCheck> checks = constraintsModel.getChecks();
             if (Objects.nonNull(checks)) {
                 for (HDBTableConstraintCheck check : checks) {
-                    String checkName = check.getName();
-                    if (caseSensitive) {
-                        checkName = caseSensitive ? HDBUtils.escapeArtifactName(checkName) : checkName;
-                    }
+                    String checkName = HDBUtils.escapeArtifactName(check.getName());
+
                     sqlTableBuilder.check(checkName, check.getExpression());
                 }
             }
@@ -202,11 +187,7 @@ public class HDBTableBuilder {
         String[] primaryKeyColumns = new String[columns.length];
         int i = 0;
         for (String column : columns) {
-            if (caseSensitive) {
-                primaryKeyColumns[i++] = HDBUtils.escapeArtifactName(column);
-            } else {
-                primaryKeyColumns[i++] = column;
-            }
+            primaryKeyColumns[i++] = HDBUtils.escapeArtifactName(column);
         }
 
         return primaryKeyColumns;
@@ -223,12 +204,9 @@ public class HDBTableBuilder {
                                                                    .getForeignKeys();
         if (Objects.nonNull(foreignKeys)) {
             for (HDBTableConstraintForeignKey foreignKey : foreignKeys) {
-                String foreignKeyName = foreignKey.getName();
-                String foreignKeyReferencedTable = foreignKey.getReferencedTable();
-                if (caseSensitive) {
-                    foreignKeyName = HDBUtils.escapeArtifactName(foreignKeyName);
-                    foreignKeyReferencedTable = HDBUtils.escapeArtifactName(foreignKeyReferencedTable);
-                }
+                String foreignKeyName = HDBUtils.escapeArtifactName(foreignKey.getName());
+                String foreignKeyReferencedTable = HDBUtils.escapeArtifactName(foreignKey.getReferencedTable());
+
                 String[] foreignKeyColumns = this.getEscapedColumns(foreignKey.getColumns());
 
                 String[] foreignKeyReferencedColumns = this.getEscapedColumns(foreignKey.getReferencedColumns());
@@ -250,10 +228,8 @@ public class HDBTableBuilder {
                                                                  .getUniqueIndexes();
         if (Objects.nonNull(uniqueIndices)) {
             for (HDBTableConstraintUnique uniqueIndex : uniqueIndices) {
-                String uniqueIndexName = uniqueIndex.getName();
-                if (this.caseSensitive) {
-                    uniqueIndexName = HDBUtils.escapeArtifactName(uniqueIndexName);
-                }
+                String uniqueIndexName = HDBUtils.escapeArtifactName(uniqueIndex.getName());
+
                 String[] uniqueIndexColumns = this.getEscapedColumns(uniqueIndex.getColumns());
                 String indexOrder = uniqueIndex.getOrder();
                 String indexType = uniqueIndex.getIndexType();

@@ -33,46 +33,22 @@ public class HDBSchemaHanaITest extends AbstractHDBITest {
     @Before
     public void setUpBeforeTest() throws SQLException {
         HanaITestUtils.clearDataFromDataStructure(systemDatasource, Arrays.asList( //
-            "'/hdbschema-itest/SampleHANAXSClassicSchema.hdbschema'" //
+                "'/hdbschema-itest/SampleHANAXSClassicSchema.hdbschema'" //
         ));
-        Configuration.set(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true");
         facade.clearCache();
     }
 
     @Test
-    public void testHDBSchemaCreateWithNoCaseSensitivity() throws Exception {
-        Configuration.set(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false");
-        try (Connection connection = datasource.getConnection(); Statement stmt = connection.createStatement()) {
-
-            String schemaName = "MYSCHEMA";// in hana the name will be created in UpperCase
-
-            try {
-                LocalResource resource = HDBTestModule.getResources( //
-                    "/usr/local/target/dirigible/repository/root", //
-                    "/registry/public/hdbschema-itest/SampleHANAXSClassicSchema.hdbschema", //
-                    "/registry/public/hdbschema-itest/SampleHANAXSClassicSchema.hdbschema" //
-                );
-                facade.handleResourceSynchronization(resource);
-                facade.updateEntities();
-                assertTrue(HanaITestUtils.checkExistOfSchema(connection, schemaName));
-            } finally {
-                HanaITestUtils.dropSchema(stmt, schemaName);
-            }
-        }
-    }
-
-    @Test
     public void testHDBSchemaCreate() throws Exception {
-        Configuration.set(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true");
         try (Connection connection = datasource.getConnection(); Statement stmt = connection.createStatement()) {
 
             String schemaName = "MySchema";
 
             try {
                 LocalResource resource = HDBTestModule.getResources( //
-                    "/usr/local/target/dirigible/repository/root", //
-                    "/registry/public/hdbschema-itest/SampleHANAXSClassicSchema.hdbschema", //
-                    "/registry/public/hdbschema-itest/SampleHANAXSClassicSchema.hdbschema" //
+                        "/usr/local/target/dirigible/repository/root", //
+                        "/registry/public/hdbschema-itest/SampleHANAXSClassicSchema.hdbschema", //
+                        "/registry/public/hdbschema-itest/SampleHANAXSClassicSchema.hdbschema" //
                 );
                 facade.handleResourceSynchronization(resource);
                 facade.updateEntities();
@@ -85,7 +61,6 @@ public class HDBSchemaHanaITest extends AbstractHDBITest {
 
     @Test
     public void testHDBSchemaCreateIfSchemaAlreadyExist() throws Exception {
-        Configuration.set(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true");
         try (Connection connection = datasource.getConnection(); Statement stmt = connection.createStatement()) {
 
             String schemaName = "MySchema";
@@ -94,9 +69,9 @@ public class HDBSchemaHanaITest extends AbstractHDBITest {
                 HanaITestUtils.createSchema(stmt, schemaName);
 
                 LocalResource resource = HDBTestModule.getResources( //
-                    "/usr/local/target/dirigible/repository/root", //
-                    "/registry/public/hdbschema-itest/SampleHANAXSClassicSchema.hdbschema", //
-                    "/registry/public/hdbschema-itest/SampleHANAXSClassicSchema.hdbschema" //
+                        "/usr/local/target/dirigible/repository/root", //
+                        "/registry/public/hdbschema-itest/SampleHANAXSClassicSchema.hdbschema", //
+                        "/registry/public/hdbschema-itest/SampleHANAXSClassicSchema.hdbschema" //
                 );
 
                 facade.handleResourceSynchronization(resource);

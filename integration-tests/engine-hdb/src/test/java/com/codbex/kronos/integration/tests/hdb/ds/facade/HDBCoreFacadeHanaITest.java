@@ -30,73 +30,72 @@ import com.codbex.kronos.integration.tests.hdb.ds.AbstractHDBITest;
 
 public class HDBCoreFacadeHanaITest extends AbstractHDBITest {
 
-	@Before
-	public void setUpBeforeTest() throws SQLException {
-		HanaITestUtils.clearDataFromDataStructure(systemDatasource, Arrays.asList( //
-				"'/acme/com/test/views/MY_VIEW1.hdbview'", //
-				"'/acme/com/test/views/MY_VIEW2.hdbview'", //
-				"'/acme/com/test/tables/W_TABLE1.hdbtable'", //
-				"'/acme/com/test/tables/W_VIEW_3.hdbview'", //
-				"'/acme/com/test/tables/MY_TABLE2.hdbtable'" //
-		));
-		Configuration.set(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true");
-		facade.clearCache();
-	}
+    @Before
+    public void setUpBeforeTest() throws SQLException {
+        HanaITestUtils.clearDataFromDataStructure(systemDatasource, Arrays.asList( //
+                "'/acme/com/test/views/MY_VIEW1.hdbview'", //
+                "'/acme/com/test/views/MY_VIEW2.hdbview'", //
+                "'/acme/com/test/tables/W_TABLE1.hdbtable'", //
+                "'/acme/com/test/tables/W_VIEW_3.hdbview'", //
+                "'/acme/com/test/tables/MY_TABLE2.hdbtable'" //
+        ));
+        facade.clearCache();
+    }
 
-	@Test
-	public void testUpdateEntities() throws Exception {
-		try (Connection connection = datasource.getConnection(); Statement stmt = connection.createStatement()) {
+    @Test
+    public void testUpdateEntities() throws Exception {
+        try (Connection connection = datasource.getConnection(); Statement stmt = connection.createStatement()) {
 
-			HanaITestUtils.createSchema(stmt, TEST_SCHEMA);
+            HanaITestUtils.createSchema(stmt, TEST_SCHEMA);
 
-			LocalResource view1Resource = HDBTestModule.getResources( //
-					"/usr/local/target/dirigible/repository/root", //
-					"/registry/public/acme/com/test/views/MY_VIEW1.hdbview", //
-					"/registry/public/hdbview-itest/MY_VIEW1.hdbview" //
-			);
+            LocalResource view1Resource = HDBTestModule.getResources( //
+                    "/usr/local/target/dirigible/repository/root", //
+                    "/registry/public/acme/com/test/views/MY_VIEW1.hdbview", //
+                    "/registry/public/hdbview-itest/MY_VIEW1.hdbview" //
+            );
 
-			LocalResource view2Resource = HDBTestModule.getResources( //
-					"/usr/local/target/dirigible/repository/root", //
-					"/registry/public/acme/com/test/views/MY_VIEW2.hdbview", //
-					"/registry/public/hdbview-itest/MY_VIEW2.hdbview" //
-			);
+            LocalResource view2Resource = HDBTestModule.getResources( //
+                    "/usr/local/target/dirigible/repository/root", //
+                    "/registry/public/acme/com/test/views/MY_VIEW2.hdbview", //
+                    "/registry/public/hdbview-itest/MY_VIEW2.hdbview" //
+            );
 
-			LocalResource table1Resource = HDBTestModule.getResources( //
-					"/usr/local/target/dirigible/repository/root", //
-					"/registry/public/acme/com/test/tables/W_TABLE1.hdbtable", //
-					"/registry/public/hdbview-itest/W_TABLE1.hdbtable" //
-			);
+            LocalResource table1Resource = HDBTestModule.getResources( //
+                    "/usr/local/target/dirigible/repository/root", //
+                    "/registry/public/acme/com/test/tables/W_TABLE1.hdbtable", //
+                    "/registry/public/hdbview-itest/W_TABLE1.hdbtable" //
+            );
 
-			LocalResource table2Resource = HDBTestModule.getResources( //
-					"/usr/local/target/dirigible/repository/root", //
-					"/registry/public/acme/com/test/tables/MY_TABLE2.hdbtable", //
-					"/registry/public/hdbview-itest/MY_TABLE2.hdbtable" //
-			);
+            LocalResource table2Resource = HDBTestModule.getResources( //
+                    "/usr/local/target/dirigible/repository/root", //
+                    "/registry/public/acme/com/test/tables/MY_TABLE2.hdbtable", //
+                    "/registry/public/hdbview-itest/MY_TABLE2.hdbtable" //
+            );
 
-			LocalResource view3Resource = HDBTestModule.getResources( //
-          "/usr/local/target/dirigible/repository/root", //
-					"/registry/public/acme/com/test/tables/W_VIEW_3.hdbview", //
-					"/registry/public/hdbview-itest/W_VIEW_3.hdbview" //
-			);
+            LocalResource view3Resource = HDBTestModule.getResources( //
+                    "/usr/local/target/dirigible/repository/root", //
+                    "/registry/public/acme/com/test/tables/W_VIEW_3.hdbview", //
+                    "/registry/public/hdbview-itest/W_VIEW_3.hdbview" //
+            );
 
-			try {
-				facade.handleResourceSynchronization(view3Resource);
-				facade.handleResourceSynchronization(view2Resource);
-				facade.handleResourceSynchronization(view1Resource);
-				facade.handleResourceSynchronization(table1Resource);
-				facade.handleResourceSynchronization(table2Resource);
+            try {
+                facade.handleResourceSynchronization(view3Resource);
+                facade.handleResourceSynchronization(view2Resource);
+                facade.handleResourceSynchronization(view1Resource);
+                facade.handleResourceSynchronization(table1Resource);
+                facade.handleResourceSynchronization(table2Resource);
 
-				facade.updateEntities();
-				assertTrue(HanaITestUtils.checkExistOfView(connection, "acme.com.test.views::MY_VIEW1", TEST_SCHEMA));
-				assertTrue(HanaITestUtils.checkExistOfPublicSynonym(connection, "acme.com.test.views::MY_VIEW1"));
-			} finally {
-				HanaITestUtils.dropView(connection, stmt, "acme.com.test.views::MY_VIEW1", TEST_SCHEMA);
-				HanaITestUtils.dropView(connection, stmt, "acme.com.test.views::MY_VIEW2", TEST_SCHEMA);
-				HanaITestUtils.dropView(connection, stmt, "acme.com.test.tables::W_TABLE1", TEST_SCHEMA);
-				HanaITestUtils.dropView(connection, stmt, "acme.com.test.tables::MY_TABLE2", TEST_SCHEMA);
-				HanaITestUtils.dropView(connection, stmt, "acme.com.test.views::MY_VIEW3", TEST_SCHEMA);
-				HanaITestUtils.dropSchema(stmt, TEST_SCHEMA);
-			}
-		}
-	}
+                facade.updateEntities();
+                assertTrue(HanaITestUtils.checkExistOfView(connection, "acme.com.test.views::MY_VIEW1", TEST_SCHEMA));
+                assertTrue(HanaITestUtils.checkExistOfPublicSynonym(connection, "acme.com.test.views::MY_VIEW1"));
+            } finally {
+                HanaITestUtils.dropView(connection, stmt, "acme.com.test.views::MY_VIEW1", TEST_SCHEMA);
+                HanaITestUtils.dropView(connection, stmt, "acme.com.test.views::MY_VIEW2", TEST_SCHEMA);
+                HanaITestUtils.dropView(connection, stmt, "acme.com.test.tables::W_TABLE1", TEST_SCHEMA);
+                HanaITestUtils.dropView(connection, stmt, "acme.com.test.tables::MY_TABLE2", TEST_SCHEMA);
+                HanaITestUtils.dropView(connection, stmt, "acme.com.test.views::MY_VIEW3", TEST_SCHEMA);
+                HanaITestUtils.dropSchema(stmt, TEST_SCHEMA);
+            }
+        }
+    }
 }

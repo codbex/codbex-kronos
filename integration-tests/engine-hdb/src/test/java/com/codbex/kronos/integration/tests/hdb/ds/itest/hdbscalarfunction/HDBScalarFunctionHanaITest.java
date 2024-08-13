@@ -33,9 +33,8 @@ public class HDBScalarFunctionHanaITest extends AbstractHDBITest {
     @Before
     public void setUpBeforeTest() throws SQLException {
         HanaITestUtils.clearDataFromDataStructure(systemDatasource, Arrays.asList( //
-            "'/hdbscalarfunction-itest/SampleHanaScalarFunction.hdbscalarfunction'" //
+                "'/hdbscalarfunction-itest/SampleHanaScalarFunction.hdbscalarfunction'" //
         ));
-        Configuration.set(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true");
         facade.clearCache();
     }
 
@@ -50,9 +49,9 @@ public class HDBScalarFunctionHanaITest extends AbstractHDBITest {
             HanaITestUtils.createSchema(stmt, TEST_SCHEMA);
 
             LocalResource resource = HDBTestModule.getResources( //
-                "/usr/local/target/dirigible/repository/root", //
-                "/registry/public/hdbscalarfunction-itest/SampleHanaScalarFunction.hdbscalarfunction", //
-                "/registry/public/hdbscalarfunction-itest/SampleHanaScalarFunction.hdbscalarfunction" //
+                    "/usr/local/target/dirigible/repository/root", //
+                    "/registry/public/hdbscalarfunction-itest/SampleHanaScalarFunction.hdbscalarfunction", //
+                    "/registry/public/hdbscalarfunction-itest/SampleHanaScalarFunction.hdbscalarfunction" //
             );
 
             try {

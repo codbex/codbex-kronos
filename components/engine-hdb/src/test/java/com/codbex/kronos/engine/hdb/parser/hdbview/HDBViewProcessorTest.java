@@ -10,24 +10,15 @@
  */
 package com.codbex.kronos.engine.hdb.parser.hdbview;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
 import com.codbex.kronos.engine.hdb.domain.HDBView;
 import com.codbex.kronos.engine.hdb.parser.Constants;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.processors.HDBViewCreateProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBViewDropProcessor;
 import jakarta.transaction.Transactional;
-import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
 import org.apache.commons.io.IOUtils;
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
-import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;
 import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.eclipse.dirigible.database.sql.builders.CreateBranchingBuilder;
@@ -40,16 +31,18 @@ import org.eclipse.dirigible.database.sql.dialects.postgres.PostgresSqlDialect;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Answers;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
+
+import java.nio.charset.StandardCharsets;
+import java.sql.Connection;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 /**
  * The Class HDBViewProcessorTest.
@@ -138,8 +131,6 @@ public class HDBViewProcessorTest {
                                             .asSelect(any())
                                             .build())
                       .thenReturn(mockSQL);
-            configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
-                         .thenReturn("true");
 
             // Mockito.doNothing().when(processorSpy).applyArtefactState(any(), any(), any(), any(), any());
 
@@ -175,8 +166,6 @@ public class HDBViewProcessorTest {
             sqlFactory.when(() -> SqlFactory.getNative(mockConnection)
                                             .exists(mockConnection, model.getName(), DatabaseArtifactTypes.VIEW))
                       .thenReturn(false);
-            configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
-                         .thenReturn("true");
 
             // Mockito.doNothing().when(processorSpy).applyArtefactState(any(), any(), any(), any(), any());
 
@@ -256,8 +245,6 @@ public class HDBViewProcessorTest {
                                             .view(any())
                                             .build())
                       .thenReturn(mockSQL);
-            configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
-                         .thenReturn("true");
             // Mockito.doNothing().when(processorSpy).applyArtefactState(any(), any(), any(), any(), any());
 
             processorSpy.execute(mockConnection, model);
