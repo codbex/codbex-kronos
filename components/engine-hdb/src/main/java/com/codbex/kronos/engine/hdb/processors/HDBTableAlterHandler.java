@@ -15,20 +15,6 @@ import com.codbex.kronos.engine.hdb.domain.HDBTableColumn;
 import com.codbex.kronos.engine.hdb.parser.HDBUtils;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;
 import org.eclipse.dirigible.database.sql.DataType;
 import org.eclipse.dirigible.database.sql.ISqlKeywords;
@@ -36,6 +22,10 @@ import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.eclipse.dirigible.database.sql.builders.table.AlterTableBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.sql.*;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * The Class HDBTableAlterHandler.
@@ -50,7 +40,8 @@ public class HDBTableAlterHandler {
     /**
      * The Constant INCOMPATIBLE_CHANGE_OF_TABLE.
      */
-    private static final String INCOMPATIBLE_CHANGE_OF_TABLE = "Incompatible change of table [%s] by adding a column [%s] which is [%s]"; //$NON-NLS-1$
+    private static final String INCOMPATIBLE_CHANGE_OF_TABLE = "Incompatible change of table [%s] by adding a column [%s] which is [%s]";
+    // $NON-NLS-1$
 
     /**
      * The table model.
@@ -172,17 +163,13 @@ public class HDBTableAlterHandler {
      * @throws SQLException the SQL exception
      */
     public void removeColumns(Connection connection) throws SQLException {
-        boolean caseSensitive =
-                Boolean.parseBoolean(Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"));
         for (String columnName : this.dbColumnTypes.keySet()) {
             if (!modelColumnNames.contains(columnName)) {
                 AlterTableBuilder alterTableBuilder = SqlFactory.getNative(connection)
                                                                 .alter()
                                                                 .table(HDBUtils.escapeArtifactName(tableModel.getName(),
                                                                         tableModel.getSchema()));
-                if (caseSensitive) {
-                    columnName = "\"" + columnName + "\"";
-                }
+                columnName = "\"" + columnName + "\"";
                 alterTableBuilder.drop()
                                  .column(columnName, DataType.BOOLEAN);
                 executeAlterBuilder(connection, alterTableBuilder);

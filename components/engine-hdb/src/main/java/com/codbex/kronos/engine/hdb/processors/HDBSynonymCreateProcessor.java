@@ -15,13 +15,14 @@ import com.codbex.kronos.engine.hdb.domain.HDBSynonymGroup;
 import com.codbex.kronos.engine.hdb.parser.HDBUtils;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.Map;
 import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Map;
 
 /**
  * The Class HDBSynonymCreateProcessor.
@@ -39,9 +40,9 @@ public class HDBSynonymCreateProcessor extends AbstractHDBProcessor<HDBSynonymGr
     private static final int DUPLICATE_SYNONYM_NAME_ERROR_CODE = 330;
 
     /**
-     * Execute : <code>CREATE [PUBLIC] SYNONYM {synonym_name} FOR {synonym_source_object_name}
-     * {synonym_name} ::= [{schema_name}.]{identifier}
-     * {synonym_source_object_name}:==[{object_schema_name}.]{object_name}</code>
+     * Execute :
+     * <code>CREATE [PUBLIC] SYNONYM {synonym_name} FOR {synonym_source_object_name} {synonym_name} ::=
+     * [{schema_name}.]{identifier} {synonym_source_object_name}:==[{object_schema_name}.]{object_name}</code>
      *
      * @param connection the connection
      * @param synonymModel the synonym model
@@ -59,8 +60,8 @@ public class HDBSynonymCreateProcessor extends AbstractHDBProcessor<HDBSynonymGr
             }
 
             String synonymName = null;
-            boolean isPublicSynonym = "PUBLIC".equals(entry.getValue()
-                                                           .getSchema());
+            boolean isPublicSynonym = "PUBLIC".equalsIgnoreCase(entry.getValue()
+                                                                     .getSchema());
             String targetObjectName = HDBUtils.escapeArtifactName(entry.getValue()
                                                                        .getTarget()
                                                                        .getObject(),
@@ -77,9 +78,7 @@ public class HDBSynonymCreateProcessor extends AbstractHDBProcessor<HDBSynonymGr
                                            .forSource(targetObjectName)
                                            .build();
                     executeSql(sql, connection);
-                    if (logger.isInfoEnabled()) {
-                        logger.info(String.format("Create public synonym [%s] successfully", synonymName));
-                    }
+                    logger.info("Create public synonym [{}] successfully", synonymName);
                 } else {
                     synonymName = (entry.getValue()
                                         .getSchema() != null) ? (HDBUtils.escapeArtifactName(entry.getKey(),
@@ -104,13 +103,9 @@ public class HDBSynonymCreateProcessor extends AbstractHDBProcessor<HDBSynonymGr
                                                .forSource(targetObjectName)
                                                .build();
                         executeSql(sql, connection);
-                        if (logger.isInfoEnabled()) {
-                            logger.info(String.format("Synonym [%s]  in schema [{}] created successfully", synonymName));
-                        }
+                        logger.info("Synonym [{}] created successfully", synonymName);
                     } else {
-                        if (logger.isWarnEnabled()) {
-                            logger.warn(String.format("Synonym [%s] already exists during the create process", synonymName));
-                        }
+                        logger.warn("Synonym [{}] already exists during the create process", synonymName);
                     }
                 }
             } catch (SQLException e) {

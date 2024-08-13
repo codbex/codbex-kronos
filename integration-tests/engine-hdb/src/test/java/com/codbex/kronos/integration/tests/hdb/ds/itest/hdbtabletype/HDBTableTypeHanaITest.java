@@ -31,97 +31,93 @@ import com.codbex.kronos.utils.Constants;
 
 public class HDBTableTypeHanaITest extends AbstractHDBITest {
 
-  @Before
-  public void setUpBeforeTest() throws SQLException {
-    HanaITestUtils.clearDataFromDataStructure(systemDatasource, Arrays.asList( //
-        "'/hdbtabletype-itest/testOnUserSchema.hdbtabletype'", //
-        "'/hdbtabletype-itest/testOnDiffSchema.hdbtabletype'" //
-    ));
-    Configuration.set(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true");
-    facade.clearCache();
-  }
-
-  @Test
-  public void testHDBTableTypeCreateOnSameSchema() throws Exception {
-    try (Connection connection = datasource.getConnection(); Statement stmt = connection.createStatement()) {
-
-      String userSchema = Configuration.get("hana.username");
-
-      LocalResource resource = HDBTestModule.getResources( //
-          "/usr/local/target/dirigible/repository/root", //
-          "/registry/public/hdbtabletype-itest/testOnUserSchema.hdbtabletype", //
-          "/registry/public/hdbtabletype-itest/testOnUserSchema.hdbtabletype" //
-      );
-
-      try {
-        facade.handleResourceSynchronization(resource);
-        facade.updateEntities();
-        assertTrue(HanaITestUtils.checkExistOfTableType(stmt, "TEST", userSchema));
-        assertTrue(HanaITestUtils.checkExistOfPublicSynonym(connection, "TEST"));
-      } finally {
-        HanaITestUtils.dropTableType(connection, stmt, "TEST", userSchema);
-      }
+    @Before
+    public void setUpBeforeTest() throws SQLException {
+        HanaITestUtils.clearDataFromDataStructure(systemDatasource, Arrays.asList( //
+                "'/hdbtabletype-itest/testOnUserSchema.hdbtabletype'", //
+                "'/hdbtabletype-itest/testOnDiffSchema.hdbtabletype'" //
+        ));
+        facade.clearCache();
     }
-  }
 
-  @Test
-  public void testHDBTableTypeCreateOnDiffSchemas() throws Exception {
-    try (Connection connection = datasource.getConnection(); Statement stmt = connection.createStatement()) {
+    @Test
+    public void testHDBTableTypeCreateOnSameSchema() throws Exception {
+        try (Connection connection = datasource.getConnection(); Statement stmt = connection.createStatement()) {
 
-      HanaITestUtils.createSchema(stmt, TEST_SCHEMA);
+            String userSchema = Configuration.get("hana.username");
 
-      LocalResource resource = HDBTestModule.getResources( //
-          "/usr/local/target/dirigible/repository/root", //
-          "/registry/public/hdbtabletype-itest/testOnDiffSchema.hdbtabletype", //
-          "/registry/public/hdbtabletype-itest/testOnDiffSchema.hdbtabletype" //
-      );
+            LocalResource resource = HDBTestModule.getResources( //
+                    "/usr/local/target/dirigible/repository/root", //
+                    "/registry/public/hdbtabletype-itest/testOnUserSchema.hdbtabletype", //
+                    "/registry/public/hdbtabletype-itest/testOnUserSchema.hdbtabletype" //
+            );
 
-      try {
-        facade.handleResourceSynchronization(resource);
-        facade.updateEntities();
-        assertTrue(HanaITestUtils.checkExistOfTableType(stmt, "TEST", TEST_SCHEMA));
-        assertTrue(HanaITestUtils.checkExistOfPublicSynonym(connection, "TEST"));
-      } finally {
-        HanaITestUtils.dropTableType(connection, stmt, "TEST", TEST_SCHEMA);
-        HanaITestUtils.dropSchema(stmt, TEST_SCHEMA);
-      }
+            try {
+                facade.handleResourceSynchronization(resource);
+                facade.updateEntities();
+                assertTrue(HanaITestUtils.checkExistOfTableType(stmt, "TEST", userSchema));
+                assertTrue(HanaITestUtils.checkExistOfPublicSynonym(connection, "TEST"));
+            } finally {
+                HanaITestUtils.dropTableType(connection, stmt, "TEST", userSchema);
+            }
+        }
     }
-  }
 
-  @Test
-  public void testHDBTableTypeCreateOnDiffSchemasWithExistingSynonym() throws Exception {
-    try (Connection connection = datasource.getConnection(); Statement stmt = connection.createStatement()) {
+    @Test
+    public void testHDBTableTypeCreateOnDiffSchemas() throws Exception {
+        try (Connection connection = datasource.getConnection(); Statement stmt = connection.createStatement()) {
 
-      HanaITestUtils.createSchema(stmt, TEST_SCHEMA);
+            HanaITestUtils.createSchema(stmt, TEST_SCHEMA);
 
-      stmt.executeUpdate("CREATE TYPE \"TEST_SCHEMA\".\"TEST\" AS TABLE (\n"
-          + "  \"CATEGORY_ID\" INTEGER,\n"
-          + "  \"NAME\" VARCHAR (255),\n"
-          + "  \"TYPES\" VARCHAR (220) NOT NULL PRIMARY KEY\n"
-          + ")");
+            LocalResource resource = HDBTestModule.getResources( //
+                    "/usr/local/target/dirigible/repository/root", //
+                    "/registry/public/hdbtabletype-itest/testOnDiffSchema.hdbtabletype", //
+                    "/registry/public/hdbtabletype-itest/testOnDiffSchema.hdbtabletype" //
+            );
 
-      stmt.executeUpdate(String.format(
-          "CREATE SYNONYM \"%s\".\"TEST\" FOR \"%s\".\"TEST\"",
-          Constants.SYNONYM_PUBLIC_SCHEMA, TEST_SCHEMA));
-
-      stmt.executeUpdate(String.format("DROP TYPE \"%s\".\"TEST\"", TEST_SCHEMA));
-
-      LocalResource resource = HDBTestModule.getResources( //
-          "/usr/local/target/dirigible/repository/root", //
-          "/registry/public/hdbtabletype-itest/testOnDiffSchema.hdbtabletype", //
-          "/registry/public/hdbtabletype-itest/testOnDiffSchema.hdbtabletype" //
-      );
-
-      try {
-        facade.handleResourceSynchronization(resource);
-        facade.updateEntities();
-        assertTrue(HanaITestUtils.checkExistOfTableType(stmt, "TEST", TEST_SCHEMA));
-        assertTrue(HanaITestUtils.checkExistOfPublicSynonym(connection, "TEST"));
-      } finally {
-        HanaITestUtils.dropTableType(connection, stmt, "TEST", TEST_SCHEMA);
-        HanaITestUtils.dropSchema(stmt, TEST_SCHEMA);
-      }
+            try {
+                facade.handleResourceSynchronization(resource);
+                facade.updateEntities();
+                assertTrue(HanaITestUtils.checkExistOfTableType(stmt, "TEST", TEST_SCHEMA));
+                assertTrue(HanaITestUtils.checkExistOfPublicSynonym(connection, "TEST"));
+            } finally {
+                HanaITestUtils.dropTableType(connection, stmt, "TEST", TEST_SCHEMA);
+                HanaITestUtils.dropSchema(stmt, TEST_SCHEMA);
+            }
+        }
     }
-  }
+
+    @Test
+    public void testHDBTableTypeCreateOnDiffSchemasWithExistingSynonym() throws Exception {
+        try (Connection connection = datasource.getConnection(); Statement stmt = connection.createStatement()) {
+
+            HanaITestUtils.createSchema(stmt, TEST_SCHEMA);
+
+            stmt.executeUpdate(
+                    "CREATE TYPE \"TEST_SCHEMA\".\"TEST\" AS TABLE (\n" + "  \"CATEGORY_ID\" INTEGER,\n" + "  \"NAME\" VARCHAR (255),\n"
+                            + "  \"TYPES\" VARCHAR (220) NOT NULL PRIMARY KEY\n" + ")");
+
+            stmt.executeUpdate(
+                    String.format("CREATE SYNONYM \"%s\".\"TEST\" FOR \"%s\".\"TEST\"", Constants.SYNONYM_PUBLIC_SCHEMA, TEST_SCHEMA));
+
+            stmt.executeUpdate(String.format("DROP TYPE \"%s\".\"TEST\"", TEST_SCHEMA));
+
+            LocalResource resource = HDBTestModule.getResources( //
+                    "/usr/local/target/dirigible/repository/root", //
+                    "/registry/public/hdbtabletype-itest/testOnDiffSchema.hdbtabletype", //
+                    "/registry/public/hdbtabletype-itest/testOnDiffSchema.hdbtabletype" //
+            );
+
+            try {
+                facade.handleResourceSynchronization(resource);
+                facade.updateEntities();
+                assertTrue(HanaITestUtils.checkExistOfTableType(stmt, "TEST", TEST_SCHEMA));
+                assertTrue(HanaITestUtils.checkExistOfPublicSynonym(connection, "TEST"));
+            } finally {
+                HanaITestUtils.dropTableType(connection, stmt, "TEST", TEST_SCHEMA);
+                HanaITestUtils.dropSchema(stmt, TEST_SCHEMA);
+            }
+        }
+    }
 
 }

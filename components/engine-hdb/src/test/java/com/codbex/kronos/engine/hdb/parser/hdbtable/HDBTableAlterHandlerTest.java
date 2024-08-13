@@ -10,19 +10,13 @@
  */
 package com.codbex.kronos.engine.hdb.parser.hdbtable;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
-
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.codbex.kronos.engine.hdb.domain.HDBTable;
+import com.codbex.kronos.engine.hdb.domain.HDBTableColumn;
+import com.codbex.kronos.engine.hdb.domain.HDBTableConstraintPrimaryKey;
+import com.codbex.kronos.engine.hdb.domain.HDBTableConstraints;
+import com.codbex.kronos.engine.hdb.processors.HDBTableAlterHandler;
+import jakarta.transaction.Transactional;
 import org.eclipse.dirigible.commons.config.Configuration;
-import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.eclipse.dirigible.database.sql.builders.AlterBranchingBuilder;
 import org.eclipse.dirigible.database.sql.builders.table.AlterTableBuilder;
@@ -32,24 +26,23 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Answers;
-import org.mockito.Mock;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 
-import com.codbex.kronos.engine.hdb.domain.HDBTable;
-import com.codbex.kronos.engine.hdb.domain.HDBTableColumn;
-import com.codbex.kronos.engine.hdb.domain.HDBTableConstraintPrimaryKey;
-import com.codbex.kronos.engine.hdb.domain.HDBTableConstraints;
-import com.codbex.kronos.engine.hdb.processors.HDBTableAlterHandler;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-import jakarta.transaction.Transactional;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 /**
  * The Class HDBTableAlterHandlerTest.
@@ -88,13 +81,13 @@ public class HDBTableAlterHandlerTest {
     private ResultSet resultSet;
 
     /** The primary key. */
-    private HDBTableConstraintPrimaryKey primaryKey = new HDBTableConstraintPrimaryKey();
+    private final HDBTableConstraintPrimaryKey primaryKey = new HDBTableConstraintPrimaryKey();
 
     /** The constraints model. */
-    private HDBTableConstraints constraintsModel = new HDBTableConstraints();
+    private final HDBTableConstraints constraintsModel = new HDBTableConstraints();
 
     /** The table model. */
-    private HDBTable tableModel = new HDBTable();
+    private final HDBTable tableModel = new HDBTable();
 
     /**
      * Open mocks.
@@ -114,8 +107,6 @@ public class HDBTableAlterHandlerTest {
     public void addColumnsSuccessfully() throws Exception {
         try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
                 MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)) {
-            configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
-                         .thenReturn("true");
             sqlFactory.when(() -> SqlFactory.getNative(mockConnection))
                       .thenReturn(mockSqlFactory);
             sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection))
@@ -161,11 +152,9 @@ public class HDBTableAlterHandlerTest {
     public void addColumnsFailedWhenPrimaryKey() throws Exception {
         SQLException exception = Assertions.assertThrows(SQLException.class, () -> {
             try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
-                    MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class);
+                    MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)
             // MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)
             ) {
-                configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
-                             .thenReturn("true");
                 sqlFactory.when(() -> SqlFactory.getNative(mockConnection))
                           .thenReturn(mockSqlFactory);
                 sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection))
@@ -212,8 +201,6 @@ public class HDBTableAlterHandlerTest {
 
         try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
                 MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)) {
-            configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
-                         .thenReturn("true");
             sqlFactory.when(() -> SqlFactory.getNative(mockConnection))
                       .thenReturn(mockSqlFactory);
             sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection))
@@ -268,8 +255,6 @@ public class HDBTableAlterHandlerTest {
     public void updateColumnsSuccessfully() throws Exception {
         try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
                 MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)) {
-            configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
-                         .thenReturn("true");
             sqlFactory.when(() -> SqlFactory.getNative(mockConnection))
                       .thenReturn(mockSqlFactory);
             sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection))
@@ -324,8 +309,6 @@ public class HDBTableAlterHandlerTest {
     public void rebuildIndecesSuccessfully() throws Exception {
         try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
                 MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)) {
-            configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
-                         .thenReturn("true");
             sqlFactory.when(() -> SqlFactory.getNative(mockConnection))
                       .thenReturn(mockSqlFactory);
             sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection))
@@ -366,11 +349,9 @@ public class HDBTableAlterHandlerTest {
     public void ensurePrimaryKeyIsUnchangedSuccessfully() throws Exception {
         SQLException exception = Assertions.assertThrows(SQLException.class, () -> {
             try (MockedStatic<SqlFactory> sqlFactory = Mockito.mockStatic(SqlFactory.class);
-                    MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class);
+                    MockedStatic<Configuration> configuration = Mockito.mockStatic(Configuration.class)
             // MockedStatic<ProblemsFacade> problemsFacade = Mockito.mockStatic(ProblemsFacade.class)
             ) {
-                configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
-                             .thenReturn("true");
                 sqlFactory.when(() -> SqlFactory.getNative(mockConnection))
                           .thenReturn(mockSqlFactory);
                 sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection))

@@ -10,35 +10,28 @@
  */
 package com.codbex.kronos.engine.hdb.parser.hdbtabletype;
 
-import static com.codbex.kronos.engine.hdb.api.IDataStructureModel.TYPE_HDB_TABLE_TYPE;
-import static org.junit.jupiter.api.Assertions.fail;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
+import com.codbex.kronos.engine.hdb.domain.HDBTableType;
+import com.codbex.kronos.engine.hdb.parser.HDBSynonymRemover;
+import com.codbex.kronos.engine.hdb.processors.HDBTableTypeDropProcessor;
+import jakarta.transaction.Transactional;
 import org.eclipse.dirigible.commons.config.Configuration;
-import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.mockito.Answers;
-import org.mockito.Mock;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 
-import com.codbex.kronos.engine.hdb.domain.HDBTableType;
-import com.codbex.kronos.engine.hdb.parser.HDBSynonymRemover;
-import com.codbex.kronos.engine.hdb.processors.HDBTableTypeDropProcessor;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
-import jakarta.transaction.Transactional;
+import static com.codbex.kronos.engine.hdb.api.IDataStructureModel.TYPE_HDB_TABLE_TYPE;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * The Class HDBTableTypeDropProcessorTest.
@@ -121,8 +114,6 @@ public class HDBTableTypeDropProcessorTest {
                       .thenReturn(mockSqlFactory);
             sqlFactory.when(() -> SqlFactory.deriveDialect(connectionMock))
                       .thenReturn(new HanaSqlDialect());
-            configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
-                         .thenReturn("true");
             Mockito.doReturn(true)
                    .when(dropProcessorSpy)
                    .tableTypeDoesNotExist(connectionMock, model);
@@ -150,8 +141,6 @@ public class HDBTableTypeDropProcessorTest {
                       .thenReturn(mockSqlFactory);
             sqlFactory.when(() -> SqlFactory.deriveDialect(connectionMock))
                       .thenReturn(new HanaSqlDialect());
-            configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
-                         .thenReturn("true");
             Mockito.doReturn(false)
                    .when(dropProcessorSpy)
                    .tableTypeDoesNotExist(connectionMock, model);
@@ -194,8 +183,6 @@ public class HDBTableTypeDropProcessorTest {
                       .thenReturn(mockSqlFactory);
             sqlFactory.when(() -> SqlFactory.deriveDialect(connectionMock))
                       .thenReturn(new HanaSqlDialect());
-            configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
-                         .thenReturn("true");
             Mockito.doReturn(false)
                    .when(dropProcessorSpy)
                    .tableTypeDoesNotExist(connectionMock, model);
@@ -248,8 +235,6 @@ public class HDBTableTypeDropProcessorTest {
                       .thenReturn(mockSqlFactory);
             sqlFactory.when(() -> SqlFactory.deriveDialect(connectionMock))
                       .thenReturn(new HanaSqlDialect());
-            configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
-                         .thenReturn("true");
             Mockito.doReturn(false)
                    .when(dropProcessorSpy)
                    .tableTypeDoesNotExist(connectionMock, model);

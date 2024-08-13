@@ -34,9 +34,8 @@ public class HDBProcedureHanaITest extends AbstractHDBITest {
     @Before
     public void setUpBeforeTest() throws SQLException {
         HanaITestUtils.clearDataFromDataStructure(systemDatasource, Arrays.asList( //
-            "'/hdbprocedure-itest/SampleHanaProcedure.hdbprocedure'" //
+                "'/hdbprocedure-itest/SampleHanaProcedure.hdbprocedure'" //
         ));
-        Configuration.set(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true");
         facade.clearCache();
     }
 
@@ -49,16 +48,15 @@ public class HDBProcedureHanaITest extends AbstractHDBITest {
                 HanaITestUtils.createEmptyTable(stmt, "hdbprocedure-itest::SampleHanaTable", TEST_SCHEMA);
 
                 LocalResource resource = HDBTestModule.getResources( //
-                    "/usr/local/target/dirigible/repository/root", //
-                    "/registry/public/hdbprocedure-itest/SampleHanaProcedure.hdbprocedure", //
-                    "/registry/public/hdbprocedure-itest/SampleHanaProcedure.hdbprocedure" //
+                        "/usr/local/target/dirigible/repository/root", //
+                        "/registry/public/hdbprocedure-itest/SampleHanaProcedure.hdbprocedure", //
+                        "/registry/public/hdbprocedure-itest/SampleHanaProcedure.hdbprocedure" //
                 );
 
                 facade.handleResourceSynchronization(resource);
                 facade.updateEntities();
 
-                assertTrue(HanaITestUtils.checkExistOfProcedure(connection, "hdbprocedure-itest::SampleHanaProcedure",
-                    TEST_SCHEMA));
+                assertTrue(HanaITestUtils.checkExistOfProcedure(connection, "hdbprocedure-itest::SampleHanaProcedure", TEST_SCHEMA));
             } finally {
                 HanaITestUtils.dropProcedure(stmt, "hdbprocedure-itest::SampleHanaProcedure", TEST_SCHEMA);
                 HanaITestUtils.dropTable(connection, stmt, "hdbprocedure-itest::SampleHanaTable", TEST_SCHEMA);
@@ -75,24 +73,20 @@ public class HDBProcedureHanaITest extends AbstractHDBITest {
                 HanaITestUtils.createSchema(stmt, TEST_SCHEMA);
                 HanaITestUtils.createEmptyTable(stmt, "hdbprocedure-itest::SampleHanaTable", TEST_SCHEMA);
 
-                String hdbprocedureSample = org.apache.commons.io.IOUtils
-                    .toString(
-                        HDBProcedureHanaITest.class
-                            .getResourceAsStream("/registry/public/hdbprocedure-itest/SampleHanaProcedure.hdbprocedure"),
-                        StandardCharsets.UTF_8);
+                String hdbprocedureSample = org.apache.commons.io.IOUtils.toString(HDBProcedureHanaITest.class.getResourceAsStream(
+                        "/registry/public/hdbprocedure-itest/SampleHanaProcedure.hdbprocedure"), StandardCharsets.UTF_8);
                 stmt.executeUpdate("CREATE " + hdbprocedureSample);
 
                 LocalResource resource = HDBTestModule.getResources( //
-                    "/usr/local/target/dirigible/repository/root", //
-                    "/registry/public/hdbprocedure-itest/SampleHanaProcedure.hdbprocedure", //
-                    "/registry/public/hdbprocedure-itest/SampleHanaProcedure.hdbprocedure" //
+                        "/usr/local/target/dirigible/repository/root", //
+                        "/registry/public/hdbprocedure-itest/SampleHanaProcedure.hdbprocedure", //
+                        "/registry/public/hdbprocedure-itest/SampleHanaProcedure.hdbprocedure" //
                 );
 
                 facade.handleResourceSynchronization(resource);
                 facade.updateEntities();
 
-                assertTrue(HanaITestUtils.checkExistOfProcedure(connection, "hdbprocedure-itest::SampleHanaProcedure",
-                    TEST_SCHEMA));
+                assertTrue(HanaITestUtils.checkExistOfProcedure(connection, "hdbprocedure-itest::SampleHanaProcedure", TEST_SCHEMA));
             } finally {
                 HanaITestUtils.dropProcedure(stmt, "hdbprocedure-itest::SampleHanaProcedure", TEST_SCHEMA);
                 HanaITestUtils.dropTable(connection, stmt, "hdbprocedure-itest::SampleHanaTable", TEST_SCHEMA);

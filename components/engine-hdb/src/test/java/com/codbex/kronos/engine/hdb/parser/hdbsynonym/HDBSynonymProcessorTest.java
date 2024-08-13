@@ -10,17 +10,13 @@
  */
 package com.codbex.kronos.engine.hdb.parser.hdbsynonym;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
-import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
-
+import com.codbex.kronos.engine.hdb.domain.HDBSynonymGroup;
+import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
+import com.codbex.kronos.engine.hdb.processors.HDBSynonymCreateProcessor;
+import com.codbex.kronos.engine.hdb.processors.HDBSynonymDropProcessor;
+import jakarta.transaction.Transactional;
 import org.apache.commons.io.IOUtils;
 import org.eclipse.dirigible.commons.config.Configuration;
-import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;
 import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.eclipse.dirigible.database.sql.builders.CreateBranchingBuilder;
@@ -31,23 +27,18 @@ import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Answers;
-import org.mockito.Mock;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 
-import com.codbex.kronos.engine.hdb.domain.HDBSynonymGroup;
-import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
-import com.codbex.kronos.engine.hdb.processors.HDBSynonymCreateProcessor;
-import com.codbex.kronos.engine.hdb.processors.HDBSynonymDropProcessor;
+import java.nio.charset.StandardCharsets;
+import java.sql.Connection;
 
-import jakarta.transaction.Transactional;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 /**
  * The Class HDBSynonymProcessorTest.
@@ -90,7 +81,6 @@ public class HDBSynonymProcessorTest {
     @BeforeEach
     public void openMocks() {
         MockitoAnnotations.openMocks(this);
-        Configuration.set(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true");
     }
 
     /**
@@ -132,8 +122,6 @@ public class HDBSynonymProcessorTest {
                                             .forSource(any())
                                             .build())
                       .thenReturn(mockSQL);
-            configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
-                         .thenReturn("true");
 
             // Mockito.doNothing().when(processorSpy).applyArtefactState(any(), any(), any(), any(), any());
 
@@ -216,8 +204,6 @@ public class HDBSynonymProcessorTest {
                                             .synonym(any())
                                             .build())
                       .thenReturn(mockSQL);
-            configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
-                         .thenReturn("true");
 
             // Mockito.doNothing().when(processorSpy).applyArtefactState(any(), any(), any(), any(), any());
 

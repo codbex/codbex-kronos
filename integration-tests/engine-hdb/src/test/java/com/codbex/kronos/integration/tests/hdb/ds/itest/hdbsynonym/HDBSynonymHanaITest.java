@@ -30,36 +30,35 @@ import com.codbex.kronos.integration.tests.hdb.ds.AbstractHDBITest;
 
 public class HDBSynonymHanaITest extends AbstractHDBITest {
 
-	@Before
-	public void setUpBeforeTest() throws SQLException {
-		HanaITestUtils.clearDataFromDataStructure(systemDatasource, Arrays.asList( //
-				"'/hdbsynonym-itest/SampleHanaXSClassicSynonym.hdbsynonym'" //
-		));
-		Configuration.set(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "true");
-		facade.clearCache();
-	}
+    @Before
+    public void setUpBeforeTest() throws SQLException {
+        HanaITestUtils.clearDataFromDataStructure(systemDatasource, Arrays.asList( //
+                "'/hdbsynonym-itest/SampleHanaXSClassicSynonym.hdbsynonym'" //
+        ));
+        facade.clearCache();
+    }
 
-	@Test
-	public void testHDBSynonymCreate() throws Exception {
-		try (Connection connection = datasource.getConnection(); Statement stmt = connection.createStatement()) {
+    @Test
+    public void testHDBSynonymCreate() throws Exception {
+        try (Connection connection = datasource.getConnection(); Statement stmt = connection.createStatement()) {
 
-			HanaITestUtils.createSchema(stmt, TEST_SCHEMA);
-			HanaITestUtils.createEmptyTable(stmt, "hdbsynonym-itest::SampleHanaTable", TEST_SCHEMA);
+            HanaITestUtils.createSchema(stmt, TEST_SCHEMA);
+            HanaITestUtils.createEmptyTable(stmt, "hdbsynonym-itest::SampleHanaTable", TEST_SCHEMA);
 
-			LocalResource resource = HDBTestModule.getResources( //
-					"/usr/local/target/dirigible/repository/root", //
-					"/registry/public/hdbsynonym-itest/SampleHanaXSClassicSynonym.hdbsynonym", //
-					"/registry/public/hdbsynonym-itest/SampleHanaXSClassicSynonym.hdbsynonym" //
-			);
+            LocalResource resource = HDBTestModule.getResources( //
+                    "/usr/local/target/dirigible/repository/root", //
+                    "/registry/public/hdbsynonym-itest/SampleHanaXSClassicSynonym.hdbsynonym", //
+                    "/registry/public/hdbsynonym-itest/SampleHanaXSClassicSynonym.hdbsynonym" //
+            );
 
-			try {
-				facade.handleResourceSynchronization(resource);
-				facade.updateEntities();
-				assertTrue(HanaITestUtils.checkExistOfSynonym(connection, "hdbsynonym-itest::SampleHanaXSClassicSynonym", TEST_SCHEMA));
-			} finally {
-				HanaITestUtils.dropTable(connection, stmt, "hdbsynonym-itest::SampleHanaTable", TEST_SCHEMA);
-				HanaITestUtils.dropSchema(stmt, TEST_SCHEMA);
-			}
-		}
-	}
+            try {
+                facade.handleResourceSynchronization(resource);
+                facade.updateEntities();
+                assertTrue(HanaITestUtils.checkExistOfSynonym(connection, "hdbsynonym-itest::SampleHanaXSClassicSynonym", TEST_SCHEMA));
+            } finally {
+                HanaITestUtils.dropTable(connection, stmt, "hdbsynonym-itest::SampleHanaTable", TEST_SCHEMA);
+                HanaITestUtils.dropSchema(stmt, TEST_SCHEMA);
+            }
+        }
+    }
 }

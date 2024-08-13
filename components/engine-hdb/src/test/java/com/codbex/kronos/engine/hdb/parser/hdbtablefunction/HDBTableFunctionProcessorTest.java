@@ -10,21 +10,16 @@
  */
 package com.codbex.kronos.engine.hdb.parser.hdbtablefunction;
 
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
+import com.codbex.kronos.engine.hdb.domain.HDBTableFunction;
+import com.codbex.kronos.engine.hdb.parser.Constants;
+import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelBuilder;
+import com.codbex.kronos.engine.hdb.processors.HDBTableFunctionCreateProcessor;
+import com.codbex.kronos.engine.hdb.processors.HDBTableFunctionDropProcessor;
+import com.codbex.kronos.utils.CommonsUtils;
+import jakarta.transaction.Transactional;
 import org.apache.commons.io.IOUtils;
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
-import org.eclipse.dirigible.database.persistence.utils.DatabaseMetadataUtil;
 import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.eclipse.dirigible.database.sql.dialects.hana.HanaSqlDialect;
@@ -33,24 +28,19 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.mockito.Answers;
-import org.mockito.Mock;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 
-import com.codbex.kronos.engine.hdb.domain.HDBTableFunction;
-import com.codbex.kronos.engine.hdb.parser.Constants;
-import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelBuilder;
-import com.codbex.kronos.engine.hdb.processors.HDBTableFunctionCreateProcessor;
-import com.codbex.kronos.engine.hdb.processors.HDBTableFunctionDropProcessor;
-import com.codbex.kronos.utils.CommonsUtils;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
-import jakarta.transaction.Transactional;
+import static org.mockito.Mockito.*;
 
 /**
  * The Class HDBTableFunctionProcessorTest.
@@ -120,8 +110,6 @@ public class HDBTableFunctionProcessorTest {
                       .thenReturn(mockSqlFactory);
             sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection))
                       .thenReturn(new HanaSqlDialect());
-            configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
-                         .thenReturn("true");
 
             HDBTableFunctionCreateProcessor processorSpy = spy(HDBTableFunctionCreateProcessor.class);
             String hdbTableFunctionSample = IOUtils.toString(HDBTableFunctionProcessorTest.class.getResourceAsStream(
@@ -212,8 +200,6 @@ public class HDBTableFunctionProcessorTest {
                       .thenReturn(mockSqlFactory);
             sqlFactory.when(() -> SqlFactory.deriveDialect(mockConnection))
                       .thenReturn(new HanaSqlDialect());
-            configuration.when(() -> Configuration.get(DatabaseMetadataUtil.DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE, "false"))
-                         .thenReturn("true");
 
             HDBTableFunctionDropProcessor processorSpy = spy(HDBTableFunctionDropProcessor.class);
 
