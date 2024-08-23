@@ -1,19 +1,33 @@
 {
-  "guid" : "{{projectName}}",
-  "actions" : [
+  "guid": "{{projectName}}",
+  "actions": [
     {
-      "name" : "build",
-      "commands" : [
+      "name": "Transpile ABAP",
+      "commands": [
         {
-          "os" : "mac",
-          "command" : "sh build-mac.sh"
+          "os": "mac",
+          "command": "sh build-mac.sh"
         },
         {
-          "os" : "linux",
-          "command" : "sh build-linux.sh"
+          "os": "linux",
+          "command": "sh build-linux.sh"
         }
       ],
-      "publish" : "true"
+      "publish": "true"
+    },
+    {
+      "name": "Build TypeScript",
+      "commands": [
+        {
+          "os": "unix",
+          "command": "tsc"
+        },
+        {
+          "os": "windows",
+          "command": "cmd /c tsc"
+        }
+      ],
+      "registry": "true"
     }
   ]
 }

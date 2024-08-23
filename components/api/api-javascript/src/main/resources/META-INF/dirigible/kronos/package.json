@@ -1,17 +1,17 @@
 {
-  "name" : "kronos-api",
-  "private" : true,
-  "version" : "1.0.0",
-  "scripts" : {
-    "transpile" : "rm -rf output && abap_transpile abap_transpile.json",
-    "lint" : "abaplint --config abaplint.json"
+  "name": "kronos-api",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "transpile": "rm -rf output && abap_transpile abap_transpile.json",
+    "lint": "abaplint --config abaplint.json"
   },
-  "dependencies" : {
-    "buffer" : "^6.0.3",
-    "@abaplint/runtime" : "^2.8.27",
-    "@abaplint/cli" : "^2.110.1",
-    "@abaplint/transpiler-cli" : "^2.8.27"
+  "dependencies": {
+    "buffer": "^6.0.3",
+    "@abaplint/runtime": "^2.10.9",
+    "@abaplint/cli": "^2.112.17",
+    "@abaplint/transpiler-cli": "^2.10.9"
   },
-  "author" : "codbex",
-  "license" : "EPL"
+  "author": "codbex",
+  "license": "EPL"
 }

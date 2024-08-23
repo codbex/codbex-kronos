@@ -8,6 +8,10 @@ async function initialize() {
     await initializeABAP();
 }
 
-await initialize();
+export async function execute(parameters = {}) {
+    await initialize();
+    return await zcl_abap_app.run(parameters);
+}
 
-await zcl_abap_app.run();
+const result = await execute();
+console.log("Result: " + JSON.stringify(result));
