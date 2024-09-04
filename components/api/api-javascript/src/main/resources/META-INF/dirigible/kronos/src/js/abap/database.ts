@@ -6,12 +6,18 @@ import { logging } from "sdk/log";
 const DatabaseResultSetHelper = Java.type("org.eclipse.dirigible.components.data.management.helpers.DatabaseResultSetHelper");
 
 export class DatabaseInitializer {
+  private static readonly DEFAULT_DATA_SOURCE_NAME = "DefaultDB";
+
   private static readonly logger = logging.getLogger("com.codbex.kronos.abap.database");
 
-	public static initDefaultDataSource() {
+  public static initDefaultDataSource(datasourceName?: string | undefined) {
     DatabaseInitializer.logger.info("Init default data source for ABAP...");
+
+    const defaultAbapDataSource = datasourceName ? datasourceName : DatabaseInitializer.DEFAULT_DATA_SOURCE_NAME;
+    DatabaseInitializer.logger.info("Default ABAP data source will be [{}]", defaultAbapDataSource);
+
     abap.context.databaseConnections["DEFAULT"] = new DatabaseClient();
-    DatabaseInitializer.logger.info("Default data source for ABAP was initialized");
+    DatabaseInitializer.logger.info("Default data source for ABAP was initialized. [{}] data source will be used", defaultAbapDataSource);
   };
 }
 
@@ -19,19 +25,18 @@ class DatabaseClient implements DB.DatabaseClient {
 
   public readonly name = "kronos-default-database";
 
-  private static readonly DEFAULT_DATA_SOURCE_NAME = "DefaultDB";
-
   private readonly logger;
+  private readonly datasourceName;
   private connection: any;
 
-  public constructor() {
+  public constructor(datasourceName: string) {
     this.logger = logging.getLogger("com.codbex.kronos.DatabaseClient");
-    this.logger.info("Initializing...")
+    this.datasourceName = datasourceName;
   }
 
   public async connect() {
     this.logger.debug("Creating connection...");
-    this.connection = database.getConnection(DatabaseClient.DEFAULT_DATA_SOURCE_NAME);
+    this.connection = database.getConnection(this.datasourceName);
     this.connection.setAutoCommit(false);
     // @ts-ignore
     if (abap?.context?.databaseConnections && abap.context.databaseConnections["DEFAULT"] === this) {
