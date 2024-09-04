@@ -88,7 +88,7 @@ class DatabaseClient implements DB.DatabaseClient {
     }
 
     public async beginTransaction() {
-        return; // todo
+        this.connect();
     }
 
     public async commit() {
@@ -99,7 +99,7 @@ class DatabaseClient implements DB.DatabaseClient {
         } else {
             this.logger.warn("Connection not initialized and cannot be committed");
         }
-        return; // todo
+        return;
     }
 
     public async rollback() {
@@ -114,7 +114,7 @@ class DatabaseClient implements DB.DatabaseClient {
 
     public async delete(options: DB.DeleteDatabaseOptions) {
         this.logger.debug("Deleting using options [{}]", JSON.stringify(options));
-        let sqlDelete = sql.getDialect()//
+        let sqlDelete = this.getDialect()//
             .delete()//
             .from(options.table)//
             .build();
@@ -125,7 +125,7 @@ class DatabaseClient implements DB.DatabaseClient {
 
     public async update(options: DB.UpdateDatabaseOptions) {
         this.logger.debug("Updating using options [{}]", JSON.stringify(options));
-        let sqlUpdate = sql.getDialect()//
+        let sqlUpdate = this.getDialect()//
             .update()//
             .table(options.table)//
             .build();
@@ -137,7 +137,7 @@ class DatabaseClient implements DB.DatabaseClient {
 
     public async insert(options: DB.InsertDatabaseOptions) {
         this.logger.debug("Inserting using options [{}]", JSON.stringify(options));
-        const insertBuilder = sql.getDialect()//
+        const insertBuilder = this.getDialect()//
             .insert()//
             .into(options.table);
 
@@ -150,11 +150,20 @@ class DatabaseClient implements DB.DatabaseClient {
         return this.executeUpdate(sqlInsert);
     }
 
+    private getDialect() {
+        const conn = database.getConnection(this.datasourceName);
+        try {
+            return sql.getDialect(conn);
+        } finally {
+            conn.close();
+        }
+    }
+
     private executeUpdate(sql: string) {
         this.logger.debug("Executing [{}]...", sql);
 
         try {
-            const affectedRows = update.execute(sql);
+            const affectedRows = update.execute(sql, undefined, this.datasourceName);
             this.logger.debug("Affected [{}] rows by executing [{}]", affectedRows, sql);
 
             return this.createCRUDResult(affectedRows, 0)
@@ -180,7 +189,7 @@ class DatabaseClient implements DB.DatabaseClient {
         this.logger.debug("Executing select [{}]... Input options [{}]", selectSQL, JSON.stringify(options));
 
         try {
-            const resultSet = query.execute(selectSQL);
+            const resultSet = query.execute(selectSQL, undefined, this.datasourceName);
             const selectDatabaseResult = { rows: resultSet };
             this.logger.debug("Result of select [{}]: [{}]", selectSQL, JSON.stringify(selectDatabaseResult));
 
