@@ -16,7 +16,7 @@ export class DatabaseInitializer {
     const defaultAbapDataSource = datasourceName ? datasourceName : DatabaseInitializer.DEFAULT_DATA_SOURCE_NAME;
     DatabaseInitializer.logger.info("Default ABAP data source will be [{}]", defaultAbapDataSource);
 
-    abap.context.databaseConnections["DEFAULT"] = new DatabaseClient();
+    abap.context.databaseConnections["DEFAULT"] = new DatabaseClient(defaultAbapDataSource);
     DatabaseInitializer.logger.info("Default data source for ABAP was initialized. [{}] data source will be used", defaultAbapDataSource);
   };
 }
