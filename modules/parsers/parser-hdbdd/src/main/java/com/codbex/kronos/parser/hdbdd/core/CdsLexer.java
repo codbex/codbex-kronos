@@ -1,4 +1,4 @@
-// Generated from com/codbex/kronos/parser/hdbdd/core/Cds.g4 by ANTLR 4.13.1
+// Generated from com/codbex/kronos/parser/hdbdd/core/Cds.g4 by ANTLR 4.13.2
 package com.codbex.kronos.parser.hdbdd.core;
 
 import org.antlr.v4.runtime.Lexer;
@@ -13,7 +13,7 @@ import org.antlr.v4.runtime.misc.*;
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue", "this-escape"})
 public class CdsLexer extends Lexer {
     static {
-        RuntimeMetaData.checkVersion("4.13.1", RuntimeMetaData.VERSION);
+        RuntimeMetaData.checkVersion("4.13.2", RuntimeMetaData.VERSION);
     }
 
     protected static final DFA[] _decisionToDFA;

@@ -1,4 +1,4 @@
-// Generated from com/codbex/kronos/parser/hana/core/Hana.g4 by ANTLR 4.13.1
+// Generated from com/codbex/kronos/parser/hana/core/Hana.g4 by ANTLR 4.13.2
 package com.codbex.kronos.parser.hana.core;
 
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;

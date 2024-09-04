@@ -1,4 +1,4 @@
-// Generated from com/codbex/kronos/parser/hdbschema/core/HDBSchema.g4 by ANTLR 4.13.1
+// Generated from com/codbex/kronos/parser/hdbschema/core/HDBSchema.g4 by ANTLR 4.13.2
 package com.codbex.kronos.parser.hdbschema.core;
 
 import org.antlr.v4.runtime.ParserRuleContext;
