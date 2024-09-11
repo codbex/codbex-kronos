@@ -1,4 +1,5 @@
-var assertTrue = require('test/assert').assertTrue;
+import { Assert } from 'test/assert';
+
 let trace = $.trace;
 
 let debugBool = trace.isDebugEnabled();
@@ -23,4 +24,4 @@ if (warnBool) {
     trace.warning("Warning message!");
 }
 
-assertTrue(debugBool && errorBool && fatalBool && infoBool && warnBool);
+Assert.assertTrue(debugBool && errorBool && fatalBool && infoBool && warnBool);

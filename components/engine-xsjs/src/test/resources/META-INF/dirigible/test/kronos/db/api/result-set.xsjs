@@ -1,5 +1,6 @@
+import { Assert } from 'test/assert';
+
 var db = $.db;
-var assertTrue = require('test/assert').assertTrue;
 
 var connection;
 try{
@@ -44,7 +45,7 @@ try{
     closeAssertion = false;
   } catch {}
 
-  assertTrue(bigIntAssertion && dateAssertion && decAssertion && doubleAssertion && intAssertion && stringAssertion && timeAssertion && timestampAssertion && closeAssertion && isClosedAssertion);
+  Assert.assertTrue(bigIntAssertion && dateAssertion && decAssertion && doubleAssertion && intAssertion && stringAssertion && timeAssertion && timestampAssertion && closeAssertion && isClosedAssertion);
 } finally {
   if(connection){
     connection.commit();

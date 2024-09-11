@@ -1,5 +1,6 @@
+import { Assert } from 'test/assert';
+
 var db = $.db;
-var assertTrue = require('test/assert').assertTrue;
 // tests isClosed() too
 function close(){
   var connection = db.getConnection();
@@ -26,4 +27,4 @@ function prepareStatement(){
   return statement.constructor.name == "XscPreparedStatement"
 }
 
-assertTrue(close() && prepareCall() && prepareStatement());
+Assert.assertTrue(close() && prepareCall() && prepareStatement());

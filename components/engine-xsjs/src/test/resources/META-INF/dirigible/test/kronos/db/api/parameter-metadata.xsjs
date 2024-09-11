@@ -1,3 +1,5 @@
+import { Assert } from 'test/assert';
+
 var db = $.db;
 
 var createTable = "CREATE TABLE TEST_USERS (NAME varchar(255), STEPS integer, SALARY decimal, RATING decimal, IS_ADMIN boolean, BIO varchar(255), AVG_GRADE decimal, LUCKY_NUMBER integer)";
@@ -15,7 +17,6 @@ connection.prepareCall(createTable).execute();
 var statement = connection.prepareStatement(insert);
 var parameterMetaData = statement.getParameterMetaData();
 var count = parameterMetaData.getParameterCount();
-var assertTrue = require('test/assert').assertTrue;
 
 var assertions = [];
 for (var i = 1; i <= count; i++) {
@@ -32,4 +33,4 @@ for (var i = 1; i <= count; i++) {
 statement.close();
 connection.close();
 
-assertTrue(assertions.every((assertion) => assertion));
+Assert.assertTrue(assertions.every((assertion) => assertion));
