@@ -1,5 +1,6 @@
+import { Assert } from 'test/assert';
+
 var db = $.db;
-var assertTrue = require('test/assert').assertTrue;
 var connection;
 try{
   connection = db.getConnection();
@@ -45,7 +46,7 @@ try{
     closeAssertion = false;
   } catch {}
 
-  assertTrue(batchExecutes == 2 && !executeResult && closeAssertion && updatedRows == 3 && metadataAssertion && moreResultsAssertion && parameterMetaDataAssertion && isClosedAssertion && closeAssertion);
+  Assert.assertTrue(batchExecutes == 2 && !executeResult && closeAssertion && updatedRows == 3 && metadataAssertion && moreResultsAssertion && parameterMetaDataAssertion && isClosedAssertion && closeAssertion);
 } finally {
   if(connection){
     connection.commit();

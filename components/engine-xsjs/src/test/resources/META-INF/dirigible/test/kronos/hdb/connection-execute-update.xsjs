@@ -1,4 +1,5 @@
- let assertTrue = require('test/assert').assertTrue;
+import { Assert } from 'test/assert';
+
  let connection;
  try{
   connection = $.hdb.getConnection();
@@ -8,7 +9,7 @@
   let updateStatement = "UPDATE EXAMPLE.TEST_USERS SET WEIGHT=? WHERE ID = 4";
   let updateResult = connection.executeUpdate(updateStatement, 75);
 
-  assertTrue(insertResult ===1 && updateResult > 0);
+  Assert.assertTrue(insertResult ===1 && updateResult > 0);
  } finally {
   if(connection){
     connection.close();

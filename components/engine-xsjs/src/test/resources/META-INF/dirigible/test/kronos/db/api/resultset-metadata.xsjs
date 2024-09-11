@@ -1,5 +1,6 @@
+import { Assert } from 'test/assert';
+
 var db = $.db;
-var assertTrue = require('test/assert').assertTrue;
 
 var connection;
 try {
@@ -35,7 +36,7 @@ try {
 
   var tableNameAssertion = metadata.getTableName(1) == "TEST_USERS";
 
-  assertTrue(columnCountAssertion && labelAssertion && nameAssertion && typeAssertion && typeNameAssertion && precisionAssertion && scaleAssertion && tableNameAssertion);
+  Assert.assertTrue(columnCountAssertion && labelAssertion && nameAssertion && typeAssertion && typeNameAssertion && precisionAssertion && scaleAssertion && tableNameAssertion);
 } finally {
   if(connection){
     connection.commit();

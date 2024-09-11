@@ -1,9 +1,8 @@
 import { query } from 'sdk/db'
-
-var assert = require('test/assert');
+import { Assert } from 'test/assert';
 
 export function assertEquals(expected, actual, message) {
-  assert.assertEquals(expected, actual, message
+  Assert.assertEquals(expected, actual, message
    + "\nExpected: " + expected
    + "\nActual: " + actual);
 }

@@ -1,4 +1,5 @@
-var assertTrue = require('test/assert').assertTrue;
+import { Assert } from 'test/assert';
+
 var util = $.util;
 var response = require('http/response');
 var random1 = util.createUuid();
@@ -17,7 +18,7 @@ var zip1ArrayBuffer = zip1.asArrayBuffer();
 
 var zip2 = new util.Zip({source: zipSource});
 
-assertTrue(random1 != random2 &&
+Assert.assertTrue(random1 != random2 &&
 convertedBuff === "This is a Uint8Array converted to a string" &&
 JSON.stringify(zip1ArrayBuffer) === JSON.stringify(zipSource) &&
 zip2['kronos.txt'] === 'This is Kronos'

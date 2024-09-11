@@ -1,6 +1,7 @@
+import { Assert } from 'test/assert';
+
 var database = $.hdb;
 var response = require('http/response');
-var assertTrue = require('test/assert').assertTrue;
 
 try {
 	var connection = database.getConnection();
@@ -30,4 +31,4 @@ try {
 response.flush();
 response.close();
 
-assertTrue(resultSet[0]["FIRSTNAME"] == "IVAN" && resultSet2.length.toString() == 2);
+Assert.assertTrue(resultSet[0]["FIRSTNAME"] == "IVAN" && resultSet2.length.toString() == 2);

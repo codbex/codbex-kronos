@@ -1,5 +1,6 @@
+import { Assert } from 'test/assert';
+
 var db = $.db;
-var assertTrue = require('test/assert').assertTrue;
 
 var connection = db.getConnection();
 
@@ -63,4 +64,4 @@ call.setTimestamp(15, timestampInput);
 
 call.setTinyInt(16, 1);
 
-assertTrue(true);
+Assert.assertTrue(true);

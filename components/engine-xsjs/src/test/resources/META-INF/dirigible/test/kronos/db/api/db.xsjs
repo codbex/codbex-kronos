@@ -1,5 +1,6 @@
+import { Assert } from 'test/assert';
+
 var db = $.db;
-var assertTrue = require('test/assert').assertTrue;
 var connection = db.getConnection();
 
-assertTrue(connection != null && connection != undefined);
+Assert.assertTrue(connection != null && connection != undefined);
