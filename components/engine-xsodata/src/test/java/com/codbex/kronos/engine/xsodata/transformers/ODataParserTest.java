@@ -452,15 +452,15 @@ public class ODataParserTest {
     }
 
     /**
-	 * Mock get table.
-	 *
-	 * @throws Exception the exception
-	 */
-	private void mockGetTable() throws Exception {
-		//when(mockDataSource.getConnection()).thenReturn(mockConnection);
-		when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
-		//when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
-	}
+     * Mock get table.
+     *
+     * @throws Exception the exception
+     */
+    private void mockGetTable() throws Exception {
+        // when(mockDataSource.getConnection()).thenReturn(mockConnection);
+        when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
+        // when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
+    }
 
     /**
      * Mock DB artifacts by name missing.

@@ -1,6 +1,7 @@
+import { Assert } from 'test/assert';
+
 var hdb = $.hdb;
 var response = require('http/response');
-var assertTrue = require('test/assert').assertTrue;
 
 try {
 	var connection = hdb.getConnection();
@@ -28,4 +29,4 @@ try {
 	connection.close();
 }
 
-assertTrue(row0['FIRSTNAME'] === "IVAN" && row0['LASTNAME']==="VOLKOV" && row0['AGE']===29);
+Assert.assertTrue(row0['FIRSTNAME'] === "IVAN" && row0['LASTNAME']==="VOLKOV" && row0['AGE']===29);
