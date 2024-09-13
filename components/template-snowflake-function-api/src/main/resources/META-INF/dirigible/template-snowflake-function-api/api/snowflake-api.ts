@@ -2,10 +2,10 @@ import { Controller, Post } from "sdk/http"
 import { FunctionParamsDTO, FunctionResultDTO } from "./function-data-dto"
 
 @Controller
-class SnowflakeService {
+class SnowflakeUDFService {
 
     @Post("/")
-    public sendData(dto: FunctionParamsDTO): FunctionResultDTO {
+    public executeFunction(dto: FunctionParamsDTO): FunctionResultDTO {
         const resultRows: [number, any][] = [];
 
         dto.data.forEach((rowData) => {
