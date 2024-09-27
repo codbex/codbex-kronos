@@ -205,7 +205,7 @@
             <groupId>com.codbex.kronos</groupId>
             <artifactId>codbex-kronos-components-template-abap</artifactId>
         </dependency>
-        
+
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>codbex-kronos-components-template-snowflake-function-api</artifactId>
@@ -216,27 +216,6 @@
             <artifactId>codbex-kronos-components-template-python</artifactId>
         </dependency>
 
-        <!-- Dialects -->
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.dirigible</groupId>
-            <artifactId>dirigible-database-mongodb-jdbc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sap.cloud.db.jdbc</groupId>
-            <artifactId>ngdbc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.dirigible</groupId>
-            <artifactId>dirigible-database-sql-snowflake</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.snowflake</groupId>
-            <artifactId>snowflake-jdbc</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
