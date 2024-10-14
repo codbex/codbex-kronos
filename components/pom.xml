@@ -43,7 +43,6 @@
         <module>template-xsjs-import</module>
 
         <module>template-abap</module>
-        <module>template-python</module>
         <module>template-snowflake-function-api</module>
     </modules>
 

@@ -43,6 +43,6 @@ export function getTemplate() {
 			"name": "viewName",
 			"label": "View Name"
 		}],
-		"order": 10
+		"order": 1500
 	};
 };
