@@ -24,6 +24,6 @@ export function getTemplate() {
 			"rename": "{{fileName}}.xsjs"
 		}],
 		"parameters": [],
-		"order": 20
+		"order": 1100
 	};
 };

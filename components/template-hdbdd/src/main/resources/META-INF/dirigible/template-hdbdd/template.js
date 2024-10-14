@@ -39,6 +39,6 @@ export function getTemplate() {
 			"name": "entityName",
 			"label": "Entity Name"
 		}],
-		"order": 10
+		"order": 1600
 	};
 };

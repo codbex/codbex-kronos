@@ -314,11 +314,6 @@
             </dependency>
             <dependency>
                 <groupId>com.codbex.kronos</groupId>
-                <artifactId>codbex-kronos-components-template-python</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.codbex.kronos</groupId>
                 <artifactId>codbex-kronos-modules-parsers-commons</artifactId>
                 <version>${project.version}</version>
             </dependency>
