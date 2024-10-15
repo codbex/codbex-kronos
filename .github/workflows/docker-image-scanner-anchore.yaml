@@ -32,6 +32,7 @@ jobs:
           fail-build: false
           by-cve: true
           output-format: sarif
+          only-fixed: true
 
       - name: Upload Anchore Scan SARIF Report
         uses: github/codeql-action/upload-sarif@v3
