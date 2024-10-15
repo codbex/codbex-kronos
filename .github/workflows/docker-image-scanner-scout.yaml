@@ -18,9 +18,13 @@ jobs:
   scan-image:
     runs-on: ubuntu-${{ inputs.tag }}
     permissions:
-      contents: read
-      packages: write
-      pull-requests: write
+      security-events: write
+      pull-requests: read
+      contents: write
+      id-token: write
+      statuses: write
+      actions: read
+      pages: write
 
     steps:
       - name: Checkout Code
