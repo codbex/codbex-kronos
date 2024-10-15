@@ -45,7 +45,8 @@ jobs:
         with:
           command: quickview,cves
           image: ${{ inputs.image }}:${{ inputs.tag }}
-          sarif-file: scout.sarif
+          sarif-file: sarif.output.json
+          summary: true
 
       - name: Docker Scout SBOM
         uses: docker/scout-action@v1
@@ -61,6 +62,6 @@ jobs:
           image: ${{ inputs.image }}:${{ inputs.tag }}
 
       - name: Upload Docker Scout SARIF Report
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: scout.sarif
+          sarif_file: sarif.output.json
