@@ -17,14 +17,6 @@ run-name: 'Scan image [${{ inputs.image }}] tag [${{ inputs.tag }}]'
 jobs:
   scan-image:
     runs-on: ubuntu-${{ inputs.tag }}
-    permissions:
-      security-events: write
-      pull-requests: read
-      contents: write
-      id-token: write
-      statuses: write
-      actions: read
-      pages: write
 
     steps:
       - name: Checkout Code
