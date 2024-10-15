@@ -10,7 +10,7 @@ on:
       tag:
         required: true
         type: string
-        default: ${{ inputs.tag }}
+        default: latest
 
 run-name: 'Scan image [${{ inputs.image }}] tag [${{ inputs.tag }}]'
 
