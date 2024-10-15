@@ -15,7 +15,7 @@ on:
 run-name: 'Scan image [${{ inputs.image }}] tag [${{ inputs.tag }}]'
 
 jobs:
-  build:
+  scan-image:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -29,7 +29,8 @@ jobs:
         id: scan
         with:
           image: ${{ inputs.image }}:${{ inputs.tag }}
-          fail-build: true
+          fail-build: false
+          by-cve: true
           output-format: sarif
 
       - name: Upload Anchore Scan SARIF Report

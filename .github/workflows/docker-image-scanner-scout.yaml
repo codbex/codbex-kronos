@@ -15,7 +15,7 @@ on:
 run-name: 'Scan image [${{ inputs.image }}] tag [${{ inputs.tag }}]'
 
 jobs:
-  build:
+  scan-image:
     runs-on: ubuntu-${{ inputs.tag }}
     permissions:
       contents: read
