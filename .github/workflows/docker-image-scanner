@@ -1,0 +1,59 @@
+name: Docker image scanner
+
+on:
+  workflow_call:
+    inputs:
+      image:
+        required: true
+        type: string
+        default: ghcr.io/codbex/codbex-kronos
+      tag:
+        required: true
+        type: string
+        default: ${{ inputs.tag }}
+
+run-name: 'Scan image [${{ inputs.image }}] tag [${{ inputs.tag }}]'
+  
+jobs:
+  build:
+    runs-on: ubuntu-${{ inputs.tag }}
+    permissions:
+      contents: read
+      packages: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2.5.0
+        with:
+          driver-opts: |
+            image=moby/buildkit:v0.10.6
+
+      - name: Docker Scout Quickview and CVEs
+        uses: docker/scout-action@v1
+        with:
+          command: quickview,cves
+          image: ${{ inputs.image }}:${{ inputs.tag }}
+
+      - name: Docker Scout SBOM
+        uses: docker/scout-action@v1
+        with:
+          command: sbom
+          image: ${{ inputs.image }}:${{ inputs.tag }}
+          output: sbom.json
+
+      - name: Docker Scout Recommendations
+        uses: docker/scout-action@v1
+        with:
+          command: recommendations
+          image: ${{ inputs.image }}:${{ inputs.tag }}
+
+      - name: Upload Docker Scout SARIF Report
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: scout.sarif
