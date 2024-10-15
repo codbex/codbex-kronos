@@ -45,6 +45,7 @@ jobs:
         with:
           command: quickview,cves
           image: ${{ inputs.image }}:${{ inputs.tag }}
+          sarif-file: scout.sarif
 
       - name: Docker Scout SBOM
         uses: docker/scout-action@v1
