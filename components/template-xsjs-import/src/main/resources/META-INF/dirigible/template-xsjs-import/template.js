@@ -28,6 +28,6 @@ export function getTemplate() {
 			"rename": "lib/math.xsjslib"
 		}],
 		"parameters": [],
-		"order": 20
+		"order": 1300
 	};
 };

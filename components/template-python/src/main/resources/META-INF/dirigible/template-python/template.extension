@@ -1,5 +1,0 @@
-{
-    "extensionPoint": "ide-template",
-    "module": "template-python/template.js",
-    "description": "Python Hello World Template"
-}
