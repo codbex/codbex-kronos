@@ -1,7 +1,7 @@
 name: Docker image scanner
 
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       image:
         required: true
@@ -13,7 +13,7 @@ on:
         default: ${{ inputs.tag }}
 
 run-name: 'Scan image [${{ inputs.image }}] tag [${{ inputs.tag }}]'
-  
+
 jobs:
   build:
     runs-on: ubuntu-${{ inputs.tag }}
