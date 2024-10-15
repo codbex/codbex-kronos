@@ -1,4 +1,4 @@
-name: Docker image scanner
+name: Docker image scanner [Docker Scout]
 
 on:
   workflow_dispatch:
@@ -33,6 +33,12 @@ jobs:
         with:
           driver-opts: |
             image=moby/buildkit:v0.10.6
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2.1.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Docker Scout Quickview and CVEs
         uses: docker/scout-action@v1
