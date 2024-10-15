@@ -37,6 +37,7 @@ jobs:
           image: ${{ inputs.image }}:${{ inputs.tag }}
           sarif-file: sarif.output.json
           summary: true
+          only-fixed: true
 
       - name: Docker Scout SBOM
         uses: docker/scout-action@v1
