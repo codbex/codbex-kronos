@@ -64,6 +64,6 @@ export function getTemplate() {
       rename: "src/run.mjs"
     }],
 		parameters: [],
-		order: 30
+		order: -190
 	};
 };

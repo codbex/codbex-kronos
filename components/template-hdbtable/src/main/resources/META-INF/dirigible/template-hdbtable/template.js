@@ -36,6 +36,6 @@ export function getTemplate() {
 			"name": "tableName",
 			"label": "Table Name"
 		}],
-		"order": 10
+		"order": 1400
 	};
 };

@@ -42,6 +42,10 @@
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-components-security-keycloak</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-components-security-snowflake</artifactId>
+        </dependency>
 
         <!-- Data -->
         <dependency>
@@ -205,38 +209,52 @@
             <groupId>com.codbex.kronos</groupId>
             <artifactId>codbex-kronos-components-template-abap</artifactId>
         </dependency>
-        
+
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>codbex-kronos-components-template-snowflake-function-api</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-components-template-python</artifactId>
+            <artifactId>dirigible-components-template-hello-world</artifactId>
+            <groupId>org.eclipse.dirigible</groupId>
         </dependency>
 
-        <!-- Dialects -->
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-        </dependency>
-        <dependency>
+            <artifactId>dirigible-components-template-typescript</artifactId>
             <groupId>org.eclipse.dirigible</groupId>
-            <artifactId>dirigible-database-mongodb-jdbc</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>com.sap.cloud.db.jdbc</groupId>
-            <artifactId>ngdbc</artifactId>
-        </dependency>
-        <dependency>
+            <artifactId>dirigible-components-template-http-client</artifactId>
             <groupId>org.eclipse.dirigible</groupId>
-            <artifactId>dirigible-database-sql-snowflake</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>net.snowflake</groupId>
-            <artifactId>snowflake-jdbc</artifactId>
+            <artifactId>dirigible-components-template-database-access</artifactId>
+            <groupId>org.eclipse.dirigible</groupId>
         </dependency>
+
+        <dependency>
+            <artifactId>dirigible-components-template-database-table</artifactId>
+            <groupId>org.eclipse.dirigible</groupId>
+        </dependency>
+
+        <dependency>
+            <artifactId>dirigible-components-template-database-view</artifactId>
+            <groupId>org.eclipse.dirigible</groupId>
+        </dependency>
+
+        <dependency>
+            <artifactId>dirigible-components-template-job</artifactId>
+            <groupId>org.eclipse.dirigible</groupId>
+        </dependency>
+
+        <dependency>
+            <artifactId>dirigible-components-template-listener</artifactId>
+            <groupId>org.eclipse.dirigible</groupId>
+        </dependency>
+
     </dependencies>
 
     <build>
