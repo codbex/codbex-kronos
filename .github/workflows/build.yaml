@@ -1,4 +1,3 @@
-# name is used in docker-image-scanner-scout.yaml
 name: Build - Platform
 
 on:
