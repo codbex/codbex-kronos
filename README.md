@@ -161,4 +161,3 @@ All the bug reports as well as the feature requests have to be registered as iss
 ## Contributing
 
 If you want to contribute, please check the [Contribution Guidelines](CONTRIBUTING.md)
-
