@@ -373,7 +373,7 @@
       "exclude": [
         "/json/"
       ],
-      "pattern": "^TY_.+$"
+      "pattern": "^.+$"
     },
     "uncaught_exception": true,
     "unknown_types": true,
