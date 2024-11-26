@@ -4,7 +4,7 @@ set -e
 log() {
     echo "$(date '+%Y-%m-%d %H:%M:%S') --- $1"
 }
-log "Executing Linux build script..."
+log "Executing Mac build script..."
 
 script_path=$(realpath "$0")
 log "Script path: $script_path"
@@ -35,4 +35,4 @@ esbuild src/run.mjs --tsconfig=./tsconfig.json --bundle --outdir=dist --format=e
     --inject:./src/lib/polyfills/buffer.js --inject:./src/lib/polyfills/process.js \
     --out-extension:.js=.mjs
 
-log "Linux build script $script_path completed!"
+log "Mac build script $script_path completed!"
