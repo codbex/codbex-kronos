@@ -18,13 +18,6 @@ import com.codbex.kronos.engine.hdb.processors.HDBSchemaCreateProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBSchemaDropProcessor;
 import com.codbex.kronos.engine.hdb.service.HDBSchemaService;
 import com.codbex.kronos.exceptions.ArtifactParserException;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.List;
 import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
 import org.eclipse.dirigible.components.base.artefact.ArtefactPhase;
@@ -39,6 +32,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.List;
 
 /**
  * The Class HDBSchemasSynchronizer.
@@ -127,7 +128,7 @@ public class HDBSchemaSynchronizer extends BaseSynchronizer<HDBSchema, Long> {
      * @throws ParseException the parse exception
      */
     @Override
-    public List<HDBSchema> parse(String location, byte[] content) throws ParseException {
+    protected List<HDBSchema> parseImpl(String location, byte[] content) throws ParseException {
         HDBSchema schema;
         try {
             schema = HDBDataStructureModelFactory.parseSchema(location, content);

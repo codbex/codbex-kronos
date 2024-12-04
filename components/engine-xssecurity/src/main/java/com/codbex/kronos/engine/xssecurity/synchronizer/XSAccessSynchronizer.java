@@ -13,11 +13,6 @@ package com.codbex.kronos.engine.xssecurity.synchronizer;
 import com.codbex.kronos.engine.xssecurity.domain.XSAccess;
 import com.codbex.kronos.engine.xssecurity.parser.XSAccessParser;
 import com.codbex.kronos.engine.xssecurity.service.XSAccessService;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.text.ParseException;
-import java.util.List;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
 import org.eclipse.dirigible.components.base.artefact.ArtefactPhase;
 import org.eclipse.dirigible.components.base.artefact.topology.TopologyWrapper;
@@ -31,6 +26,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.text.ParseException;
+import java.util.List;
 
 /**
  * The Class AccessSynchronizer.
@@ -129,7 +130,7 @@ public class XSAccessSynchronizer extends BaseSynchronizer<XSAccess, Long> {
      * @throws ParseException the parse exception
      */
     @Override
-    public List<XSAccess> parse(String location, byte[] content) throws ParseException {
+    protected List<XSAccess> parseImpl(String location, byte[] content) throws ParseException {
         XSAccess xsaccess = XSAccessParser.parse(content)
                                           .toAccessDefinition();
         xsaccess.setLocation(location);

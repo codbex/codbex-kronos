@@ -13,19 +13,9 @@ package com.codbex.kronos.engine.xsodata.synchronizer;
 import com.codbex.kronos.commons.StringUtils;
 import com.codbex.kronos.engine.xsodata.domain.XSOData;
 import com.codbex.kronos.engine.xsodata.service.XSODataService;
-import com.codbex.kronos.engine.xsodata.transformers.TableMetadataProvider;
-import com.codbex.kronos.engine.xsodata.transformers.XSOData2ODataHTransformer;
-import com.codbex.kronos.engine.xsodata.transformers.XSOData2ODataMTransformer;
-import com.codbex.kronos.engine.xsodata.transformers.XSOData2ODataXTransformer;
-import com.codbex.kronos.engine.xsodata.transformers.XSODataArtefactParser;
+import com.codbex.kronos.engine.xsodata.transformers.*;
 import com.codbex.kronos.engine.xsodata.utils.ODataUtils;
 import com.codbex.kronos.exceptions.ArtifactParserException;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.List;
 import org.eclipse.dirigible.commons.config.Configuration;
 import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
@@ -33,11 +23,7 @@ import org.eclipse.dirigible.components.base.artefact.ArtefactPhase;
 import org.eclipse.dirigible.components.base.artefact.topology.TopologyWrapper;
 import org.eclipse.dirigible.components.base.synchronizer.BaseSynchronizer;
 import org.eclipse.dirigible.components.base.synchronizer.SynchronizerCallback;
-import org.eclipse.dirigible.components.odata.domain.OData;
-import org.eclipse.dirigible.components.odata.domain.ODataContainer;
-import org.eclipse.dirigible.components.odata.domain.ODataHandler;
-import org.eclipse.dirigible.components.odata.domain.ODataMapping;
-import org.eclipse.dirigible.components.odata.domain.ODataSchema;
+import org.eclipse.dirigible.components.odata.domain.*;
 import org.eclipse.dirigible.components.odata.service.ODataContainerService;
 import org.eclipse.dirigible.components.odata.service.ODataHandlerService;
 import org.eclipse.dirigible.components.odata.service.ODataMappingService;
@@ -48,6 +34,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.List;
 
 /**
  * The Class XSODataSynchronizer.
@@ -149,7 +142,7 @@ public class XSODataSynchronizer extends BaseSynchronizer<XSOData, Long> {
      * @throws ParseException
      */
     @Override
-    public List<XSOData> parse(String location, byte[] content) throws ParseException {
+    protected List<XSOData> parseImpl(String location, byte[] content) throws ParseException {
         try {
             XSOData xsodata = new XSOData();
             xsodata = parseOData(location, StringUtils.toString(content), xsodata);

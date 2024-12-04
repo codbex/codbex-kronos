@@ -20,13 +20,6 @@ import com.codbex.kronos.engine.hdb.processors.HDBTableTypeCreateProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBTableTypeDropProcessor;
 import com.codbex.kronos.engine.hdb.service.HDBTableTypeService;
 import com.codbex.kronos.exceptions.ArtifactParserException;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.List;
 import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
 import org.eclipse.dirigible.components.base.artefact.ArtefactPhase;
@@ -41,6 +34,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.List;
 
 /**
  * The Class HDBTableTypesSynchronizer.
@@ -129,7 +130,7 @@ public class HDBTableTypesSynchronizer extends BaseSynchronizer<HDBTableType, Lo
      * @throws ParseException the parse exception
      */
     @Override
-    public List<HDBTableType> parse(String location, byte[] content) throws ParseException {
+    protected List<HDBTableType> parseImpl(String location, byte[] content) throws ParseException {
         HDBTableType tableType;
         try {
             tableType = HDBDataStructureModelFactory.parseTableType(location, content);
