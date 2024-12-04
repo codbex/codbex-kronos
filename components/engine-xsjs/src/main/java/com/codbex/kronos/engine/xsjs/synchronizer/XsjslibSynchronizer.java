@@ -13,13 +13,6 @@ package com.codbex.kronos.engine.xsjs.synchronizer;
 import com.codbex.kronos.commons.StringUtils;
 import com.codbex.kronos.engine.xsjs.domain.Xsjslib;
 import com.codbex.kronos.engine.xsjs.service.XsjslibService;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.text.ParseException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
 import org.eclipse.dirigible.components.base.artefact.ArtefactPhase;
@@ -36,6 +29,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.text.ParseException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The Class XsjslibSynchronizer.
@@ -148,7 +149,7 @@ public class XsjslibSynchronizer extends BaseSynchronizer<Xsjslib, Long> {
      * @throws ParseException
      */
     @Override
-    public List<Xsjslib> parse(String location, byte[] content) throws ParseException {
+    protected List<Xsjslib> parseImpl(String location, byte[] content) throws ParseException {
         Xsjslib xsjslib = new Xsjslib();
         xsjslib.setLocation(location);
         xsjslib.setName(Paths.get(location)

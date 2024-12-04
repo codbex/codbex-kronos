@@ -18,12 +18,6 @@ import com.codbex.kronos.engine.hdi.parser.HDIParser;
 import com.codbex.kronos.engine.hdi.processors.HDIContainerCreateProcessor;
 import com.codbex.kronos.engine.hdi.processors.HDIContainerDropProcessor;
 import com.codbex.kronos.engine.hdi.service.HDIService;
-import java.nio.file.Path;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.sql.Connection;
-import java.text.ParseException;
-import java.util.Collections;
-import java.util.List;
 import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
 import org.eclipse.dirigible.components.base.artefact.ArtefactPhase;
@@ -37,6 +31,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.sql.Connection;
+import java.text.ParseException;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * The Class HDISynchronizer.
@@ -135,7 +136,7 @@ public class HDISynchronizer extends BaseSynchronizer<HDI, Long> {
      * @throws ParseException the parse exception
      */
     @Override
-    public List<HDI> parse(String location, byte[] content) throws ParseException {
+    protected List<HDI> parseImpl(String location, byte[] content) throws ParseException {
         HDBParameters parametersModel =
                 new HDBParameters(TYPE_HDI, location, content, IRepositoryStructure.PATH_REGISTRY_PUBLIC + IRepositoryStructure.SEPARATOR);
         HDI hdi = new HDIParser().parse(parametersModel);

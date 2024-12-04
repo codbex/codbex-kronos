@@ -16,15 +16,6 @@ import com.codbex.kronos.engine.xsjob.service.XSJobService;
 import com.codbex.kronos.xsjob.ds.model.JobArtifact;
 import com.codbex.kronos.xsjob.ds.scheduler.SchedulerManager;
 import com.codbex.kronos.xsjob.ds.transformer.JobToKronosJobDefinitionTransformer;
-import java.io.ByteArrayInputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.sql.Connection;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
 import org.eclipse.dirigible.commons.api.helpers.GsonHelper;
 import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
@@ -38,6 +29,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.sql.Connection;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Class XSJobSynchronizer.
@@ -126,7 +127,7 @@ public class XSJobSynchronizer extends BaseSynchronizer<XSJob, Long> {
      * @throws ParseException the parse exception
      */
     @Override
-    public List<XSJob> parse(String location, byte[] content) throws ParseException {
+    protected List<XSJob> parseImpl(String location, byte[] content) throws ParseException {
         JobArtifact jobArtifact =
                 GsonHelper.fromJson(new InputStreamReader(new ByteArrayInputStream(content), StandardCharsets.UTF_8), JobArtifact.class);
         JobToKronosJobDefinitionTransformer jobToKronosJobDefinitionTransformer = new JobToKronosJobDefinitionTransformer();

@@ -11,29 +11,14 @@
 package com.codbex.kronos.engine.hdb.synchronizer;
 
 import com.codbex.kronos.commons.StringUtils;
-import com.codbex.kronos.engine.hdb.domain.HDBDD;
-import com.codbex.kronos.engine.hdb.domain.HDBTable;
-import com.codbex.kronos.engine.hdb.domain.HDBTableConstraints;
-import com.codbex.kronos.engine.hdb.domain.HDBTableType;
-import com.codbex.kronos.engine.hdb.domain.HDBTableTypePrimaryKey;
-import com.codbex.kronos.engine.hdb.domain.HDBView;
+import com.codbex.kronos.engine.hdb.domain.*;
 import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.parser.HDBUtils;
-import com.codbex.kronos.engine.hdb.processors.HDBTableAlterProcessor;
-import com.codbex.kronos.engine.hdb.processors.HDBTableCreateProcessor;
-import com.codbex.kronos.engine.hdb.processors.HDBTableTypeCreateProcessor;
-import com.codbex.kronos.engine.hdb.processors.HDBViewCreateProcessor;
-import com.codbex.kronos.engine.hdb.processors.HDBViewDropProcessor;
+import com.codbex.kronos.engine.hdb.processors.*;
 import com.codbex.kronos.engine.hdb.service.HDBDDService;
 import com.codbex.kronos.engine.hdb.service.HDBTableService;
 import com.codbex.kronos.engine.hdb.service.HDBTableTypeService;
 import com.codbex.kronos.engine.hdb.service.HDBViewService;
-import java.nio.file.Path;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.List;
 import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
 import org.eclipse.dirigible.components.base.artefact.ArtefactPhase;
@@ -48,6 +33,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.List;
 
 /**
  * The Class HDBDDSynchronizer.
@@ -183,7 +175,7 @@ public class HDBDDSynchronizer extends BaseSynchronizer<HDBDD, Long> {
      * @throws ParseException the parse exception
      */
     @Override
-    public List<HDBDD> parse(String location, byte[] content) throws ParseException {
+    protected List<HDBDD> parseImpl(String location, byte[] content) throws ParseException {
         HDBDD hdbdd;
         try {
             hdbdd = HDBDataStructureModelFactory.parseHdbdd(location, content);

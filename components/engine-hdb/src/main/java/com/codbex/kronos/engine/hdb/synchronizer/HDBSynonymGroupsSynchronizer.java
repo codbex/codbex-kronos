@@ -18,13 +18,6 @@ import com.codbex.kronos.engine.hdb.parser.HDBDataStructureModelFactory;
 import com.codbex.kronos.engine.hdb.processors.HDBSynonymCreateProcessor;
 import com.codbex.kronos.engine.hdb.processors.HDBSynonymDropProcessor;
 import com.codbex.kronos.engine.hdb.service.HDBSynonymGroupService;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.List;
 import org.apache.commons.io.FilenameUtils;
 import org.eclipse.dirigible.components.api.platform.ProblemsFacade;
 import org.eclipse.dirigible.components.base.artefact.ArtefactLifecycle;
@@ -40,6 +33,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.List;
 
 /**
  * The Class HDBSynonymGroupSynchronizer.
@@ -128,7 +129,7 @@ public class HDBSynonymGroupsSynchronizer extends BaseSynchronizer<HDBSynonymGro
      * @throws ParseException the parse exception
      */
     @Override
-    public List<HDBSynonymGroup> parse(String location, byte[] content) throws ParseException {
+    protected List<HDBSynonymGroup> parseImpl(String location, byte[] content) throws ParseException {
         HDBSynonymGroup synonymGroup;
         try {
             synonymGroup = HDBDataStructureModelFactory.parseSynonym(location, content);
