@@ -11,6 +11,7 @@
 package com.codbex.kronos.integration.tests.ui;
 
 import com.codbex.kronos.integration.tests.IntegrationTest;
+import org.eclipse.dirigible.tests.IDE;
 import org.eclipse.dirigible.tests.framework.Browser;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,5 +19,8 @@ public abstract class UserInterfaceIntegrationTest extends IntegrationTest {
 
     @Autowired
     protected Browser browser;
+
+    @Autowired
+    protected IDE ide;
 
 }
