@@ -11,17 +11,16 @@
 package com.codbex.kronos.integration.tests;
 
 import com.codbex.kronos.KronosApplication;
-import org.junit.runner.RunWith;
+import com.codbex.kronos.integration.tests.config.TestConfigurations;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
-import org.springframework.test.context.junit4.SpringRunner;
 
+@Import(TestConfigurations.class)
 @AutoConfigureMockMvc
-@RunWith(SpringRunner.class)
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = KronosApplication.class)
 public abstract class IntegrationTest {
 
