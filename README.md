@@ -1,4 +1,8 @@
-# codbex-kronos
+# Kronos by codbex
+
+[![Build Status](https://github.com/codbex/codbex-kronos/actions/workflows/build.yaml/badge.svg)](https://github.com/codbex/codbex-kronos/actions/workflows/build.yaml)
+[![Eclipse License](https://img.shields.io/badge/License-EPL%202.0-brightgreen.svg)](https://github.com/codbex/codbex-kronos/blob/main/LICENSE)
+[![Maven Central](https://img.shields.io/maven-central/v/com.codbex.kronos/codbex-kronos-application.svg)](https://central.sonatype.com/namespace/com.codbex.kronos)
 
 > Kronos is the official fork of the project "XSK" developed by SAP until 2022. This repository is well maintained by
 > the same developers
