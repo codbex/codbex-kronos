@@ -8,22 +8,22 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos.integration.tests.config;
+package com.codbex.kronos.integration.tests.ui;
 
-import org.eclipse.dirigible.tests.WelcomeView;
-import org.eclipse.dirigible.tests.framework.Browser;
 import org.eclipse.dirigible.tests.framework.HtmlElementType;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
-class OldUIWelcomeView extends WelcomeView {
-    private final Browser browser;
+class HomePageIT extends UserInterfaceIntegrationTest {
 
-    OldUIWelcomeView(Browser browser) {
-        super(browser);
-        this.browser = browser;
-    }
+    @Autowired
+    private Kronos kronos;
 
-    @Override
-    public void confirmTemplate() {
-        this.browser.clickOnElementContainingText(HtmlElementType.BUTTON, "Ok");
+    @Test
+    void testOpenHomepage() {
+        kronos.openHomePage();
+
+        browser.assertElementExistsByTypeAndText(HtmlElementType.SPAN, "codbex");
+        browser.assertElementExistsByTypeAndText(HtmlElementType.HEADER3, "Welcome to Kronos");
     }
 }

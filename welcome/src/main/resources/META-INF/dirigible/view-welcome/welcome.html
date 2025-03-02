@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="welcome" ng-controller="WelcomeController" xmlns="http://www.w3.org/1999/xhtml">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link rel="icon" sizes="any" href="data:;base64,iVBORw0KGgo=">
+    <title config-title></title>
+    <script src="configs/welcome.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/services/js/platform-core/services/loader.js?id=editor-js"></script>
+    <script type="text/javascript" src="/services/web/service-template/templates.js"></script>
+    <link type="text/css" rel="stylesheet" href="/services/js/platform-core/services/loader.js?id=view-css" />
+    <script src="js/welcome.js" type="text/javascript"></script>
+    <style>
+      .imgColor {
+        background-color: var(--sapBrandColor);
+        color: var(--sapTextColor);
+        fill: var(--sapTextColor);
+      }
+
+    </style>
+  </head>
+
+  <body bk-scrollbar>
+    <section class="fd-section bk-full-height bk-padding-top--md" style="background-color: transparent">
+      <div class="fd-section__header">
+        <h3 class="fd-section__title">Welcome to Kronos</h3>
+      </div>
+      <p class="fd-text">Kronos by <bk-link href="http://www.codbex.com" target="_blank">codbex</bk-link> 
+        provides a compatible environment for
+        <a href="https://help.sap.com/viewer/52715f71adba4aaeb480d946c742d1f6/2.0.03/en-US/a6c0749255d84a81a154a7fc87dd33ce.html"
+           target="_blank" class="fd-link">SAP HANA Extended Application Services</a>
+        (XS) based applications. It is deployed outside of
+        <a href="https://www.sap.com/products/hana.html?btp=991d50bf-fa15-4979-ac4b-b280b0eb951f" target="_blank"
+           class="fd-link">SAP HANA</a> instance as a <a href="https://www.docker.com/" target="_blank" class="fd-link">Docker</a>
+        container on <a href="https://kubernetes.io/" target="_blank" class="fd-link">Kubernetes</a>.
+        Hence, some of the features can work against any other JDBC compliant RDBMS such as <a
+                href="https://www.postgresql.org/" target="_blank" class="fd-link">PostgreSQL</a>.
+        <br>
+        Native execution of the XS Classic artefacts acheiving near 100% compatibility and completeness is the main
+        driving force behind the product.
+      </p>
+      <br>
+      <bk-panel fixed="::true" expanded="::true">
+        <bk-toolbar type="transparent">
+          <bk-toolbar-title>Create a new project</bk-toolbar-title>
+          <bk-toolbar-spacer></bk-toolbar-spacer>
+          <bk-input id="searchInput" style="max-width: 30%;" ng-change="search.applyFilter()" ng-model="search.text" placeholder="Search template by name" type="text"></bk-input>
+        </bk-toolbar>
+        <div class="fd-container">
+          <div class="fd-row">
+            <span ng-if="templates.length && !filteredTemplates.length">No templates found.</span>
+            <div ng-if="templates.length" class="fd-col fd-col--12 fd-col-md--6 fd-col-lg--4 fd-col-xl--3" ng-repeat="template in filteredTemplates | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
+              <bk-card card-type="object" aria-roledescription="Card" ng-click="openCreateProjectDialog(template)">
+                <bk-card-header title="{{::template.name}}" subtitle="{{::template.description}}" interactive="true" description="Create project from template {{::template.name}}">
+                  <bk-avatar ng-if="!template.glyph && !template.image" glyph="sap-icon--example" style="font-size:2rem" size="s" aria-label="project template icon"></bk-avatar>
+                  <bk-avatar ng-if="template.glyph && !template.image" glyph="{{::template.glyph}}" style="font-size:2rem" size="s" aria-label="project template icon"></bk-avatar>
+                  <bk-avatar ng-if="!template.glyph && template.image" class="imgColor" image="{{::template.image}}" style="font-size:1.5rem" size="s" aria-label="project template icon"></bk-avatar>
+                </bk-card-header>
+              </bk-card>
+            </div>
+          </div>
+        </div>
+      </bk-panel>
+      <bk-pagination current-page="currentPage" display-total-items="true" items-per-page="pageSize" total-items="filteredTemplates.length"></bk-pagination>
+      <p class="fd-text">You can create server-side scripting services by using the <bk-link href="http://www.codbex.com/documentation/platform/sdk" target="_blank">Enterprise Javascript API</bk-link>
+        or just design your web pages in HTML5 by using your favorite client-side framework.
+        <br>
+        All source code is licensed under the <bk-link href="https://www.eclipse.org/legal/epl-v20.html" target="_blank">Eclipse Public License - v 2.0</bk-link> and maintained at <bk-link href="https://github.com/codbex/codbex-hyperion"
+          target="_blank">GitHub</bk-link>.
+      </p>
+    </section>
+    <theme></theme>
+  </body>
+
+</html>

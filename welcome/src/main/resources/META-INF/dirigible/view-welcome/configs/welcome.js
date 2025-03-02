@@ -9,14 +9,14 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-const brandingInfo = {
-    name: 'codbex',
-    brand: 'codbex',
-    brandUrl: 'https://www.codbex.com/',
-    icons: {
-        faviconIco: '/services/web/ide-branding/images/favicon.ico',
-        favicon32: '/services/web/ide-branding/images/favicon-32x32.png',
-        favicon16: '/services/web/ide-branding/images/favicon-16x16.png',
-    },
-    logo: '/services/web/ide-branding/images/logo.svg',
-};
+const viewData = {
+	id: "welcome",
+	label: "Welcome",
+	factory: "frame",
+	lazyLoad: true,
+	region: "center",
+	path: "/services/web/view-welcome/welcome.html"
+}
+if (typeof exports !== 'undefined') {
+	exports.getView = () => viewData;
+}

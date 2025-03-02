@@ -1,5 +1,5 @@
 {
     "module": "ide-file-types/extensions/kronos.js",
-    "extensionPoint": "ide-file-types",
+    "extensionPoint": "platform-file-types",
     "description": "Kronos File Types"
 }
