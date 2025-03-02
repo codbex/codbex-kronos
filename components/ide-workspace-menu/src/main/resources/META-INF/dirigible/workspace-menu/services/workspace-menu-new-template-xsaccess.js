@@ -40,7 +40,7 @@ let xsDefaultTemplate = {
      }
 };
 
-exports.getTemplate = function () {
+export function getTemplate() {
      return {
           "name": "xsaccess",
           "label": "Application-access file (.xsaccess)",

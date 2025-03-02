@@ -1,5 +1,10 @@
 {
-   "guid": "ide-welcome",
+	"guid": "platform-branding",
+	"repository": {
+		"type": "git",
+		"branch": "main",
+		"url": "https://github.com/codbex/codbex-kronos.git"
+	},
     "actions": [
         {
             "name": "Build TypeScript",
