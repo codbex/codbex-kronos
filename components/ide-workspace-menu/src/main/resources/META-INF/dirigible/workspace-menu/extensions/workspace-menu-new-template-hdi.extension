@@ -1,1 +1,5 @@
-{"module":"workspace-menu/services/workspace-menu-new-template-hdi.js","extensionPoint":"ide-workspace-menu-new-template","description":"HDI New Menu Extension"}
+{
+    "module":"workspace-menu/services/workspace-menu-new-template-hdi.js",
+    "extensionPoint":"platform-templates-menu",
+    "description":"HDI New Menu Extension"
+}
