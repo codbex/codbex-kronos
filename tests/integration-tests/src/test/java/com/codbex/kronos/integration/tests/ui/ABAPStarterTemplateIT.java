@@ -10,7 +10,6 @@
  */
 package com.codbex.kronos.integration.tests.ui;
 
-import org.eclipse.dirigible.tests.IDE;
 import org.eclipse.dirigible.tests.WelcomeView;
 import org.eclipse.dirigible.tests.Workbench;
 import org.eclipse.dirigible.tests.restassured.RestAssuredExecutor;
@@ -21,13 +20,10 @@ import java.util.concurrent.TimeUnit;
 
 import static org.awaitility.Awaitility.await;
 
-class ABAPStarterTemplateIT extends UserInterfaceIntegrationTest {
+class ABAPStarterTemplateIT extends KronosIntegrationTest {
 
     private static final String ABAP_TEMPLATE_TITLE = "ABAP Starter";
     private static final String TEST_PROJECT = "kronos-test-project";
-
-    @Autowired
-    private IDE ide;
 
     @Autowired
     private RestAssuredExecutor restAssuredExecutor;

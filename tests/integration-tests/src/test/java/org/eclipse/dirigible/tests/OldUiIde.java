@@ -8,34 +8,37 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos.integration.tests.config;
+package org.eclipse.dirigible.tests;
 
-import org.eclipse.dirigible.tests.IDE;
-import org.eclipse.dirigible.tests.Workbench;
 import org.eclipse.dirigible.tests.framework.Browser;
 import org.eclipse.dirigible.tests.restassured.RestAssuredExecutor;
 import org.eclipse.dirigible.tests.util.ProjectUtil;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
+@Primary
 @Lazy
 @Component
 class OldUiIde extends IDE {
 
-    private final Browser browser;
+    private final WorkbenchFactory workbenchFactory;
+    private final WelcomeViewFactory welcomeViewFactory;
 
-    OldUiIde(Browser browser, RestAssuredExecutor restAssuredExecutor, ProjectUtil projectUtil) {
-        super(browser, restAssuredExecutor, projectUtil);
-        this.browser = browser;
+    OldUiIde(Browser browser, RestAssuredExecutor restAssuredExecutor, ProjectUtil projectUtil, WorkbenchFactory workbenchFactory,
+            WelcomeViewFactory welcomeViewFactory) {
+        super(browser, restAssuredExecutor, projectUtil, workbenchFactory);
+        this.workbenchFactory = workbenchFactory;
+        this.welcomeViewFactory = welcomeViewFactory;
     }
 
     @Override
     public Workbench openWorkbench() {
         openHomePage();
 
-        browser.clickOnElementById("perspective-workbench");
+        getBrowser().clickOnElementById("perspective-workbench");
 
-        return new OldUIWorkbench(browser);
+        return new OldUIWorkbench(getBrowser(), welcomeViewFactory);
     }
 
 }

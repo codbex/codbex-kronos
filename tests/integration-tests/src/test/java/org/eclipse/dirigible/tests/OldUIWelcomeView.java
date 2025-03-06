@@ -8,19 +8,21 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos.integration.tests.ui;
+package org.eclipse.dirigible.tests;
 
-import com.codbex.kronos.integration.tests.IntegrationTest;
-import org.eclipse.dirigible.tests.IDE;
 import org.eclipse.dirigible.tests.framework.Browser;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.eclipse.dirigible.tests.framework.HtmlElementType;
 
-public abstract class UserInterfaceIntegrationTest extends IntegrationTest {
+class OldUIWelcomeView extends WelcomeView {
+    private final Browser browser;
 
-    @Autowired
-    protected Browser browser;
+    OldUIWelcomeView(Browser browser) {
+        super(browser);
+        this.browser = browser;
+    }
 
-    @Autowired
-    protected IDE ide;
-
+    @Override
+    public void confirmTemplate() {
+        this.browser.clickOnElementContainingText(HtmlElementType.BUTTON, "Ok");
+    }
 }

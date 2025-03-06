@@ -8,22 +8,32 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos.integration.tests.config;
+package org.eclipse.dirigible.tests;
 
-import org.eclipse.dirigible.tests.WelcomeView;
 import org.eclipse.dirigible.tests.framework.Browser;
 import org.eclipse.dirigible.tests.framework.HtmlElementType;
 
-class OldUIWelcomeView extends WelcomeView {
-    private final Browser browser;
+class OldUIWorkbench extends Workbench {
 
-    OldUIWelcomeView(Browser browser) {
-        super(browser);
+    private final Browser browser;
+    private final WelcomeViewFactory welcomeViewFactory;
+
+    OldUIWorkbench(Browser browser, WelcomeViewFactory welcomeViewFactory) {
+        super(browser, welcomeViewFactory);
         this.browser = browser;
+        this.welcomeViewFactory = welcomeViewFactory;
     }
 
     @Override
-    public void confirmTemplate() {
-        this.browser.clickOnElementContainingText(HtmlElementType.BUTTON, "Ok");
+    public WelcomeView openWelcomeView() {
+        focusOnOpenedFile("Welcome");
+        return welcomeViewFactory.create(browser);
     }
+
+    @Override
+    public WelcomeView focusOnOpenedFile(String fileName) {
+        this.browser.clickOnElementContainingText(HtmlElementType.ANCHOR, fileName);
+        return welcomeViewFactory.create(browser);
+    }
+
 }
