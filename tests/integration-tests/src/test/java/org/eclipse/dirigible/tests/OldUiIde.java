@@ -24,7 +24,7 @@ class OldUiIde extends IDE {
     private final WelcomeViewFactory welcomeViewFactory;
 
     OldUiIde(Browser browser, RestAssuredExecutor restAssuredExecutor, ProjectUtil projectUtil, OldWorkbenchFactory workbenchFactory,
-            WelcomeViewFactory welcomeViewFactory) {
+            OldUiWelcomeViewFactory welcomeViewFactory) {
         super(browser, restAssuredExecutor, projectUtil, workbenchFactory);
         this.workbenchFactory = workbenchFactory;
         this.welcomeViewFactory = welcomeViewFactory;
