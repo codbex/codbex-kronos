@@ -3,10 +3,12 @@ package org.eclipse.dirigible.tests;
 import org.eclipse.dirigible.tests.framework.Browser;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
+@Component
 @Primary
 @Lazy
-public class OldUiWelcomeViewFactory extends WelcomeViewFactory {
+class OldUiWelcomeViewFactory extends WelcomeViewFactory {
     private final Browser defaultBrowser;
 
     OldUiWelcomeViewFactory(Browser defaultBrowser) {
