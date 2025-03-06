@@ -23,7 +23,7 @@ class OldUiIde extends IDE {
     private final WorkbenchFactory workbenchFactory;
     private final WelcomeViewFactory welcomeViewFactory;
 
-    OldUiIde(Browser browser, RestAssuredExecutor restAssuredExecutor, ProjectUtil projectUtil, WorkbenchFactory workbenchFactory,
+    OldUiIde(Browser browser, RestAssuredExecutor restAssuredExecutor, ProjectUtil projectUtil, OldWorkbenchFactory workbenchFactory,
             WelcomeViewFactory welcomeViewFactory) {
         super(browser, restAssuredExecutor, projectUtil, workbenchFactory);
         this.workbenchFactory = workbenchFactory;
