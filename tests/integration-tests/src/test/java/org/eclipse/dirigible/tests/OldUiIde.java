@@ -14,10 +14,8 @@ import org.eclipse.dirigible.tests.framework.Browser;
 import org.eclipse.dirigible.tests.restassured.RestAssuredExecutor;
 import org.eclipse.dirigible.tests.util.ProjectUtil;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
-@Primary
 @Lazy
 @Component
 class OldUiIde extends IDE {
