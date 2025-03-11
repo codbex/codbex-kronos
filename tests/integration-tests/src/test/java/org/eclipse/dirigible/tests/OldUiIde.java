@@ -22,12 +22,14 @@ class OldUiIde extends IDE {
 
     private final WorkbenchFactory workbenchFactory;
     private final WelcomeViewFactory welcomeViewFactory;
+    private final TerminalFactory terminalFactory;
 
     OldUiIde(Browser browser, RestAssuredExecutor restAssuredExecutor, ProjectUtil projectUtil, OldWorkbenchFactory workbenchFactory,
-            OldUiWelcomeViewFactory welcomeViewFactory) {
+            OldUiWelcomeViewFactory welcomeViewFactory, TerminalFactory terminalFactory) {
         super(browser, restAssuredExecutor, projectUtil, workbenchFactory);
         this.workbenchFactory = workbenchFactory;
         this.welcomeViewFactory = welcomeViewFactory;
+        this.terminalFactory = terminalFactory;
     }
 
     @Override
@@ -36,7 +38,7 @@ class OldUiIde extends IDE {
 
         getBrowser().clickOnElementById("perspective-workbench");
 
-        return new OldUIWorkbench(getBrowser(), welcomeViewFactory);
+        return new OldUIWorkbench(getBrowser(), welcomeViewFactory, terminalFactory);
     }
 
 }

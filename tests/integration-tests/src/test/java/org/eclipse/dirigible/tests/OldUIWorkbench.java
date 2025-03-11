@@ -18,8 +18,8 @@ class OldUIWorkbench extends Workbench {
     private final Browser browser;
     private final WelcomeViewFactory welcomeViewFactory;
 
-    OldUIWorkbench(Browser browser, WelcomeViewFactory welcomeViewFactory) {
-        super(browser, welcomeViewFactory);
+    OldUIWorkbench(Browser browser, WelcomeViewFactory welcomeViewFactory, TerminalFactory terminalFactory) {
+        super(browser, welcomeViewFactory, terminalFactory);
         this.browser = browser;
         this.welcomeViewFactory = welcomeViewFactory;
     }
