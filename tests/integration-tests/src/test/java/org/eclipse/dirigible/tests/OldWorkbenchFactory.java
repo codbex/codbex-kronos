@@ -22,11 +22,13 @@ class OldWorkbenchFactory extends WorkbenchFactory {
 
     private final Browser browser;
     private final WelcomeViewFactory welcomeViewFactory;
+    private final TerminalFactory terminalFactory;
 
-    OldWorkbenchFactory(Browser browser, WelcomeViewFactory welcomeViewFactory) {
-        super(browser, welcomeViewFactory);
+    OldWorkbenchFactory(Browser browser, WelcomeViewFactory welcomeViewFactory, TerminalFactory terminalFactory) {
+        super(browser, welcomeViewFactory, terminalFactory);
         this.browser = browser;
         this.welcomeViewFactory = welcomeViewFactory;
+        this.terminalFactory = terminalFactory;
     }
 
     public Workbench create() {
@@ -34,6 +36,6 @@ class OldWorkbenchFactory extends WorkbenchFactory {
     }
 
     public Workbench create(Browser browser) {
-        return new OldUIWorkbench(browser, welcomeViewFactory);
+        return new OldUIWorkbench(browser, welcomeViewFactory, terminalFactory);
     }
 }
