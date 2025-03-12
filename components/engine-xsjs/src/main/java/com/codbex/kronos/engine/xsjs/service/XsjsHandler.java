@@ -12,16 +12,14 @@ package com.codbex.kronos.engine.xsjs.service;
 
 import static org.eclipse.dirigible.graalium.core.graal.ValueTransformer.transformValue;
 
-import com.codbex.kronos.engine.KronosSourceProvider;
-import com.codbex.kronos.engine.Require;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
 import org.apache.commons.io.IOUtils;
 import org.eclipse.dirigible.components.base.http.access.UserRequestVerifier;
 import org.eclipse.dirigible.components.engine.javascript.service.JavascriptHandler;
@@ -34,6 +32,8 @@ import org.graalvm.polyglot.Source;
 import org.graalvm.polyglot.Value;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.codbex.kronos.engine.KronosSourceProvider;
 
 /**
  * The Class XsjsHandler.
@@ -68,7 +68,7 @@ public class XsjsHandler extends JavascriptHandler {
     /**
      * Instantiates a new xsjs handler.
      *
-     * @param repository the repository
+     * @param repository     the repository
      * @param sourceProvider the source provider
      */
     public XsjsHandler(IRepository repository, KronosSourceProvider sourceProvider) {
@@ -105,12 +105,13 @@ public class XsjsHandler extends JavascriptHandler {
      */
     private static Source getJSErrorFileNamePolyfillSource() throws IOException {
         String errorFileNamePolyfillName = "/ErrorFileNamePolyfill.js";
-        InputStream errorFileNamePolyfillInputStream = XsjsHandler.class.getResourceAsStream("/js/polyfills" + errorFileNamePolyfillName);
-        String errorFileNamePolyfillCode =
-                IOUtils.toString(Objects.requireNonNull(errorFileNamePolyfillInputStream), StandardCharsets.UTF_8);
+        InputStream errorFileNamePolyfillInputStream = XsjsHandler.class
+                .getResourceAsStream("/js/polyfills" + errorFileNamePolyfillName);
+        String errorFileNamePolyfillCode = IOUtils.toString(Objects.requireNonNull(errorFileNamePolyfillInputStream),
+                StandardCharsets.UTF_8);
         return Source.newBuilder(ENGINE_JAVA_SCRIPT, errorFileNamePolyfillCode, errorFileNamePolyfillName)
-                     .internal(true)
-                     .build();
+                .internal(true)
+                .build();
     }
 
     /**
@@ -126,7 +127,8 @@ public class XsjsHandler extends JavascriptHandler {
             if (resource.exists()) {
                 KRONOS_API_CONTENT = new String(resource.getContent(), DEFAULT_CHARSET);
             } else {
-                KRONOS_API_CONTENT = IOUtils.toString(XsjsHandler.class.getResourceAsStream("/META-INF/dirigible" + KRONOS_API_LOCATION),
+                KRONOS_API_CONTENT = IOUtils.toString(
+                        XsjsHandler.class.getResourceAsStream("/META-INF/dirigible" + KRONOS_API_LOCATION),
                         DEFAULT_CHARSET);
                 resource = getRepository().createResource(API_PATH, KRONOS_API_CONTENT.getBytes());
             }
@@ -138,97 +140,80 @@ public class XsjsHandler extends JavascriptHandler {
     /**
      * Handle request.
      *
-     * @param projectName the project name
-     * @param projectFilePath the project file path
+     * @param projectName          the project name
+     * @param projectFilePath      the project file path
      * @param projectFilePathParam the project file path param
-     * @param parameters the parameters
-     * @param debug the debug
+     * @param parameters           the parameters
+     * @param debug                the debug
      * @return the object
      */
     @Override
-    public Object handleRequest(String projectName, String projectFilePath, String projectFilePathParam, Map<Object, Object> parameters,
+    public Object handleRequest(String projectName, String projectFilePath, String projectFilePathParam,
+            Map<Object, Object> parameters,
             boolean debug) {
         try {
             if (UserRequestVerifier.isValid()) {
                 UserRequestVerifier.getRequest()
-                                   .setAttribute("dirigible-rest-resource-path", projectFilePathParam);
+                        .setAttribute("dirigible-rest-resource-path", projectFilePathParam);
             }
 
             String sourceFilePath = Path.of(projectName, projectFilePath)
-                                        .toString();
+                    .toString();
             String maybeJSCode = sourceProvider.getSource(sourceFilePath);
             if (maybeJSCode == null) {
-                throw new IOException("JavaScript source code for project name '" + projectName + "' and file name '" + projectFilePath
+                throw new IOException("JavaScript source code for project name '" + projectName + "' and file name '"
+                        + projectFilePath
                         + "' could not be found, consider publishing it.");
             }
 
             Path absoluteSourcePath = sourceProvider.getAbsoluteSourcePath(projectName, projectFilePath);
-            try (DirigibleJavascriptCodeRunner runner = new DirigibleJavascriptCodeRunner(parameters, debug, sourceProvider)) {
+            try (DirigibleJavascriptCodeRunner runner = new DirigibleJavascriptCodeRunner(parameters, debug,
+                    sourceProvider)) {
                 Source source = runner.prepareSource(absoluteSourcePath);
 
                 // Source Provider
                 runner.getCodeRunner()
-                      .getGraalContext()
-                      .getBindings(ENGINE_JAVA_SCRIPT)
-                      .putMember(SOURCE_PROVIDER, sourceProvider);
-
-                // Console
-                // context.eval(Source.newBuilder(ENGINE_JAVA_SCRIPT, Require.LOAD_CONSOLE_CODE,
-                // "internal-console.js").internal(true).build());
-
-                // Module
-                runner.getCodeRunner()
-                      .getGraalContext()
-                      .eval(Source.newBuilder(ENGINE_JAVA_SCRIPT, Require.MODULE_CODE(), "Module.js")
-                                  .build());
-                Object mainModule = runner.getCodeRunner()
-                                          .getGraalContext()
-                                          .eval(Source.newBuilder(ENGINE_JAVA_SCRIPT, Require.MODULE_CREATE_CODE,
-                                                  "internal-module-create-code.js")
-                                                      .build())
-                                          .as(Object.class);
-                Map executionContext = new HashMap();
-                runner.getCodeRunner()
-                      .getGraalContext()
-                      .getBindings(ENGINE_JAVA_SCRIPT)
-                      .putMember("__context", executionContext);
-                executionContext.put("main_module", mainModule);
+                        .getGraalContext()
+                        .getBindings(ENGINE_JAVA_SCRIPT)
+                        .putMember(SOURCE_PROVIDER, sourceProvider);
 
                 String kronosApi = getKronosApi();
                 runner.getCodeRunner()
-                      .getGraalContext()
-                      .getBindings(ENGINE_JAVA_SCRIPT)
-                      .putMember("KRONOS_API", kronosApi);
+                        .getGraalContext()
+                        .getBindings(ENGINE_JAVA_SCRIPT)
+                        .putMember("KRONOS_API", kronosApi);
                 Value loadScriptStringResult = runner.getCodeRunner()
-                                                     .getGraalContext()
-                                                     .eval(Source.newBuilder(ENGINE_JAVA_SCRIPT, "mainModule.loadScriptString(KRONOS_API)",
-                                                             "internal-module-load-string-code.js")
-                                                                 .build());
+                        .getGraalContext()
+                        .eval(Source.newBuilder(ENGINE_JAVA_SCRIPT, kronosApi,
+                                "internal-module-load-string-code.js").mimeType("application/javascript+module")
+                                .build());
+
                 runner.getCodeRunner()
-                      .getGraalContext()
-                      .getBindings(ENGINE_JAVA_SCRIPT)
-                      .putMember("$", loadScriptStringResult);
+                        .getGraalContext()
+                        .getBindings(ENGINE_JAVA_SCRIPT)
+                        .putMember("$", loadScriptStringResult.getMember("$"));
                 runner.getCodeRunner()
-                      .getGraalContext()
-                      .eval(getJSErrorFileNamePolyfillSource());
+                        .getGraalContext()
+                        .eval(getJSErrorFileNamePolyfillSource());
 
                 runner.getGraalJSInterceptor()
-                      .onBeforeRun(sourceFilePath, absoluteSourcePath, source, runner.getCodeRunner()
-                                                                                     .getGraalContext());
+                        .onBeforeRun(sourceFilePath, absoluteSourcePath, source, runner.getCodeRunner()
+                                .getGraalContext());
                 Value value = runner.run(source);
                 runner.getGraalJSInterceptor()
-                      .onAfterRun(sourceFilePath, absoluteSourcePath, source, runner.getCodeRunner()
-                                                                                    .getGraalContext(),
-                              value);
+                        .onAfterRun(sourceFilePath, absoluteSourcePath, source, runner.getCodeRunner()
+                                .getGraalContext(),
+                                value);
                 return transformValue(value);
             }
         } catch (Exception ex) {
             if (ex.getMessage()
-                  .contains("consider publish")) {
+                    .contains("consider publish")) {
                 logger.error("File [/%s/%s] not published", projectName, projectFilePath, ex);
                 return ex.getMessage();
             }
-            String message = String.format("Error on processing JavaScript service: [/%s/%s], with parameters: [%s]", projectName,
+            String message = String.format("Error on processing JavaScript service: [/%s/%s], with parameters: [%s]",
+                    projectName,
                     projectFilePath, projectFilePathParam);
             logger.error(message, ex);
             throw new RuntimeException(message, ex);

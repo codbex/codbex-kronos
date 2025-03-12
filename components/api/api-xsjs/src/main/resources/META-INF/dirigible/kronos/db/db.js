@@ -12,16 +12,16 @@
 /*
  * HANA XS Classic Bridge for DB API
  */
-var database = require('sdk/db/database');
-const TYPE_CONVERTER = require('kronos/db/sqlToXSCColumnTypeConverter');
+import { database } from 'sdk/db';
+import * as TYPE_CONVERTER from 'kronos/db/sqlToXSCColumnTypeConverter';
 
-function getConnection() {
-	var dConnection = database.getConnection();
-	return new XscConnection(dConnection);
+export function getConnection() {
+	const dConnection = database.getConnection();
+	return new Connection(dConnection);
 };
 
-function XscCallableStatement(callableStatement) {
-	var isExecuteCalled = false;
+export function CallableStatement(callableStatement) {
+	let isExecuteCalled = false;
 	this.close = function () {
 		callableStatement.close();
 	};
@@ -91,7 +91,7 @@ function XscCallableStatement(callableStatement) {
 
 	this.getResultSet = function () {
 		if (isExecuteCalled) {
-			return new XscResultSet(callableStatement.getResultSet());
+			return new ResultSet(callableStatement.getResultSet());
 		}
 		throw new SQLException();
 	};
@@ -169,8 +169,8 @@ function XscCallableStatement(callableStatement) {
 		callableStatement.setNString(index, value);
 	};
 
-	this.setNull = function (index, sqlTypeStr) {
-		var sqlTypeStr = callableStatement.getResultSet().getMetaData()
+	this.setNull = function (index) {
+		const sqlTypeStr = callableStatement.getResultSet().getMetaData()
 			.getColumnTypeName(index);
 		callableStatement.setNull(index, sqlTypeStr);
 	};
@@ -208,7 +208,7 @@ function XscCallableStatement(callableStatement) {
 	};
 }
 
-function XscConnection(dConnection) {
+export function Connection(dConnection) {
 	dConnection.setAutoCommit(false);
 	
 	this.close = function () {
@@ -222,13 +222,13 @@ function XscConnection(dConnection) {
 	};
 
 	this.prepareCall = function (sql) {
-		var callableStatement = dConnection.prepareCall(sql);
-		return new XscCallableStatement(callableStatement);
+		const callableStatement = dConnection.prepareCall(sql);
+		return new CallableStatement(callableStatement);
 	};
 
 	this.prepareStatement = function (sql) {
-		var dPreparedStatement = dConnection.prepareStatement(sql);
-		return new XscPreparedStatement(dPreparedStatement);
+		const dPreparedStatement = dConnection.prepareStatement(sql);
+		return new PreparedStatement(dPreparedStatement);
 	};
 
 	this.rollback = function () {
@@ -245,7 +245,7 @@ function XscConnection(dConnection) {
 }
 
 // ParameterMetaData should be provided in Dirigible API
-function XscParameterMetaData(dParameterMetaData) {
+export function ParameterMetaData(dParameterMetaData) {
 
 	this.getParameterCount = function () {
 		return dParameterMetaData.getParameterCount();
@@ -290,7 +290,7 @@ function XscParameterMetaData(dParameterMetaData) {
 	};
 }
 
-function XscPreparedStatement(dPreparedStatement) {
+export function PreparedStatement(dPreparedStatement) {
 	this.addBatch = function () {
 		dPreparedStatement.addBatch();
 	};
@@ -308,16 +308,16 @@ function XscPreparedStatement(dPreparedStatement) {
 	};
 
 	this.executeQuery = function () {
-		var dResultSet = dPreparedStatement.executeQuery();
-		return new XscResultSet(dResultSet);
+		const dResultSet = dPreparedStatement.executeQuery();
+		return new ResultSet(dResultSet);
 	};
 	this.executeUpdate = function () {
 		return dPreparedStatement.executeUpdate();
 	};
 
 	this.getMetaData = function () {
-		var dResultSetMetaData = dPreparedStatement.getMetaData();
-		return new XscResultSetMetaData(dResultSetMetaData);
+		const dResultSetMetaData = dPreparedStatement.getMetaData();
+		return new ResultSetMetaData(dResultSetMetaData);
 	};
 
 	this.getMoreResults = function () {
@@ -325,12 +325,12 @@ function XscPreparedStatement(dPreparedStatement) {
 	};
 
 	this.getParameterMetaData = function () {
-		var dParameterMetaData = dPreparedStatement.getParameterMetaData();
-		return new XscParameterMetaData(dParameterMetaData);
+		const dParameterMetaData = dPreparedStatement.getParameterMetaData();
+		return new ParameterMetaData(dParameterMetaData);
 	};
 	this.getResultSet = function () {
-		var dResultSet = dPreparedStatement.executeQuery();
-		return new XscResultSet(dResultSet);
+		const dResultSet = dPreparedStatement.executeQuery();
+		return new ResultSet(dResultSet);
 	};
 
 	// calling this method returns always null, I need to find a way to simulate
@@ -432,7 +432,7 @@ function XscPreparedStatement(dPreparedStatement) {
 	}
 }
 
-function XscResultSet(dResultSet) {
+export function ResultSet(dResultSet) {
 
 	this.close = function () {
 		dResultSet.close();
@@ -478,8 +478,8 @@ function XscResultSet(dResultSet) {
 	};
 
 	this.getMetaData = function () {
-		var dResultSetMetaData = dResultSet.getMetaData();
-		return new XscResultSetMetaData(dResultSetMetaData);
+		const dResultSetMetaData = dResultSet.getMetaData();
+		return new ResultSetMetaData(dResultSetMetaData);
 	};
 
 	// returns data in the following format: clobXX:
@@ -528,7 +528,7 @@ function XscResultSet(dResultSet) {
 }
 
 // ResultSetMetaData should be provided in Dirigible API
-function XscResultSetMetaData(dResultSetMetaData) {
+export function ResultSetMetaData(dResultSetMetaData) {
 
 	this.getCatalogName = function (columnIndex) {
 		return dResultSetMetaData.getCatalogName(columnIndex);
@@ -572,16 +572,6 @@ function XscResultSetMetaData(dResultSetMetaData) {
 	};
 }
 
-function SQLException() {
+export function SQLException() {
 
 }
-
-exports.getConnection = getConnection;
-exports.CallableStatement = XscCallableStatement;
-exports.Connection = XscConnection;
-exports.XscConnection = XscConnection;
-exports.ParameterMetaData = XscParameterMetaData;
-exports.PreparedStatement = XscPreparedStatement;
-exports.ResultSet = XscResultSet;
-exports.ResultSetMetaData = XscResultSetMetaData;
-exports.SQLException = SQLException;

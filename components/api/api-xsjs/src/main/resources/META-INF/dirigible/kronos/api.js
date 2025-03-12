@@ -13,11 +13,11 @@
  * HANA XS Classic Bridge
  */
 
-var $ = {};
+import { response } from 'sdk/http';
+import * as db from 'kronos/db/db';
+import * as hdb from 'kronos/hdb/hdb';
 
 const API_MODULES = {
-    db: "kronos/db/db",
-    hdb: "kronos/hdb/hdb",
     net: "kronos/net/net",
     trace: "kronos/trace/trace",
     util: "kronos/util/util",
@@ -27,25 +27,16 @@ const API_MODULES = {
     security: "kronos/security/security"
 };
 
-for (next in API_MODULES) {
-    loadApi(next, API_MODULES[next]);
-}
+export const $ = {
+    response: response,
+    db: db,
+    hdb: hdb,
+};
 
-try {
-    $.import = require("kronos/import/import").import;
-    $.request = new $.web.WebRequest();
-    $.response = new $.web.WebResponse();
-} catch (e) {
-    console.error(`Error occurred while loading API [import], [request] or [response]: ` + e.message);
-}
-
-function loadApi(api, module) {
-    try {
-        $[api] = require(module);
-    } catch (e) {
-        // $.trace.warning("Caught exception. Api.js is being used by kronos job.")
-        console.error(`Error occurred while loading API [${api}] from module: [${module}]: ` + e.message);
-    }
-}
-
-module.exports = $;
+// try {
+//     $.import = require("kronos/import/import").import;
+//     $.request = new $.web.WebRequest();
+//     $.response = new $.web.WebResponse();
+// } catch (e) {
+//     console.error(`Error occurred while loading API [import], [request] or [response]: ` + e.message);
+// }

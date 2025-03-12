@@ -9,26 +9,26 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-var HDB_UTILS = require('kronos/hdb/hdbUtils');
+import * as HDB_UTILS from 'kronos/hdb/hdbUtils';
 
-exports.SQL_TABLE_TYPE = 0;
-exports.PROCEDURE_IN_PARAMETER = 1;
-exports.PROCEDURE_IN_OUT_PARAMETER = 2;
-exports.PROCEDURE_OUT_PARAMETER = 4;
+export const SQL_TABLE_TYPE = 0;
+export const PROCEDURE_IN_PARAMETER = 1;
+export const PROCEDURE_IN_OUT_PARAMETER = 2;
+export const PROCEDURE_OUT_PARAMETER = 4;
 
-exports.isProcedureInParamType = function (parameterType) {
-    return parameterType === exports.PROCEDURE_IN_PARAMETER || parameterType === exports.PROCEDURE_IN_OUT_PARAMETER;
+export function isProcedureInParamType(parameterType) {
+    return parameterType === PROCEDURE_IN_PARAMETER || parameterType === PROCEDURE_IN_OUT_PARAMETER;
 };
 
-exports.isProcedureOutParamType = function (parameterType) {
-    return parameterType === exports.PROCEDURE_IN_OUT_PARAMETER || parameterType === exports.PROCEDURE_OUT_PARAMETER;
+export function isProcedureOutParamType(parameterType) {
+    return parameterType === PROCEDURE_IN_OUT_PARAMETER || parameterType === PROCEDURE_OUT_PARAMETER;
 };
 
-exports.isProcedureParamDataTypeTable = function (parameterDataType) {
-    return parameterDataType === exports.SQL_TABLE_TYPE;
+export function isProcedureParamDataTypeTable(parameterDataType) {
+    return parameterDataType === SQL_TABLE_TYPE;
 };
 
-exports.getProcedureParameters = function (connection, procedureName) {
+export function getProcedureParameters(connection, procedureName) {
     let parameters = [];
     let resultSet = connection.native.getMetaData().getProcedureColumns(null, null, procedureName, "%");
 
@@ -40,7 +40,7 @@ exports.getProcedureParameters = function (connection, procedureName) {
             parameterTypeSchema: resultSet.getString("PROCEDURE_SCHEM"),
             parameterDataType: resultSet.getInt("DATA_TYPE"),
             parameterValue: null,
-            isTableType: exports.isProcedureParamDataTypeTable(resultSet.getInt("DATA_TYPE")),
+            isTableType: isProcedureParamDataTypeTable(resultSet.getInt("DATA_TYPE")),
             temporaryTableName: "",
             temporaryTableType: ""
         })
@@ -52,16 +52,16 @@ exports.getProcedureParameters = function (connection, procedureName) {
     return parameters;
 };
 
-exports.setProcedureParameters = function (callableStatement, parameters) {
+export function setProcedureParameters(callableStatement, parameters) {
     for (var i = 0, paramIndex = 1; i < parameters.length; i++) {
-        if (exports.isProcedureInParamType(parameters[i].parameterType) && !exports.isProcedureParamDataTypeTable(parameters[i].parameterDataType)) {
+        if (isProcedureInParamType(parameters[i].parameterType) && !isProcedureParamDataTypeTable(parameters[i].parameterDataType)) {
             HDB_UTILS.setParamByType(callableStatement, parameters[i].parameterTypeName, parameters[i].parameterValue, paramIndex);
             paramIndex++;
         }
     }
 };
 
-exports.getProcedureOutParamValue = function (procedureCallStatement, procedureParameter, resultSet) {
+export function getProcedureOutParamValue(procedureCallStatement, procedureParameter, resultSet) {
     switch (procedureParameter.parameterDataType) {
         case java.sql.Types.TINYINT:
             return procedureCallStatement.getByte(procedureParameter.parameterName);
@@ -113,7 +113,7 @@ exports.getProcedureOutParamValue = function (procedureCallStatement, procedureP
             return procedureCallStatement.getLong(procedureParameter.parameterName);
         case java.sql.Types.ROWID:
             return procedureCallStatement.getRowId(procedureParameter.parameterName);
-        case exports.SQL_TABLE_TYPE:
+        case SQL_TABLE_TYPE:
             let tableObj = {
                 length: 0
             };
@@ -127,7 +127,7 @@ exports.getProcedureOutParamValue = function (procedureCallStatement, procedureP
     }
 };
 
-exports.dropTemporaryTable = function (connection, tableName) {
+export function dropTemporaryTable(connection, tableName) {
     let sql = `DROP TABLE ${tableName}`;
     let ps = null;
     try {
@@ -140,7 +140,7 @@ exports.dropTemporaryTable = function (connection, tableName) {
     }
 };
 
-exports.createTemporaryTable = function (connection, tableName, tableType) {
+export function createTemporaryTable(connection, tableName, tableType) {
     let sql = `CREATE LOCAL TEMPORARY TABLE ${tableName} like ${tableType}`;
     let ps = null;
     try {
@@ -153,7 +153,7 @@ exports.createTemporaryTable = function (connection, tableName, tableType) {
     }
 };
 
-exports.insertTemporaryTableData = function (connection, tableName, row) {
+export function insertTemporaryTableData(connection, tableName, row) {
     let sql = `INSERT INTO ${tableName} (${Object.keys(row).join(",")}) VALUES (${Object.keys(row).map(() => "?").join(",")})`;
     let ps = null;
     try {
