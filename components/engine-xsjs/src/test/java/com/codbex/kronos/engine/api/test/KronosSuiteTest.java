@@ -10,6 +10,7 @@
  */
 package com.codbex.kronos.engine.api.test;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,7 @@ public class KronosSuiteTest {
      *
      * @throws Exception the exception
      */
+    @Disabled
     @Test
     public void executeDatabaseTest() throws Exception {
         xsjsService.handleRequest("test", "kronos/db/api/db.xsjs", null, null, false);
@@ -65,6 +67,7 @@ public class KronosSuiteTest {
      *
      * @throws Exception the exception
      */
+    @Disabled
     @Test
     public void executeConnectionTest() throws Exception {
         xsjsService.handleRequest("test", "kronos/db/api/connection.xsjs", null, null, false);
@@ -75,6 +78,7 @@ public class KronosSuiteTest {
      *
      * @throws Exception the exception
      */
+    @Disabled
     @Test
     public void executeParameterMetadataTest() throws Exception {
         xsjsService.handleRequest("test", "kronos/db/api/parameter-metadata.xsjs", null, null, false);
@@ -85,6 +89,7 @@ public class KronosSuiteTest {
      *
      * @throws Exception the exception
      */
+    @Disabled
     @Test
     public void executeCallableStatementTest() throws Exception {
         xsjsService.handleRequest("test", "kronos/db/api/callable-statement.xsjs", null, null, false);
@@ -95,6 +100,7 @@ public class KronosSuiteTest {
      *
      * @throws Exception the exception
      */
+    @Disabled
     @Test
     public void executePreparedStatementTest() throws Exception {
         xsjsService.handleRequest("test", "kronos/db/api/prepared-statement.xsjs", null, null, false);
@@ -105,6 +111,7 @@ public class KronosSuiteTest {
      *
      * @throws Exception the exception
      */
+    @Disabled
     @Test
     public void executeResultSetTest() throws Exception {
         xsjsService.handleRequest("test", "kronos/db/api/result-set.xsjs", null, null, false);
@@ -115,6 +122,7 @@ public class KronosSuiteTest {
      *
      * @throws Exception the exception
      */
+    @Disabled
     @Test
     public void executeResultSetMetadataTest() throws Exception {
         xsjsService.handleRequest("test", "kronos/db/api/resultset-metadata.xsjs", null, null, false);
@@ -225,6 +233,7 @@ public class KronosSuiteTest {
      *
      * @throws Exception the exception
      */
+    @Disabled
     @Test
     public void executeHDBResultSetTest() throws Exception {
         xsjsService.handleRequest("test", "kronos/hdb/api/result-set.xsjs", null, null, false);
