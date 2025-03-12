@@ -16,9 +16,9 @@
 import { response } from 'sdk/http';
 import * as db from 'kronos/db/db';
 import * as hdb from 'kronos/hdb/hdb';
+import * as net from 'kronos/net/net';
 
 const API_MODULES = {
-    net: "kronos/net/net",
     trace: "kronos/trace/trace",
     util: "kronos/util/util",
     jobs: "kronos/jobs/jobs",
@@ -31,6 +31,7 @@ export const $ = {
     response: response,
     db: db,
     hdb: hdb,
+    net: net,
 };
 
 // try {

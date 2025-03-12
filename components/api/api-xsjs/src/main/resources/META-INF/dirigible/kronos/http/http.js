@@ -9,66 +9,65 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-const dClient = require("sdk/http/client");
-const web = require("kronos/web/web");
-const config = require("sdk/core/configurations");
+import { client as dClient } from "sdk/http";
+import * as web from "kronos/web/web";
+import { Configurations as config } from "sdk/core";
 
-exports.OPTIONS = 0;
-exports.GET = 1;
-exports.HEAD = 2;
-exports.POST = 3;
-exports.PUT = 4;
-exports.DEL = 5;
-exports.TRACE = 6;
-exports.CONNECT = 7;
-exports.PATCH = 8;
-exports.DELETE = 9;
-exports.DEL = exports.DELETE;
+export const OPTIONS = 0;
+export const GET = 1;
+export const HEAD = 2;
+export const POST = 3;
+export const PUT = 4;
+export const DEL = 5;
+export const TRACE = 6;
+export const CONNECT = 7;
+export const PATCH = 8;
+export const DELETE = 9;
 
-exports.CONTINUE = 100;
-exports.SWITCH_PROTOCOL = 101;
-exports.OK = 200;
-exports.CREATED = 201;
-exports.ACCEPTED = 202;
-exports.NON_AUTHORITATIVE = 203;
-exports.NO_CONTENT = 204;
-exports.RESET_CONTENT = 205;
-exports.PARTIAL_CONTENT = 206;
-exports.MULTIPLE_CHOICES = 300;
-exports.MOVED_PERMANENTLY = 301;
-exports.FOUND = 302;
-exports.SEE_OTHER = 303;
-exports.NOT_MODIFIED = 304;
-exports.USE_PROXY = 305;
-exports.TEMPORARY_REDIRECT = 307;
-exports.BAD_REQUEST = 400;
-exports.UNAUTHORIZED = 401;
-exports.PAYMENT_REQUIRED = 402;
-exports.FORBIDDEN = 403;
-exports.NOT_FOUND = 404;
-exports.METHOD_NOT_ALLOWED = 405;
-exports.NOT_ACCEPTABLE = 406;
-exports.PROXY_AUTH_REQUIRED = 407;
-exports.REQUEST_TIMEOUT = 408;
-exports.CONFLICT = 409;
-exports.GONE = 410;
-exports.LENGTH_REQUIRED = 411;
-exports.PRECONDITION_FAILED = 412;
-exports.REQUEST_ENTITY_TOO_LARGE = 413;
-exports.REQUEST_URI_TOO_LONG = 414;
-exports.UNSUPPORTED_MEDIA_TYPE = 415;
-exports.REQUESTED_RANGE_NOT_SATISFIABLE = 416;
-exports.EXPECTATION_FAILED = 417;
-exports.INTERNAL_SERVER_ERROR = 500;
-exports.NOT_YET_IMPLEMENTED = 501;
-exports.BAD_GATEWAY = 502;
-exports.SERVICE_UNAVAILABLE = 503;
-exports.GATEWAY_TIMEOUT = 504;
-exports.HTTP_VERSION_NOT_SUPPORTED = 505;
+export const CONTINUE = 100;
+export const SWITCH_PROTOCOL = 101;
+export const OK = 200;
+export const CREATED = 201;
+export const ACCEPTED = 202;
+export const NON_AUTHORITATIVE = 203;
+export const NO_CONTENT = 204;
+export const RESET_CONTENT = 205;
+export const PARTIAL_CONTENT = 206;
+export const MULTIPLE_CHOICES = 300;
+export const MOVED_PERMANENTLY = 301;
+export const FOUND = 302;
+export const SEE_OTHER = 303;
+export const NOT_MODIFIED = 304;
+export const USE_PROXY = 305;
+export const TEMPORARY_REDIRECT = 307;
+export const BAD_REQUEST = 400;
+export const UNAUTHORIZED = 401;
+export const PAYMENT_REQUIRED = 402;
+export const FORBIDDEN = 403;
+export const NOT_FOUND = 404;
+export const METHOD_NOT_ALLOWED = 405;
+export const NOT_ACCEPTABLE = 406;
+export const PROXY_AUTH_REQUIRED = 407;
+export const REQUEST_TIMEOUT = 408;
+export const CONFLICT = 409;
+export const GONE = 410;
+export const LENGTH_REQUIRED = 411;
+export const PRECONDITION_FAILED = 412;
+export const REQUEST_ENTITY_TOO_LARGE = 413;
+export const REQUEST_URI_TOO_LONG = 414;
+export const UNSUPPORTED_MEDIA_TYPE = 415;
+export const REQUESTED_RANGE_NOT_SATISFIABLE = 416;
+export const EXPECTATION_FAILED = 417;
+export const INTERNAL_SERVER_ERROR = 500;
+export const NOT_YET_IMPLEMENTED = 501;
+export const BAD_GATEWAY = 502;
+export const SERVICE_UNAVAILABLE = 503;
+export const GATEWAY_TIMEOUT = 504;
+export const HTTP_VERSION_NOT_SUPPORTED = 505;
 
-exports.readDestination = function (destinationPackage, destinationName) {
+export function readDestination(destinationPackage, destinationName) {
   const readDestination = com.codbex.kronos.api.destination.CloudPlatformDestinationFacade.getDestination(destinationName);
-  let destination = new exports.Destination();
+  let destination = new Destination();
 
   destination.host = readDestination.getHost();
   destination.port = readDestination.getPort();
@@ -80,7 +79,7 @@ exports.readDestination = function (destinationPackage, destinationName) {
   return Object.assign(destination, properties);
 };
 
-exports.Client = function () {
+export function Client() {
   var clientResponse;
   var connectionTimeout;
 
@@ -191,13 +190,13 @@ exports.Client = function () {
     }
 
     switch (requestMethod) {
-      case exports.GET:
+      case GET:
         return dClient.get(url, options);
-      case exports.POST:
+      case POST:
         return dClient.post(url, options);
-      case exports.PUT:
+      case PUT:
         return dClient.put(url, options);
-      case exports.DEL:
+      case DEL:
         return dClient.delete(url, options);
       default:
         throw new Error("Not supported request method.");
@@ -266,7 +265,7 @@ exports.Client = function () {
   }
 };
 
-exports.Request = web.WebRequest;
+export const Request = web.WebRequest;
 
 function processDestValue(destValueArg) {
   if (!destValueArg) {
@@ -289,4 +288,4 @@ function parseDestValue(destValue) {
   return destValue;
 }
 
-exports.Destination = function () { }
+export function Destination() { }
