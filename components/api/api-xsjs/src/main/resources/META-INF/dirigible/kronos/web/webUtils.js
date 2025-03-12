@@ -9,9 +9,9 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-var http = require('kronos/http/http');
+import * as http from 'kronos/http/http';
 
-exports.resolveMethod = function (method) {
+export function resolveMethod(method) {
     switch (method) {
         case 'GET': return http.GET;
         case 'POST': return http.POST;
@@ -25,7 +25,7 @@ exports.resolveMethod = function (method) {
     }
 }
 
-exports.getMethodName = function (method) {
+export function getMethodName(method) {
     switch (method) {
         case http.GET: return 'GET';
         case http.POST: return 'POST';

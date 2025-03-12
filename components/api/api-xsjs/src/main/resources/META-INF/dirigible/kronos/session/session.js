@@ -9,46 +9,46 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-var securityUser = require('sdk/security/user');
+import { user as securityUser } from 'sdk/security';
 
-exports.authType = securityUser.getAuthType();
-exports.language = securityUser.getLanguage();
+export const authType = securityUser.getAuthType();
+export const language = securityUser.getLanguage();
 
-exports.getUsername = function () {
+export function getUsername() {
     return securityUser.getName();
 }
 
-exports.hasAppPrivilege = function (privilegeName) {
+export function hasAppPrivilege(privilegeName) {
     return securityUser.isInRole(privilegeName);
 }
 
-exports.hasSystemPrivilege = function (privilegeName) {
+export function hasSystemPrivilege(privilegeName) {
     return securityUser.isInRole(privilegeName);
 }
 
-exports.assertSystemPrivilege = function (privilegeName) {
+export function assertSystemPrivilege(privilegeName) {
     var hasPrivilege = securityUser.isInRole(privilegeName)
     if (!hasPrivilege) {
         throw new NoSuchPrivilegeException(privilegeName);
     }
 }
 
-exports.assertAppPrivilege = function (privilegeName) {
+export function assertAppPrivilege(privilegeName) {
     var hasPrivilege = securityUser.isInRole(privilegeName)
     if (!hasPrivilege) {
         throw new NoSuchPrivilegeException(privilegeName);
     }
 }
 
-exports.getTimeout = function () {
+export function getTimeout() {
   return securityUser.getTimeout()
 }
 
-exports.getSecurityToken = function () {
+export function getSecurityToken() {
   return securityUser.getSecurityToken()
 }
 
-exports.getInvocationCount = function () {
+export function getInvocationCount() {
   return securityUser.getInvocationCount()
 }
 

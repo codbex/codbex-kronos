@@ -13,31 +13,28 @@
  * HANA XS Classic Bridge
  */
 
-import { response } from 'sdk/http';
 import * as db from 'kronos/db/db';
 import * as hdb from 'kronos/hdb/hdb';
 import * as net from 'kronos/net/net';
-
-const API_MODULES = {
-    trace: "kronos/trace/trace",
-    util: "kronos/util/util",
-    jobs: "kronos/jobs/jobs",
-    web: "kronos/web/web",
-    session: "kronos/session/session",
-    security: "kronos/security/security"
-};
+import * as trace from 'kronos/trace/trace';
+import * as util from 'kronos/util/util';
+import * as jobs from 'kronos/jobs/jobs';
+import * as web from 'kronos/web/web';
+import * as session from 'kronos/session/session';
+import * as security from 'kronos/security/security';
+import * as importUtils from 'kronos/import/import';
 
 export const $ = {
-    response: response,
     db: db,
     hdb: hdb,
     net: net,
+    trace: trace,
+    util: util,
+    jobs: jobs,
+    web: web,
+    session: session,
+    security: security,
+    request: new web.WebRequest(),
+    response: new web.WebResponse(),
+    import: importUtils.importModule,
 };
-
-// try {
-//     $.import = require("kronos/import/import").import;
-//     $.request = new $.web.WebRequest();
-//     $.response = new $.web.WebResponse();
-// } catch (e) {
-//     console.error(`Error occurred while loading API [import], [request] or [response]: ` + e.message);
-// }

@@ -10,58 +10,58 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 var jobFunctionName = __context.get("kronos-job-function");
-var jobDescription  = __context.get("jobDescription");
+var jobDescription = __context.get("jobDescription");
 
-function appendJobException(message){
+function appendJobException(message) {
   return "[JobExecution]" + "[" + jobDescription + "]" + "[" + jobFunctionName + "]" + "[Exception] " + message;
 }
 
-exports.debug = function(message) {
-  if(this.isDebugEnabled()) {
-    console.debug((jobFunctionName !== 0 || jobDescription !==0) ? appendJobException(message) : message);
+export function debug(message) {
+  if (this.isDebugEnabled()) {
+    console.debug((jobFunctionName !== 0 || jobDescription !== 0) ? appendJobException(message) : message);
   }
 }
 
-exports.error = function(message) {
-  if(this.isErrorEnabled()) {
-    console.error((jobFunctionName !== 0 || jobDescription !==0) ? appendJobException(message) : message);
+export function error(message) {
+  if (this.isErrorEnabled()) {
+    console.error((jobFunctionName !== 0 || jobDescription !== 0) ? appendJobException(message) : message);
   }
 }
 
-exports.fatal = function(message) {
-  if(this.isFatalEnabled()) {
-    console.error((jobFunctionName !== 0 || jobDescription !==0) ? appendJobException(message) : message);
+export function fatal(message) {
+  if (this.isFatalEnabled()) {
+    console.error((jobFunctionName !== 0 || jobDescription !== 0) ? appendJobException(message) : message);
   }
 }
 
-exports.info = function(message) {
-  if(this.isInfoEnabled()) {
-    console.info((jobFunctionName !== 0 || jobDescription !==0) ? appendJobException(message) : message);
+export function info(message) {
+  if (this.isInfoEnabled()) {
+    console.info((jobFunctionName !== 0 || jobDescription !== 0) ? appendJobException(message) : message);
   }
 }
 
-exports.warning = function(message) {
-  if(this.isWarningEnabled()) {
-    console.warn((jobFunctionName !== 0 || jobDescription !==0) ? appendJobException(message) : message);
+export function warning(message) {
+  if (this.isWarningEnabled()) {
+    console.warn((jobFunctionName !== 0 || jobDescription !== 0) ? appendJobException(message) : message);
   }
 }
 
-exports.isDebugEnabled = function() {
+export function isDebugEnabled() {
   return com.codbex.kronos.api.TraceFacade.isDebugEnabled();
 }
 
-exports.isErrorEnabled = function() {
+export function isErrorEnabled() {
   return com.codbex.kronos.api.TraceFacade.isErrorEnabled();
 }
 
-exports.isFatalEnabled = function() {
+export function isFatalEnabled() {
   return com.codbex.kronos.api.TraceFacade.isFatalEnabled();
 }
 
-exports.isInfoEnabled = function() {
+export function isInfoEnabled() {
   return com.codbex.kronos.api.TraceFacade.isInfoEnabled();
 }
 
-exports.isWarningEnabled = function() {
+export function isWarningEnabled() {
   return com.codbex.kronos.api.TraceFacade.isWarningEnabled();
 }

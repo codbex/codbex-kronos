@@ -9,9 +9,9 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-var repositoryManager = require("sdk/platform/repository");
+import { repository as repositoryManager } from "sdk/platform";
 
-exports.Store = function (filePath) {
+export function Store(filePath) {
     var REGISTRY_DIR_PREFIX = "/registry/public/";
     filePath = REGISTRY_DIR_PREFIX + filePath;
 
@@ -73,7 +73,7 @@ class XSCrypto {
 	}
 }
 
-exports.crypto = new XSCrypto();
+export const crypto = new XSCrypto();
 
 // From ArrayBuffer to byte[]
 function fromBufferToArray(buffer) {

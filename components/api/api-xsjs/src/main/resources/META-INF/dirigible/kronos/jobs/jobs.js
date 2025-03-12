@@ -9,9 +9,9 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-var registry = require("sdk/platform/registry");
+import { registry } from "sdk/platform";
 
-exports.Job = function Job(constructJob) {
+export function Job(constructJob) {
   if (!constructJob.uri) throw "URI not specified";
 
   this.schedules = com.codbex.kronos.xsjob.ds.facade.JobFacade.newJob(registry.getText(constructJob.uri));

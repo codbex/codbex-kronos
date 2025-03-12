@@ -9,8 +9,10 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-import * as http from "kronos/http/http";
+import * as httpUtils from "kronos/http/http";
 import { MailClient as mail } from "sdk/mail";
+
+export const http = httpUtils;
 
 export function Mail(mailObject) {
   mailObject = mailObject || {};
@@ -56,7 +58,7 @@ export function Mail(mailObject) {
 }
 
 export function Destination(packageName, objectName) {
-  let destination = http.readDestination(packageName, objectName);
+  let destination = httpUtils.readDestination(packageName, objectName);
   this.host = destination.host || "";
   this.port = destination.port || "";
 }
