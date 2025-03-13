@@ -26,71 +26,57 @@ class KronosSuiteTest extends KronosIntegrationTest {
 
     /**
      * Execute database test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeDatabaseTest() throws Exception {
+    public void executeDatabaseTest() {
         xsjsService.handleRequest("test", "kronos/db/api/db.xsjs", null, null, false);
     }
 
     /**
      * Execute connection test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeConnectionTest() throws Exception {
+    public void executeConnectionTest() {
         xsjsService.handleRequest("test", "kronos/db/api/connection.xsjs", null, null, false);
     }
 
     /**
      * Execute parameter metadata test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeParameterMetadataTest() throws Exception {
+    public void executeParameterMetadataTest() {
         xsjsService.handleRequest("test", "kronos/db/api/parameter-metadata.xsjs", null, null, false);
     }
 
     /**
      * Execute callable statement test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeCallableStatementTest() throws Exception {
+    public void executeCallableStatementTest() {
         xsjsService.handleRequest("test", "kronos/db/api/callable-statement.xsjs", null, null, false);
     }
 
     /**
      * Execute prepared statement test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executePreparedStatementTest() throws Exception {
+    public void executePreparedStatementTest() {
         xsjsService.handleRequest("test", "kronos/db/api/prepared-statement.xsjs", null, null, false);
     }
 
     /**
      * Execute result set test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeResultSetTest() throws Exception {
+    public void executeResultSetTest() {
         xsjsService.handleRequest("test", "kronos/db/api/result-set.xsjs", null, null, false);
     }
 
     /**
      * Execute result set metadata test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeResultSetMetadataTest() throws Exception {
+    public void executeResultSetMetadataTest() {
         xsjsService.handleRequest("test", "kronos/db/api/resultset-metadata.xsjs", null, null, false);
     }
 
@@ -106,88 +92,70 @@ class KronosSuiteTest extends KronosIntegrationTest {
 
     /**
      * Execute session test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeSessionTest() throws Exception {
+    public void executeSessionTest() {
         xsjsService.handleRequest("test", "kronos/session/session.xsjs", null, null, false);
     }
 
     /**
      * Execute trace test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeTraceTest() throws Exception {
+    public void executeTraceTest() {
         xsjsService.handleRequest("test", "kronos/trace/trace.xsjs", null, null, false);
     }
 
     /**
      * Execute util test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeUtilTest() throws Exception {
+    public void executeUtilTest() {
         xsjsService.handleRequest("test", "kronos/util/util.xsjs", null, null, false);
     }
 
     /**
      * Execute util codec test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeUtilCodecTest() throws Exception {
+    public void executeUtilCodecTest() {
         xsjsService.handleRequest("test", "kronos/util/codec/codec.xsjs", null, null, false);
     }
 
     /**
      * Execute http test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeHttpTest() throws Exception {
+    public void executeHttpTest() {
         xsjsService.handleRequest("test", "kronos/http/http.xsjs", null, null, false);
     }
 
     /**
      * Execute net test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeNetTest() throws Exception {
+    public void executeNetTest() {
         xsjsService.handleRequest("test", "kronos/net/net.xsjs", null, null, false);
     }
 
     /**
      * Execute HDB column metadata test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeHDBColumnMetadataTest() throws Exception {
+    public void executeHDBColumnMetadataTest() {
         xsjsService.handleRequest("test", "kronos/hdb/api/column-metadata.xsjs", null, null, false);
     }
 
     /**
      * Execute HDB connection execute query test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeHDBConnectionExecuteQueryTest() throws Exception {
+    public void executeHDBConnectionExecuteQueryTest() {
         xsjsService.handleRequest("test", "kronos/hdb/connection-execute-query.xsjs", null, null, false);
     }
 
     /**
      * Execute HDB connection execute update test.
-     *
-     * @throws Exception the exception
      */
     @Test
     public void executeHDBConnectionExecuteUpdateTest() throws Exception {
@@ -196,21 +164,17 @@ class KronosSuiteTest extends KronosIntegrationTest {
 
     /**
      * Execute HDB result set test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeHDBResultSetTest() throws Exception {
+    public void executeHDBResultSetTest() {
         xsjsService.handleRequest("test", "kronos/hdb/result-set.xsjs", null, null, false);
     }
 
     /**
      * Execute HDB result set metadata test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeHDBResultSetMetadataTest() throws Exception {
+    public void executeHDBResultSetMetadataTest() {
         xsjsService.handleRequest("test", "kronos/hdb/resultset-metadata.xsjs", null, null, false);
     }
 }
