@@ -12,8 +12,6 @@ package com.codbex.kronos.engine.xsjs.service;
 
 import static org.eclipse.dirigible.graalium.core.graal.ValueTransformer.transformValue;
 
-import com.codbex.kronos.engine.KronosSourceProvider;
-import com.codbex.kronos.engine.Require;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -22,6 +20,7 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
 import org.apache.commons.io.IOUtils;
 import org.eclipse.dirigible.components.base.http.access.UserRequestVerifier;
 import org.eclipse.dirigible.components.engine.javascript.service.JavascriptHandler;
@@ -34,6 +33,9 @@ import org.graalvm.polyglot.Source;
 import org.graalvm.polyglot.Value;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.codbex.kronos.engine.KronosSourceProvider;
+import com.codbex.kronos.engine.Require;
 
 /**
  * The Class XsjsHandler.
@@ -172,10 +174,6 @@ public class XsjsHandler extends JavascriptHandler {
                       .getBindings(ENGINE_JAVA_SCRIPT)
                       .putMember(SOURCE_PROVIDER, sourceProvider);
 
-                // Console
-                // context.eval(Source.newBuilder(ENGINE_JAVA_SCRIPT, Require.LOAD_CONSOLE_CODE,
-                // "internal-console.js").internal(true).build());
-
                 // Module
                 runner.getCodeRunner()
                       .getGraalContext()
@@ -201,13 +199,15 @@ public class XsjsHandler extends JavascriptHandler {
                       .putMember("KRONOS_API", kronosApi);
                 Value loadScriptStringResult = runner.getCodeRunner()
                                                      .getGraalContext()
-                                                     .eval(Source.newBuilder(ENGINE_JAVA_SCRIPT, "mainModule.loadScriptString(KRONOS_API)",
+                                                     .eval(Source.newBuilder(ENGINE_JAVA_SCRIPT, kronosApi,
                                                              "internal-module-load-string-code.js")
+                                                                 .mimeType("application/javascript+module")
                                                                  .build());
+
                 runner.getCodeRunner()
                       .getGraalContext()
                       .getBindings(ENGINE_JAVA_SCRIPT)
-                      .putMember("$", loadScriptStringResult);
+                      .putMember("$", loadScriptStringResult.getMember("$"));
                 runner.getCodeRunner()
                       .getGraalContext()
                       .eval(getJSErrorFileNamePolyfillSource());

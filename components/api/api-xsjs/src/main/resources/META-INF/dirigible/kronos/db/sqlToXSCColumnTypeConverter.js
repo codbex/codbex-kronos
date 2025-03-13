@@ -35,7 +35,7 @@ SQL_TO_XSC_TYPE_MAP.set(2005, 25); //CLOB
 SQL_TO_XSC_TYPE_MAP.set(2011, 26); //NCLOB
 SQL_TO_XSC_TYPE_MAP.set(2004, 27); //BLOB
 
-exports.convert = function (sqlColumnType) {
+export function convert(sqlColumnType) {
     if (SQL_TO_XSC_TYPE_MAP.has(sqlColumnType)) {
         return SQL_TO_XSC_TYPE_MAP.get(sqlColumnType);
     }

@@ -9,28 +9,28 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-var base64 = require('sdk/utils/base64');
-var hex = require('sdk/utils/hex');
+import { base64 } from 'sdk/utils';
+import { hex } from 'sdk/utils';
 
-exports.encodeHex = function(data) {
+export function encodeHex(data) {
 	if (typeof data === 'string') {
 		return hex.encode(data);
 	}
 	return hex.encode(arrayBufferToString(data));
 }
 
-exports.encodeBase64 = function(data) {
+export function encodeBase64(data) {
 	if (typeof data === 'string') {
 		return base64.encode(data);
 	}
 	return base64.encode(arrayBufferToString(data));
 }
 
-exports.decodeHex = function(hexData) {
+export function decodeHex(hexData) {
 	return hex.decode(hexData);
 }
 
-exports.decodeBase64 = function(base64Data) {
+export function decodeBase64(base64Data) {
 	return base64.decode(base64Data);
 }
 

@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-exports.getResultSetValueByDataTypeAndRowNumber = function (resultSet, dataType, colNumber) {
+export function getResultSetValueByDataTypeAndRowNumber (resultSet, dataType, colNumber) {
     switch (dataType) {
         case "TINYINT":
             return resultSet.getByte(colNumber);
@@ -65,7 +65,7 @@ exports.getResultSetValueByDataTypeAndRowNumber = function (resultSet, dataType,
     }
 };
 
-exports.setParamByType = function (preparedStatement, paramType, paramValue, paramIndex) {
+export function setParamByType(preparedStatement, paramType, paramValue, paramIndex) {
     switch (paramType) {
         case "TINYINT":
             preparedStatement.setByte(paramIndex, paramValue);

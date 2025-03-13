@@ -12,25 +12,53 @@
 /*
  * HANA XS Classic Bridge for HDB API
  */
-var database = require('sdk/db/database');
-var PROCEDURE_UTILS = require('kronos/hdb/procedureUtils');
-var HDB_UTILS = require('kronos/hdb/hdbUtils');
-const TYPE_CONVERTER = require('kronos/db/sqlToXSCColumnTypeConverter');
+import { database } from 'sdk/db';
+import * as PROCEDURE_UTILS from 'kronos/hdb/procedureUtils';
+import * as HDB_UTILS from 'kronos/hdb/hdbUtils';
+import * as TYPE_CONVERTER from 'kronos/db/sqlToXSCColumnTypeConverter';
 
-exports.getConnection = function () {
+export function getConnection() {
 	var dConnection = database.getConnection();
 	return new XscConnection(dConnection);
 };
 
-exports.ProcedureResult = function () {
+export function ProcedureResult() {
 	this.$resultSets = [];
 };
 
-exports.ResultSet = XscResultSet;
+export function ResultSet(dResultSet) {
+	this.length = 0;
+	this.metadata = new XscResultSetMetaData(dResultSet.getMetaData());
+	syncResultSet.call(this);
+	this.getIterator = function () {
+		return new XscResultSetIterator(this);
+	};
+
+	function syncResultSet() {
+		var count = 0;
+		while (dResultSet.next()) {
+			this[count] = getResultSetRow(dResultSet, this.metadata);
+			count++;
+		}
+		this.length = count;
+	}
+
+	function getResultSetRow(dResultSet, metadata) {
+		let objToReturn = {};
+		let len = metadata.columns.length;
+		for (var i = 0; i < len; i++) {
+			let dataType = metadata.columns[i].typeName;
+			let value = HDB_UTILS.getResultSetValueByDataTypeAndRowNumber(dResultSet, dataType, i + 1);
+			let propertyName = metadata.columns[i].name;
+			objToReturn[propertyName] = value;
+		}
+		return objToReturn;
+	}
+}
 
 function XscConnection(dConnection) {
 	dConnection.setAutoCommit(false);
-	
+
 	this.close = function () {
 		dConnection.close();
 	};
@@ -44,7 +72,7 @@ function XscConnection(dConnection) {
 		var args = Array.prototype.slice.call(arguments, 1);
 		setStatementParams(dPreparedStatement, args);
 		var dResultSet = dPreparedStatement.executeQuery();
-		return new XscResultSet(dResultSet);
+		return new ResultSet(dResultSet);
 	};
 
 	this.executeUpdate = function (statement) {
@@ -150,36 +178,6 @@ function XscConnection(dConnection) {
 	// not part of the API, just for testing purposes
 	this.isClosed = function () {
 		return dConnection.isClosed();
-	}
-}
-
-function XscResultSet(dResultSet) {
-	this.length = 0;
-	this.metadata = new XscResultSetMetaData(dResultSet.getMetaData());
-	syncResultSet.call(this);
-	this.getIterator = function () {
-		return new XscResultSetIterator(this);
-	};
-
-	function syncResultSet() {
-		var count = 0;
-		while (dResultSet.next()) {
-			this[count] = getResultSetRow(dResultSet, this.metadata);
-			count++;
-		}
-		this.length = count;
-	}
-
-	function getResultSetRow(dResultSet, metadata) {
-		let objToReturn = {};
-		let len = metadata.columns.length;
-		for (var i = 0; i < len; i++) {
-			let dataType = metadata.columns[i].typeName;
-			let value = HDB_UTILS.getResultSetValueByDataTypeAndRowNumber(dResultSet, dataType, i + 1);
-			let propertyName = metadata.columns[i].name;
-			objToReturn[propertyName] = value;
-		}
-		return objToReturn;
 	}
 }
 

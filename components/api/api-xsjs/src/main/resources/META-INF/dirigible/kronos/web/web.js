@@ -13,14 +13,11 @@
  * HANA XS Classic Bridge for Web API
  */
 
-var dRequest = require('sdk/http/request');
-var dResponse = require('sdk/http/response');
-var dUpload = require('sdk/http/upload');
-var session = require('kronos/session/session');
-var zip = require('sdk/io/zip');
-var bytes = require("sdk/io/bytes");
+import { request as dRequest, response as dResponse, upload as dUpload} from 'sdk/http';
+import * as session from 'kronos/session/session';
+import { zip, bytes } from 'sdk/io';
 
-var WEB_UTILS = require('kronos/web/webUtils');
+import * as WEB_UTILS from 'kronos/web/webUtils';
 
 var SET_COOKIE_HEADER = "Set-Cookie";
 
@@ -148,7 +145,7 @@ const Body = function (bodyValue) {
   };
 };
 
-exports.WebRequest = function (method, path) {
+export function WebRequest(method, path) {
   if (typeof method === 'number') {
     if (typeof path !== 'string') {
       throw new Error('Expected string as a path (second argument)');
@@ -267,7 +264,7 @@ exports.WebRequest = function (method, path) {
   };
 };
 
-exports.WebResponse = function (clientResponse) {
+export function WebResponse(clientResponse) {
   if (clientResponse) {
     WebEntityResponse.call(this);
     this.body = new Body(clientResponse.text.getBytes());

@@ -13,39 +13,28 @@
  * HANA XS Classic Bridge
  */
 
-var $ = {};
+import * as db from 'kronos/db/db';
+import * as hdb from 'kronos/hdb/hdb';
+import * as net from 'kronos/net/net';
+import * as trace from 'kronos/trace/trace';
+import * as util from 'kronos/util/util';
+import * as jobs from 'kronos/jobs/jobs';
+import * as web from 'kronos/web/web';
+import * as session from 'kronos/session/session';
+import * as security from 'kronos/security/security';
+import * as importUtils from 'kronos/import/import';
 
-const API_MODULES = {
-    db: "kronos/db/db",
-    hdb: "kronos/hdb/hdb",
-    net: "kronos/net/net",
-    trace: "kronos/trace/trace",
-    util: "kronos/util/util",
-    jobs: "kronos/jobs/jobs",
-    web: "kronos/web/web",
-    session: "kronos/session/session",
-    security: "kronos/security/security"
+export const $ = {
+    db: db,
+    hdb: hdb,
+    net: net,
+    trace: trace,
+    util: util,
+    jobs: jobs,
+    web: web,
+    session: session,
+    security: security,
+    request: new web.WebRequest(),
+    response: new web.WebResponse(),
+    import: importUtils.importModule,
 };
-
-for (next in API_MODULES) {
-    loadApi(next, API_MODULES[next]);
-}
-
-try {
-    $.import = require("kronos/import/import").import;
-    $.request = new $.web.WebRequest();
-    $.response = new $.web.WebResponse();
-} catch (e) {
-    console.error(`Error occurred while loading API [import], [request] or [response]: ` + e.message);
-}
-
-function loadApi(api, module) {
-    try {
-        $[api] = require(module);
-    } catch (e) {
-        // $.trace.warning("Caught exception. Api.js is being used by kronos job.")
-        console.error(`Error occurred while loading API [${api}] from module: [${module}]: ` + e.message);
-    }
-}
-
-module.exports = $;

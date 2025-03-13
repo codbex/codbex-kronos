@@ -10,14 +10,10 @@
  */
 package com.codbex.kronos;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class KronosApplicationTest extends KronosIntegrationTest {
-
-    @Test
-    public void contextLoads() {}
-
+@ComponentScan(basePackages = "org.eclipse.dirigible")
+@TestConfiguration
+class TestConfigurations {
 }

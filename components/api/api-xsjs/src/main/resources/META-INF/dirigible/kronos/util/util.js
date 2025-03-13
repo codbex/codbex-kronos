@@ -9,20 +9,21 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-var uuid = require("sdk/utils/uuid");
-var bytes = require("sdk/io/bytes");
+import { uuid } from "sdk/utils";
+import { bytes } from "sdk/io";
+import * as codecUtils from "kronos/util/codec/codec";
 
-exports.codec = require("kronos/util/codec/codec");
+export const codec = codecUtils;
 
-exports.createUuid = function () {
+export function createUuid() {
   return uuid.random();
 }
 
-exports.stringify = function (arrayBuffer) {
+export function stringify(arrayBuffer) {
   return bytes.byteArrayToText(arrayBuffer);
 }
 
-exports.Zip = function (zipParams) {
+export function Zip(zipParams) {
   zipParams = zipParams || {};
   var source = zipParams.source || null;
   var index = zipParams.index || null;
