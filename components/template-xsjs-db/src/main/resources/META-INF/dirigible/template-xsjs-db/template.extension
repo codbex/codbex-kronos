@@ -1,5 +1,5 @@
 {
-    "extensionPoint": "ide-template",
+    "extensionPoint": "platform-templates",
     "module": "template-xsjs-db/template.js",
     "description": "XSJS DB API Template"
 }
