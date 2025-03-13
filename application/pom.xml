@@ -121,10 +121,6 @@
             <exclusions>
                 <exclusion>
                     <groupId>org.eclipse.dirigible</groupId>
-                    <artifactId>dirigible-components-ui-platform-branding</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.dirigible</groupId>
                     <artifactId>dirigible-components-ui-view-welcome</artifactId>
                 </exclusion>
             </exclusions>
