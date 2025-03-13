@@ -15,11 +15,8 @@ const viewData = {
 	factory: "frame",
 	lazyLoad: true,
 	region: "center",
-	link: "../ide-welcome/welcome.html"
+	path: "/services/web/view-welcome/welcome.html"
 }
-
 if (typeof exports !== 'undefined') {
-	exports.getView = function () {
-		return viewData;
-	}
+	exports.getView = () => viewData;
 }

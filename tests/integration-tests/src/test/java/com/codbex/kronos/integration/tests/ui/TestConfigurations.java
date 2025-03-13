@@ -8,23 +8,13 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package org.eclipse.dirigible.tests;
+package com.codbex.kronos.integration.tests.ui;
 
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Primary;
 
 @ComponentScan(basePackages = "org.eclipse.dirigible")
 @TestConfiguration
-public class TestConfigurations {
+class TestConfigurations {
 
-    // TODO: remove this bean and all OldUI* classes once the project is adapted to the new UI
-    @Lazy
-    @Primary
-    @Bean
-    IDE provideIDE(OldUiIde oldUiIde) {
-        return oldUiIde;
-    }
 }

@@ -6,6 +6,7 @@
         <groupId>com.codbex.platform</groupId>
         <artifactId>codbex-platform-parent</artifactId>
         <version>11.6.1</version>
+
     </parent>
 
     <name>codbex - kronos - parent</name>
@@ -30,13 +31,14 @@
         <module>components</module>
         <module>application</module>
         <module>branding</module>
+        <module>welcome</module>
         <module>modules</module>
         <module>tests/integration-tests</module>
         <!--<module>integration-tests</module>-->
     </modules>
 
     <properties>
-        <project.title>codbex kronos</project.title>
+        <project.title>Kronos by codbex</project.title>
 
         <scmVersionType>branch</scmVersionType>
         <profile.content.phase>none</profile.content.phase>
@@ -205,6 +207,11 @@
             <dependency>
                 <groupId>com.codbex.kronos</groupId>
                 <artifactId>codbex-kronos-branding</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.codbex.kronos</groupId>
+                <artifactId>codbex-kronos-welcome</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
