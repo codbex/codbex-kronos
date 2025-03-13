@@ -26,191 +26,153 @@ class KronosSuiteTest extends KronosIntegrationTest {
 
     /**
      * Execute database test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeDatabaseTest() throws Exception {
+    void executeDatabaseTest() {
         xsjsService.handleRequest("test", "kronos/db/api/db.xsjs", null, null, false);
     }
 
     /**
      * Execute connection test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeConnectionTest() throws Exception {
+    void executeConnectionTest() {
         xsjsService.handleRequest("test", "kronos/db/api/connection.xsjs", null, null, false);
     }
 
     /**
      * Execute parameter metadata test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeParameterMetadataTest() throws Exception {
+    void executeParameterMetadataTest() {
         xsjsService.handleRequest("test", "kronos/db/api/parameter-metadata.xsjs", null, null, false);
     }
 
     /**
      * Execute callable statement test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeCallableStatementTest() throws Exception {
+    void executeCallableStatementTest() {
         xsjsService.handleRequest("test", "kronos/db/api/callable-statement.xsjs", null, null, false);
     }
 
     /**
      * Execute prepared statement test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executePreparedStatementTest() throws Exception {
+    void executePreparedStatementTest() {
         xsjsService.handleRequest("test", "kronos/db/api/prepared-statement.xsjs", null, null, false);
     }
 
     /**
      * Execute result set test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeResultSetTest() throws Exception {
+    void executeResultSetTest() {
         xsjsService.handleRequest("test", "kronos/db/api/result-set.xsjs", null, null, false);
     }
 
     /**
      * Execute result set metadata test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeResultSetMetadataTest() throws Exception {
+    void executeResultSetMetadataTest() {
         xsjsService.handleRequest("test", "kronos/db/api/resultset-metadata.xsjs", null, null, false);
     }
 
     /**
      * Execute response test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeResponseTest() throws Exception {
+    void executeResponseTest() {
         xsjsService.handleRequest("test", "kronos/response/response.xsjs", null, null, false);
     }
 
     /**
      * Execute session test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeSessionTest() throws Exception {
+    void executeSessionTest() {
         xsjsService.handleRequest("test", "kronos/session/session.xsjs", null, null, false);
     }
 
     /**
      * Execute trace test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeTraceTest() throws Exception {
+    void executeTraceTest() {
         xsjsService.handleRequest("test", "kronos/trace/trace.xsjs", null, null, false);
     }
 
     /**
      * Execute util test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeUtilTest() throws Exception {
+    void executeUtilTest() {
         xsjsService.handleRequest("test", "kronos/util/util.xsjs", null, null, false);
     }
 
     /**
      * Execute util codec test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeUtilCodecTest() throws Exception {
+    void executeUtilCodecTest() {
         xsjsService.handleRequest("test", "kronos/util/codec/codec.xsjs", null, null, false);
     }
 
     /**
      * Execute http test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeHttpTest() throws Exception {
+    void executeHttpTest() {
         xsjsService.handleRequest("test", "kronos/http/http.xsjs", null, null, false);
     }
 
     /**
      * Execute net test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeNetTest() throws Exception {
+    void executeNetTest() {
         xsjsService.handleRequest("test", "kronos/net/net.xsjs", null, null, false);
     }
 
     /**
      * Execute HDB column metadata test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeHDBColumnMetadataTest() throws Exception {
+    void executeHDBColumnMetadataTest() {
         xsjsService.handleRequest("test", "kronos/hdb/api/column-metadata.xsjs", null, null, false);
     }
 
     /**
      * Execute HDB connection execute query test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeHDBConnectionExecuteQueryTest() throws Exception {
+    void executeHDBConnectionExecuteQueryTest() {
         xsjsService.handleRequest("test", "kronos/hdb/connection-execute-query.xsjs", null, null, false);
     }
 
     /**
      * Execute HDB connection execute update test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeHDBConnectionExecuteUpdateTest() throws Exception {
+    void executeHDBConnectionExecuteUpdateTest() {
         xsjsService.handleRequest("test", "kronos/hdb/connection-execute-update.xsjs", null, null, false);
     }
 
     /**
      * Execute HDB result set test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeHDBResultSetTest() throws Exception {
+    void executeHDBResultSetTest() {
         xsjsService.handleRequest("test", "kronos/hdb/result-set.xsjs", null, null, false);
     }
 
     /**
      * Execute HDB result set metadata test.
-     *
-     * @throws Exception the exception
      */
     @Test
-    public void executeHDBResultSetMetadataTest() throws Exception {
+    void executeHDBResultSetMetadataTest() {
         xsjsService.handleRequest("test", "kronos/hdb/resultset-metadata.xsjs", null, null, false);
     }
 }
