@@ -10,7 +10,7 @@
  */
 package com.codbex.kronos.engine.api.test;
 
-import org.junit.jupiter.api.Disabled;
+import com.codbex.kronos.engine.xsjs.service.XsjsService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +26,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.codbex.kronos.engine.xsjs.service.XsjsService;
-
 /**
  * The Class KronosSuiteTest.
  */
@@ -37,20 +35,27 @@ import com.codbex.kronos.engine.xsjs.service.XsjsService;
 @AutoConfigureMockMvc
 @ComponentScan(basePackages = {"org.eclipse.dirigible.components", "com.codbex.kronos"})
 @EntityScan(value = {"org.eclipse.dirigible.components", "com.codbex.kronos"})
-@Disabled
 public class KronosSuiteTest {
-
-    /** The xsjs service. */
-    @Autowired
-    private XsjsService xsjsService;
-
-    /** The mock mvc. */
-    @Autowired
-    private MockMvc mockMvc;
 
     /** The wac. */
     @Autowired
     protected WebApplicationContext wac;
+    /** The xsjs service. */
+    @Autowired
+    private XsjsService xsjsService;
+    /** The mock mvc. */
+    @Autowired
+    private MockMvc mockMvc;
+
+    /**
+     * The Class TestConfiguration.
+     */
+    @EnableJpaRepositories(basePackages = "com.codbex.kronos")
+    @SpringBootApplication(scanBasePackages = {"com.codbex.kronos", "org.eclipse.dirigible.components"})
+    @EnableScheduling
+    static class TestConfiguration {
+
+    }
 
     /**
      * Execute database test.
@@ -240,15 +245,5 @@ public class KronosSuiteTest {
     @Test
     public void executeHDBResultSetMetadataTest() throws Exception {
         xsjsService.handleRequest("test", "kronos/hdb/resultset-metadata.xsjs", null, null, false);
-    }
-
-    /**
-     * The Class TestConfiguration.
-     */
-    @EnableJpaRepositories(basePackages = "com.codbex.kronos")
-    @SpringBootApplication(scanBasePackages = {"com.codbex.kronos", "org.eclipse.dirigible.components"})
-    @EnableScheduling
-    static class TestConfiguration {
-
     }
 }
