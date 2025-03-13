@@ -255,6 +255,13 @@
             <groupId>org.eclipse.dirigible</groupId>
         </dependency>
 
+        <!-- Tests -->
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-tests-framework</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

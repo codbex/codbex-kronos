@@ -10,52 +10,19 @@
  */
 package com.codbex.kronos.engine.api.test;
 
+import com.codbex.kronos.KronosIntegrationTest;
 import com.codbex.kronos.engine.xsjs.service.XsjsService;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.context.WebApplicationContext;
 
 /**
  * The Class KronosSuiteTest.
  */
-@WithMockUser
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
-@AutoConfigureMockMvc
-@ComponentScan(basePackages = {"org.eclipse.dirigible.components", "com.codbex.kronos"})
-@EntityScan(value = {"org.eclipse.dirigible.components", "com.codbex.kronos"})
-public class KronosSuiteTest {
+class KronosSuiteTest extends KronosIntegrationTest {
 
-    /** The wac. */
-    @Autowired
-    protected WebApplicationContext wac;
     /** The xsjs service. */
     @Autowired
     private XsjsService xsjsService;
-    /** The mock mvc. */
-    @Autowired
-    private MockMvc mockMvc;
-
-    /**
-     * The Class TestConfiguration.
-     */
-    @EnableJpaRepositories(basePackages = "com.codbex.kronos")
-    @SpringBootApplication(scanBasePackages = {"com.codbex.kronos", "org.eclipse.dirigible.components"})
-    @EnableScheduling
-    static class TestConfiguration {
-
-    }
 
     /**
      * Execute database test.
