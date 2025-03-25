@@ -34,7 +34,7 @@
         <module>welcome</module>
         <module>modules</module>
         <module>tests/integration-tests</module>
-        <!--<module>integration-tests</module>-->
+        <!--<module>legacy-integration-tests</module>-->
     </modules>
 
     <properties>
