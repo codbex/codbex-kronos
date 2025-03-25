@@ -160,6 +160,12 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>com.codbex.kronos</groupId>
+                <artifactId>codbex-kronos-application</artifactId>
+                <version>${project.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
                 <groupId>javax.websocket</groupId>
                 <artifactId>javax.websocket-api</artifactId>
                 <version>${javax.websocket-api.version}</version>
