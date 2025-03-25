@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.codbex.platform</groupId>
         <artifactId>codbex-platform-parent</artifactId>
-        <version>11.11.0</version>
+        <version>12.0.0-SNAPSHOT</version>
 
     </parent>
 
@@ -33,7 +33,7 @@
         <module>branding</module>
         <module>welcome</module>
         <module>modules</module>
-        <module>tests/integration-tests</module>
+        <module>integration-tests</module>
         <!--<module>legacy-integration-tests</module>-->
     </modules>
 
