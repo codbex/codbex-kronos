@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * The Class KronosSuiteTest.
+ * The Class XsjsIT.
  */
 class XsjsIT extends KronosIntegrationTest {
 
