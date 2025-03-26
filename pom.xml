@@ -5,8 +5,7 @@
     <parent>
         <groupId>com.codbex.platform</groupId>
         <artifactId>codbex-platform-parent</artifactId>
-        <version>11.11.0</version>
-
+        <version>11.14.0</version>
     </parent>
 
     <name>codbex - kronos - parent</name>
@@ -33,8 +32,8 @@
         <module>branding</module>
         <module>welcome</module>
         <module>modules</module>
-        <module>tests/integration-tests</module>
-        <!--<module>integration-tests</module>-->
+        <module>integration-tests</module>
+        <!--<module>legacy-integration-tests</module>-->
     </modules>
 
     <properties>
@@ -159,6 +158,12 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.codbex.kronos</groupId>
+                <artifactId>codbex-kronos-application</artifactId>
+                <version>${project.version}</version>
+                <scope>test</scope>
+            </dependency>
             <dependency>
                 <groupId>javax.websocket</groupId>
                 <artifactId>javax.websocket-api</artifactId>

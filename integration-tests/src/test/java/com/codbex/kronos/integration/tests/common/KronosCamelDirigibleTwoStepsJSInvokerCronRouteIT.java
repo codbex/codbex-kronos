@@ -8,11 +8,9 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos.integration.tests.ui;
+package com.codbex.kronos.integration.tests.common;
 
-import org.eclipse.dirigible.tests.UserInterfaceIntegrationTest;
-import org.springframework.context.annotation.Import;
+import org.eclipse.dirigible.integration.tests.ui.tests.camel.CamelDirigibleTwoStepsJSInvokerCronRouteIT;
 
-@Import(TestConfigurations.class)
-public abstract class KronosIntegrationTest extends UserInterfaceIntegrationTest {
+class KronosCamelDirigibleTwoStepsJSInvokerCronRouteIT extends CamelDirigibleTwoStepsJSInvokerCronRouteIT {
 }

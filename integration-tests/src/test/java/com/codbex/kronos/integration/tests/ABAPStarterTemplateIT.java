@@ -8,7 +8,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos.integration.tests.ui;
+package com.codbex.kronos.integration.tests;
 
 import org.eclipse.dirigible.tests.WelcomeView;
 import org.eclipse.dirigible.tests.Workbench;
@@ -23,7 +23,7 @@ import static org.awaitility.Awaitility.await;
 class ABAPStarterTemplateIT extends KronosIntegrationTest {
 
     private static final String ABAP_TEMPLATE_TITLE = "ABAP Starter";
-    private static final String TEST_PROJECT = "kronos-test-project";
+    private static final String TEST_PROJECT = ABAPStarterTemplateIT.class.getSimpleName();
 
     @Autowired
     private RestAssuredExecutor restAssuredExecutor;
@@ -41,7 +41,7 @@ class ABAPStarterTemplateIT extends KronosIntegrationTest {
         welcomeView.typeFileName(TEST_PROJECT);
         welcomeView.confirmTemplate();
 
-        workbench.clickPublishAll();
+        workbench.publishAll(true);
 
         assertGeneratedJSWorks();
     }

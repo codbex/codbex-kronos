@@ -8,18 +8,9 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos.integration.tests.ui;
+package com.codbex.kronos.integration.tests.common;
 
-import org.eclipse.dirigible.tests.framework.HtmlElementType;
-import org.junit.jupiter.api.Test;
+import org.eclipse.dirigible.integration.tests.ui.tests.camel.CamelDirigibleTwoStepsJSInvokerHttpRouteIT;
 
-class HomePageIT extends KronosIntegrationTest {
-
-    @Test
-    void testOpenHomepage() {
-        ide.openHomePage();
-
-        browser.assertElementExistsByTypeAndText(HtmlElementType.SPAN, "codbex");
-        browser.assertElementExistsByTypeAndText(HtmlElementType.HEADER3, "Welcome to Kronos");
-    }
+class KronosCamelDirigibleTwoStepsJSInvokerHttpRouteIT extends CamelDirigibleTwoStepsJSInvokerHttpRouteIT {
 }

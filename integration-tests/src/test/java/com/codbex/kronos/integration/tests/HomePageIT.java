@@ -8,24 +8,18 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos.integration.tests.ui;
+package com.codbex.kronos.integration.tests;
 
 import org.eclipse.dirigible.tests.framework.HtmlElementType;
 import org.junit.jupiter.api.Test;
 
-class HomepageRedirectIT extends KronosIntegrationTest {
+class HomePageIT extends KronosIntegrationTest {
 
     @Test
     void testOpenHomepage() {
         ide.openHomePage();
-        assertHomeRedirect("/");
-        assertHomeRedirect("");
-        assertHomeRedirect("/home");
-    }
 
-    private void assertHomeRedirect(String path) {
-        browser.openPath(path);
-        browser.assertElementExistsByTypeAndText(HtmlElementType.ANCHOR, "Welcome");
-
+        browser.assertElementExistsByTypeAndText(HtmlElementType.SPAN, "codbex");
+        browser.assertElementExistsByTypeAndText(HtmlElementType.HEADER3, "Welcome to Kronos");
     }
 }

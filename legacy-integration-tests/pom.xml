@@ -1,0 +1,45 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.codbex.kronos</groupId>
+    <artifactId>codbex-kronos-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+
+  <name>kronos - integration - tests - parent</name>
+  <artifactId>codbex-kronos-integration-tests-parent</artifactId>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>engine-hdb</module>
+    <module>ui</module>
+    <module>applications</module>
+    <module>integration-tests-core</module>
+  </modules>
+
+  <properties>
+    <junitparams.version>1.1.1</junitparams.version>
+    <selenium.webdriver.manager.version>5.8.0</selenium.webdriver.manager.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>pl.pragmatists</groupId>
+        <artifactId>JUnitParams</artifactId>
+        <version>${junitparams.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.github.bonigarcia</groupId>
+        <artifactId>webdrivermanager</artifactId>
+        <version>${selenium.webdriver.manager.version}</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+</project>

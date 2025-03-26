@@ -8,16 +8,11 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos;
+package com.codbex.kronos.integration.tests;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.eclipse.dirigible.tests.UserInterfaceIntegrationTest;
+import org.springframework.context.annotation.Import;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class KronosApplicationTest {
-
-    @Test
-    public void contextLoads() {}
-
+@Import(TestConfigurations.class)
+public abstract class KronosIntegrationTest extends UserInterfaceIntegrationTest {
 }

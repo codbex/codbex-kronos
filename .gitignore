@@ -9,7 +9,7 @@ dirigible_local/
 bin/
 dist/
 node_modules/
-tests/integration-tests/build/reports/tests/**
+**/build/reports
 
 # files
 .DS_Store
@@ -24,8 +24,9 @@ derby.log
 *.iml
 *._trace
 *.log
-
+**/ttyd.sh
 !releng/buildpacks/**/bin/
+**/package-lock.json
 
 # Ignore Neo SDK
 resources/resources-neo-sdk/src/main/resources/META-INF/dirigible/resources-neo-sdk/*

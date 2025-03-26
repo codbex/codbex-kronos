@@ -8,11 +8,9 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos;
+package com.codbex.kronos.integration.tests.common;
 
-import org.eclipse.dirigible.tests.IntegrationTest;
-import org.springframework.context.annotation.Import;
+import org.eclipse.dirigible.integration.tests.ui.tests.camel.CamelExtractTransformLoadTypescriptIT;
 
-@Import(TestConfigurations.class)
-public abstract class KronosIntegrationTest extends IntegrationTest {
+class KronosCamelExtractTransformLoadTypescriptIT extends CamelExtractTransformLoadTypescriptIT {
 }
