@@ -8,9 +8,8 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos.engine.api.test;
+package com.codbex.kronos.integration.tests;
 
-import com.codbex.kronos.KronosIntegrationTest;
 import com.codbex.kronos.engine.xsjs.service.XsjsService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

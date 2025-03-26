@@ -8,7 +8,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos;
+package com.codbex.kronos.integration.tests;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,4 +16,5 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = "org.eclipse.dirigible")
 @TestConfiguration
 class TestConfigurations {
+
 }
