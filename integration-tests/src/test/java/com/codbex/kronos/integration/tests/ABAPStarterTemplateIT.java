@@ -23,7 +23,7 @@ import static org.awaitility.Awaitility.await;
 class ABAPStarterTemplateIT extends KronosIntegrationTest {
 
     private static final String ABAP_TEMPLATE_TITLE = "ABAP Starter";
-    private static final String TEST_PROJECT = "kronos-test-project";
+    private static final String TEST_PROJECT = ABAPStarterTemplateIT.class.getSimpleName();
 
     @Autowired
     private RestAssuredExecutor restAssuredExecutor;
