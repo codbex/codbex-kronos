@@ -41,7 +41,7 @@ class ABAPStarterTemplateIT extends KronosIntegrationTest {
         welcomeView.typeFileName(TEST_PROJECT);
         welcomeView.confirmTemplate();
 
-        workbench.clickPublishAll();
+        workbench.publishAll(true);
 
         assertGeneratedJSWorks();
     }
