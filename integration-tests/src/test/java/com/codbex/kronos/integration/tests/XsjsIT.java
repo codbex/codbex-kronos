@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * The Class KronosSuiteTest.
  */
-class KronosSuiteTest extends KronosIntegrationTest {
+class XsjsIT extends KronosIntegrationTest {
 
     /** The xsjs service. */
     @Autowired
