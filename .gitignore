@@ -26,6 +26,7 @@ derby.log
 *.log
 **/ttyd.sh
 !releng/buildpacks/**/bin/
+**/.package-lock.json
 
 # Ignore Neo SDK
 resources/resources-neo-sdk/src/main/resources/META-INF/dirigible/resources-neo-sdk/*
