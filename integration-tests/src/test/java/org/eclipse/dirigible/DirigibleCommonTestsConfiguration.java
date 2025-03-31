@@ -8,9 +8,13 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-package com.codbex.kronos.integration.tests.common;
+package org.eclipse.dirigible;
 
-import org.eclipse.dirigible.integration.tests.ui.tests.camel.CamelDirigibleJavaScriptComponentHttpRouteIT;
+import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 
-class KronosCamelDirigibleJavaScriptComponentHttpRouteIT extends CamelDirigibleJavaScriptComponentHttpRouteIT {
+@SpringBootConfiguration
+@ComponentScan(basePackages = {"org.eclipse.dirigible", "com.codbex"})
+class DirigibleCommonTestsConfiguration {
+    // this class is needed for the dirigible tests suite
 }
