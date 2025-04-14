@@ -27,11 +27,8 @@
     </scm>
 
     <modules>
-        <module>components</module>
         <module>application</module>
-        <module>branding</module>
-        <module>welcome</module>
-        <module>modules</module>
+        <module>core</module>
         <module>integration-tests</module>
         <!--<module>legacy-integration-tests</module>-->
     </modules>
@@ -158,6 +155,7 @@
 
     <dependencyManagement>
         <dependencies>
+
             <dependency>
                 <groupId>com.codbex.kronos</groupId>
                 <artifactId>codbex-kronos-application</artifactId>
@@ -226,7 +224,7 @@
             </dependency>
             <dependency>
                 <groupId>com.codbex.kronos</groupId>
-                <artifactId>codbex-kronos-components-api-javascript</artifactId>
+                <artifactId>codbex-kronos-abap-components-api-javascript</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -416,5 +414,27 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <profiles>
+        <profile>
+            <id>xs</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>xs</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>abap</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>abap</module>
+            </modules>
+        </profile>
+    </profiles>
 
 </project>

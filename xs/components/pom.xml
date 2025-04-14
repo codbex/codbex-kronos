@@ -4,7 +4,7 @@
 
     <parent>
         <groupId>com.codbex.kronos</groupId>
-        <artifactId>codbex-kronos-parent</artifactId>
+        <artifactId>codbex-kronos-xs-parent</artifactId>
         <version>3.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -41,9 +41,6 @@
         <module>template-xsjs-db</module>
         <module>template-xsjs-hdb</module>
         <module>template-xsjs-import</module>
-
-        <module>template-abap</module>
-        <module>template-snowflake-function-api</module>
     </modules>
 
 </project>
