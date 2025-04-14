@@ -290,8 +290,6 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <dependencies>
-
-                <!-- Kronos -->
                 <!-- UI -->
                 <dependency>
                     <groupId>com.codbex.kronos</groupId>

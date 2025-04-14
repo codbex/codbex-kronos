@@ -28,8 +28,7 @@
 
     <modules>
         <module>application</module>
-        <module>branding</module>
-        <module>welcome</module>
+        <module>core</module>
         <module>integration-tests</module>
         <!--<module>legacy-integration-tests</module>-->
     </modules>
@@ -156,7 +155,7 @@
 
     <dependencyManagement>
         <dependencies>
-            
+
             <dependency>
                 <groupId>com.codbex.kronos</groupId>
                 <artifactId>codbex-kronos-application</artifactId>
