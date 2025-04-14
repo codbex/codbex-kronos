@@ -27,11 +27,10 @@
     </scm>
 
     <modules>
-        <module>components</module>
+        <module>xs</module>
         <module>application</module>
         <module>branding</module>
         <module>welcome</module>
-        <module>modules</module>
         <module>integration-tests</module>
         <!--<module>legacy-integration-tests</module>-->
     </modules>
