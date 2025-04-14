@@ -224,7 +224,7 @@
             </dependency>
             <dependency>
                 <groupId>com.codbex.kronos</groupId>
-                <artifactId>codbex-kronos-components-api-javascript</artifactId>
+                <artifactId>codbex-kronos-abap-components-api-javascript</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -432,6 +432,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
+                <module>abap</module>
             </modules>
         </profile>
     </profiles>

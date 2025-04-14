@@ -5,17 +5,17 @@
 
     <parent>
         <groupId>com.codbex.kronos</groupId>
-        <artifactId>codbex-kronos-components-parent</artifactId>
+        <artifactId>codbex-kronos-abap-components-parent</artifactId>
         <version>3.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <name>codbex - kronos - modules - api - parent</name>
-    <artifactId>codbex-kronos-components-api-parent</artifactId>
+    <artifactId>codbex-kronos-abap-components-api-parent</artifactId>
     <packaging>pom</packaging>
 
     <modules>
-        <module>api-xsjs</module>
+        <module>api-javascript</module>
     </modules>
 
 </project>

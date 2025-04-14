@@ -305,10 +305,7 @@
                     <groupId>com.codbex.kronos</groupId>
                     <artifactId>codbex-kronos-components-api-xsjs</artifactId>
                 </dependency>
-                <dependency>
-                    <groupId>com.codbex.kronos</groupId>
-                    <artifactId>codbex-kronos-components-api-javascript</artifactId>
-                </dependency>
+
 
                 <!-- Engines -->
                 <dependency>
@@ -380,12 +377,18 @@
             <dependencies>
                 <dependency>
                     <groupId>com.codbex.kronos</groupId>
+                    <artifactId>codbex-kronos-abap-components-api-javascript</artifactId>
+                </dependency>
+                
+                <dependency>
+                    <groupId>com.codbex.kronos</groupId>
                     <artifactId>codbex-kronos-components-template-abap</artifactId>
                 </dependency>
                 <dependency>
                     <groupId>com.codbex.kronos</groupId>
                     <artifactId>codbex-kronos-components-template-snowflake-function-api</artifactId>
                 </dependency>
+
             </dependencies>
         </profile>
     </profiles>

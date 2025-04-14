@@ -4,13 +4,13 @@
 
     <parent>
         <groupId>com.codbex.kronos</groupId>
-        <artifactId>codbex-kronos-components-parent</artifactId>
+        <artifactId>codbex-kronos-abap-components-parent</artifactId>
         <version>3.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <name>codbex - kronos - components - template - snowflake - function - api</name>
-    <artifactId>codbex-kronos-components-template-snowflake-function-api</artifactId>
+    <name>codbex - kronos - components - template - abap</name>
+    <artifactId>codbex-kronos-components-template-abap</artifactId>
     <packaging>jar</packaging>
 
 </project>
