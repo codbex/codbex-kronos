@@ -27,7 +27,6 @@
     </scm>
 
     <modules>
-        <module>xs</module>
         <module>application</module>
         <module>branding</module>
         <module>welcome</module>
@@ -157,6 +156,7 @@
 
     <dependencyManagement>
         <dependencies>
+            
             <dependency>
                 <groupId>com.codbex.kronos</groupId>
                 <artifactId>codbex-kronos-application</artifactId>
@@ -415,5 +415,26 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <profiles>
+        <profile>
+            <id>xs</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>xs</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>abap</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+            </modules>
+        </profile>
+    </profiles>
 
 </project>

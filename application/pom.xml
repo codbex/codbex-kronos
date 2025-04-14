@@ -15,6 +15,7 @@
     <packaging>jar</packaging>
 
     <dependencies>
+        <!--        Kronos core dependencies-->
         <dependency>
             <groupId>com.codbex.kronos</groupId>
             <artifactId>codbex-kronos-branding</artifactId>
@@ -24,6 +25,7 @@
             <artifactId>codbex-kronos-welcome</artifactId>
         </dependency>
 
+        <!--        Dirigible dependencies-->
         <!-- Core -->
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
@@ -145,96 +147,6 @@
             <artifactId>dirigible-components-security-oauth2</artifactId>
         </dependency>
 
-        <!-- Kronos -->
-        <!-- UI -->
-        <dependency>
-            <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-components-ide-file-types</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-components-ide-workspace-menu</artifactId>
-        </dependency>
-
-        <!-- API -->
-        <dependency>
-            <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-components-api-xsjs</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-components-api-javascript</artifactId>
-        </dependency>
-
-        <!-- Engines -->
-        <dependency>
-            <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-components-engine-commons</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-components-engine-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-components-engine-xsjs</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-components-engine-xsodata</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-components-engine-hdb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-components-engine-hdi</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-components-engine-xsjob</artifactId>
-        </dependency>
-
-        <!-- Templates -->
-        <dependency>
-            <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-components-template-xsjs</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-components-template-hdbtable</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-components-template-hdbview</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-components-template-hdbdd</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-components-template-xsjs-db</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-components-template-xsjs-hdb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-components-template-xsjs-import</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-components-template-abap</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.codbex.kronos</groupId>
-            <artifactId>codbex-kronos-components-template-snowflake-function-api</artifactId>
-        </dependency>
 
         <dependency>
             <artifactId>dirigible-components-template-hello-world</artifactId>
@@ -370,5 +282,115 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>xs</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencies>
+
+                <!-- Kronos -->
+                <!-- UI -->
+                <dependency>
+                    <groupId>com.codbex.kronos</groupId>
+                    <artifactId>codbex-kronos-components-ide-file-types</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.codbex.kronos</groupId>
+                    <artifactId>codbex-kronos-components-ide-workspace-menu</artifactId>
+                </dependency>
+
+                <!-- API -->
+                <dependency>
+                    <groupId>com.codbex.kronos</groupId>
+                    <artifactId>codbex-kronos-components-api-xsjs</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.codbex.kronos</groupId>
+                    <artifactId>codbex-kronos-components-api-javascript</artifactId>
+                </dependency>
+
+                <!-- Engines -->
+                <dependency>
+                    <groupId>com.codbex.kronos</groupId>
+                    <artifactId>codbex-kronos-components-engine-commons</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.codbex.kronos</groupId>
+                    <artifactId>codbex-kronos-components-engine-core</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.codbex.kronos</groupId>
+                    <artifactId>codbex-kronos-components-engine-xsjs</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.codbex.kronos</groupId>
+                    <artifactId>codbex-kronos-components-engine-xsodata</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.codbex.kronos</groupId>
+                    <artifactId>codbex-kronos-components-engine-hdb</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.codbex.kronos</groupId>
+                    <artifactId>codbex-kronos-components-engine-hdi</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.codbex.kronos</groupId>
+                    <artifactId>codbex-kronos-components-engine-xsjob</artifactId>
+                </dependency>
+
+                <!-- Templates -->
+                <dependency>
+                    <groupId>com.codbex.kronos</groupId>
+                    <artifactId>codbex-kronos-components-template-xsjs</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.codbex.kronos</groupId>
+                    <artifactId>codbex-kronos-components-template-hdbtable</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.codbex.kronos</groupId>
+                    <artifactId>codbex-kronos-components-template-hdbview</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.codbex.kronos</groupId>
+                    <artifactId>codbex-kronos-components-template-hdbdd</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.codbex.kronos</groupId>
+                    <artifactId>codbex-kronos-components-template-xsjs-db</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.codbex.kronos</groupId>
+                    <artifactId>codbex-kronos-components-template-xsjs-hdb</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.codbex.kronos</groupId>
+                    <artifactId>codbex-kronos-components-template-xsjs-import</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>abap</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>com.codbex.kronos</groupId>
+                    <artifactId>codbex-kronos-components-template-abap</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.codbex.kronos</groupId>
+                    <artifactId>codbex-kronos-components-template-snowflake-function-api</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+
 
 </project>
