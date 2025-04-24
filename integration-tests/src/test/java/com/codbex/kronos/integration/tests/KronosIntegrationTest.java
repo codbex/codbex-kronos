@@ -10,7 +10,7 @@
  */
 package com.codbex.kronos.integration.tests;
 
-import org.eclipse.dirigible.tests.UserInterfaceIntegrationTest;
+import org.eclipse.dirigible.tests.base.UserInterfaceIntegrationTest;
 import org.springframework.context.annotation.Import;
 
 @Import(TestConfigurations.class)
