@@ -10,9 +10,9 @@
  */
 package com.codbex.kronos.integration.tests;
 
-import org.eclipse.dirigible.tests.WelcomeView;
-import org.eclipse.dirigible.tests.Workbench;
-import org.eclipse.dirigible.tests.restassured.RestAssuredExecutor;
+import org.eclipse.dirigible.tests.framework.ide.WelcomeView;
+import org.eclipse.dirigible.tests.framework.ide.Workbench;
+import org.eclipse.dirigible.tests.framework.restassured.RestAssuredExecutor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
