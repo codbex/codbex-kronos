@@ -10,7 +10,7 @@
  */
 package com.codbex.kronos.integration.tests;
 
-import org.eclipse.dirigible.tests.framework.HtmlElementType;
+import org.eclipse.dirigible.tests.framework.browser.HtmlElementType;
 import org.junit.jupiter.api.Test;
 
 class HomePageIT extends KronosIntegrationTest {
