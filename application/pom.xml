@@ -96,10 +96,6 @@
         <!-- IDE Backend -->
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
-            <artifactId>dirigible-components-ide-console</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-components-ide-git</artifactId>
         </dependency>
         <dependency>
@@ -383,7 +379,7 @@
                     <groupId>com.codbex.kronos</groupId>
                     <artifactId>codbex-kronos-abap-components-api-javascript</artifactId>
                 </dependency>
-                
+
                 <dependency>
                     <groupId>com.codbex.kronos</groupId>
                     <artifactId>codbex-kronos-components-template-abap</artifactId>
