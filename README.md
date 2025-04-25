@@ -9,6 +9,26 @@
 > the same developers
 > and free to be used by whom is interested.
 
+<!-- TOC -->
+* [Kronos by codbex](#kronos-by-codbex)
+  * [Description](#description)
+  * [Overview](#overview)
+    * [Background](#background)
+  * [Requirements](#requirements)
+      * [Docker](#docker)
+      * [Build](#build)
+      * [Run](#run)
+      * [Debug](#debug)
+      * [Spring profiles](#spring-profiles)
+      * [Web](#web)
+      * [REST API](#rest-api)
+  * [FAQ](#faq)
+  * [Cheat Sheet](#cheat-sheet)
+  * [Readiness](#readiness)
+  * [How to obtain support](#how-to-obtain-support)
+  * [Contributing](#contributing)
+<!-- TOC -->
+
 ## Description
 
 Compatible environment
@@ -101,6 +121,11 @@ java -jar application/target/codbex-kronos-application-*-executable.jar
 ```
 java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000 -jar application/target/codbex-kronos-application-*-executable.jar
 ```
+
+#### Spring profiles
+- Eclipse Dirigible profiles<br>
+  To activate Eclipse Dirigible profile, you have to add profiles `common` and `app-default` explicitly.<br>
+  Example for profile `snowflake`: `SPRING_PROFILES_ACTIVE=common,snowflake,app-default`
 
 #### Web
 
