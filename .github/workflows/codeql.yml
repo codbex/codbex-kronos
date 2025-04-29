@@ -1,41 +1,105 @@
-name: CodeQL Analysis and SARIF HTML Upload
+name: "CodeQL Advanced"
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ main ]
+    branches: [ "main" ]
+  schedule:
+    - cron: '32 20 * * 0'
 
 jobs:
-  codeql-analysis:
-    name: CodeQL Analysis
-    runs-on: ubuntu-latest
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: java-kotlin
+            build-mode: none
+          - language: javascript-typescript
+            build-mode: none
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK Corretto 21
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: '21'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install TypeScript and esbuild
+        run: npm install -g typescript esbuild
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
-          languages: javascript
+          languages: ${{ matrix.language }}
+          config-file: ./.github/codeql-config.yaml
+          build-mode: ${{ matrix.build-mode }}
 
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v3
+      - if: matrix.build-mode == 'manual'
+        shell: bash
+        run: |
+          echo 'Manual build steps should go here if needed.'
+          exit 1
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ matrix.language }}"
+          output: "codeql-sarif-${{ matrix.language }}.sarif"
 
-      - name: Convert SARIF to HTML
-        run: |
-          SARIF_FILE=$(find codeql-sarif-javascript-typescript.sarif -name '*.sarif' | head -n 1)
-          echo "Detected SARIF file: $SARIF_FILE"
-
-          echo '<html><body><pre>' > sarif-report.html
-          cat "$SARIF_FILE" >> sarif-report.html
-          echo '</pre></body></html>' >> sarif-report.html
-
-      - name: Upload HTML report
+      - name: Upload SARIF artifact
         uses: actions/upload-artifact@v4
         with:
-          name: sarif-html-report
-          path: sarif-report.html
+          name: codeql-sarif-results-${{ matrix.language }}
+          path: codeql-sarif-${{ matrix.language }}.sarif
+
+      - name: Generate PDF or fallback to HTML report
+        run: |
+          npm install -g playwright
+          npx playwright install chromium
+
+          SARIF_FILE="codeql-sarif-${{ matrix.language }}.sarif"
+          HTML_REPORT="sarif-report-${{ matrix.language }}.html"
+          PDF_REPORT="sarif-report-${{ matrix.language }}.pdf"
+
+          echo "Detected SARIF file: $SARIF_FILE"
+
+          echo '<html><body><pre>' > "$HTML_REPORT"
+          cat "$SARIF_FILE" >> "$HTML_REPORT"
+          echo '</pre></body></html>' >> "$HTML_REPORT"
+
+          # Try generating PDF
+          if npx playwright pdf "$HTML_REPORT" "$PDF_REPORT"; then
+            echo "PDF report generated."
+            echo "report_file=$PDF_REPORT" >> $GITHUB_ENV
+            echo "report_name=codeql-pdf-report-${{ matrix.language }}" >> $GITHUB_ENV
+          else
+            echo "PDF generation failed, falling back to HTML."
+            echo "report_file=$HTML_REPORT" >> $GITHUB_ENV
+            echo "report_name=codeql-html-report-${{ matrix.language }}" >> $GITHUB_ENV
+          fi
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: 0
+
+      - name: Upload final SARIF report (PDF or HTML)
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.report_name }}
+          path: ${{ env.report_file }}
