@@ -76,6 +76,6 @@ jobs:
         uses: rsdmike/github-security-report-action@v3.0.4
         with:
           template: summary
-          token: ${{ secrets.SECURITY_TOKEN }}
+          #          token: ${{ secrets.SECURITY_TOKEN }}
           sarifReportDir: "codeql-output-${{ matrix.language }}"
           outputDir: "/reports"
