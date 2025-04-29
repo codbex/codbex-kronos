@@ -62,36 +62,36 @@ jobs:
         uses: github/codeql-action/analyze@v3
         with:
           category: "/language:${{ matrix.language }}"
-          output: "codeql-sarif-${{ matrix.language }}.sarif"
+          output: "codeql-output-${{ matrix.language }}"
 
       - name: Upload SARIF artifact
         uses: actions/upload-artifact@v4
         with:
           name: codeql-sarif-results-${{ matrix.language }}
-          path: codeql-sarif-${{ matrix.language }}.sarif
+          path: codeql-output-${{ matrix.language }}
 
       - name: Generate PDF or fallback to HTML report
         run: |
           npm install -g playwright
           npx playwright install chromium
 
-          SARIF_FILE="codeql-sarif-${{ matrix.language }}.sarif"
+          OUTPUT_DIR="codeql-output-${{ matrix.language }}"
+          SARIF_FILE=$(find "$OUTPUT_DIR" -name "*.sarif" | head -n 1)
           HTML_REPORT="sarif-report-${{ matrix.language }}.html"
           PDF_REPORT="sarif-report-${{ matrix.language }}.pdf"
 
           echo "Detected SARIF file: $SARIF_FILE"
 
-          echo '<html><body><pre>' > "$HTML_REPORT"
+          echo '<html><body><h1>CodeQL Report</h1><pre>' > "$HTML_REPORT"
           cat "$SARIF_FILE" >> "$HTML_REPORT"
           echo '</pre></body></html>' >> "$HTML_REPORT"
 
           # Try generating PDF
           if npx playwright pdf "$HTML_REPORT" "$PDF_REPORT"; then
-            echo "PDF report generated."
             echo "report_file=$PDF_REPORT" >> $GITHUB_ENV
             echo "report_name=codeql-pdf-report-${{ matrix.language }}" >> $GITHUB_ENV
           else
-            echo "PDF generation failed, falling back to HTML."
+            echo "PDF generation failed. Falling back to HTML."
             echo "report_file=$HTML_REPORT" >> $GITHUB_ENV
             echo "report_name=codeql-html-report-${{ matrix.language }}" >> $GITHUB_ENV
           fi
