@@ -36,18 +36,15 @@ jobs:
         with:
           distribution: 'corretto'
           java-version: '21'
-          architecture: x64
 
-      - name: Install NodeJS
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Install esbuild
-        run: npm i -g esbuild
-
-      - name: Install TypeScript compiler
-        run: npm i -g typescript
+      - name: Install TypeScript and esbuild
+        run: |
+          npm install -g typescript esbuild
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
@@ -59,33 +56,28 @@ jobs:
       - if: matrix.build-mode == 'manual'
         shell: bash
         run: |
-          echo "Manual build not configured."
+          echo 'Manual build steps should go here if needed.'
           exit 1
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
         with:
-          category: "/language:${{matrix.language}}"
+          category: "/language:${{ matrix.language }}"
+          output: "codeql-sarif-${{ matrix.language }}.sarif"
 
-      - name: Move SARIF to workspace
-        run: |
-          mkdir -p sarif
-          SARIF_FILE=$(find ../results -name "*.sarif" | grep "${{ matrix.language }}" | head -n 1)
-          echo "Detected SARIF file: $SARIF_FILE"
-          cp "$SARIF_FILE" sarif/codeql-results-${{ matrix.language }}.sarif
-
-      - name: Upload SARIF as artifact
+      - name: Upload SARIF artifact
         uses: actions/upload-artifact@v4
         with:
           name: codeql-sarif-results-${{ matrix.language }}
-          path: sarif/codeql-results-${{ matrix.language }}.sarif
+          path: codeql-sarif-${{ matrix.language }}.sarif
 
-      - name: Convert SARIF to PDF
+      - name: Generate PDF report from SARIF
         run: |
-          mkdir -p sarif-html
-          npx @microsoft/sarif-multitool transform sarif/codeql-results-${{ matrix.language }}.sarif --format html --output sarif-html/index.html
+          npm install -g @microsoft/sarif-multitool
+          npx @microsoft/sarif-multitool transform codeql-sarif-${{ matrix.language }}.sarif --format html --output sarif-${{ matrix.language }}.html
+          npm install -g playwright
           npx playwright install chromium
-          npx playwright pdf sarif-html/index.html sarif-html/report-${{ matrix.language }}.pdf
+          npx playwright pdf sarif-${{ matrix.language }}.html sarif-report-${{ matrix.language }}.pdf
         env:
           PLAYWRIGHT_BROWSERS_PATH: 0
 
@@ -93,5 +85,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: codeql-pdf-report-${{ matrix.language }}
-          path: sarif-html/report-${{ matrix.language }}.pdf
-
+          path: sarif-report-${{ matrix.language }}.pdf
