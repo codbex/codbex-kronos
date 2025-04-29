@@ -75,10 +75,15 @@ jobs:
         run: |
           npm install -g playwright
           npx playwright install chromium
+          
+          SARIF_FILE=$(find codeql-sarif-javascript-typescript.sarif -name '*.sarif' | head -n 1)
+          echo "Detected SARIF file: $SARIF_FILE"
+          
           echo '<html><body><pre>' > sarif-report.html
-          cat codeql-sarif-${{ matrix.language }}.sarif >> sarif-report.html
+          cat "$SARIF_FILE" >> sarif-report.html
           echo '</pre></body></html>' >> sarif-report.html
-          npx playwright pdf sarif-report.html sarif-report-${{ matrix.language }}.pdf
+          
+          npx playwright pdf sarif-report.html sarif-report-javascript-typescript.pdf
         env:
           PLAYWRIGHT_BROWSERS_PATH: 0
 
