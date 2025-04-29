@@ -11,8 +11,7 @@ on:
 jobs:
   generate-security-report:
     steps:
-
       - name: Generate Security Report
-        uses: rsdmike/github-security-report-action@v3
+        uses: rsdmike/github-security-report-action@v3.0.4
         with:
           token: ${{ secrets.SECURITY_TOKEN }}
