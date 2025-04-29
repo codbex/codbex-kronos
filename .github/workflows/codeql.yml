@@ -63,6 +63,7 @@ jobs:
         with:
           category: "/language:${{ matrix.language }}"
           output: "codeql-output-${{ matrix.language }}"
+          outputAsSarif: true
 
       - name: Upload SARIF artifact
         uses: actions/upload-artifact@v4
@@ -70,36 +71,26 @@ jobs:
           name: codeql-sarif-results-${{ matrix.language }}
           path: codeql-output-${{ matrix.language }}
 
-      - name: Generate PDF or fallback to HTML report
+      - name: Generate CodeQL Summary from SARIF
         run: |
-          npm install -g playwright
-          npx playwright install chromium
+          # Locate SARIF directory
+          SARIF_DIR="codeql-output-${{ matrix.language }}"
+          SARIF_FILE=$(find "$SARIF_DIR" -name '*.sarif' | head -n 1)
+          
+          echo "Using SARIF file: $SARIF_FILE"
+          
+          # Extract useful information using jq
+          jq -r '
+            .runs[].results[] |
+            "Rule: \(.ruleId)\nSeverity: \(.level)\nMessage: \(.message.text)\nLocation: \(.locations[0].physicalLocation.artifactLocation.uri):\(.locations[0].physicalLocation.region.startLine)\n"
+          ' "$SARIF_FILE" > codeql-summary-${{ matrix.language }}.txt
+          
+          echo "========== CodeQL Summary =========="
+          cat codeql-summary-${{ matrix.language }}.txt
+          echo "===================================="
 
-          OUTPUT_DIR="codeql-output-${{ matrix.language }}"
-          SARIF_FILE=$(find "$OUTPUT_DIR" -name "*.sarif" | head -n 1)
-          HTML_REPORT="sarif-report-${{ matrix.language }}.html"
-          PDF_REPORT="sarif-report-${{ matrix.language }}.pdf"
-
-          echo "Detected SARIF file: $SARIF_FILE"
-
-          echo '<html><body><h1>CodeQL Report</h1><pre>' > "$HTML_REPORT"
-          cat "$SARIF_FILE" >> "$HTML_REPORT"
-          echo '</pre></body></html>' >> "$HTML_REPORT"
-
-          # Try generating PDF
-          if npx playwright pdf "$HTML_REPORT" "$PDF_REPORT"; then
-            echo "report_file=$PDF_REPORT" >> $GITHUB_ENV
-            echo "report_name=codeql-pdf-report-${{ matrix.language }}" >> $GITHUB_ENV
-          else
-            echo "PDF generation failed. Falling back to HTML."
-            echo "report_file=$HTML_REPORT" >> $GITHUB_ENV
-            echo "report_name=codeql-html-report-${{ matrix.language }}" >> $GITHUB_ENV
-          fi
-        env:
-          PLAYWRIGHT_BROWSERS_PATH: 0
-
-      - name: Upload final SARIF report (PDF or HTML)
+      - name: Upload CodeQL Summary
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.report_name }}
-          path: ${{ env.report_file }}
+          name: codeql-summary-${{ matrix.language }}
+          path: codeql-summary-${{ matrix.language }}.txt
