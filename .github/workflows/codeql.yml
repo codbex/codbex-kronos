@@ -71,34 +71,3 @@ jobs:
         with:
           name: codeql-sarif-results-${{ matrix.language }}
           path: codeql-output-${{ matrix.language }}
-
-      - name: Generate CodeQL Summary in Actions UI
-        shell: bash
-        run: |
-          # Print the title of the section to the summary
-          echo "## 🔍 CodeQL Analysis Summary (${{ matrix.language }})" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "| Rule ID | Message | Location |" >> $GITHUB_STEP_SUMMARY
-          echo "|---------|---------|----------|" >> $GITHUB_STEP_SUMMARY
-          
-          # Use the sarif-output from the analysis step to locate the SARIF file
-          SARIF_DIR="${{ steps.analyze.outputs.sarif-output }}"
-          SARIF_FILE=$(find "$SARIF_DIR" -type f -name "*.sarif" | head -n 1)
-          
-          if [ -z "$SARIF_FILE" ]; then
-            echo "No SARIF file found!" >> $GITHUB_STEP_SUMMARY
-            exit 1
-          fi
-          
-          # Process the SARIF file to generate the summary
-          jq -r '
-            .runs[].results[] |
-            "| \(.ruleId) | \(.message.text) | \(.locations[0].physicalLocation.artifactLocation.uri):\(.locations[0].physicalLocation.region.startLine) |"
-          ' "$SARIF_FILE" >> $GITHUB_STEP_SUMMARY
-
-
-      - name: Upload CodeQL Summary
-        uses: actions/upload-artifact@v4
-        with:
-          name: codeql-summary-${{ matrix.language }}
-          path: codeql-summary-${{ matrix.language }}.txt
