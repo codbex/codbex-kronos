@@ -78,4 +78,10 @@ jobs:
           template: summary
           token: ${{ secrets.GITHUB_TOKEN }}
           sarifReportDir: "codeql-output-${{ matrix.language }}"
-          outputDir: "/reports"
+          outputDir: "reports"
+
+      - name: Upload generated security reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-reports-${{ matrix.language }}
+          path: reports
