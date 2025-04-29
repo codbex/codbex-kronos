@@ -68,30 +68,30 @@ jobs:
           category: "/language:${{matrix.language}}"
 
       - name: Move SARIF to workspace
-          id: move-sarif
-          run: |
-            mkdir -p sarif
-            SARIF_FILE=$(find ../results -name "*.sarif" | head -n 1)
-            cp "$SARIF_FILE" sarif/
-            echo "sarif_file=sarif/$(basename "$SARIF_FILE")" >> $GITHUB_OUTPUT
+        run: |
+          mkdir -p sarif
+          SARIF_FILE=$(find ../results -name "*.sarif" | grep "${{ matrix.language }}" | head -n 1)
+          echo "Detected SARIF file: $SARIF_FILE"
+          cp "$SARIF_FILE" sarif/codeql-results-${{ matrix.language }}.sarif
 
-            - name: Upload SARIF as artifact
-              uses: actions/upload-artifact@v4
-              with:
-                name: codeql-sarif-results-${{ matrix.language }}
-                path: ${{ steps.move-sarif.outputs.sarif_file }}
+      - name: Upload SARIF as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: codeql-sarif-results-${{ matrix.language }}
+          path: sarif/codeql-results-${{ matrix.language }}.sarif
 
-            - name: Convert SARIF to pretty HTML and PDF
-              run: |
-                mkdir sarif-html
-                npx @microsoft/sarif-multitool transform ${{ steps.move-sarif.outputs.sarif_file }} --format html --output sarif-html/index.html
-                npx playwright install chromium
-                npx playwright pdf sarif-html/index.html sarif-html/report-${{ matrix.language }}.pdf
-              env:
-                PLAYWRIGHT_BROWSERS_PATH: 0
+      - name: Convert SARIF to PDF
+        run: |
+          mkdir -p sarif-html
+          npx @microsoft/sarif-multitool transform sarif/codeql-results-${{ matrix.language }}.sarif --format html --output sarif-html/index.html
+          npx playwright install chromium
+          npx playwright pdf sarif-html/index.html sarif-html/report-${{ matrix.language }}.pdf
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: 0
 
-            - name: Upload PDF report
-              uses: actions/upload-artifact@v4
-              with:
-                name: codeql-pdf-report-${{ matrix.language }}
-                path: sarif-html/report-${{ matrix.language }}.pdf
+      - name: Upload PDF report
+        uses: actions/upload-artifact@v4
+        with:
+          name: codeql-pdf-report-${{ matrix.language }}
+          path: sarif-html/report-${{ matrix.language }}.pdf
+
