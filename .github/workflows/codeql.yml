@@ -117,3 +117,4 @@ jobs:
             "| \(.ruleId) | \(.message.text) | \(.locations[0].physicalLocation.artifactLocation.uri):\(.locations[0].physicalLocation.region.startLine) |"
           ' codeql-sarif-${{ matrix.language }}.sarif >> $GITHUB_STEP_SUMMARY
     
+
