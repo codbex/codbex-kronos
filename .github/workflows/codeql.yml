@@ -73,7 +73,7 @@ jobs:
           path: codeql-output-${{ matrix.language }}
 
       - name: Generate Security Report
-        uses: rsdmike/github-security-report-action@v3
+        uses: rsdmike/github-security-report-action@v3.0.4
         with:
           template: summary
           token: ${{ secrets.SECURITY_TOKEN }}
