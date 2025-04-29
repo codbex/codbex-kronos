@@ -71,3 +71,11 @@ jobs:
         with:
           name: codeql-sarif-results-${{ matrix.language }}
           path: codeql-output-${{ matrix.language }}
+
+      - name: Generate Security Report
+        uses: rsdmike/github-security-report-action@v3
+        with:
+          template: summary
+          token: ${{ secrets.SECURITY_TOKEN }}
+          sarifReportDir: "codeql-output-${{ matrix.language }}"
+          outputDir: "/reports"
