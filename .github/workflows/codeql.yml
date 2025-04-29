@@ -94,10 +94,11 @@ jobs:
         with:
           name: codeql-summary-${{ matrix.language }}
           path: codeql-summary-${{ matrix.language }}.txt
-          
+
       - name: Generate CodeQL Summary in Actions UI
+        shell: bash
         run: |
-          echo "## 🔍 CodeQL Analysis Summary (${ { matrix.language } })" >> $GITHUB_STEP_SUMMARY
+          echo "## 🔍 CodeQL Analysis Summary (${{ matrix.language }})" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Rule ID | Message | Location |" >> $GITHUB_STEP_SUMMARY
           echo "|---------|---------|----------|" >> $GITHUB_STEP_SUMMARY
@@ -105,4 +106,4 @@ jobs:
             .runs[].results[] |
             "| \(.ruleId) | \(.message.text) | \(.locations[0].physicalLocation.artifactLocation.uri):\(.locations[0].physicalLocation.region.startLine) |"
           ' codeql-sarif-${{ matrix.language }}.sarif >> $GITHUB_STEP_SUMMARY
-        shell: bash
+    
