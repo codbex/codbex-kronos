@@ -70,7 +70,7 @@ jobs:
           path: sast-codeql-output-${{ matrix.language }}
 
       - name: Generate Security Report for CodeQL Analysis
-        uses: rsdmike/github-security-report-action@v3
+        uses: rsdmike/github-security-report-action@v3.0.4
         with:
           template: report
           token: ${{ secrets.GITHUB_TOKEN }}
