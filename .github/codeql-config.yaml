@@ -2,19 +2,12 @@ name: "Comprehensive Multi-language CodeQL Config"
 
 query-filters:
   - exclude:
-      id:
-        - java/path-injection
+      id: java/path-injection
 
 queries:
-  # Standard security and quality queries for Java
+  # Main security and quality pack (covers all supported languages)
+  - uses: security-and-quality
+
+  # Optional: also explicitly include latest Java and JS/TS packs (they overlap but ensure latest queries)
   - uses: codeql/java-queries@latest
-  - uses: codeql/java-queries/src/Security/CWE
-  - uses: codeql/java-queries/src/Experimental
-
-  # Standard security and quality queries for JavaScript & TypeScript
   - uses: codeql/javascript-queries@latest
-  - uses: codeql/javascript-queries/src/Security
-  - uses: codeql/javascript-queries/src/Experimental
-
-  # Optional: additional quality queries for TypeScript/JavaScript
-  - uses: codeql/javascript-queries/src/BestPractices
