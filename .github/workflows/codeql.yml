@@ -23,7 +23,7 @@ jobs:
       matrix:
         include:
           - language: java-kotlin
-            build-mode: none
+            build-mode: autobuild
           - language: javascript-typescript
             build-mode: none
 
@@ -57,6 +57,9 @@ jobs:
         run: |
           echo 'Manual build steps should go here if needed.'
           exit 1
+
+      - name: Autobuild project
+        uses: github/codeql-action/autobuild@v3
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
