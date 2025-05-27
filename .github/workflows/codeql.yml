@@ -9,11 +9,11 @@ on:
     - cron: '32 20 * * 0'
 
 jobs:
-  analyze:
+  sast-codeql-analyze:
     name: Analyze (${{ matrix.language }})
-    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+    runs-on: ubuntu-latest
     permissions:
-      security-events: write
+      security-events: write # Required to upload SARIF to GitHub Security tab
       packages: read
       actions: read
       contents: read
@@ -62,7 +62,7 @@ jobs:
         uses: github/codeql-action/analyze@v3
         with:
           category: "/language:${{ matrix.language }}"
-          output: "codeql-output-${{ matrix.language }}"
+          output: "sast-codeql-output-${{ matrix.language }}"
           upload: always
           add-snippets: true
 
@@ -70,18 +70,18 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: codeql-sarif-results-${{ matrix.language }}
-          path: codeql-output-${{ matrix.language }}
+          path: sast-codeql-output-${{ matrix.language }}
 
       - name: Generate Security Report
         uses: rsdmike/github-security-report-action@v3.0.4
         with:
           template: summary
           token: ${{ secrets.GITHUB_TOKEN }}
-          sarifReportDir: "codeql-output-${{ matrix.language }}"
+          sarifReportDir: "sast-codeql-output-${{ matrix.language }}"
           outputDir: "reports"
 
       - name: Upload generated security reports
         uses: actions/upload-artifact@v4
         with:
-          name: security-reports-${{ matrix.language }}
+          name: security-reports-sast-codeql-${{ matrix.language }}
           path: reports
