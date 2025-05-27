@@ -66,7 +66,7 @@ jobs:
       - name: Upload CodeQL Analysis SARIF file as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: codeql-sarif-sarif-${{ matrix.language }}
+          name: sast-codeql-sarif-sarif-${{ matrix.language }}
           path: sast-codeql-report-${{ matrix.language }}
 
       - name: Generate Security Report for CodeQL Analysis
