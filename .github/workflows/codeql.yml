@@ -72,7 +72,7 @@ jobs:
       - name: Generate Security Report
         uses: rsdmike/github-security-report-action@v3.0.4
         with:
-          template: report_sca
+          template: report
           token: ${{ secrets.GITHUB_TOKEN }}
           sarifReportDir: "sast-codeql-output-${{ matrix.language }}"
           outputDir: "reports"
