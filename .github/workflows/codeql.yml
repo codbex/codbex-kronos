@@ -23,7 +23,7 @@ jobs:
       matrix:
         include:
           - language: java-kotlin
-            build-mode: autobuild
+            build-mode: manual
           - language: javascript-typescript
             build-mode: none
 
@@ -58,8 +58,9 @@ jobs:
           echo 'Manual build steps should go here if needed.'
           exit 1
 
-      - name: Autobuild project
-        uses: github/codeql-action/autobuild@v3
+      - name: Build Java/Kotlin project
+        if: matrix.language == 'java-kotlin'
+        run: ./mvn clean install -P quick-build
 
       - name: Perform CodeQL Analysis for language ${{ matrix.language }}
         uses: github/codeql-action/analyze@v3
