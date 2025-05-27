@@ -52,12 +52,6 @@ jobs:
           config-file: ./.github/codeql-config.yaml
           build-mode: ${{ matrix.build-mode }}
 
-      - if: matrix.build-mode == 'manual'
-        shell: bash
-        run: |
-          echo 'Manual build steps should go here if needed.'
-          exit 1
-
       - name: Build Java/Kotlin project
         if: matrix.language == 'java-kotlin'
         run: ./mvn clean install -P quick-build
