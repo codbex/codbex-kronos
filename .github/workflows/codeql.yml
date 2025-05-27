@@ -63,7 +63,12 @@ jobs:
           output: "sast-codeql-output-${{ matrix.language }}"
           upload: always
 
-      - name: Upload CodeQL Analysis in SARIF format
+      - name: Upload SARIF to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: sast-codeql-output-${{ matrix.language }}.sarif
+
+      - name: Upload CodeQL Analysis SARIF file as artifact
         uses: actions/upload-artifact@v4
         with:
           name: codeql-sarif-results-${{ matrix.language }}
@@ -77,7 +82,7 @@ jobs:
           sarifReportDir: "sast-codeql-output-${{ matrix.language }}"
           outputDir: "reports"
 
-      - name: Upload generated security reports
+      - name: Upload generated security report as artifact
         uses: actions/upload-artifact@v4
         with:
           name: security-reports-sast-codeql-${{ matrix.language }}
