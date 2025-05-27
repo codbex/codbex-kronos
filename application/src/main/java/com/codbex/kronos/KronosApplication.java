@@ -40,8 +40,6 @@ public class KronosApplication {
     }
 
     public static void main(String[] args) {
-        String nullStr = null;
-        nullStr.toLowerCase();
         System.out.println("------- Application is starting -------");
         SpringApplication.run(KronosApplication.class, args);
     }
