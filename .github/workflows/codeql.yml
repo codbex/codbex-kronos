@@ -64,9 +64,8 @@ jobs:
           category: "/language:${{ matrix.language }}"
           output: "sast-codeql-output-${{ matrix.language }}"
           upload: always
-          add-snippets: true
 
-      - name: Upload SARIF artifact
+      - name: Upload CodeQL Analysis in SARIF format
         uses: actions/upload-artifact@v4
         with:
           name: codeql-sarif-results-${{ matrix.language }}
@@ -75,7 +74,7 @@ jobs:
       - name: Generate Security Report
         uses: rsdmike/github-security-report-action@v3.0.4
         with:
-          template: summary
+          template: report
           token: ${{ secrets.GITHUB_TOKEN }}
           sarifReportDir: "sast-codeql-output-${{ matrix.language }}"
           outputDir: "reports"
