@@ -54,7 +54,7 @@ jobs:
 
       - name: Build Java/Kotlin project
         if: matrix.language == 'java-kotlin'
-        run: ./mvn clean install -P quick-build
+        run: mvn clean install -P quick-build
 
       - name: Perform CodeQL Analysis for language ${{ matrix.language }}
         uses: github/codeql-action/analyze@v3
