@@ -40,21 +40,10 @@ public class KronosApplication {
     }
 
     public static void main(String[] args) {
-        vulnerableMethod("test");
+        String nullStr = null;
+        nullStr.toLowerCase();
         System.out.println("------- Application is starting -------");
         SpringApplication.run(KronosApplication.class, args);
     }
 
-    public static void vulnerableMethod(String input) {
-        String maybeNull = null;
-
-        if (input == null) {
-            maybeNull = null;
-        } else {
-            maybeNull = input.toUpperCase();
-        }
-
-        // Vulnerable dereference: maybeNull could be null here
-        System.out.println(maybeNull.length());  // Potential null dereference
-    }
 }
