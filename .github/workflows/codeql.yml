@@ -61,25 +61,7 @@ jobs:
         with:
           category: "/language:${{ matrix.language }}"
           output: "sast-codeql-output-${{ matrix.language }}"
-          upload: always
-
-      - name: Upload SARIF to GitHub Security tab for javascript-typescript
-        if: matrix.language == 'javascript-typescript'
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: sast-codeql-output-${{ matrix.language }}/javascript.sarif
-
-      - name: Upload SARIF to GitHub Security tab for java-kotlin
-        if: matrix.language == 'java-kotlin'
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: sast-codeql-output-${{ matrix.language }}/java.sarif
-
-
-      - name: Build Java/Kotlin project
-
-        run: mvn clean install -P quick-build
-
+          upload: always # Upload SARIF to GitHub Security tab
 
       - name: Upload CodeQL Analysis SARIF file as artifact
         uses: actions/upload-artifact@v4
