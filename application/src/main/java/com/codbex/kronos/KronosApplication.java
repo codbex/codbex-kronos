@@ -40,6 +40,8 @@ public class KronosApplication {
     }
 
     public static void main(String[] args) {
+        String nullVariable = null;
+        System.out.println(nullVariable.toLowerCase());
         startedAt = System.currentTimeMillis();
         System.out.println("------- Application is starting -------");
         SpringApplication.run(KronosApplication.class, args);
