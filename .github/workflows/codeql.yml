@@ -1,4 +1,4 @@
-name: "CodeQL Advanced Push & PR"
+name: "CodeQL Advanced [Push & PR]"
 
 on:
   push:
@@ -60,14 +60,14 @@ jobs:
         uses: github/codeql-action/analyze@v3
         with:
           category: "/language:${{ matrix.language }}"
-          output: "sast-codeql-output-${{ matrix.language }}"
+          output: "sast-codeql-report-${{ matrix.language }}"
           upload: always # Upload SARIF to GitHub Security tab
 
       - name: Upload CodeQL Analysis SARIF file as artifact
         uses: actions/upload-artifact@v4
         with:
           name: codeql-sarif-sarif-${{ matrix.language }}
-          path: sast-codeql-output-${{ matrix.language }}
+          path: sast-codeql-report-${{ matrix.language }}
 
       - name: Generate Security Report for CodeQL Analysis
         uses: rsdmike/github-security-report-action@v3.0.4
@@ -75,10 +75,10 @@ jobs:
           template: report
           token: ${{ secrets.GITHUB_TOKEN }}
           sarifReportDir: "sast-codeql-report-${{ matrix.language }}"
-          outputDir: "reports"
+          outputDir: "security-reports"
 
       - name: Upload generated security report as artifact
         uses: actions/upload-artifact@v4
         with:
           name: sast-codeql-report-${{ matrix.language }}
-          path: reports
+          path: security-reports
