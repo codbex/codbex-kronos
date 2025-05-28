@@ -13,5 +13,6 @@ on:
 jobs:
   sast-codeql-analyze:
     uses: codbex/codbex-infra/.github/workflows/platform-codeql-pr-push.yaml@main
-    secrets: inherit
     with:
+      dummy: dummyValue2
+    secrets: inherit
