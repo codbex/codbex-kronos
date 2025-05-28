@@ -8,15 +8,16 @@ on:
   schedule:
     - cron: '32 20 * * 0'
 
+permissions:
+  security-events: write # Required to upload SARIF to GitHub Security tab
+  packages: read
+  actions: read
+  contents: read
+
 jobs:
   sast-codeql-analyze:
     name: Analyze (${{ matrix.language }})
     runs-on: ubuntu-latest
-    permissions:
-      security-events: write # Required to upload SARIF to GitHub Security tab
-      packages: read
-      actions: read
-      contents: read
 
     strategy:
       fail-fast: false
@@ -49,8 +50,14 @@ jobs:
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
-          config-file: ./.github/codeql-config.yaml
           build-mode: ${{ matrix.build-mode }}
+          config: |
+            name: "Comprehensive Multi-language CodeQL Config"
+            query-filters:
+              - exclude:
+                  id: java/path-injection
+            queries:
+              - uses: security-and-quality
 
       - name: Build Java/Kotlin project
         if: matrix.language == 'java-kotlin'
@@ -61,7 +68,7 @@ jobs:
         with:
           category: "/language:${{ matrix.language }}"
           output: "sast-codeql-report-${{ matrix.language }}"
-          upload: always # Upload SARIF to GitHub Security tab
+          upload: always
 
       - name: Upload CodeQL Analysis SARIF file as artifact
         uses: actions/upload-artifact@v4

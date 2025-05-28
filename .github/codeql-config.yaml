@@ -1,9 +1,0 @@
-name: "Comprehensive Multi-language CodeQL Config"
-
-query-filters:
-  - exclude:
-      id: java/path-injection
-
-queries:
-  # Recommended query pack with security + quality for all supported languages
-  - uses: security-and-quality
