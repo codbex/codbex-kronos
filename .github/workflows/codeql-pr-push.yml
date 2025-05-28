@@ -12,6 +12,6 @@ on:
 
 jobs:
   main:
-    uses: codbex/codbex-infra/.github/workflows/platform-codeql-pr-push.yml@main
+    uses: codbex/codbex-infra/.github/workflows/platform-codeql-pr-push.yaml@main
     secrets: inherit
     with:
