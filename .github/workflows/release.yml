@@ -26,7 +26,7 @@ jobs:
       release-content: |
         ## codbex-kronos - ${{ inputs.release-version }}
         
-        SAP HANA XS Classic Compatibility Platform
+        Compatible Platform for SAP ABAP & SAP HANA XS Classic
         
         ## Deployment
         
