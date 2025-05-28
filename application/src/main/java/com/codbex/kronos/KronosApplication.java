@@ -44,4 +44,5 @@ public class KronosApplication {
         System.out.println("------- Application is starting -------");
         SpringApplication.run(KronosApplication.class, args);
     }
+
 }
