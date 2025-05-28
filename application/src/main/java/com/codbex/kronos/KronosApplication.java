@@ -40,6 +40,7 @@ public class KronosApplication {
     }
 
     public static void main(String[] args) {
+        startedAt = System.currentTimeMillis();
         System.out.println("------- Application is starting -------");
         SpringApplication.run(KronosApplication.class, args);
     }
