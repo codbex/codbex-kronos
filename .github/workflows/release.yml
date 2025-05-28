@@ -15,7 +15,7 @@ on:
 run-name: 'version set to ${{ inputs.release-version }} for release'
 
 jobs:
-  main:
+  release:
     uses: codbex/codbex-infra/.github/workflows/platform-release.yaml@main
     with:
       maven-release: false # temp disable maven release
