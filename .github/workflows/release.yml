@@ -18,6 +18,7 @@ jobs:
   main:
     uses: codbex/codbex-infra/.github/workflows/platform-release.yaml@main
     with:
+      maven-release: false # temp disable maven release
       platform-name: codbex-kronos
       release-version: ${{ inputs.release-version }}
       snapshot-version: ${{ inputs.snapshot-version }}
