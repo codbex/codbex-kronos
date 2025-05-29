@@ -41,16 +41,7 @@ jobs:
         with:
           target: 'http://localhost:80'
           cmd_options: '-T 10' # https://www.zaproxy.org/docs/docker/full-scan/
-          artifact_name: dast_zap_report
-          allow_issue_writing: true
+          artifact_name: dast_zap_report # all results will be uploaded with an artifact with this name
+          allow_issue_writing: false # create an issue with the results
           issue_title: '[DAST] ZAP Full Scan Report'
 
-      - name: Upload ZAP Report as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: dast_zap_report
-          path: dast_zap_report.html
-
-      - name: Debug container logs
-        if: failure()
-        run: docker logs $(docker ps -qf "ancestor=ghcr.io/codbex/codbex-kronos:latest")
