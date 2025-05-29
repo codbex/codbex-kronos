@@ -15,16 +15,17 @@ import com.codbex.kronos.engine.hdb.parser.Constants;
 import com.codbex.kronos.engine.hdb.parser.HDBUtils;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Collection;
 import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
 import org.eclipse.dirigible.database.sql.SqlFactory;
 import org.eclipse.dirigible.database.sql.TableStatements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * The HDBTableCreateProcessor.
@@ -103,9 +104,9 @@ public class HDBTableCreateProcessor extends AbstractHDBProcessor<HDBTable> {
             logger.info("Create table [{}] in schema [{}] successfully", tableModel.getName(), tableModel.getSchema());
         } catch (SQLException ex) {
             String errorMessage = String.format("Create table [%s] failed due to an error. Used SQL - create table [%s], indices [%s]",
-                    tableModel, tableCreateStatement, String.join("; ", indicesStatements), ex);
+                    tableModel, tableCreateStatement, String.join("; ", indicesStatements));
             CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableModel.getLocation(),
-                    CommonsConstants.HDB_TABLE_PARSER);
+                    CommonsConstants.HDB_TABLE_PARSER, ex);
             throw new SQLException(errorMessage, ex);
         }
     }

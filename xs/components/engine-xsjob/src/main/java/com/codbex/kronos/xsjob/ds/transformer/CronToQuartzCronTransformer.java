@@ -121,7 +121,7 @@ public class CronToQuartzCronTransformer {
             return dayOfWeek + "#" + occurrence;
         } else if (occurrence == -1) {
             return dayOfWeek + "L";
-        } else if (occurrence < -1 && occurrence >= -5) {
+        } else if (occurrence >= -5) {
             return dayOfWeek + "L" + "-" + occurrence;
         }
 

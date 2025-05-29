@@ -10,22 +10,8 @@
  */
 package com.codbex.kronos.hdi.ds.processors;
 
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import com.codbex.kronos.engine.hdi.ds.util.Message;
 import com.codbex.kronos.engine.hdi.processors.DeployContainerContentProcessor;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Answers;
@@ -33,6 +19,12 @@ import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
+
+import java.sql.*;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.*;
 
 /**
  * The Class DeployContainerContentProcessorTest.
@@ -71,6 +63,36 @@ public class DeployContainerContentProcessorTest {
     private CallableStatement callableStatementMock;
 
     /**
+     * The Class MockRow.
+     */
+    static class MockRow {
+
+        /**
+         * The row data.
+         */
+        String[] rowData;
+
+        /**
+         * Sets the current row data.
+         *
+         * @param rowData the new current row data
+         */
+        public void setCurrentRowData(String[] rowData) {
+            this.rowData = rowData;
+        }
+
+        /**
+         * Gets the column.
+         *
+         * @param idx the idx
+         * @return the column
+         */
+        public String getColumn(int idx) {
+            return rowData[idx - 1];
+        }
+    }
+
+    /**
      * Test execute call.
      *
      * @throws SQLException the SQL exception
@@ -79,7 +101,6 @@ public class DeployContainerContentProcessorTest {
     public void testExecuteCall() throws SQLException {
 
         DeployContainerContentProcessor processorSpy = spy(DeployContainerContentProcessor.class);
-        ArrayList<Message> messages = new ArrayList<>();
         String container = "testContainer";
 
         String sqlMakeCall =
@@ -127,8 +148,7 @@ public class DeployContainerContentProcessorTest {
         when(resultSetMock.next()).thenReturn(true)
                                   .thenReturn(false);
         // when(resultSetFromSelectMock.next()).thenReturn(true).thenReturn(true).thenReturn(false);
-        Message message = new Message(resultSetMock);
-        messages.add(message);
+        new Message(resultSetMock);
         when(callableStatementMock.getInt(1)).thenReturn(1);
         // when(resultSetFromSelectMock.getString(1)).thenReturn("test_Deploy_Container/testCalcView.hdbcalculationview");
         // Mockito.doNothing().when(processorSpy).applyArtefactState(any(), any(), any(), any(), any());
@@ -138,35 +158,5 @@ public class DeployContainerContentProcessorTest {
         verify(processorSpy, times(1)).parseResultSet(resultSetMock, sqlMakeCall);
         // verify(processorSpy,times(2)).applyState(any(), any(), any(), any());
 
-    }
-
-    /**
-     * The Class MockRow.
-     */
-    static class MockRow {
-
-        /**
-         * The row data.
-         */
-        String[] rowData;
-
-        /**
-         * Sets the current row data.
-         *
-         * @param rowData the new current row data
-         */
-        public void setCurrentRowData(String[] rowData) {
-            this.rowData = rowData;
-        }
-
-        /**
-         * Gets the column.
-         *
-         * @param idx the idx
-         * @return the column
-         */
-        public String getColumn(int idx) {
-            return rowData[idx - 1];
-        }
     }
 }

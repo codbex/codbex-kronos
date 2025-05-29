@@ -10,17 +10,18 @@
  */
 package com.codbex.kronos.engine.hdb.processors;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
-import org.eclipse.dirigible.database.sql.SqlFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.codbex.kronos.engine.hdb.domain.HDBTableType;
 import com.codbex.kronos.engine.hdb.parser.HDBSynonymRemover;
 import com.codbex.kronos.engine.hdb.parser.HDBUtils;
 import com.codbex.kronos.utils.CommonsConstants;
 import com.codbex.kronos.utils.CommonsUtils;
+import org.eclipse.dirigible.database.sql.DatabaseArtifactTypes;
+import org.eclipse.dirigible.database.sql.SqlFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * The Class HDBTableTypeDropProcessor.
@@ -63,9 +64,10 @@ public class HDBTableTypeDropProcessor extends AbstractHDBProcessor<HDBTableType
             String message = String.format("Drop table type [%s] successfully", tableTypeName);
             logger.info(message);
         } catch (SQLException ex) {
-            String errorMessage = String.format("Failed to drop table type [%s] in schema [%s]", tableTypeModel.getName(),
-                    tableTypeModel.getSchema(), ex);
-            CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableTypeModel.getLocation(), tableTypeParser);
+            String errorMessage =
+                    String.format("Failed to drop table type [%s] in schema [%s]", tableTypeModel.getName(), tableTypeModel.getSchema());
+            CommonsUtils.logProcessorErrors(errorMessage, CommonsConstants.PROCESSOR_ERROR, tableTypeModel.getLocation(), tableTypeParser,
+                    ex);
             throw ex;
         }
     }

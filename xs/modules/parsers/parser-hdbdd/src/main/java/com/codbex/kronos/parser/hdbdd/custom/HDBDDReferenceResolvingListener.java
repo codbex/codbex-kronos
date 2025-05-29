@@ -10,16 +10,9 @@
  */
 package com.codbex.kronos.parser.hdbdd.custom;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 import com.codbex.kronos.parser.hdbdd.core.CdsBaseListener;
 import com.codbex.kronos.parser.hdbdd.core.CdsLexer;
 import com.codbex.kronos.parser.hdbdd.core.CdsParser.*;
-import org.antlr.v4.runtime.tree.ParseTreeProperty;
-
 import com.codbex.kronos.parser.hdbdd.exception.CDSRuntimeException;
 import com.codbex.kronos.parser.hdbdd.symbols.Symbol;
 import com.codbex.kronos.parser.hdbdd.symbols.SymbolTable;
@@ -34,6 +27,12 @@ import com.codbex.kronos.parser.hdbdd.symbols.type.Type;
 import com.codbex.kronos.parser.hdbdd.symbols.type.field.FieldSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.type.field.Typeable;
 import com.codbex.kronos.parser.hdbdd.util.HDBDDUtils;
+import org.antlr.v4.runtime.tree.ParseTreeProperty;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * The listener interface for receiving referenceResolving events. The class that is interested in
@@ -140,8 +139,7 @@ public class HDBDDReferenceResolvingListener extends CdsBaseListener {
         if (ctx.NULL() == null) {
             if (typeOfElement.getValueType()
                              .stream()
-                             .filter(el -> el.equals(valueType))
-                             .count() < 1) {
+                             .noneMatch(el -> el.equals(valueType))) {
                 throw new CDSRuntimeException(String.format("Error at line: %d col: %d. Incompatible types! Expected %s, Provided %s",
                         ctx.value.getLine(), ctx.value.getCharPositionInLine(), typeOfElement.getName(), ctx.value.getText()));
             }
@@ -219,7 +217,7 @@ public class HDBDDReferenceResolvingListener extends CdsBaseListener {
                                              .map(HDBDDUtils::processEscapedSymbolName)
                                              .collect(Collectors.joining("."));
         String refFullPath = entityName + "." + reference;
-        Symbol resolvedSymbol = resolveReferenceChain(refFullPath, associationSymbol, new HashSet<>(Arrays.asList(associationSymbol)));
+        Symbol resolvedSymbol = resolveReferenceChain(refFullPath, associationSymbol, new HashSet<>(List.of(associationSymbol)));
 
         if (resolvedSymbol == null) {
             throw new CDSRuntimeException(String.format("Error at line: %s. No such element found in entity: %s.",
@@ -255,8 +253,7 @@ public class HDBDDReferenceResolvingListener extends CdsBaseListener {
                                              .collect(Collectors.joining("."));
 
         String refFullPath = targetFullName + "." + reference;
-        Symbol resolvedTargetSymbol =
-                resolveReferenceChain(refFullPath, associationSymbol, new HashSet<>(Arrays.asList(associationSymbol)));
+        Symbol resolvedTargetSymbol = resolveReferenceChain(refFullPath, associationSymbol, new HashSet<>(List.of(associationSymbol)));
         if (resolvedTargetSymbol == null) {
             throw new CDSRuntimeException(String.format("Error at line: %s. No such element found in entity: %s.",
                     associationSymbol.getIdToken().start.getLine(), refFullPath));
@@ -302,9 +299,8 @@ public class HDBDDReferenceResolvingListener extends CdsBaseListener {
         for (int i = 1; i < splitReference.length; i++) {
             String member = splitReference[i];
 
-            if (resolvedSubMember instanceof FieldSymbol) {
+            if (resolvedSubMember instanceof FieldSymbol resolvedSubMemberField) {
                 Scope scopeToExplore;
-                FieldSymbol resolvedSubMemberField = (FieldSymbol) resolvedSubMember;
                 Symbol resolvedSubMemberType = resolveSimpleReference(resolvedSubMember, nonResolvedRefSymbols);
                 if (resolvedSubMemberField.getType() == null) {
                     setResolvedType(true, resolvedSubMemberField, resolvedSubMemberType);
@@ -335,8 +331,7 @@ public class HDBDDReferenceResolvingListener extends CdsBaseListener {
      * @param nonResolvedRefSymbols the non resolved ref symbols
      */
     private void isCircularDependency(Symbol resolvedSubMember, Set<Symbol> nonResolvedRefSymbols) {
-        if (resolvedSubMember instanceof FieldSymbol) {
-            FieldSymbol resolvedSubMemberField = (FieldSymbol) resolvedSubMember;
+        if (resolvedSubMember instanceof FieldSymbol resolvedSubMemberField) {
             Symbol resolvedMemberType = (Symbol) resolvedSubMemberField.getType();
 
             if (resolvedMemberType == null) {
@@ -376,10 +371,6 @@ public class HDBDDReferenceResolvingListener extends CdsBaseListener {
                             typeableSymbol.getIdToken().start.getLine()));
         } else if (resolvedSymbol instanceof Typeable) {
             typeable.setType(((Typeable) resolvedSymbol).getType());
-        } else if (resolvedSymbol instanceof AssociationSymbol) {
-            throw new CDSRuntimeException(
-                    String.format("Error at line: %s. Association field is not allowed as a reference, a type is required.",
-                            typeableSymbol.getIdToken().start.getLine()));
         }
     }
 
@@ -427,7 +418,7 @@ public class HDBDDReferenceResolvingListener extends CdsBaseListener {
         Symbol resolvedTypeSymbol = referencingSymbol.getScope()
                                                      .resolve(referencedId);
 
-        if (resolvedTypeSymbol == null && (referencingSymbol instanceof FieldSymbol || referencingSymbol instanceof AssociationSymbol)) {
+        if (resolvedTypeSymbol == null && referencingSymbol instanceof FieldSymbol) {
             resolvedTypeSymbol = referencingSymbol.getScope()
                                                   .getEnclosingScope()
                                                   .resolve(referencedId);
