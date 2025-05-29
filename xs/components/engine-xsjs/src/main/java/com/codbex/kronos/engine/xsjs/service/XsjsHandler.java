@@ -227,6 +227,7 @@ public class XsjsHandler extends JavascriptHandler {
      * @return the repository
      */
     // TODO remove this
+    @Override
     public IRepository getRepository() {
         return repository;
     }
