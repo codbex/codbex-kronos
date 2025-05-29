@@ -10,7 +10,7 @@ on:
 
 
 jobs:
-  zap_scan:
+  dast_zap_scan:
     runs-on: ubuntu-latest
 
     services:
@@ -38,12 +38,12 @@ jobs:
         with:
           target: 'http://localhost:80'
           cmd_options: '-a -T 5 -j -r' # https://www.zaproxy.org/docs/docker/full-scan/
-          artifact_name: zap-report
+          artifact_name: dast_zap_report
           docker_name: 'owasp/zap2docker-stable'
-          allow_issue_writing:
+          allow_issue_writing: true
 
       - name: Upload ZAP Report as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: zap-report
-          path: zap-report.html
+          name: dast_zap_report
+          path: dast_zap_report.html
