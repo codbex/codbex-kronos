@@ -19,9 +19,9 @@ jobs:
         ports:
           - 80:80
         options: >-
-          --health-cmd "curl -f http://localhost:80/actuator/health || exit 1"
+          --health-cmd "curl -f http://localhost:80/actuator/health/readiness || exit 1"
           --health-interval 10s
-          --health-timeout 5s
+          --health-timeout 60s
           --health-retries 10
 
     steps:
