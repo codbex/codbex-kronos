@@ -20,8 +20,9 @@ jobs:
           - 80:80
         options: >-
           --health-cmd "curl -f http://localhost:80/actuator/health/readiness || exit 1"
-          --health-interval 10s
-          --health-timeout 60s
+          --health-start-period 90s
+          --health-interval 5s
+          --health-timeout 10s
           --health-retries 30
 
     steps:
@@ -47,3 +48,7 @@ jobs:
         with:
           name: dast_zap_report
           path: dast_zap_report.html
+
+      - name: Debug container logs
+        if: failure()
+        run: docker logs $(docker ps -qf "ancestor=ghcr.io/codbex/codbex-kronos:latest")
