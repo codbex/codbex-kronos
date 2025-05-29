@@ -10,17 +10,8 @@
  */
 package com.codbex.kronos.engine.xsjs.service;
 
-import static org.eclipse.dirigible.graalium.core.graal.ValueTransformer.transformValue;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-
+import com.codbex.kronos.engine.KronosSourceProvider;
+import com.codbex.kronos.engine.Require;
 import org.apache.commons.io.IOUtils;
 import org.eclipse.dirigible.components.base.http.access.UserRequestVerifier;
 import org.eclipse.dirigible.components.engine.javascript.service.JavascriptHandler;
@@ -34,8 +25,16 @@ import org.graalvm.polyglot.Value;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.codbex.kronos.engine.KronosSourceProvider;
-import com.codbex.kronos.engine.Require;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
+import static org.eclipse.dirigible.graalium.core.graal.ValueTransformer.transformValue;
 
 /**
  * The Class XsjsHandler.
@@ -53,19 +52,16 @@ public class XsjsHandler extends JavascriptHandler {
 
     /** The Constant SOURCE_PROVIDER */
     private static final String SOURCE_PROVIDER = "SourceProvider";
-
-    /** The kronos api content. */
-    private static String KRONOS_API_CONTENT = null;
-
     /** The Constant DEFAULT_CHARSET. */
     private static final Charset DEFAULT_CHARSET = Charset.defaultCharset();
-
+    /** The kronos api content. */
+    private static String KRONOS_API_CONTENT = null;
     /** The repository. */
     // TODO remove local vars once the corresponding getters are implemented
-    private IRepository repository;
+    private final IRepository repository;
 
     /** The source provider. */
-    private KronosSourceProvider sourceProvider;
+    private final KronosSourceProvider sourceProvider;
 
     /**
      * Instantiates a new xsjs handler.
@@ -80,16 +76,6 @@ public class XsjsHandler extends JavascriptHandler {
     }
 
     /**
-     * Gets the repository.
-     *
-     * @return the repository
-     */
-    // TODO remove this
-    public IRepository getRepository() {
-        return repository;
-    }
-
-    /**
      * Gets the source provider.
      *
      * @return the source provider
@@ -97,44 +83,6 @@ public class XsjsHandler extends JavascriptHandler {
     // TODO remove this
     public JavascriptSourceProvider getSourceProvider() {
         return sourceProvider;
-    }
-
-    /**
-     * Gets the JS error file name polyfill source.
-     *
-     * @return the JS error file name polyfill source
-     * @throws IOException Signals that an I/O exception has occurred.
-     */
-    private static Source getJSErrorFileNamePolyfillSource() throws IOException {
-        String errorFileNamePolyfillName = "/ErrorFileNamePolyfill.js";
-        InputStream errorFileNamePolyfillInputStream = XsjsHandler.class.getResourceAsStream("/js/polyfills" + errorFileNamePolyfillName);
-        String errorFileNamePolyfillCode =
-                IOUtils.toString(Objects.requireNonNull(errorFileNamePolyfillInputStream), StandardCharsets.UTF_8);
-        return Source.newBuilder(ENGINE_JAVA_SCRIPT, errorFileNamePolyfillCode, errorFileNamePolyfillName)
-                     .internal(true)
-                     .build();
-    }
-
-    /**
-     * Gets the kronos api.
-     *
-     * @return the kronos api
-     * @throws IOException Signals that an I/O exception has occurred.
-     */
-    private String getKronosApi() throws IOException {
-        if (KRONOS_API_CONTENT == null) {
-            String API_PATH = IRepositoryStructure.PATH_REGISTRY_PUBLIC + KRONOS_API_LOCATION;
-            IResource resource = getRepository().getResource(API_PATH);
-            if (resource.exists()) {
-                KRONOS_API_CONTENT = new String(resource.getContent(), DEFAULT_CHARSET);
-            } else {
-                KRONOS_API_CONTENT = IOUtils.toString(XsjsHandler.class.getResourceAsStream("/META-INF/dirigible" + KRONOS_API_LOCATION),
-                        DEFAULT_CHARSET);
-                resource = getRepository().createResource(API_PATH, KRONOS_API_CONTENT.getBytes());
-            }
-
-        }
-        return KRONOS_API_CONTENT;
     }
 
     /**
@@ -225,7 +173,7 @@ public class XsjsHandler extends JavascriptHandler {
         } catch (Exception ex) {
             if (ex.getMessage()
                   .contains("consider publish")) {
-                logger.error("File [/%s/%s] not published", projectName, projectFilePath, ex);
+                logger.error("File [/{}}/{}}] not published", projectName, projectFilePath, ex);
                 return ex.getMessage();
             }
             String message = String.format("Error on processing JavaScript service: [/%s/%s], with parameters: [%s]", projectName,
@@ -233,6 +181,54 @@ public class XsjsHandler extends JavascriptHandler {
             logger.error(message, ex);
             throw new RuntimeException(message, ex);
         }
+    }
+
+    /**
+     * Gets the JS error file name polyfill source.
+     *
+     * @return the JS error file name polyfill source
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    private static Source getJSErrorFileNamePolyfillSource() throws IOException {
+        String errorFileNamePolyfillName = "/ErrorFileNamePolyfill.js";
+        InputStream errorFileNamePolyfillInputStream = XsjsHandler.class.getResourceAsStream("/js/polyfills" + errorFileNamePolyfillName);
+        String errorFileNamePolyfillCode =
+                IOUtils.toString(Objects.requireNonNull(errorFileNamePolyfillInputStream), StandardCharsets.UTF_8);
+        return Source.newBuilder(ENGINE_JAVA_SCRIPT, errorFileNamePolyfillCode, errorFileNamePolyfillName)
+                     .internal(true)
+                     .build();
+    }
+
+    /**
+     * Gets the kronos api.
+     *
+     * @return the kronos api
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    private String getKronosApi() throws IOException {
+        if (KRONOS_API_CONTENT == null) {
+            String API_PATH = IRepositoryStructure.PATH_REGISTRY_PUBLIC + KRONOS_API_LOCATION;
+            IResource resource = getRepository().getResource(API_PATH);
+            if (resource.exists()) {
+                KRONOS_API_CONTENT = new String(resource.getContent(), DEFAULT_CHARSET);
+            } else {
+                KRONOS_API_CONTENT = IOUtils.toString(XsjsHandler.class.getResourceAsStream("/META-INF/dirigible" + KRONOS_API_LOCATION),
+                        DEFAULT_CHARSET);
+                resource = getRepository().createResource(API_PATH, KRONOS_API_CONTENT.getBytes());
+            }
+
+        }
+        return KRONOS_API_CONTENT;
+    }
+
+    /**
+     * Gets the repository.
+     *
+     * @return the repository
+     */
+    // TODO remove this
+    public IRepository getRepository() {
+        return repository;
     }
 
 }

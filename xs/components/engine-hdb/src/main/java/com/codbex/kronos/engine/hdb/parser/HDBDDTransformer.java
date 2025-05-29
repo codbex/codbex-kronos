@@ -10,29 +10,7 @@
  */
 package com.codbex.kronos.engine.hdb.parser;
 
-import static org.eclipse.dirigible.database.sql.ISqlKeywords.SPACE;
-
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import org.eclipse.dirigible.components.api.security.UserFacade;
-import org.eclipse.dirigible.database.sql.ISqlKeywords;
-
-import com.codbex.kronos.engine.hdb.domain.HDBColumn;
-import com.codbex.kronos.engine.hdb.domain.HDBTable;
-import com.codbex.kronos.engine.hdb.domain.HDBTableColumn;
-import com.codbex.kronos.engine.hdb.domain.HDBTableConstraintForeignKey;
-import com.codbex.kronos.engine.hdb.domain.HDBTableConstraintPrimaryKey;
-import com.codbex.kronos.engine.hdb.domain.HDBTableConstraintUnique;
-import com.codbex.kronos.engine.hdb.domain.HDBTableIndex;
-import com.codbex.kronos.engine.hdb.domain.HDBTableType;
-import com.codbex.kronos.engine.hdb.domain.HDBTableTypeColumn;
-import com.codbex.kronos.engine.hdb.domain.HDBView;
+import com.codbex.kronos.engine.hdb.domain.*;
 import com.codbex.kronos.parser.hdbdd.annotation.metadata.AbstractAnnotationValue;
 import com.codbex.kronos.parser.hdbdd.annotation.metadata.AnnotationArray;
 import com.codbex.kronos.parser.hdbdd.annotation.metadata.AnnotationObj;
@@ -48,6 +26,12 @@ import com.codbex.kronos.parser.hdbdd.symbols.type.field.FieldSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.view.JoinSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.view.SelectSymbol;
 import com.codbex.kronos.parser.hdbdd.symbols.view.ViewSymbol;
+import org.eclipse.dirigible.database.sql.ISqlKeywords;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static org.eclipse.dirigible.database.sql.ISqlKeywords.SPACE;
 
 /**
  * The Class HdbddTransformer.
@@ -468,6 +452,28 @@ public class HDBDDTransformer {
     }
 
     /**
+     * Gets the full table name.
+     *
+     * @param dependingView the depending view
+     * @param tableName the table name
+     * @return the full table name
+     */
+    private String getFullTableName(ViewSymbol dependingView, String tableName) {
+        // Check if the dependant table name is DUMMY. This is a reserved table name for
+        // hana dummy tables. We make sure to make it in uppercase
+        if (tableName.equalsIgnoreCase(DUMMY_TABLE)) {
+            return tableName.toUpperCase();
+        } else {
+            Symbol resolvedDependsOnTable = dependingView.getEnclosingScope()
+                                                         .resolve(tableName);
+            if (resolvedDependsOnTable == null) {
+                throw new CDSRuntimeException("Could not resolve referenced entity: " + tableName);
+            }
+            return resolvedDependsOnTable.getFullName();
+        }
+    }
+
+    /**
      * Transform structured data type to hdb table type.
      *
      * @param structuredDataTypeSymbol the structured data type symbol
@@ -539,8 +545,7 @@ public class HDBDDTransformer {
 
         columnModel.setNullable(true);
 
-        if (fieldSymbol instanceof EntityElementSymbol) {
-            EntityElementSymbol elementSymbol = (EntityElementSymbol) fieldSymbol;
+        if (fieldSymbol instanceof EntityElementSymbol elementSymbol) {
             if (bAssignPK) {
                 columnModel.setPrimaryKey(elementSymbol.isKey());
             }
@@ -552,26 +557,23 @@ public class HDBDDTransformer {
             columnModel.setDefaultValueDateTimeFunction(elementSymbol.isDefaultValueDateTimeFunction());
         }
 
-        if (fieldSymbol.getType() instanceof BuiltInTypeSymbol) {
-            BuiltInTypeSymbol builtInTypeSymbol = (BuiltInTypeSymbol) fieldSymbol.getType();
+        if (fieldSymbol.getType() instanceof BuiltInTypeSymbol builtInTypeSymbol) {
             if (builtInTypeSymbol.isHanaType()) {
                 setHanaType(columnModel, builtInTypeSymbol);
             } else {
                 setSqlType(columnModel, builtInTypeSymbol);
             }
 
-        } else if (fieldSymbol.getType() instanceof DataTypeSymbol) {
-            DataTypeSymbol dataType = (DataTypeSymbol) fieldSymbol.getType();
-            if (!(dataType.getType() instanceof StructuredDataTypeSymbol)) {
+        } else if (fieldSymbol.getType() instanceof DataTypeSymbol dataType) {
+            if (!(dataType.getType() instanceof StructuredDataTypeSymbol structuredDataTypeSymbol)) {
                 BuiltInTypeSymbol builtInType = (BuiltInTypeSymbol) dataType.getType();
                 setSqlType(columnModel, builtInType);
             } else {
-                StructuredDataTypeSymbol structuredDataTypeSymbol = (StructuredDataTypeSymbol) dataType.getType();
                 transformStructuredDataTypeToHdbTableType(structuredDataTypeSymbol);
             }
         } else {
             throw new IllegalArgumentException(
-                    String.format("Unknown type: %s, for column: %", fieldSymbol.getType(), columnModel.getName()));
+                    String.format("Unknown type: %s, for column: %s", fieldSymbol.getType(), columnModel.getName()));
         }
     }
 
@@ -680,28 +682,6 @@ public class HDBDDTransformer {
         columnModel.setNullable(!associationSymbol.isNotNull());
 
         return columnModel;
-    }
-
-    /**
-     * Gets the full table name.
-     *
-     * @param dependingView the depending view
-     * @param tableName the table name
-     * @return the full table name
-     */
-    private String getFullTableName(ViewSymbol dependingView, String tableName) {
-        // Check if the dependant table name is DUMMY. This is a reserved table name for
-        // hana dummy tables. We make sure to make it in uppercase
-        if (tableName.equalsIgnoreCase(DUMMY_TABLE)) {
-            return tableName.toUpperCase();
-        } else {
-            Symbol resolvedDependsOnTable = dependingView.getEnclosingScope()
-                                                         .resolve(tableName);
-            if (resolvedDependsOnTable == null) {
-                throw new CDSRuntimeException("Could not resolve referenced entity: " + tableName);
-            }
-            return resolvedDependsOnTable.getFullName();
-        }
     }
 
     /**

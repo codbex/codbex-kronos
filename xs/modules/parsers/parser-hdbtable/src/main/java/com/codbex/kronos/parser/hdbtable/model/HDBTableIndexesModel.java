@@ -54,7 +54,7 @@ public class HDBTableIndexesModel {
      * @param name the new index name
      */
     public void setIndexName(String name) {
-        this.indexName = indexName;
+        this.indexName = name;
     }
 
     /**
