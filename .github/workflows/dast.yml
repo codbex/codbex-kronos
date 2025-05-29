@@ -39,7 +39,7 @@ jobs:
       - name: Run OWASP ZAP Full Scan
         uses: zaproxy/action-full-scan@v0.12.0
         with:
-          target: 'http://app:80'
+          target: 'http://localhost:80'
           cmd_options: '-a -T 10' # https://www.zaproxy.org/docs/docker/full-scan/
           artifact_name: dast_zap_report
           allow_issue_writing: true
