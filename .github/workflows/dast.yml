@@ -18,21 +18,21 @@ jobs:
         image: ghcr.io/codbex/codbex-kronos:latest
         ports:
           - 80:80
-        options: >-
-          --health-cmd "curl -f http://application:80/actuator/health/readiness || exit 1"
-          --health-start-period 90s
-          --health-interval 5s
-          --health-timeout 10s
-          --health-retries 30
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Wait for App to Start
+      - name: Wait for readiness
         run: |
-          echo "Waiting for the app to be ready..."
-          sleep 30  # Adjust based on startup time
+          for i in {1..30}; do
+            echo "Checking readiness... attempt $i"
+            if curl -f http://localhost:80/actuator/health/readiness; then
+              echo "Application is ready."
+              break
+            fi
+            sleep 5
+          done
 
       - name: Run OWASP ZAP Full Scan
         uses: zaproxy/action-full-scan@v0.12.0
