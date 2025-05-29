@@ -43,6 +43,7 @@ jobs:
           cmd_options: '-a -T 10' # https://www.zaproxy.org/docs/docker/full-scan/
           artifact_name: dast_zap_report
           allow_issue_writing: true
+          issue_title: '[DAST] ZAP Full Scan Report'
 
       - name: Upload ZAP Report as artifact
         uses: actions/upload-artifact@v4
