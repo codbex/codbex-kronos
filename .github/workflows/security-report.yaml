@@ -12,12 +12,15 @@ jobs:
   sast-codeql-analyze:
     runs-on: ubuntu-latest
     steps:
+      - name: Create release files
+        run: mkdir reports
+
       - name: Generate Security Report
         uses: rsdmike/github-security-report-action@v3.0.4
         with:
           template: summary
           token: ${{ secrets.GITHUB_TOKEN }}
-          #          sarifReportDir: "sast_codeql_report"
+          sarifReportDir: "reports"
           outputDir: "security-reports"
 
       - name: Upload Generated CodeQL Analysis Security Report as Artifact
