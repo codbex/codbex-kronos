@@ -209,6 +209,14 @@
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-components-engine-camel</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-components-template-camel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-components-ui-menu-camel</artifactId>
+        </dependency>
         <!--        Forms-->
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
@@ -223,10 +231,6 @@
             <artifactId>dirigible-components-template-form-builder-angularjs</artifactId>
         </dependency>
         <!--    BPM-->
-        <dependency>
-            <groupId>org.eclipse.dirigible</groupId>
-            <artifactId>dirigible-components-engine-bpm-flowable</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-components-engine-bpm-flowable</artifactId>

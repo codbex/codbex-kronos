@@ -23,6 +23,8 @@ import org.junit.platform.suite.api.Suite;
 @SelectClasses({//
         ApproveLeaveRequestBpmIT.class, //
         BPMStarterTemplateIT.class, //
+        CamelCronRouteStarterTemplateIT.class, //
+        CamelHttpRouteStarterTemplateIT.class, //
         CamelDirigibleJavaScriptComponentCronRouteIT.class, //
         CamelDirigibleJavaScriptComponentHttpRouteIT.class, //
         CamelDirigibleTwoStepsJSInvokerCronRouteIT.class, //
@@ -43,5 +45,5 @@ import org.junit.platform.suite.api.Suite;
         SecurityIT.class, //
         TerminalIT.class//
 })
-public class DirigibileCommonTestSuiteIT {
+public class DirigibleCommonTestSuiteIT {
 }
