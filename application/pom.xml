@@ -56,6 +56,10 @@
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-components-security-snowflake</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-components-security-client-registration</artifactId>
+        </dependency>
 
         <!-- Data -->
         <dependency>
