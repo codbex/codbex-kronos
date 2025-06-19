@@ -5,6 +5,7 @@ dist/
 .vscode/
 .run/
 target/
+oras-artifacts/
 dirigible_local/
 bin/
 dist/

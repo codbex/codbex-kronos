@@ -12,6 +12,9 @@ RUN npm i -g typescript
 RUN apk add git
 RUN apk --no-cache add msttcorefonts-installer fontconfig && update-ms-fonts && fc-cache -f
 
+# Copy ORAS artifacts to the registry
+COPY oras-artifacts/ /target/dirigible/repository/root/registry/public/oras-artifacts/
+
 EXPOSE 80
 
 COPY target/codbex-kronos-application-*-executable.jar codbex-kronos.jar

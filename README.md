@@ -17,6 +17,7 @@
   * [Requirements](#requirements)
       * [Docker](#docker)
       * [Build](#build)
+      * [Docker Build](#docker-build)
       * [Run](#run)
       * [Debug](#debug)
       * [Spring profiles](#spring-profiles)
@@ -110,6 +111,27 @@ docker run --name codbex-kronos --rm -p 80:80 ghcr.io/codbex/codbex-kronos:lates
 mvn clean install
 ```
 
+#### Docker Build
+
+```
+GIT_REPO='<path_to_git_repo>'
+IMAGE_TAG='codbex-kronos:dev'
+ORAS_GIT_TOKEN='<token_with_read_packages_scope_for_codbex>'
+
+cd "$GIT_REPO"
+
+mvn -T 1C clean install -P quick-build
+cd application
+
+oras login ghcr.io -u oauth2 -p "$ORAS_GIT_TOKEN"
+
+oras pull "ghcr.io/codbex/codbex-bw-migration/codbex-abap-bw:latest" -o oras-artifacts
+
+docker buildx build \
+  --platform linux/amd64,linux/arm64 . --tag "$IMAGE_TAG"
+
+```
+
 #### Run
 
 ```
@@ -186,3 +208,4 @@ All the bug reports as well as the feature requests have to be registered as iss
 ## Contributing
 
 If you want to contribute, please check the [Contribution Guidelines](CONTRIBUTING.md)
+
