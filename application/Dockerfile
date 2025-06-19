@@ -12,12 +12,12 @@ RUN npm i -g typescript
 RUN apk add git
 RUN apk --no-cache add msttcorefonts-installer fontconfig && update-ms-fonts && fc-cache -f
 
-# Install ORAS from GitHub Releases
+# Install ORAS (arch-aware)
+ARG TARGETARCH
 ENV ORAS_VERSION=1.1.0
-RUN curl -sL https://github.com/oras-project/oras/releases/download/v${ORAS_VERSION}/oras_${ORAS_VERSION}_linux_amd64.tar.gz \
+RUN curl -sL https://github.com/oras-project/oras/releases/download/v${ORAS_VERSION}/oras_${ORAS_VERSION}_linux_${TARGETARCH}.tar.gz \
     | tar -xz oras && \
     mv oras /usr/local/bin/oras
-
 
 # Build-time args
 ARG ORAS_USERNAME
