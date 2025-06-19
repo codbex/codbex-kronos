@@ -7,7 +7,7 @@ on:
 
 jobs:
   pull-request:
-    uses: codbex/codbex-infra/.github/workflows/platform-pull-request.yaml@main
+    uses: codbex/codbex-infra/.github/workflows/platform-pull-request.yaml@Allowing-pulling-using-ORAS
     with:
       platform-name: codbex-kronos
       docker-build: true
