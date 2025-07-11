@@ -134,9 +134,8 @@ docker buildx build \
 ```
 
 #### ORAS artifacts
-You need to pull the required ORAS artifacts locally if they are needed for your scenario.<br>
+You need to pull the required ORAS artifacts locally for the scenario where the Kronos is not started as a Docker container.<br>
 For example if you work on BW migration scenario where ABAP transpilation is needed.<br>
-This is needed for the scenario where the Kronos is not started as a Docker container.
 ```shell
 sudo su
 mkdir -p /opt/codbex
