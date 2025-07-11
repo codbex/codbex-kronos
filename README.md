@@ -18,6 +18,7 @@
       * [Docker](#docker)
       * [Build](#build)
       * [Docker Build](#docker-build)
+      * [ORAS artifacts](#oras-artifacts)
       * [Run](#run)
       * [Debug](#debug)
       * [Spring profiles](#spring-profiles)
@@ -129,6 +130,23 @@ oras pull "ghcr.io/codbex/codbex-bw-migration/codbex-abap-bw:latest" -o oras-art
 
 docker buildx build \
   --platform linux/amd64,linux/arm64 . --tag "$IMAGE_TAG"
+
+```
+
+#### ORAS artifacts
+You need to pull the required ORAS artifacts locally if they are needed for your scenario.<br>
+For example if you work on BW migration scenario where ABAP transpilation is needed.<br>
+This is needed for the scenario where the Kronos is not started as a Docker container.
+```shell
+sudo su
+mkdir -p /opt/codbex
+cd /opt/codbex
+
+ORAS_GIT_TOKEN='<token_for_the_repos>'
+oras login ghcr.io -u oauth2 -p "$ORAS_GIT_TOKEN"
+
+rm -rf oras-artifacts
+oras pull "ghcr.io/codbex/codbex-bw-migration/codbex-abap-bw:latest" -o oras-artifacts
 
 ```
 

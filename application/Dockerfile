@@ -12,8 +12,8 @@ RUN npm i -g typescript
 RUN apk add git
 RUN apk --no-cache add msttcorefonts-installer fontconfig && update-ms-fonts && fc-cache -f
 
-# Copy ORAS artifacts to the dedicated folder "/codbex"
-COPY oras-artifacts/ /codbex/oras-artifacts/
+# Copy ORAS artifacts to the dedicated folder "/opt/codbex"
+COPY oras-artifacts/ /opt/codbex/oras-artifacts/
 
 EXPOSE 80
 
