@@ -16,6 +16,7 @@
     <modules>
         <module>branding</module>
         <module>welcome</module>
+        <module>menu-help</module>
     </modules>
 
 </project>
