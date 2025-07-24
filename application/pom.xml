@@ -24,6 +24,10 @@
             <groupId>com.codbex.kronos</groupId>
             <artifactId>codbex-kronos-welcome</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.codbex.kronos</groupId>
+            <artifactId>codbex-kronos-menu-help</artifactId>
+        </dependency>
 
         <!--        Dirigible dependencies-->
         <!-- Core -->
@@ -119,19 +123,6 @@
             <artifactId>dirigible-components-ide-terminal</artifactId>
         </dependency>
 
-        <!-- UI Frontend -->
-        <dependency>
-            <groupId>org.eclipse.dirigible</groupId>
-            <artifactId>dirigible-components-group-ui</artifactId>
-            <type>pom</type>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.dirigible</groupId>
-                    <artifactId>dirigible-components-ui-view-welcome</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
         <!-- API -->
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
@@ -144,6 +135,17 @@
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-components-group-resources-ui</artifactId>
             <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-components-group-ide</artifactId>
+            <type>pom</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.eclipse.dirigible</groupId>
+                    <artifactId>dirigible-components-ui-view-welcome</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>

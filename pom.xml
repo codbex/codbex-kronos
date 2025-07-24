@@ -219,6 +219,11 @@
             </dependency>
             <dependency>
                 <groupId>com.codbex.kronos</groupId>
+                <artifactId>codbex-kronos-menu-help</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.codbex.kronos</groupId>
                 <artifactId>codbex-kronos-components-api-xsjs</artifactId>
                 <version>${project.version}</version>
             </dependency>
