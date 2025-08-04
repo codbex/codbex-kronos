@@ -24,8 +24,8 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
 
 /**
- * A unit conversion comprises all model information that is required as input for the engine for the unit conversion variant of the server
- * conversion function
+ * A unit conversion comprises all model information that is required as input for the engine for
+ * the unit conversion variant of the server conversion function
  *
  *
  * Java class for UnitConversion complex type.

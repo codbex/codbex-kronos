@@ -26,8 +26,8 @@ import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * Models a link to an attribute that can either be in the local or an external resource. Could als be acheived by
- * resource:QualifiedNameReference
+ * Models a link to an attribute that can either be in the local or an external resource. Could als
+ * be acheived by resource:QualifiedNameReference
  *
  *
  * Java class for QualifiedAttributeReference complex type.

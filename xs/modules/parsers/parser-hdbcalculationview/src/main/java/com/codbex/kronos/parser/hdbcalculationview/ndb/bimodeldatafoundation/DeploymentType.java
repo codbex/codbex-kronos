@@ -41,10 +41,12 @@ import jakarta.xml.bind.annotation.XmlType;
 public enum DeploymentType {
 
     /** The system derived. */
-    @XmlEnumValue("systemDerived") SYSTEM_DERIVED("systemDerived"),
+    @XmlEnumValue("systemDerived")
+    SYSTEM_DERIVED("systemDerived"),
 
     /** The join view. */
-    @XmlEnumValue("joinView") JOIN_VIEW("joinView");
+    @XmlEnumValue("joinView")
+    JOIN_VIEW("joinView");
 
     /** The value. */
     private final String value;

@@ -38,7 +38,8 @@ import com.codbex.kronos.parser.hdbcalculationview.ndb.datamodeltype.SemanticTyp
 import com.codbex.kronos.parser.hdbcalculationview.ndb.repositorymodelresource.IDObjectWithDescription;
 
 /**
- * Generic father object for the representations of column in the logical model e.g. Attributes and Measures
+ * Generic father object for the representations of column in the logical model e.g. Attributes and
+ * Measures
  *
  *
  * Java class for LogicalColumn complex type.
@@ -244,8 +245,9 @@ public abstract class LogicalColumn extends IDObjectWithDescription {
      * Gets the value of the variableMapping property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the variableMapping property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the variableMapping property.
      *
      *
      * For example, to add a new item, do as follows:

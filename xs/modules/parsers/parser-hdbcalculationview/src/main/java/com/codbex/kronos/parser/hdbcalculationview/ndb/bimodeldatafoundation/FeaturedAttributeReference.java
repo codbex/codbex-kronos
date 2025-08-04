@@ -26,8 +26,9 @@ import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * An featured attribute reference is a reference to an existing attribute including additional features like alias, descriptions or the
- * possibility to hide the attribute. The feature attribueName is the pointer to the original attribute.
+ * An featured attribute reference is a reference to an existing attribute including additional
+ * features like alias, descriptions or the possibility to hide the attribute. The feature
+ * attribueName is the pointer to the original attribute.
  *
  *
  * Java class for FeaturedAttributeReference complex type.

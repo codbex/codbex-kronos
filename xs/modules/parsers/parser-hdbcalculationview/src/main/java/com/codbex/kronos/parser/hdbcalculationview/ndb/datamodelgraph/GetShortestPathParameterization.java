@@ -26,11 +26,12 @@ import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * Parameterization for the graph action GET_SHORTEST_PATHS_ONE_TO_ONE This action returns the shortest path from the provided start vertex
- * to the target vertex in the graph, also known as single-target shortest path (SSSTSP). The non-negative edge weights are read from the
- * column provided in the edge table. Output columns: -ORDERING (fixed name for ordering the result) -KEY (fixed name - values from the key
- * column of the vertices table) -source column of the edges table -target column of the edges table) -WEIGHT (fixed name corresponds to
- * input weight column)
+ * Parameterization for the graph action GET_SHORTEST_PATHS_ONE_TO_ONE This action returns the
+ * shortest path from the provided start vertex to the target vertex in the graph, also known as
+ * single-target shortest path (SSSTSP). The non-negative edge weights are read from the column
+ * provided in the edge table. Output columns: -ORDERING (fixed name for ordering the result) -KEY
+ * (fixed name - values from the key column of the vertices table) -source column of the edges table
+ * -target column of the edges table) -WEIGHT (fixed name corresponds to input weight column)
  *
  *
  * Java class for GetShortestPathParameterization complex type.

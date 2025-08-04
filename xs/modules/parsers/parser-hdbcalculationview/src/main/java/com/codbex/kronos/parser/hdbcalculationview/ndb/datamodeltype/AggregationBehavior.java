@@ -88,12 +88,14 @@ public enum AggregationBehavior {
     /**
      * No Aggregation (If More Than One Record Occurs). Only needed by BW
      */
-    @XmlEnumValue("NO1") NO_1("NO1"),
+    @XmlEnumValue("NO1")
+    NO_1("NO1"),
 
     /**
      * No Aggregation (If More Than One Value Occurs). Only needed by BW
      */
-    @XmlEnumValue("NO2") NO_2("NO2"),
+    @XmlEnumValue("NO2")
+    NO_2("NO2"),
 
     /** Move - Only needed by BW transformations. */
     MOV("MOV");

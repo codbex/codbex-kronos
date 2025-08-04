@@ -24,11 +24,13 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
 
 /**
- * A data foundation serves as basis for the mapping of logical objects to physical tables. It contains tableProxies, which link to physical
- * data base tables. You can define joins between these tables and in additions specify more semantics like which column of the table
- * represents the client column. Constraints: 1. no loops are allowed among the joins 2. joins are only allowed between compatible data
- * types 3. Each table referred to in a join must be contained in a tableProxy element 4. Attributes having key="true" also need to have
- * displayAttribute=false 5. join type = 'textTable' if and only if text column is filled (should)
+ * A data foundation serves as basis for the mapping of logical objects to physical tables. It
+ * contains tableProxies, which link to physical data base tables. You can define joins between
+ * these tables and in additions specify more semantics like which column of the table represents
+ * the client column. Constraints: 1. no loops are allowed among the joins 2. joins are only allowed
+ * between compatible data types 3. Each table referred to in a join must be contained in a
+ * tableProxy element 4. Attributes having key="true" also need to have displayAttribute=false 5.
+ * join type = 'textTable' if and only if text column is filled (should)
  *
  *
  * Java class for DataFoundation complex type.

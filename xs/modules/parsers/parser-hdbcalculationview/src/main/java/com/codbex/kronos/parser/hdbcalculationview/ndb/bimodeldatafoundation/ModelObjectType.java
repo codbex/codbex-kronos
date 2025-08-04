@@ -41,10 +41,12 @@ import jakarta.xml.bind.annotation.XmlType;
 public enum ModelObjectType {
 
     /** The catalog. */
-    @XmlEnumValue("catalog") CATALOG("catalog"),
+    @XmlEnumValue("catalog")
+    CATALOG("catalog"),
 
     /** The repository. */
-    @XmlEnumValue("repository") REPOSITORY("repository");
+    @XmlEnumValue("repository")
+    REPOSITORY("repository");
 
     /** The value. */
     private final String value;

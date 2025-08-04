@@ -26,9 +26,10 @@ import jakarta.xml.bind.annotation.XmlType;
 import com.codbex.kronos.parser.hdbcalculationview.ndb.repositorymodelresource.IDObject;
 
 /**
- * The Layout contains information how graphical objects are arranged. E.g. the x and y coordinates of tables in a data foundation or
- * logical objects in a cube. This Information is not required when importing models into the new DB from external sources. If not there the
- * modeler UI will do an auto arrange of the various shapes.
+ * The Layout contains information how graphical objects are arranged. E.g. the x and y coordinates
+ * of tables in a data foundation or logical objects in a cube. This Information is not required
+ * when importing models into the new DB from external sources. If not there the modeler UI will do
+ * an auto arrange of the various shapes.
  *
  *
  * Java class for Layout complex type.

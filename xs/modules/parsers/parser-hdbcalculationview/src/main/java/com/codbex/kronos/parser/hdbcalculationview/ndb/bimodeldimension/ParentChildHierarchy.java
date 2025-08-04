@@ -65,8 +65,9 @@ public class ParentChildHierarchy extends Hierarchy {
      * Gets the value of the attributeParentPair property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the attributeParentPair property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the attributeParentPair property.
      *
      *
      * For example, to add a new item, do as follows:
@@ -92,8 +93,9 @@ public class ParentChildHierarchy extends Hierarchy {
      * Gets the value of the siblingOrder property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the siblingOrder property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the siblingOrder property.
      *
      *
      * For example, to add a new item, do as follows:
@@ -137,8 +139,9 @@ public class ParentChildHierarchy extends Hierarchy {
      * Gets the value of the edgeAttribute property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the edgeAttribute property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the edgeAttribute property.
      *
      *
      * For example, to add a new item, do as follows:

@@ -32,7 +32,8 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import com.codbex.kronos.parser.hdbcalculationview.ndb.datamodelfilter.ValueFilter;
 
 /**
- * Models select option like filters on one element reference. Several valueFilters are combined by OR
+ * Models select option like filters on one element reference. Several valueFilters are combined by
+ * OR
  *
  *
  * Java class for ElementRefFilter complex type.
@@ -69,8 +70,9 @@ public class ElementRefFilter {
      * Gets the value of the valueFilter property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the valueFilter property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the valueFilter property.
      *
      *
      * For example, to add a new item, do as follows:

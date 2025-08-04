@@ -30,10 +30,11 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase.CurrencyConversionLookup;
 
 /**
- * A currency conversion comprises all model information that is required as input for the engine currency conversion function. It defines
- * how model artifacts like variables, elements, constants are mapped to the input parameters of the currency conversion The source currency
- * is mandatory and then the conversion is either defined as only doing the ERP decimal shift or a real currency conversion to a different
- * target UNIT
+ * A currency conversion comprises all model information that is required as input for the engine
+ * currency conversion function. It defines how model artifacts like variables, elements, constants
+ * are mapped to the input parameters of the currency conversion The source currency is mandatory
+ * and then the conversion is either defined as only doing the ERP decimal shift or a real currency
+ * conversion to a different target UNIT
  *
  *
  * Java class for CurrencyConversion complex type.
@@ -62,9 +63,8 @@ import com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase.CurrencyCon
  * </pre>
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "CurrencyConversion",
-        propOrder = {"sourceCurrency", "targetCurrency", "referenceDate", "exchangeRateType", "exchangeRateElement", "erpDecimalShift",
-                "round", "erpDecimalShiftBack"})
+@XmlType(name = "CurrencyConversion", propOrder = {"sourceCurrency", "targetCurrency", "referenceDate", "exchangeRateType",
+        "exchangeRateElement", "erpDecimalShift", "round", "erpDecimalShiftBack"})
 public class CurrencyConversion extends BaseUserDefinedFunction {
 
     /** The source currency. */

@@ -29,7 +29,8 @@ import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * Creates a partial hierarchy based on parent-child source data and an (optional) maximum recursion depth input parameter.
+ * Creates a partial hierarchy based on parent-child source data and an (optional) maximum recursion
+ * depth input parameter.
  *
  *
  * Java class for HierarchySpanTreeParameterization complex type.

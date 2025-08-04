@@ -27,8 +27,8 @@ import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * A derived dimension is reusing an existing dimension (the "baseDimension") completely but defines an alias and an alias description for
- * the base dimension.
+ * A derived dimension is reusing an existing dimension (the "baseDimension") completely but defines
+ * an alias and an alias description for the base dimension.
  *
  *
  * Java class for DerivedDimension complex type.

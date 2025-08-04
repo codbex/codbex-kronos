@@ -30,8 +30,9 @@ import jakarta.xml.bind.annotation.XmlType;
 import com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase.NodeStyle;
 
 /**
- * A Leveled Hierarchy is defined through a list of levels. Each level is the combination of a Level-Number and a reference to an Element of
- * the Entity. An example of a leveled hierarchy is time: days, months and years
+ * A Leveled Hierarchy is defined through a list of levels. Each level is the combination of a
+ * Level-Number and a reference to an Element of the Entity. An example of a leveled hierarchy is
+ * time: days, months and years
  *
  *
  * Java class for LeveledHierarchy complex type.
@@ -72,8 +73,9 @@ public class LeveledHierarchy extends InlineHierarchy {
      * Gets the value of the level property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the level property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the level property.
      *
      *
      * For example, to add a new item, do as follows:

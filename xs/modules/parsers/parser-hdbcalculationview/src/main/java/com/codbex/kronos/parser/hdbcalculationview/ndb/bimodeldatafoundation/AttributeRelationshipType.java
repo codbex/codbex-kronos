@@ -41,10 +41,12 @@ import jakarta.xml.bind.annotation.XmlType;
 public enum AttributeRelationshipType {
 
     /** The system. */
-    @XmlEnumValue("system") SYSTEM("system"),
+    @XmlEnumValue("system")
+    SYSTEM("system"),
 
     /** The manual. */
-    @XmlEnumValue("manual") MANUAL("manual");
+    @XmlEnumValue("manual")
+    MANUAL("manual");
 
     /** The value. */
     private final String value;

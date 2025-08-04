@@ -27,10 +27,12 @@ import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * Parameterization for the graph action GET_SHORTEST_PATHS_ONE_TO_ALL This action returns the shortest paths from the provided start vertex
- * to all reachable vertices in the graph also known as single-source shortest path (SSSP). The root of the tree is the start vertex. All
- * other vertices carry the shortest distance information. The non-negative edge weights are read from the column provided in the edge
- * table. First output columns: -key of the vertices table -weightColumn Second output columns: -key of the edges table
+ * Parameterization for the graph action GET_SHORTEST_PATHS_ONE_TO_ALL This action returns the
+ * shortest paths from the provided start vertex to all reachable vertices in the graph also known
+ * as single-source shortest path (SSSP). The root of the tree is the start vertex. All other
+ * vertices carry the shortest distance information. The non-negative edge weights are read from the
+ * column provided in the edge table. First output columns: -key of the vertices table -weightColumn
+ * Second output columns: -key of the edges table
  *
  *
  * Java class for GetShortestPathsParameterization complex type.

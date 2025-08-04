@@ -53,46 +53,60 @@ import jakarta.xml.bind.annotation.XmlType;
 public enum ObjectType {
 
     /** The attributeview. */
-    @XmlEnumValue("attributeview") ATTRIBUTEVIEW("attributeview"),
+    @XmlEnumValue("attributeview")
+    ATTRIBUTEVIEW("attributeview"),
 
     /** The analyticview. */
-    @XmlEnumValue("analyticview") ANALYTICVIEW("analyticview"),
+    @XmlEnumValue("analyticview")
+    ANALYTICVIEW("analyticview"),
 
     /** The calculationview. */
-    @XmlEnumValue("calculationview") CALCULATIONVIEW("calculationview"),
+    @XmlEnumValue("calculationview")
+    CALCULATIONVIEW("calculationview"),
 
     /** The hdbprocedure. */
-    @XmlEnumValue("hdbprocedure") HDBPROCEDURE("hdbprocedure"),
+    @XmlEnumValue("hdbprocedure")
+    HDBPROCEDURE("hdbprocedure"),
 
     /** The hdbtablefunction. */
-    @XmlEnumValue("hdbtablefunction") HDBTABLEFUNCTION("hdbtablefunction"),
+    @XmlEnumValue("hdbtablefunction")
+    HDBTABLEFUNCTION("hdbtablefunction"),
 
     /** The hdbscalarfunction. */
-    @XmlEnumValue("hdbscalarfunction") HDBSCALARFUNCTION("hdbscalarfunction"),
+    @XmlEnumValue("hdbscalarfunction")
+    HDBSCALARFUNCTION("hdbscalarfunction"),
 
     /** The hdbruldec. */
-    @XmlEnumValue("hdbruldec") HDBRULDEC("hdbruldec"),
+    @XmlEnumValue("hdbruldec")
+    HDBRULDEC("hdbruldec"),
 
     /** The hdbdd. */
-    @XmlEnumValue("hdbdd") HDBDD("hdbdd"),
+    @XmlEnumValue("hdbdd")
+    HDBDD("hdbdd"),
 
     /** The procedure. */
-    @XmlEnumValue("procedure") PROCEDURE("procedure"),
+    @XmlEnumValue("procedure")
+    PROCEDURE("procedure"),
 
     /** The table. */
-    @XmlEnumValue("table") TABLE("table"),
+    @XmlEnumValue("table")
+    TABLE("table"),
 
     /** The view. */
-    @XmlEnumValue("view") VIEW("view"),
+    @XmlEnumValue("view")
+    VIEW("view"),
 
     /** The columnview. */
-    @XmlEnumValue("columnview") COLUMNVIEW("columnview"),
+    @XmlEnumValue("columnview")
+    COLUMNVIEW("columnview"),
 
     /** The table function. */
-    @XmlEnumValue("tableFunction") TABLE_FUNCTION("tableFunction"),
+    @XmlEnumValue("tableFunction")
+    TABLE_FUNCTION("tableFunction"),
 
     /** The scalar function. */
-    @XmlEnumValue("scalarFunction") SCALAR_FUNCTION("scalarFunction");
+    @XmlEnumValue("scalarFunction")
+    SCALAR_FUNCTION("scalarFunction");
 
     /** The value. */
     private final String value;

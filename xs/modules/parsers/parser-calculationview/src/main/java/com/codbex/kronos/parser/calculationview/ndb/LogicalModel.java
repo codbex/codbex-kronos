@@ -335,7 +335,6 @@ public class LogicalModel {
     @XmlAttribute(name = "id")
     protected String id;
 
-
     /**
      * Java class for anonymous complex type.
      *
@@ -395,7 +394,6 @@ public class LogicalModel {
 
         /** The attribute. */
         protected List<LogicalModel.Attributes.Attribute> attribute;
-
 
         /**
          * Java class for anonymous complex type.
@@ -482,7 +480,6 @@ public class LogicalModel {
             @XmlAttribute(name = "descriptionColumnName")
             protected String descriptionColumnName;
 
-
             /**
              * Java class for anonymous complex type.
              *
@@ -547,7 +544,6 @@ public class LogicalModel {
                 }
 
             }
-
 
             /**
              * Java class for anonymous complex type.
@@ -823,8 +819,9 @@ public class LogicalModel {
          * Gets the value of the attribute property.
          *
          *
-         * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned
-         * list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the attribute property.
+         * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+         * modification you make to the returned list will be present inside the JAXB object. This is why
+         * there is not a <CODE>set</CODE> method for the attribute property.
          *
          *
          * For example, to add a new item, do as follows:
@@ -835,7 +832,8 @@ public class LogicalModel {
          *
          *
          *
-         * Objects of the following type(s) are allowed in the list {@link LogicalModel.Attributes.Attribute }
+         * Objects of the following type(s) are allowed in the list
+         * {@link LogicalModel.Attributes.Attribute }
          *
          * @return the attribute
          */
@@ -847,7 +845,6 @@ public class LogicalModel {
         }
 
     }
-
 
     /**
      * Java class for anonymous complex type.
@@ -905,7 +902,6 @@ public class LogicalModel {
 
         /** The measure. */
         protected List<LogicalModel.BaseMeasures.Measure> measure;
-
 
         /**
          * Java class for anonymous complex type.
@@ -979,7 +975,6 @@ public class LogicalModel {
             @XmlAttribute(name = "measureType")
             protected String measureType;
 
-
             /**
              * Java class for anonymous complex type.
              *
@@ -1044,7 +1039,6 @@ public class LogicalModel {
                 }
 
             }
-
 
             /**
              * Java class for anonymous complex type.
@@ -1266,8 +1260,9 @@ public class LogicalModel {
          * Gets the value of the measure property.
          *
          *
-         * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned
-         * list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the measure property.
+         * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+         * modification you make to the returned list will be present inside the JAXB object. This is why
+         * there is not a <CODE>set</CODE> method for the measure property.
          *
          *
          * For example, to add a new item, do as follows:
@@ -1278,7 +1273,8 @@ public class LogicalModel {
          *
          *
          *
-         * Objects of the following type(s) are allowed in the list {@link LogicalModel.BaseMeasures.Measure }
+         * Objects of the following type(s) are allowed in the list
+         * {@link LogicalModel.BaseMeasures.Measure }
          *
          * @return the measure
          */
@@ -1290,7 +1286,6 @@ public class LogicalModel {
         }
 
     }
-
 
     /**
      * Java class for anonymous complex type.
@@ -1362,7 +1357,6 @@ public class LogicalModel {
 
         /** The measure. */
         protected List<LogicalModel.CalculatedMeasures.Measure> measure;
-
 
         /**
          * Java class for anonymous complex type.
@@ -1465,7 +1459,6 @@ public class LogicalModel {
             @XmlAttribute(name = "expressionLanguage")
             protected String expressionLanguage;
 
-
             /**
              * Java class for anonymous complex type.
              *
@@ -1531,7 +1524,6 @@ public class LogicalModel {
 
             }
 
-
             /**
              * Java class for anonymous complex type.
              *
@@ -1568,7 +1560,6 @@ public class LogicalModel {
                 /** The exception aggregation type. */
                 @XmlAttribute(name = "exceptionAggregationType")
                 protected String exceptionAggregationType;
-
 
                 /**
                  * Java class for anonymous complex type.
@@ -1639,9 +1630,9 @@ public class LogicalModel {
                  * Gets the value of the attribute property.
                  *
                  *
-                 * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the
-                 * returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the
-                 * attribute property.
+                 * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+                 * modification you make to the returned list will be present inside the JAXB object. This is why
+                 * there is not a <CODE>set</CODE> method for the attribute property.
                  *
                  *
                  * For example, to add a new item, do as follows:
@@ -1714,7 +1705,8 @@ public class LogicalModel {
             /**
              * Sets the value of the exceptionAggregation property.
              *
-             * @param value allowed object is {@link LogicalModel.CalculatedMeasures.Measure.ExceptionAggregation }
+             * @param value allowed object is
+             *        {@link LogicalModel.CalculatedMeasures.Measure.ExceptionAggregation }
              */
             public void setExceptionAggregation(LogicalModel.CalculatedMeasures.Measure.ExceptionAggregation value) {
                 this.exceptionAggregation = value;
@@ -1888,8 +1880,9 @@ public class LogicalModel {
          * Gets the value of the measure property.
          *
          *
-         * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned
-         * list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the measure property.
+         * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+         * modification you make to the returned list will be present inside the JAXB object. This is why
+         * there is not a <CODE>set</CODE> method for the measure property.
          *
          *
          * For example, to add a new item, do as follows:
@@ -1900,7 +1893,8 @@ public class LogicalModel {
          *
          *
          *
-         * Objects of the following type(s) are allowed in the list {@link LogicalModel.CalculatedMeasures.Measure }
+         * Objects of the following type(s) are allowed in the list
+         * {@link LogicalModel.CalculatedMeasures.Measure }
          *
          * @return the measure
          */
@@ -1912,7 +1906,6 @@ public class LogicalModel {
         }
 
     }
-
 
     /**
      * Java class for anonymous complex type.
@@ -2005,7 +1998,6 @@ public class LogicalModel {
         /** The local dimension. */
         protected List<LogicalModel.LocalDimensions.LocalDimension> localDimension;
 
-
         /**
          * Java class for anonymous complex type.
          *
@@ -2095,7 +2087,6 @@ public class LogicalModel {
             @XmlAttribute(name = "id")
             protected String id;
 
-
             /**
              * Java class for anonymous complex type.
              *
@@ -2165,7 +2156,6 @@ public class LogicalModel {
                 /** The hierarchy. */
                 @XmlElement(required = true)
                 protected LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy hierarchy;
-
 
                 /**
                  * Java class for anonymous complex type.
@@ -2251,7 +2241,6 @@ public class LogicalModel {
                     @XmlAttribute(name = "nodeStyle")
                     protected String nodeStyle;
 
-
                     /**
                      * Java class for anonymous complex type.
                      *
@@ -2317,7 +2306,6 @@ public class LogicalModel {
 
                     }
 
-
                     /**
                      * Java class for anonymous complex type.
                      *
@@ -2352,7 +2340,6 @@ public class LogicalModel {
 
                         /** The level. */
                         protected List<LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels.Level> level;
-
 
                         /**
                          * Java class for anonymous complex type.
@@ -2492,9 +2479,9 @@ public class LogicalModel {
                          * Gets the value of the level property.
                          *
                          *
-                         * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to
-                         * the returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for
-                         * the level property.
+                         * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+                         * modification you make to the returned list will be present inside the JAXB object. This is why
+                         * there is not a <CODE>set</CODE> method for the level property.
                          *
                          *
                          * For example, to add a new item, do as follows:
@@ -2522,7 +2509,8 @@ public class LogicalModel {
                     /**
                      * Gets the value of the descriptions property.
                      *
-                     * @return possible object is {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Descriptions }
+                     * @return possible object is
+                     *         {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Descriptions }
                      */
                     public LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Descriptions getDescriptions() {
                         return descriptions;
@@ -2532,7 +2520,7 @@ public class LogicalModel {
                      * Sets the value of the descriptions property.
                      *
                      * @param value allowed object is
-                     * {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Descriptions }
+                     *        {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Descriptions }
                      */
                     public void setDescriptions(LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Descriptions value) {
                         this.descriptions = value;
@@ -2541,7 +2529,8 @@ public class LogicalModel {
                     /**
                      * Gets the value of the levels property.
                      *
-                     * @return possible object is {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels }
+                     * @return possible object is
+                     *         {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels }
                      */
                     public LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels getLevels() {
                         return levels;
@@ -2550,7 +2539,8 @@ public class LogicalModel {
                     /**
                      * Sets the value of the levels property.
                      *
-                     * @param value allowed object is {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels }
+                     * @param value allowed object is
+                     *        {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels }
                      */
                     public void setLevels(LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels value) {
                         this.levels = value;
@@ -2651,7 +2641,8 @@ public class LogicalModel {
                 /**
                  * Gets the value of the hierarchy property.
                  *
-                 * @return possible object is {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy }
+                 * @return possible object is
+                 *         {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy }
                  */
                 public LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy getHierarchy() {
                     return hierarchy;
@@ -2660,7 +2651,8 @@ public class LogicalModel {
                 /**
                  * Sets the value of the hierarchy property.
                  *
-                 * @param value allowed object is {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy }
+                 * @param value allowed object is
+                 *        {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy }
                  */
                 public void setHierarchy(LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy value) {
                     this.hierarchy = value;
@@ -2672,9 +2664,9 @@ public class LogicalModel {
              * Gets the value of the attributeRef property.
              *
              *
-             * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the
-             * returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the attributeRef
-             * property.
+             * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+             * modification you make to the returned list will be present inside the JAXB object. This is why
+             * there is not a <CODE>set</CODE> method for the attributeRef property.
              *
              *
              * For example, to add a new item, do as follows:
@@ -2738,8 +2730,9 @@ public class LogicalModel {
          * Gets the value of the localDimension property.
          *
          *
-         * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned
-         * list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the localDimension property.
+         * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+         * modification you make to the returned list will be present inside the JAXB object. This is why
+         * there is not a <CODE>set</CODE> method for the localDimension property.
          *
          *
          * For example, to add a new item, do as follows:
@@ -2750,7 +2743,8 @@ public class LogicalModel {
          *
          *
          *
-         * Objects of the following type(s) are allowed in the list {@link LogicalModel.LocalDimensions.LocalDimension }
+         * Objects of the following type(s) are allowed in the list
+         * {@link LogicalModel.LocalDimensions.LocalDimension }
          *
          * @return the local dimension
          */
@@ -2762,7 +2756,6 @@ public class LogicalModel {
         }
 
     }
-
 
     /**
      * Java class for anonymous complex type.
@@ -2808,7 +2801,6 @@ public class LogicalModel {
         /** The layout. */
         @XmlElement(required = true)
         protected LogicalModel.PrivateDataFoundation.Layout layout;
-
 
         /**
          * Java class for anonymous complex type.

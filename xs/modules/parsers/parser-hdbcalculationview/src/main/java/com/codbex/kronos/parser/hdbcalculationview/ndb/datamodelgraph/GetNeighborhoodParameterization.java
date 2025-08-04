@@ -28,8 +28,9 @@ import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * Parameterization for the graph action GET_NEIGHBORHOOD. The GET_NEIGHBORHOOD graph action retrieves the neighboring vertices within the
- * given radius from the given start vertices. Output columns: -key of the vertices table -DEPTH
+ * Parameterization for the graph action GET_NEIGHBORHOOD. The GET_NEIGHBORHOOD graph action
+ * retrieves the neighboring vertices within the given radius from the given start vertices. Output
+ * columns: -key of the vertices table -DEPTH
  *
  *
  * Java class for GetNeighborhoodParameterization complex type.
@@ -66,9 +67,8 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * </pre>
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "GetNeighborhoodParameterization",
-        propOrder = {"startVertices", "startVerticesParameter", "direction", "directionParameter", "minDepth", "minDepthParameter",
-                "maxDepth", "maxDepthParameter", "vertexFilter", "edgeFilter"})
+@XmlType(name = "GetNeighborhoodParameterization", propOrder = {"startVertices", "startVerticesParameter", "direction",
+        "directionParameter", "minDepth", "minDepthParameter", "maxDepth", "maxDepthParameter", "vertexFilter", "edgeFilter"})
 public class GetNeighborhoodParameterization extends GraphActionParameterization {
 
     /** The start vertices. */

@@ -32,9 +32,10 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import com.codbex.kronos.parser.hdbcalculationview.ndb.searchmodelsearch.SearchableElementProperties;
 
 /**
- * This is the base type for an attribute in the logical model. Attributes are used in - Attribute views aka Dimensions - Analytic views aka
- * Cubes - Calculation views (in the logical model part) An attribute is either a (physical) Attribute containing mappings to physical
- * column or a CalculatedAttribute defined via a formula in the expression language
+ * This is the base type for an attribute in the logical model. Attributes are used in - Attribute
+ * views aka Dimensions - Analytic views aka Cubes - Calculation views (in the logical model part)
+ * An attribute is either a (physical) Attribute containing mappings to physical column or a
+ * CalculatedAttribute defined via a formula in the expression language
  *
  *
  * Java class for AbstractAttribute complex type.
@@ -100,8 +101,9 @@ public abstract class AbstractAttribute extends LogicalColumn {
      * Gets the value of the attributeRelationship property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the attributeRelationship property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the attributeRelationship property.
      *
      *
      * For example, to add a new item, do as follows:

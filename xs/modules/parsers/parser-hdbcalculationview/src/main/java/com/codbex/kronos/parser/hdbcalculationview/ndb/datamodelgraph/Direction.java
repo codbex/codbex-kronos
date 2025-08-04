@@ -42,13 +42,16 @@ import jakarta.xml.bind.annotation.XmlType;
 public enum Direction {
 
     /** The outgoing. */
-    @XmlEnumValue("outgoing") OUTGOING("outgoing"),
+    @XmlEnumValue("outgoing")
+    OUTGOING("outgoing"),
 
     /** The incoming. */
-    @XmlEnumValue("incoming") INCOMING("incoming"),
+    @XmlEnumValue("incoming")
+    INCOMING("incoming"),
 
     /** The any. */
-    @XmlEnumValue("any") ANY("any");
+    @XmlEnumValue("any")
+    ANY("any");
 
     /** The value. */
     private final String value;

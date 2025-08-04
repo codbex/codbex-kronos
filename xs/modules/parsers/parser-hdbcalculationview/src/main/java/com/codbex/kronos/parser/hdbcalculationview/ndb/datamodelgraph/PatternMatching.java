@@ -87,8 +87,9 @@ public class PatternMatching {
      * Gets the value of the vertexVariable property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the vertexVariable property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the vertexVariable property.
      *
      *
      * For example, to add a new item, do as follows:
@@ -114,8 +115,9 @@ public class PatternMatching {
      * Gets the value of the edgeVariable property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the edgeVariable property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the edgeVariable property.
      *
      *
      * For example, to add a new item, do as follows:
@@ -141,8 +143,9 @@ public class PatternMatching {
      * Gets the value of the orderBy property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the orderBy property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the orderBy property.
      *
      *
      * For example, to add a new item, do as follows:
@@ -168,8 +171,9 @@ public class PatternMatching {
      * Gets the value of the mapping property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the mapping property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the mapping property.
      *
      *
      * For example, to add a new item, do as follows:

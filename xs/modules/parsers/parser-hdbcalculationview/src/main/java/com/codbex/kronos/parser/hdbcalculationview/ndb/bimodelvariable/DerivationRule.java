@@ -32,10 +32,11 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import com.codbex.kronos.parser.hdbcalculationview.ndb.bimodeldatafoundation.ColumnFilter;
 
 /**
- * Defines how the derived parameter is automatically filled at runtime. -Parameter might be filled by reading from a table column. Then the
- * resourceUri must point to a table and resultElementName must be filled. Optionally columnFilter can be provided. -Parameter might be
- * filled by a procedure or scalar function which has exactly one scalar output parameter. Then resourceUri must point to the
- * procedure/function and (optionally) variableMapping can be filled
+ * Defines how the derived parameter is automatically filled at runtime. -Parameter might be filled
+ * by reading from a table column. Then the resourceUri must point to a table and resultElementName
+ * must be filled. Optionally columnFilter can be provided. -Parameter might be filled by a
+ * procedure or scalar function which has exactly one scalar output parameter. Then resourceUri must
+ * point to the procedure/function and (optionally) variableMapping can be filled
  *
  *
  * Java class for DerivationRule complex type.
@@ -173,8 +174,9 @@ public class DerivationRule {
      * Gets the value of the columnFilter property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the columnFilter property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the columnFilter property.
      *
      *
      * For example, to add a new item, do as follows:
@@ -200,8 +202,9 @@ public class DerivationRule {
      * Gets the value of the variableMapping property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the variableMapping property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the variableMapping property.
      *
      *
      * For example, to add a new item, do as follows:

@@ -26,8 +26,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigInteger;
 
 /**
- * Generates a time-dependent hierarchy on recursive parent-child source data whose edges are additionally qualified by validity intervals.
- * Docs : https://help.sap.com/viewer/4fe29514fd584807ac9f2a04f6754767/2.0.02/en-US/ffc24d42a29443b5aa1ad2a8feeb0e0e.html
+ * Generates a time-dependent hierarchy on recursive parent-child source data whose edges are
+ * additionally qualified by validity intervals. Docs :
+ * https://help.sap.com/viewer/4fe29514fd584807ac9f2a04f6754767/2.0.02/en-US/ffc24d42a29443b5aa1ad2a8feeb0e0e.html
  *
  *
  * Java class for hierarchyTemporalParameterization complex type.
@@ -60,9 +61,8 @@ import java.math.BigInteger;
  * </pre>
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "hierarchyTemporalParameterization",
-        propOrder = {"startWhere", "validFrom", "validFromParameter", "validUntil", "validUntilParameter", "depth", "depthParameter",
-                "cache"})
+@XmlType(name = "hierarchyTemporalParameterization", propOrder = {"startWhere", "validFrom", "validFromParameter", "validUntil",
+        "validUntilParameter", "depth", "depthParameter", "cache"})
 public class HierarchyTemporalParameterization {
 
     /** The start where. */

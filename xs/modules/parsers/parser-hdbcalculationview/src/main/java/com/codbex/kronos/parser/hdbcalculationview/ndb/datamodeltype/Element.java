@@ -33,7 +33,8 @@ import com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase.NameValuePa
 import com.codbex.kronos.parser.hdbcalculationview.ndb.searchmodelsearch.SearchableElementProperties;
 
 /**
- * Typed component / element of a structure / table / view The description of the element is taken from the type
+ * Typed component / element of a structure / table / view The description of the element is taken
+ * from the type
  *
  *
  * Java class for Element complex type.
@@ -356,8 +357,9 @@ public class Element extends TypedObject {
      * Gets the value of the elementRelationship property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the elementRelationship property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the elementRelationship property.
      *
      *
      * For example, to add a new item, do as follows:
@@ -383,8 +385,9 @@ public class Element extends TypedObject {
      * Gets the value of the restriction property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the restriction property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the restriction property.
      *
      *
      * For example, to add a new item, do as follows:
@@ -428,9 +431,9 @@ public class Element extends TypedObject {
      * Gets the value of the exceptionAggregationStep property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the exceptionAggregationStep
-     * property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the exceptionAggregationStep property.
      *
      *
      * For example, to add a new item, do as follows:
@@ -474,8 +477,9 @@ public class Element extends TypedObject {
      * Gets the value of the genericProperty property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the genericProperty property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the genericProperty property.
      *
      *
      * For example, to add a new item, do as follows:

@@ -25,7 +25,8 @@ import jakarta.xml.bind.annotation.XmlType;
 import com.codbex.kronos.parser.hdbcalculationview.ndb.bimodeldatafoundation.QualifiedAttributeReference;
 
 /**
- * Helper class to comprise several ways of parameterization (fixed value, variables, attribute/column))
+ * Helper class to comprise several ways of parameterization (fixed value, variables,
+ * attribute/column))
  *
  *
  * Java class for Parameterization complex type.

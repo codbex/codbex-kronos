@@ -53,8 +53,9 @@ public enum Orphan {
     ORPHAN_ROOT,
 
     /**
-     * Orphans are adopted as children of the last root behind its regular descendants. orphan and depth property cannot be used at the same
-     * time. If a maximum search depth is specified, then orphaned nodes are always ignored
+     * Orphans are adopted as children of the last root behind its regular descendants. orphan and depth
+     * property cannot be used at the same time. If a maximum search depth is specified, then orphaned
+     * nodes are always ignored
      */
     ORPHAN_ADOPT;
 

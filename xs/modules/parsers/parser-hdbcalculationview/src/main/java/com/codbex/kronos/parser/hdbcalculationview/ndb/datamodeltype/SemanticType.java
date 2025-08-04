@@ -55,60 +55,76 @@ import jakarta.xml.bind.annotation.XmlType;
 public enum SemanticType {
 
     /** The empty. */
-    @XmlEnumValue("empty") EMPTY("empty"),
+    @XmlEnumValue("empty")
+    EMPTY("empty"),
 
     /** The amount. */
-    @XmlEnumValue("amount") AMOUNT("amount"),
+    @XmlEnumValue("amount")
+    AMOUNT("amount"),
 
     /** The quantity. */
-    @XmlEnumValue("quantity") QUANTITY("quantity"),
+    @XmlEnumValue("quantity")
+    QUANTITY("quantity"),
 
     /** The currency code. */
-    @XmlEnumValue("currencyCode") CURRENCY_CODE("currencyCode"),
+    @XmlEnumValue("currencyCode")
+    CURRENCY_CODE("currencyCode"),
 
     /** The unit of measure. */
-    @XmlEnumValue("unitOfMeasure") UNIT_OF_MEASURE("unitOfMeasure"),
+    @XmlEnumValue("unitOfMeasure")
+    UNIT_OF_MEASURE("unitOfMeasure"),
 
     /**
-     * Can be used for STRING typed fields (ABAP type TIMS) to indicate the additional semantic Not needed if the primitive type is already
-     * TIME.
+     * Can be used for STRING typed fields (ABAP type TIMS) to indicate the additional semantic Not
+     * needed if the primitive type is already TIME.
      */
-    @XmlEnumValue("time") TIME("time"),
+    @XmlEnumValue("time")
+    TIME("time"),
 
     /**
-     * Can be used for STRING typed fields (ABAP type DATS) to indicate the additional semantic Not needed if the primitive type is already
-     * DATE.
+     * Can be used for STRING typed fields (ABAP type DATS) to indicate the additional semantic Not
+     * needed if the primitive type is already DATE.
      */
-    @XmlEnumValue("date") DATE("date"),
+    @XmlEnumValue("date")
+    DATE("date"),
 
     /** Date field containing the from data for time dependent data. */
-    @XmlEnumValue("date.businessDateFrom") DATE_BUSINESS_DATE_FROM("date.businessDateFrom"),
+    @XmlEnumValue("date.businessDateFrom")
+    DATE_BUSINESS_DATE_FROM("date.businessDateFrom"),
 
     /** Date field containing the to data for time dependent data. */
-    @XmlEnumValue("date.businessDateTo") DATE_BUSINESS_DATE_TO("date.businessDateTo"),
+    @XmlEnumValue("date.businessDateTo")
+    DATE_BUSINESS_DATE_TO("date.businessDateTo"),
 
     /** The geo location longitude. */
-    @XmlEnumValue("geoLocation.longitude") GEO_LOCATION_LONGITUDE("geoLocation.longitude"),
+    @XmlEnumValue("geoLocation.longitude")
+    GEO_LOCATION_LONGITUDE("geoLocation.longitude"),
 
     /** The geo location latitude. */
-    @XmlEnumValue("geoLocation.latitude") GEO_LOCATION_LATITUDE("geoLocation.latitude"),
+    @XmlEnumValue("geoLocation.latitude")
+    GEO_LOCATION_LATITUDE("geoLocation.latitude"),
 
     /** The geo location carto id. */
-    @XmlEnumValue("geoLocation.cartoId") GEO_LOCATION_CARTO_ID("geoLocation.cartoId"),
+    @XmlEnumValue("geoLocation.cartoId")
+    GEO_LOCATION_CARTO_ID("geoLocation.cartoId"),
 
     /** The geo location normalized name. */
-    @XmlEnumValue("geoLocation.normalizedName") GEO_LOCATION_NORMALIZED_NAME("geoLocation.normalizedName"),
+    @XmlEnumValue("geoLocation.normalizedName")
+    GEO_LOCATION_NORMALIZED_NAME("geoLocation.normalizedName"),
 
     /** APAP field to identify the client = MANDT. */
-    @XmlEnumValue("client") CLIENT("client"),
+    @XmlEnumValue("client")
+    CLIENT("client"),
 
     /** The language. */
-    @XmlEnumValue("language") LANGUAGE("language"),
+    @XmlEnumValue("language")
+    LANGUAGE("language"),
 
     /**
      * A textual (one line) description of an object. Typically this will be multi language enabled.
      */
-    @XmlEnumValue("description") DESCRIPTION("description");
+    @XmlEnumValue("description")
+    DESCRIPTION("description");
 
     /** The value. */
     private final String value;

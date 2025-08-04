@@ -28,8 +28,8 @@ import com.codbex.kronos.parser.hdbcalculationview.ndb.datamodeltype.ExpressionL
 import com.codbex.kronos.parser.hdbcalculationview.ndb.sqlcoremodeldatatypes.PrimitiveTypeSQL;
 
 /**
- * This class just comprises the attributes used for a formula + data types. E.g. for usage as key and description formula in
- * CalculatedAttribute
+ * This class just comprises the attributes used for a formula + data types. E.g. for usage as key
+ * and description formula in CalculatedAttribute
  *
  *
  * Java class for Calculation complex type.

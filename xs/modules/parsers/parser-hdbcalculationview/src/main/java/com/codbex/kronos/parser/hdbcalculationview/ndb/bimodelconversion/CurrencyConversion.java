@@ -32,11 +32,12 @@ import com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase.CurrencyCon
 import com.codbex.kronos.parser.hdbcalculationview.ndb.bimodeldatafoundation.QualifiedAttributeReference;
 
 /**
- * A currency conversion comprises all model information that is required as input for the engine currency conversion function. It defines
- * how model artifacts like variables, attributes, constants are mapped to the input parameters of the currency conversion The source
- * currency is mandatory and then the conversion is either defined as only doing the ERP decimal shift or a real currency conversion to a
- * different target UNIT. In the latter case one can choose to do the conversion with decimal shift (default) or without decimal shift
- * (erpDecimalShift="false")
+ * A currency conversion comprises all model information that is required as input for the engine
+ * currency conversion function. It defines how model artifacts like variables, attributes,
+ * constants are mapped to the input parameters of the currency conversion The source currency is
+ * mandatory and then the conversion is either defined as only doing the ERP decimal shift or a real
+ * currency conversion to a different target UNIT. In the latter case one can choose to do the
+ * conversion with decimal shift (default) or without decimal shift (erpDecimalShift="false")
  *
  *
  * Java class for CurrencyConversion complex type.

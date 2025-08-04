@@ -27,8 +27,9 @@ import jakarta.xml.bind.annotation.XmlType;
 import com.codbex.kronos.parser.hdbcalculationview.ndb.bimodeldatafoundation.LogicalObject;
 
 /**
- * A dimension (aka attribute view) is a reusable entity to combine several physical table to a logical model defining attributes and
- * hierarchies on top. Constraints: All key attributes must have the same table in the key mapping (see also df:DataFoundation)
+ * A dimension (aka attribute view) is a reusable entity to combine several physical table to a
+ * logical model defining attributes and hierarchies on top. Constraints: All key attributes must
+ * have the same table in the key mapping (see also df:DataFoundation)
  *
  *
  * Java class for Dimension complex type.

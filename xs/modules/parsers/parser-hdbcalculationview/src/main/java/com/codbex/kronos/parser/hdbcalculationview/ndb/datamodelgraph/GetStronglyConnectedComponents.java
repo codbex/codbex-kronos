@@ -23,11 +23,12 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlType;
 
 /**
- * Parameterization for the graph action GET_STRONGLY_CONNECTED_COMPONENTS The action GET_STRONGLY_CONNECTED_COMPONENTS calculates strongly
- * connected components in the given graph workspace. Strongly connected components partition the given graph workspace into largest
- * subgraphs where every vertex is reachable from every other vertex. The only output is a table containing the vertex key column and a
- * "COMPONENT" column containing component numbers. All vertices having the same component number belong to the same strongly connected
- * component.
+ * Parameterization for the graph action GET_STRONGLY_CONNECTED_COMPONENTS The action
+ * GET_STRONGLY_CONNECTED_COMPONENTS calculates strongly connected components in the given graph
+ * workspace. Strongly connected components partition the given graph workspace into largest
+ * subgraphs where every vertex is reachable from every other vertex. The only output is a table
+ * containing the vertex key column and a "COMPONENT" column containing component numbers. All
+ * vertices having the same component number belong to the same strongly connected component.
  *
  *
  * Java class for GetStronglyConnectedComponents complex type.

@@ -23,7 +23,8 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlType;
 
 /**
- * Argument of a PredicateOperation i.e. one of the following 3 possibilities:Variable element, constant, parameter
+ * Argument of a PredicateOperation i.e. one of the following 3 possibilities:Variable element,
+ * constant, parameter
  *
  *
  * Java class for Argument complex type.

@@ -41,7 +41,8 @@ import jakarta.xml.bind.annotation.XmlType;
 public enum Cache {
 
     /**
-     * The generated hierarchy is cached if the system assesses the source to be reliably deterministic. This is the default behavior.
+     * The generated hierarchy is cached if the system assesses the source to be reliably deterministic.
+     * This is the default behavior.
      */
     CACHE,
 
@@ -51,7 +52,8 @@ public enum Cache {
     NO_CACHE,
 
     /**
-     * The generated hierarchy is cached even if the source cannot be assessed to be reliably deterministic.
+     * The generated hierarchy is cached even if the source cannot be assessed to be reliably
+     * deterministic.
      */
     CACHE_FORCE;
 

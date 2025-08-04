@@ -35,7 +35,8 @@ import com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelvariable.LocalVari
 import com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelvariable.VariableMappings;
 
 /**
- * Base type for reporting enabled BI resources i.e. resources you can run client tools on = BW InfoProvider
+ * Base type for reporting enabled BI resources i.e. resources you can run client tools on = BW
+ * InfoProvider
  *
  *
  * Java class for InformationModel complex type.

@@ -29,8 +29,8 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase.Descriptions;
 
 /**
- * Defines an aliasing including a description. Usually when aliasing a technical name in a BI model one also needs to adjust the
- * descriptions. These object comprises both features
+ * Defines an aliasing including a description. Usually when aliasing a technical name in a BI model
+ * one also needs to adjust the descriptions. These object comprises both features
  *
  *
  * Java class for AliasWithDescription complex type.

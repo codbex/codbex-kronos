@@ -147,10 +147,12 @@ public enum ObjectType {
     REMOTE_SOURCE("REMOTE_SOURCE"),
 
     /** The virtual table. */
-    @XmlEnumValue("VIRTUAL TABLE") VIRTUAL_TABLE("VIRTUAL TABLE"),
+    @XmlEnumValue("VIRTUAL TABLE")
+    VIRTUAL_TABLE("VIRTUAL TABLE"),
 
     /** The extended table. */
-    @XmlEnumValue("EXTENDED TABLE") EXTENDED_TABLE("EXTENDED TABLE"),
+    @XmlEnumValue("EXTENDED TABLE")
+    EXTENDED_TABLE("EXTENDED TABLE"),
 
     /** The epmmodel. */
     EPMMODEL("EPMMODEL"),
@@ -159,7 +161,8 @@ public enum ObjectType {
     EPMQUERYSOURCE("EPMQUERYSOURCE"),
 
     /** The remote subscription. */
-    @XmlEnumValue("REMOTE SUBSCRIPTION") REMOTE_SUBSCRIPTION("REMOTE SUBSCRIPTION"),
+    @XmlEnumValue("REMOTE SUBSCRIPTION")
+    REMOTE_SUBSCRIPTION("REMOTE SUBSCRIPTION"),
 
     /** The pse. */
     PSE("PSE"),

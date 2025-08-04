@@ -26,8 +26,8 @@ import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * Specification of a hierarchy edge attribute. Currently only a reference to the underlying (view) column is possible. Renaming might
- * follow later.
+ * Specification of a hierarchy edge attribute. Currently only a reference to the underlying (view)
+ * column is possible. Renaming might follow later.
  *
  *
  * Java class for EdgeAttribute complex type.
