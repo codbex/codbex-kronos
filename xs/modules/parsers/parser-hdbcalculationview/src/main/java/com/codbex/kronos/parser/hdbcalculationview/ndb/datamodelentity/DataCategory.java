@@ -18,8 +18,8 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.datamodelentity;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Java class for DataCategory.

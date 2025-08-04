@@ -16,5 +16,5 @@
 // Generated on: 2020.11.26 at 10:54:28 AM EET
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.sap.com/ndb/BiModelVariable.ecore")
+@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://www.sap.com/ndb/BiModelVariable.ecore")
 package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelvariable;
