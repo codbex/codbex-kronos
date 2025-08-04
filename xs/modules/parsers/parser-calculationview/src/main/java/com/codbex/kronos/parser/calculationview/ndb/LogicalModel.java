@@ -294,8 +294,8 @@ import java.util.List;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "",
-        propOrder = {"descriptions", "attributes", " ", "privateDataFoundation", "baseMeasures", "calculatedMeasures", "restrictedMeasures",
-                "localDimensions"})
+        propOrder = {"descriptions", "attributes", "calculatedAttributes", "privateDataFoundation", "baseMeasures", "calculatedMeasures",
+                "restrictedMeasures", "localDimensions"})
 @XmlRootElement(name = "logicalModel")
 public class LogicalModel {
 
