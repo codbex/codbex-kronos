@@ -31,10 +31,11 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelvariable.AbstractVariableMapping;
 
 /**
- * A view node integrating a table function. Tabular input parameters will be filled by other nodes / data sources of the calculation view.
- * This includes column mapping as for other nodes. The mapping to the function parameter is done via the XML attribute
- * functionParameterName of Input Scalar input parameters will be filled with constants or by parameters. The output of the table function
- * will be mapped as input to another node of the calculation view.
+ * A view node integrating a table function. Tabular input parameters will be filled by other nodes
+ * / data sources of the calculation view. This includes column mapping as for other nodes. The
+ * mapping to the function parameter is done via the XML attribute functionParameterName of Input
+ * Scalar input parameters will be filled with constants or by parameters. The output of the table
+ * function will be mapped as input to another node of the calculation view.
  *
  *
  * Java class for TableFunctionView complex type.
@@ -70,8 +71,9 @@ public class TableFunctionView extends CalculationView {
      * Gets the value of the variableMapping property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the variableMapping property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the variableMapping property.
      *
      *
      * For example, to add a new item, do as follows:

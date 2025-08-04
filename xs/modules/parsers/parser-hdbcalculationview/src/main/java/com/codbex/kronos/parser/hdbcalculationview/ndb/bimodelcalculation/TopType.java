@@ -44,19 +44,24 @@ import jakarta.xml.bind.annotation.XmlType;
 public enum TopType {
 
     /** The rows. */
-    @XmlEnumValue("rows") ROWS("rows"),
+    @XmlEnumValue("rows")
+    ROWS("rows"),
 
     /** The sum. */
-    @XmlEnumValue("sum") SUM("sum"),
+    @XmlEnumValue("sum")
+    SUM("sum"),
 
     /** The percent. */
-    @XmlEnumValue("percent") PERCENT("percent"),
+    @XmlEnumValue("percent")
+    PERCENT("percent"),
 
     /** The first. */
-    @XmlEnumValue("first") FIRST("first"),
+    @XmlEnumValue("first")
+    FIRST("first"),
 
     /** The last. */
-    @XmlEnumValue("last") LAST("last");
+    @XmlEnumValue("last")
+    LAST("last");
 
     /** The value. */
     private final String value;

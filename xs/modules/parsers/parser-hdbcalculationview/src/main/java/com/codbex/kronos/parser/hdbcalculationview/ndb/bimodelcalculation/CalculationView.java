@@ -56,9 +56,8 @@ import com.codbex.kronos.parser.hdbcalculationview.ndb.datamodeltype.ExpressionL
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "CalculationView", propOrder = {"input", "filter", "fuzzySearchFilter"})
-@XmlSeeAlso(
-        {ProjectionView.class, RankView.class, JoinView.class, UnionView.class, MinusView.class, IntersectView.class, AggregationView.class,
-                TableFunctionView.class, NonEquiJoinView.class, HierarchyView.class, AnonymizeView.class})
+@XmlSeeAlso({ProjectionView.class, RankView.class, JoinView.class, UnionView.class, MinusView.class, IntersectView.class,
+        AggregationView.class, TableFunctionView.class, NonEquiJoinView.class, HierarchyView.class, AnonymizeView.class})
 public class CalculationView extends Node {
 
     /** The input. */
@@ -86,8 +85,9 @@ public class CalculationView extends Node {
      * Gets the value of the input property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the input property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the input property.
      *
      *
      * For example, to add a new item, do as follows:
@@ -131,8 +131,9 @@ public class CalculationView extends Node {
      * Gets the value of the fuzzySearchFilter property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the fuzzySearchFilter property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the fuzzySearchFilter property.
      *
      *
      * For example, to add a new item, do as follows:

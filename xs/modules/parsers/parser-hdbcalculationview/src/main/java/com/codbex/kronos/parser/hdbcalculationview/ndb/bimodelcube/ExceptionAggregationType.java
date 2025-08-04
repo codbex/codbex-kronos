@@ -40,7 +40,8 @@ import jakarta.xml.bind.annotation.XmlType;
 public enum ExceptionAggregationType {
 
     /** The count distinct. */
-    @XmlEnumValue("countDistinct") COUNT_DISTINCT("countDistinct");
+    @XmlEnumValue("countDistinct")
+    COUNT_DISTINCT("countDistinct");
 
     /** The value. */
     private final String value;

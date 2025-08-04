@@ -100,9 +100,9 @@ public class RankingFilter {
      * Gets the value of the partitionViewAttributeName property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the partitionViewAttributeName
-     * property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the partitionViewAttributeName property.
      *
      *
      * For example, to add a new item, do as follows:
@@ -128,8 +128,9 @@ public class RankingFilter {
      * Gets the value of the order property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the order property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the order property.
      *
      *
      * For example, to add a new item, do as follows:

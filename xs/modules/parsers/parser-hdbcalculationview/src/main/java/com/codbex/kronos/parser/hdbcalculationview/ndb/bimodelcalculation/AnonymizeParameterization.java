@@ -154,8 +154,9 @@ public class AnonymizeParameterization {
      * Gets the value of the qidColumn property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the qidColumn property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the qidColumn property.
      *
      *
      * For example, to add a new item, do as follows:
@@ -181,8 +182,9 @@ public class AnonymizeParameterization {
      * Gets the value of the qidColumnHierarchy property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the qidColumnHierarchy property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the qidColumnHierarchy property.
      *
      *
      * For example, to add a new item, do as follows:

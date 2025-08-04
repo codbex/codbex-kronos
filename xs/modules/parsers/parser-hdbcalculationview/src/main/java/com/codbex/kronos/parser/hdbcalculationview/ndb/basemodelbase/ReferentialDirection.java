@@ -42,13 +42,16 @@ import jakarta.xml.bind.annotation.XmlType;
 public enum ReferentialDirection {
 
     /** The left. */
-    @XmlEnumValue("left") LEFT("left"),
+    @XmlEnumValue("left")
+    LEFT("left"),
 
     /** The right. */
-    @XmlEnumValue("right") RIGHT("right"),
+    @XmlEnumValue("right")
+    RIGHT("right"),
 
     /** The both. */
-    @XmlEnumValue("both") BOTH("both");
+    @XmlEnumValue("both")
+    BOTH("both");
 
     /** The value. */
     private final String value;

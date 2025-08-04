@@ -28,8 +28,9 @@ import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * Type for mapping the variable of an underlying model (target) to either a constant or a variable of the current model via
- * IVariableEnabled. In case the target view is a value help view the target variable name might also point to an attribute of the view.
+ * Type for mapping the variable of an underlying model (target) to either a constant or a variable
+ * of the current model via IVariableEnabled. In case the target view is a value help view the
+ * target variable name might also point to an attribute of the view.
  *
  *
  * Java class for AbstractVariableMapping complex type.

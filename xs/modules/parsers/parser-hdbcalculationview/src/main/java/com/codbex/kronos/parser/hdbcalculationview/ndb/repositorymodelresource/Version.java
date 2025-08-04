@@ -42,13 +42,16 @@ import jakarta.xml.bind.annotation.XmlType;
 public enum Version {
 
     /** The active. */
-    @XmlEnumValue("active") ACTIVE("active"),
+    @XmlEnumValue("active")
+    ACTIVE("active"),
 
     /** The inactive. */
-    @XmlEnumValue("inactive") INACTIVE("inactive"),
+    @XmlEnumValue("inactive")
+    INACTIVE("inactive"),
 
     /** The historical. */
-    @XmlEnumValue("historical") HISTORICAL("historical");
+    @XmlEnumValue("historical")
+    HISTORICAL("historical");
 
     /** The value. */
     private final String value;

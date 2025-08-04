@@ -41,14 +41,16 @@ import jakarta.xml.bind.annotation.XmlType;
 public enum ConversionMethod {
 
     /**
-     * Join type referential integrity means for each row in the left table there is a corresponding row in the right table and vice versa.
-     * If this join type is selected the engine can better optimize the queries, because the join can be completely ignored if no fields are
-     * requested from the joined table.
+     * Join type referential integrity means for each row in the left table there is a corresponding row
+     * in the right table and vice versa. If this join type is selected the engine can better optimize
+     * the queries, because the join can be completely ignored if no fields are requested from the
+     * joined table.
      */
     ERP("ERP"),
 
     /** The banking. */
-    @XmlEnumValue("Banking") BANKING("Banking");
+    @XmlEnumValue("Banking")
+    BANKING("Banking");
 
     /** The value. */
     private final String value;

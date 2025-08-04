@@ -43,10 +43,12 @@ import jakarta.xml.bind.annotation.XmlType;
 public enum Cardinality {
 
     /** The c 1 1. */
-    @XmlEnumValue("C1_1") C_1_1("C1_1"),
+    @XmlEnumValue("C1_1")
+    C_1_1("C1_1"),
 
     /** The c 1 n. */
-    @XmlEnumValue("C1_N") C_1_N("C1_N"),
+    @XmlEnumValue("C1_N")
+    C_1_N("C1_N"),
 
     /** The cn 1. */
     CN_1("CN_1"),

@@ -46,25 +46,32 @@ import jakarta.xml.bind.annotation.XmlType;
 public enum ValueType {
 
     /** The empty. */
-    @XmlEnumValue("empty") EMPTY("empty"),
+    @XmlEnumValue("empty")
+    EMPTY("empty"),
 
     /** The currency. */
-    @XmlEnumValue("Currency") CURRENCY("Currency"),
+    @XmlEnumValue("Currency")
+    CURRENCY("Currency"),
 
     /** The unit of measure. */
-    @XmlEnumValue("UnitOfMeasure") UNIT_OF_MEASURE("UnitOfMeasure"),
+    @XmlEnumValue("UnitOfMeasure")
+    UNIT_OF_MEASURE("UnitOfMeasure"),
 
     /** The date. */
-    @XmlEnumValue("Date") DATE("Date"),
+    @XmlEnumValue("Date")
+    DATE("Date"),
 
     /** The attribute value. */
-    @XmlEnumValue("AttributeValue") ATTRIBUTE_VALUE("AttributeValue"),
+    @XmlEnumValue("AttributeValue")
+    ATTRIBUTE_VALUE("AttributeValue"),
 
     /** The static list. */
-    @XmlEnumValue("StaticList") STATIC_LIST("StaticList"),
+    @XmlEnumValue("StaticList")
+    STATIC_LIST("StaticList"),
 
     /** The fuzzy text search. */
-    @XmlEnumValue("FuzzyTextSearch") FUZZY_TEXT_SEARCH("FuzzyTextSearch");
+    @XmlEnumValue("FuzzyTextSearch")
+    FUZZY_TEXT_SEARCH("FuzzyTextSearch");
 
     /** The value. */
     private final String value;

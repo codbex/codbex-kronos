@@ -66,9 +66,8 @@ import com.codbex.kronos.parser.hdbcalculationview.ndb.sqlcoremodeldatatypes.Pri
  * </pre>
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "VariableProperties",
-        propOrder = {"valueDomain", "selection", "derivationRule", "defaultExpression", "defaultRange", "internalExternalConversion",
-                "fuzzySimilarity"})
+@XmlType(name = "VariableProperties", propOrder = {"valueDomain", "selection", "derivationRule", "defaultExpression", "defaultRange",
+        "internalExternalConversion", "fuzzySimilarity"})
 public class VariableProperties {
 
     /** The value domain. */
@@ -194,8 +193,9 @@ public class VariableProperties {
      * Gets the value of the defaultRange property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the defaultRange property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the defaultRange property.
      *
      *
      * For example, to add a new item, do as follows:

@@ -41,10 +41,12 @@ import jakarta.xml.bind.annotation.XmlType;
 public enum Mimetype {
 
     /** The text plain. */
-    @XmlEnumValue("text/plain") TEXT_PLAIN("text/plain"),
+    @XmlEnumValue("text/plain")
+    TEXT_PLAIN("text/plain"),
 
     /** The text html. */
-    @XmlEnumValue("text/html") TEXT_HTML("text/html");
+    @XmlEnumValue("text/html")
+    TEXT_HTML("text/html");
 
     /** The value. */
     private final String value;

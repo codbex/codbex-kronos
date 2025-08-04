@@ -29,9 +29,11 @@ import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * For specifying a hierarchy and a set of its nodes the user is privileged to see. The nodes can be specified in the following ways: 1.
- * Directly specify one or more node IDs. Then the user is privileged to see all subtrees of these nodes 2. A hierarchy expression. Then the
- * user is privileged to see all nodes in the result of the expression (e.g. all children of a specific node)
+ * For specifying a hierarchy and a set of its nodes the user is privileged to see. The nodes can be
+ * specified in the following ways: 1. Directly specify one or more node IDs. Then the user is
+ * privileged to see all subtrees of these nodes 2. A hierarchy expression. Then the user is
+ * privileged to see all nodes in the result of the expression (e.g. all children of a specific
+ * node)
  *
  *
  * Java class for HierarchyFilter complex type.
@@ -69,8 +71,9 @@ public class HierarchyFilter {
      * Gets the value of the subtreeNode property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the subtreeNode property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the subtreeNode property.
      *
      *
      * For example, to add a new item, do as follows:

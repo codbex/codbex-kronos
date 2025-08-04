@@ -23,8 +23,9 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlType;
 
 /**
- * A view/node that takes a subset of the attributes of one input, splits them into attributes and measures (the latter have a not empty
- * aggregation type) and then aggregates the measures according to their aggregation type - the attributes act as group by attributes.
+ * A view/node that takes a subset of the attributes of one input, splits them into attributes and
+ * measures (the latter have a not empty aggregation type) and then aggregates the measures
+ * according to their aggregation type - the attributes act as group by attributes.
  *
  *
  * Java class for AggregationView complex type.

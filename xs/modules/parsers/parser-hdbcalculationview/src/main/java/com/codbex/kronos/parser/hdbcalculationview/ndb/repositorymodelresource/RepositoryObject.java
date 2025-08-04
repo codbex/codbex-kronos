@@ -30,7 +30,8 @@ import com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase.EndUserText
 import com.codbex.kronos.parser.hdbcalculationview.ndb.datamodeltype.DataType;
 
 /**
- * Father object for EMF repository objects. The resource aspects of ResourceObject have been removed from this to separate concerns
+ * Father object for EMF repository objects. The resource aspects of ResourceObject have been
+ * removed from this to separate concerns
  *
  *
  * Java class for RepositoryObject complex type.

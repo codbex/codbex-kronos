@@ -26,8 +26,8 @@ import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * A restriction either applies to a dimension or to an attribute. In case several attributes of a dimension are filtered they must be put
- * into the same Restriction.
+ * A restriction either applies to a dimension or to an attribute. In case several attributes of a
+ * dimension are filtered they must be put into the same Restriction.
  *
  *
  * Java class for Restriction complex type.

@@ -28,11 +28,13 @@ import com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase.Cardinality
 import com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase.JoinType;
 
 /**
- * The NonEquiJoinView (NEJ) allows join conditions with various comparisons (EQ, NE, LT, GT, LE, GE) on several columns. It will not be
- * allowed as a join to a shared dimension (not part of a star join). Since the NEJ will be mapped to the predicate join in the calculation
- * engine, no customer-defined calculations or filters are allowed. The predicate join requires conditions on the input sources, not the
- * targets as in other nodes. The optimize join columns flag is not supported in the NEJ. There is also no support for the 'dynamic join
- * property' or the 'ignore multiple outputs for filter property'.
+ * The NonEquiJoinView (NEJ) allows join conditions with various comparisons (EQ, NE, LT, GT, LE,
+ * GE) on several columns. It will not be allowed as a join to a shared dimension (not part of a
+ * star join). Since the NEJ will be mapped to the predicate join in the calculation engine, no
+ * customer-defined calculations or filters are allowed. The predicate join requires conditions on
+ * the input sources, not the targets as in other nodes. The optimize join columns flag is not
+ * supported in the NEJ. There is also no support for the 'dynamic join property' or the 'ignore
+ * multiple outputs for filter property'.
  *
  *
  * Java class for NonEquiJoinView complex type.

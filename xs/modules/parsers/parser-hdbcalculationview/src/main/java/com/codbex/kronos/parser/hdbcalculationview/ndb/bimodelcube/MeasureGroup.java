@@ -62,9 +62,8 @@ import com.codbex.kronos.parser.hdbcalculationview.ndb.datamodeltype.ExpressionL
  * </pre>
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "MeasureGroup",
-        propOrder = {"baseMeasures", "calculatedMeasures", "restrictedMeasures", "measures", "localDimensions", "sharedDimensions",
-                "sortAttributes", "filter", "layout"})
+@XmlType(name = "MeasureGroup", propOrder = {"baseMeasures", "calculatedMeasures", "restrictedMeasures", "measures", "localDimensions",
+        "sharedDimensions", "sortAttributes", "filter", "layout"})
 public class MeasureGroup extends LogicalObject {
 
     /** The base measures. */
@@ -165,8 +164,9 @@ public class MeasureGroup extends LogicalObject {
      * Gets the value of the measures property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the measures property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the measures property.
      *
      *
      * For example, to add a new item, do as follows:

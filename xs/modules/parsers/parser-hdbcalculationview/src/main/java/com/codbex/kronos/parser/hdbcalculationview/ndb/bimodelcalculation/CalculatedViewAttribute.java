@@ -28,8 +28,8 @@ import com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase.CommentProp
 import com.codbex.kronos.parser.hdbcalculationview.ndb.datamodeltype.ExpressionLanguage;
 
 /**
- * A calculated view attribute - the aggregation type is not interpreted for calculated view attributes, because the calculation is always
- * done after the aggregation
+ * A calculated view attribute - the aggregation type is not interpreted for calculated view
+ * attributes, because the calculation is always done after the aggregation
  *
  *
  * Java class for CalculatedViewAttribute complex type.

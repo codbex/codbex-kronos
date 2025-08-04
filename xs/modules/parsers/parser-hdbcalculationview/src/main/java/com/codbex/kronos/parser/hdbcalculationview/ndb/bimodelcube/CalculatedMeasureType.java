@@ -41,10 +41,12 @@ import jakarta.xml.bind.annotation.XmlType;
 public enum CalculatedMeasureType {
 
     /** The regular. */
-    @XmlEnumValue("regular") REGULAR("regular"),
+    @XmlEnumValue("regular")
+    REGULAR("regular"),
 
     /** The counter. */
-    @XmlEnumValue("counter") COUNTER("counter");
+    @XmlEnumValue("counter")
+    COUNTER("counter");
 
     /** The value. */
     private final String value;

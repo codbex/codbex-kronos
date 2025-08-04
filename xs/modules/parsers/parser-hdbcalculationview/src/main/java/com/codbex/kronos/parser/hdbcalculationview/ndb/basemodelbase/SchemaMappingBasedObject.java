@@ -27,8 +27,9 @@ import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * Object containing a DB Schema, for which the schema mapping is enabled. I.e. in the authoring resource a schema is stored that might be
- * different from the physical DB schema. This object is also used for modeling cross data base access.
+ * Object containing a DB Schema, for which the schema mapping is enabled. I.e. in the authoring
+ * resource a schema is stored that might be different from the physical DB schema. This object is
+ * also used for modeling cross data base access.
  *
  *
  * Java class for SchemaMappingBasedObject complex type.

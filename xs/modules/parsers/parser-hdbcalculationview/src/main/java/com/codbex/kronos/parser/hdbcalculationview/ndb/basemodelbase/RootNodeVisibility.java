@@ -41,23 +41,27 @@ import jakarta.xml.bind.annotation.XmlType;
 public enum RootNodeVisibility {
 
     /**
-     * (default): The system will add the root node of the hierarchy if it is explicitly defined, but the system will not add an extra
-     * artificial root node.
+     * (default): The system will add the root node of the hierarchy if it is explicitly defined, but
+     * the system will not add an extra artificial root node.
      */
     ADD_ROOT_NODE_IF_DEFINED,
 
     /**
-     * The system will always add an artificial single root node to the hierarchy. All other nodes are descendants of this node.
+     * The system will always add an artificial single root node to the hierarchy. All other nodes are
+     * descendants of this node.
      */
     ADD_ROOT_NODE,
 
     /**
-     * The system will not add an artificial single root node to the hierarchy. Example 1: Assume we have the following simple table with a
-     * parent child hierarchy defined on top: A to B and A to C Then we have: ADD_ROOT_NODE_IF_DEFINED, ADD_ROOT_NODE: Results in a 2 level
-     * hierarchy with A at the root having B, C as children DO_NOT_ADD_ROOT_NODE: Results in a 1 level hierarchy with B and C as independent
-     * root nodes Example 2: Assume we have the following simple table with a parent child hierarchy defined on top. null to A and A to B
-     * and A to C Then we have: ADD_ROOT_NODE_IF_DEFINED, DO_NOT_ADD_ROOT_NODE: Results in a 2 level hierarchy with A at the root having B,C
-     * as children ADD_ROOT_NODE: Results in a 3 level hierarchy with null as root node having A as child and A having B,C as children.
+     * The system will not add an artificial single root node to the hierarchy. Example 1: Assume we
+     * have the following simple table with a parent child hierarchy defined on top: A to B and A to C
+     * Then we have: ADD_ROOT_NODE_IF_DEFINED, ADD_ROOT_NODE: Results in a 2 level hierarchy with A at
+     * the root having B, C as children DO_NOT_ADD_ROOT_NODE: Results in a 1 level hierarchy with B and
+     * C as independent root nodes Example 2: Assume we have the following simple table with a parent
+     * child hierarchy defined on top. null to A and A to B and A to C Then we have:
+     * ADD_ROOT_NODE_IF_DEFINED, DO_NOT_ADD_ROOT_NODE: Results in a 2 level hierarchy with A at the root
+     * having B,C as children ADD_ROOT_NODE: Results in a 3 level hierarchy with null as root node
+     * having A as child and A having B,C as children.
      */
     DO_NOT_ADD_ROOT_NODE;
 

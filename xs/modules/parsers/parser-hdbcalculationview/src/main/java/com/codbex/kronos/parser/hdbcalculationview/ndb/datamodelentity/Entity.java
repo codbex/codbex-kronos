@@ -31,7 +31,8 @@ import com.codbex.kronos.parser.hdbcalculationview.ndb.datamodeltype.ObjectType;
 import com.codbex.kronos.parser.hdbcalculationview.ndb.datamodeltype.StructureType;
 
 /**
- * Data type including a semantic description. Replaces the ABAP data element in the common and int the meta model
+ * Data type including a semantic description. Replaces the ABAP data element in the common and int
+ * the meta model
  *
  *
  * Java class for Entity complex type.
@@ -128,8 +129,9 @@ public class Entity extends StructureType {
      * Gets the value of the inlineHierarchy property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the inlineHierarchy property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the inlineHierarchy property.
      *
      *
      * For example, to add a new item, do as follows:
@@ -155,8 +157,9 @@ public class Entity extends StructureType {
      * Gets the value of the index property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the index property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the index property.
      *
      *
      * For example, to add a new item, do as follows:
@@ -182,8 +185,9 @@ public class Entity extends StructureType {
      * Gets the value of the partitionSpecification property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the partitionSpecification property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the partitionSpecification property.
      *
      *
      * For example, to add a new item, do as follows:

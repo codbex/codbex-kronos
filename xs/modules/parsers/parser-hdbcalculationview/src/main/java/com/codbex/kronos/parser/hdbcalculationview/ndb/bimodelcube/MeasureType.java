@@ -42,13 +42,16 @@ import jakarta.xml.bind.annotation.XmlType;
 public enum MeasureType {
 
     /** The amount. */
-    @XmlEnumValue("amount") AMOUNT("amount"),
+    @XmlEnumValue("amount")
+    AMOUNT("amount"),
 
     /** The quantity. */
-    @XmlEnumValue("quantity") QUANTITY("quantity"),
+    @XmlEnumValue("quantity")
+    QUANTITY("quantity"),
 
     /** The simple. */
-    @XmlEnumValue("simple") SIMPLE("simple");
+    @XmlEnumValue("simple")
+    SIMPLE("simple");
 
     /** The value. */
     private final String value;

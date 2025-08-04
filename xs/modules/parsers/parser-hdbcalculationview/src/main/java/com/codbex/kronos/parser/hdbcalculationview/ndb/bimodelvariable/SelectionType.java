@@ -42,13 +42,16 @@ import jakarta.xml.bind.annotation.XmlType;
 public enum SelectionType {
 
     /** The single value. */
-    @XmlEnumValue("SingleValue") SINGLE_VALUE("SingleValue"),
+    @XmlEnumValue("SingleValue")
+    SINGLE_VALUE("SingleValue"),
 
     /** The interval. */
-    @XmlEnumValue("Interval") INTERVAL("Interval"),
+    @XmlEnumValue("Interval")
+    INTERVAL("Interval"),
 
     /** The range. */
-    @XmlEnumValue("Range") RANGE("Range");
+    @XmlEnumValue("Range")
+    RANGE("Range");
 
     /** The value. */
     private final String value;

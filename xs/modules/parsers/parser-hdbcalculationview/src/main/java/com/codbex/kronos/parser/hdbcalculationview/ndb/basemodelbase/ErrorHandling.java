@@ -42,13 +42,16 @@ import jakarta.xml.bind.annotation.XmlType;
 public enum ErrorHandling {
 
     /** this produces an SQL engine error. */
-    @XmlEnumValue("failOnError") FAIL_ON_ERROR("failOnError"),
+    @XmlEnumValue("failOnError")
+    FAIL_ON_ERROR("failOnError"),
 
     /** the target measure and the currency are set to NULL. */
-    @XmlEnumValue("setToNull") SET_TO_NULL("setToNull"),
+    @XmlEnumValue("setToNull")
+    SET_TO_NULL("setToNull"),
 
     /** the measure is not converted. */
-    @XmlEnumValue("keepUnconverted") KEEP_UNCONVERTED("keepUnconverted");
+    @XmlEnumValue("keepUnconverted")
+    KEEP_UNCONVERTED("keepUnconverted");
 
     /** The value. */
     private final String value;

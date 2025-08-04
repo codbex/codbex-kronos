@@ -43,7 +43,8 @@ public enum CurrencyConversionLookup {
     REGULAR,
 
     /**
-     * Reverse lookup to do backward conversions ('reverse' determines the rate with swapped units and inverts the rate before conversion).
+     * Reverse lookup to do backward conversions ('reverse' determines the rate with swapped units and
+     * inverts the rate before conversion).
      */
     REVERSE;
 

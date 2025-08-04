@@ -40,13 +40,15 @@ import jakarta.xml.bind.annotation.XmlType;
 public enum EmptyUnionBehavior {
 
     /**
-     * No row form the source will be added to the result of the union - this means the constant value defined for any mapping is not
-     * returned for selects where only columns with a constant mapping are selected.
+     * No row form the source will be added to the result of the union - this means the constant value
+     * defined for any mapping is not returned for selects where only columns with a constant mapping
+     * are selected.
      */
     NO_ROW,
 
     /**
-     * A row with the constant mapping values (and null for the other columns) is added to the result of the source.
+     * A row with the constant mapping values (and null for the other columns) is added to the result of
+     * the source.
      */
     ROW_WITH_CONSTANTS;
 

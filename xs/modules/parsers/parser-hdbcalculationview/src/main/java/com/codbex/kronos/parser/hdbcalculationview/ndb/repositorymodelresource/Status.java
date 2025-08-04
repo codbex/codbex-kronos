@@ -41,10 +41,12 @@ import jakarta.xml.bind.annotation.XmlType;
 public enum Status {
 
     /** The ok. */
-    @XmlEnumValue("ok") OK("ok"),
+    @XmlEnumValue("ok")
+    OK("ok"),
 
     /** The inconsistent. */
-    @XmlEnumValue("inconsistent") INCONSISTENT("inconsistent");
+    @XmlEnumValue("inconsistent")
+    INCONSISTENT("inconsistent");
 
     /** The value. */
     private final String value;

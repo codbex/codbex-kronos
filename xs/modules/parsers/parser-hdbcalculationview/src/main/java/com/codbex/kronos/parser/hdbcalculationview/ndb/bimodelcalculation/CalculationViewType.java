@@ -41,10 +41,12 @@ import jakarta.xml.bind.annotation.XmlType;
 public enum CalculationViewType {
 
     /** The aggregation. */
-    @XmlEnumValue("Aggregation") AGGREGATION("Aggregation"),
+    @XmlEnumValue("Aggregation")
+    AGGREGATION("Aggregation"),
 
     /** The projection. */
-    @XmlEnumValue("Projection") PROJECTION("Projection");
+    @XmlEnumValue("Projection")
+    PROJECTION("Projection");
 
     /** The value. */
     private final String value;

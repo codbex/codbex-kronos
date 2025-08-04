@@ -27,9 +27,10 @@ import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * A data source either maps a repository object or a data base object as input of the calculation scenario. Attention: Although it inherits
- * from resource:EcoreIDObjectWithDescription texts are not yet used for data sources. For table function we are already using the full
- * qualified names in the resourceURI e.g. package.subpackage::MyFunction.hdbtablefunction
+ * A data source either maps a repository object or a data base object as input of the calculation
+ * scenario. Attention: Although it inherits from resource:EcoreIDObjectWithDescription texts are
+ * not yet used for data sources. For table function we are already using the full qualified names
+ * in the resourceURI e.g. package.subpackage::MyFunction.hdbtablefunction
  *
  *
  * Java class for DataSource complex type.
