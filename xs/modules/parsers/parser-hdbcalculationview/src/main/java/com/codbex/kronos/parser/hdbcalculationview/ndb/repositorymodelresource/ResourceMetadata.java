@@ -18,18 +18,17 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.repositorymodelresource;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * This is the meta data that is stored outside of the XML in the repository persistence Some of its
- * attributes are stored redundantly in the EMF XML to have them available also when performing a
- * client export (e.g. timestamps like createdAt) Other attributes are transient like e.g. the
- * packageName. Also user name properties are transient and not stored in the XML
+ * This is the meta data that is stored outside of the XML in the repository persistence Some of its attributes are stored redundantly in
+ * the EMF XML to have them available also when performing a client export (e.g. timestamps like createdAt) Other attributes are transient
+ * like e.g. the packageName. Also user name properties are transient and not stored in the XML
  *
  *
  * Java class for ResourceMetadata complex type.

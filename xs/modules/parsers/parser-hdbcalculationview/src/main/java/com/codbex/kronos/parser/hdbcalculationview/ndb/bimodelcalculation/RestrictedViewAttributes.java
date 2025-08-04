@@ -20,9 +20,10 @@ package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelcalculation;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlType;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Collection element for the restricted view attributes of an aggregation node
@@ -55,9 +56,8 @@ public class RestrictedViewAttributes {
      * Gets the value of the restrictedViewAttribute property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the restrictedViewAttribute property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the restrictedViewAttribute property.
      *
      *
      * For example, to add a new item, do as follows:

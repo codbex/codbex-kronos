@@ -18,9 +18,9 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelcube;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Java class for CalculatedMeasureType.
@@ -41,12 +41,10 @@ import javax.xml.bind.annotation.XmlType;
 public enum CalculatedMeasureType {
 
     /** The regular. */
-    @XmlEnumValue("regular")
-    REGULAR("regular"),
+    @XmlEnumValue("regular") REGULAR("regular"),
 
     /** The counter. */
-    @XmlEnumValue("counter")
-    COUNTER("counter");
+    @XmlEnumValue("counter") COUNTER("counter");
 
     /** The value. */
     private final String value;

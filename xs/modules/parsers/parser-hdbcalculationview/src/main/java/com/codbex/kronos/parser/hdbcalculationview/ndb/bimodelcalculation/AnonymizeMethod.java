@@ -18,9 +18,9 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelcalculation;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Java class for AnonymizeMethod.
@@ -41,12 +41,10 @@ import javax.xml.bind.annotation.XmlType;
 public enum AnonymizeMethod {
 
     /** The k anonymity. */
-    @XmlEnumValue("kAnonymity")
-    K_ANONYMITY("kAnonymity"),
+    @XmlEnumValue("kAnonymity") K_ANONYMITY("kAnonymity"),
 
     /** The differential privacy. */
-    @XmlEnumValue("differentialPrivacy")
-    DIFFERENTIAL_PRIVACY("differentialPrivacy");
+    @XmlEnumValue("differentialPrivacy") DIFFERENTIAL_PRIVACY("differentialPrivacy");
 
     /** The value. */
     private final String value;

@@ -18,9 +18,9 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.repositorymodelresource;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Java class for Version.
@@ -42,16 +42,13 @@ import javax.xml.bind.annotation.XmlType;
 public enum Version {
 
     /** The active. */
-    @XmlEnumValue("active")
-    ACTIVE("active"),
+    @XmlEnumValue("active") ACTIVE("active"),
 
     /** The inactive. */
-    @XmlEnumValue("inactive")
-    INACTIVE("inactive"),
+    @XmlEnumValue("inactive") INACTIVE("inactive"),
 
     /** The historical. */
-    @XmlEnumValue("historical")
-    HISTORICAL("historical");
+    @XmlEnumValue("historical") HISTORICAL("historical");
 
     /** The value. */
     private final String value;

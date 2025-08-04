@@ -18,19 +18,18 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelvariable;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * Type for mapping the variable of an underlying model (target) to either a constant or a variable
- * of the current model via IVariableEnabled. In case the target view is a value help view the
- * target variable name might also point to an attribute of the view.
+ * Type for mapping the variable of an underlying model (target) to either a constant or a variable of the current model via
+ * IVariableEnabled. In case the target view is a value help view the target variable name might also point to an attribute of the view.
  *
  *
  * Java class for AbstractVariableMapping complex type.

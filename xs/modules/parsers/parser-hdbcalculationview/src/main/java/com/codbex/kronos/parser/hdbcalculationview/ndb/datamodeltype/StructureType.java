@@ -20,21 +20,22 @@ package com.codbex.kronos.parser.hdbcalculationview.ndb.datamodeltype;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlSchemaType;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.codbex.kronos.parser.hdbcalculationview.ndb.datamodelentity.Entity;
 
 /**
- * Structured data type containing several elements Attention in the catalog this is referred to as
- * TableType, but a TableType in CDS really means several rows!)
+ * Structured data type containing several elements Attention in the catalog this is referred to as TableType, but a TableType in CDS really
+ * means several rows!)
  *
  *
  * Java class for StructureType complex type.
@@ -101,9 +102,8 @@ public class StructureType extends DataType {
      * Gets the value of the element property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the element property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the element property.
      *
      *
      * For example, to add a new item, do as follows:
@@ -129,9 +129,8 @@ public class StructureType extends DataType {
      * Gets the value of the keyElement property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the keyElement property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the keyElement property.
      *
      *
      * For example, to add a new item, do as follows:
@@ -157,9 +156,8 @@ public class StructureType extends DataType {
      * Gets the value of the displayFolder property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the displayFolder property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the displayFolder property.
      *
      *
      * For example, to add a new item, do as follows:

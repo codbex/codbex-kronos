@@ -18,20 +18,19 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.datamodelhierarchy;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.codbex.kronos.parser.hdbcalculationview.ndb.datamodeltype.UDFParameter;
 
 /**
- * Defines the reference to the element of the entities' key to link a child instance to a parent
- * instance. Example: in an entity containing Employee attributes the annotation is used at the
- * Manager element Object references in the attributes because it might point to a column coming in
- * via a selectAll input
+ * Defines the reference to the element of the entities' key to link a child instance to a parent instance. Example: in an entity containing
+ * Employee attributes the annotation is used at the Manager element Object references in the attributes because it might point to a column
+ * coming in via a selectAll input
  *
  *
  * Java class for ParentDefinition complex type.

@@ -18,9 +18,9 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelcalculation;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Java class for RankType.
@@ -47,36 +47,28 @@ import javax.xml.bind.annotation.XmlType;
 public enum RankType {
 
     /** The row number. */
-    @XmlEnumValue("row_number")
-    ROW_NUMBER("row_number"),
+    @XmlEnumValue("row_number") ROW_NUMBER("row_number"),
 
     /** The row number percent. */
-    @XmlEnumValue("row_number_percent")
-    ROW_NUMBER_PERCENT("row_number_percent"),
+    @XmlEnumValue("row_number_percent") ROW_NUMBER_PERCENT("row_number_percent"),
 
     /** The rank. */
-    @XmlEnumValue("rank")
-    RANK("rank"),
+    @XmlEnumValue("rank") RANK("rank"),
 
     /** The rank percent. */
-    @XmlEnumValue("rank_percent")
-    RANK_PERCENT("rank_percent"),
+    @XmlEnumValue("rank_percent") RANK_PERCENT("rank_percent"),
 
     /** The dense rank. */
-    @XmlEnumValue("dense_rank")
-    DENSE_RANK("dense_rank"),
+    @XmlEnumValue("dense_rank") DENSE_RANK("dense_rank"),
 
     /** The dense rank percent. */
-    @XmlEnumValue("dense_rank_percent")
-    DENSE_RANK_PERCENT("dense_rank_percent"),
+    @XmlEnumValue("dense_rank_percent") DENSE_RANK_PERCENT("dense_rank_percent"),
 
     /** The sum. */
-    @XmlEnumValue("sum")
-    SUM("sum"),
+    @XmlEnumValue("sum") SUM("sum"),
 
     /** The sum percent. */
-    @XmlEnumValue("sum_percent")
-    SUM_PERCENT("sum_percent");
+    @XmlEnumValue("sum_percent") SUM_PERCENT("sum_percent");
 
     /** The value. */
     private final String value;

@@ -18,9 +18,9 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.repositorymodelresource;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Java class for Status.
@@ -41,12 +41,10 @@ import javax.xml.bind.annotation.XmlType;
 public enum Status {
 
     /** The ok. */
-    @XmlEnumValue("ok")
-    OK("ok"),
+    @XmlEnumValue("ok") OK("ok"),
 
     /** The inconsistent. */
-    @XmlEnumValue("inconsistent")
-    INCONSISTENT("inconsistent");
+    @XmlEnumValue("inconsistent") INCONSISTENT("inconsistent");
 
     /** The value. */
     private final String value;

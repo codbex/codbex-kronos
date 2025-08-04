@@ -18,9 +18,9 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.datamodeltype;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Java class for AggregationBehavior.
@@ -88,14 +88,12 @@ public enum AggregationBehavior {
     /**
      * No Aggregation (If More Than One Record Occurs). Only needed by BW
      */
-    @XmlEnumValue("NO1")
-    NO_1("NO1"),
+    @XmlEnumValue("NO1") NO_1("NO1"),
 
     /**
      * No Aggregation (If More Than One Value Occurs). Only needed by BW
      */
-    @XmlEnumValue("NO2")
-    NO_2("NO2"),
+    @XmlEnumValue("NO2") NO_2("NO2"),
 
     /** Move - Only needed by BW transformations. */
     MOV("MOV");

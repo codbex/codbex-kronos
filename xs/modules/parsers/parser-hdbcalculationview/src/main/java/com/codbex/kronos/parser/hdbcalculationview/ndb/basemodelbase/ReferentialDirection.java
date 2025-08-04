@@ -18,9 +18,9 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Java class for ReferentialDirection.
@@ -42,16 +42,13 @@ import javax.xml.bind.annotation.XmlType;
 public enum ReferentialDirection {
 
     /** The left. */
-    @XmlEnumValue("left")
-    LEFT("left"),
+    @XmlEnumValue("left") LEFT("left"),
 
     /** The right. */
-    @XmlEnumValue("right")
-    RIGHT("right"),
+    @XmlEnumValue("right") RIGHT("right"),
 
     /** The both. */
-    @XmlEnumValue("both")
-    BOTH("both");
+    @XmlEnumValue("both") BOTH("both");
 
     /** The value. */
     private final String value;

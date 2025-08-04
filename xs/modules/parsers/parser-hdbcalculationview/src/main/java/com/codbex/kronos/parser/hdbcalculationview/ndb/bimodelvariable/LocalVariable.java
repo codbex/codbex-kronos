@@ -18,18 +18,17 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelvariable;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlType;
 
 import com.codbex.kronos.parser.hdbcalculationview.ndb.repositorymodelresource.IDObjectWithDescription;
 
 /**
- * A local variable is used to model a variable within the resource of an Information Model Only
- * upper case letters and underscore is allowed for a variable name, since in the engine the
- * placeholder names are case insensitive.
+ * A local variable is used to model a variable within the resource of an Information Model Only upper case letters and underscore is
+ * allowed for a variable name, since in the engine the placeholder names are case insensitive.
  *
  *
  * Java class for LocalVariable complex type.

@@ -18,9 +18,9 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.datamodelgraph;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Java class for Direction.
@@ -42,16 +42,13 @@ import javax.xml.bind.annotation.XmlType;
 public enum Direction {
 
     /** The outgoing. */
-    @XmlEnumValue("outgoing")
-    OUTGOING("outgoing"),
+    @XmlEnumValue("outgoing") OUTGOING("outgoing"),
 
     /** The incoming. */
-    @XmlEnumValue("incoming")
-    INCOMING("incoming"),
+    @XmlEnumValue("incoming") INCOMING("incoming"),
 
     /** The any. */
-    @XmlEnumValue("any")
-    ANY("any");
+    @XmlEnumValue("any") ANY("any");
 
     /** The value. */
     private final String value;

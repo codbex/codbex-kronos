@@ -18,16 +18,15 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelprivilege;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlType;
 
 import com.codbex.kronos.parser.hdbcalculationview.ndb.sqlcoremodelaccesscontrol.ValueFilterOperator;
 
 /**
- * For specifying a procedure (and a filter operator) to determine the filter values dynamically at
- * runtime.
+ * For specifying a procedure (and a filter operator) to determine the filter values dynamically at runtime.
  *
  *
  * Java class for ProcedureFilter complex type.

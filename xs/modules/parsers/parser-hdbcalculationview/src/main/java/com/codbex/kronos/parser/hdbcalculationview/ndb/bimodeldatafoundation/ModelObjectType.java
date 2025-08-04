@@ -18,9 +18,9 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodeldatafoundation;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Java class for ModelObjectType.
@@ -41,12 +41,10 @@ import javax.xml.bind.annotation.XmlType;
 public enum ModelObjectType {
 
     /** The catalog. */
-    @XmlEnumValue("catalog")
-    CATALOG("catalog"),
+    @XmlEnumValue("catalog") CATALOG("catalog"),
 
     /** The repository. */
-    @XmlEnumValue("repository")
-    REPOSITORY("repository");
+    @XmlEnumValue("repository") REPOSITORY("repository");
 
     /** The value. */
     private final String value;

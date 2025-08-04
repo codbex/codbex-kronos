@@ -20,12 +20,13 @@ package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelcube;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.codbex.kronos.parser.hdbcalculationview.ndb.bimodeldatafoundation.Layout;
 import com.codbex.kronos.parser.hdbcalculationview.ndb.bimodeldatafoundation.LogicalJoins;
@@ -61,8 +62,9 @@ import com.codbex.kronos.parser.hdbcalculationview.ndb.datamodeltype.ExpressionL
  * </pre>
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "MeasureGroup", propOrder = {"baseMeasures", "calculatedMeasures", "restrictedMeasures", "measures", "localDimensions",
-        "sharedDimensions", "sortAttributes", "filter", "layout"})
+@XmlType(name = "MeasureGroup",
+        propOrder = {"baseMeasures", "calculatedMeasures", "restrictedMeasures", "measures", "localDimensions", "sharedDimensions",
+                "sortAttributes", "filter", "layout"})
 public class MeasureGroup extends LogicalObject {
 
     /** The base measures. */
@@ -163,9 +165,8 @@ public class MeasureGroup extends LogicalObject {
      * Gets the value of the measures property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the measures property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the measures property.
      *
      *
      * For example, to add a new item, do as follows:

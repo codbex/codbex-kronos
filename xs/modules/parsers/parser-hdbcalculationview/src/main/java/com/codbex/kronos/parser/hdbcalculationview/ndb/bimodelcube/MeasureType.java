@@ -18,9 +18,9 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelcube;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Java class for MeasureType.
@@ -42,16 +42,13 @@ import javax.xml.bind.annotation.XmlType;
 public enum MeasureType {
 
     /** The amount. */
-    @XmlEnumValue("amount")
-    AMOUNT("amount"),
+    @XmlEnumValue("amount") AMOUNT("amount"),
 
     /** The quantity. */
-    @XmlEnumValue("quantity")
-    QUANTITY("quantity"),
+    @XmlEnumValue("quantity") QUANTITY("quantity"),
 
     /** The simple. */
-    @XmlEnumValue("simple")
-    SIMPLE("simple");
+    @XmlEnumValue("simple") SIMPLE("simple");
 
     /** The value. */
     private final String value;

@@ -20,42 +20,35 @@ package com.codbex.kronos.parser.hdbcalculationview.ndb.datamodeltype;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlSchemaType;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * Usually the AggregationBehavior determines how measures are aggregated in analytics. But in some
- * cases, for a special element of the entity (dimension of a cube) different aggregation behavior
- * is needed. Example: a measure Inventory can be summed up for the different plants and other
- * dimensions but not for time – according to time the last or average value might be relevant.
- * Exception aggregation is optional and used to define different (to the standard
- * AggregationBehavior) aggregation behavior for specified Elements. In general there might be
- * multiple elements in which a measure has to be aggregated differently. So a list of
- * ExceptionAggregationSteps can be assigned. The (List) order defines the order, in which the
- * different aggregations have to be performed. ExceptionAggregationBehavior defines the aggregation
- * behavior. This is: - SUM (sum), - MAX (maximum), - MIN (minimum), - COUNT (counter), - VAR
- * (variance), - STD (standard deviation), - AVG (average), etc. . The elements which should be
- * aggregated in one step have to be determined in the list of ExceptionAggregationReferenceElement.
- * These have to be part of the same Entity as the Measure Element. Example: In a Cube-Entity there
- * is a measure which should show the number of customers above a certain sales-amount. For this, at
- * first the sales has to be aggregated (SUM) on customer level and then COUNT has to be performed.
- * This means if the sales for a customer is above the level, then the sales is replaced by 1
- * otherwise it is set to 0. This number can be summed up again. This measure element has the
- * AggregationBehavior SUM and the ExcpetionAggregationBehavior COUNT with the ReferenceElement
- * customer. Remarks: 1) The (logical) order in which the aggregation is performed is as follows: At
- * first the standard aggregation is performed. This intermediate result is still grouped by all
- * Ele-ments in the list of ExceptionAggregationSteps. Then the result is aggregated by the
- * exception aggregation in the (List) order of the steps. 2) The first remark holds even if the
- * AggregationBehavior is FORMULA. This means that the calculation is done when the result is still
- * grouped by the exception aggrega-tion elements. After calculating the formula the result is
- * aggregated according to the list of ExceptionAggregationSteps. With this the aggregation level on
- * which has to be calculated can be defined precisely.
+ * Usually the AggregationBehavior determines how measures are aggregated in analytics. But in some cases, for a special element of the
+ * entity (dimension of a cube) different aggregation behavior is needed. Example: a measure Inventory can be summed up for the different
+ * plants and other dimensions but not for time – according to time the last or average value might be relevant. Exception aggregation is
+ * optional and used to define different (to the standard AggregationBehavior) aggregation behavior for specified Elements. In general there
+ * might be multiple elements in which a measure has to be aggregated differently. So a list of ExceptionAggregationSteps can be assigned.
+ * The (List) order defines the order, in which the different aggregations have to be performed. ExceptionAggregationBehavior defines the
+ * aggregation behavior. This is: - SUM (sum), - MAX (maximum), - MIN (minimum), - COUNT (counter), - VAR (variance), - STD (standard
+ * deviation), - AVG (average), etc. . The elements which should be aggregated in one step have to be determined in the list of
+ * ExceptionAggregationReferenceElement. These have to be part of the same Entity as the Measure Element. Example: In a Cube-Entity there is
+ * a measure which should show the number of customers above a certain sales-amount. For this, at first the sales has to be aggregated (SUM)
+ * on customer level and then COUNT has to be performed. This means if the sales for a customer is above the level, then the sales is
+ * replaced by 1 otherwise it is set to 0. This number can be summed up again. This measure element has the AggregationBehavior SUM and the
+ * ExcpetionAggregationBehavior COUNT with the ReferenceElement customer. Remarks: 1) The (logical) order in which the aggregation is
+ * performed is as follows: At first the standard aggregation is performed. This intermediate result is still grouped by all Ele-ments in
+ * the list of ExceptionAggregationSteps. Then the result is aggregated by the exception aggregation in the (List) order of the steps. 2)
+ * The first remark holds even if the AggregationBehavior is FORMULA. This means that the calculation is done when the result is still
+ * grouped by the exception aggrega-tion elements. After calculating the formula the result is aggregated according to the list of
+ * ExceptionAggregationSteps. With this the aggregation level on which has to be calculated can be defined precisely.
  *
  *
  * Java class for ExceptionAggregationStep complex type.
@@ -93,9 +86,8 @@ public class ExceptionAggregationStep {
      * Gets the value of the referenceElement property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the referenceElement property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the referenceElement property.
      *
      *
      * For example, to add a new item, do as follows:

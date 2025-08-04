@@ -18,8 +18,8 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.datamodelhierarchy;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Java class for Orphan.
@@ -53,9 +53,8 @@ public enum Orphan {
     ORPHAN_ROOT,
 
     /**
-     * Orphans are adopted as children of the last root behind its regular descendants. orphan and depth
-     * property cannot be used at the same time. If a maximum search depth is specified, then orphaned
-     * nodes are always ignored
+     * Orphans are adopted as children of the last root behind its regular descendants. orphan and depth property cannot be used at the same
+     * time. If a maximum search depth is specified, then orphaned nodes are always ignored
      */
     ORPHAN_ADOPT;
 

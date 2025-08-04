@@ -18,9 +18,9 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodeldimension;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Java class for DimensionType.
@@ -50,48 +50,37 @@ import javax.xml.bind.annotation.XmlType;
 public enum DimensionType {
 
     /** The unknown. */
-    @XmlEnumValue("Unknown")
-    UNKNOWN("Unknown"),
+    @XmlEnumValue("Unknown") UNKNOWN("Unknown"),
 
     /** The time. */
-    @XmlEnumValue("Time")
-    TIME("Time"),
+    @XmlEnumValue("Time") TIME("Time"),
 
     /** The measure. */
-    @XmlEnumValue("Measure")
-    MEASURE("Measure"),
+    @XmlEnumValue("Measure") MEASURE("Measure"),
 
     /** The standard. */
-    @XmlEnumValue("Standard")
-    STANDARD("Standard"),
+    @XmlEnumValue("Standard") STANDARD("Standard"),
 
     /** The geography. */
-    @XmlEnumValue("Geography")
-    GEOGRAPHY("Geography"),
+    @XmlEnumValue("Geography") GEOGRAPHY("Geography"),
 
     /** The customer. */
-    @XmlEnumValue("Customer")
-    CUSTOMER("Customer"),
+    @XmlEnumValue("Customer") CUSTOMER("Customer"),
 
     /** The product. */
-    @XmlEnumValue("Product")
-    PRODUCT("Product"),
+    @XmlEnumValue("Product") PRODUCT("Product"),
 
     /** The organization. */
-    @XmlEnumValue("Organization")
-    ORGANIZATION("Organization"),
+    @XmlEnumValue("Organization") ORGANIZATION("Organization"),
 
     /** The employee. */
-    @XmlEnumValue("Employee")
-    EMPLOYEE("Employee"),
+    @XmlEnumValue("Employee") EMPLOYEE("Employee"),
 
     /** The currency. */
-    @XmlEnumValue("Currency")
-    CURRENCY("Currency"),
+    @XmlEnumValue("Currency") CURRENCY("Currency"),
 
     /** The channel. */
-    @XmlEnumValue("Channel")
-    CHANNEL("Channel");
+    @XmlEnumValue("Channel") CHANNEL("Channel");
 
     /** The value. */
     private final String value;

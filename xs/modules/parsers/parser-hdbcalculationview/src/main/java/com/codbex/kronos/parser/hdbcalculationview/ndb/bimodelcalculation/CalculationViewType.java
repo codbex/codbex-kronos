@@ -18,9 +18,9 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelcalculation;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Java class for CalculationViewType.
@@ -41,12 +41,10 @@ import javax.xml.bind.annotation.XmlType;
 public enum CalculationViewType {
 
     /** The aggregation. */
-    @XmlEnumValue("Aggregation")
-    AGGREGATION("Aggregation"),
+    @XmlEnumValue("Aggregation") AGGREGATION("Aggregation"),
 
     /** The projection. */
-    @XmlEnumValue("Projection")
-    PROJECTION("Projection");
+    @XmlEnumValue("Projection") PROJECTION("Projection");
 
     /** The value. */
     private final String value;

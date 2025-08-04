@@ -18,8 +18,8 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Java class for SpatialPredicate.
@@ -90,12 +90,10 @@ public enum SpatialPredicate {
     OVERLAPS,
 
     /**
-     * Tests if a geometry value is spatially related to another geometry value as specified by the
-     * intersection matrix. The ST_Relate method uses a 9-character string from the Dimensionally
-     * Extended 9 Intersection Model (DE-9IM) see http://en.wikipedia.org/wiki/DE-9IM to describe the
-     * pair-wise relationship between two spatial data items. For example, the ST_Relate method
-     * determines if an intersection occurs between the geometries, and the geometry of the resulting
-     * intersection, if it exists.
+     * Tests if a geometry value is spatially related to another geometry value as specified by the intersection matrix. The ST_Relate
+     * method uses a 9-character string from the Dimensionally Extended 9 Intersection Model (DE-9IM) see
+     * http://en.wikipedia.org/wiki/DE-9IM to describe the pair-wise relationship between two spatial data items. For example, the ST_Relate
+     * method determines if an intersection occurs between the geometries, and the geometry of the resulting intersection, if it exists.
      */
     RELATE,
 

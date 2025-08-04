@@ -18,21 +18,20 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.codbex.kronos.parser.hdbcalculationview.ndb.bimodeldatafoundation.ColumnMapping;
 
 /**
- * Type for referencing a column based SQL object. This type is really meant for column based types,
- * whereas Qualified SQL object name might also be used for non column based objects like functions
- * or procedures. In addition this type contains the alias in case the same table is used several
- * times in the same data foundation.
+ * Type for referencing a column based SQL object. This type is really meant for column based types, whereas Qualified SQL object name might
+ * also be used for non column based objects like functions or procedures. In addition this type contains the alias in case the same table
+ * is used several times in the same data foundation.
  *
  *
  * Java class for QualifiedColumnObjectName complex type.

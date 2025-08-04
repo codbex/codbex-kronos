@@ -18,9 +18,9 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Java class for JoinType.
@@ -45,35 +45,29 @@ import javax.xml.bind.annotation.XmlType;
 public enum JoinType {
 
     /**
-     * Join type referential integrity means for each row in the left table there is a corresponding row
-     * in the right table. If this join type is selected the engine can better optimize the queries,
-     * because the join can be completely ignored if no fields are requested from the joined table.
+     * Join type referential integrity means for each row in the left table there is a corresponding row in the right table. If this join
+     * type is selected the engine can better optimize the queries, because the join can be completely ignored if no fields are requested
+     * from the joined table.
      */
-    @XmlEnumValue("referential")
-    REFERENTIAL("referential"),
+    @XmlEnumValue("referential") REFERENTIAL("referential"),
 
     /** The inner. */
-    @XmlEnumValue("inner")
-    INNER("inner"),
+    @XmlEnumValue("inner") INNER("inner"),
 
     /** The left outer. */
-    @XmlEnumValue("leftOuter")
-    LEFT_OUTER("leftOuter"),
+    @XmlEnumValue("leftOuter") LEFT_OUTER("leftOuter"),
 
     /** The right outer. */
-    @XmlEnumValue("rightOuter")
-    RIGHT_OUTER("rightOuter"),
+    @XmlEnumValue("rightOuter") RIGHT_OUTER("rightOuter"),
 
     /** The full outer. */
-    @XmlEnumValue("fullOuter")
-    FULL_OUTER("fullOuter"),
+    @XmlEnumValue("fullOuter") FULL_OUTER("fullOuter"),
 
     /**
-     * TextTable indicates a join with a text table (as right table) having language as additional key.
-     * During runtime the language key is filled with the user/logon language
+     * TextTable indicates a join with a text table (as right table) having language as additional key. During runtime the language key is
+     * filled with the user/logon language
      */
-    @XmlEnumValue("textTable")
-    TEXT_TABLE("textTable");
+    @XmlEnumValue("textTable") TEXT_TABLE("textTable");
 
     /** The value. */
     private final String value;

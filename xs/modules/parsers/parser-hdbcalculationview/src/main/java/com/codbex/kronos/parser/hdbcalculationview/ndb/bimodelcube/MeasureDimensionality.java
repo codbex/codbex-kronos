@@ -20,17 +20,18 @@ package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelcube;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlType;
 
 import com.codbex.kronos.parser.hdbcalculationview.ndb.bimodeldatafoundation.QualifiedAttributeReference;
 
 /**
- * This class describes the dimensionality of a measure. This means which (exception) aggregation is
- * used along a certain attribute (dimension)
+ * This class describes the dimensionality of a measure. This means which (exception) aggregation is used along a certain attribute
+ * (dimension)
  *
  *
  * Java class for MeasureDimensionality complex type.
@@ -66,9 +67,8 @@ public class MeasureDimensionality {
      * Gets the value of the attribute property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the attribute property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the attribute property.
      *
      *
      * For example, to add a new item, do as follows:

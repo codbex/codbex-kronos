@@ -18,18 +18,17 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.datamodeltype;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlType;
 
 import com.codbex.kronos.parser.hdbcalculationview.ndb.repositorymodelresource.NamedObjectWithEndUserTexts;
 
 /**
- * Folder for grouping elements of the structure it is contained in. The assignment of elements to
- * folder is via the string typed attribute Element.displayFolder. We need an extra model element to
- * have (translateable text for the folders) Nested folders are indicated by a backslash (\) e.g.
- * root\secondLevelFolder\thirdLevelFolder. See
- * http://msdn.microsoft.com/en-us/library/ms126250.aspx measure_display_folder.
+ * Folder for grouping elements of the structure it is contained in. The assignment of elements to folder is via the string typed attribute
+ * Element.displayFolder. We need an extra model element to have (translateable text for the folders) Nested folders are indicated by a
+ * backslash (\) e.g. root\secondLevelFolder\thirdLevelFolder. See http://msdn.microsoft.com/en-us/library/ms126250.aspx
+ * measure_display_folder.
  *
  *
  * Java class for DisplayFolder complex type.

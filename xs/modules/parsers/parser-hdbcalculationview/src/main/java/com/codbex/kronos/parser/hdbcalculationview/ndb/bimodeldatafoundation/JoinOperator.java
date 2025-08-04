@@ -18,9 +18,9 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodeldatafoundation;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Java class for JoinOperator.
@@ -47,36 +47,28 @@ import javax.xml.bind.annotation.XmlType;
 public enum JoinOperator {
 
     /** The equal. */
-    @XmlEnumValue("Equal")
-    EQUAL("Equal"),
+    @XmlEnumValue("Equal") EQUAL("Equal"),
 
     /** The not equal. */
-    @XmlEnumValue("NotEqual")
-    NOT_EQUAL("NotEqual"),
+    @XmlEnumValue("NotEqual") NOT_EQUAL("NotEqual"),
 
     /** The greater. */
-    @XmlEnumValue("Greater")
-    GREATER("Greater"),
+    @XmlEnumValue("Greater") GREATER("Greater"),
 
     /** The greater or equal. */
-    @XmlEnumValue("GreaterOrEqual")
-    GREATER_OR_EQUAL("GreaterOrEqual"),
+    @XmlEnumValue("GreaterOrEqual") GREATER_OR_EQUAL("GreaterOrEqual"),
 
     /** The less. */
-    @XmlEnumValue("Less")
-    LESS("Less"),
+    @XmlEnumValue("Less") LESS("Less"),
 
     /** The less or equal. */
-    @XmlEnumValue("LessOrEqual")
-    LESS_OR_EQUAL("LessOrEqual"),
+    @XmlEnumValue("LessOrEqual") LESS_OR_EQUAL("LessOrEqual"),
 
     /** The complex. */
-    @XmlEnumValue("Complex")
-    COMPLEX("Complex"),
+    @XmlEnumValue("Complex") COMPLEX("Complex"),
 
     /** The unknown. */
-    @XmlEnumValue("Unknown")
-    UNKNOWN("Unknown");
+    @XmlEnumValue("Unknown") UNKNOWN("Unknown");
 
     /** The value. */
     private final String value;

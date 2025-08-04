@@ -18,8 +18,8 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Java class for UnassignedMemberMode.
@@ -47,11 +47,10 @@ public enum UnassignedMemberMode {
     TRUE,
 
     /**
-     * Automatically add a visible NotAssigned member only if necessary. NB use carefully. Clearly, any
-     * access to such a hierarchy (even for example in a request to BIMC_LEVELS) must instantiate the
-     * hierarchy to determine if the NotAssigned member needs adding to the hierarchy so will increase
-     * processing and cache usage. Normally for BIMC_LEVELS etc queries, if the results can be obtained
-     * from deploy info alone, we do not need to instantiate the hierarchy
+     * Automatically add a visible NotAssigned member only if necessary. NB use carefully. Clearly, any access to such a hierarchy (even for
+     * example in a request to BIMC_LEVELS) must instantiate the hierarchy to determine if the NotAssigned member needs adding to the
+     * hierarchy so will increase processing and cache usage. Normally for BIMC_LEVELS etc queries, if the results can be obtained from
+     * deploy info alone, we do not need to instantiate the hierarchy
      */
     AUTO;
 

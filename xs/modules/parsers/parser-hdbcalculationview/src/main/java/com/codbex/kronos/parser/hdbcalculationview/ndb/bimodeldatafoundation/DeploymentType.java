@@ -18,9 +18,9 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodeldatafoundation;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Java class for DeploymentType.
@@ -41,12 +41,10 @@ import javax.xml.bind.annotation.XmlType;
 public enum DeploymentType {
 
     /** The system derived. */
-    @XmlEnumValue("systemDerived")
-    SYSTEM_DERIVED("systemDerived"),
+    @XmlEnumValue("systemDerived") SYSTEM_DERIVED("systemDerived"),
 
     /** The join view. */
-    @XmlEnumValue("joinView")
-    JOIN_VIEW("joinView");
+    @XmlEnumValue("joinView") JOIN_VIEW("joinView");
 
     /** The value. */
     private final String value;

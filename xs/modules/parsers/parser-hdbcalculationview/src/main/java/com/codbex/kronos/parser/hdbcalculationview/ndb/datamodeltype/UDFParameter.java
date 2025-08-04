@@ -18,17 +18,16 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.datamodeltype;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlSchemaType;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * Fixed parameter for a UDF it can be filled with - a constant - an element - a parameter We will
- * use annotations of the concrete model element to specify what kind of parameterization should be
- * allowed
+ * Fixed parameter for a UDF it can be filled with - a constant - an element - a parameter We will use annotations of the concrete model
+ * element to specify what kind of parameterization should be allowed
  *
  *
  * Java class for UDFParameter complex type.

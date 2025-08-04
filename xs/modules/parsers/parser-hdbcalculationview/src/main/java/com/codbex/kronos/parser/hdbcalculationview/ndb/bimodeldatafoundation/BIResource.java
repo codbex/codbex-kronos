@@ -18,10 +18,10 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodeldatafoundation;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
+import jakarta.xml.bind.annotation.XmlType;
 
 import com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelprivilege.AnalyticPrivilege;
 import com.codbex.kronos.parser.hdbcalculationview.ndb.repositorymodelresource.ResourceObject;

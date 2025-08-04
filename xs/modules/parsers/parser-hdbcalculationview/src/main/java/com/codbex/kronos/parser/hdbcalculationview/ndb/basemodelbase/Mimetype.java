@@ -18,9 +18,9 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Java class for Mimetype.
@@ -41,12 +41,10 @@ import javax.xml.bind.annotation.XmlType;
 public enum Mimetype {
 
     /** The text plain. */
-    @XmlEnumValue("text/plain")
-    TEXT_PLAIN("text/plain"),
+    @XmlEnumValue("text/plain") TEXT_PLAIN("text/plain"),
 
     /** The text html. */
-    @XmlEnumValue("text/html")
-    TEXT_HTML("text/html");
+    @XmlEnumValue("text/html") TEXT_HTML("text/html");
 
     /** The value. */
     private final String value;

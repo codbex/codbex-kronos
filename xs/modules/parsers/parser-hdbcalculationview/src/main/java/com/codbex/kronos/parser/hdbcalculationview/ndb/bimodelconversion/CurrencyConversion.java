@@ -18,26 +18,25 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelconversion;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlSchemaType;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase.ConversionMethod;
 import com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase.CurrencyConversionLookup;
 import com.codbex.kronos.parser.hdbcalculationview.ndb.bimodeldatafoundation.QualifiedAttributeReference;
 
 /**
- * A currency conversion comprises all model information that is required as input for the engine
- * currency conversion function. It defines how model artifacts like variables, attributes,
- * constants are mapped to the input parameters of the currency conversion The source currency is
- * mandatory and then the conversion is either defined as only doing the ERP decimal shift or a real
- * currency conversion to a different target UNIT. In the latter case one can choose to do the
- * conversion with decimal shift (default) or without decimal shift (erpDecimalShift="false")
+ * A currency conversion comprises all model information that is required as input for the engine currency conversion function. It defines
+ * how model artifacts like variables, attributes, constants are mapped to the input parameters of the currency conversion The source
+ * currency is mandatory and then the conversion is either defined as only doing the ERP decimal shift or a real currency conversion to a
+ * different target UNIT. In the latter case one can choose to do the conversion with decimal shift (default) or without decimal shift
+ * (erpDecimalShift="false")
  *
  *
  * Java class for CurrencyConversion complex type.

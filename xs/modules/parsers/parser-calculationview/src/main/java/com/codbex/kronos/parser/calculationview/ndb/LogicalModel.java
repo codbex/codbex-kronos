@@ -18,15 +18,9 @@
 
 package com.codbex.kronos.parser.calculationview.ndb;
 
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
 
 /**
  * Java class for anonymous complex type.
@@ -300,8 +294,8 @@ import javax.xml.bind.annotation.XmlValue;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "",
-        propOrder = {"descriptions", "attributes", "calculatedAttributes", "privateDataFoundation", "baseMeasures", "calculatedMeasures",
-                "restrictedMeasures", "localDimensions"})
+        propOrder = {"descriptions", "attributes", " ", "privateDataFoundation", "baseMeasures", "calculatedMeasures", "restrictedMeasures",
+                "localDimensions"})
 @XmlRootElement(name = "logicalModel")
 public class LogicalModel {
 
@@ -341,167 +335,6 @@ public class LogicalModel {
     @XmlAttribute(name = "id")
     protected String id;
 
-    /**
-     * Gets the value of the descriptions property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getDescriptions() {
-        return descriptions;
-    }
-
-    /**
-     * Sets the value of the descriptions property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setDescriptions(String value) {
-        this.descriptions = value;
-    }
-
-    /**
-     * Gets the value of the attributes property.
-     *
-     * @return possible object is {@link LogicalModel.Attributes }
-     */
-    public LogicalModel.Attributes getAttributes() {
-        return attributes;
-    }
-
-    /**
-     * Sets the value of the attributes property.
-     *
-     * @param value allowed object is {@link LogicalModel.Attributes }
-     */
-    public void setAttributes(LogicalModel.Attributes value) {
-        this.attributes = value;
-    }
-
-    /**
-     * Gets the value of the calculatedAttributes property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getCalculatedAttributes() {
-        return calculatedAttributes;
-    }
-
-    /**
-     * Sets the value of the calculatedAttributes property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setCalculatedAttributes(String value) {
-        this.calculatedAttributes = value;
-    }
-
-    /**
-     * Gets the value of the privateDataFoundation property.
-     *
-     * @return possible object is {@link LogicalModel.PrivateDataFoundation }
-     */
-    public LogicalModel.PrivateDataFoundation getPrivateDataFoundation() {
-        return privateDataFoundation;
-    }
-
-    /**
-     * Sets the value of the privateDataFoundation property.
-     *
-     * @param value allowed object is {@link LogicalModel.PrivateDataFoundation }
-     */
-    public void setPrivateDataFoundation(LogicalModel.PrivateDataFoundation value) {
-        this.privateDataFoundation = value;
-    }
-
-    /**
-     * Gets the value of the baseMeasures property.
-     *
-     * @return possible object is {@link LogicalModel.BaseMeasures }
-     */
-    public LogicalModel.BaseMeasures getBaseMeasures() {
-        return baseMeasures;
-    }
-
-    /**
-     * Sets the value of the baseMeasures property.
-     *
-     * @param value allowed object is {@link LogicalModel.BaseMeasures }
-     */
-    public void setBaseMeasures(LogicalModel.BaseMeasures value) {
-        this.baseMeasures = value;
-    }
-
-    /**
-     * Gets the value of the calculatedMeasures property.
-     *
-     * @return possible object is {@link LogicalModel.CalculatedMeasures }
-     */
-    public LogicalModel.CalculatedMeasures getCalculatedMeasures() {
-        return calculatedMeasures;
-    }
-
-    /**
-     * Sets the value of the calculatedMeasures property.
-     *
-     * @param value allowed object is {@link LogicalModel.CalculatedMeasures }
-     */
-    public void setCalculatedMeasures(LogicalModel.CalculatedMeasures value) {
-        this.calculatedMeasures = value;
-    }
-
-    /**
-     * Gets the value of the restrictedMeasures property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getRestrictedMeasures() {
-        return restrictedMeasures;
-    }
-
-    /**
-     * Sets the value of the restrictedMeasures property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setRestrictedMeasures(String value) {
-        this.restrictedMeasures = value;
-    }
-
-    /**
-     * Gets the value of the localDimensions property.
-     *
-     * @return possible object is {@link LogicalModel.LocalDimensions }
-     */
-    public LogicalModel.LocalDimensions getLocalDimensions() {
-        return localDimensions;
-    }
-
-    /**
-     * Sets the value of the localDimensions property.
-     *
-     * @param value allowed object is {@link LogicalModel.LocalDimensions }
-     */
-    public void setLocalDimensions(LogicalModel.LocalDimensions value) {
-        this.localDimensions = value;
-    }
-
-    /**
-     * Gets the value of the id property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Sets the value of the id property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setId(String value) {
-        this.id = value;
-    }
 
     /**
      * Java class for anonymous complex type.
@@ -563,34 +396,6 @@ public class LogicalModel {
         /** The attribute. */
         protected List<LogicalModel.Attributes.Attribute> attribute;
 
-        /**
-         * Gets the value of the attribute property.
-         *
-         *
-         * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-         * modification you make to the returned list will be present inside the JAXB object. This is why
-         * there is not a <CODE>set</CODE> method for the attribute property.
-         *
-         *
-         * For example, to add a new item, do as follows:
-         *
-         * <pre>
-         * getAttribute().add(newItem);
-         * </pre>
-         *
-         *
-         *
-         * Objects of the following type(s) are allowed in the list
-         * {@link LogicalModel.Attributes.Attribute }
-         *
-         * @return the attribute
-         */
-        public List<LogicalModel.Attributes.Attribute> getAttribute() {
-            if (attribute == null) {
-                attribute = new ArrayList<LogicalModel.Attributes.Attribute>();
-            }
-            return this.attribute;
-        }
 
         /**
          * Java class for anonymous complex type.
@@ -676,6 +481,161 @@ public class LogicalModel {
             /** The description column name. */
             @XmlAttribute(name = "descriptionColumnName")
             protected String descriptionColumnName;
+
+
+            /**
+             * Java class for anonymous complex type.
+             *
+             * The following schema fragment specifies the expected content contained within this class.
+             *
+             * <pre>
+             * &lt;complexType&gt;
+             *   &lt;simpleContent&gt;
+             *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;string"&gt;
+             *       &lt;attribute name="defaultDescription" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+             *     &lt;/extension&gt;
+             *   &lt;/simpleContent&gt;
+             * &lt;/complexType&gt;
+             * </pre>
+             */
+            @XmlAccessorType(XmlAccessType.FIELD)
+            @XmlType(name = "", propOrder = {"value"})
+            public static class Descriptions {
+
+                /** The value. */
+                @XmlValue
+                protected String value;
+
+                /** The default description. */
+                @XmlAttribute(name = "defaultDescription")
+                protected String defaultDescription;
+
+                /**
+                 * Gets the value of the value property.
+                 *
+                 * @return possible object is {@link String }
+                 */
+                public String getValue() {
+                    return value;
+                }
+
+                /**
+                 * Sets the value of the value property.
+                 *
+                 * @param value allowed object is {@link String }
+                 */
+                public void setValue(String value) {
+                    this.value = value;
+                }
+
+                /**
+                 * Gets the value of the defaultDescription property.
+                 *
+                 * @return possible object is {@link String }
+                 */
+                public String getDefaultDescription() {
+                    return defaultDescription;
+                }
+
+                /**
+                 * Sets the value of the defaultDescription property.
+                 *
+                 * @param value allowed object is {@link String }
+                 */
+                public void setDefaultDescription(String value) {
+                    this.defaultDescription = value;
+                }
+
+            }
+
+
+            /**
+             * Java class for anonymous complex type.
+             *
+             * The following schema fragment specifies the expected content contained within this class.
+             *
+             * <pre>
+             * &lt;complexType&gt;
+             *   &lt;simpleContent&gt;
+             *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;string"&gt;
+             *       &lt;attribute name="columnObjectName" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+             *       &lt;attribute name="columnName" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+             *     &lt;/extension&gt;
+             *   &lt;/simpleContent&gt;
+             * &lt;/complexType&gt;
+             * </pre>
+             */
+            @XmlAccessorType(XmlAccessType.FIELD)
+            @XmlType(name = "", propOrder = {"value"})
+            public static class KeyMapping {
+
+                /** The value. */
+                @XmlValue
+                protected String value;
+
+                /** The column object name. */
+                @XmlAttribute(name = "columnObjectName")
+                protected String columnObjectName;
+
+                /** The column name. */
+                @XmlAttribute(name = "columnName")
+                protected String columnName;
+
+                /**
+                 * Gets the value of the value property.
+                 *
+                 * @return possible object is {@link String }
+                 */
+                public String getValue() {
+                    return value;
+                }
+
+                /**
+                 * Sets the value of the value property.
+                 *
+                 * @param value allowed object is {@link String }
+                 */
+                public void setValue(String value) {
+                    this.value = value;
+                }
+
+                /**
+                 * Gets the value of the columnObjectName property.
+                 *
+                 * @return possible object is {@link String }
+                 */
+                public String getColumnObjectName() {
+                    return columnObjectName;
+                }
+
+                /**
+                 * Sets the value of the columnObjectName property.
+                 *
+                 * @param value allowed object is {@link String }
+                 */
+                public void setColumnObjectName(String value) {
+                    this.columnObjectName = value;
+                }
+
+                /**
+                 * Gets the value of the columnName property.
+                 *
+                 * @return possible object is {@link String }
+                 */
+                public String getColumnName() {
+                    return columnName;
+                }
+
+                /**
+                 * Sets the value of the columnName property.
+                 *
+                 * @param value allowed object is {@link String }
+                 */
+                public void setColumnName(String value) {
+                    this.columnName = value;
+                }
+
+            }
 
             /**
              * Gets the value of the descriptions property.
@@ -857,162 +817,37 @@ public class LogicalModel {
                 this.descriptionColumnName = value;
             }
 
-            /**
-             * Java class for anonymous complex type.
-             *
-             * The following schema fragment specifies the expected content contained within this class.
-             *
-             * <pre>
-             * &lt;complexType&gt;
-             *   &lt;simpleContent&gt;
-             *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;string"&gt;
-             *       &lt;attribute name="defaultDescription" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
-             *     &lt;/extension&gt;
-             *   &lt;/simpleContent&gt;
-             * &lt;/complexType&gt;
-             * </pre>
-             */
-            @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {"value"})
-            public static class Descriptions {
+        }
 
-                /** The value. */
-                @XmlValue
-                protected String value;
-
-                /** The default description. */
-                @XmlAttribute(name = "defaultDescription")
-                protected String defaultDescription;
-
-                /**
-                 * Gets the value of the value property.
-                 *
-                 * @return possible object is {@link String }
-                 */
-                public String getValue() {
-                    return value;
-                }
-
-                /**
-                 * Sets the value of the value property.
-                 *
-                 * @param value allowed object is {@link String }
-                 */
-                public void setValue(String value) {
-                    this.value = value;
-                }
-
-                /**
-                 * Gets the value of the defaultDescription property.
-                 *
-                 * @return possible object is {@link String }
-                 */
-                public String getDefaultDescription() {
-                    return defaultDescription;
-                }
-
-                /**
-                 * Sets the value of the defaultDescription property.
-                 *
-                 * @param value allowed object is {@link String }
-                 */
-                public void setDefaultDescription(String value) {
-                    this.defaultDescription = value;
-                }
-
+        /**
+         * Gets the value of the attribute property.
+         *
+         *
+         * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned
+         * list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the attribute property.
+         *
+         *
+         * For example, to add a new item, do as follows:
+         *
+         * <pre>
+         * getAttribute().add(newItem);
+         * </pre>
+         *
+         *
+         *
+         * Objects of the following type(s) are allowed in the list {@link LogicalModel.Attributes.Attribute }
+         *
+         * @return the attribute
+         */
+        public List<LogicalModel.Attributes.Attribute> getAttribute() {
+            if (attribute == null) {
+                attribute = new ArrayList<LogicalModel.Attributes.Attribute>();
             }
-
-            /**
-             * Java class for anonymous complex type.
-             *
-             * The following schema fragment specifies the expected content contained within this class.
-             *
-             * <pre>
-             * &lt;complexType&gt;
-             *   &lt;simpleContent&gt;
-             *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;string"&gt;
-             *       &lt;attribute name="columnObjectName" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
-             *       &lt;attribute name="columnName" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
-             *     &lt;/extension&gt;
-             *   &lt;/simpleContent&gt;
-             * &lt;/complexType&gt;
-             * </pre>
-             */
-            @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {"value"})
-            public static class KeyMapping {
-
-                /** The value. */
-                @XmlValue
-                protected String value;
-
-                /** The column object name. */
-                @XmlAttribute(name = "columnObjectName")
-                protected String columnObjectName;
-
-                /** The column name. */
-                @XmlAttribute(name = "columnName")
-                protected String columnName;
-
-                /**
-                 * Gets the value of the value property.
-                 *
-                 * @return possible object is {@link String }
-                 */
-                public String getValue() {
-                    return value;
-                }
-
-                /**
-                 * Sets the value of the value property.
-                 *
-                 * @param value allowed object is {@link String }
-                 */
-                public void setValue(String value) {
-                    this.value = value;
-                }
-
-                /**
-                 * Gets the value of the columnObjectName property.
-                 *
-                 * @return possible object is {@link String }
-                 */
-                public String getColumnObjectName() {
-                    return columnObjectName;
-                }
-
-                /**
-                 * Sets the value of the columnObjectName property.
-                 *
-                 * @param value allowed object is {@link String }
-                 */
-                public void setColumnObjectName(String value) {
-                    this.columnObjectName = value;
-                }
-
-                /**
-                 * Gets the value of the columnName property.
-                 *
-                 * @return possible object is {@link String }
-                 */
-                public String getColumnName() {
-                    return columnName;
-                }
-
-                /**
-                 * Sets the value of the columnName property.
-                 *
-                 * @param value allowed object is {@link String }
-                 */
-                public void setColumnName(String value) {
-                    this.columnName = value;
-                }
-
-            }
-
+            return this.attribute;
         }
 
     }
+
 
     /**
      * Java class for anonymous complex type.
@@ -1071,34 +906,6 @@ public class LogicalModel {
         /** The measure. */
         protected List<LogicalModel.BaseMeasures.Measure> measure;
 
-        /**
-         * Gets the value of the measure property.
-         *
-         *
-         * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-         * modification you make to the returned list will be present inside the JAXB object. This is why
-         * there is not a <CODE>set</CODE> method for the measure property.
-         *
-         *
-         * For example, to add a new item, do as follows:
-         *
-         * <pre>
-         * getMeasure().add(newItem);
-         * </pre>
-         *
-         *
-         *
-         * Objects of the following type(s) are allowed in the list
-         * {@link LogicalModel.BaseMeasures.Measure }
-         *
-         * @return the measure
-         */
-        public List<LogicalModel.BaseMeasures.Measure> getMeasure() {
-            if (measure == null) {
-                measure = new ArrayList<LogicalModel.BaseMeasures.Measure>();
-            }
-            return this.measure;
-        }
 
         /**
          * Java class for anonymous complex type.
@@ -1171,6 +978,161 @@ public class LogicalModel {
             /** The measure type. */
             @XmlAttribute(name = "measureType")
             protected String measureType;
+
+
+            /**
+             * Java class for anonymous complex type.
+             *
+             * The following schema fragment specifies the expected content contained within this class.
+             *
+             * <pre>
+             * &lt;complexType&gt;
+             *   &lt;simpleContent&gt;
+             *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;string"&gt;
+             *       &lt;attribute name="defaultDescription" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+             *     &lt;/extension&gt;
+             *   &lt;/simpleContent&gt;
+             * &lt;/complexType&gt;
+             * </pre>
+             */
+            @XmlAccessorType(XmlAccessType.FIELD)
+            @XmlType(name = "", propOrder = {"value"})
+            public static class Descriptions {
+
+                /** The value. */
+                @XmlValue
+                protected String value;
+
+                /** The default description. */
+                @XmlAttribute(name = "defaultDescription")
+                protected String defaultDescription;
+
+                /**
+                 * Gets the value of the value property.
+                 *
+                 * @return possible object is {@link String }
+                 */
+                public String getValue() {
+                    return value;
+                }
+
+                /**
+                 * Sets the value of the value property.
+                 *
+                 * @param value allowed object is {@link String }
+                 */
+                public void setValue(String value) {
+                    this.value = value;
+                }
+
+                /**
+                 * Gets the value of the defaultDescription property.
+                 *
+                 * @return possible object is {@link String }
+                 */
+                public String getDefaultDescription() {
+                    return defaultDescription;
+                }
+
+                /**
+                 * Sets the value of the defaultDescription property.
+                 *
+                 * @param value allowed object is {@link String }
+                 */
+                public void setDefaultDescription(String value) {
+                    this.defaultDescription = value;
+                }
+
+            }
+
+
+            /**
+             * Java class for anonymous complex type.
+             *
+             * The following schema fragment specifies the expected content contained within this class.
+             *
+             * <pre>
+             * &lt;complexType&gt;
+             *   &lt;simpleContent&gt;
+             *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;string"&gt;
+             *       &lt;attribute name="columnObjectName" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+             *       &lt;attribute name="columnName" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+             *     &lt;/extension&gt;
+             *   &lt;/simpleContent&gt;
+             * &lt;/complexType&gt;
+             * </pre>
+             */
+            @XmlAccessorType(XmlAccessType.FIELD)
+            @XmlType(name = "", propOrder = {"value"})
+            public static class MeasureMapping {
+
+                /** The value. */
+                @XmlValue
+                protected String value;
+
+                /** The column object name. */
+                @XmlAttribute(name = "columnObjectName")
+                protected String columnObjectName;
+
+                /** The column name. */
+                @XmlAttribute(name = "columnName")
+                protected String columnName;
+
+                /**
+                 * Gets the value of the value property.
+                 *
+                 * @return possible object is {@link String }
+                 */
+                public String getValue() {
+                    return value;
+                }
+
+                /**
+                 * Sets the value of the value property.
+                 *
+                 * @param value allowed object is {@link String }
+                 */
+                public void setValue(String value) {
+                    this.value = value;
+                }
+
+                /**
+                 * Gets the value of the columnObjectName property.
+                 *
+                 * @return possible object is {@link String }
+                 */
+                public String getColumnObjectName() {
+                    return columnObjectName;
+                }
+
+                /**
+                 * Sets the value of the columnObjectName property.
+                 *
+                 * @param value allowed object is {@link String }
+                 */
+                public void setColumnObjectName(String value) {
+                    this.columnObjectName = value;
+                }
+
+                /**
+                 * Gets the value of the columnName property.
+                 *
+                 * @return possible object is {@link String }
+                 */
+                public String getColumnName() {
+                    return columnName;
+                }
+
+                /**
+                 * Sets the value of the columnName property.
+                 *
+                 * @param value allowed object is {@link String }
+                 */
+                public void setColumnName(String value) {
+                    this.columnName = value;
+                }
+
+            }
 
             /**
              * Gets the value of the descriptions property.
@@ -1298,162 +1260,37 @@ public class LogicalModel {
                 this.measureType = value;
             }
 
-            /**
-             * Java class for anonymous complex type.
-             *
-             * The following schema fragment specifies the expected content contained within this class.
-             *
-             * <pre>
-             * &lt;complexType&gt;
-             *   &lt;simpleContent&gt;
-             *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;string"&gt;
-             *       &lt;attribute name="defaultDescription" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
-             *     &lt;/extension&gt;
-             *   &lt;/simpleContent&gt;
-             * &lt;/complexType&gt;
-             * </pre>
-             */
-            @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {"value"})
-            public static class Descriptions {
+        }
 
-                /** The value. */
-                @XmlValue
-                protected String value;
-
-                /** The default description. */
-                @XmlAttribute(name = "defaultDescription")
-                protected String defaultDescription;
-
-                /**
-                 * Gets the value of the value property.
-                 *
-                 * @return possible object is {@link String }
-                 */
-                public String getValue() {
-                    return value;
-                }
-
-                /**
-                 * Sets the value of the value property.
-                 *
-                 * @param value allowed object is {@link String }
-                 */
-                public void setValue(String value) {
-                    this.value = value;
-                }
-
-                /**
-                 * Gets the value of the defaultDescription property.
-                 *
-                 * @return possible object is {@link String }
-                 */
-                public String getDefaultDescription() {
-                    return defaultDescription;
-                }
-
-                /**
-                 * Sets the value of the defaultDescription property.
-                 *
-                 * @param value allowed object is {@link String }
-                 */
-                public void setDefaultDescription(String value) {
-                    this.defaultDescription = value;
-                }
-
+        /**
+         * Gets the value of the measure property.
+         *
+         *
+         * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned
+         * list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the measure property.
+         *
+         *
+         * For example, to add a new item, do as follows:
+         *
+         * <pre>
+         * getMeasure().add(newItem);
+         * </pre>
+         *
+         *
+         *
+         * Objects of the following type(s) are allowed in the list {@link LogicalModel.BaseMeasures.Measure }
+         *
+         * @return the measure
+         */
+        public List<LogicalModel.BaseMeasures.Measure> getMeasure() {
+            if (measure == null) {
+                measure = new ArrayList<LogicalModel.BaseMeasures.Measure>();
             }
-
-            /**
-             * Java class for anonymous complex type.
-             *
-             * The following schema fragment specifies the expected content contained within this class.
-             *
-             * <pre>
-             * &lt;complexType&gt;
-             *   &lt;simpleContent&gt;
-             *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;string"&gt;
-             *       &lt;attribute name="columnObjectName" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
-             *       &lt;attribute name="columnName" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
-             *     &lt;/extension&gt;
-             *   &lt;/simpleContent&gt;
-             * &lt;/complexType&gt;
-             * </pre>
-             */
-            @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {"value"})
-            public static class MeasureMapping {
-
-                /** The value. */
-                @XmlValue
-                protected String value;
-
-                /** The column object name. */
-                @XmlAttribute(name = "columnObjectName")
-                protected String columnObjectName;
-
-                /** The column name. */
-                @XmlAttribute(name = "columnName")
-                protected String columnName;
-
-                /**
-                 * Gets the value of the value property.
-                 *
-                 * @return possible object is {@link String }
-                 */
-                public String getValue() {
-                    return value;
-                }
-
-                /**
-                 * Sets the value of the value property.
-                 *
-                 * @param value allowed object is {@link String }
-                 */
-                public void setValue(String value) {
-                    this.value = value;
-                }
-
-                /**
-                 * Gets the value of the columnObjectName property.
-                 *
-                 * @return possible object is {@link String }
-                 */
-                public String getColumnObjectName() {
-                    return columnObjectName;
-                }
-
-                /**
-                 * Sets the value of the columnObjectName property.
-                 *
-                 * @param value allowed object is {@link String }
-                 */
-                public void setColumnObjectName(String value) {
-                    this.columnObjectName = value;
-                }
-
-                /**
-                 * Gets the value of the columnName property.
-                 *
-                 * @return possible object is {@link String }
-                 */
-                public String getColumnName() {
-                    return columnName;
-                }
-
-                /**
-                 * Sets the value of the columnName property.
-                 *
-                 * @param value allowed object is {@link String }
-                 */
-                public void setColumnName(String value) {
-                    this.columnName = value;
-                }
-
-            }
-
+            return this.measure;
         }
 
     }
+
 
     /**
      * Java class for anonymous complex type.
@@ -1526,34 +1363,6 @@ public class LogicalModel {
         /** The measure. */
         protected List<LogicalModel.CalculatedMeasures.Measure> measure;
 
-        /**
-         * Gets the value of the measure property.
-         *
-         *
-         * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-         * modification you make to the returned list will be present inside the JAXB object. This is why
-         * there is not a <CODE>set</CODE> method for the measure property.
-         *
-         *
-         * For example, to add a new item, do as follows:
-         *
-         * <pre>
-         * getMeasure().add(newItem);
-         * </pre>
-         *
-         *
-         *
-         * Objects of the following type(s) are allowed in the list
-         * {@link LogicalModel.CalculatedMeasures.Measure }
-         *
-         * @return the measure
-         */
-        public List<LogicalModel.CalculatedMeasures.Measure> getMeasure() {
-            if (measure == null) {
-                measure = new ArrayList<LogicalModel.CalculatedMeasures.Measure>();
-            }
-            return this.measure;
-        }
 
         /**
          * Java class for anonymous complex type.
@@ -1656,6 +1465,225 @@ public class LogicalModel {
             @XmlAttribute(name = "expressionLanguage")
             protected String expressionLanguage;
 
+
+            /**
+             * Java class for anonymous complex type.
+             *
+             * The following schema fragment specifies the expected content contained within this class.
+             *
+             * <pre>
+             * &lt;complexType&gt;
+             *   &lt;simpleContent&gt;
+             *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;string"&gt;
+             *       &lt;attribute name="defaultDescription" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+             *     &lt;/extension&gt;
+             *   &lt;/simpleContent&gt;
+             * &lt;/complexType&gt;
+             * </pre>
+             */
+            @XmlAccessorType(XmlAccessType.FIELD)
+            @XmlType(name = "", propOrder = {"value"})
+            public static class Descriptions {
+
+                /** The value. */
+                @XmlValue
+                protected String value;
+
+                /** The default description. */
+                @XmlAttribute(name = "defaultDescription")
+                protected String defaultDescription;
+
+                /**
+                 * Gets the value of the value property.
+                 *
+                 * @return possible object is {@link String }
+                 */
+                public String getValue() {
+                    return value;
+                }
+
+                /**
+                 * Sets the value of the value property.
+                 *
+                 * @param value allowed object is {@link String }
+                 */
+                public void setValue(String value) {
+                    this.value = value;
+                }
+
+                /**
+                 * Gets the value of the defaultDescription property.
+                 *
+                 * @return possible object is {@link String }
+                 */
+                public String getDefaultDescription() {
+                    return defaultDescription;
+                }
+
+                /**
+                 * Sets the value of the defaultDescription property.
+                 *
+                 * @param value allowed object is {@link String }
+                 */
+                public void setDefaultDescription(String value) {
+                    this.defaultDescription = value;
+                }
+
+            }
+
+
+            /**
+             * Java class for anonymous complex type.
+             *
+             * The following schema fragment specifies the expected content contained within this class.
+             *
+             * <pre>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element name="attribute" maxOccurs="unbounded" minOccurs="0"&gt;
+             *           &lt;complexType&gt;
+             *             &lt;simpleContent&gt;
+             *               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;string"&gt;
+             *                 &lt;attribute name="attributeName" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+             *               &lt;/extension&gt;
+             *             &lt;/simpleContent&gt;
+             *           &lt;/complexType&gt;
+             *         &lt;/element&gt;
+             *       &lt;/sequence&gt;
+             *       &lt;attribute name="exceptionAggregationType" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+             *     &lt;/restriction&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
+             * </pre>
+             */
+            @XmlAccessorType(XmlAccessType.FIELD)
+            @XmlType(name = "", propOrder = {"attribute"})
+            public static class ExceptionAggregation {
+
+                /** The attribute. */
+                protected List<LogicalModel.CalculatedMeasures.Measure.ExceptionAggregation.Attribute> attribute;
+
+                /** The exception aggregation type. */
+                @XmlAttribute(name = "exceptionAggregationType")
+                protected String exceptionAggregationType;
+
+
+                /**
+                 * Java class for anonymous complex type.
+                 *
+                 * The following schema fragment specifies the expected content contained within this class.
+                 *
+                 * <pre>
+                 * &lt;complexType&gt;
+                 *   &lt;simpleContent&gt;
+                 *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;string"&gt;
+                 *       &lt;attribute name="attributeName" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+                 *     &lt;/extension&gt;
+                 *   &lt;/simpleContent&gt;
+                 * &lt;/complexType&gt;
+                 * </pre>
+                 */
+                @XmlAccessorType(XmlAccessType.FIELD)
+                @XmlType(name = "", propOrder = {"value"})
+                public static class Attribute {
+
+                    /** The value. */
+                    @XmlValue
+                    protected String value;
+
+                    /** The attribute name. */
+                    @XmlAttribute(name = "attributeName")
+                    protected String attributeName;
+
+                    /**
+                     * Gets the value of the value property.
+                     *
+                     * @return possible object is {@link String }
+                     */
+                    public String getValue() {
+                        return value;
+                    }
+
+                    /**
+                     * Sets the value of the value property.
+                     *
+                     * @param value allowed object is {@link String }
+                     */
+                    public void setValue(String value) {
+                        this.value = value;
+                    }
+
+                    /**
+                     * Gets the value of the attributeName property.
+                     *
+                     * @return possible object is {@link String }
+                     */
+                    public String getAttributeName() {
+                        return attributeName;
+                    }
+
+                    /**
+                     * Sets the value of the attributeName property.
+                     *
+                     * @param value allowed object is {@link String }
+                     */
+                    public void setAttributeName(String value) {
+                        this.attributeName = value;
+                    }
+
+                }
+
+                /**
+                 * Gets the value of the attribute property.
+                 *
+                 *
+                 * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the
+                 * returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the
+                 * attribute property.
+                 *
+                 *
+                 * For example, to add a new item, do as follows:
+                 *
+                 * <pre>
+                 * getAttribute().add(newItem);
+                 * </pre>
+                 *
+                 *
+                 *
+                 * Objects of the following type(s) are allowed in the list
+                 * {@link LogicalModel.CalculatedMeasures.Measure.ExceptionAggregation.Attribute }
+                 *
+                 * @return the attribute
+                 */
+                public List<LogicalModel.CalculatedMeasures.Measure.ExceptionAggregation.Attribute> getAttribute() {
+                    if (attribute == null) {
+                        attribute = new ArrayList<LogicalModel.CalculatedMeasures.Measure.ExceptionAggregation.Attribute>();
+                    }
+                    return this.attribute;
+                }
+
+                /**
+                 * Gets the value of the exceptionAggregationType property.
+                 *
+                 * @return possible object is {@link String }
+                 */
+                public String getExceptionAggregationType() {
+                    return exceptionAggregationType;
+                }
+
+                /**
+                 * Sets the value of the exceptionAggregationType property.
+                 *
+                 * @param value allowed object is {@link String }
+                 */
+                public void setExceptionAggregationType(String value) {
+                    this.exceptionAggregationType = value;
+                }
+
+            }
+
             /**
              * Gets the value of the descriptions property.
              *
@@ -1686,8 +1714,7 @@ public class LogicalModel {
             /**
              * Sets the value of the exceptionAggregation property.
              *
-             * @param value allowed object is
-             *        {@link LogicalModel.CalculatedMeasures.Measure.ExceptionAggregation }
+             * @param value allowed object is {@link LogicalModel.CalculatedMeasures.Measure.ExceptionAggregation }
              */
             public void setExceptionAggregation(LogicalModel.CalculatedMeasures.Measure.ExceptionAggregation value) {
                 this.exceptionAggregation = value;
@@ -1855,225 +1882,37 @@ public class LogicalModel {
                 this.expressionLanguage = value;
             }
 
-            /**
-             * Java class for anonymous complex type.
-             *
-             * The following schema fragment specifies the expected content contained within this class.
-             *
-             * <pre>
-             * &lt;complexType&gt;
-             *   &lt;simpleContent&gt;
-             *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;string"&gt;
-             *       &lt;attribute name="defaultDescription" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
-             *     &lt;/extension&gt;
-             *   &lt;/simpleContent&gt;
-             * &lt;/complexType&gt;
-             * </pre>
-             */
-            @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {"value"})
-            public static class Descriptions {
+        }
 
-                /** The value. */
-                @XmlValue
-                protected String value;
-
-                /** The default description. */
-                @XmlAttribute(name = "defaultDescription")
-                protected String defaultDescription;
-
-                /**
-                 * Gets the value of the value property.
-                 *
-                 * @return possible object is {@link String }
-                 */
-                public String getValue() {
-                    return value;
-                }
-
-                /**
-                 * Sets the value of the value property.
-                 *
-                 * @param value allowed object is {@link String }
-                 */
-                public void setValue(String value) {
-                    this.value = value;
-                }
-
-                /**
-                 * Gets the value of the defaultDescription property.
-                 *
-                 * @return possible object is {@link String }
-                 */
-                public String getDefaultDescription() {
-                    return defaultDescription;
-                }
-
-                /**
-                 * Sets the value of the defaultDescription property.
-                 *
-                 * @param value allowed object is {@link String }
-                 */
-                public void setDefaultDescription(String value) {
-                    this.defaultDescription = value;
-                }
-
+        /**
+         * Gets the value of the measure property.
+         *
+         *
+         * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned
+         * list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the measure property.
+         *
+         *
+         * For example, to add a new item, do as follows:
+         *
+         * <pre>
+         * getMeasure().add(newItem);
+         * </pre>
+         *
+         *
+         *
+         * Objects of the following type(s) are allowed in the list {@link LogicalModel.CalculatedMeasures.Measure }
+         *
+         * @return the measure
+         */
+        public List<LogicalModel.CalculatedMeasures.Measure> getMeasure() {
+            if (measure == null) {
+                measure = new ArrayList<LogicalModel.CalculatedMeasures.Measure>();
             }
-
-            /**
-             * Java class for anonymous complex type.
-             *
-             * The following schema fragment specifies the expected content contained within this class.
-             *
-             * <pre>
-             * &lt;complexType&gt;
-             *   &lt;complexContent&gt;
-             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
-             *       &lt;sequence&gt;
-             *         &lt;element name="attribute" maxOccurs="unbounded" minOccurs="0"&gt;
-             *           &lt;complexType&gt;
-             *             &lt;simpleContent&gt;
-             *               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;string"&gt;
-             *                 &lt;attribute name="attributeName" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
-             *               &lt;/extension&gt;
-             *             &lt;/simpleContent&gt;
-             *           &lt;/complexType&gt;
-             *         &lt;/element&gt;
-             *       &lt;/sequence&gt;
-             *       &lt;attribute name="exceptionAggregationType" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
-             *     &lt;/restriction&gt;
-             *   &lt;/complexContent&gt;
-             * &lt;/complexType&gt;
-             * </pre>
-             */
-            @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {"attribute"})
-            public static class ExceptionAggregation {
-
-                /** The attribute. */
-                protected List<LogicalModel.CalculatedMeasures.Measure.ExceptionAggregation.Attribute> attribute;
-
-                /** The exception aggregation type. */
-                @XmlAttribute(name = "exceptionAggregationType")
-                protected String exceptionAggregationType;
-
-                /**
-                 * Gets the value of the attribute property.
-                 *
-                 *
-                 * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-                 * modification you make to the returned list will be present inside the JAXB object. This is why
-                 * there is not a <CODE>set</CODE> method for the attribute property.
-                 *
-                 *
-                 * For example, to add a new item, do as follows:
-                 *
-                 * <pre>
-                 * getAttribute().add(newItem);
-                 * </pre>
-                 *
-                 *
-                 *
-                 * Objects of the following type(s) are allowed in the list
-                 * {@link LogicalModel.CalculatedMeasures.Measure.ExceptionAggregation.Attribute }
-                 *
-                 * @return the attribute
-                 */
-                public List<LogicalModel.CalculatedMeasures.Measure.ExceptionAggregation.Attribute> getAttribute() {
-                    if (attribute == null) {
-                        attribute = new ArrayList<LogicalModel.CalculatedMeasures.Measure.ExceptionAggregation.Attribute>();
-                    }
-                    return this.attribute;
-                }
-
-                /**
-                 * Gets the value of the exceptionAggregationType property.
-                 *
-                 * @return possible object is {@link String }
-                 */
-                public String getExceptionAggregationType() {
-                    return exceptionAggregationType;
-                }
-
-                /**
-                 * Sets the value of the exceptionAggregationType property.
-                 *
-                 * @param value allowed object is {@link String }
-                 */
-                public void setExceptionAggregationType(String value) {
-                    this.exceptionAggregationType = value;
-                }
-
-                /**
-                 * Java class for anonymous complex type.
-                 *
-                 * The following schema fragment specifies the expected content contained within this class.
-                 *
-                 * <pre>
-                 * &lt;complexType&gt;
-                 *   &lt;simpleContent&gt;
-                 *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;string"&gt;
-                 *       &lt;attribute name="attributeName" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
-                 *     &lt;/extension&gt;
-                 *   &lt;/simpleContent&gt;
-                 * &lt;/complexType&gt;
-                 * </pre>
-                 */
-                @XmlAccessorType(XmlAccessType.FIELD)
-                @XmlType(name = "", propOrder = {"value"})
-                public static class Attribute {
-
-                    /** The value. */
-                    @XmlValue
-                    protected String value;
-
-                    /** The attribute name. */
-                    @XmlAttribute(name = "attributeName")
-                    protected String attributeName;
-
-                    /**
-                     * Gets the value of the value property.
-                     *
-                     * @return possible object is {@link String }
-                     */
-                    public String getValue() {
-                        return value;
-                    }
-
-                    /**
-                     * Sets the value of the value property.
-                     *
-                     * @param value allowed object is {@link String }
-                     */
-                    public void setValue(String value) {
-                        this.value = value;
-                    }
-
-                    /**
-                     * Gets the value of the attributeName property.
-                     *
-                     * @return possible object is {@link String }
-                     */
-                    public String getAttributeName() {
-                        return attributeName;
-                    }
-
-                    /**
-                     * Sets the value of the attributeName property.
-                     *
-                     * @param value allowed object is {@link String }
-                     */
-                    public void setAttributeName(String value) {
-                        this.attributeName = value;
-                    }
-
-                }
-
-            }
-
+            return this.measure;
         }
 
     }
+
 
     /**
      * Java class for anonymous complex type.
@@ -2166,34 +2005,6 @@ public class LogicalModel {
         /** The local dimension. */
         protected List<LogicalModel.LocalDimensions.LocalDimension> localDimension;
 
-        /**
-         * Gets the value of the localDimension property.
-         *
-         *
-         * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-         * modification you make to the returned list will be present inside the JAXB object. This is why
-         * there is not a <CODE>set</CODE> method for the localDimension property.
-         *
-         *
-         * For example, to add a new item, do as follows:
-         *
-         * <pre>
-         * getLocalDimension().add(newItem);
-         * </pre>
-         *
-         *
-         *
-         * Objects of the following type(s) are allowed in the list
-         * {@link LogicalModel.LocalDimensions.LocalDimension }
-         *
-         * @return the local dimension
-         */
-        public List<LogicalModel.LocalDimensions.LocalDimension> getLocalDimension() {
-            if (localDimension == null) {
-                localDimension = new ArrayList<LogicalModel.LocalDimensions.LocalDimension>();
-            }
-            return this.localDimension;
-        }
 
         /**
          * Java class for anonymous complex type.
@@ -2284,69 +2095,6 @@ public class LogicalModel {
             @XmlAttribute(name = "id")
             protected String id;
 
-            /**
-             * Gets the value of the attributeRef property.
-             *
-             *
-             * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-             * modification you make to the returned list will be present inside the JAXB object. This is why
-             * there is not a <CODE>set</CODE> method for the attributeRef property.
-             *
-             *
-             * For example, to add a new item, do as follows:
-             *
-             * <pre>
-             * getAttributeRef().add(newItem);
-             * </pre>
-             *
-             *
-             *
-             * Objects of the following type(s) are allowed in the list {@link String }
-             *
-             * @return the attribute ref
-             */
-            public List<String> getAttributeRef() {
-                if (attributeRef == null) {
-                    attributeRef = new ArrayList<String>();
-                }
-                return this.attributeRef;
-            }
-
-            /**
-             * Gets the value of the hierarchies property.
-             *
-             * @return possible object is {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies }
-             */
-            public LogicalModel.LocalDimensions.LocalDimension.Hierarchies getHierarchies() {
-                return hierarchies;
-            }
-
-            /**
-             * Sets the value of the hierarchies property.
-             *
-             * @param value allowed object is {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies }
-             */
-            public void setHierarchies(LogicalModel.LocalDimensions.LocalDimension.Hierarchies value) {
-                this.hierarchies = value;
-            }
-
-            /**
-             * Gets the value of the id property.
-             *
-             * @return possible object is {@link String }
-             */
-            public String getId() {
-                return id;
-            }
-
-            /**
-             * Sets the value of the id property.
-             *
-             * @param value allowed object is {@link String }
-             */
-            public void setId(String value) {
-                this.id = value;
-            }
 
             /**
              * Java class for anonymous complex type.
@@ -2418,25 +2166,6 @@ public class LogicalModel {
                 @XmlElement(required = true)
                 protected LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy hierarchy;
 
-                /**
-                 * Gets the value of the hierarchy property.
-                 *
-                 * @return possible object is
-                 *         {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy }
-                 */
-                public LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy getHierarchy() {
-                    return hierarchy;
-                }
-
-                /**
-                 * Sets the value of the hierarchy property.
-                 *
-                 * @param value allowed object is
-                 *        {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy }
-                 */
-                public void setHierarchy(LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy value) {
-                    this.hierarchy = value;
-                }
 
                 /**
                  * Java class for anonymous complex type.
@@ -2522,135 +2251,6 @@ public class LogicalModel {
                     @XmlAttribute(name = "nodeStyle")
                     protected String nodeStyle;
 
-                    /**
-                     * Gets the value of the descriptions property.
-                     *
-                     * @return possible object is
-                     *         {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Descriptions }
-                     */
-                    public LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Descriptions getDescriptions() {
-                        return descriptions;
-                    }
-
-                    /**
-                     * Sets the value of the descriptions property.
-                     *
-                     * @param value allowed object is
-                     *        {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Descriptions }
-                     */
-                    public void setDescriptions(LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Descriptions value) {
-                        this.descriptions = value;
-                    }
-
-                    /**
-                     * Gets the value of the levels property.
-                     *
-                     * @return possible object is
-                     *         {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels }
-                     */
-                    public LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels getLevels() {
-                        return levels;
-                    }
-
-                    /**
-                     * Sets the value of the levels property.
-                     *
-                     * @param value allowed object is
-                     *        {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels }
-                     */
-                    public void setLevels(LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels value) {
-                        this.levels = value;
-                    }
-
-                    /**
-                     * Gets the value of the id property.
-                     *
-                     * @return possible object is {@link String }
-                     */
-                    public String getId() {
-                        return id;
-                    }
-
-                    /**
-                     * Sets the value of the id property.
-                     *
-                     * @param value allowed object is {@link String }
-                     */
-                    public void setId(String value) {
-                        this.id = value;
-                    }
-
-                    /**
-                     * Gets the value of the aggregateAllNodes property.
-                     *
-                     * @return possible object is {@link String }
-                     */
-                    public String getAggregateAllNodes() {
-                        return aggregateAllNodes;
-                    }
-
-                    /**
-                     * Sets the value of the aggregateAllNodes property.
-                     *
-                     * @param value allowed object is {@link String }
-                     */
-                    public void setAggregateAllNodes(String value) {
-                        this.aggregateAllNodes = value;
-                    }
-
-                    /**
-                     * Gets the value of the rootNodeVisibility property.
-                     *
-                     * @return possible object is {@link String }
-                     */
-                    public String getRootNodeVisibility() {
-                        return rootNodeVisibility;
-                    }
-
-                    /**
-                     * Sets the value of the rootNodeVisibility property.
-                     *
-                     * @param value allowed object is {@link String }
-                     */
-                    public void setRootNodeVisibility(String value) {
-                        this.rootNodeVisibility = value;
-                    }
-
-                    /**
-                     * Gets the value of the withRootNode property.
-                     *
-                     * @return possible object is {@link String }
-                     */
-                    public String getWithRootNode() {
-                        return withRootNode;
-                    }
-
-                    /**
-                     * Sets the value of the withRootNode property.
-                     *
-                     * @param value allowed object is {@link String }
-                     */
-                    public void setWithRootNode(String value) {
-                        this.withRootNode = value;
-                    }
-
-                    /**
-                     * Gets the value of the nodeStyle property.
-                     *
-                     * @return possible object is {@link String }
-                     */
-                    public String getNodeStyle() {
-                        return nodeStyle;
-                    }
-
-                    /**
-                     * Sets the value of the nodeStyle property.
-                     *
-                     * @param value allowed object is {@link String }
-                     */
-                    public void setNodeStyle(String value) {
-                        this.nodeStyle = value;
-                    }
 
                     /**
                      * Java class for anonymous complex type.
@@ -2717,6 +2317,7 @@ public class LogicalModel {
 
                     }
 
+
                     /**
                      * Java class for anonymous complex type.
                      *
@@ -2752,34 +2353,6 @@ public class LogicalModel {
                         /** The level. */
                         protected List<LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels.Level> level;
 
-                        /**
-                         * Gets the value of the level property.
-                         *
-                         *
-                         * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-                         * modification you make to the returned list will be present inside the JAXB object. This is why
-                         * there is not a <CODE>set</CODE> method for the level property.
-                         *
-                         *
-                         * For example, to add a new item, do as follows:
-                         *
-                         * <pre>
-                         * getLevel().add(newItem);
-                         * </pre>
-                         *
-                         *
-                         *
-                         * Objects of the following type(s) are allowed in the list
-                         * {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels.Level }
-                         *
-                         * @return the level
-                         */
-                        public List<LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels.Level> getLevel() {
-                            if (level == null) {
-                                level = new ArrayList<LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels.Level>();
-                            }
-                            return this.level;
-                        }
 
                         /**
                          * Java class for anonymous complex type.
@@ -2915,15 +2488,281 @@ public class LogicalModel {
 
                         }
 
+                        /**
+                         * Gets the value of the level property.
+                         *
+                         *
+                         * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to
+                         * the returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for
+                         * the level property.
+                         *
+                         *
+                         * For example, to add a new item, do as follows:
+                         *
+                         * <pre>
+                         * getLevel().add(newItem);
+                         * </pre>
+                         *
+                         *
+                         *
+                         * Objects of the following type(s) are allowed in the list
+                         * {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels.Level }
+                         *
+                         * @return the level
+                         */
+                        public List<LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels.Level> getLevel() {
+                            if (level == null) {
+                                level = new ArrayList<LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels.Level>();
+                            }
+                            return this.level;
+                        }
+
+                    }
+
+                    /**
+                     * Gets the value of the descriptions property.
+                     *
+                     * @return possible object is {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Descriptions }
+                     */
+                    public LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Descriptions getDescriptions() {
+                        return descriptions;
+                    }
+
+                    /**
+                     * Sets the value of the descriptions property.
+                     *
+                     * @param value allowed object is
+                     * {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Descriptions }
+                     */
+                    public void setDescriptions(LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Descriptions value) {
+                        this.descriptions = value;
+                    }
+
+                    /**
+                     * Gets the value of the levels property.
+                     *
+                     * @return possible object is {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels }
+                     */
+                    public LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels getLevels() {
+                        return levels;
+                    }
+
+                    /**
+                     * Sets the value of the levels property.
+                     *
+                     * @param value allowed object is {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels }
+                     */
+                    public void setLevels(LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy.Levels value) {
+                        this.levels = value;
+                    }
+
+                    /**
+                     * Gets the value of the id property.
+                     *
+                     * @return possible object is {@link String }
+                     */
+                    public String getId() {
+                        return id;
+                    }
+
+                    /**
+                     * Sets the value of the id property.
+                     *
+                     * @param value allowed object is {@link String }
+                     */
+                    public void setId(String value) {
+                        this.id = value;
+                    }
+
+                    /**
+                     * Gets the value of the aggregateAllNodes property.
+                     *
+                     * @return possible object is {@link String }
+                     */
+                    public String getAggregateAllNodes() {
+                        return aggregateAllNodes;
+                    }
+
+                    /**
+                     * Sets the value of the aggregateAllNodes property.
+                     *
+                     * @param value allowed object is {@link String }
+                     */
+                    public void setAggregateAllNodes(String value) {
+                        this.aggregateAllNodes = value;
+                    }
+
+                    /**
+                     * Gets the value of the rootNodeVisibility property.
+                     *
+                     * @return possible object is {@link String }
+                     */
+                    public String getRootNodeVisibility() {
+                        return rootNodeVisibility;
+                    }
+
+                    /**
+                     * Sets the value of the rootNodeVisibility property.
+                     *
+                     * @param value allowed object is {@link String }
+                     */
+                    public void setRootNodeVisibility(String value) {
+                        this.rootNodeVisibility = value;
+                    }
+
+                    /**
+                     * Gets the value of the withRootNode property.
+                     *
+                     * @return possible object is {@link String }
+                     */
+                    public String getWithRootNode() {
+                        return withRootNode;
+                    }
+
+                    /**
+                     * Sets the value of the withRootNode property.
+                     *
+                     * @param value allowed object is {@link String }
+                     */
+                    public void setWithRootNode(String value) {
+                        this.withRootNode = value;
+                    }
+
+                    /**
+                     * Gets the value of the nodeStyle property.
+                     *
+                     * @return possible object is {@link String }
+                     */
+                    public String getNodeStyle() {
+                        return nodeStyle;
+                    }
+
+                    /**
+                     * Sets the value of the nodeStyle property.
+                     *
+                     * @param value allowed object is {@link String }
+                     */
+                    public void setNodeStyle(String value) {
+                        this.nodeStyle = value;
                     }
 
                 }
 
+                /**
+                 * Gets the value of the hierarchy property.
+                 *
+                 * @return possible object is {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy }
+                 */
+                public LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy getHierarchy() {
+                    return hierarchy;
+                }
+
+                /**
+                 * Sets the value of the hierarchy property.
+                 *
+                 * @param value allowed object is {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy }
+                 */
+                public void setHierarchy(LogicalModel.LocalDimensions.LocalDimension.Hierarchies.Hierarchy value) {
+                    this.hierarchy = value;
+                }
+
+            }
+
+            /**
+             * Gets the value of the attributeRef property.
+             *
+             *
+             * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the
+             * returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the attributeRef
+             * property.
+             *
+             *
+             * For example, to add a new item, do as follows:
+             *
+             * <pre>
+             * getAttributeRef().add(newItem);
+             * </pre>
+             *
+             *
+             *
+             * Objects of the following type(s) are allowed in the list {@link String }
+             *
+             * @return the attribute ref
+             */
+            public List<String> getAttributeRef() {
+                if (attributeRef == null) {
+                    attributeRef = new ArrayList<String>();
+                }
+                return this.attributeRef;
+            }
+
+            /**
+             * Gets the value of the hierarchies property.
+             *
+             * @return possible object is {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies }
+             */
+            public LogicalModel.LocalDimensions.LocalDimension.Hierarchies getHierarchies() {
+                return hierarchies;
+            }
+
+            /**
+             * Sets the value of the hierarchies property.
+             *
+             * @param value allowed object is {@link LogicalModel.LocalDimensions.LocalDimension.Hierarchies }
+             */
+            public void setHierarchies(LogicalModel.LocalDimensions.LocalDimension.Hierarchies value) {
+                this.hierarchies = value;
+            }
+
+            /**
+             * Gets the value of the id property.
+             *
+             * @return possible object is {@link String }
+             */
+            public String getId() {
+                return id;
+            }
+
+            /**
+             * Sets the value of the id property.
+             *
+             * @param value allowed object is {@link String }
+             */
+            public void setId(String value) {
+                this.id = value;
             }
 
         }
 
+        /**
+         * Gets the value of the localDimension property.
+         *
+         *
+         * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned
+         * list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the localDimension property.
+         *
+         *
+         * For example, to add a new item, do as follows:
+         *
+         * <pre>
+         * getLocalDimension().add(newItem);
+         * </pre>
+         *
+         *
+         *
+         * Objects of the following type(s) are allowed in the list {@link LogicalModel.LocalDimensions.LocalDimension }
+         *
+         * @return the local dimension
+         */
+        public List<LogicalModel.LocalDimensions.LocalDimension> getLocalDimension() {
+            if (localDimension == null) {
+                localDimension = new ArrayList<LogicalModel.LocalDimensions.LocalDimension>();
+            }
+            return this.localDimension;
+        }
+
     }
+
 
     /**
      * Java class for anonymous complex type.
@@ -2969,6 +2808,52 @@ public class LogicalModel {
         /** The layout. */
         @XmlElement(required = true)
         protected LogicalModel.PrivateDataFoundation.Layout layout;
+
+
+        /**
+         * Java class for anonymous complex type.
+         *
+         * The following schema fragment specifies the expected content contained within this class.
+         *
+         * <pre>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="shapes" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
+         * </pre>
+         */
+        @XmlAccessorType(XmlAccessType.FIELD)
+        @XmlType(name = "", propOrder = {"shapes"})
+        public static class Layout {
+
+            /** The shapes. */
+            @XmlElement(required = true)
+            protected String shapes;
+
+            /**
+             * Gets the value of the shapes property.
+             *
+             * @return possible object is {@link String }
+             */
+            public String getShapes() {
+                return shapes;
+            }
+
+            /**
+             * Sets the value of the shapes property.
+             *
+             * @param value allowed object is {@link String }
+             */
+            public void setShapes(String value) {
+                this.shapes = value;
+            }
+
+        }
 
         /**
          * Gets the value of the tableProxies property.
@@ -3024,51 +2909,168 @@ public class LogicalModel {
             this.layout = value;
         }
 
-        /**
-         * Java class for anonymous complex type.
-         *
-         * The following schema fragment specifies the expected content contained within this class.
-         *
-         * <pre>
-         * &lt;complexType&gt;
-         *   &lt;complexContent&gt;
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
-         *       &lt;sequence&gt;
-         *         &lt;element name="shapes" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
-         *       &lt;/sequence&gt;
-         *     &lt;/restriction&gt;
-         *   &lt;/complexContent&gt;
-         * &lt;/complexType&gt;
-         * </pre>
-         */
-        @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {"shapes"})
-        public static class Layout {
+    }
 
-            /** The shapes. */
-            @XmlElement(required = true)
-            protected String shapes;
+    /**
+     * Gets the value of the descriptions property.
+     *
+     * @return possible object is {@link String }
+     */
+    public String getDescriptions() {
+        return descriptions;
+    }
 
-            /**
-             * Gets the value of the shapes property.
-             *
-             * @return possible object is {@link String }
-             */
-            public String getShapes() {
-                return shapes;
-            }
+    /**
+     * Sets the value of the descriptions property.
+     *
+     * @param value allowed object is {@link String }
+     */
+    public void setDescriptions(String value) {
+        this.descriptions = value;
+    }
 
-            /**
-             * Sets the value of the shapes property.
-             *
-             * @param value allowed object is {@link String }
-             */
-            public void setShapes(String value) {
-                this.shapes = value;
-            }
+    /**
+     * Gets the value of the attributes property.
+     *
+     * @return possible object is {@link LogicalModel.Attributes }
+     */
+    public LogicalModel.Attributes getAttributes() {
+        return attributes;
+    }
 
-        }
+    /**
+     * Sets the value of the attributes property.
+     *
+     * @param value allowed object is {@link LogicalModel.Attributes }
+     */
+    public void setAttributes(LogicalModel.Attributes value) {
+        this.attributes = value;
+    }
 
+    /**
+     * Gets the value of the calculatedAttributes property.
+     *
+     * @return possible object is {@link String }
+     */
+    public String getCalculatedAttributes() {
+        return calculatedAttributes;
+    }
+
+    /**
+     * Sets the value of the calculatedAttributes property.
+     *
+     * @param value allowed object is {@link String }
+     */
+    public void setCalculatedAttributes(String value) {
+        this.calculatedAttributes = value;
+    }
+
+    /**
+     * Gets the value of the privateDataFoundation property.
+     *
+     * @return possible object is {@link LogicalModel.PrivateDataFoundation }
+     */
+    public LogicalModel.PrivateDataFoundation getPrivateDataFoundation() {
+        return privateDataFoundation;
+    }
+
+    /**
+     * Sets the value of the privateDataFoundation property.
+     *
+     * @param value allowed object is {@link LogicalModel.PrivateDataFoundation }
+     */
+    public void setPrivateDataFoundation(LogicalModel.PrivateDataFoundation value) {
+        this.privateDataFoundation = value;
+    }
+
+    /**
+     * Gets the value of the baseMeasures property.
+     *
+     * @return possible object is {@link LogicalModel.BaseMeasures }
+     */
+    public LogicalModel.BaseMeasures getBaseMeasures() {
+        return baseMeasures;
+    }
+
+    /**
+     * Sets the value of the baseMeasures property.
+     *
+     * @param value allowed object is {@link LogicalModel.BaseMeasures }
+     */
+    public void setBaseMeasures(LogicalModel.BaseMeasures value) {
+        this.baseMeasures = value;
+    }
+
+    /**
+     * Gets the value of the calculatedMeasures property.
+     *
+     * @return possible object is {@link LogicalModel.CalculatedMeasures }
+     */
+    public LogicalModel.CalculatedMeasures getCalculatedMeasures() {
+        return calculatedMeasures;
+    }
+
+    /**
+     * Sets the value of the calculatedMeasures property.
+     *
+     * @param value allowed object is {@link LogicalModel.CalculatedMeasures }
+     */
+    public void setCalculatedMeasures(LogicalModel.CalculatedMeasures value) {
+        this.calculatedMeasures = value;
+    }
+
+    /**
+     * Gets the value of the restrictedMeasures property.
+     *
+     * @return possible object is {@link String }
+     */
+    public String getRestrictedMeasures() {
+        return restrictedMeasures;
+    }
+
+    /**
+     * Sets the value of the restrictedMeasures property.
+     *
+     * @param value allowed object is {@link String }
+     */
+    public void setRestrictedMeasures(String value) {
+        this.restrictedMeasures = value;
+    }
+
+    /**
+     * Gets the value of the localDimensions property.
+     *
+     * @return possible object is {@link LogicalModel.LocalDimensions }
+     */
+    public LogicalModel.LocalDimensions getLocalDimensions() {
+        return localDimensions;
+    }
+
+    /**
+     * Sets the value of the localDimensions property.
+     *
+     * @param value allowed object is {@link LogicalModel.LocalDimensions }
+     */
+    public void setLocalDimensions(LogicalModel.LocalDimensions value) {
+        this.localDimensions = value;
+    }
+
+    /**
+     * Gets the value of the id property.
+     *
+     * @return possible object is {@link String }
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Sets the value of the id property.
+     *
+     * @param value allowed object is {@link String }
+     */
+    public void setId(String value) {
+        this.id = value;
     }
 
 }

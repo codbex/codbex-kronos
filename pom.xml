@@ -34,6 +34,7 @@
     </modules>
 
     <properties>
+        <dirigible.version>13.0.0-SNAPSHOT</dirigible.version>
         <project.title>Kronos by codbex</project.title>
 
         <scmVersionType>branch</scmVersionType>

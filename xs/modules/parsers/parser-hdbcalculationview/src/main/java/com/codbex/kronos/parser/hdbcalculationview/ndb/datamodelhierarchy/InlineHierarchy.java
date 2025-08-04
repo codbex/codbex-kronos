@@ -18,11 +18,11 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.datamodelhierarchy;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
+import jakarta.xml.bind.annotation.XmlType;
 
 import com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase.CycleHandling;
 import com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase.HierarchyJoinProperties;
@@ -32,16 +32,13 @@ import com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase.UnassignedM
 import com.codbex.kronos.parser.hdbcalculationview.ndb.repositorymodelresource.NamedObjectWithEndUserTexts;
 
 /**
- * A Hierarchy that is defined on top of a entity by simply specifying which columns make up the
- * level or parent child columns. The data provided by the view must fulfill some constraints to
- * make the hierarchy consistent. The following additional behavior applies: 1. Each hierarchy of a
- * view having the data category DIMENSION becomes a hierarchy of that dimension if the dimension is
- * used in a view of dataCatefory CUBE. 2. Each hierarchy of a view that is joined via a
- * dimensionJoin becomes a hierarchy of that dimension 3. Each hierarchy that is defined on a view
- * with dataCategory CUBE (aka local hierarchy) implicitly defines a dimension with just that
- * hierarchy. All columns that are used in the hierarchy definition (including level attributes
- * defined via element relationships) become attributes of that dimension. The concept of local
- * dimensions with several hierarchies is not supported.
+ * A Hierarchy that is defined on top of a entity by simply specifying which columns make up the level or parent child columns. The data
+ * provided by the view must fulfill some constraints to make the hierarchy consistent. The following additional behavior applies: 1. Each
+ * hierarchy of a view having the data category DIMENSION becomes a hierarchy of that dimension if the dimension is used in a view of
+ * dataCatefory CUBE. 2. Each hierarchy of a view that is joined via a dimensionJoin becomes a hierarchy of that dimension 3. Each hierarchy
+ * that is defined on a view with dataCategory CUBE (aka local hierarchy) implicitly defines a dimension with just that hierarchy. All
+ * columns that are used in the hierarchy definition (including level attributes defined via element relationships) become attributes of
+ * that dimension. The concept of local dimensions with several hierarchies is not supported.
  *
  *
  * Java class for InlineHierarchy complex type.

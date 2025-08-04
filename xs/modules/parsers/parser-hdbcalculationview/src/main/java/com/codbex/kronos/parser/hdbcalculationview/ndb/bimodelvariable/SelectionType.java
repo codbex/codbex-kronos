@@ -18,9 +18,9 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelvariable;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Java class for SelectionType.
@@ -42,16 +42,13 @@ import javax.xml.bind.annotation.XmlType;
 public enum SelectionType {
 
     /** The single value. */
-    @XmlEnumValue("SingleValue")
-    SINGLE_VALUE("SingleValue"),
+    @XmlEnumValue("SingleValue") SINGLE_VALUE("SingleValue"),
 
     /** The interval. */
-    @XmlEnumValue("Interval")
-    INTERVAL("Interval"),
+    @XmlEnumValue("Interval") INTERVAL("Interval"),
 
     /** The range. */
-    @XmlEnumValue("Range")
-    RANGE("Range");
+    @XmlEnumValue("Range") RANGE("Range");
 
     /** The value. */
     private final String value;

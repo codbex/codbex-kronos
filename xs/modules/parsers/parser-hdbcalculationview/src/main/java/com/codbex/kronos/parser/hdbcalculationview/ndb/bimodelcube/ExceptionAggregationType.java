@@ -18,9 +18,9 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelcube;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Java class for ExceptionAggregationType.
@@ -40,8 +40,7 @@ import javax.xml.bind.annotation.XmlType;
 public enum ExceptionAggregationType {
 
     /** The count distinct. */
-    @XmlEnumValue("countDistinct")
-    COUNT_DISTINCT("countDistinct");
+    @XmlEnumValue("countDistinct") COUNT_DISTINCT("countDistinct");
 
     /** The value. */
     private final String value;

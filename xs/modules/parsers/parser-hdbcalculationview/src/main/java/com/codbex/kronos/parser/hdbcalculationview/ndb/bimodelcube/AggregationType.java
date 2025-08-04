@@ -18,9 +18,9 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelcube;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Java class for AggregationType.
@@ -46,34 +46,27 @@ import javax.xml.bind.annotation.XmlType;
 public enum AggregationType {
 
     /** The sum. */
-    @XmlEnumValue("sum")
-    SUM("sum"),
+    @XmlEnumValue("sum") SUM("sum"),
 
     /** The min. */
-    @XmlEnumValue("min")
-    MIN("min"),
+    @XmlEnumValue("min") MIN("min"),
 
     /** The max. */
-    @XmlEnumValue("max")
-    MAX("max"),
+    @XmlEnumValue("max") MAX("max"),
 
     /** The count. */
-    @XmlEnumValue("count")
-    COUNT("count"),
+    @XmlEnumValue("count") COUNT("count"),
 
     /** Average defined as SUM( column ) / COUNT( column ). */
-    @XmlEnumValue("avg")
-    AVG("avg"),
+    @XmlEnumValue("avg") AVG("avg"),
 
     /**
      * Standard deviation: Sum over the squares of the differences to the average divided by (COUNT-1).
      */
-    @XmlEnumValue("var")
-    VAR("var"),
+    @XmlEnumValue("var") VAR("var"),
 
     /** Standard deviation: Square root of the variance. */
-    @XmlEnumValue("stddev")
-    STDDEV("stddev");
+    @XmlEnumValue("stddev") STDDEV("stddev");
 
     /** The value. */
     private final String value;

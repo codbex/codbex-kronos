@@ -20,13 +20,14 @@ package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelcalculation;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase.NameValuePair;
 import com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelcube.MeasureGroup;
@@ -37,13 +38,11 @@ import com.codbex.kronos.parser.hdbcalculationview.ndb.datamodelentity.DataCateg
 import com.codbex.kronos.parser.hdbcalculationview.ndb.datamodelentity.DimensionType;
 
 /**
- * A Calculation scenario scenario is a collection of calculation views. One of the calculation
- * views is marked as defaultView. Therefore the calculation scenario is identified with the default
- * view to the SQL layer. Sometimes a calculation scenario is simply addressed as calculation view
- * meaning the default view. Constraints / validations: 1. Exactly one node (a DataSource or a
- * Calculation view) is mapped to the logical model via it's ID 2. A JoinView must have exactly two
- * inputs 3. A UnionView must have at least one input 4. A ProjectionView must have at exactly one
- * input
+ * A Calculation scenario scenario is a collection of calculation views. One of the calculation views is marked as defaultView. Therefore
+ * the calculation scenario is identified with the default view to the SQL layer. Sometimes a calculation scenario is simply addressed as
+ * calculation view meaning the default view. Constraints / validations: 1. Exactly one node (a DataSource or a Calculation view) is mapped
+ * to the logical model via it's ID 2. A JoinView must have exactly two inputs 3. A UnionView must have at least one input 4. A
+ * ProjectionView must have at exactly one input
  *
  *
  * Java class for CalculationScenario complex type.
@@ -161,9 +160,8 @@ public class CalculationScenario extends InformationModel {
      * Gets the value of the executionHints property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the executionHints property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the executionHints property.
      *
      *
      * For example, to add a new item, do as follows:
@@ -225,9 +223,8 @@ public class CalculationScenario extends InformationModel {
      * Gets the value of the inlineHierarchy property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the inlineHierarchy property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the inlineHierarchy property.
      *
      *
      * For example, to add a new item, do as follows:

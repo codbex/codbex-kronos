@@ -18,14 +18,13 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelcalculation;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
- * A view/node that calculates the set operation intersect. It must have exactly 2 inputs having the
- * same structure - i.e. the same number of fields with matching data types (after the mapping). The
- * result consists of all rows that occur in the first and the second input.
+ * A view/node that calculates the set operation intersect. It must have exactly 2 inputs having the same structure - i.e. the same number
+ * of fields with matching data types (after the mapping). The result consists of all rows that occur in the first and the second input.
  *
  *
  * Java class for IntersectView complex type.

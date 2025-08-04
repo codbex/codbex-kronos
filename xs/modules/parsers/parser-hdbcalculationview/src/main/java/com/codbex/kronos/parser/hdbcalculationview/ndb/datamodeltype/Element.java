@@ -20,20 +20,20 @@ package com.codbex.kronos.parser.hdbcalculationview.ndb.datamodeltype;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlSchemaType;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase.NameValuePair;
 import com.codbex.kronos.parser.hdbcalculationview.ndb.searchmodelsearch.SearchableElementProperties;
 
 /**
- * Typed component / element of a structure / table / view The description of the element is taken
- * from the type
+ * Typed component / element of a structure / table / view The description of the element is taken from the type
  *
  *
  * Java class for Element complex type.
@@ -356,9 +356,8 @@ public class Element extends TypedObject {
      * Gets the value of the elementRelationship property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the elementRelationship property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the elementRelationship property.
      *
      *
      * For example, to add a new item, do as follows:
@@ -384,9 +383,8 @@ public class Element extends TypedObject {
      * Gets the value of the restriction property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the restriction property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the restriction property.
      *
      *
      * For example, to add a new item, do as follows:
@@ -430,9 +428,9 @@ public class Element extends TypedObject {
      * Gets the value of the exceptionAggregationStep property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the exceptionAggregationStep property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the exceptionAggregationStep
+     * property.
      *
      *
      * For example, to add a new item, do as follows:
@@ -476,9 +474,8 @@ public class Element extends TypedObject {
      * Gets the value of the genericProperty property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the genericProperty property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the genericProperty property.
      *
      *
      * For example, to add a new item, do as follows:

@@ -18,13 +18,13 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodeldatafoundation;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase.CacheInvalidationPeriod;
 import com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase.PrivilegeType;
@@ -35,8 +35,7 @@ import com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelvariable.LocalVari
 import com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelvariable.VariableMappings;
 
 /**
- * Base type for reporting enabled BI resources i.e. resources you can run client tools on = BW
- * InfoProvider
+ * Base type for reporting enabled BI resources i.e. resources you can run client tools on = BW InfoProvider
  *
  *
  * Java class for InformationModel complex type.

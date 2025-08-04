@@ -18,22 +18,21 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelcube;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlType;
 
 import com.codbex.kronos.parser.hdbcalculationview.ndb.bimodeldatafoundation.DeploymentType;
 import com.codbex.kronos.parser.hdbcalculationview.ndb.bimodeldatafoundation.InformationModel;
 
 /**
- * A cube (aka analytic view) is a multidimensional View construct to support OLAP type queries to
- * the data base Constraints: 1. unit attribute exists only for measures of type amount and quantity
- * 2. logical joins are only allowed between compatible data types 3. AggegationType count is not
- * supported for restricted measures 4. A currencyUnitAttribute a fixed currency/unit and a currency
- * conversion must not be assigned to a restricted measure (there it is always inherited from the
- * base measure) for more constraints see also df:DataFoundation
+ * A cube (aka analytic view) is a multidimensional View construct to support OLAP type queries to the data base Constraints: 1. unit
+ * attribute exists only for measures of type amount and quantity 2. logical joins are only allowed between compatible data types 3.
+ * AggegationType count is not supported for restricted measures 4. A currencyUnitAttribute a fixed currency/unit and a currency conversion
+ * must not be assigned to a restricted measure (there it is always inherited from the base measure) for more constraints see also
+ * df:DataFoundation
  *
  *
  * Java class for Cube complex type.

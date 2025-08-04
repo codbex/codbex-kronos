@@ -20,14 +20,15 @@ package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelcalculation;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlSchemaType;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelconversion.CurrencyConversion;
 import com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelconversion.UnitConversion;
@@ -36,9 +37,9 @@ import com.codbex.kronos.parser.hdbcalculationview.ndb.sqlcoremodelaccesscontrol
 import com.codbex.kronos.parser.hdbcalculationview.ndb.sqlcoremodeldatatypes.PrimitiveTypeSQL;
 
 /**
- * Models an attribute on a view inside the scenario. It has less features as the attribute in the
- * logical model. The data type is already defined here because it is needed for script based nodes
- * it should be empty (is ignored) for viewAttributes in union, join and projection nodes
+ * Models an attribute on a view inside the scenario. It has less features as the attribute in the logical model. The data type is already
+ * defined here because it is needed for script based nodes it should be empty (is ignored) for viewAttributes in union, join and projection
+ * nodes
  *
  *
  * Java class for ViewAttribute complex type.
@@ -146,9 +147,8 @@ public class ViewAttribute {
      * Gets the value of the filter property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the filter property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the filter property.
      *
      *
      * For example, to add a new item, do as follows:

@@ -20,20 +20,20 @@ package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodeldatafoundation;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase.FeaturedHierarchyReference;
 import com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase.TemporalJoinProperties;
 
 /**
- * Models the join betweeb two logical objects - e.g. the measure group of a cube and a shared
- * dimension
+ * Models the join betweeb two logical objects - e.g. the measure group of a cube and a shared dimension
  *
  *
  * Java class for LogicalJoin complex type.
@@ -61,8 +61,9 @@ import com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase.TemporalJoi
  * </pre>
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "LogicalJoin", propOrder = {"attributes", "associatedAttributeNames", "properties", "temporalJoinProperties",
-        "associatedAttributeFeatures", "associatedHierarchyFeature"})
+@XmlType(name = "LogicalJoin",
+        propOrder = {"attributes", "associatedAttributeNames", "properties", "temporalJoinProperties", "associatedAttributeFeatures",
+                "associatedHierarchyFeature"})
 public class LogicalJoin {
 
     /** The attributes. */
@@ -194,9 +195,9 @@ public class LogicalJoin {
      * Gets the value of the associatedHierarchyFeature property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the associatedHierarchyFeature property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the associatedHierarchyFeature
+     * property.
      *
      *
      * For example, to add a new item, do as follows:

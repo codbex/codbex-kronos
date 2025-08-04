@@ -18,19 +18,18 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodeldatafoundation;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase.QualifiedColumnObjectName;
 
 /**
- * Type for mapping BI objects to a column of a catalog table. A ttention: When comparing to an
- * instance of QualifiedSqlObjectName or QualifiedColumnObjectName it is considered equal if the
- * name and the schema name are equal (the column name is ignored)
+ * Type for mapping BI objects to a column of a catalog table. A ttention: When comparing to an instance of QualifiedSqlObjectName or
+ * QualifiedColumnObjectName it is considered equal if the name and the schema name are equal (the column name is ignored)
  *
  *
  * Java class for ColumnMapping complex type.

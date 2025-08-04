@@ -18,19 +18,18 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelcalculation;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlSchemaType;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * A data source either maps a repository object or a data base object as input of the calculation
- * scenario. Attention: Although it inherits from resource:EcoreIDObjectWithDescription texts are
- * not yet used for data sources. For table function we are already using the full qualified names
- * in the resourceURI e.g. package.subpackage::MyFunction.hdbtablefunction
+ * A data source either maps a repository object or a data base object as input of the calculation scenario. Attention: Although it inherits
+ * from resource:EcoreIDObjectWithDescription texts are not yet used for data sources. For table function we are already using the full
+ * qualified names in the resourceURI e.g. package.subpackage::MyFunction.hdbtablefunction
  *
  *
  * Java class for DataSource complex type.

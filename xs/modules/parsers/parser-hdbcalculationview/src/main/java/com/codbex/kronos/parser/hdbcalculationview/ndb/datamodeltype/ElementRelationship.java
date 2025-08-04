@@ -18,19 +18,18 @@
 
 package com.codbex.kronos.parser.hdbcalculationview.ndb.datamodeltype;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * Container for one parent element - i.e. an elements that has a n:1 relationship with the current
- * element. Example for parent elements: T1 has the fields customer (key), city and mayor T2 has the
- * fields city (key) and country. The fields T1.city and T2.city are joined by an n:1 join. Then
- * country is a system derived parent attribute for city and mayor might be a manually entered
- * parent attribute. In the latter case the cardinality cannot be derived by the system.
+ * Container for one parent element - i.e. an elements that has a n:1 relationship with the current element. Example for parent elements: T1
+ * has the fields customer (key), city and mayor T2 has the fields city (key) and country. The fields T1.city and T2.city are joined by an
+ * n:1 join. Then country is a system derived parent attribute for city and mayor might be a manually entered parent attribute. In the
+ * latter case the cardinality cannot be derived by the system.
  *
  *
  * Java class for ElementRelationship complex type.

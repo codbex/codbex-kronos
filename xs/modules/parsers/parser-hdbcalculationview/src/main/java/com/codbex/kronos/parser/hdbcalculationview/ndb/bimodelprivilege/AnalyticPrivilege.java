@@ -20,10 +20,11 @@ package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodelprivilege;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlType;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlType;
 
 import com.codbex.kronos.parser.hdbcalculationview.ndb.basemodelbase.PrivilegeType;
 import com.codbex.kronos.parser.hdbcalculationview.ndb.bimodeldatafoundation.BIResource;
@@ -31,12 +32,10 @@ import com.codbex.kronos.parser.hdbcalculationview.ndb.repositorymodelresource.R
 import com.codbex.kronos.parser.hdbcalculationview.ndb.sqlcoremodelaccesscontrol.ValueFilter;
 
 /**
- * Analytic privileges define multi-dimensional authorizations on information models If an
- * analytical privilege applies to more than one Information model the restrictions for dimensions
- * and attributes which are not contained in a cube are ignored at runtime. An analytic privilege
- * having zero restrictions in interpreted as "everything is allowed" Constraints 3. For privileges
- * no excluding sign is allowed as of now - i.e. Prililege.Restriction.Filter.including = true for
- * all restrictions and all filters
+ * Analytic privileges define multi-dimensional authorizations on information models If an analytical privilege applies to more than one
+ * Information model the restrictions for dimensions and attributes which are not contained in a cube are ignored at runtime. An analytic
+ * privilege having zero restrictions in interpreted as "everything is allowed" Constraints 3. For privileges no excluding sign is allowed
+ * as of now - i.e. Prililege.Restriction.Filter.including = true for all restrictions and all filters
  *
  *
  * Java class for AnalyticPrivilege complex type.
@@ -112,9 +111,8 @@ public class AnalyticPrivilege extends BIResource {
      * Gets the value of the validity property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the validity property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the validity property.
      *
      *
      * For example, to add a new item, do as follows:
@@ -140,9 +138,8 @@ public class AnalyticPrivilege extends BIResource {
      * Gets the value of the restriction property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the restriction property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the restriction property.
      *
      *
      * For example, to add a new item, do as follows:
@@ -204,9 +201,8 @@ public class AnalyticPrivilege extends BIResource {
      * Gets the value of the requiredEntity property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the requiredEntity property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the requiredEntity property.
      *
      *
      * For example, to add a new item, do as follows:

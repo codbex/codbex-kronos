@@ -20,25 +20,22 @@ package com.codbex.kronos.parser.hdbcalculationview.ndb.datamodelhierarchy;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlType;
 
 import com.codbex.kronos.parser.hdbcalculationview.ndb.datamodeltype.Order;
 
 /**
- * Other than for leveled hierarchies (where each level needs to be specified explicitly), a
- * parent-child is defined by exactly one parent element (for each key field in case of compound
- * keys). This parent(s) element describes a self-referencing relationship within the master data
- * entity and will usually be defined via an association. Only one level needs to be assigned to a
- * parent-child hierarchy, because the levels present in the hierarchy are drawn from the
- * parent-child relationships between members associated with the parent element. Within the same
- * master data entity one or more parent-child hierarchies could be defined. Therefore it is not
- * sufficient to only specify which element represents the "parent" but also the corresponding
- * "child" element needs to be defined. A simple example of a Parent-Child Hierarchy is the
- * "Employee" master data. A Manager is again an Employee and almost every Employee is assigned to a
- * Manager
+ * Other than for leveled hierarchies (where each level needs to be specified explicitly), a parent-child is defined by exactly one parent
+ * element (for each key field in case of compound keys). This parent(s) element describes a self-referencing relationship within the master
+ * data entity and will usually be defined via an association. Only one level needs to be assigned to a parent-child hierarchy, because the
+ * levels present in the hierarchy are drawn from the parent-child relationships between members associated with the parent element. Within
+ * the same master data entity one or more parent-child hierarchies could be defined. Therefore it is not sufficient to only specify which
+ * element represents the "parent" but also the corresponding "child" element needs to be defined. A simple example of a Parent-Child
+ * Hierarchy is the "Employee" master data. A Manager is again an Employee and almost every Employee is assigned to a Manager
  *
  *
  * Java class for ParentChildHierarchy complex type.
@@ -81,9 +78,8 @@ public class ParentChildHierarchy extends InlineHierarchy {
      * Gets the value of the parentDefinition property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the parentDefinition property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the parentDefinition property.
      *
      *
      * For example, to add a new item, do as follows:
@@ -109,9 +105,8 @@ public class ParentChildHierarchy extends InlineHierarchy {
      * Gets the value of the siblingOrder property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the siblingOrder property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the siblingOrder property.
      *
      *
      * For example, to add a new item, do as follows:
@@ -155,9 +150,8 @@ public class ParentChildHierarchy extends InlineHierarchy {
      * Gets the value of the edgeAttribute property.
      *
      *
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the edgeAttribute property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the edgeAttribute property.
      *
      *
      * For example, to add a new item, do as follows:

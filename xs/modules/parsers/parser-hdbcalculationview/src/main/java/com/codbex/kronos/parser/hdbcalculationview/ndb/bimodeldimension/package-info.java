@@ -16,5 +16,6 @@
 // Generated on: 2020.11.26 at 10:54:28 AM EET
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.sap.com/ndb/BiModelDimension.ecore")
+@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://www.sap.com/ndb/BiModelDimension.ecore",
+        elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package com.codbex.kronos.parser.hdbcalculationview.ndb.bimodeldimension;
