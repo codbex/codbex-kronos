@@ -15,6 +15,10 @@
     <packaging>jar</packaging>
 
     <dependencies>
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-components-data-processes</artifactId>
+        </dependency>
         <!--        Kronos core dependencies-->
         <dependency>
             <groupId>com.codbex.kronos</groupId>

@@ -11,6 +11,7 @@
 package com.codbex.kronos.integration.tests;
 
 import org.eclipse.dirigible.integration.tests.api.SecurityIT;
+import org.eclipse.dirigible.integration.tests.api.java.db.SchemaExportImportIT;
 import org.eclipse.dirigible.integration.tests.api.java.messaging.MessagingFacadeIT;
 import org.eclipse.dirigible.integration.tests.api.javascript.cms.CmsSuiteIT;
 import org.eclipse.dirigible.integration.tests.api.rest.ODataAPIIT;
@@ -42,6 +43,7 @@ import org.junit.platform.suite.api.Suite;
         MailIT.class, //
         MessagingFacadeIT.class, //
         ODataAPIIT.class, //
+        SchemaExportImportIT.class, //
         SecurityIT.class, //
         TerminalIT.class//
 })
