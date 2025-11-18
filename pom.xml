@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.codbex.platform</groupId>
         <artifactId>codbex-platform-parent</artifactId>
-        <version>12.31.0</version>
+        <version>12.45.0</version>
     </parent>
 
     <name>codbex - kronos - parent</name>
