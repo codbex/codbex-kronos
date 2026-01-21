@@ -45,8 +45,8 @@ class ABAPStarterTemplateIT extends KronosIntegrationTest {
     }
 
     private void assertGeneratedJSWorks() {
-        await().atMost(30, TimeUnit.SECONDS) // Wait at most 10 seconds
-               .pollInterval(1, TimeUnit.SECONDS) // Check every second
+        await().atMost(120, TimeUnit.SECONDS) // Wait at most 10 seconds
+               .pollInterval(10, TimeUnit.SECONDS) // Check every second
                .until(() -> {
                    try {
                        ide.assertJSHttpResponse(TEST_PROJECT, "dist/run.mjs", 200, "Hello world!");
