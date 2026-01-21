@@ -25,7 +25,7 @@ public class KronosAPIResolver implements ExternalModuleResolver {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(KronosAPIResolver.class);
 
-    private static final String API_MODULE_PREFIX = "sdk/";
+    private static final String API_MODULE_PREFIX = "@aerokit/sdk/";
 
     private static final String ABAP_API_MODULE_PREFIX = API_MODULE_PREFIX + "abap";
     private static final Pattern API_MODULE_PATTERN = Pattern.compile(API_MODULE_PREFIX + "(\\w+)(?:/(.+))?");
