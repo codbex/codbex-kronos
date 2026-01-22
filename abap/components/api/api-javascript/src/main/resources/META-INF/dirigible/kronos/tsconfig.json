@@ -18,6 +18,9 @@
       "sdk/*" : [
         "../../../../../../target/unpacked-dependencies/META-INF/dirigible/modules/src/*"
       ],
+			"@aerokit/sdk/*" : [
+			        "../../../../../../target/unpacked-dependencies/META-INF/dirigible/modules/src/*"
+			],
       "@abaplint/runtime" : [
         "./node_modules/@abaplint/runtime/build/src/*"
       ]

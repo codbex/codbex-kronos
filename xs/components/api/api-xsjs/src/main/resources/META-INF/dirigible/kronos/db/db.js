@@ -12,7 +12,7 @@
 /*
  * HANA XS Classic Bridge for DB API
  */
-import { database } from 'sdk/db';
+import { database } from '@aerokit/sdk/db';
 import * as TYPE_CONVERTER from 'kronos/db/sqlToXSCColumnTypeConverter';
 
 export function getConnection() {

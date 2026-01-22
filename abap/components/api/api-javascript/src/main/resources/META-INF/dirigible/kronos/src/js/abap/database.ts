@@ -1,9 +1,9 @@
 import { DB } from "@abaplint/runtime";
-import { database, sql, update, query } from "sdk/db";
+import { database, sql, update, query } from "@aerokit/sdk/db";
 
-import { logging } from "sdk/log";
+import { logging } from "@aerokit/sdk/log";
 
-const DatabaseResultSetHelper = Java.type("org.eclipse.dirigible.components.data.management.helpers.DatabaseResultSetHelper");
+const DatabaseResultSetHelper = Java.type("org.eclipse.dirigible.components.database.helpers.DatabaseResultSetHelper");
 
 export class DatabaseInitializer {
     private static readonly DEFAULT_DATA_SOURCE_NAME = "DefaultDB";

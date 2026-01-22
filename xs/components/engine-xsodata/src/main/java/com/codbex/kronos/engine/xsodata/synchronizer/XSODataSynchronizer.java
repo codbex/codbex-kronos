@@ -319,17 +319,16 @@ public class XSODataSynchronizer extends BaseSynchronizer<XSOData, Long> {
         String[] odataxc = odata2ODataXTransformer.transform(oDataDefinition);
         String odatax = odataxc[0];
         String odatac = odataxc[1];
-        ODataSchema odataSchema = new ODataSchema(oDataDefinition.getLocation(), oDataDefinition.getName(), null, null, odatax.getBytes());
+        ODataSchema odataSchema = new ODataSchema(oDataDefinition.getLocation(), oDataDefinition.getName(), null, null, odatax);
         odataSchemaService.save(odataSchema);
-        ODataContainer odataContainer =
-                new ODataContainer(oDataDefinition.getLocation(), oDataDefinition.getName(), null, null, odatac.getBytes());
+        ODataContainer odataContainer = new ODataContainer(oDataDefinition.getLocation(), oDataDefinition.getName(), null, null, odatac);
         odataContainerService.save(odataContainer);
 
         String[] odataMappings = odata2ODataMTransformer.transform(oDataDefinition);
         int i = 1;
         for (String mapping : odataMappings) {
             ODataMapping odataMapping =
-                    new ODataMapping(oDataDefinition.getLocation(), oDataDefinition.getName() + "#" + i++, null, null, mapping.getBytes());
+                    new ODataMapping(oDataDefinition.getLocation(), oDataDefinition.getName() + "#" + i++, null, null, mapping);
             odataMappingService.save(odataMapping);
         }
 

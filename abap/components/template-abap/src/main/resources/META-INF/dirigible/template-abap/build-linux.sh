@@ -31,7 +31,7 @@ log "Packaging the code..."
 esbuild src/run.mjs --tsconfig=./tsconfig.json --bundle --outdir=dist --format=esm --target=es2022 \
     --external:tls --external:net --external:util --external:crypto --external:zlib \
     --external:http --external:https --external:fs --external:path --external:url \
-    --external:sdk \
+    --external:sdk --external:@aerokit \
     --inject:./src/lib/polyfills/buffer.js --inject:./src/lib/polyfills/process.js \
     --out-extension:.js=.mjs
 

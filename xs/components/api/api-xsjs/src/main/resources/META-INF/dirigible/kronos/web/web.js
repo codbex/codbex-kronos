@@ -13,9 +13,9 @@
  * HANA XS Classic Bridge for Web API
  */
 
-import { request as dRequest, response as dResponse, upload as dUpload} from 'sdk/http';
+import { request as dRequest, response as dResponse, upload as dUpload} from '@aerokit/sdk/http';
 import * as session from 'kronos/session/session';
-import { zip, bytes } from 'sdk/io';
+import { zip, bytes } from '@aerokit/sdk/io';
 
 import * as WEB_UTILS from 'kronos/web/webUtils';
 

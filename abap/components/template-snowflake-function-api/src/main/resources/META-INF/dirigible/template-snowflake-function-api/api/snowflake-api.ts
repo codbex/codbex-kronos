@@ -1,4 +1,4 @@
-import { Controller, Post } from "sdk/http"
+import { Controller, Post } from "@aerokit/sdk/http"
 import { FunctionParamsDTO, FunctionResultDTO } from "./function-data-dto"
 
 @Controller

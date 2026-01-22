@@ -9,8 +9,8 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-import { uuid } from "sdk/utils";
-import { bytes } from "sdk/io";
+import { uuid } from "@aerokit/sdk/utils";
+import { bytes } from "@aerokit/sdk/io";
 import * as codecUtils from "kronos/util/codec/codec";
 
 export const codec = codecUtils;

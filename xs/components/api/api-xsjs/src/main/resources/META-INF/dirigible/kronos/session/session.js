@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-import { user as securityUser } from 'sdk/security';
+import { user as securityUser } from '@aerokit/sdk/security';
 
 export const authType = securityUser.getAuthType();
 export const language = securityUser.getLanguage();

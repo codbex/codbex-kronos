@@ -9,9 +9,9 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-import { client as dClient } from "sdk/http";
+import { client as dClient } from "@aerokit/sdk/http";
 import * as web from "kronos/web/web";
-import { Configurations as config } from "sdk/core";
+import { Configurations as config } from "@aerokit/sdk/core";
 
 export const OPTIONS = 0;
 export const GET = 1;
