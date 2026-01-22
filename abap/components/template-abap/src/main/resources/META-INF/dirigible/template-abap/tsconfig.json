@@ -12,9 +12,6 @@
 			  "@aerokit/sdk/*": [
             "./node_modules/@aerokit/sdk/dist/esm/*"
         ],
-				"sdk/*": [
-	        "/kronos/dist/esm/*"
-	      ],
         "/*": [
             "./*"
         ]
