@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-import { registry } from "sdk/platform";
+import { registry } from "@aerokit/sdk/platform";
 
 export function Job(constructJob) {
   if (!constructJob.uri) throw "URI not specified";

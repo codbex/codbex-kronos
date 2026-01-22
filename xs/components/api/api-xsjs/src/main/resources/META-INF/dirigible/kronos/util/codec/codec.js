@@ -9,8 +9,8 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-import { base64 } from 'sdk/utils';
-import { hex } from 'sdk/utils';
+import { base64 } from '@aerokit/sdk/utils';
+import { hex } from '@aerokit/sdk/utils';
 
 export function encodeHex(data) {
 	if (typeof data === 'string') {

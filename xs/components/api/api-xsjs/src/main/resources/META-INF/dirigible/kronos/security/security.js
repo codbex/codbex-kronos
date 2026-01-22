@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2022 codbex or an codbex affiliate company and contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-import { repository as repositoryManager } from "sdk/platform";
+import { repository as repositoryManager } from "@aerokit/sdk/platform";
 
 export function Store(filePath) {
     var REGISTRY_DIR_PREFIX = "/registry/public/";

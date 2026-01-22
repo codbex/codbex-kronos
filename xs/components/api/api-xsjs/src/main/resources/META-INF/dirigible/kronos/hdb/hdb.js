@@ -12,7 +12,7 @@
 /*
  * HANA XS Classic Bridge for HDB API
  */
-import { database } from 'sdk/db';
+import { database } from '@aerokit/sdk/db';
 import * as PROCEDURE_UTILS from 'kronos/hdb/procedureUtils';
 import * as HDB_UTILS from 'kronos/hdb/hdbUtils';
 import * as TYPE_CONVERTER from 'kronos/db/sqlToXSCColumnTypeConverter';

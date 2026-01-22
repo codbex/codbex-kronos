@@ -12,6 +12,9 @@
       "sdk/*": [
         "./modules/src/*"
       ],
+			"@aerokit/sdk/*": [
+			        "./modules/src/*"
+			      ],
       "/*": [
         "./*"
       ]

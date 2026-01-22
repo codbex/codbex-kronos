@@ -10,7 +10,7 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 import * as httpUtils from "kronos/http/http";
-import { MailClient as mail } from "sdk/mail";
+import { MailClient as mail } from "@aerokit/sdk/mail";
 
 export const http = httpUtils;
 

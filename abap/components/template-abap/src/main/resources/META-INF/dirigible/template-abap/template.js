@@ -58,7 +58,11 @@ export function getTemplate() {
 			location: "/template-abap/src/lib/polyfills/process.js",
 			action: "generate",
 			rename: "src/lib/polyfills/process.js"
-		},{
+		}		,{
+		      location: "/template-abap/src/database.mjs",
+		      action: "generate",
+		      rename: "src/database.mjs"
+		    },{
       location: "/template-abap/src/run.mjs",
       action: "generate",
       rename: "src/run.mjs"

@@ -10,6 +10,7 @@
     "run": "node dist/run.mjs"
   },
   "dependencies": {
+		"@aerokit/sdk": "^12.56.0",
     "buffer": "^6.0.3",
     "@abaplint/runtime": "^2.10.9",
     "@abaplint/cli": "^2.112.17",
