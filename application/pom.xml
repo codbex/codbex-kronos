@@ -90,7 +90,7 @@
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-components-api-cms</artifactId>
-		</dependency>
+        </dependency>
 
         <!-- Engine -->
         <dependency>
@@ -325,6 +325,10 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.cyclonedx</groupId>
+                <artifactId>cyclonedx-maven-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
