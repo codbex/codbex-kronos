@@ -1,4 +1,4 @@
-FROM amazoncorretto:21-alpine
+FROM amazoncorretto:26-alpine
 
 VOLUME /tmp
 
