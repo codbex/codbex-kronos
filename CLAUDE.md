@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Kronos is a compatibility runtime for **SAP HANA XS classic (XSC)** applications, and the maintained fork of SAP's discontinued "XSK" project. It lets `*.xsjs` / `*.xsjslib` services, `*.hdb*` database artifacts, `*.xsodata` services, and `*.xsjob` jobs run outside a HANA instance (e.g. on Kubernetes against any JDBC RDBMS). It is built as an **extension of the [Eclipse Dirigible](https://github.com/eclipse/dirigible) platform**: a Spring Boot application that runs the Dirigible runtime plus Kronos-specific engines. The JS programming model runs on GraalJS, with `$.*` XSC APIs pre-loaded and a thin bridge mapping XSC concepts onto Dirigible equivalents.
 
-In codbex's [product line](https://www.codbex.com/products/), Kronos is "the XS compatibility platform" — the standard codbex/Dirigible components (Enterprise JavaScript, databases, jobs, security, etc.) plus the **XS and ABAP compatibility plugins** that this repository adds (the `xs` and `abap` modules). That framing maps directly onto the module layout below.
+codbex describes Kronos as ["the XS compatibility platform: most of the standard components plus XS and ABAP compatibility plugins."](https://www.codbex.com/products/) The standard components (Enterprise JavaScript, databases, jobs, security, etc.) come from the underlying platform; the **XS and ABAP compatibility plugins** are what this repository adds — the `xs` and `abap` modules. That framing maps directly onto the module layout below.
 
 Requirements: **Java 20+**, **Maven 3.6.2+**.
 
