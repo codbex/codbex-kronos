@@ -23,9 +23,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import com.google.gson.annotations.Expose;
 
 /**
@@ -45,8 +42,7 @@ public class HDBSynonymGroup extends HDBDataStructure {
     private Long id;
 
     /** The target. */
-    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Expose
     /** The synonym definitions. */
     Map<String, HDBSynonym> synonymDefinitions = new HashMap<>();

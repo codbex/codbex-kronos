@@ -26,8 +26,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -54,8 +52,7 @@ public class HDBTableStructure extends HDBDataStructure {
     /**
      * The columns.
      */
-    @OneToMany(mappedBy = "tableStructure", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "tableStructure", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Expose
     private List<HDBTableStructureColumn> columns = new ArrayList<HDBTableStructureColumn>();
 

@@ -24,9 +24,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import com.google.gson.annotations.Expose;
 
 /**
@@ -46,20 +43,17 @@ public class HDBDD extends HDBDataStructure {
     private Long id;
 
     /** The tables. */
-    @OneToMany(mappedBy = "hdbdd", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "hdbdd", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Expose
     private List<HDBTable> tables = new ArrayList<HDBTable>();
 
     /** The tables. */
-    @OneToMany(mappedBy = "hdbdd", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "hdbdd", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Expose
     private List<HDBTableType> tableTypes = new ArrayList<HDBTableType>();
 
     /** The views. */
-    @OneToMany(mappedBy = "hdbdd", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "hdbdd", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Expose
     private List<HDBView> views = new ArrayList<HDBView>();
 
