@@ -17,7 +17,6 @@ import org.eclipse.dirigible.components.base.tenant.Tenant;
 import org.eclipse.dirigible.components.base.tenant.TenantContext;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 
 @TestConfiguration
@@ -31,7 +30,9 @@ public class TestConfig {
         return context;
     }
 
-    @MockBean
+    @Bean
     @DefaultTenant
-    private Tenant defaultTenant;
+    Tenant defaultTenant() {
+        return Mockito.mock(Tenant.class);
+    }
 }

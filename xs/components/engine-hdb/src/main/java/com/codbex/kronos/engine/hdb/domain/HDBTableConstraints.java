@@ -26,8 +26,6 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -51,22 +49,19 @@ public class HDBTableConstraints {
     private HDBTableConstraintPrimaryKey primaryKey;
 
     /** The foreign keys. */
-    @OneToMany(mappedBy = "constraints", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "constraints", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Nullable
     @Expose
     private List<HDBTableConstraintForeignKey> foreignKeys = new ArrayList<HDBTableConstraintForeignKey>();
 
     /** The unique indices. */
-    @OneToMany(mappedBy = "constraints", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "constraints", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Nullable
     @Expose
     private List<HDBTableConstraintUnique> uniqueIndexes = new ArrayList<HDBTableConstraintUnique>();
 
     /** The checks. */
-    @OneToMany(mappedBy = "constraints", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "constraints", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Nullable
     @Expose
     private List<HDBTableConstraintCheck> checks = new ArrayList<HDBTableConstraintCheck>();
