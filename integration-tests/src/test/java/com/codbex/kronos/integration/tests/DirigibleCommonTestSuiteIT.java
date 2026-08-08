@@ -14,7 +14,6 @@ import org.eclipse.dirigible.integration.tests.api.SecurityIT;
 import org.eclipse.dirigible.integration.tests.api.java.db.SchemaExportImportIT;
 import org.eclipse.dirigible.integration.tests.api.java.messaging.MessagingFacadeIT;
 import org.eclipse.dirigible.integration.tests.api.javascript.cms.CmsSuiteIT;
-import org.eclipse.dirigible.integration.tests.api.rest.ODataAPIIT;
 import org.eclipse.dirigible.integration.tests.ui.tests.*;
 import org.eclipse.dirigible.integration.tests.ui.tests.camel.*;
 import org.junit.platform.suite.api.SelectClasses;
@@ -39,10 +38,8 @@ import org.junit.platform.suite.api.Suite;
         DatabasePerspectiveIT.class, //
         DeclineLeaveRequestBpmIT.class, //
         GitPerspectiveIT.class, //
-        HomepageRedirectIT.class, //
         MailIT.class, //
         MessagingFacadeIT.class, //
-        ODataAPIIT.class, //
         SchemaExportImportIT.class, //
         SecurityIT.class, //
         TerminalIT.class//

@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.codbex.platform</groupId>
         <artifactId>codbex-platform-parent</artifactId>
-        <version>13.6.0</version>
+        <version>14.17.0</version>
     </parent>
 
     <name>codbex - kronos - parent</name>
@@ -34,6 +34,13 @@
     </modules>
 
     <properties>
+        <!--
+            The OData v2 engine left the platform in 14.16.0 (eclipse-dirigible/dirigible#6567) and is
+            published separately from dirigiblelabs/dirigible-odata, so this distribution pins it - and
+            Olingo, which dirigible-dependencies no longer manages - itself.
+        -->
+        <dirigible.odata.version>14.17.0-SNAPSHOT</dirigible.odata.version>
+        <olingo.version>3.1.4</olingo.version>
         <project.title>Kronos by codbex</project.title>
 
         <scmVersionType>branch</scmVersionType>
@@ -160,6 +167,29 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <!-- Apache Olingo (com.codbex fork), and the extracted OData v2 engine -->
+            <dependency>
+                <groupId>com.codbex.olingo</groupId>
+                <artifactId>olingo-odata2-lib</artifactId>
+                <version>${olingo.version}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>com.codbex.olingo</groupId>
+                <artifactId>olingo-odata2-core</artifactId>
+                <version>${olingo.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.dirigible</groupId>
+                <artifactId>dirigible-odata-core</artifactId>
+                <version>${dirigible.odata.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.dirigible</groupId>
+                <artifactId>dirigible-components-engine-odata</artifactId>
+                <version>${dirigible.odata.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>com.codbex.kronos</groupId>
