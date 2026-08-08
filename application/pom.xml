@@ -281,10 +281,6 @@
             <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-components-ui-menu-form-builder</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.eclipse.dirigible</groupId>
-            <artifactId>dirigible-components-template-form-builder-angularjs</artifactId>
-        </dependency>
         <!--    BPM-->
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
