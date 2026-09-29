@@ -18,4 +18,6 @@ COPY oras-artifacts/ /opt/codbex/oras-artifacts/
 EXPOSE 80
 
 COPY target/codbex-kronos-application-*-executable.jar codbex-kronos.jar
-ENTRYPOINT ["java","--add-opens", "java.base/java.lang=ALL-UNNAMED", "--add-opens", "java.base/java.lang.reflect=ALL-UNNAMED", "--add-opens", "java.base/java.nio=ALL-UNNAMED", "-jar", "/codbex-kronos.jar"]
+# PropertiesLauncher (not -jar / JarLauncher) so AOT-compiled module jars dropped into /modules
+# join the classpath (eclipse-dirigible/dirigible#6592). A missing or empty /modules is ignored.
+ENTRYPOINT ["java","--add-opens", "java.base/java.lang=ALL-UNNAMED", "--add-opens", "java.base/java.lang.reflect=ALL-UNNAMED", "--add-opens", "java.base/java.nio=ALL-UNNAMED", "-cp", "/codbex-kronos.jar", "-Dloader.path=/modules", "org.springframework.boot.loader.launch.PropertiesLauncher"]
